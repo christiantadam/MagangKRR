@@ -1,0 +1,38 @@
+name: Laravel Code Verification
+
+on:
+  push:
+    branches:
+      - ADStar-Maro
+      - Payroll-Axell
+      - Extruder-AlbertValentino
+      - Workshop-Andre
+      - Accounting-Kezia
+      - AutomaticBagMachine-AlbertAmadeus
+  pull_request:
+    branches:
+      - ADStar-Maro
+      - Payroll-Axell
+      - Extruder-AlbertValentino
+      - Workshop-Andre
+      - Accounting-Kezia
+      - AutomaticBagMachine-AlbertAmadeus
+
+jobs:
+  code-verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1.12'
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Dependencies
+        run: composer install --no-progress --no-interaction
