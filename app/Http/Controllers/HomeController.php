@@ -14,4 +14,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function Contoh()
+    {
+        return view('layouts.appContoh');
+    }
 }
