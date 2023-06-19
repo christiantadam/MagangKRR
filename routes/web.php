@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
+Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
