@@ -21,3 +21,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+resources/views/layouts/appContoh.blade.php
+resources/views/Contoh/home.blade.php
+public/css/app.css
