@@ -18,4 +18,9 @@ class HomeController extends Controller
     {
         return view('layouts.appContoh');
     }
+
+    public function Accounting()
+    {
+        return view('layouts.appAccounting');
+    }
 }

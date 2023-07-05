@@ -3151,7 +3151,7 @@ input[type=submit].btn-block {
     z-index: 1000;
     display: none;
     float: left;
-    min-width: 10rem;
+    min-width: 25rem;
     padding: .5rem 0;
     margin: .125rem 0 0;
     font-size: .9rem;
@@ -9470,4 +9470,32 @@ a.text-dark:hover {
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .04)
+}
+
+.table-container {
+    display: flex;
+}
+
+.table-container .table-col {
+    flex: 1;
+}
+
+.radio-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.radio-container button {
+    margin-right: 10px; /* Jarak antara tombol dan tombol radio */
+}
+
+.numeric-column {
+    display: inline-block;
+    width: 100px; /* Atur lebar kolom sesuai kebutuhan */
+    height: 30px; /* Atur tinggi kolom sesuai kebutuhan */
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
 }
