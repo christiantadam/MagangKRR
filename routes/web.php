@@ -32,3 +32,6 @@ Route::get('UpdatePIB', 'App\Http\Controllers\Accounting\Hutang\UpdatePIBControl
 Route::get('ACCSerahTerimaPenagihan', 'App\Http\Controllers\Accounting\Hutang\ACCSerahTerimaPenagihanController@index');
 Route::get('PenagihandiRETUR', 'App\Http\Controllers\Accounting\Hutang\PenagihandiRETURController@index');
 Route::get('PelunasanHutang', 'App\Http\Controllers\Accounting\Hutang\PelunasanHutangController@index');
+Route::get('MaintenanceJurnalBeli', 'App\Http\Controllers\Accounting\Hutang\MaintenanceJurnalBeliController@index');
+Route::get('RekapHutang', 'App\Http\Controllers\Accounting\Hutang\RekapHutangController@index');
+Route::get('PenyesuaianSaldoSupplier', 'App\Http\Controllers\Accounting\Hutang\PenyesuaianSaldoSupplierController@index');

@@ -109,15 +109,15 @@
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance Jurnal </a>
+                                            tabindex="-1" href="{{ url('MaintenanceJurnalBeli') }}">Maintenance Jurnal </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Rekap Hutang </a>
+                                            tabindex="-1" href="{{ url('RekapHutang') }}">Rekap Hutang </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Penyesuaian Saldo Supplier </a>
+                                            tabindex="-1" href="{{ url('PenyesuaianSaldoSupplier') }}">Penyesuaian Saldo Supplier </a>
                                     </li>
                            
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
