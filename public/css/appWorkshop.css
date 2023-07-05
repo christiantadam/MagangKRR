@@ -9471,3 +9471,13 @@ a.text-dark:hover {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .04)
 }
+.keterangan{
+    border :solid 1px black;
+    margin-bottom: auto;
+}
+.keterangan::before{
+    content: "keterangan";
+    top: -12px;
+    position: relative;
+    background-color: white;
+}
