@@ -18,4 +18,8 @@ class HomeController extends Controller
     {
         return view('layouts.appContoh');
     }
+    public function ABM()
+    {
+        return view('Contoh.ABM');
+    }
 }
