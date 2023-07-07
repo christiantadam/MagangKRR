@@ -35,3 +35,10 @@ Route::get('PelunasanHutang', 'App\Http\Controllers\Accounting\Hutang\PelunasanH
 Route::get('MaintenanceJurnalBeli', 'App\Http\Controllers\Accounting\Hutang\MaintenanceJurnalBeliController@index');
 Route::get('RekapHutang', 'App\Http\Controllers\Accounting\Hutang\RekapHutangController@index');
 Route::get('PenyesuaianSaldoSupplier', 'App\Http\Controllers\Accounting\Hutang\PenyesuaianSaldoSupplierController@index');
+Route::get('PengajuanBKK', 'App\Http\Controllers\Accounting\Hutang\PengajuanBKKController@index');
+Route::get('ACCBKK', 'App\Http\Controllers\Accounting\Hutang\ACCBKKController@index');
+Route::get('MaintenanceBKK', 'App\Http\Controllers\Accounting\Hutang\MaintenanceBKKController@index');
+Route::get('MaintenanceTTKRR1', 'App\Http\Controllers\Accounting\Hutang\MaintenanceTTKRR1Controller@index');
+Route::get('ACCBayarTT', 'App\Http\Controllers\Accounting\Hutang\ACCBayarTTController@index');
+Route::get('MaintenanceBKKKRR1', 'App\Http\Controllers\Accounting\Hutang\MaintenanceBKKKRR1Controller@index');
+Route::get('MaintenanceBKMKRR1', 'App\Http\Controllers\Accounting\Hutang\MaintenanceBKMKRR1Controller@index');

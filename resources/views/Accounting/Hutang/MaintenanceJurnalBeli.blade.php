@@ -117,7 +117,7 @@
                                                     <label for="id">Hutang</label>
                                                     <input type="number" name="tagihan" class="form-control">
 
-                                                    <br><input class="form-check-input" type="checkbox" id="checkbox2" value="option1"  >
+                                                    <br><input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
                                                     <label class="form-check-label" for="checkbox2">Koreksi Pembelian</label>
                                                 </div>
                                             </div>

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Accounting\Hutang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MaintenanceJurnalBeliController extends Controller
+class PengajuanBKKController extends Controller
 {
     public function index()
     {
         $data = 'Accounting';
-        return view('Accounting.Hutang.MaintenanceJurnalBeli', compact('data'));
+        return view('Accounting.Hutang.PengajuanBKK', compact('data'));
     }
 
     //Show the form for creating a new resource.

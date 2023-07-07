@@ -121,31 +121,31 @@
                                     </li>
                            
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance Pengajuan BKK </a>
+                                            tabindex="-1" href="{{ url('PengajuanBKK') }}">Maintenance Pengajuan BKK </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance ACC BKK </a>
+                                            tabindex="-1" href="{{ url('ACCBKK') }}">Maintenance ACC BKK </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKK (KRR2) </a>
+                                            tabindex="-1" href="{{ url('MaintenanceBKK') }}">Maintenance BKK (KRR2) </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance TT (KRR1) </a>
+                                            tabindex="-1" href="{{ url('MaintenanceTTKRR1') }}">Maintenance TT (KRR1) </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance ACC Bayar TT (KRR1) </a>
+                                            tabindex="-1" href="{{ url('ACCBayarTT') }}">Maintenance ACC Bayar TT (KRR1) </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKK (KRR1) </a>
+                                            tabindex="-1" href="{{ url('MaintenanceBKKKRR1') }}">Maintenance BKK (KRR1) </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKM (KRR1) </a>
+                                            tabindex="-1" href="{{ url('MaintenanceBKMKRR1') }}">Maintenance BKM (KRR1) </a>
                                     </li>
 
                                     <hr style="height:2px;">

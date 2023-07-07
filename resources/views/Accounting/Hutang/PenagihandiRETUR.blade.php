@@ -29,7 +29,6 @@
                                     <table class="table">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th><input type="checkbox" id="checkAll"></th>
                                                 <th>Tanggal</th>
                                                 <th>Id Penagihan</th>
                                                 <th>Nama Supplier</th>
@@ -42,10 +41,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <input type="checkbox" class="data-checkbox">
-                                                </td>
-                                                <td>Data 1</td>
+                                                <td><input type="checkbox" id="checkAll">Data 1</td>
                                                 <td>Data 2</td>
                                                 <td>Data 3</td>
                                                 <td>Data 4</td>
