@@ -36,24 +36,18 @@ Route::get('ProgramPayroll/Master/SettingShift', 'App\Http\Controllers\Payroll\M
 Route::get('ProgramPayroll/Master/Klinik', 'App\Http\Controllers\Payroll\Master\Klinik\KlinikController@index');
 
 // Payroll Agenda
-Route::get('ProgramPayroll/Agenda/AgendaMasuk/Jam', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/AgendaMasuk/Shift', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/TambahAgenda', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/UbahAgenda', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/HariLibur', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/GantiShift/Aturan1_3', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/GantiShift/Aturan2', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
+Route::get('ProgramPayroll/Agenda/AgendaMasuk/Jam', 'App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaJamController@index');
+Route::get('ProgramPayroll/Agenda/AgendaMasuk/Shift', 'App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaShiftController@index');
+Route::get('ProgramPayroll/Agenda/TambahAgenda', 'App\Http\Controllers\Payroll\Agenda\TambahAgenda\TambahAgendaController@index');
+Route::get('ProgramPayroll/Agenda/UbahAgenda', 'App\Http\Controllers\Payroll\Agenda\UbahAgenda\UbahAgendaController@index');
+Route::get('ProgramPayroll/Agenda/HariBesar', 'App\Http\Controllers\Payroll\Agenda\HariBesar\HariBesarController@index');
+Route::get('ProgramPayroll/Agenda/GantiShift/Aturan1', 'App\Http\Controllers\Payroll\Agenda\GantiShift\GantiShift1Controller@index');
+Route::get('ProgramPayroll/Agenda/GantiShift/Aturan2', 'App\Http\Controllers\Payroll\Agenda\GantiShift\GantiShift2Controller@index');
+Route::get('ProgramPayroll/Agenda/KoreksiShift', 'App\Http\Controllers\Payroll\Agenda\KoreksiShift\KoreksiShiftController@index');
+Route::get('ProgramPayroll/Agenda/InsertPegawaiBaru', 'App\Http\Controllers\Payroll\Agenda\InsertAgenda\InsertAgendaPegawaiBaruController@index');
+Route::get('ProgramPayroll/Agenda/InsertSupervisor', 'App\Http\Controllers\Payroll\Agenda\InsertAgenda\InsertAgendaSupervisorController@index');
 
-// Payroll Agenda
-Route::get('ProgramPayroll/Agenda/AgendaMasuk/Jam', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/AgendaMasuk/Shift', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/TambahAgenda', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/UbahAgenda', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/HariLibur', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/GantiShift/Aturan1_3', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/GantiShift/Aturan2', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/KoreksiShift', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/InsertPegawaiBaru', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
-Route::get('ProgramPayroll/Agenda/InsertSupervisor', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
+
+
 
 

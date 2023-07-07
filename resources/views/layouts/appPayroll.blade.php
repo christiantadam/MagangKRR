@@ -117,23 +117,23 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Pakai Jam</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Jam') }}">Pakai Jam</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Pakai Shift</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Shift') }}">Pakai Shift</a>
                                             </li>
 
                                         </ul>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Tambah Agenda</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/TambahAgenda') }}">Tambah Agenda</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Ubah Agenda</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/UbahAgenda') }}">Ubah Agenda</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Hari Libur & Besar</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/HariBesar') }}">Hari Libur & Besar</a>
                                     </li>
 
                                     <li><a class="test"
@@ -142,22 +142,22 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Aturan 1_3</a></li>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan1') }}">Aturan 1_3</a></li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Aturan 2</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan2') }}">Aturan 2</a>
                                             </li>
 
                                         </ul>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Koreksi Shift Per Periode</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/KoreksiShift') }}">Koreksi Shift Per Periode</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Insert Agenda Pegawai Baru</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/InsertPegawaiBaru') }}">Insert Agenda Pegawai Baru</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Insert Agenda Supervisor</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/InsertSupervisor') }}">Insert Agenda Supervisor</a>
                                     </li>
 
                                 </ul>

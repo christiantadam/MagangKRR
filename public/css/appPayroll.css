@@ -9524,3 +9524,66 @@ a.text-dark:hover {
 th {
     white-space: nowrap;
 }
+.time-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-top: 50px;
+
+}
+
+.time-form label {
+    margin-right: 10px;
+}
+
+.time-form input[type="time"] {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.centered-textarea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Sesuaikan dengan tinggi yang diinginkan */
+}
+
+.centered-textarea textarea {
+    width: 100%;
+    resize: none;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.textbox-container {
+    position: relative;
+}
+
+.textbox-container label {
+    position: absolute;
+    top: -15px;
+    left: 0;
+}
+
+.page {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.keterangan{
+    border: solid 1px black;
+    margin-bottom: auto;
+}
+
+.keterangan::before{
+    content: "Bagian (Divisi)";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}
