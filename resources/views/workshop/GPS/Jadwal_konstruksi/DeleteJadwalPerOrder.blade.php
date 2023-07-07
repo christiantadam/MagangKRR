@@ -90,7 +90,7 @@
               </table>
 
               <div class="mb-3">
-                <p style="color: red">Untuk lebih dari 1 jadwal yang akan diEdit. dengan alasan yang sama, maka dapat
+                <p style="color: red">Untuk lebih dari 1 jadwal yang akan diHapus. dengan alasan yang sama, maka dapat
                     diproses bersamaan</p>
               </div>
               <div class="mb-3">

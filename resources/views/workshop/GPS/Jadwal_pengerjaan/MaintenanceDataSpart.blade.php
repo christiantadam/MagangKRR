@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Maintenance Bagian Barang</div>
+          <div class="card-header">Maintenance Data S/Part</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
@@ -52,18 +52,8 @@
                 <input type="text" class="form-control" name="KetOrder">
               </div>
               <div class="mb-3">
-                <input type="submit" name="isi" value="Isi" class="btn btn-primary">
-                <input type="submit" name="koreksi" value="Koreksi" class="btn btn-primary">
-                <input type="submit" name="hapus" value="Hapus" class="btn btn-primary">
-                <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
-              </div>
-
-            </form>
-            <form action="" method="POST">
-              @csrf
-              <div class="mb-3">
-                <label for="MaterialType" class="form-label">Material Type</label><br>
-                <select class="form-select" name="MaterialType" style="width: 36vh;
+                <label for="NamaBagian" class="form-label">Nama Bagian</label><br>
+                <select class="form-select" name="NamaBagian" style="width: 36vh;
                 height: 5vh;">
                   <option selected>Open this select menu</option>
                   <option value="1">One</option>
@@ -72,16 +62,76 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="Spesifikasi">Spesifikasi</label>
-                <input type="text" class="form-control" name="Spesifikasi">
+                <label for="KodeBarang" class="form-label">Kode Barang</label>
+                <input type="text" class="form-control" name="KodeBarang">
               </div>
               <div class="mb-3">
-                <label for="KdBarang">Kode Barang</label>
-                <input type="text" class="form-control" name="KdBarang">
+                <label for="KatUtama" class="form-label">Kat. Utama</label><br>
+                <select class="form-select" name="KatUtama" style="width: 36vh;
+                height: 5vh;">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
               </div>
               <div class="mb-3">
-                <label for="StatusBarang">Status Barang</label>
-                <input type="text" class="form-control" name="StatusBarang">
+                <label for="Kategori" class="form-label">Kategori</label><br>
+                <select class="form-select" name="Kategori" style="width: 36vh;
+                height: 5vh;">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="SubKategori" class="form-label">Sub Kategori</label><br>
+                <select class="form-select" name="SubKategori" style="width: 36vh;
+                height: 5vh;">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="NamaBarang" class="form-label">Nama Barang</label><br>
+                <select class="form-select" name="Nama Barang" style="width: 36vh;
+                height: 5vh;">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="Satuan" class="form-label">Satuan</label><br>
+                <select class="form-select" name="Satuan" style="width: 36vh;
+                height: 5vh;">
+                  <option selected>Open this select menu</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="mb-3">
+                    <label for="HargaSatuan" class="form-label">Harga/Satuan</label>
+                    <input type="text" class="form-control" name="KodeBarang">
+                  </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="StatusBarang" class="form-label">Status Barang</label>
+                        <input type="text" class="form-control" name="StatusBarang">
+                      </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="Jumlah" class="form-label">Jumlah</label>
+                <input type="text" class="form-control" name="Jumlah">
               </div>
               <div class="mb-3">
                 <input type="submit" name="isi" value="Isi" class="btn btn-primary" disabled>

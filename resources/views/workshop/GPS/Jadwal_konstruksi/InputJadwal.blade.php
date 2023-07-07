@@ -4,15 +4,16 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header" style="font-weight: bold">Input Jadwal Produksi</div>
+          <div class="card-header" >Input Jadwal Produksi</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="row">
               <div class="col-6">
                 <form action="" method="POST">
                   @csrf
+
                   {{-- harus sama name nya dengan nama colom tabel yang di isi --}}
                   <div class="mb-3">
-                    <label for="NoOrder" class="form-label">nomor order</label>
+                    <label for="NoOrder" class="form-label">Nomor Order</label>
                     <input type="text" class="form-control" name="NoOrder">
                   </div>
                   <div class="mb-3">

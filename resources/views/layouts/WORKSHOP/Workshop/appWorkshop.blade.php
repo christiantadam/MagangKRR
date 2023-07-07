@@ -67,7 +67,7 @@
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Update No. Gambar</a> </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Maintenance Mesin</li>
+                    tabindex="-1">Maintenance Mesin</a></li>
               </ul>
             </div>
             {{-- Transaksi --}}
@@ -76,10 +76,7 @@
                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                 Transaksi
               </a>
-              {{-- <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                Master
-              </a> --}}
+
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Maintenance Order Gambar</a>

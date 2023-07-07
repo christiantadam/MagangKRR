@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header" style="font-weight: bold">Estimasi Jadwal</div>
+          <div class="card-header">Estimasi Jadwal</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="row">
               <div class="col-6">

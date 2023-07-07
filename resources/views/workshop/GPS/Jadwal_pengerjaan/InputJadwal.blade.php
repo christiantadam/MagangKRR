@@ -8,9 +8,15 @@
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
+              <div class="mb-3" style="text-align-last: center;">
+                <input type="radio" name="pilihan" value="harian">
+                <label for="harian">Harian</label>
+                <input type="radio" name="pilihan" value="Proyek">
+                <label for="Proyek">Proyek</label>
+              </div>
               {{-- harus sama name nya dengan nama colom tabel yang di isi --}}
               <div class="mb-3">
-                <label for="NoOrder" class="form-label">nomor order</label>
+                <label for="NoOrder" class="form-label">Nomor Order</label>
                 <input type="text" class="form-control" name="NoOrder">
               </div>
               <div class="mb-3">
@@ -24,7 +30,7 @@
                     <input type="text" class="form-control" name="Kode_Barang">
                   </div>
                   <div class="col-6">
-                    <p for="NoGambarRev" class="form-label">Nomor Gambar Revisi</p>
+                    <p for="NoGambarRev" class="form-label">Nomor Gambar </p>
                     <input type="text" class="form-control" name="NoGambarRev">
                   </div>
                 </div>

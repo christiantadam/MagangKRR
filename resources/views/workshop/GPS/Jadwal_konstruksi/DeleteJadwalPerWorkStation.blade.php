@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Edit Estimasi Tanggal</div>
+          <div class="card-header">Delete Jadwal Per WorkStation</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
@@ -22,7 +22,7 @@
                     <option value="3">Three</option>
                   </select>
                   <br>
-                  <label for="tgl" class="form-label">Tanggal</label>
+                  <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
                   <div class="row">
                     <div class="col-3">
                       <input type="Date" class="form-control" name="tgl">
@@ -73,7 +73,7 @@
                 </tbody>
               </table>
               <div class="mb-3">
-                <p style="color: red">Untuk lebih dari 1 jadwal yang akan diEdit. dengan alasan yang sama, maka dapat
+                <p style="color: red">Untuk lebih dari 1 jadwal yang akan diHapus. dengan alasan yang sama, maka dapat
                   diproses bersamaan</p>
               </div>
               <div class="mb-3">

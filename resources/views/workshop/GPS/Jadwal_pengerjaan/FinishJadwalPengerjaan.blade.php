@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Finish Jadwal Konstruksi</div>
+          <div class="card-header">Finish Jadwal Pengerjaan</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
@@ -12,9 +12,19 @@
               <div class="row">
                 <div class="col-6">
                     <div class="mb-3">
-                      <label for="NoOrder" class="form-label">Nomor Order</label>
-                      <input type="text" class="form-control" name="NoOrder">
-                    </div>
+                        <label for="NoOrder" class="form-label">Nomor Order</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control" name="NoOrder">
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" name="pilihan" value="harian">
+                                <label for="harian">Harian</label>
+                                <input type="radio" name="pilihan" value="Proyek">
+                                <label for="Proyek">Proyek</label>
+                            </div>
+                        </div>
+                      </div>
                     <div class="mb-3">
                       <label for="divisi" class="form-label">Divisi</label>
                       <input type="text" class="form-control" name="divisi">
@@ -26,7 +36,7 @@
                           <input type="text" class="form-control" name="Kode_Barang">
                         </div>
                         <div class="col-6">
-                          <p for="NoGambarRev" class="form-label">Nomor Gambar Revisi</p>
+                          <p for="NoGambarRev" class="form-label">Nomor Gambar</p>
                           <input type="text" class="form-control" name="NoGambarRev">
                         </div>
                       </div>
@@ -59,21 +69,11 @@
                         <option value="3">Three</option>
                       </select>
                     </div>
-                    <div class="mb-3">
-                      <div class="row">
-                          <div class="col-6">
-                              <p style="color: red">Est. Start:</p>
-                          </div>
-                          <div class="col-6">
-                              <p style="color: red">Est. Finish:</p>
-                          </div>
-                      </div>
-                    </div>
                 </div>
                 <div class="col-6 keterangan">
-                    <p style="color:rgb(55, 190, 244)">xxxxx -> : Sudah diproses</p>
-                    <p style="color:rgb(0, 148, 32)">xxxxx -> : Disetujui</p>
-                    <p style="color:rgb(216, 180, 0)">xxxxx -> : Tidak disetujui, dijadwalkan ulang</p>
+                    <p style="color:rgb(55, 190, 244)">xxxxx -> : Sudah diproses Operator</p>
+                    <p style="color:rgb(0, 148, 32)">xxxxx -> : Disetujui KR</p>
+                    <p style="color:rgb(216, 180, 0)">xxxxx -> : Tidak disetujui KR, dijadwalkan ulang</p>
                   </div>
               </div>
               <div class="mb-3">
@@ -82,14 +82,15 @@
                     <tr>
                       <th>Nomor</th>
                       <th>Tanggal Start</th>
-                      <th>WorkStation</th>
+                      <th>Mesin</th>
+                      <th>Type Mesin</th>
                       <th>Est. Time</th>
-                      <th>Hari ke-</th>
+                      <th>Jumlah dikerjakan</th>
                       <th>RealTime</th>
-                      <th>Tanggal Proses</th>
-                      <th>Tanggal Disetujui</th>
-                      <th>Ket. Tidak disetujui</th>
-                      <th>Tanggal Tidak Disetujui</th>
+                      <th>Jumlah Finish</th>
+                      <th>Tanggal Proses OPT</th>
+                      <th>Tanggal disetujui KR</th>
+                      <th>Keterangan Tidak Disetujui</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -104,6 +105,7 @@
                       <td>wadawdaw</td>
                       <td>wdawd</td>
                       <td>wadawdaw</td>
+                      <td>wadawdaw</td>
                     </tr>
                   </tbody>
                 </table>
@@ -111,14 +113,15 @@
               <div class="mb-3" style="display: flex;">
                 <div class="col-4">
                     <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
-                    <input type="submit" name="acc" value="ACC" class="btn btn-primary">
+                    <input type="submit" name="accSupervisor" value="ACC Supervisor" class="btn btn-primary">
+                    <input type="submit" name="accPPIC" value="ACC PPIC" class="btn btn-primary">
                 </div>
                 <div class="col-4" style="justify-content: end; display:flex;">
-                    <input type="submit" name="disetujui" value="Disetujui" class="btn btn-primary">
-                    <input type="submit" name="tidakdisetujui" value="Tidak disetujui" class="btn btn-primary">
+                    <input type="submit" name="disetujui" value="Disetujui KR" class="btn btn-primary">
+                    <input type="submit" name="tidakdisetujui" value="Tidak disetujui KR" class="btn btn-primary">
                 </div>
                 <div class="col-4" style="justify-content: end; display:flex;">
-                    <input type="submit" name="Proses" value="Proses" class="btn btn-primary">
+                    <input type="submit" name="Proses" value="Proses Operator" class="btn btn-primary">
                 </div>
               </div>
 

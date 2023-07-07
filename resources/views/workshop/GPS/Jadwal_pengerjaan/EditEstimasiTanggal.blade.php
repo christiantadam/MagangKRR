@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Edit Estimasi Waktu</div>
+          <div class="card-header">Edit Estimasi Tanggal</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
@@ -13,14 +13,26 @@
                 <div class="col-6">
                   {{-- width: 110vh;
                         height: 7vh; --}}
-                  <label for="WorkStation" class="form-label">Work Station</label><br>
-                  <select class="form-select" name="WorkStation" style="width: 36vh;
-                  height: 5vh;">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+
+                    <label for="NamaMesin" class="form-label">Nama Mesin</label><br>
+                    <select class="form-select" name="NamaMesin"
+                      style="width: 36vh;
+                            height: 5vh;">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select><br>
+                    <label for="TypeMesin" class="form-label" style="padding-top: 10px">Type Mesin</label><br>
+                    <select class="form-select" name="TypeMesin"
+                      style="width: 36vh;
+                            height: 5vh;">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+
                   <br>
                   <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
                   <div class="row">
@@ -44,11 +56,13 @@
                     <th>Nomor</th>
                     <th>No Order</th>
                     <th>Tanggal Start</th>
-                    <th>Divisi</th>
-                    <th>Nama Barang</th>
-                    <th>Nama Bagian</th>
+                    <th>Barang</th>
+                    <th>Kode Barang</th>
                     <th>Est. Time</th>
-                    <th>Hari ke-</th>
+                    <th>Divisi</th>
+                    <th>Jumlah Order</th>
+                    <th>Bagian</th>
+                    <th>Jumlah dikerjakan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,27 +75,14 @@
                     <td>wdawdawd</td>
                     <td>wdawd</td>
                     <td>wadawdaw</td>
+                    <td>wdawdawd</td>
+                    <td>wdawd</td>
                   </tr>
                 </tbody>
               </table>
               <div class="mb-3">
-                <label for="estimasi">Estimasi Time</label>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="number" class="form-control" name="jam" placeholder="jam">
-                                </div>
-                                <div class="col-6">
-                                    <input type="number" class="form-control" name="menit" placeholder="menit">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-primary">Batal</a>
-                        </div>
-                    </div>
+                <p style="color: red">Untuk lebih dari 1 jadwal yang akan diEdit. dengan alasan yang sama, maka dapat
+                    diproses bersamaan</p>
               </div>
               <div class="mb-3">
                 <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">

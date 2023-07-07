@@ -12,7 +12,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-3">
-                    <label for="NoOrder" class="form-label">nomor order</label>
+                    <label for="NoOrder" class="form-label">Nomor Order</label>
                     <input type="text" class="form-control" name="NoOrder">
                   </div>
                   <div class="mb-3">
@@ -35,6 +35,9 @@
                     <label for="NamaBarang" class="form-label">Nama Barang</label>
                     <input type="text" class="form-control" name="NamaBarang">
                   </div>
+
+                </div>
+                <div class="col-6">
                   <div class="mb-3">
                     <label for="Mesin" class="form-label">Mesin</label>
                     <input type="text" class="form-control" name="Mesin">
@@ -47,23 +50,25 @@
                     <label for="KetOrder" class="form-label">Keterangan Order</label>
                     <input type="text" class="form-control" name="KetOrder">
                   </div>
+                  <div class="mb-3">
+                    {{-- width: 110vh;
+            height: 7vh; --}}
+                    <label for="NamaBagian" class="form-label">Nama Bagian</label><br>
+                    <select class="form-select" name="NamaBagian"
+                      style="width: 36vh;
+                        height: 5vh;">
+                      <option selected>Open this select menu</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-6 keterangan">
-                  <p style="color:red">xxxxx -> : Emergency</p>
-                  <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
-                </div>
+
               </div>
-              <div class="mb-3">
-                {{-- width: 110vh;
-    height: 7vh; --}}
-                <label for="NamaBagian" class="form-label">Nama Bagian</label><br>
-                <select class="form-select" name="NamaBagian" style="width: 36vh;
-                height: 5vh;">
-                  <option selected>Open this select menu</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+              <div class="col-12 keterangan">
+                <p style="color:red">xxxxx -> : Emergency</p>
+                <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
               </div>
               <table class="table" style="padding-top: 15px">
                 <thead class="table-dark">
@@ -87,30 +92,27 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="mb-3">
+                <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
+              </div>
               <div class="row">
                 <div class="col-6">
                   <div class="mb-3">
-                    <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
-                  </div>
-                  <div class="mb-3">
                     <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
-                    <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
                   </div>
                 </div>
                 <div class="col-6">
-                  {{-- masih blm pasti --}}
-                  <form action="">
-                    <div class="form-check">
-                      <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"
-                        checked>
-                      <label class="form-check-label" for="radio1">Tukar Posisi</label>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
+                            <label class="form-check-label" for="radio1">Tukar Posisi</label><br>
+                            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
+                            <label class="form-check-label" for="radio2">Susun Posisi</label>
+                        </div>
+                        <div class="ol-6">
+                            <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
+                        </div>
                     </div>
-                    <div class="form-check">
-                      <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-                      <label class="form-check-label" for="radio2">Susun Posisi</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                  </form>
                 </div>
               </div>
             </form>
@@ -118,6 +120,5 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 @endsection

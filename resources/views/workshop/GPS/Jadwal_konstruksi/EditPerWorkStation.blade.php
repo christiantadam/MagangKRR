@@ -22,7 +22,7 @@
                     <option value="3">Three</option>
                   </select>
                   <br>
-                  <label for="tgl" class="form-label">Tanggal</label>
+                  <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
                   <div class="row">
                     <div class="col-6">
                         <input type="Date" class="form-control" name="tgl">

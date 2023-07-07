@@ -30,6 +30,42 @@ class JadwalPengerjaanController extends Controller
     public function EditPerOrder() {
         return view('workshop.GPS.Jadwal_pengerjaan.EditPerOrder');
     }
+    public function EditEstimasiTanggal() {
+        return view('workshop.GPS.Jadwal_pengerjaan.EditEstimasiTanggal');
+    }
+    public function EditEstimasiWaktu() {
+        return view('workshop.GPS.Jadwal_pengerjaan.EditEstimasiWaktu');
+    }
+    public function EditJumlahBarang() {
+        return view('workshop.GPS.Jadwal_pengerjaan.EditJumlahBarang');
+    }
+    public function FinishJadwal() {
+        return view('workshop.GPS.Jadwal_pengerjaan.FinishJadwalPengerjaan');
+    }
+    public function DeletePerMesin() {
+        return view('workshop.GPS.Jadwal_pengerjaan.DeletePerMesin');
+    }
+    public function DeletePerOrder() {
+        return view('workshop.GPS.Jadwal_pengerjaan.DeletePerOrder');
+    }
+    public function BiayaProsesMakloon() {
+        return view('workshop.GPS.Jadwal_pengerjaan.BiayaProsesMakloon');
+    }
+    public function HargaMaterial() {
+        return view('workshop.GPS.Jadwal_pengerjaan.HargaMaterial');
+    }
+    public function MaintenanceDataSpart() {
+        return view('workshop.GPS.Jadwal_pengerjaan.MaintenanceDataSpart');
+    }
+    public function NomorOrderKerjaProyek() {
+        return view('workshop.GPS.Jadwal_pengerjaan.NomorOrderKerjaProyek');
+    }
+    public function DataPerencanaan() {
+        return view('workshop.GPS.Jadwal_pengerjaan.DataPerencanaan');
+    }
+    public function DataSelesai() {
+        return view('workshop.GPS.Jadwal_pengerjaan.DataSelesai');
+    }
     public function index()
     {
         //

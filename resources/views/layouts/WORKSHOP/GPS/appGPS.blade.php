@@ -142,52 +142,52 @@
                   </ul>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Edit Estimasi Tanggal</a>
+                    tabindex="-1" href="{{ url('EditEstimasiTanggalPengerjaan') }}">Edit Estimasi Tanggal</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Edit Estimasi Waktu</a>
+                    tabindex="-1" href="{{ url('EditEstimasiWaktuPengerjaan') }}">Edit Estimasi Waktu</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Edit Jumlah Barang yang dikerjakan</a>
+                    tabindex="-1" href="{{ url('EditJumlahBarang') }}">Edit Jumlah Barang yang dikerjakan</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Finish Jadwal</a>
+                    tabindex="-1" href="{{ url('FinishJadwalPengerjaan') }}">Finish Jadwal</a>
                 </li>
 
                 <li><a class="test"style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Delete Jadwal &raquo;</a>
                   <ul class="dropdown-menu dropdown-submenu">
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Per-Mesin</a>
+                        href="{{ url('DeletePerMesin') }}">Per-Mesin</a>
                     </li>
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Per-Order</a>
+                        href="{{ url('DeletePerOrder') }}">Per-Order</a>
                     </li>
                   </ul>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Biaya Proses Makloon</a>
+                    tabindex="-1"  href="{{ url('BiayaProsesMakloon') }}">Biaya Proses Makloon</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Harga Material</a>
+                    tabindex="-1"  href="{{ url('HargaMaterial') }}">Harga Material</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Maintenance Data S/Part</a>
+                    tabindex="-1" href="{{ url('MaintenanceDataSPart') }}">Maintenance Data S/Part</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Nomor Order Kerja/Proyek</a>
+                    tabindex="-1" href="{{ url('NomorOrderKerjaProyek') }}">Nomor Order Kerja/Proyek</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Penyesuaian Data(Finish) &raquo;</a>
+                    tabindex="-1" >Penyesuaian Data(Finish) &raquo;</a>
                   <ul class="dropdown-menu dropdown-submenu">
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Data Rencana</a>
+                        href="{{ url('DataPerencanaan') }}">Data Rencana</a>
                     </li>
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Data Selesai</a>
+                        href="{{ url('DataSelesai') }}">Data Selesai</a>
                     </li>
                   </ul>
                 </li>
@@ -202,7 +202,7 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwal Per-WorkStasion</a>
+                    tabindex="-1"  href="{{ url('JadwalPerWorkStation') }}">Jadwal Per-WorkStasion</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Jadwal Per-Order</a>

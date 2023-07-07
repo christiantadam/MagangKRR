@@ -4,7 +4,8 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Edit Jadwal Per Order</div>
+          <div class="card-header">Edit Jumlah Barang yang dikerjakan
+          </div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <form action="" method="POST">
               @csrf
@@ -12,7 +13,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="mb-3">
-                    <label for="NoOrder" class="form-label">nomor order</label>
+                    <label for="NoOrder" class="form-label">Nomor Order</label>
                     <div class="row">
                         <div class="col-6">
                             <input type="text" class="form-control" name="NoOrder">
@@ -60,7 +61,6 @@
                 </div>
                 <div class="col-6 keterangan">
                   <p style="color:red">xxxxx -> : Emergency</p>
-                  <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
                 </div>
               </div>
               <div class="mb-3">
@@ -80,10 +80,10 @@
                   <tr>
                     <th>Nomor</th>
                     <th>Tanggal Start</th>
-                    <th>WorkStation</th>
+                    <th>Mesin</th>
+                    <th>Type Mesin</th>
                     <th>Est. Time</th>
-                    <th>Hari ke-</th>
-                    <th>Keterangan</th>
+                    <th>Jumlah yang dikerjakan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -106,28 +106,6 @@
                     <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
                     <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
                   </div>
-                </div>
-                <div class="col-6">
-                  {{-- masih blm pasti --}}
-                  <form action="">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-check">
-                              <input type="radio" class="form-check-input" id="radio1" name="optradio" value="tukar"
-                                checked>
-                              <label class="form-check-label" for="radio1">Tukar Posisi</label>
-                            </div>
-                            <div class="form-check">
-                              <input type="radio" class="form-check-input" id="radio2" name="optradio"
-                                value="susun">
-                              <label class="form-check-label" for="radio2">Susun Posisi</label>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                        </div>
-                    </div>
-                  </form>
                 </div>
               </div>
             </form>

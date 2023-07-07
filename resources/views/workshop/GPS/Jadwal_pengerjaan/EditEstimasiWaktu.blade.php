@@ -44,11 +44,13 @@
                     <th>Nomor</th>
                     <th>No Order</th>
                     <th>Tanggal Start</th>
-                    <th>Divisi</th>
-                    <th>Nama Barang</th>
-                    <th>Nama Bagian</th>
+                    <th>Barang</th>
+                    <th>Kode Barang</th>
                     <th>Est. Time</th>
-                    <th>Hari ke-</th>
+                    <th>Divisi</th>
+                    <th>Jumlah Order</th>
+                    <th>Bagian</th>
+                    <th>Jumlah dikerjakan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,6 +63,8 @@
                     <td>wdawdawd</td>
                     <td>wdawd</td>
                     <td>wadawdaw</td>
+                    <td>wdawdawd</td>
+                    <td>wdawd</td>
                   </tr>
                 </tbody>
               </table>

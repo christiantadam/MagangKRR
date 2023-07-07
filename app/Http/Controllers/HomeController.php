@@ -26,4 +26,7 @@ class HomeController extends Controller
     {
         return view('layouts.WORKSHOP.Workshop.appWorkshop');
     }
+    public function HomeWorkshop() {
+        return view('workshop.homeWorkshop');
+    }
 }

@@ -25,7 +25,7 @@
                             <h2 class="acs-txt-card">PAYROLL</h2>
                             <img src="{{ asset('/images/Payroll.png') }}" alt="" class="acs-img-card">
                         </div>
-                        <div class="acs-card" onclick="OpenNewTab('{{ url('gps') }}');">
+                        <div class="acs-card" onclick="OpenNewTab('{{ url('HomeWorkshop') }}');">
                             <h2 class="acs-txt-card">WORKSHOP</h2>
                             <img src="{{ asset('/images/Workshop.png') }}" alt="" class="acs-img-card">
                         </div>
