@@ -561,7 +561,7 @@ button[type=submit]:hover {
   }
 }
 
-/* SUBMIT BUTTONS UNTUK FORM KONVERSI KG */
+/* SUBMIT BUTTON UNTUK FORM KONVERSI KG */
 
 .spacing-button {
   margin-right: 10px;
@@ -575,7 +575,7 @@ button[type=submit]:hover {
   margin-right: 100px;
 }
 
-/* RADIO BUTTONS UNTUK FORM KONVERSI KG */
+/* RADIO BUTTON UNTUK FORM KONVERSI KG */
 
 .form-check-input[type="radio"] {
   width: 1.5em;

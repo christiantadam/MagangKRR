@@ -7,14 +7,20 @@ use Illuminate\Http\Request;
 
 class ExtruderController extends Controller
 {
-    public function index($pageName = "index")
+    public function index($pageName = "index", $formName = "index")
     {
-        $var1 = "Halo dunia";
-
         $viewName = $pageName == "index"
             ? 'extruder.index'
             : 'extruder.' . $pageName . '.index';
+        $viewName = $formName == "index"
+            ? $viewName
+            : 'extruder.' . $pageName . '.' . $formName;
 
-        return view($viewName, compact('var1'));
+        $viewData = [
+            'pageName' => $pageName,
+            'formName' => $formName
+        ];
+
+        return view($viewName, $viewData);
     }
 }
