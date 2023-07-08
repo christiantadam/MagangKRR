@@ -47,7 +47,14 @@ Route::get('ProgramPayroll/Agenda/KoreksiShift', 'App\Http\Controllers\Payroll\A
 Route::get('ProgramPayroll/Agenda/InsertPegawaiBaru', 'App\Http\Controllers\Payroll\Agenda\InsertAgenda\InsertAgendaPegawaiBaruController@index');
 Route::get('ProgramPayroll/Agenda/InsertSupervisor', 'App\Http\Controllers\Payroll\Agenda\InsertAgenda\InsertAgendaSupervisorController@index');
 
+// Payroll Maintenance
+Route::get('ProgramPayroll/Angsuran/Hutang', 'App\Http\Controllers\Payroll\Angsuran\MaintenanceHarian\HutangController@index');
+Route::get('ProgramPayroll/Angsuran/HutangHarian', 'App\Http\Controllers\Payroll\Angsuran\MaintenancePerusahaan\HutangHarianController@index');
 
+
+// Payroll Maintenance
+Route::get('ProgramPayroll/Maintenance/Fik', 'App\Http\Controllers\Payroll\Maintenance\Fik\FikController@index');
+Route::get('ProgramPayroll/Maintenance/Fkik', 'App\Http\Controllers\Payroll\Maintenance\Fkik\FkikController@index');
 
 
 

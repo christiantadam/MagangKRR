@@ -5,7 +5,7 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
 
                 <div class="card" style=" ">
-                    <div class="card-header" style="">Tambah Agenda</div>
+                    <div class="card-header" style="">Ubah Agenda</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left: 10px; display: flex; justify-content: center; align-items: center;">
                         <div style="display: flex; align-items: center;">
                             <label for="TglLapor" style="margin-right: 10px;">Tanggal</label>

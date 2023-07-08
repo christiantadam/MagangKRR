@@ -5,7 +5,7 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
 
                 <div class="card">
-                    <div class="card-header">Form Jam</div>
+                    <div class="card-header">Hari Libur & Besar</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="border: 1px solid #000000; border-radius: 3px; margin-right:15px; margin-left:15px; margin-top:15px; margin-bottom;15px">
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto; margin-left:10 px; max-width: 550px;">
                             <div style=" width:250px;">

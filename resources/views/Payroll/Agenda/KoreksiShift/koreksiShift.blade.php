@@ -5,7 +5,7 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
 
                 <div class="card">
-                    <div class="card-header">PEKERJA</div>
+                    <div class="card-header">Koreksi Shift</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px">
                         <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
                             <div class="permohonan-s-p-container19"> <span>Divisi</span>

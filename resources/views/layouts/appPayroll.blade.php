@@ -635,10 +635,10 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Staff</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Angsuran/Hutang') }}">Staff</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Harian</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Angsuran/HutangHarian') }}">Harian</a>
                                             </li>
 
 
@@ -669,10 +669,10 @@
                                 <ul class="dropdown-menu" style="cursor: default">
 
                                     <li>
-                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Form Ijin Karyawan</a>
+                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Maintenance/Fik') }}">Form Ijin Karyawan</a>
                                     </li>
                                     <li>
-                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Form Koreksi Ijin Karyawan</a>
+                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Maintenance/Fkik') }}">Form Koreksi Ijin Karyawan</a>
                                     </li>
 
                                 </ul>
