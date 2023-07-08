@@ -44,3 +44,7 @@ Route::get('/StpOrdPrs', function () {
 Route::get('/CpTbl', function () {
     return view ('CpTbl');
 });
+
+Route::get('/bntkez', function () {
+    return view ('bntkez');
+});
