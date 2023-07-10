@@ -117,7 +117,7 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1"  href="{{ url('MaintenanceMaterialType') }}">Maintenance Material Type</a>
+                    tabindex="-1" href="{{ url('MaintenanceMaterialType') }}">Maintenance Material Type</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1" href="{{ url('MaintenanceBagianBarang') }}">Maintenance Bagian Barang</a>
@@ -168,10 +168,10 @@
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1"  href="{{ url('BiayaProsesMakloon') }}">Biaya Proses Makloon</a>
+                    tabindex="-1" href="{{ url('BiayaProsesMakloon') }}">Biaya Proses Makloon</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1"  href="{{ url('HargaMaterial') }}">Harga Material</a>
+                    tabindex="-1" href="{{ url('HargaMaterial') }}">Harga Material</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1" href="{{ url('MaintenanceDataSPart') }}">Maintenance Data S/Part</a>
@@ -181,7 +181,7 @@
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" >Penyesuaian Data(Finish) &raquo;</a>
+                    tabindex="-1">Penyesuaian Data(Finish) &raquo;</a>
                   <ul class="dropdown-menu dropdown-submenu">
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
                         href="{{ url('DataPerencanaan') }}">Data Rencana</a>
@@ -202,60 +202,28 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1"  href="{{ url('JadwalPerWorkStation') }}">Jadwal Per-WorkStasion</a>
+                    tabindex="-1" href="{{ url('JadwalPerWorkStation') }}">Jadwal Per-WorkStasion</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwal Per-Order</a>
+                    tabindex="-1" href="{{ url('JadwalPerOder') }}">Jadwal Per-Order</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Daftar Order Gamber</a>
+                    tabindex="-1" href="{{ url('DaftarOrderGambar') }}">Daftar Order Gambar</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Daftar Estimasi Jadwal</a>
+                    tabindex="-1" href="{{ url('DaftarEstimasiJadwal') }}">Daftar Estimasi Jadwal</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Work Stations</a>
+                    tabindex="-1" href="{{ url('GrafikWorkStation') }}">Grafik Work Stations</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwal Konstruksi per bulan</a>
+                    tabindex="-1" href="{{ url('JadwalKonstruksiPerBulan') }}">Jadwal Konstruksi per bulan</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Histori Proses Konstruksi</a>
-                </li>
-
-
-                <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Delivery Order &raquo;</a>
-
-                  <ul class="dropdown-menu dropdown-submenu">
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('ProgramContoh') }}">Permohonan
-                        DO</a></li>
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('ProgramContoh') }}">ACC DO</a>
-                    </li>
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('ProgramContoh') }}">Batal DO</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li><a class="test"style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Surat Jalan &raquo;</a>
-                  <ul class="dropdown-menu dropdown-submenu">
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Mohon SJ</a>
-                    </li>
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">ACCPermohonan</a>
-                    </li>
-                    <hr style="height:2px;">
-                    <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('/') }}">Pasca Kirim</a></li>
-                  </ul>
+                    tabindex="-1" href="{{ url('HistoriProsesKonstruksi') }}">Histori Proses Konstruksi</a>
                 </li>
               </ul>
             </div>
@@ -267,7 +235,7 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwala Per-Mesin</a>
+                    tabindex="-1" href="{{ url('JadwalPerMesinPengerjaan') }}">Jadwal Per-Mesin</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Jadwal Per-Order</a>
@@ -318,12 +286,12 @@
               </ul>
             </div>
           </ul>
-            {{-- laporan --}}
-            {{-- windows --}}
-            {{-- exit --}}
-            <!-- Right Side Of Navbar -->
+          {{-- laporan --}}
+          {{-- windows --}}
+          {{-- exit --}}
+          <!-- Right Side Of Navbar -->
 
-            <!-- Authentication Links -->
+          <!-- Authentication Links -->
 
         </div>
       </div>

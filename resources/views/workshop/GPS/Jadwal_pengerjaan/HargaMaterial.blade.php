@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="table-responsive">
-                <table class="table " style="padding-top: 15px" >
+                <table class="table " style="padding-top: 15px; width:max-content;" >
                     <thead class="table-dark">
                       <tr>
                         <th>Nomor Order</th>
