@@ -9492,6 +9492,16 @@ a.text-dark:hover {
     padding-left: 1%;
     flex-direction: column;
 }
+.container19 {
+    gap: var(--dl-space-space-oneandhalfunits);
+    flex: 0 0 auto;
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding-left: 1%;
+    flex-direction: column;
+}
 
 .permohonan-s-p-container20 {
     gap: 12px;
@@ -9582,6 +9592,19 @@ th {
 
 .keterangan::before{
     content: "Bagian (Divisi)";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}
+
+.keterangan2{
+    border: solid 1px black;
+    margin-bottom: auto;
+}
+
+.keterangan2::before{
+    content: "Keterangan";
     top: -12px;
     margin-left: 15px;
     position: relative;
