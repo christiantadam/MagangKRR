@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MaintenanceBankController extends Controller
 {
-     public function index()
+     public function MaintenanceBank()
      {
          $data = 'Accounting';
          return view('Accounting.Master.MaintenanceBank', compact('data'));

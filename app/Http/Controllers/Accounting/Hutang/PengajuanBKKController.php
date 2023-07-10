@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PengajuanBKKController extends Controller
 {
-    public function index()
+    public function PengajuanBKK()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.PengajuanBKK', compact('data'));

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MaintenanceBKKKRR1Controller extends Controller
 {
-    public function index()
+    public function MaintenanceBKKKRR1()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.MaintenanceBKKKRR1', compact('data'));

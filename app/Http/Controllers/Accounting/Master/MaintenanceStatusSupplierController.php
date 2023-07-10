@@ -9,7 +9,7 @@ class MaintenanceStatusSupplierController extends Controller
 {
     //
     //Display a listing of the resource.
-    public function index()
+    public function MaintenanceStatusSupplier()
     {
         $data = 'Accounting';
         return view('Accounting.Master.MaintenanceStatusSupplier', compact('data'));

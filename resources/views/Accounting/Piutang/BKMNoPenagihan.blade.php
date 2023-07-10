@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10 RDZMobilePaddingLR0">
+            <div class="col-md-8 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Maintenance Bukti Kas Masuk Tunai</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -14,10 +14,25 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Id. Bank</label>
+                                            <label for="id">Id. BKM</label>
                                         </div>
                                         <div class="col-md-2">
                                             <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                        </div>
+                                        <div class="col-md-2">
+                                            Wajib di-ENTER
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                            <label for="radio_1">Biaya</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                            <label for="radio_1">Lain-lain</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                            <label for="radio_1">NEGO Ekspor</label>
                                         </div>
                                     </div>
                                 </div>
@@ -34,7 +49,7 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Diterima Dari</label>
+                                            <label for="id">Nama Customer</label>
                                         </div>
                                         <div class="col-md-5">
                                             <input type="text" name="bankSelect" class="form-control" style="width: 100%">
@@ -67,7 +82,7 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Jumlah Uang</label>
+                                            <label for="id">Nilai Pelunasan</label>
                                         </div>
                                         <div class="col-md-5">
                                             <input type="number" name="bankSelect" class="form-control" style="width: 100%">
@@ -77,16 +92,16 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Bank</label>
+                                            <label for="id">Jenis Pembayaran</label>
                                         </div>
                                         <div class="col-md-2">
                                             <input type="text" name="bankSelect" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
                                             <select name="bank_select" class="form-control">
-                                                <option value="option1">Bank1</option>
-                                                <option value="option2">Bank2</option>
-                                                <option value="option3">Bank3</option>
+                                                <option value="option1">Jenis1</option>
+                                                <option value="option2">Jenis2</option>
+                                                <option value="option3">Jenis3</option>
                                             </select>
                                         </div>
                                         <button>Tambah Biaya</button>
@@ -171,11 +186,11 @@
                                                     <thead class="table-dark">
                                                     <tr>
                                                         <th>Id. Detail</th>
-                                                        <th>Terima Dari</th>
-                                                        <th>Jumlah Uang</th>
+                                                        <th>Customer</th>
+                                                        <th>Nilai Rincian</th>
+                                                        <th>Jenis Pembayaran</th>
                                                         <th>Kode Perkiraan</th>
                                                         <th>Uraian</th>
-                                                        <th>Jenis Pembayaran</th>
                                                         <th>No. Bukti</th>
                                                     </tr>
                                                     </thead>

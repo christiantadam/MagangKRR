@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ACCBayarTTController extends Controller
 {
-    public function index()
+    public function ACCBayarTT()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.ACCBayarTT', compact('data'));

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Accounting\Hutang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MaintenanceBKMKRR1Controller extends Controller
+class MaintenanceKursBKKController extends Controller
 {
-    public function MaintenanceBKMKRR1()
+    public function MaintenanceKursBKK()
     {
         $data = 'Accounting';
-        return view('Accounting.Hutang.MaintenanceBKMKRR1', compact('data'));
+        return view('Accounting.Hutang.MaintenanceKursBKK', compact('data'));
     }
 
     //Show the form for creating a new resource.

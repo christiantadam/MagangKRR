@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MaintenanceJurnalBeliController extends Controller
 {
-    public function index()
+    public function MaintenanceJurnalBeli()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.MaintenanceJurnalBeli', compact('data'));

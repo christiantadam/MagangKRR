@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PenagihandiRETURController extends Controller
 {
     //
-    public function index()
+    public function PenagihandiRETUR()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.PenagihandiRETUR', compact('data'));

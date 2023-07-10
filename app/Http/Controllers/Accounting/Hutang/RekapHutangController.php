@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class RekapHutangController extends Controller
 {
-    public function index()
+    public function RekapHutang()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.RekapHutang', compact('data'));

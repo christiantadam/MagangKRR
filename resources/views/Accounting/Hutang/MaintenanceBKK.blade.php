@@ -57,26 +57,24 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <hr style="height:2px;">
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 50%;">
                                         <div class="card-body">
                                             <div class="col">
-                                            <div class="d-flex">
-                                                <div>
-                                                <input type="radio" name="radiogrup" value="radio_1" id="radio_1">
-                                                <label for="radio_1">Detail BG/CEK/TRANSFER</label>
-                                                </div>
-                                                <div class="col-md-2 ml-auto">
-                                                <label for="id">ID. Detail</label>
-                                                </div>
-                                                <div class="col-md-2">
-                                                <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                                <div class="d-flex">
+                                                    <div>
+                                                    <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                                    <label for="radio_1">Detail BG/CEK/TRANSFER</label>
+                                                    </div>
+                                                    <div class="col-md-2 ml-auto">
+                                                    <label for="id">ID. Detail</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    <input type="text" name="inputIdDetail" class="form-control" style="width: 100%">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            </div>
-
                                             <div style="overflow-x: auto;">
                                             <table style="width: 150%; table-layout: fixed;">
                                                 <colgroup>
@@ -103,13 +101,11 @@
                                                     <td>Data 4</td>
                                                     <td>Data 5</td>
                                                 </tr>
-                                                <!-- Tambahkan baris lainnya jika diperlukan -->
                                                 </tbody>
                                             </table>
                                             </div>
                                         </div>
                                     </div>
-
 
                                 <!--CARD 2-->
                                 <div class="card" style="width: 50%;">
@@ -117,7 +113,7 @@
                                             <div class="col">
                                             <div class="d-flex">
                                                 <div>
-                                                <input type="radio" name="radiogrup" value="radio_1" id="radio_1">
+                                                <input type="radio" name="radiogrup2" value="radio_1" id="radio_1">
                                                 <label for="radio_1">Detail PEMBAYARAN</label>
                                                 </div>
                                                 <div class="col-md-2 ml-auto">
@@ -155,7 +151,6 @@
                                                         <td>Data 4</td>
                                                         <td>Data 5</td>
                                                     </tr>
-                                                    <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -130,7 +130,7 @@
                                     <p>
                                     <div class="table-container">
                                         <div class="table-col">
-                                            <table style="width: 80%">
+                                            <table style="width: 80%;" class="table-dark">
                                                 <thead>
                                                     <tr>
                                                         <th>ID Div</th>
@@ -141,7 +141,7 @@
                                             </table>
                                         </div>
                                         <div class="table-col">
-                                            <table style="width: 105%">
+                                            <table style="width: 105%" class="table-dark">
                                                 <thead>
                                                     <tr>
                                                         <th>ID Detail</th>

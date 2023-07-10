@@ -57,13 +57,13 @@
                                             <label for="id">Pembayaran</label>
                                         </div>
                                         <div class="col-md-3">
-                                            <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                            <input type="text" name="pembayaranSelect" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-2" >
                                             <label for="id"></label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                            <input type="text" name="pembayaranSelect" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 
@@ -72,10 +72,10 @@
                                             <label for="id">Bank</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
-                                            <select name="nama_select" class="form-control">
+                                            <select name="bank_select" class="form-control">
                                                 <option value="option1">Bank 1</option>
                                                 <option value="option2">Bank 2</option>
                                                 <option value="option3">Bank 3</option>
@@ -85,13 +85,13 @@
                                             <label for="id" style="padding-left: 50px">Jenis/Jumlah Pembayaran</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                            <input type="number" name="jenisSelect" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
-                                            <select name="nama_select" class="form-control">
-                                                <option value="option1">Bank 1</option>
-                                                <option value="option2">Bank 2</option>
-                                                <option value="option3">Bank 3</option>
+                                            <select name="jenisSelect" class="form-control">
+                                                <option value="option1">Jenis 1</option>
+                                                <option value="option2">Jenis 2</option>
+                                                <option value="option3">Jenis 3</option>
                                             </select>
                                         </div>
                                         <div class="col-md-1">
@@ -107,7 +107,7 @@
                                         <label for="id">Mata Uang</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" name="mataUangSelect" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -115,7 +115,7 @@
                                         <label for="id">Nilai Penagihan</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" name="nilaiPenagihan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="id" style="padding-left: 50px">Nilai Penagihan (RP)</label>
@@ -133,13 +133,13 @@
                                                 <label for="id">Bank</label>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                                <input type="text" name="bankSelect" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="col-md-1" style="vertical-align: middle;">
-                                                <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                <select name="bankSelect" class="form-control" onchange="fillColumns()">
                                                     <option value=""></option>
-                                                    <option value="Supplier 1">Supplier 1</option>
-                                                    <option value="Supplier 2">Supplier 2</option>
+                                                    <option value="Bank 1">Bank 1</option>
+                                                    <option value="Bank 2">Bank 2</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@
                                                 <label for="id">Nilai Dibayarkan</label>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                                <input type="text" name="nilaidibayarkan" class="form-control" style="width: 100%">
                                             </div>
                                         </div>
                                         <div style="display: flex;">
@@ -156,7 +156,7 @@
                                                 <label for="id">Nilai Kurs</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                <input type="number" name="nilaikurs" class="form-control" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>

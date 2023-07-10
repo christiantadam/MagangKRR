@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class MaintenanceMataUangController extends Controller
 {
     //Display a listing of the resource.
-    public function index()
+    public function MaintenanceMataUang()
     {
         $data = 'Accounting';
         return view('Accounting.Master.MaintenanceMataUang', compact('data'));

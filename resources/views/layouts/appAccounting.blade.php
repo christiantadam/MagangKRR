@@ -148,21 +148,20 @@
                                             tabindex="-1" href="{{ url('MaintenanceBKMKRR1') }}">Maintenance BKM (KRR1) </a>
                                     </li>
 
-                                    <hr style="height:2px;">
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance Kode Perkiraan BKK </a>
+                                            tabindex="-1" href="{{ url('KodePerkiraanBKK') }}">Maintenance Kode Perkiraan BKK </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance Kurs BKK</a>
+                                            tabindex="-1" href="{{ url('MaintenanceKursBKK') }}">Maintenance Kurs BKK</a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Batal BKK </a>
+                                            tabindex="-1" href="{{ url('BatalBKK') }}">Batal BKK </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance Uraian BKK </a>
+                                            tabindex="-1" href="{{ url('UraianBKK') }}">Maintenance Uraian BKK </a>
                                     </li>
                                 </ul>
                             </div>
@@ -176,30 +175,29 @@
                                 </a>
                                 <ul class="dropdown-menu" style="cursor: default">
                                     <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKM Penagihan </a>
+                                            tabindex="-1" href="{{ url('MaintenanceBKMPenagihan') }}">Maintenance BKM Penagihan </a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKM No Penagihan </a>
+                                            tabindex="-1" href="{{ url('BKMNoPenagihan') }}">Maintenance BKM No Penagihan </a>
                                     </li>
 
                                     <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
                                             tabindex="-1">Maintenance BKM Cash Advance &raquo;</a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1" href="{{ url('/') }}">Create BKM</a>
+                                                    tabindex="-1" href="{{ url('CreateBKM') }}">Create BKM</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Update Detail BKM</a>
+                                                    tabindex="-1" href="{{ url('UpdateDetailBKM') }}">Update Detail BKM</a>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
-                                            tabindex="-1">Maintenance BKM Transitoris Bank </a>
+                                            tabindex="-1" href="{{ url('BKMTransitorisBank') }}">Maintenance BKM Transitoris Bank </a>
                                     </li>
 
                                     <li><a class="test"

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PenyesuaianSaldoSupplierController extends Controller
 {
-    public function index()
+    public function PenyesuaianSaldoSupplier()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.PenyesuaianSaldoSupplier', compact('data'));

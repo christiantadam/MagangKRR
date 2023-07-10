@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ACCSerahTerimaPenagihanController extends Controller
 {
-    public function index()
+    public function ACCSerahTerimaPenagihan()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.ACCSerahTerimaPenagihan', compact('data'));
