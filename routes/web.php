@@ -55,7 +55,17 @@ Route::get('ProgramPayroll/Transaksi/AbsenSimpang', 'App\Http\Controllers\Payrol
 Route::get('ProgramPayroll/Transaksi/Kontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@index');
 Route::get('ProgramPayroll/Transaksi/KoreksiAbsen', 'App\Http\Controllers\Payroll\Transaksi\KoreksiAbsen\KoreksiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/InputLibur', 'App\Http\Controllers\Payroll\Transaksi\InputLibur\InputLiburController@index');
-
+Route::get('ProgramPayroll/Transaksi/InputRange', 'App\Http\Controllers\Payroll\Transaksi\InputRange\InputRangeController@index');
+Route::get('ProgramPayroll/Transaksi/Lembur', 'App\Http\Controllers\Payroll\Transaksi\Lembur\LemburController@index');
+Route::get('ProgramPayroll/Transaksi/CheckClockError', 'App\Http\Controllers\Payroll\Transaksi\CheckClockError\CheckClockErrorController@index');
+Route::get('ProgramPayroll/Transaksi/CheckClockInOut', 'App\Http\Controllers\Payroll\Transaksi\CheckClockInOut\CheckClockInOutController@index');
+Route::get('ProgramPayroll/Transaksi/MaintenancePelatihan', 'App\Http\Controllers\Payroll\Transaksi\MaintenancePelatihan\MaintenancePelatihanController@index');
+Route::get('ProgramPayroll/Transaksi/MaintenanceKoreksi', 'App\Http\Controllers\Payroll\Transaksi\MaintenanceKoreksi\MaintenanceKoreksiController@index');
+Route::get('ProgramPayroll/Transaksi/Koperasi', 'App\Http\Controllers\Payroll\Transaksi\Koperasi\KoperasiController@index');
+Route::get('ProgramPayroll/Transaksi/Mutasi/Harian', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiHarian\MutasiHarianController@index');
+Route::get('ProgramPayroll/Transaksi/Mutasi/Staff', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiStaff\MutasiStaffController@index');
+Route::get('ProgramPayroll/Transaksi/Mutasi/Histori', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\HistoriMutasi\HistoriMutasiController@index');
+Route::get('ProgramPayroll/Transaksi/MaintenanceResign', 'App\Http\Controllers\Payroll\Transaksi\MaintenanceResign\MaintenanceResignController@index');
 // Payroll Angsuran
 Route::get('ProgramPayroll/Angsuran/Hutang', 'App\Http\Controllers\Payroll\Angsuran\MaintenanceHarian\HutangController@index');
 Route::get('ProgramPayroll/Angsuran/HutangHarian', 'App\Http\Controllers\Payroll\Angsuran\MaintenancePerusahaan\HutangHarianController@index');

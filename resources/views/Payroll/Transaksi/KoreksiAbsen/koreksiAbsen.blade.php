@@ -287,7 +287,7 @@
                                 <div class="card-container"
                         style="display: flex; flex-wrap: nowrap; ">
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto; margin-left: 10px; ">
-                            <div style=" flex-wrap: wrap;">
+                            <div style=" flex-wrap: wrap; width:150px;">
                                 <div style="display: flex; ">
                                         <span style="margin-right: 10px;">A : Alpha</span>
                                     </div>
@@ -307,12 +307,10 @@
                                         <span style="margin-right: 10px;">K : Skorsing</span>
                                     </div>
 
-
-
                             </div>
 
                         </div>
-                        <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto; margin-left: 10px; ">
+                        <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto;  ">
                             <div style=" flex-wrap: wrap;">
                                 <div style="display: flex; ">
                                         <span style="margin-right: 10px;">L : Lembur</span>

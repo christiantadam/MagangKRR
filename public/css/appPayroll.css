@@ -9680,3 +9680,31 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.mutasi1{
+    border: solid 1px black;
+    margin-bottom: auto;
+    margin: 15px;
+}
+
+.mutasi1::before{
+    content: "Sebelum Mutasi";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}
+
+.mutasi2{
+    border: solid 1px black;
+    margin-bottom: auto;
+    margin: 15px;
+}
+
+.mutasi2::before{
+    content: "Sesudah Mutasi";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}
