@@ -1,15 +1,37 @@
+.aligned-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .aligned-text {
+    justify-content: flex-start;
+  }
+}
+
+button {
+  border-radius: 3px;
+  padding: 10px 30px;
+  min-width: 75px;
+}
+
+.hidden {
+  display: none;
+}
+
 /*--------------------------------------------------------------
-# General
+# General (FIXED)
 --------------------------------------------------------------*/
 body {
   background: #fff;
   color: #444;
   font-family: "Open Sans", sans-serif;
-  /* overflow: hidden; */
 }
 
 a {
-  color: #50d8af;
   text-decoration: none;
   transition: 0.5s;
 }
@@ -17,7 +39,7 @@ a {
 a:hover,
 a:active,
 a:focus {
-  color: #51d8af;
+  color: #51d8af !important;
   outline: none;
   text-decoration: none;
 }
@@ -39,12 +61,8 @@ h6 {
   padding: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 /*--------------------------------------------------------------
-# Header
+# Header (FIXED)
 --------------------------------------------------------------*/
 #header {
   height: 80px;
@@ -94,7 +112,7 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Navigation Menu
+# Navigation Menu (FIXED)
 --------------------------------------------------------------*/
 /**
 * Desktop Navigation 
@@ -143,7 +161,7 @@ h6 {
 }
 
 a:hover {
-  color: #50d8af !important;
+  color: #50d8af;
 }
 
 .navbar .dropdown ul {
@@ -318,8 +336,10 @@ a:hover {
   display: block;
 }
 
-/* LANDING
---------------------------------*/
+/*--------------------------------------------------------------
+# Landing Page (FIXED)
+--------------------------------------------------------------*/
+
 .container {
   padding: 25px 0;
 }
@@ -395,172 +415,6 @@ a:hover {
   }
 }
 
-/* FORM
---------------------------------*/
-.aligned-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-#contact {
-  padding: 30px 0;
-}
-
-#contact .contact-info {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-#contact .contact-info i {
-  font-size: 48px;
-  display: inline-block;
-  margin-bottom: 10px;
-  color: #50d8af;
-}
-
-#contact .contact-info address,
-#contact .contact-info p {
-  margin-bottom: 0;
-  color: #000;
-}
-
-#contact .contact-info h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #999;
-}
-
-#contact .contact-info a {
-  color: #000;
-}
-
-#contact .contact-info a:hover {
-  color: #50d8af;
-}
-
-#contact .contact-address,
-#contact .contact-phone,
-#contact .contact-email {
-  margin-bottom: 20px;
-}
-
-@media (min-width: 768px) {
-
-  #contact .contact-address,
-  #contact .contact-phone,
-  #contact .contact-email {
-    padding: 20px 0;
-  }
-}
-
-@media (min-width: 768px) {
-  #contact .contact-phone {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-  }
-}
-
-#contact #google-map {
-  height: 290px;
-  margin-bottom: 20px;
-}
-
-@media (max-width: 576px) {
-  #contact #google-map {
-    margin-top: 20px;
-  }
-}
-
-.validate {
-  display: none;
-  color: red;
-  margin: 0 0 15px 0;
-  font-weight: 400;
-  font-size: 13px;
-}
-
-.error-message {
-  display: none;
-  color: #fff;
-  background: #ed3c0d;
-  text-align: left;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.error-message br+br {
-  margin-top: 25px;
-}
-
-.sent-message {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-}
-
-.loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
-  border-top-color: #eee;
-  animation: animate-loading 1s linear infinite;
-}
-
-input,
-textarea {
-  padding: 10px 14px;
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 15px;
-}
-
-input::focus,
-textarea::focus {
-  background-color: #50d8af;
-}
-
-button[type=submit] {
-  background: #50d8af;
-  border: 0;
-  border-radius: 3px;
-  padding: 10px 30px;
-  color: #fff;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-button[type=submit]:hover {
-  background: #2dc899;
-}
-
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 /* SUBMIT BUTTON UNTUK FORM KONVERSI KG */
 
 .spacing-button {
@@ -573,27 +427,4 @@ button[type=submit]:hover {
 
 .seperate {
   margin-right: 100px;
-}
-
-/* RADIO BUTTON UNTUK FORM KONVERSI KG */
-
-.form-check-input[type="radio"] {
-  width: 1.5em;
-  height: 1.5em;
-  margin-right: 0.25em;
-  vertical-align: middle;
-  border-radius: 50%;
-}
-
-.rounded-circle {
-  border-radius: 50% !important;
-  width: 1.5em;
-  height: 1.5em;
-  line-height: 1.5em;
-  text-align: center;
-  padding: 0;
-}
-
-.custom-radio {
-  font-size: 1.5em;
 }
