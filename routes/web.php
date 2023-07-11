@@ -66,9 +66,35 @@ Route::get('ProgramPayroll/Transaksi/Mutasi/Harian', 'App\Http\Controllers\Payro
 Route::get('ProgramPayroll/Transaksi/Mutasi/Staff', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiStaff\MutasiStaffController@index');
 Route::get('ProgramPayroll/Transaksi/Mutasi/Histori', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\HistoriMutasi\HistoriMutasiController@index');
 Route::get('ProgramPayroll/Transaksi/MaintenanceResign', 'App\Http\Controllers\Payroll\Transaksi\MaintenanceResign\MaintenanceResignController@index');
+
+// Payroll Laporan
+Route::get('ProgramPayroll/Laporan/DaftarGajiLamaBaru', 'App\Http\Controllers\Payroll\Laporan\Harian\DaftarGajiLamaBaru\DaftarGajiLamaBaruController@index');
+Route::get('ProgramPayroll/Laporan/Perminggu', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiMasukKeluarMutasi\PerMinggu\PerMingguController@index');
+Route::get('ProgramPayroll/Laporan/Perbulan', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiMasukKeluarMutasi\PerBulan\PerBulanController@index');
+Route::get('ProgramPayroll/Laporan/KontrakPerbulan', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiMasukKeluarMutasi\KontrakPerBulan\KontrakPerBulanController@index');
+Route::get('ProgramPayroll/Laporan/DaftarPegawaiMasukKeluar', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiMasukKeluar\JumlahPegawaiMasukKeluarController@index');
+Route::get('ProgramPayroll/Laporan/JumlahPegawaiPerManager', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiPerManager\JumlahPegawaiPerManagerController@index');
+Route::get('ProgramPayroll/Laporan/JumlahPegawaiKontrak', 'App\Http\Controllers\Payroll\Laporan\Harian\JumlahPegawaiKontrak\JumlahPegawaiKontrakController@index');
+Route::get('ProgramPayroll/Laporan/Daftar3BulanKerja', 'App\Http\Controllers\Payroll\Laporan\Harian\Daftar3BulanKerja\Daftar3BulanKerjaController@index');
+Route::get('ProgramPayroll/Laporan/Refrensi', 'App\Http\Controllers\Payroll\Laporan\Harian\Refrensi\RefrensiController@index');
+Route::get('ProgramPayroll/Laporan/DaftarTHRHarian', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\DaftarTHRHarian\DaftarTHRHarianController@index');
+Route::get('ProgramPayroll/Laporan/TandaTerimaTHR', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\TandaTerimaTHR\TandaTerimaTHRController@index');
+Route::get('ProgramPayroll/Laporan/RekapTHRHarian', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\RekapTHRHarian\RekapTHRHarianController@index');
+Route::get('ProgramPayroll/Laporan/DaftarGoodWill', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\DaftarGoodWill\DaftarGoodWillController@index');
+Route::get('ProgramPayroll/Laporan/RekapGoodWill', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\RekapGoodWill\RekapGoodWillController@index');
+Route::get('ProgramPayroll/Laporan/TandaTerimaTHRLgkp', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\TandaTerimaTHRLgkp\TandaTerimaTHRLgkpController@index');
+Route::get('ProgramPayroll/Laporan/DaftarTHRHarianLgkp', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\DaftarTHRLgkp\DaftarTHRLgkpController@index');
+Route::get('ProgramPayroll/Laporan/SlipTHRHarian', 'App\Http\Controllers\Payroll\Laporan\Harian\THR\SlipTHRHarian\SlipTHRHarianController@index');
+Route::get('ProgramPayroll/Laporan/DCT', 'App\Http\Controllers\Payroll\Laporan\DaftarCutiTahunan\DCTController@index');
+Route::get('ProgramPayroll/Laporan/SPH', 'App\Http\Controllers\Payroll\Laporan\Koprasi\SlipPotonganHarian\SPHController@index');
+Route::get('ProgramPayroll/Laporan/SPS', 'App\Http\Controllers\Payroll\Laporan\Koprasi\SlipPotonganStaff\SPSController@index');
+
 // Payroll Angsuran
 Route::get('ProgramPayroll/Angsuran/Hutang', 'App\Http\Controllers\Payroll\Angsuran\MaintenanceHarian\HutangController@index');
 Route::get('ProgramPayroll/Angsuran/HutangHarian', 'App\Http\Controllers\Payroll\Angsuran\MaintenancePerusahaan\HutangHarianController@index');
+Route::get('ProgramPayroll/Angsuran/AngsuranStaff', 'App\Http\Controllers\Payroll\Angsuran\AngsuranStaff\AHSController@index');
+Route::get('ProgramPayroll/Angsuran/AngsuranHutang', 'App\Http\Controllers\Payroll\Angsuran\AngsuranHutang\AngsuranHutangController@index');
+
 
 // Payroll Maintenance
 Route::get('ProgramPayroll/Maintenance/Fik', 'App\Http\Controllers\Payroll\Maintenance\Fik\FikController@index');

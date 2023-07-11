@@ -13,7 +13,7 @@ class HutangHarianController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Angsuran.HutangHarian', compact('data'));
+        return view('Payroll.Angsuran.MaintenanceHutangHarian.HutangHarian', compact('data'));
     }
 
     //Show the form for creating a new resource.

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Payroll\Angsuran\MaintenanceHarian;
+namespace App\Http\Controllers\Payroll\Laporan\Harian\THR\RekapGoodWill;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class HutangController extends Controller
+class RekapGoodWillController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Angsuran.MaintenanceHutangPerusahaan.Hutang', compact('data'));
+        return view('Payroll.Laporan.Harian.THR.RekapGoodWill.RekapGoodWill', compact('data'));
     }
 
     //Show the form for creating a new resource.
