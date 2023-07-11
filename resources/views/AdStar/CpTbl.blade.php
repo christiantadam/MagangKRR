@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Stop Order Press</title>
+    <title>Form Copy Tabel</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,6 +75,14 @@
             margin-bottom: 10px;
         }
 
+        .input-container.checkbox {
+            margin-right: 20px;
+        }
+
+        .input-container.radio {
+            margin-right: 20px;
+        }
+
         .input-container label {
             margin-right: 10px;
         }
@@ -108,11 +116,6 @@
             cursor: pointer;
         }
 
-        .button-container button.ord {
-            background-color: #737573;
-            max-width: 200px;
-        }
-
         .button-container button.add {
             background-color: #4CAF50;
             max-width: 100px;
@@ -127,7 +130,6 @@
             background-color: #f44336;
             max-width: 100px;
         }
-
 
         .scrollable-container {
             max-height: 300px;
@@ -199,6 +201,66 @@
 
                                 </ul>
                             </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Barcode
+                                </a>
+                                <ul class="dropdown-menu" style="cursor: default">
+                                    <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Schedule') }}');">Schedule</a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('BtBrcd') }}');">Buat Barcode</a>
+
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Repress') }}');">Repress </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');">Cetak Barcode Rusak </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('DftPlt') }}');">Daftar Palet </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HngsBrcd') }}');">Hanguskan Barcode </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KrmGdng') }}');"> Kirim Gudang </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('BtlKrm') }}');">Batal Kirim </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KnvGdng') }}');">Konversi Gudang JBB </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('HslBrcd') }}');">Hasil Barcode </a>
+                                </li>
+
+                                </ul>
+                            </div>
+
                             <div class="dropdown">
                                 <a onclick="OpenNewTab('{{ url('CpTbl') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
@@ -209,6 +271,12 @@
                                 <a href="http://127.0.0.1:8000" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Print
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('bntkez') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Bantu Kez
                                 </a>
                             </div>
                         </ul>
@@ -229,56 +297,51 @@
         </main>
     </div>
 
-    <h2>Stop Order Press</h2>
+    <h2>Form Copy Tabel </h2>
 
     <div class="body">
         <div class="card">
-            {{-- <h3 class="card-title">Sales</h3> --}}
             <div class="input-container">
-                <label>No. Order Kerja:</label>
-                <input type="text" name="noOrderKerja" placeholder="No. Order Kerja">
-                <button class="btn btn-primary" type="button">...</button>
-                <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja">
+                <div class=radio>
+                <label for="customer">Product Name:</label>
+                <input type="radio" id="pilihan1" name="pilihan" value="pilihan1">StarPark
+                {{-- <label for="pilihan1">StarPark</label><br> --}}
+                <input type="radio" id="pilihan2" name="pilihan" value="pilihan2">AdStar
+                {{-- <label for="pilihan2">AdStar</label><br> --}}
+                </div>
             </div>
             <div class="input-container">
-                <label>No Pesanan:</label>
-                <input type="text" name="noPesanan" placeholder="No Pesanan">
-                <label>Surat Pesanan:</label>
-                <input type="text" name="suratPesanan" placeholder="Surat Pesanan">
+                <div class=checkbox>
+                <label for="customer">Model:</label>
+                <input type="checkbox" id="opsi1" name="opsi" value="opsi1">Top Open
+                <input type="checkbox" id="opsi2" name="opsi" value="opsi2">Top Close
+                </div>
             </div>
             <div class="input-container">
-                <label>Qty Order:</label>
-                <input type="text" name="qtyOrder" placeholder="Qty Order">
-                <label>Lbr</label>
+                <label for="customer">Design For:</label>
+                <input type="text" id="customer" required>
+                <input type="text" id="input1" placeholder="">
+                <button type="button">...</button>
             </div>
             <div class="input-container">
-                <label>Hasil Order:</label>
-                <input type="text" name="hasilOrder" placeholder="Hasil Order">
-                <label>Lbr</label>
+                <label for="nama-barang">Product Type:</label>
+                <input type="text" id="nama-barang" required>
+                <input type="text" id="input2">
+                <button type="button">List Type</button>
+            </div>
+            <h1>Copy To</h1>
+            <div class="input-container">
+                <label for="no-pesanan">Design For:</label>
+                <input type="text" id="no-pesanan" required>
+                <button type="button">...</button>
             </div>
             <div class="input-container">
-                <label for="rncn-kerja">Rencana Kerja:</label>
-                <input type="date" id="rncn-kerja" required>
+                <label for="surat-pesanan">Product Type:</label>
+                <input type="text" id="surat-pesanan" required>
             </div>
-            <div class="input-container">
-                <label for="rncn-finish">Rencarna Finish:</label>
-                <input type="date" id="rncn-finish" required>
-            </div>
-            <div class="input-container">
-                <label for="tgl-finish">Tgl Finish:</label>
-                <input type="date" id="tgl-finish" required>
-            </div>
-        </div>
-
         <div class="button-container">
-            <button class="ord">Stop Order</button>
-            <button class="ord">Unstop Order</button>
+            <button class="update">Copy</button>
         </div>
-
-        <div class="scrollable-container">
-            <!-- Add content here -->
-        </div>
-    </div>
 
     <script>
         // JavaScript for NavBar

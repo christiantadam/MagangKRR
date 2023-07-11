@@ -21,30 +21,19 @@ Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
 Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
 
-Route::get('/AdStar', function () {
-    return view ('AdStar');
-});
+//route adstar
+Route::get('AdStar', 'App\Http\Controllers\AdStarController\AdStar@index');
+Route::get('bntkez', 'App\Http\Controllers\AdStarController\bntkez@index');
+Route::get('CpTbl', 'App\Http\Controllers\AdStarController\CpTbl@index');
+Route::get('HslPrdPrs', 'App\Http\Controllers\AdStarController\HslPrdPrs@index');
+Route::get('MnOrdPrs', 'App\Http\Controllers\AdStarController\MnOrdPrs@index');
+Route::get('StpOrdPrs', 'App\Http\Controllers\AdStarController\StpOrdPrs@index');
+Route::get('UpKdBrng', 'App\Http\Controllers\AdStarController\UpKdBrng@index');
 
-Route::get('/UpKdBrng', function () {
-    return view ('UpKdBrng');
-});
+//route barcode
+Route::get('Schedule', 'App\Http\Controllers\BarcodeAdStarController\Schedule@index');
+Route::get('BtBrcd', 'App\Http\Controllers\BarcodeAdStarController\BtBrcd@index');
+Route::get('Repress', 'App\Http\Controllers\BarcodeAdStarController\Repress@index');
+Route::get('CtkBrcdRsk', 'App\Http\Controllers\BarcodeAdStarController\CtkBrcdRsk@index');
 
-Route::get('/HslPrdPrs', function () {
-    return view ('HslPrdPrs');
-});
-
-Route::get('/MnOrdPrs', function () {
-    return view ('MnOrdPrs');
-});
-
-Route::get('/StpOrdPrs', function () {
-    return view ('StpOrdPrs');
-});
-
-Route::get('/CpTbl', function () {
-    return view ('CpTbl');
-});
-
-Route::get('/bntkez', function () {
-    return view ('bntkez');
-});
+Route::get('HngsBrcd', 'App\Http\Controllers\BarcodeAdStarController\HngsBrcd@index');

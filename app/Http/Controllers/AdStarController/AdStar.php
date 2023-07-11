@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AdStarController;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdStar extends Controller
 {
@@ -13,7 +14,7 @@ class AdStar extends Controller
      */
     public function index()
     {
-        //
+        return view('AdStar.AdStar');//
     }
 
     /**

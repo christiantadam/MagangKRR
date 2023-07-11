@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Maint Hasil Produksi</title>
+    <title>Maintenance Order Press</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,7 +123,6 @@
             max-width: 100px;
         }
 
-
         .scrollable-container {
             max-height: 300px;
             overflow-y: auto;
@@ -194,6 +193,66 @@
 
                                 </ul>
                             </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Barcode
+                                </a>
+                                <ul class="dropdown-menu" style="cursor: default">
+                                    <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Schedule') }}');">Schedule</a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('BtBrcd') }}');">Buat Barcode</a>
+
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Repress') }}');">Repress </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');">Cetak Barcode Rusak </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('DftPlt') }}');">Daftar Palet </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HngsBrcd') }}');">Hanguskan Barcode </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KrmGdng') }}');"> Kirim Gudang </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('BtlKrm') }}');">Batal Kirim </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KnvGdng') }}');">Konversi Gudang JBB </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('HslBrcd') }}');">Hasil Barcode </a>
+                                </li>
+
+                                </ul>
+                            </div>
+
                             <div class="dropdown">
                                 <a onclick="OpenNewTab('{{ url('CpTbl') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
@@ -204,6 +263,12 @@
                                 <a href="http://127.0.0.1:8000" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Print
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('bntkez') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Bantu Kez
                                 </a>
                             </div>
                         </ul>
@@ -224,66 +289,42 @@
         </main>
     </div>
 
-    <h2>Maint Hasil Produksi</h2>
+    <h2>Cetak Nota dan Faktur</h2>
 
     <div class="body">
         <div class="card">
-            {{-- <h3 class="card-title">Sales</h3> --}}
             <div class="input-container">
-                <label for="tgl-produksi">Tanggal Produksi:</label>
-                <input type="date" id="tgl-produksi" required>
+                <div class=radio>
+                <label for="bulan">Bulan:</label>
+                <input type="text" id="bulan" required>
+                <label for="tahun">Tahun:</label>
+                <input type="text" id="tahunm" required>
+                <input type="radio" id="pilihan1" name="pilihan" value="pilihan1">Kas Besar
+                <input type="radio" id="pilihan2" name="pilihan" value="pilihan2">Kas Kecil
+                <input type="radio" id="pilihan3" name="pilihan" value="pilihan3">Bank Eksteren Rp
+                <input type="radio" id="pilihan4" name="pilihan" value="pilihan4">Bank Eksteren $
+                <input type="radio" id="pilihan5" name="pilihan" value="pilihan5">Bank Interen Rp
+                <input type="radio" id="pilihan6" name="pilihan" value="pilihan6">Bank Interen $
+                </div>
             </div>
             <div class="input-container">
-                <label for="no-transaksi">No. Transaksi:</label>
-                <input type="text" id="no-transaksi" required>
-                <button type="button">List Data</button>
+                <label for="nama-bank">Nama Bank:</label>
+                <input type="text" id="nama-bank" required>
+                <button>Ok</button>
             </div>
             <div class="input-container">
-                <label>No. Order Kerja:</label>
-                <input type="text" name="noOrderKerja" placeholder="No. Order Kerja">
+                <label for="nama-barang">Customer:</label>
+                <input type="text" id="nama-barang" required>
                 <button type="button">...</button>
-                <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja">
             </div>
             <div class="input-container">
-                <label>Mesin Produksi:</label>
-                <input type="text" name="mesinProduksi" placeholder="Mesin Produksi">
-                <input type="text" name="kotaMesinProduksi" placeholder="Mesin Produksi">
-                <button type="button">...</button>
-            </div>
-            <div class="input-container">
-                <label for="grup-pelaksana-dropdown">grup pelaksana:</label>
-                <select id="grup-pelaksana-dropdown" required>
-                    <option value="1">grup 1</option>
-                    <option value="2">grup 2</option>
-                    <!-- Add more options as needed -->
-                </select>
-            </div>
-            <div class="input-container">
-                <label>Jam Mulai:</label>
-                <input type="time" name="jamMulai">
-            </div>
-            <div class="input-container">
-                <label>Jam Akhir:</label>
-                <input type="time" name="jamAkhir">
-            </div>
-            <div class="input-container">
-                <label for="jml-ball">Jumlah Ball:</label>
-                <input type="number" id="jml-ball" required>
-            </div>
-            <div class="input-container">
-                <label for="jml-lembar">Jumlah Lembar:</label>
-                <input type="number" id="jml-lembar" required>
-            </div>
-            <div class="input-container">
-                <label for="jml-kg">Jumlah Kg:</label>
-                <input type="number" id="jml-kg" required>
+                <label for="nama-barang">Id_Penagihan:</label>
+                <input type="text" id="nama-barang" required>
             </div>
         </div>
 
         <div class="button-container">
-            <button class="add">Add</button>
-            <button class="update">Update</button>
-            <button class="del">Delete</button>
+            <button class="add">Cetak</button>
         </div>
 
         <div class="scrollable-container">

@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Maint Kode Barang</title>
+    <title>Maintenance Order Press</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -129,27 +129,6 @@
             margin-top: 20px;
         }
 
-            /* Style the table */
-        .table-container {
-        max-height: 300px;
-        overflow-y: scroll;
-        }
-
-        table {
-        width: 100%;
-        border-collapse: collapse;
-        }
-
-        th, td {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        text-align: left;
-        }
-
-        th {
-        background-color: #f2f2f2;
-        }
-
     </style>
 </head>
 
@@ -214,6 +193,66 @@
 
                                 </ul>
                             </div>
+
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Barcode
+                                </a>
+                                <ul class="dropdown-menu" style="cursor: default">
+                                    <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Schedule') }}');">Schedule</a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('BtBrcd') }}');">Buat Barcode</a>
+
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Repress') }}');">Repress </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');">Cetak Barcode Rusak </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('DftPlt') }}');">Daftar Palet </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HngsBrcd') }}');">Hanguskan Barcode </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KrmGdng') }}');"> Kirim Gudang </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('BtlKrm') }}');">Batal Kirim </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KnvGdng') }}');">Konversi Gudang JBB </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('HslBrcd') }}');">Hasil Barcode </a>
+                                </li>
+
+                                </ul>
+                            </div>
+
                             <div class="dropdown">
                                 <a onclick="OpenNewTab('{{ url('CpTbl') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
@@ -224,6 +263,12 @@
                                 <a href="http://127.0.0.1:8000" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Print
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('bntkez') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Bantu Kez
                                 </a>
                             </div>
                         </ul>
@@ -244,65 +289,74 @@
         </main>
     </div>
 
-    <h2>Maint Kode Barang</h2>
+    <h2>Maintenance Order Press</h2>
 
     <div class="body">
         <div class="card">
-            <div class="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Nama Barang</th>
-                      <th>Kode Barang</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                      // Simulasi pengambilan data dari database
-                      $data = array(
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        array("Value 1", "Value 2"),
-                        // Tambahkan data lainnya dari database
-                      );
-
-                      // Iterasi melalui data dan buat baris tabel
-                      foreach ($data as $row) {
-                        echo "<tr>";
-                        echo "<td>".$row[0]."</td>";
-                        echo "<td>".$row[1]."</td>";
-                        echo "</tr>";
-                      }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-        </div>
-
-        <div class="card">
+            <h3 class="card-title">Sales</h3>
+            <div class="input-container">
+                <label for="customer">Customer:</label>
+                <input type="text" id="customer" required>
+                <input type="text" id="input1" placeholder="Mesin Produksi">
+                <button type="button">...</button>
+            </div>
             <div class="input-container">
                 <label for="nama-barang">Nama Barang:</label>
                 <input type="text" id="nama-barang" required>
-                <input type="text" id="input1">
-            </div>
-
-            <div class="input-container">
-                <label for="kd-barang">Kode Barang:</label>
-                <input type="text" id="kd-barang" required>
                 <input type="text" id="input2">
+                <button type="button">...</button>
             </div>
-
             <div class="input-container">
-                <button type="button">List Data</button>
+                <label for="no-pesanan">No. Pesanan:</label>
+                <input type="text" id="no-pesanan" required>
+            </div>
+            <div class="input-container">
+                <label for="surat-pesanan">Surat Pesanan:</label>
+                <input type="text" id="surat-pesanan" required>
+                <button type="button">...</button>
+            </div>
+            <div class="input-container">
+                <label for="jumlah-order">Jumlah Order:</label>
+                <input type="number" id="jumlah-order" required>
+            </div>
+            <div class="input-container">
+                <label for="jumlah-press">Jumlah Press:</label>
+                <input type="number" id="jumlah-press" required>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">AdStar</h3>
+            <div class="input-container">
+                <label for="no-order-kerja">No. Order Kerja:</label>
+                <input type="text" id="no-order-kerja" required>
+                <button type="button">...</button>
+            </div>
+            <div class="input-container">
+                <label for="tgl-order">Tanggal Order:</label>
+                <input type="date" id="tgl-order" required>
+            </div>
+            <div class="input-container">
+                <label for="stock-order-sebelumnya">Stock Order Sebelumnya:</label>
+                <input type="text" id="stock-order-sebelumnya" required>
+                <input type="text" id="input3">
+                <button type="button">...</button>
+            </div>
+            <div class="input-container">
+                <label for="sisa-stock">Sisa Stock:</label>
+                <input type="text" id="sisa-stock" required>
+            </div>
+            <div class="input-container">
+                <label for="hasil">Hasil:</label>
+                <input type="text" id="hasil" required>
+            </div>
+            <div class="input-container">
+                <label for="tgl-dikerjakan">Tanggal Dikerjakan:</label>
+                <input type="date" id="tgl-dikerjakan" required>
+            </div>
+            <div class="input-container">
+                <label for="tgl-finish">Tanggal Finish:</label>
+                <input type="date" id="tgl-finish" required>
             </div>
         </div>
 
