@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
-          <div class="card-header">Work Stations</div>
+          <div class="card-header">EDM - CNC</div>
           <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="row">
               <div class="col-6">

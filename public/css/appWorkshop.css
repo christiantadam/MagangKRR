@@ -9476,6 +9476,7 @@ a.text-dark:hover {
 .keterangan{
     border :solid 1px black;
     margin-bottom: auto;
+    top: 10px;
 }
 .keterangan::before{
     content: "keterangan";

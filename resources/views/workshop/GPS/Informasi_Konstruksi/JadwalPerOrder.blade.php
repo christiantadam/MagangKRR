@@ -12,17 +12,7 @@
                 <div class="col-6">
                   <div class="mb-3">
                     <label for="NoOrder" class="form-label">Nomor Order</label>
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" class="form-control" name="NoOrder">
-                        </div>
-                        <div class="col-6">
-                            <input type="radio" name="pilihan" value="harian">
-                            <label for="harian">Harian</label>
-                            <input type="radio" name="pilihan" value="Proyek">
-                            <label for="Proyek">Proyek</label>
-                        </div>
-                    </div>
+                    <input type="text" class="form-control" name="NoOrder">
                   </div>
                   <div class="mb-3">
                     <label for="divisi" class="form-label">Divisi</label>

@@ -24,6 +24,8 @@
   <script src="{{ asset('js/jquery-dateformat.js') }}"></script>
   <script src="{{ asset('js/RDZ.js') }}"></script>
 
+  <script src="{{ asset('js/Grafikdrill.js') }}"></script>
+
 
   <script src="{{ asset('js/User.js') }}"></script>
 
@@ -238,18 +240,18 @@
                     tabindex="-1" href="{{ url('JadwalPerMesinPengerjaan') }}">Jadwal Per-Mesin</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwal Per-Order</a>
+                    tabindex="-1" href="{{ url('JadwalPerOrderPengerjaan') }}">Jadwal Per-Order</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Daftar Order Kerja dan Proyek</a>
+                    tabindex="-1" href="{{ url('DaftarOrderKerjaProyek') }}">Daftar Order Kerja dan Proyek</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin EDM/CNC</a>
+                    tabindex="-1" href="{{ url('EDMCNC') }}">Grafik Mesin EDM/CNC</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Drill/Mill/Scrap</a>
+                    tabindex="-1" href="{{ url('DrillMillScrap') }}">Grafik Mesin Drill/Mill/Scrap</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Grafik Mesin Grinding</a>
