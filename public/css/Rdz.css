@@ -360,6 +360,8 @@ table tr:last-child td:last-child {
 
 .dropdown-menu li {
     position: relative;
+    border: #d4d4d4d5 0.1px solid;
+    padding: 1px 1px;
 }
 
 .dropdown-menu .dropdown-submenu {

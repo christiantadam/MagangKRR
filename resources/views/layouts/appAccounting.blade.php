@@ -58,17 +58,17 @@
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Master
                                 </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                <ul class="dropdown-menu" style=" ">
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1"  href="{{ url('MaintenanceBank') }}">Maintenance Bank </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceMataUang') }}">Maintenance Mata Uang</a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style="  color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceStatusSupplier') }}">Maintenance Status Supplier </a>
                                     </li>
                                 </ul>
@@ -82,85 +82,85 @@
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Hutang
                                 </a>
-                                <ul class="dropdown-menu " style="cursor: default">
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                <ul class="dropdown-menu " style=" ">
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenancePenagihan') }}">Maintenance Penagihan</a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style="color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('BatalPenagihan') }}">Batal Penagihan</a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style="color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('UpdatePIB') }}">Update PIB </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('ACCSerahTerimaPenagihan') }}">Maintenance ACC Serah Terima Penagihan </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('PenagihandiRETUR') }}">Maintenance Penagihan di RETUR </a>
                                     </li>
-                                    
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('PelunasanHutang') }}">Maintenance Pelunasan Hutang </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceJurnalBeli') }}">Maintenance Jurnal </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('RekapHutang') }}">Rekap Hutang </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('PenyesuaianSaldoSupplier') }}">Penyesuaian Saldo Supplier </a>
                                     </li>
-                           
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('PengajuanBKK') }}">Maintenance Pengajuan BKK </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('ACCBKK') }}">Maintenance ACC BKK </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceBKK') }}">Maintenance BKK (KRR2) </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceTTKRR1') }}">Maintenance TT (KRR1) </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('ACCBayarTT') }}">Maintenance ACC Bayar TT (KRR1) </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceBKKKRR1') }}">Maintenance BKK (KRR1) </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceBKMKRR1') }}">Maintenance BKM (KRR1) </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('KodePerkiraanBKK') }}">Maintenance Kode Perkiraan BKK </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('MaintenanceKursBKK') }}">Maintenance Kurs BKK</a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('BatalBKK') }}">Batal BKK </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('UraianBKK') }}">Maintenance Uraian BKK </a>
                                     </li>
                                 </ul>
@@ -173,17 +173,17 @@
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Piutang
                                 </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                <ul class="dropdown-menu" style=" ">
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block;"
                                             tabindex="-1" href="{{ url('MaintenanceBKMPenagihan') }}">Maintenance BKM Penagihan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block;"
                                             tabindex="-1" href="{{ url('BKMNoPenagihan') }}">Maintenance BKM No Penagihan </a>
                                     </li>
 
-                                    <li><a class="test"style="margin: 15px; color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style="  color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM Cash Advance &raquo;</a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
@@ -196,52 +196,52 @@
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1" href="{{ url('BKMTransitorisBank') }}">Maintenance BKM Transitoris Bank </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Batal BKM Transitoris </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM-BKK Pembulatan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM DP Utk Pelunasan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM-BKK Nota Kredit </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM LC </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKM Pengembalian K.E. </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Update Kurs BKM $$ </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Kode Perkiraan BKM </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Informasi Bank &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
@@ -255,7 +255,7 @@
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Penjualan Lokal &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
@@ -269,47 +269,47 @@
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Nota Penjualan Tunai </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Update Surat Jalan U/ Jual Tunai </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Acc Penagihan Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Status Dokumen Tagihan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Acc Penagihan Penjualan Eksport </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Pelunasan Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Pelunasan Penjualan Cash Advance </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Analisa Status Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance Nota Kredit &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
@@ -334,12 +334,12 @@
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Acc Nota Kredit </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Maintenance BKK Nota Kredit &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
@@ -354,10 +354,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
-                        
+
                             <!--Trans Bank-->
 
                             <div class="dropdown">
@@ -365,13 +365,13 @@
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Trans Bank
                                 </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 15px;display: block;cursor: default"
+                                <ul class="dropdown-menu" style=" ">
+                                    <li><a class="test"style=" color: black;font-size: 15px;display: block; "
                                             tabindex="-1">BKK </a>
                                     </li>
 
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">BKM </a>
                                     </li>
                                 </ul>
@@ -384,23 +384,23 @@
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Informasi
                                 </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                <ul class="dropdown-menu" style=" ">
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Cek Nota & Faktur </a>
                                     </li>
-                                    <li><a class="test"style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                    <li><a class="test"style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Cetak Nota Kredit </a>
                                     </li>
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Soplang </a>
                                     </li>
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 14px;display: block;cursor: default"
+                                            style=" color: black;font-size: 14px;display: block; "
                                             tabindex="-1">Rekap Piutang </a>
                                     </li>
                                     <li><a class="test"
-                                            style="margin: 15px;color: black;font-size: 1px;display: block;cursor: default"
+                                            style=" color: black;font-size: 1px;display: block; "
                                             tabindex="-1">Kartu Hutang </a>
                                     </li>
                                 </ul>
