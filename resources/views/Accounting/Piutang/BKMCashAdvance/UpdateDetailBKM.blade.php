@@ -13,13 +13,13 @@
                                 <!-- Form fields go here -->
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Bulan/Tahun</label>
+                                        <label for="bulanTahun" style="margin-right: 10px;">Bulan/Tahun</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnProses" name="isi" value="OK" class="btn">

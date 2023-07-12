@@ -14,10 +14,10 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Id. BKM</label>
+                                            <label for="idBKM">Id. BKM</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="idBKM" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-2">
                                             Wajib di-ENTER
@@ -27,102 +27,102 @@
                                             <label for="radio_1">Biaya</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                            <label for="radio_1">Lain-lain</label>
+                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_2">
+                                            <label for="radio_2">Lain-lain</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                            <label for="radio_1">NEGO Ekspor</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="id">Tanggal Input</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="date" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="radio" name="radiogrup1" value="radio_1" id="radio_3">
+                                            <label for="radio_3">NEGO Ekspor</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Nama Customer</label>
+                                            <label for="tanggalInput">Tanggal Input</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="date" id="tanggalInput" class="form-control" style="width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="namaCustomer">Nama Customer</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="namaCustomer" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Mata Uang</label>
+                                            <label for="mataUang">Mata Uang</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="mataUang" name="muselect" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
-                                            <select name="bank_select" class="form-control">
+                                            <select name="muselect" class="form-control">
                                                 <option value="option1">MU1</option>
                                                 <option value="option2">MU2</option>
                                                 <option value="option3">MU3</option>
                                             </select>
                                         </div>
                                         <div style="padding-left: 50px">
-                                            <label for="id">Kurs Rupiah</label>
+                                            <label for="kursRupiah">Kurs Rupiah</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="number" id="kursRupiah" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Nilai Pelunasan</label>
+                                            <label for="nilaiPelunasan">Nilai Pelunasan</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="number" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="number" id="nilaiPelunasan" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Jenis Pembayaran</label>
+                                            <label for="jenisPembayaran">Jenis Pembayaran</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="jenisPembayaran" name="jenis_select" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
-                                            <select name="bank_select" class="form-control">
+                                            <select name="jenis_select" class="form-control">
                                                 <option value="option1">Jenis1</option>
                                                 <option value="option2">Jenis2</option>
                                                 <option value="option3">Jenis3</option>
                                             </select>
                                         </div>
-                                        <button>Tambah Biaya</button>
+                                        <button id="tambahBiaya">Tambah Biaya</button>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Kode Perkiraan</label>
+                                            <label for="kodePerkiraan">Kode Perkiraan</label>
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-1">
-                                            <select name="bank_select" class="form-control">
-                                                <option value="option1">Bank1</option>
-                                                <option value="option2">Bank2</option>
-                                                <option value="option3">Bank3</option>
+                                            <select name="kode_select" class="form-control">
+                                                <option value="option1">Kd1</option>
+                                                <option value="option2">Kd2</option>
+                                                <option value="option3">Kd3</option>
                                             </select>
                                         </div>
                                     </div>
@@ -130,20 +130,20 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">No. Bukti</label>
+                                            <label for="noBukti">No. Bukti</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="noBukti" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="id">Uraian</label>
+                                            <label for="uraian">Uraian</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="text" id="uraian" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
@@ -250,10 +250,10 @@
                                     <div class="row">
                                         <div class="col-md-1"></div>
                                         <div class="col-md-2">
-                                            <b><label for="id">Total Pelunasan</label></b>
+                                            <b><label for="totalPelunasan">Total Pelunasan</label></b>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" name="bankSelect" class="form-control" style="width: 100%">
+                                            <input type="number" id="totalPelunasan" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-2"></div>
                                         <div class="col-md-2" >

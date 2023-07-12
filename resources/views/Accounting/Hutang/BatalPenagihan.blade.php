@@ -45,10 +45,10 @@
                                 <div class="container fluid">
                                     <p><div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Supplier</label>
+                                            <label for="supplier">Supplier</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="symbol1" class="form-control" style="width: 400px">
+                                            <input type="text" id="supplier" class="form-control" style="width: 400px">
                                         </div>
                                     </div>
                                 </div>
@@ -56,10 +56,10 @@
                                 <div class="container fluid">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Mata Uang</label>
+                                            <label for="mataUang">Mata Uang</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" id="matauang" name="symbol1" class="form-control" style="width: 200px">
+                                            <input type="number" id="mataUang" class="form-control" style="width: 200px">
                                         </div>
                                     </div>
                                 </div>
@@ -67,10 +67,10 @@
                                 <div class="container fluid">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Nilai Tagihan</label>
+                                            <label for="nilaiTagihan">Nilai Tagihan</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" id="idtagihan" name="symbol1" class="form-control" style="width: 200px">
+                                            <input type="number" id="nilaiTagihan" class="form-control" style="width: 200px">
                                         </div>
                                     </div>
                                 </div>
@@ -78,10 +78,10 @@
                                 <div class="container fluid">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Status Penagihan</label>
+                                            <label for="statusPenagihan">Status Penagihan</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" id="statuspenagihan" name="symbol1" class="form-control" style="width: 400px">
+                                            <input type="number" id="statusPenagihan" class="form-control" style="width: 400px">
                                         </div>
                                     </div>
                                 </div>
@@ -90,12 +90,12 @@
                                 <div class="container fluid">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Alasan</label>
+                                            <label for="alasan">Alasan</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="number" name="symbol1" class="form-control" style="width: 700px">
+                                            <input type="number" id="alasan" class="form-control" style="width: 700px">
                                         </div>
                                     </div>
                                 </div>

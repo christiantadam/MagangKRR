@@ -17,10 +17,10 @@
                                             <b>BKK</b>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Tanggal</label>
+                                                    <label for="tanggal" style="margin-right: 10px;">Tanggal</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="date" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="date" id="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-3">
                                                     Wajib di-ENTER
@@ -28,22 +28,21 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Id. BKK</label>
+                                                    <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idBKK" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Mata Uang</label>
+                                                    <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="mataUang" name="muSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
+                                                    <select name="muSelect" class="form-control" onchange="fillColumns()">
                                                         <option value="MataUang 1">MU1</option>
                                                         <option value="MataUang 2">MU2</option>
                                                     </select>
@@ -51,21 +50,21 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Jumlah Uang</label>
+                                                    <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Bank</label>
+                                                    <label for="bank" style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="bank" name="bankSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                    <select name="bankSelect" class="form-control" onchange="fillColumns()">
                                                         <option value=""></option>
                                                         <option value="Bank 1">Bank1</option>
                                                         <option value="Bank 2">Bank2</option>
@@ -77,13 +76,13 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Jenis Pembayaran</label>
+                                                    <label for="jenisPembayaran" style="margin-right: 10px;">Jenis Pembayaran</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jenisPembayaran" name="jenisPembayaranSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                    <select name="jenisPembayaranSelect" class="form-control" onchange="fillColumns()">
                                                         <option value=""></option>
                                                         <option value="Jenis 1">Jenis1</option>
                                                         <option value="Jenis 2">Jenis2</option>
@@ -95,16 +94,16 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Kode Perkiraan</label>
+                                                    <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                    <select name="kodePerkiraanSelect" class="form-control" onchange="fillColumns()">
                                                         <option value=""></option>
                                                         <option value="Kd 1">Kode1</option>
                                                         <option value="Kd 2">Kode2</option>
@@ -113,10 +112,10 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Uraian</label>
+                                                    <label for="uraian" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="uraian" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                         </div>
@@ -126,10 +125,10 @@
                                             <b>BKM</b>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Tanggal</label>
+                                                    <label for="tanggal" style="margin-right: 10px;">Tanggal</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="date" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="date" id="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-3">
                                                     Wajib di-ENTER
@@ -137,51 +136,50 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Id. BKM</label>
+                                                    <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idBKM" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Mata Uang</label>
+                                                    <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="mataUang" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
+                                                    <select name="mataUangSelect" class="form-control" onchange="fillColumns()">
                                                         <option value="MataUang 1">MU1</option>
                                                         <option value="MataUang 2">Mu2</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <label for="id" style="margin-right: 10px;">Kurs</label>
+                                                    <label for="kurs" style="margin-right: 10px;">Kurs</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kurs" class="form-control" style="width: 100%">
                                                 </div>
 
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Jumlah Uang</label>
+                                                    <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Bank</label>
+                                                    <label for="bank" style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="bank" name="bankSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                    <select name="bankSelect" class="form-control" onchange="fillColumns()">
                                                         <option value=""></option>
                                                         <option value="Bank 1">Bank1</option>
                                                         <option value="Bank 2">Bank2</option>
@@ -190,13 +188,13 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Jenis Pembayaran</label>
+                                                    <label for="jenisPembayaran" style="margin-right: 10px;">Jenis Pembayaran</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jenisPembayaran" name="jenisPembayaranSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
+                                                    <select name="jenisPembayaranSelect" class="form-control" onchange="fillColumns()">
                                                         <option value=""></option>
                                                         <option value="JP 1">Jenis1</option>
                                                         <option value="JP 2">Jenis2</option>
@@ -208,17 +206,16 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Kode Perkiraan</label>
+                                                    <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="supplierSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
+                                                    <select name="kodePerkiraanSelect" class="form-control" onchange="fillColumns()">
                                                         <option value="Kode 1">Kd1</option>
                                                         <option value="Kode 2">Kd2</option>
                                                     </select>
@@ -226,10 +223,10 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="id" style="margin-right: 10px;">Uraian</label>
+                                                    <label for="uraian" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="number" name="supplierSelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="uraian" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                         </div>

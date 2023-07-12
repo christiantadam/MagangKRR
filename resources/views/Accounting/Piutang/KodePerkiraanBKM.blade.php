@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">Maintenance Kode Perkiraan BKK</div>
+                    <div class="card-header">Maintenance Kode Perkiraan BKM</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="">
@@ -25,11 +25,11 @@
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
-                                                            <th>Id. BKK</th>
+                                                            <th>Id. BKM</th>
                                                             <th>Bank</th>
-                                                            <th>Jns.Bayar</th>
+                                                            <th>Jns. Lunas</th>
                                                             <th>Mata Uang</th>
-                                                            <th>Nilai Pembayaran</th>
+                                                            <th>Nilai Pelunasan</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -60,7 +60,7 @@
                                                 <div class="d-flex">
                                                     <div class="col-md-6">
                                                         <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                                        <label for="radio_1">Kas Kecil</label>
+                                                        <label for="radio_2">Kas Kecil</label>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <input type="radio" name="radiogrup1" value="radio_1" id="radio_2">
@@ -70,7 +70,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="d-flex">
-                                                    <div class="col-md-1">
+                                                    <div class="col-md-1" style="padding-right: 30px">
                                                         <label for="bulan">Bulan</label>
                                                     </div>
                                                     <div class="col-md-2">
@@ -109,13 +109,13 @@
                                                 </div>
                                                 <div class="row" style="padding-left: 15px">
                                                     <div class="col-md-3">
-                                                        <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
+                                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
+                                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <select name="kode_select" class="form-control">
+                                                        <select name="bank_select" class="form-control">
                                                             <option value="option1">Kd1</option>
                                                             <option value="option2">Kd2</option>
                                                             <option value="option3">Kd3</option>
@@ -138,7 +138,7 @@
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
-                                                            <th>Rincian Bayar</th>
+                                                            <th>Rincian Pelunasan</th>
                                                             <th>Nilai Rincian</th>
                                                             <th>Kd. Perkiraan</th>
                                                         </tr>

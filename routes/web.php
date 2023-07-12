@@ -52,3 +52,12 @@ Route::get('BKMNoPenagihan', 'App\Http\Controllers\Accounting\Piutang\BKMNoPenag
 Route::get('CreateBKM', 'App\Http\Controllers\Accounting\Piutang\BKMCashAdvance\CreateBKMController@index');
 Route::get('UpdateDetailBKM', 'App\Http\Controllers\Accounting\Piutang\BKMCashAdvance\UpdateDetailBKMController@UpdateDetailBKM');
 Route::get('BKMTransitorisBank', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@BKMTransitorisBank');
+Route::get('BatalBKMTransitoris', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@BatalBKMTransitoris');
+Route::get('BKMBKKPembulatan', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@BKMBKKPembulatan');
+Route::get('BKMDPPelunasan', 'App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController@BKMDPPelunasan');
+Route::get('BKMBKKNotaKredit', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@BKMBKKNotaKredit');
+Route::get('BKMLC', 'App\Http\Controllers\Accounting\Piutang\BKMLCController@BKMLC');
+Route::get('BKMPengembalianKE', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@BKMPengembalianKE');
+Route::get('UpdateKursBKM', 'App\Http\Controllers\Accounting\Piutang\UpdateKursBKMController@UpdateKursBKM');
+Route::get('KodePerkiraanBKM', 'App\Http\Controllers\Accounting\Piutang\KodePerkiraanBKMController@KodePerkiraanBKM');
+Route::get('MaintenanceInformasiBank', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\MaintenanceInformasiBankController@MaintenanceInformasiBank');

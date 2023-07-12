@@ -31,60 +31,60 @@
                                 </div>
                                 <br><div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">BKK</label>
+                                        <label for="bkk" style="margin-right: 10px;">BKK</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="bkk" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <hr style="height:2px;">
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Status Penagihan</label>
+                                        <label for="statusPenagihan" style="margin-right: 10px;">Status Penagihan</label>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="statusPenagihan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Mata Uang</label>
+                                        <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="mataUang" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Nilai BKK</label>
+                                        <label for="nilaiBKK" style="margin-right: 10px;">Nilai BKK</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="nilaiBKK" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <br><div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Status Pelunasan</label>
+                                        <label for="statusPelunasan" style="margin-right: 10px;">Status Pelunasan</label>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="statusPelunasan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Status BATAL</label>
+                                        <label for="statusBatal" style="margin-right: 10px;">Status BATAL</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="statusBatal" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <hr style="height:2px;">
                                 <div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">Alasan</label>
+                                        <label for="alasan" style="margin-right: 10px;">Alasan</label>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="text" id="alasan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
