@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
+
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
@@ -25,7 +26,7 @@
                 <button class="btn btn-success" onclick="Gantitap('scrap')" id="scrap1">Scrap</button>
               </div>
             </div>
-            <div id="kalenderdrill1" style="display: ">
+            <div id="kalenderdrill1" style="display: none">
               <div id="JenisBulan1" style="display: none"> {{-- bulan 31 --}}
                 <div style="padding-top:10px">
                   <div class="row">
@@ -2294,4 +2295,5 @@
       </div>
     </div>
   </div>
+  <script src="{{ asset('js/Grafikdrill.js') }}"></script>
 @endsection

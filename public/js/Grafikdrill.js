@@ -64,43 +64,43 @@ function generateCalendar() {
   //drill 2
   var tigasatuharidrill2 = document.getElementById("JenisBulan1drill2");
   var tigapuluhharidrill2 = document.getElementById("JenisBulan2drill2");
-  var duasembilanhariDrill2 = document.getElementById("JenisBulan3drill2");
-  var duadelapanhariDrill2 = document.getElementById("JenisBulan4drill2");
+  var duasembilanharidrill2 = document.getElementById("JenisBulan3drill2");
+  var duadelapanharidrill2 = document.getElementById("JenisBulan4drill2");
   //mill
   var tigasatuharimill = document.getElementById("JenisBulan1mill");
   var tigapuluhharimill = document.getElementById("JenisBulan2mill");
-  var duasembilanhariMill = document.getElementById("JenisBulan3mill");
-  var duadelapanhariMill = document.getElementById("JenisBulan4mill");
+  var duasembilanharimill = document.getElementById("JenisBulan3mill");
+  var duadelapanharimill = document.getElementById("JenisBulan4mill");
 
   //scrap
   var tigasatuhariscrap = document.getElementById("JenisBulan1scrap");
   var tigapuluhhariscrap = document.getElementById("JenisBulan2scrap");
-  var duasembilanhariScrap = document.getElementById("JenisBulan3scrap");
-  var duadelapanhariScrap = document.getElementById("JenisBulan4scrap");
+  var duasembilanhariscrap = document.getElementById("JenisBulan3scrap");
+  var duadelapanhariscrap = document.getElementById("JenisBulan4scrap");
 
   var daysInMonth = new Date(yearInput, monthInput, 0).getDate();
-
-  if (daysInMonth === 31) {
+console.log(daysInMonth);
+  if (daysInMonth == 31) {
     tigasatuhari.style.display = "block";
     tigapuluhhari.style.display = "none";
     duadelapanhari.style.display = "none";
     duasembilanhari.style.display = "none";
 
-    tigasatuhariDrill2.style.display = "block";
-    tigapuluhhariDrill2.style.display = "none";
-    duadelapanhariDrill2.style.display = "none";
-    duasembilanhariDrill2.style.display = "none";
+    tigasatuharidrill2.style.display = "block";
+    tigapuluhharidrill2.style.display = "none";
+    duadelapanharidrill2.style.display = "none";
+    duasembilanharidrill2.style.display = "none";
 
     tigasatuharimill.style.display = "block";
     tigapuluhharimill.style.display = "none";
-    duadelapanhariMill.style.display = "none";
-    duasembilanhariMill.style.display = "none";
+    duadelapanharimill.style.display = "none";
+    duasembilanharimill.style.display = "none";
 
     tigasatuhariscrap.style.display = "block";
     tigapuluhhariscrap.style.display = "none";
-    duadelapanhariScrap.style.display = "none";
-    duasembilanhariScrap.style.display = "none";
-console.log(tigasatuhariDrill2);
+    duadelapanhariscrap.style.display = "none";
+    duasembilanhariscrap.style.display = "none";
+console.log(tigasatuharidrill2);
   } else if (daysInMonth == 30) {
     tigasatuhari.style.display = "none";
     tigapuluhhari.style.display = "block";
