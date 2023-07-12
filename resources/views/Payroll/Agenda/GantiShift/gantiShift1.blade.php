@@ -10,6 +10,8 @@
                     <div style="text-align: left; margin-top: 20px; margin-left:15px">
                         <button type="button" class="btn btn-info" onclick="toggleCardAutomatic()">Automatic</button>
                         <button type="button" class="btn btn-light" onclick="toggleCardSimpang()">Simpang Shift</button>
+                        <button type="button" class="btn btn-light" onclick="toggleCardTes()">Tes</button>
+
                     </div>
                     <br>
                     <div style="flex: 1; margin-right: 10px;">
@@ -74,6 +76,50 @@
                     <div style="text-align: left; margin-top: 20px; margin-left:15px">
                         <button type="button" class="btn btn-light" onclick="toggleCardAutomatic()">Automatic</button>
                         <button type="button" class="btn btn-info" onclick="toggleCardSimpang()">Simpang Shift</button>
+                        <button type="button" class="btn btn-light" onclick="toggleCardTes()">Tes</button>
+                    </div>
+                    <br>
+                    <div style="flex: 1; margin-right: 10px;">
+
+                        <div style="display: flex; align-items: center;">
+                            <label style="margin-right: 10px; margin-left: 15px">Tanggal</label>
+                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                            <label style="margin-right: 10px; margin-left: 15px">S/D</label>
+                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+
+
+                        </div>
+
+                    </div>
+
+                    <div style="display: flex; margin:20px;width:250px">
+                        <label style="margin-bottom: 5px; margin-right:18px">No</label>
+                        <div class="textbox-container" style="margin-left: 20px">
+                            <input type="text" class="form-control" id="ketLembur" name="ketLembur">
+                        </div>
+                        <button type="button" class="btn btn-light">...</button>
+                    </div>
+
+                    <div style="display: flex; margin:20px;">
+                        <label style="margin-bottom: 5px; margin-right:18px">Nama</label>
+                        <div class="textbox-container" style="width:450px">
+                            <input type="text" class="form-control" id="ketLembur" name="ketLembur">
+                        </div>
+
+                    </div>
+
+
+
+                    <br>
+                </div>
+                <div class="card" id="thirdCard" style="display: none;">
+                    <div class="card-header">Form Ganti Shift</div>
+                    <div style="text-align: left; margin-top: 20px; margin-left:15px">
+                        <button type="button" class="btn btn-light" onclick="toggleCardAutomatic()">Automatic</button>
+                        <button type="button" class="btn btn-light" onclick="toggleCardSimpang()">Simpang Shift</button>
+                        <button type="button" class="btn btn-info" onclick="toggleCardTes()">Tes</button>
                     </div>
                     <br>
                     <div style="flex: 1; margin-right: 10px;">
@@ -121,17 +167,27 @@
         function toggleCardAutomatic() {
             var firstCard = document.getElementById('firstCard');
             var secondCard = document.getElementById('secondCard');
-
+            var thirdCard = document.getElementById('thirdCard');
             firstCard.style.display = 'block';
-            secondCard.style.display = 'none'
+            secondCard.style.display = 'none';
+            thirdCard.style.display = 'none';
         }
 
         function toggleCardSimpang() {
             var firstCard = document.getElementById('firstCard');
             var secondCard = document.getElementById('secondCard');
-
+            var thirdCard = document.getElementById('thirdCard');
             firstCard.style.display = 'none';
-            secondCard.style.display = 'block'
+            secondCard.style.display = 'block';
+            thirdCard.style.display = 'none';
+        }
+        function toggleCardTes() {
+            var firstCard = document.getElementById('firstCard');
+            var secondCard = document.getElementById('secondCard');
+            var secondCard = document.getElementById('secondCard');
+            firstCard.style.display = 'none';
+            secondCard.style.display = 'none';
+            thirdCard.style.display = 'block';
         }
     </script>
 @endsection

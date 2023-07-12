@@ -9708,3 +9708,17 @@ button[type="submit"] {
     position: relative;
     background-color: white;
 }
+
+.data1{
+    border: solid 1px black;
+    margin-bottom: auto;
+    margin: 15px;
+}
+
+.data1::before{
+    content: "Data Sebelumnya";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}

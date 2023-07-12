@@ -235,17 +235,17 @@
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/KenaikanUpah') }}">Kenaikan Upah</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Absen') }}">Absen > 1</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Absen1') }}">Absen > 1</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" >Skorsing &raquo;</a>
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Skorsing/Permohonan') }}">Permohonan</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">ACC Bayar</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Skorsing/AccBayar') }}">ACC Bayar</a>
                                             </li>
 
 
@@ -256,10 +256,10 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/Permohonan') }}">Permohonan</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Acc Permohonan</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/AccPermohonan') }}">Acc Permohonan</a>
                                             </li>
 
 
@@ -269,16 +269,16 @@
                                             tabindex="-1">Copy Gaji To. TXT</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Proses Rekap Absen & Lembur</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Rekap') }}">Proses Rekap Absen & Lembur</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Estimasi Gaji</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/EstimasiGaji') }}">Estimasi Gaji</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Hit Gaji Harian</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/HitGajiHarian') }}">Hit Gaji Harian</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Hit THR Harian</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/HitTHRHarian') }}">Hit THR Harian</a>
                                     </li>
 
                                 </ul>
@@ -298,10 +298,10 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Laporan Absen Abnormal</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/LaporanAbnormal') }}">Laporan Absen Abnormal</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Daftar Lembur By Supervisor</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/DaftarLembur') }}">Daftar Lembur By Supervisor</a>
                                             </li>
 
                                         </ul>
