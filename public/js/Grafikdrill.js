@@ -107,59 +107,59 @@ console.log(tigasatuharidrill2);
     duadelapanhari.style.display = "none";
     duasembilanhari.style.display = "none";
 
-    tigasatuhariDrill2.style.display = "none";
-    tigapuluhhariDrill2.style.display = "block";
-    duadelapanhariDrill2.style.display = "none";
-    duasembilanhariDrill2.style.display = "none";
+    tigasatuharidrill2.style.display = "none";
+    tigapuluhharidrill2.style.display = "block";
+    duadelapanharidrill2.style.display = "none";
+    duasembilanharidrill2.style.display = "none";
 
     tigasatuharimill.style.display = "none";
     tigapuluhharimill.style.display = "block";
-    duadelapanhariMill.style.display = "none";
-    duasembilanhariMill.style.display = "none";
+    duadelapanharimill.style.display = "none";
+    duasembilanharimill.style.display = "none";
 
     tigasatuhariscrap.style.display = "none";
     tigapuluhhariscrap.style.display = "block";
-    duadelapanhariScrap.style.display = "none";
-    duasembilanhariScrap.style.display = "none";
+    duadelapanhariscrap.style.display = "none";
+    duasembilanhariscrap.style.display = "none";
   } else if (daysInMonth == 29) {
     tigasatuhari.style.display = "none";
     tigapuluhhari.style.display = "none";
     duadelapanhari.style.display = "none";
     duasembilanhari.style.display = "block";
 
-    tigasatuhariDrill2.style.display = "none";
-    tigapuluhhariDrill2.style.display = "none";
-    duadelapanhariDrill2.style.display = "none";
-    duasembilanhariDrill2.style.display = "block";
+    tigasatuharidrill2.style.display = "none";
+    tigapuluhharidrill2.style.display = "none";
+    duadelapanharidrill2.style.display = "none";
+    duasembilanharidrill2.style.display = "block";
 
     tigasatuharimill.style.display = "none";
     tigapuluhharimill.style.display = "none";
-    duadelapanhariMill.style.display = "none";
-    duasembilanhariMill.style.display = "block";
+    duadelapanharimill.style.display = "none";
+    duasembilanharimill.style.display = "block";
 
     tigasatuhariscrap.style.display = "none";
     tigapuluhhariscrap.style.display = "none";
-    duadelapanhariScrap.style.display = "none";
-    duasembilanhariScrap.style.display = "block";
+    duadelapanhariscrap.style.display = "none";
+    duasembilanhariscrap.style.display = "block";
   } else if (daysInMonth == 28) {
     tigasatuhari.style.display = "none";
     tigapuluhhari.style.display = "none";
     duadelapanhari.style.display = "block";
     duasembilanhari.style.display = "none";
 
-    tigasatuhariDrill2.style.display = "none";
-    tigapuluhhariDrill2.style.display = "none";
-    duadelapanhariDrill2.style.display = "block";
-    duasembilanhariDrill2.style.display = "none";
+    tigasatuharidrill2.style.display = "none";
+    tigapuluhharidrill2.style.display = "none";
+    duadelapanharidrill2.style.display = "block";
+    duasembilanharidrill2.style.display = "none";
 
     tigasatuharimill.style.display = "none";
     tigapuluhharimill.style.display = "none";
-    duadelapanhariMill.style.display = "block";
-    duasembilanhariMill.style.display = "none";
+    duadelapanharimill.style.display = "block";
+    duasembilanharimill.style.display = "none";
 
     tigasatuhariscrap.style.display = "none";
     tigapuluhhariscrap.style.display = "none";
-    duadelapanhariScrap.style.display = "block";
-    duasembilanhariScrap.style.display = "none";
+    duadelapanhariscrap.style.display = "block";
+    duasembilanhariscrap.style.display = "none";
   }
 }
