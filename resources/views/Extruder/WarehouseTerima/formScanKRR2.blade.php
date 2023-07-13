@@ -18,6 +18,17 @@
                 </div>
 
                 <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <label for="objek">Objek:</label>
+                        <div class="input-group">
+                            <input type="text" name="objek1" id="objek1" class="form-control">
+                            <input type="text" name="objek2" id="objek2" class="form-control">
+                            <button type="button" class="btn btn-outline-secondary">...</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
                     <div class="col-lg-6">
                         <label for="no_barcode">No. Barcode:</label>
                         <input type="text" name="no_barcode" id="no_barcode" class="form-control">

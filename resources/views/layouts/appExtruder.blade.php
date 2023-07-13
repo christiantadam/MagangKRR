@@ -143,6 +143,29 @@
                     @elseif($formName == 'formMojosariD_Perawatan')
                     <h1><a href="#">Perawatan Mojosari Gedung D</a></h1>
 
+                    @elseif($formName == 'formScanGelondongan')
+                    <h1><a href="#">Scan Kirim Barcode Gelondongan</a></h1>
+                    @elseif($formName == 'formBatalGelondongan')
+                    <h1><a href="#">Batal Kirim Barcode Gelondongan</a></h1>
+                    @elseif($formName == 'formScanAssesoris')
+                    <h1><a href="#">Scan Kirim Barcode Assesoris</a></h1>
+                    @elseif($formName == 'formBatalAssesoris')
+                    <h1><a href="#">Batal Kirim Barcode Assesoris</a></h1>
+                    @elseif($formName == 'formScanKRR2')
+                    <h1><a href="#">Scan Kirim Barcode Kerta 2</a></h1>
+                    @elseif($formName == 'formBatalKRR2')
+                    <h1><a href="#">Batal Kirim Barcode Kerta 2</a></h1>
+                    @elseif($formName == 'formTerimaKRR2')
+                    <h1><a href="#">Terima JBN-JBK-JBJ-JBL</a></h1>
+                    @elseif($formName == 'formStokSetengah')
+                    <h1><a href="#">Kirim KRR2</a></h1>
+                    @elseif($formName == 'formCekBarcode')
+                    <h1><a href="#">Cek Barcode</a></h1>
+                    @elseif($formName == 'formTerimaPeletan')
+                    <h1><a href="#">Terima Barang Peletan</a></h1>
+                    @elseif($formName == 'formGagalPeletan')
+                    <h1><a href="#">Tidak Terima Peletan</a></h1>
+
                     @else
                     <h1><a href="/Extruder">Extruder</a></h1>
                     @endif
@@ -326,16 +349,17 @@
                         <ul class="warehouse" style="border: black solid 3px;">
                             <li><a href="/Extruder/WarehouseTerima/formScanGelondongan">Scan Kirim<br>Gelondongan</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Batal Kirim<br>Gelondongan</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Scan Kirim<br>Assesoris</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Batal Kirim<br>Assesoris</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Scan Kirim<br>KRR2</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Batal Kirim<br>KRR2</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Cek<br>Barcode</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Terima<br>KRR2</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Stok<br>Setengah Jadi</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Scan Terima<br>Peletan</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/namaForm">Gagal Terima<br>Peletan</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formBatalGelondongan">Batal Kirim<br>Gelondongan</a>
+                            </li>
+                            <li><a href="/Extruder/WarehouseTerima/formScanAssesoris">Scan Kirim<br>Assesoris</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formBatalAssesoris">Batal Kirim<br>Assesoris</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formScanKRR2">Scan Kirim<br>KRR2</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formBatalKRR2">Batal Kirim<br>KRR2</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formCekBarcode">Cek<br>Barcode</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formTerimaKRR2">Terima<br>KRR2</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formStokSetengah">Stok<br>Setengah Jadi</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formTerimaPeletan">Scan Terima<br>Peletan</a></li>
+                            <li><a href="/Extruder/WarehouseTerima/formGagalPeletan">Gagal Terima<br>Peletan</a></li>
                             <li><a href="/Extruder">Keluar</a></li>
                         </ul>
                         @endif

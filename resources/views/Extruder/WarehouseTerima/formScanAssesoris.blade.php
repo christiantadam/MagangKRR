@@ -28,6 +28,30 @@
                     </div>
                 </div>
 
+                <div class="row mt-3">
+                    <div class="col-lg-2">
+                        <span class="aligned-text">Tujuan:</span>
+                    </div>
+                    <div class="col-lg-6 row d-flex align-items-center">
+                        <div class="col-md-6 text-end">
+                            <div class="form-check">
+                                <input type="radio" name="tanggal" value="mojosari" id="mojosari">
+                                <label for="mojosari">
+                                    Mojosari
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-start">
+                            <div class="form-check">
+                                <input type="radio" name="tanggal" value="nganjuk" id="nganjuk">
+                                <label for="nganjuk">
+                                    Nganjuk
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-lg-6">
@@ -42,7 +66,7 @@
             </div>
         </div>
 
-        <div class="mt-4">
+        <div class="mt-5">
             <span>Rekap Barcode yang diterima</span>
 
             <table class="table table-hover">

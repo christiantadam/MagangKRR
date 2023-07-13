@@ -5,7 +5,6 @@
     <form>
         <div class="row mt-3">
             <div class="col-lg-6">
-
                 <div class="row">
                     <div class="col-lg-12">
                         <label for="divisi">Divisi:</label>
@@ -16,27 +15,11 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-3">
-                    <div class="col-lg-6">
-                        <label for="no_barcode">No. Barcode:</label>
-                        <input type="text" name="no_barcode" id="no_barcode" class="form-control">
-                    </div>
-
-                    <div class="col-lg-4">
-                        <span style="display: flex; margin-top: 25px;">Tekan Enter</span>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-outline-warning"
-                    style="height: 75px; margin-left: 25px;">Lihat<br>Data</button>
-                <button type="button" class="btn btn-outline-success"
-                    style="height: 75px; margin-left: 25px;">Proses</button>
-                <button type="button" class="btn btn-outline-danger"
-                    style="height: 75px; margin-left: 25px;">Keluar</button>
+            <div class="col-lg-4"></div>
+
+            <div class="col-lg-2">
                 <button type="button" class="btn btn-outline-secondary" disabled
                     style="height: 75px; margin-left: 25px;">0</button>
             </div>
@@ -110,6 +93,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="mt-3 mb-5 float-end text-center">
+            <button type="submit" class="btn btn-outline-success" style="margin-right: 10px;">Proses</button>
+            <button type="button" class="btn btn-outline-danger" style="margin-right: 10px;">Batal Proses</button>
+            <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;">Keluar</button>
         </div>
     </form>
 </div>
