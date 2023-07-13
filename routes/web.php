@@ -74,3 +74,24 @@ Route::get('DrillMillScrap', 'App\Http\Controllers\WORKSHOP\Gps\InformasiPengerj
 
 #Workshop
 Route::get('Workshop', 'App\Http\Controllers\HomeController@Workshop');
+
+// Workshop - Master
+Route::get('MaintenanceDrafter', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceDrafter');
+Route::get('MaintenanceDivisi', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceDivisi');
+Route::get('MaintenanceMesin', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceMesin');
+Route::get('UpdateNoGambar', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@UpdateNoGambar');
+
+// Workshop - Transaksi
+Route::get('MaintenanceOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceOrderGambar');
+Route::get('ACCManagerGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerGambar');
+Route::get('ACCDirekturGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturGambar');
+Route::get('PenerimaOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderGambar');
+Route::get('ProsesPembeliGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ProsesPembeliGambar');
+Route::get('StatusOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderGambar');
+Route::get('MaintenanceNomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceNomorGambar');
+Route::get('MaintenanceOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceOrderKerja');
+Route::get('ACCManagerKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerKerja');
+Route::get('ACCDirekturKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturKerja');
+Route::get('PenerimaOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderKerja');
+Route::get('CetakSuratOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@CetakSuratOrderKerja');
+Route::get('StatusOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderKerja');

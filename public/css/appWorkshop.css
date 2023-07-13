@@ -9473,14 +9473,46 @@ a.text-dark:hover {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .04)
 }
-.keterangan{
-    border :solid 1px black;
+
+.keterangan {
+    border: solid 1px black;
     margin-bottom: auto;
     top: 10px;
 }
-.keterangan::before{
+
+.keterangan::before {
     content: "keterangan";
     top: -12px;
     position: relative;
     background-color: white;
+}
+
+/* Custom CSS Workshop */
+
+.custom-alignment {
+    display: flex;
+    justify-content: end;
+    margin-top: 7.5px;
+}
+
+.custom-btn {
+    min-width: 95px;
+}
+
+.workshop-logo {
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+
+.content-center {
+    display: flex;
+    justify-content: center;
+}
+
+.card-keterangan {
+    background: lightyellow;
+    transform: scale(0.8);
+    transform-origin: 0 0;
+    translate: 10%;
 }
