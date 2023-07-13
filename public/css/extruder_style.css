@@ -227,6 +227,21 @@ a:hover {
   }
 }
 
+.warehouse a,
+.warehouse a:focus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 10px 10px;
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  white-space: nowrap;
+  transition: 0.3s;
+  border-left: black solid 1px;
+}
+
 /**
 * Mobile Navigation 
 */
