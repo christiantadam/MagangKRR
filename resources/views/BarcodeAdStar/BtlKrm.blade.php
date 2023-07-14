@@ -344,7 +344,7 @@
         </main>
     </div>
 
-    <h2>Scan Barcode Sebelum Dikirim Ke Gudang</h2>
+    <h2>Form Batal Kirim Gudang</h2>
 
     <div class="form-wrapper mt-4">
         <div class="form-container">
@@ -354,19 +354,30 @@
                 <form action="#" method="post" role="form">
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">No Barcode:</span>
+                            <span class="aligned-text">Divisi:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="No_barcode" id="No_barcode" placeholder="No Barcode" required>
+                            <input type="text" class="form-control" name="Divisi" id="Divisi" placeholder="Divisi" required>
+                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">No SP:</span>
+                            <span class="aligned-text">Objek:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="No_sp" id="No_sp" placeholder="No SP" required>
+                            <input type="text" class="form-control" name="Objek" id="Objek" placeholder="Objek" required>
+                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Kelompok Utama:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Kelompok_Utama" id="Kelompok_Utama" placeholder="Kelompok Utama" required>
                             <div class="text-center col-md-auto"><button type="submit">...</button></div>
                         </div>
                     </div>
@@ -388,30 +399,13 @@
                         </div>
                     </div>
 
-                    <div class="card mt-4">
-                    <h5 class="mt-3">Daftar Barcode Yang Dikirim</h5>
-                            <table>
-                                <tr>
-                                    <th>Tanggal </th>
-                                    <th>Type </th>
-                                    <th>Shift </th>
-                                    <th>No Barcode </th>
-                                    <th>SubKelompok </th>
-                                    <th>Kelompok </th>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
 
 
 
                     <div class="row mt-3">
                         <div class="col- row justify-content-md-center">
-                            <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Belum Dikirim</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Cari</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Hapus</button></div>
                         </div>
                     </div>
                 </form>

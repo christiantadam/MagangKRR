@@ -37,3 +37,6 @@ Route::get('Repress', 'App\Http\Controllers\BarcodeAdStarController\Repress@inde
 Route::get('CtkBrcdRsk', 'App\Http\Controllers\BarcodeAdStarController\CtkBrcdRsk@index');
 
 Route::get('HngsBrcd', 'App\Http\Controllers\BarcodeAdStarController\HngsBrcd@index');
+Route::get('KrmGdng', 'App\Http\Controllers\BarcodeAdStarController\KrmGdng@index');
+Route::get('BtlKrm', 'App\Http\Controllers\BarcodeAdStarController\BtlKrm@index');
+Route::get('KnvGdng', 'App\Http\Controllers\BarcodeAdStarController\KnvGdng@index');

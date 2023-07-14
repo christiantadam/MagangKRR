@@ -44,147 +44,147 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 
-        <style>
-            .body {
-                font-family: Arial, sans-serif;
-                max-width: px;
-                margin: 0 auto;
-                padding: 20px;
-            }
+    <style>
+        .body {
+            font-family: Arial, sans-serif;
+            max-width: px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-            h2 {
-                text-align: center;
-            }
+        h2 {
+            text-align: center;
+        }
 
-            .card {
-                border: 1px solid #ccc;
-                padding: 20px;
-                border-radius: 5px;
-                margin-bottom: 20px;
-                background-color: #f9f9f9;
-            }
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
 
-            .card-title {
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-            .input-container {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-            }
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-            .input-container label {
-                margin-right: 10px;
-            }
+        .input-container label {
+            margin-right: 10px;
+        }
 
-            .input-container input[type="text"],
-            .input-container input[type="number"] {
-                flex: 1;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
+        .input-container input[type="text"],
+        .input-container input[type="number"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-            .input-container button {
-                margin-left: 10px;
-                cursor: pointer;
-            }
+        .input-container button {
+            margin-left: 10px;
+            cursor: pointer;
+        }
 
-            .button-container {
-                display: flex;
-                max-width: 600px;
-                justify-content: space-between;
-                margin-top: 20px;
-                margin-left: 40px;
-            }
+        .button-container {
+            display: flex;
+            max-width: 600px;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 40px;
+        }
 
-            .button-container button {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                color: #fff;
-                cursor: pointer;
-            }
+        .button-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
 
-            .button-container button.ord {
-                background-color: #737573;
-                max-width: 200px;
-            }
+        .button-container button.ord {
+            background-color: #737573;
+            max-width: 200px;
+        }
 
-            .button-container button.add {
-                background-color: #4CAF50;
-                max-width: 100px;
-            }
+        .button-container button.add {
+            background-color: #4CAF50;
+            max-width: 100px;
+        }
 
-            .button-container button.update {
-                background-color: #2196F3;
-                max-width: 100px;
-            }
+        .button-container button.update {
+            background-color: #2196F3;
+            max-width: 100px;
+        }
 
-            .button-container button.del {
-                background-color: #f44336;
-                max-width: 100px;
-            }
+        .button-container button.del {
+            background-color: #f44336;
+            max-width: 100px;
+        }
 
 
-            .scrollable-container {
-                max-height: 300px;
-                overflow-y: auto;
-                margin-top: 20px;
-            }
+        .scrollable-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
 
-            .form-wrapper {
-                display: flex;
-                justify-content: center;
-            }
+        .form-wrapper {
+            display: flex;
+            justify-content: center;
+        }
 
-            .form-container {
-                max-width: 800px;
-                width: 100%;
-            }
+        .form-container {
+            max-width: 800px;
+            width: 100%;
+        }
 
-            .form-group {
-                display: flex;
-                align-items: center;
-            }
+        .form-group {
+            display: flex;
+            align-items: center;
+        }
 
-            .aligned-text {
-                margin-right: 10px;
-            }
+        .aligned-text {
+            margin-right: 10px;
+        }
 
-            .mt-3 {
-                margin-top: 15px;
-            }
+        .mt-3 {
+            margin-top: 15px;
+        }
 
-            .mt-4 {
-                margin-top: 30px;
-            }
+        .mt-4 {
+            margin-top: 30px;
+        }
 
-            .mt-md-0 {
-                margin-top: 0;
-            }
+        .mt-md-0 {
+            margin-top: 0;
+        }
 
-            .text-center {
-                text-align: center;
-            }
+        .text-center {
+            text-align: center;
+        }
 
-            .row.justify-content-md-center {
-                justify-content: center;
-                width:2000px ;
-            }
+        .row.justify-content-md-center {
+            justify-content: center;
+            width:2000px ;
+        }
 
-            button[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                padding: 8px 12px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-        </style>
+    </style>
 </head>
 
 <body onload="Greeting()">
@@ -344,9 +344,12 @@
         </main>
     </div>
 
-    <h2>Scan Barcode Sebelum Dikirim Ke Gudang</h2>
+    <h2>Konversi Barcode</h2>
 
-    <div class="form-wrapper mt-4">
+    <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
+        <div class="card-body" style="flex: 1; margin-right: -20px; margin-left: 75px;">
+        <!-- Konten Card Body Kiri -->
+        <div class="form-wrapper mt-4">
         <div class="form-container">
         <div class="card">
             <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -354,64 +357,108 @@
                 <form action="#" method="post" role="form">
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">No Barcode:</span>
+                            <span class="aligned-text">Tanggal:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="No_barcode" id="No_barcode" placeholder="No Barcode" required>
+                            <input type="date" class="form-control" name="Tanggal" id="Tanggal" placeholder="Tanggal" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">No SP:</span>
+                            <span class="aligned-text">Shift:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="No_sp" id="No_sp" placeholder="No SP" required>
-                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                            <input type="text" class="form-control" name="Shift" id="Shift" placeholder="Shift" required>
                         </div>
                     </div>
-
-                    <div class="card mt-4">
-                    <h5 class="mt-3">Rekap Barcode Yang Dikirim</h5>
-                            <table>
-                                <tr>
-                                    <th>Tanggal </th>
-                                    <th>Type </th>
-                                    <th>Shift </th>
-                                    <th>Primer </th>
-                                    <th>Sekunder </th>
-                                    <th>Tertier </th>
-                                    <th>IdType</th>
-                                    <th>-</th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="card mt-4">
-                    <h5 class="mt-3">Daftar Barcode Yang Dikirim</h5>
-                            <table>
-                                <tr>
-                                    <th>Tanggal </th>
-                                    <th>Type </th>
-                                    <th>Shift </th>
-                                    <th>No Barcode </th>
-                                    <th>SubKelompok </th>
-                                    <th>Kelompok </th>
-                                    <th>-</th>
-                                    <th>-</th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
-
-
 
                     <div class="row mt-3">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Barcode:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <textarea class="form-control" name="type" rows="3" placeholder="Type" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Type Asal:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Jenis" id="Jenis" placeholder="Jenis" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Type Tujuan:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Satuan" id="Satuan" placeholder="Satuan" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Dibisi:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Lembar" id="Lembar" placeholder="Lembar" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+        <div class="card-body" style="flex: 1; margin-left: 10px;">
+        <!-- Konten Card Body Kanan-->
+        <div class="form-wrapper mt-4">
+        <div class="form-container">
+        <div class="card">
+            <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+            <div class="form berat_woven">
+                <form action="#" method="post" role="form">
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Primer:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Primer" id="Primer" placeholder="Primer">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Sekunder:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Sekunder" id="Primer" placeholder="Sekunder">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Tertier:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Tertier" id="Tertier" placeholder="Tertier">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
                         <div class="col- row justify-content-md-center">
-                            <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Belum Dikirim</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Pilih Shift</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Scan Barcode</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Pilih Type</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Timbang</button></div>
+                        </div>
+                        <div class="col- row justify-content-md-center mt-4">
+                            <div class="text-center col-md-auto"><button type="submit">Print Barcode</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">ACC Barcode</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Print Ulang</button></div>
                         </div>
                     </div>
                 </form>
