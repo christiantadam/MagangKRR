@@ -254,39 +254,57 @@
                     tabindex="-1" href="{{ url('DrillMillScrap') }}">Grafik Mesin Drill/Mill/Scrap</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Grinding</a>
+                    tabindex="-1" href="{{ url('MesinGrinding') }}">Grafik Mesin Grinding</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Las</a>
+                    tabindex="-1" href="{{ url('MesinLas') }}">Grafik Mesin Las</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Punch/Inject/Casting</a>
+                    tabindex="-1" href="{{url('PunchInjectCasting')}}">Grafik Mesin Punch/Inject/Casting</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Turning</a>
+                    tabindex="-1" href="{{url('Turning')}}">Grafik Mesin Turning</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Finishing</a>
+                    tabindex="-1" href="{{url('Finishing')}}">Grafik Mesin Finishing</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Mesin Makloon</a>
-                </li>
-                <hr style="height:2px;">
-                <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Grafik Pengerjaan Per Order</a>
-                </li>
-                <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Jadwal Pengerjaan per bulan</a>
+                    tabindex="-1" href="{{url('ProsesMakloon')}}">Grafik Mesin Makloon</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Histori Proses Pengerjaan</a>
+                    tabindex="-1" href="{{url('PengerjaanPerOrder')}}">Grafik Pengerjaan Per Order</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1">Daftar Spare Part Per Order</a>
+                    tabindex="-1" href="{{url('PengerjaanPerBulan')}}">Jadwal Pengerjaan per bulan</a>
+                </li>
+                <hr style="height:2px;">
+                <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    tabindex="-1" href="{{url('HistoriProsesPengerjaan')}}">Histori Proses Pengerjaan</a>
+                </li>
+                <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    tabindex="-1" href="{{url('DaftarSPerPart')}}">Daftar Sper Part Per Order</a>
                 </li>
               </ul>
             </div>
+            {{-- Laporan --}}
+            <div class="dropdown">
+                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                    Laporan
+                </a>
+                <ul class="dropdown-menu" style="cursor: default">
+                  <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                      tabindex="-1" href="{{ url('') }}">Order Gambar Masuk</a>
+                  </li>
+                  <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                      tabindex="-1" href="{{ url('OrderPengerjaanMasuk') }}">Order Pengerjaan Masuk</a>
+                  </li>
+                  <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                      tabindex="-1" href="{{ url('HasilPengerjaan') }}">Hasil Pengerjaan</a>
+                  </li>
+                </ul>
+              </div>
           </ul>
           {{-- laporan --}}
           {{-- windows --}}

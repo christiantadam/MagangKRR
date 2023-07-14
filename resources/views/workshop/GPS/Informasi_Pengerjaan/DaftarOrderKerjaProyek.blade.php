@@ -28,30 +28,31 @@
                 <p style="color:rgb(49, 76, 255)">xxxxx -> : Not Ready</p>
               </div>
             </div>
+            <div class="table-responsive">
+                <table class="table " style="padding-top: 15px; width:max-content;">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Nomor Order</th>
+                      <th>DM</th>
+                      <th>Nama Barang</th>
+                      <th>Nama Bagian</th>
+                      <th>Tanggal Start</th>
+                      <th>Kode Barang</th>
+                      <th>Divisi</th>
+                      <th>Status Order</th>
+                      <th>Jumlah Order</th>
+                      <th>Tanggal Finish</th>
+                      <th>Status Mtr</th>
+                      <th>Total Biaya</th>
+                      <th>Tanggal Bon</th>
 
-            <table class="table " style="padding-top: 15px; width:max-content;">
-              <thead class="table-dark">
-                <tr>
-                  <th>Nomor Order</th>
-                  <th>DM</th>
-                  <th>Nama Barang</th>
-                  <th>Nama Bagian</th>
-                  <th>Tanggal Start</th>
-                  <th>Kode Barang</th>
-                  <th>Divisi</th>
-                  <th>Status Order</th>
-                  <th>Jumlah Order</th>
-                  <th>Tanggal Finish</th>
-                  <th>Status Mtr</th>
-                  <th>Total Biaya</th>
-                  <th>Tanggal Bon</th>
+                    </tr>
+                  </thead>
+                  <tbody>
 
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
+                  </tbody>
+                </table>
+            </div>
 
             <div class="mb-3" style="padding-top: 18px">
               <div class="row">
