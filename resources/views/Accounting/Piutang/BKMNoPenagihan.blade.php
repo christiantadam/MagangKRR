@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">Maintenance Bukti Kas Masuk Tunai</div>
+                    <div class="card-header">Maintenance BKM No Penagihan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="">

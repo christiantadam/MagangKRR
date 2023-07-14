@@ -47,9 +47,9 @@ Route::get('MaintenanceKursBKK', 'App\Http\Controllers\Accounting\Hutang\Mainten
 Route::get('BatalBKK', 'App\Http\Controllers\Accounting\Hutang\BatalBKKController@BatalBKK');
 Route::get('UraianBKK', 'App\Http\Controllers\Accounting\Hutang\UraianBKKController@UraianBKK');
 
-Route::get('MaintenanceBKMPenagihan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@index');
-Route::get('BKMNoPenagihan', 'App\Http\Controllers\Accounting\Piutang\BKMNoPenagihanController@index');
-Route::get('CreateBKM', 'App\Http\Controllers\Accounting\Piutang\BKMCashAdvance\CreateBKMController@index');
+Route::get('MaintenanceBKMPenagihan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@MaintenanceBKMPenagihan');
+Route::get('BKMNoPenagihan', 'App\Http\Controllers\Accounting\Piutang\BKMNoPenagihanController@BKMNoPenagihan');
+Route::get('CreateBKM', 'App\Http\Controllers\Accounting\Piutang\BKMCashAdvance\CreateBKMController@CreateBKM');
 Route::get('UpdateDetailBKM', 'App\Http\Controllers\Accounting\Piutang\BKMCashAdvance\UpdateDetailBKMController@UpdateDetailBKM');
 Route::get('BKMTransitorisBank', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@BKMTransitorisBank');
 Route::get('BatalBKMTransitoris', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@BatalBKMTransitoris');
@@ -61,3 +61,13 @@ Route::get('BKMPengembalianKE', 'App\Http\Controllers\Accounting\Piutang\BKMPeng
 Route::get('UpdateKursBKM', 'App\Http\Controllers\Accounting\Piutang\UpdateKursBKMController@UpdateKursBKM');
 Route::get('KodePerkiraanBKM', 'App\Http\Controllers\Accounting\Piutang\KodePerkiraanBKMController@KodePerkiraanBKM');
 Route::get('MaintenanceInformasiBank', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\MaintenanceInformasiBankController@MaintenanceInformasiBank');
+Route::get('AnalisaInformasiBank', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\AnalisaInformasiBankController@AnalisaInformasiBank');
+Route::get('FakturUangMuka', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@FakturUangMuka');
+Route::get('PenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@PenagihanPenjualan');
+Route::get('NotaPenjualanTunai', 'App\Http\Controllers\Accounting\Piutang\NotaPenjualanTunaiController@NotaPenjualanTunai');
+Route::get('UpdateSuratJalan', 'App\Http\Controllers\Accounting\Piutang\UpdateSuratJalanController@UpdateSuratJalan');
+Route::get('ACCPenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController@ACCPenagihanPenjualan');
+Route::get('StatusDokumenTagihan', 'App\Http\Controllers\Accounting\Piutang\StatusDokumenTagihanController@StatusDokumenTagihan');
+Route::get('PenagihanPenjualanEkspor', 'App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanEksporController@PenagihanPenjualanEkspor');
+Route::get('ACCPenagihanPenjualanExport', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanExportController@ACCPenagihanPenjualanExport');
+Route::get('MaintenancePelunasanPenjualan', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@MaintenancePelunasanPenjualan');

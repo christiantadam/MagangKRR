@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class CreateBKMController extends Controller
 {
-    public function index()
+    public function CreateBKM()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BKMCashAdvance.CreateBKM', compact('data'));

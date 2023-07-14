@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Accounting\Piutang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BKMNoPenagihanController extends Controller
+class ACCPenagihanPenjualanController extends Controller
 {
-    public function BKMNoPenagihan()
+    public function ACCPenagihanPenjualan()
     {
         $data = 'Accounting';
-        return view('Accounting.Piutang.BKMNoPenagihan', compact('data'));
+        return view('Accounting.Piutang.ACCPenagihanPenjualan', compact('data'));
     }
 
     //Show the form for creating a new resource.

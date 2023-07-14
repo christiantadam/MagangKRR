@@ -248,8 +248,7 @@
                                                     tabindex="-1" href="{{ url('MaintenanceInformasiBank') }}">Maintenance Informasi Bank</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Analisa Informasi Bank</a>
+                                                    tabindex="-1" href="{{ url('AnalisaInformasiBank') }}">Analisa Informasi Bank</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -259,43 +258,42 @@
                                             tabindex="-1">Maintenance Penjualan Lokal &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1" href="{{ url('/') }}">Faktur Uang Muka</a>
+                                                    tabindex="-1" href="{{ url('FakturUangMuka') }}">Faktur Uang Muka</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Penagihan Penjualan</a>
+                                                    tabindex="-1" href="{{ url('PenagihanPenjualan') }}">Penagihan Penjualan</a>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Maintenance Nota Penjualan Tunai </a>
+                                            tabindex="-1" href="{{ url('NotaPenjualanTunai') }}">Maintenance Nota Penjualan Tunai </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Update Surat Jalan U/ Jual Tunai </a>
+                                            tabindex="-1" href="{{ url('UpdateSuratJalan') }}">Update Surat Jalan U/ Jual Tunai </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Acc Penagihan Penjualan </a>
+                                            tabindex="-1" href="{{ url('ACCPenagihanPenjualan') }}">Acc Penagihan Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Status Dokumen Tagihan </a>
+                                            tabindex="-1" href="{{ url('StatusDokumenTagihan') }}">Status Dokumen Tagihan </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Acc Penagihan Penjualan Eksport </a>
+                                            tabindex="-1" href="{{ url('ACCPenagihanPenjualanExport') }}">Acc Penagihan Penjualan Eksport </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Maintenance Pelunasan Penjualan </a>
+                                            tabindex="-1" href="{{ url('MaintenancePelunasanPenjualan') }}">Maintenance Pelunasan Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
