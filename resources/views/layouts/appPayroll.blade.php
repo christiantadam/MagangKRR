@@ -362,16 +362,16 @@
                                                     <!-- Tambahkan submenu tambahan di sini jika diperlukan -->
                                                 </ul>
                                             </li>
-                                            <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramContoh') }}"
                                             tabindex="-1">Potongan Koperasi (Toko)</a>
                                             </li>
-                                            <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramPayroll/Laporan/DaftarPotongan') }}"
                                                     tabindex="-1">Daftar Potongan SPTSK & Iuran Koperasi</a>
                                             </li>
-                                            <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramPayroll/Laporan/JumlahPegawai') }}"
                                                     tabindex="-1">Jumlah Pegawai</a>
                                             </li>
-                                            <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramPayroll/Laporan/AngsuranBajuSeragam') }}"
                                                     tabindex="-1">Angsuran Baju Seragam</a>
                                             </li>
 
@@ -383,50 +383,50 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li>
-                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Daftar Hadir</a>
+                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/DaftarHadir') }}">Daftar Hadir</a>
                                             </li>
 
                                             <li>
-                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Daftar Absensi &raquo</a>
+                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1">Daftar Absensi &raquo</a>
                                                 <ul class="dropdown-menu dropdown-submenu">
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">perHari</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/AbsensiPerHari') }}">perHari</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">perMinggu</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/AbsensiPerMinggu') }}">perMinggu</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">perBulan</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/AbsensiPerBulan') }}">perBulan</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">perTahun</a>
-                                                    </li>
-
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Daftar Upah Harian &raquo</a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Per Manager</a>
-                                                    </li>
-                                                    <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Per Divisi</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/AbsensiPerTahun') }}">perTahun</a>
                                                     </li>
 
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Tanda Terima Upah Pegawai &raquo</a>
+                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1">Daftar Upah Harian &raquo</a>
                                                 <ul class="dropdown-menu dropdown-submenu">
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Per Manager</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/UpahHarianManager') }}">Per Manager</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Per Divisi</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/UpahHarianDivisi') }}">Per Divisi</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1">Tanda Terima Upah Pegawai &raquo</a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/UpahPerManager') }}">Per Manager</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Upah Skorsing Terbayar</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/UpahPerDivisi') }}">Per Divisi</a>
+                                                    </li>
+                                                    <li>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/UpahSkorsing') }}">Upah Skorsing Terbayar</a>
                                                     </li>
                                                 </ul>
                                             </li>
