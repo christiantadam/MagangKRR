@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card-header">
-    ACC Manager -- Order Gambar
+    ACC Manager -- Order Proyek
 </div>
 
 <div class="card-body">
@@ -27,12 +27,31 @@
             <table class="table mt-3">
                 <thead class="table-dark">
                     <tr>
-                        <th>No. Order</th>
-                        <th>Tgl. Order</th>
-                        <th>Nama Barang</th>
+                        <th>title1</th>
+                        <th>title2</th>
+                        <th>title3</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                </tbody>
             </table>
+            <button type="button" class="btn btn-info">Refresh</button>
+            <button type="button" class="btn btn-light">Pilih Semua</button>
 
         </div>
 
@@ -85,16 +104,6 @@
 
                 <div class="col-lg-5">
                     <input type="text" name="no_order" class="form-control">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-lg-5">
-                    <span class="custom-alignment">No. Gambar Rev:</span>
-                </div>
-
-                <div class="col-lg-5">
-                    <input type="text" name="no_gambar_rev" class="form-control">
                 </div>
             </div>
 
@@ -177,17 +186,27 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <input type="text" name="ket_teknik" class="form-control">
+                    <input type="text" name="ket_teknik_tolak" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-lg-5">
+                    <span class="custom-alignment">Ket. Ditunda Div. Teknik:</span>
+                </div>
+
+                <div class="col-lg-6">
+                    <input type="text" name="ket_teknik_tunda" class="form-control">
                 </div>
             </div>
 
             <div class="row mt-3 d-flex justify-content-center">
                 <div class="col-lg-6 content-center">
-                    <button type="button" class="btn btn-primary" style="width: inherit;"><b><u>P</u>ROSES</b></button>
+                    <button type="button" class="btn btn-primary" style="width: inherit;"><b>PROSES</b></button>
                 </div>
 
                 <div class="col-lg-4 content-center">
-                    <button type="button" class="btn btn-secondary custom-btn"><u>K</u>ELUAR</button>
+                    <button type="button" class="btn btn-secondary custom-btn">KELUAR</button>
                 </div>
             </div>
 
@@ -195,21 +214,24 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <span style="color: red;">xxxxx -></span>
-                        <span>ACC Direktur</span><br>
+                        <span> : ACC Direktur</span><br>
+
+                        <span style="color: deeppink;">xxxxx -></span>
+                        <span> : Ditunda Div. Teknik</span><br>
 
                         <span style="color: green;">xxxxx -></span>
-                        <span>Ditolak Div. Teknik</span><br>
-
-                        <span style="color: brown;">xxxxx -></span>
-                        <span>Tdk disetujui Manager</span><br>
+                        <span> : Ditolak Div. Teknik</span><br>
                     </div>
 
                     <div class="col-lg-6">
                         <span style="color: blue;">xxxxx -></span>
-                        <span>Sudah di-ACC</span><br>
+                        <span> : ACC Direktur</span><br>
 
                         <span style="color: grey;">xxxxx -></span>
-                        <span>Tdk disetujui Direktur</span>
+                        <span> : Tdk disetujui Direktur</span>
+
+                        <span style="color: brown;">xxxxx -></span>
+                        <span> : Tdk disetujui Manager</span><br>
                     </div>
                 </div>
             </div>

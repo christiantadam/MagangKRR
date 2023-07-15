@@ -13,40 +13,36 @@
             <span class="custom-alignment">Tgl. Order:</span>
         </div>
 
-        <div class="col-lg-4">
-            <div class="input-group">
-                <input type="date" name="tgl_awal" class="form-control">
-                <span class="input-group-text">s/d</span>
-                <input type="date" name="tgl_akhir" class="form-control">
+        <div class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-5">
+                    <input type="Date" class="form-control" name="tgl_awal">
+                </div>
+                <div class="col-lg-2 d-flex justify-content-center">
+                    <span style="margin-top: 5px;">s/d</span>
+                </div>
+                <div class="col-lg-5">
+                    <input type="Date" class="form-control" name="tgl_akhir">
+                </div>
             </div>
         </div>
     </div>
 
-    <table class="table table-hover mt-3">
-        <thead>
+    <table class="table mt-3">
+        <thead class="table-dark">
             <tr>
-                <th scope="col">title1</th>
-                <th scope="col">title2</th>
-                <th scope="col">title3</th>
+                <th>No. Order</th>
+                <th>Tgl. Order</th>
+                <th>Nama Barang</th>
+                <th>Jumlah</th>
+                <th>Divisi</th>
+                <th>Status Order</th>
+                <th>Keterangan Order</th>
+                <th>Peng-order</th>
+                <th>No. Gambar</th>
+                <th>Nm. Brg</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-        </tbody>
     </table>
 
     <div class="mt-3">

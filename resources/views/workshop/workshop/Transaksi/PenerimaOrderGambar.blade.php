@@ -16,10 +16,16 @@
             </div>
 
             <div class="col-lg-8">
-                <div class="input-group">
-                    <input type="date" name="tgl_awal" class="form-control">
-                    <span class="input-group-text">s/d</span>
-                    <input type="date" name="tgl_akhir" class="form-control">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <input type="Date" class="form-control" name="tgl_awal">
+                    </div>
+                    <div class="col-lg-2 d-flex justify-content-center">
+                        <span style="margin-top: 5px;">s/d</span>
+                    </div>
+                    <div class="col-lg-5">
+                        <input type="Date" class="form-control" name="tgl_akhir">
+                    </div>
                 </div>
             </div>
 
@@ -88,39 +94,28 @@
         </div>
     </div>
 
-    <table class="table table-hover mt-3">
-        <thead>
+    <table class="table mt-3">
+        <thead class="table-dark">
             <tr>
-                <th scope="col">title1</th>
-                <th scope="col">title2</th>
-                <th scope="col">title3</th>
+                <th>No. Order</th>
+                <th>Tgl. Order</th>
+                <th>Tgl. ACC Direktur</th>
+                <th>Nama Barang</th>
+                <th>NoGbrRev</th>
+                <th>Jumlah</th>
+                <th>Status Order</th>
+                <th>Divisi</th>
+                <th>Mesin</th>
+                <th>Keterangan Order</th>
+                <th>Peng-order</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-            <tr>
-                <td>temp</td>
-                <td>temp</td>
-                <td>temp</td>
-            </tr>
-        </tbody>
     </table>
 
     <div class="row mt-3">
         <div class="col-lg-6">
-            <div class="card card-keterangan">
-                <div class="card-header">Keterangan</div>
-
-                <div class="card-body row">
+            <div class="keterangan keterangan-padding">
+                <div class="row">
                     <div class="col-lg-6">
                         <span style="color: red;">xxxxx -></span>
                         <span>Sudah diterima</span><br>

@@ -14,29 +14,29 @@
 @endsection
 
 <!-- TEMPLATE TABLE -->
-<table class="table table-hover mt-3">
-    <thead>
+<table class="table mt-3">
+    <thead class="table-dark">
         <tr>
-            <th scope="col">title1</th>
-            <th scope="col">title2</th>
-            <th scope="col">title3</th>
+            <th>title1</th>
+            <th>title2</th>
+            <th>title3</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>temp</td>
-            <td>temp</td>
-            <td>temp</td>
+            <td>data1</td>
+            <td>data2</td>
+            <td>data3</td>
         </tr>
         <tr>
-            <td>temp</td>
-            <td>temp</td>
-            <td>temp</td>
+            <td>data1</td>
+            <td>data2</td>
+            <td>data3</td>
         </tr>
         <tr>
-            <td>temp</td>
-            <td>temp</td>
-            <td>temp</td>
+            <td>data1</td>
+            <td>data2</td>
+            <td>data3</td>
         </tr>
     </tbody>
 </table>
@@ -72,10 +72,8 @@
 </div>
 
 <!-- TEMPLATE KETERANGAN -->
-<div class="card card-keterangan mt-3" style="background: lightyellow;">
-    <div class="card-header">Keterangan</div>
-
-    <div class="card-body row">
+<div class="keterangan keterangan-padding mt-3">
+    <div class="row">
         <div class="col-lg-6">
             <span style="color: red;">xxxxx -></span>
             <span>ACC Direktur</span><br>
@@ -94,5 +92,18 @@
             <span style="color: grey;">xxxxx -></span>
             <span>Tdk disetujui Direktur</span>
         </div>
+    </div>
+</div>
+
+<!-- TEMPLATE TANGGAL -->
+<div class="row">
+    <div class="col-lg-5">
+        <input type="Date" class="form-control" name="tgl_awal">
+    </div>
+    <div class="col-lg-2 d-flex justify-content-center">
+        <span style="margin-top: 5px;">s/d</span>
+    </div>
+    <div class="col-lg-5">
+        <input type="Date" class="form-control" name="tgl_akhir">
     </div>
 </div>

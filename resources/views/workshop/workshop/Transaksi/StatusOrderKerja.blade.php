@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card-header">
-    Proses Pemberi Gambar
+    Status Order Kerja
 </div>
 
 <div class="card-body">
@@ -68,30 +68,37 @@
     <table class="table mt-3">
         <thead class="table-dark">
             <tr>
-                <th>No. Order</th>
-                <th>Tgl. Order</th>
-                <th>Nama Barang</th>
-                <th>Jumlah</th>
-                <th>Mesi</th>
-                <th>Status order</th>
-                <th>Keterangan Order</th>
-                <th>Peng-order</th>
-                <th>No. Gambar</th>
-                <th>Kd. Brg</th>
-                <th>Nm. Brg</th>
+                <th>title1</th>
+                <th>title2</th>
+                <th>title3</th>
             </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+        </tbody>
     </table>
 
     <div class="mt-3">
         <div class="float-start" style="margin-left: 12.5px;">
-            <button type="button" class="btn btn-primary" style="width: 12.5em;"><b>PROSES</b></button>
-            <button type="button" class="btn btn-light custom-btn">Refresh</button>
+            <button type="button" class="btn btn-light custom-btn" style="width: 12.5em;">Refresh</button>
         </div>
 
         <div class="float-end" style="margin-right: 12.5px;">
-            <button type="button" class="btn btn-dark custom-btn">CETAK</button>
-            <button type="button" class="btn btn-secondary custom-btn" style="margin-left: 12.5px;">KELUAR</button>
+            <button type="button" class="btn btn-secondary custom-btn" style="width: 12.5em;">KELUAR</button>
         </div>
     </div>
 </div>

@@ -1,74 +1,79 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
-<div class="card-header">
-    Maintenance Order Kerja
-</div>
-<div class="card-body">
-    <div class="mb-3">
-        <label for="Tanggal">Tanggal</label>
-    </div>
-    <div class="mb-3">
-        <input type="Date">
-        <label for="sd">s/d</label>
-        <input type="Date">
-    </div>
-    <div class="mb-3">
-        <label for="divisi">Divisi</label>
-        <select class="form-select" name="NamaMesin" style="width: 36vh;
-                height: 6vh;">
-            <option selected="">Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="table-responsive">
-                <table class="table table-hover mt-3" style="width: max-content">
-                    <thead>
-                        <tr>
-                            <th>Nomor Order</th>
-                            <th>Tanggal Order</th>
-                            <th>Nama Barang</th>
-                            <th>Status Order</th>
-                            <th>Nomor Gambar</th>
-                            <th>Mesin</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                    </tbody>
-                </table>
 
+<div class="card-header">
+    Maintenance Order Proyek
+</div>
+
+<div class="card-body">
+    <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo">
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <span class="custom-alignment">Tgl. Order:</span>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <input type="Date" class="form-control" name="tgl_awal">
+                        </div>
+                        <div class="col-lg-2 d-flex justify-content-center">
+                            <span style="margin-top: 5px;">s/d</span>
+                        </div>
+                        <div class="col-lg-5">
+                            <input type="Date" class="form-control" name="tgl_akhir">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-success">Refresh</button>
+
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <span class="custom-alignment">Divisi:</span>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="input-group">
+                        <input type="text" name="divisi" class="form-control">
+                        <button type="button" class="btn btn-outline-secondary">...</button>
+                    </div>
+                </div>
             </div>
+
+            <table class="table mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>title1</th>
+                        <th>title2</th>
+                        <th>title3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                    <tr>
+                        <td>data1</td>
+                        <td>data2</td>
+                        <td>data3</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-info">Refresh</button>
+
         </div>
+
         <div class="col-lg-6">
 
             <div class="row">
@@ -78,26 +83,6 @@
 
                 <div class="col-lg-5">
                     <input type="text" name="no_order" class="form-control">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-lg-5">
-                    <span class="custom-alignment">Kode Barang:</span>
-                </div>
-
-                <div class="col-lg-5">
-                    <input type="text" name="Kode_Barang" class="form-control">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-lg-5">
-                    <span class="custom-alignment">Nomor Gambar:</span>
-                </div>
-
-                <div class="col-lg-5">
-                    <input type="text" name="Nomor_Gambar" class="form-control">
                 </div>
             </div>
 
@@ -220,7 +205,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <input type="text" name="ket_teknik" class="form-control">
+                    <input type="text" name="ket_teknik_tolak" class="form-control">
                 </div>
             </div>
 
@@ -230,7 +215,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <input type="text" name="tunda_teknik" class="form-control">
+                    <input type="text" name="ket_teknik_tunda" class="form-control">
                 </div>
             </div>
 
@@ -247,30 +232,29 @@
                     <button type="button" class="btn btn-secondary custom-btn">KELUAR</button>
                 </div>
             </div>
-            <br>
-            <div class="keterangan">
+
+            <div class="keterangan keterangan-padding mt-3">
                 <div class="row">
                     <div class="col-lg-6">
                         <span style="color: red;">xxxxx -></span>
-                        <span>ACC Direktur</span><br>
+                        <span> : ACC Direktur</span><br>
 
-                        <span style="color: magenta;">xxxxx -></span>
-                        <span>Ditunda Div. Teknik</span><br>
+                        <span style="color: deeppink;">xxxxx -></span>
+                        <span> : Ditunda Div. Teknik</span><br>
 
                         <span style="color: green;">xxxxx -></span>
-                        <span>Ditolak Div. Teknik</span><br>
-
+                        <span> : Ditolak Div. Teknik</span><br>
                     </div>
 
                     <div class="col-lg-6">
                         <span style="color: blue;">xxxxx -></span>
-                        <span>ACC Manager</span><br>
+                        <span> : ACC Direktur</span><br>
 
                         <span style="color: grey;">xxxxx -></span>
-                        <span>Tdk disetujui Direktur</span><br>
+                        <span> : Tdk disetujui Direktur</span>
 
                         <span style="color: brown;">xxxxx -></span>
-                        <span>Tdk disetujui Manager</span><br>
+                        <span> : Tdk disetujui Manager</span><br>
                     </div>
                 </div>
             </div>
@@ -278,4 +262,5 @@
         </div>
     </div>
 </div>
+
 @endsection

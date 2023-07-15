@@ -40,8 +40,7 @@
     <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Rdz.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body onload="Greeting()">
@@ -57,160 +56,99 @@
                     {{-- Master --}}
                     <ul class="navbar-nav mr-auto RDZNavContenCenter">
                         <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                 Master
                             </a>
                             <ul class="dropdown-menu" style="cursor: default">
                                 <li>
-                                    <a href="/MaintenanceDivisi" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Divisi</a>
+                                    <a href="/MaintenanceDivisi" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Divisi</a>
                                 </li>
                                 <li>
-                                    <a href="/MaintenanceDrafter" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Drafter</a>
+                                    <a href="/MaintenanceDrafter" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Drafter</a>
                                 </li>
                                 <li>
-                                    <a href="/UpdateNoGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Update No. Gambar</a>
+                                    <a href="/UpdateNoGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Update No. Gambar</a>
                                 </li>
                                 <li>
-                                    <a href="/MaintenanceMesin" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Mesin</a>
+                                    <a href="/MaintenanceMesin" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Mesin</a>
                                 </li>
                             </ul>
                         </div>
                         {{-- Transaksi --}}
                         <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                 Transaksi
                             </a>
 
                             <ul class="dropdown-menu" style="cursor: default">
-                                <li><a href="/MaintenanceOrderGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Order Gambar</a>
+                                <li><a href="/MaintenanceOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Gambar</a>
                                 </li>
-                                <li><a href="/ACCManagerGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">ACC Manager</a>
+                                <li><a href="/ACCManagerGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>
-                                <li><a href="/ACCDirekturGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">ACC Direktur</a>
+                                <li><a href="/ACCDirekturGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
                                 </li>
-                                <li><a href="/PenerimaOrderGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Penerima Order Gambar</a>
+                                <li><a href="/PenerimaOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Penerima Order Gambar</a>
                                 </li>
-                                <li><a href="/ProsesPembeliGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Proses Pembeli Gambar</a>
+                                <li><a href="/ProsesPembeliGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Proses Pembeli Gambar</a>
                                 </li>
-                                <li><a href="/StatusOrderGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Status Order Gambar</a>
+                                <li><a href="/StatusOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Status Order Gambar</a>
                                 </li>
-                                <li><a href="/MaintenanceNomorGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Nomor Gambar</a>
+                                <li><a href="/MaintenanceNomorGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Nomor Gambar</a>
                                 </li>
                                 <hr style="height:2px;">
-                                <li><a href="/MaintenanceOrderKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Order Kerja</a>
+                                <li><a href="/MaintenanceOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Kerja</a>
                                 </li>
-                                <li><a href="/ACCManagerKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">ACC Manager</a>
+                                <li><a href="/ACCManagerKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>
-                                <li><a href="/ACCDirekturKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">ACC Direktur</a>
+                                <li><a href="/ACCDirekturKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
                                 </li>
-                                <li><a href="/PenerimaOrderKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Penerima Order Kerja</a>
+                                <li><a href="/PenerimaOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Penerima Order Kerja</a>
                                 </li>
-                                <li><a href="/CetakSuratOrderKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Cetak Surat Order Kerja</a>
+                                <li><a href="/CetakSuratOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Cetak Surat Order Kerja</a>
                                 </li>
-                                <li><a href="/StatusOrderKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Status Order Kerja</a>
+                                <li><a href="/StatusOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Status Order Kerja</a>
                                 </li>
                             </ul>
                         </div>
                         {{-- Proyek --}}
-
                         <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                 Proyek
                             </a>
                             <ul class="dropdown-menu" style="cursor: default">
-                                <li><a href="/MaintenanceOrderProyek" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Maintenance Order Proyek</a>
+                                <li><a href="/MaintenanceOrderProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Proyek</a>
                                 </li>
-                                <li><a href="/ACCManager" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Acc Manager</a>
+                                <li><a href="/ACCManagerProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Acc Manager</a>
                                 </li>
-                                <li><a href="/ACCDirektur" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Acc Direktur</a>
+                                <li><a href="/ACCDirekturProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Acc Direktur</a>
                                 </li>
-                                <li><a href="/PenerimaOrderProyek" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Penerima Order Proyek</a>
+                                <li><a href="/PenerimaOrderProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Penerima Order Proyek</a>
                                 </li>
-                                <li><a href="/CetakSuratOrderProyek" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Cetak Surat Order Proyek</a>
+                                <li><a href="/CetakSuratOrderProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Cetak Surat Order Proyek</a>
                                 </li>
-                                <li><a href="/StatusOrderProyek" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Status Order Proyek</a>
+                                <li><a href="/StatusOrderProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Status Order Proyek</a>
                                 </li>
                             </ul>
                         </div>
                         {{-- Informasi --}}
                         <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                 Informasi
                             </a>
                             <ul class="dropdown-menu" style="cursor: default">
-                                <li><a href="/OrderGambarSelesai" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Order Gambar Yang Selesai</a>
+                                <li><a href="/OrderGambarSelesai" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Gambar Yang Selesai</a>
                                 </li>
-                                <li><a href="/OrderKerjaSelesai" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Order Kerja Yang Selesai</a>
+                                <li><a href="/OrderKerjaSelesai" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Kerja Yang Selesai</a>
                                 </li>
-                                <li><a href="/NomorGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Nomor Gambar</a>
+                                <li><a href="/OrderProyekSelesai" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Proyek Yang Selesai</a>
                                 </li>
-                                <li><a href="/OrderGambar" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Order Gambar</a>
+                                <li><a href="/NomorGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Nomor Gambar</a>
                                 </li>
-                                <li><a href="/OrderKerja" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Order Kerja</a>
+                                <li><a href="/OrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Gambar</a>
                                 </li>
-                                <li><a href="/OrderProyek" class="test"
-                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1">Order Proyek</a>
+                                <li><a href="/OrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Kerja</a>
+                                </li>
+                                <li><a href="/OrderProyek" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Order Proyek</a>
                                 </li>
 
                             </ul>
@@ -220,9 +158,9 @@
                     {{-- windows --}}
                     {{-- exit --}}
                     <!-- Right Side Of Navbar -->
-
+                    <!--  -->
                     <!-- Authentication Links -->
-
+                    <!--  -->
                 </div>
             </div>
         </nav>
@@ -236,13 +174,13 @@
         </main>
     </div>
     <script>
-    $(document).ready(function() {
-        $('.dropdown-submenu a.test').on("click", function(e) {
-            $(this).next('ul').toggle();
-            e.stopPropagation();
-            e.preventDefault();
+        $(document).ready(function() {
+            $('.dropdown-submenu a.test').on("click", function(e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
         });
-    });
     </script>
 </body>
 

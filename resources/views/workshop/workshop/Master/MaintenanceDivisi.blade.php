@@ -30,12 +30,16 @@
             </div>
         </div>
 
-        <div class="input-group mt-3">
-            <button type="button" class="btn btn-success custom-btn-group"><u>I</u>SI</button>
-            <button type="button" class="btn btn-warning custom-btn-group"><u>K</u>OREKSI</button>
-            <button type="button" class="btn btn-danger custom-btn-group"><u>H</u>APUS</button>
-            <button type="button" class="btn btn-primary custom-btn-group" disabled><u>P</u>ROSES</button>
-            <button type="button" class="btn btn-secondary custom-btn-group"><u>K</u>ELUAR</button>
+        <div class="row mt-4">
+            <div class="col-lg-8">
+                <div class="input-group d-flex justify-content-center">
+                    <button type="button" class="btn btn-success custom-btn"><u>I</u>SI</button>
+                    <button type="button" class="btn btn-warning custom-btn"><u>K</u>OREKSI</button>
+                    <button type="button" class="btn btn-danger custom-btn"><u>H</u>APUS</button>
+                    <button type="button" class="btn btn-primary custom-btn" disabled><u>P</u>ROSES</button>
+                    <button type="button" class="btn btn-secondary custom-btn"><u>K</u>ELUAR</button>
+                </div>
+            </div>
         </div>
     </form>
 </div>

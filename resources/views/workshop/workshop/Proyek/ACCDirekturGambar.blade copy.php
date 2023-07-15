@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="card-header">
-    ACC Direktur -- Order Gambar
+    ACC Direktur -- Order Proyek
 </div>
 
 <div class="card-body">
@@ -70,15 +70,28 @@
     <table class="table mt-3">
         <thead class="table-dark">
             <tr>
-                <th>No. Order</th>
-                <th>Tgl. Order</th>
-                <th>Nama Barang</th>
-                <th>Kd. Barang</th>
-                <th>Jumlah</th>
-                <th>Status Order</th>
-                <th>Divisi</th>
+                <th>title1</th>
+                <th>title2</th>
+                <th>title3</th>
             </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+            <tr>
+                <td>data1</td>
+                <td>data2</td>
+                <td>data3</td>
+            </tr>
+        </tbody>
     </table>
 
     <div class="row mt-3">
@@ -94,6 +107,9 @@
                     </div>
 
                     <div class="col-lg-6">
+                        <span style="color: deeppink;">xxxxx -></span>
+                        <span>Ditunda Div. Teknik</span><br>
+
                         <span style="color: grey;">xxxxx -></span>
                         <span>Tdk disetujui Direktur</span>
                     </div>
@@ -108,8 +124,8 @@
             </div>
 
             <div class="float-end">
-                <button type="button" class="btn btn-primary" style="width: 10em;"><b><u>P</u>ROSES</b></button>
-                <button type="button" class="btn btn-secondary"><u>K</u>ELUAR</button>
+                <button type="button" class="btn btn-primary" style="width: 10em;"><b>PROSES</b></button>
+                <button type="button" class="btn btn-secondary">KELUAR</button>
             </div>
         </div>
     </div>

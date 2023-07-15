@@ -109,3 +109,20 @@ Route::get('ACCDirekturKerja', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi
 Route::get('PenerimaOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderKerja');
 Route::get('CetakSuratOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@CetakSuratOrderKerja');
 Route::get('StatusOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderKerja');
+
+// Workshop - Proyek
+Route::get('MaintenanceOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@MaintenanceOrderProyek');
+Route::get('ACCManagerProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@ACCManagerProyek');
+Route::get('ACCDirekturProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@ACCDirekturProyek');
+Route::get('PenerimaOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@PenerimaOrderProyek');
+Route::get('CetakSuratOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@CetakSuratOrderProyek');
+Route::get('StatusOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@StatusOrderProyek');
+
+// Workshop - Informasi
+Route::get('OrderGambarSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderGambarSelesai');
+Route::get('OrderKerjaSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderKerjaSelesai');
+Route::get('OrderProyekSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderProyekSelesai');
+Route::get('NomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@NomorGambar');
+Route::get('OrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderGambar');
+Route::get('OrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderKerja');
+Route::get('OrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderProyek');
