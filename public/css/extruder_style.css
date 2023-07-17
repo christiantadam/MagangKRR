@@ -456,3 +456,7 @@ a:hover {
     height: 75px;
     margin-left: 25px;
 }
+
+.btn-light {
+    border: 1px black solid;
+}

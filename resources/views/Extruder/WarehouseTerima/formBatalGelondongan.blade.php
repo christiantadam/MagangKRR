@@ -36,8 +36,8 @@
                             <th>Primer</th>
                             <th>Sekunder</th>
                             <th>Tritier</th>
-                            <th>Id Type</th>
-                            <th>Penerima</th>
+                            <th>Tanggal</th>
+                            <th>Divisi</th>
                         </tr>
                     </thead>
                 </table>
