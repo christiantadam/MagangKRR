@@ -1,7 +1,7 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
     <div class="card-header">
-        Status Order Gambar
+        Proses Pemberi Gambar
     </div>
 
     <div class="card-body">
@@ -63,9 +63,8 @@
 
             </div>
         </div>
-
-        <div class="table-reponsive">
-            <table class="table mt-3" style="width: max-content">
+        <div class="table-responsive">
+            <table class="table mt-3" style="width:max-content;">
                 <thead class="table-dark">
                     <tr>
                         <th>No. Order</th>
@@ -83,8 +82,12 @@
                         <th>Tgl. Finish</th>
                     </tr>
                 </thead>
+                <tbody>
+
+                </tbody>
             </table>
         </div>
+
 
         <div class="mt-3">
             <div class="float-start" style="margin-left: 12.5px;">
