@@ -47,27 +47,16 @@
             <table class="table mt-3">
                 <thead class="table-dark">
                     <tr>
-                        <th>title1</th>
-                        <th>title2</th>
-                        <th>title3</th>
+                        <th>No.Order</th>
+                        <th>Tgl.Order</th>
+                        <th>Nama Proyek</th>
+                        <th>Status Order</th>
+                        <th>Mesin</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>data1</td>
-                        <td>data2</td>
-                        <td>data3</td>
-                    </tr>
-                    <tr>
-                        <td>data1</td>
-                        <td>data2</td>
-                        <td>data3</td>
-                    </tr>
-                    <tr>
-                        <td>data1</td>
-                        <td>data2</td>
-                        <td>data3</td>
-                    </tr>
+
                 </tbody>
             </table>
             <button type="button" class="btn btn-info">Refresh</button>

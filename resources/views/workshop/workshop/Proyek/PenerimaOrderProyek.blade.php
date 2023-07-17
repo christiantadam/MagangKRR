@@ -103,27 +103,20 @@
     <table class="table mt-3">
         <thead class="table-dark">
             <tr>
-                <th>title1</th>
-                <th>title2</th>
-                <th>title3</th>
+                <th>No.Order</th>
+                <th>Tgl.Order</th>
+                <th>Tgl.ACC Direktur</th>
+                <th>Nama Proyek</th>
+                <th>Jumlah</th>
+                <th>Status Order</th>
+                <th>Divisi</th>
+                <th>Mesin</th>
+                <th>Keterangan Order</th>
+                <th>PengOrder</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
+
         </tbody>
     </table>
 
