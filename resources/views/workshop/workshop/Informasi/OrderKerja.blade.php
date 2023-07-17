@@ -64,33 +64,35 @@
 
         </div>
     </div>
-
-    <table class="table mt-3">
+<div class="table-responsive">
+    <table class="table mt-3" style="width: max-content">
         <thead class="table-dark">
             <tr>
-                <th>title1</th>
-                <th>title2</th>
-                <th>title3</th>
+               <th>No. Order</th>
+               <th>Tgl. Order</th>
+               <th>Divisi</th>
+               <th>Nama Barang</th>
+               <th>KodeBarang</th>
+               <th>No.Gambar</th>
+               <th>Mesin</th>
+               <th>JmlOrder</th>
+               <th>Status Order</th>
+               <th>Ket. Order</th>
+               <th>PengOrder</th>
+               <th>ACC Mngr</th>
+               <th>ACC Dir</th>
+               <th>ACC D.Teknik</th>
+               <th>Start</th>
+               <th>Finish</th>
+               <th>JmlFinish</th>
+               <th>Tdk Stj Mngr</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
-            <tr>
-                <td>data1</td>
-                <td>data2</td>
-                <td>data3</td>
-            </tr>
+
         </tbody>
     </table>
+</div>
 
     <div class="mt-3">
         <div class="float-start" style="margin-left: 12.5px;">
