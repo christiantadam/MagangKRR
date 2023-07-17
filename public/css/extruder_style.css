@@ -17,6 +17,11 @@ button {
   border-radius: 3px;
   padding: 10px 30px;
   min-width: 75px;
+  transition: 0.25s;
+}
+
+button:hover {
+    background-color: grey;
 }
 
 .hidden {
@@ -116,7 +121,7 @@ h6 {
 # Navigation Menu (FIXED)
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -244,7 +249,7 @@ a:hover {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #0c2e8a;
@@ -443,4 +448,11 @@ a:hover {
 
 .seperate {
   margin-right: 100px;
+}
+
+/* Custom CSS WarehouseTerima */
+
+.btn-scan-barcode {
+    height: 75px;
+    margin-left: 25px;
 }
