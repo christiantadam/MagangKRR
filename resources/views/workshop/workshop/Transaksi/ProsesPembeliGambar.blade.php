@@ -1,7 +1,7 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
     <div class="card-header">
-        Proses Pemberi Gambar
+        Proses Pembeli Gambar
     </div>
 
     <div class="card-body">
