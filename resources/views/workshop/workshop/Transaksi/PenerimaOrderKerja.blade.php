@@ -106,6 +106,15 @@
                         <th>No. Order</th>
                         <th>Tgl. Order</th>
                         <th>Tgl. ACC Direktur</th>
+                        <th>Nama Barang</th>
+                        <th>Kd.Barang</th>
+                        <th>No.Gambar</th>
+                        <th>Jumlah</th>
+                        <th>Status Order</th>
+                        <th>Divisi</th>
+                        <th>Mesin</th>
+                        <th>Keterangan Order</th>
+                        <th>PengOrder</th>
                     </tr>
                 </thead>
             </table>
