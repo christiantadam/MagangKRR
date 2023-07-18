@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Payroll\Laporan\Staff\PotonganKoprasi;
+namespace App\Http\Controllers\Payroll\Laporan\Staff\Hutang\DaftarPelunasan;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class PotonganKoprasiController extends Controller
+class DaftarPelunasanController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Laporan.Staff.PotonganKoprasi.PotonganKoprasi', compact('data'));
+        return view('Payroll.Laporan.Staff.Hutang.DaftarPelunasan.daftarPelunasan', compact('data'));
     }
 
     //Show the form for creating a new resource.

@@ -312,19 +312,19 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramContoh') }}">Form Daftar Hadir</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/FormDaftarHadir') }}">Form Daftar Hadir</a>
                                             </li>
                                             <li>
-                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Absensi Karyawan &raquo</a>
+                                                <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="">Absensi Karyawan &raquo</a>
                                                 <ul class="dropdown-menu dropdown-submenu">
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Rekap Absen Per Periodik</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapAbsen') }}">Rekap Absen Per Periodik</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Cetak Detail Absen Per Periodik</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/CetakDetailAbsen') }}">Cetak Detail Absen Per Periodik</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Rekap Perolehan ASI</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapPerolehanASI') }}">Rekap Perolehan ASI</a>
                                                     </li>
 
                                                 </ul>
@@ -333,13 +333,13 @@
                                                 <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Lembur &raquo</a>
                                                 <ul class="dropdown-menu dropdown-submenu">
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Lembur Per Divisi</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Lembur/LemburPerDivisi') }}">Lembur Per Divisi</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Lembur Per Manager</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Lembur/LemburPerManager') }}">Lembur Per Manager</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Detail Lembur Per Bulan</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Lembur/DetailLembur') }}">Detail Lembur Per Bulan</a>
                                                     </li>
 
                                                 </ul>
@@ -348,21 +348,21 @@
                                                 <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Hutang &raquo</a>
                                                 <ul class="dropdown-menu dropdown-submenu">
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Kartu Hutang</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Hutang/KartuHutang') }}">Kartu Hutang</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Hutang Koperasi</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Hutang/HutangKoperasi') }}">Hutang Koperasi</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Angsuran Koperasi</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Hutang/AngsuranKoperasi') }}">Angsuran Koperasi</a>
                                                     </li>
                                                     <li>
-                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramContoh') }}">Daftar Pelunasan Hutang</a>
+                                                        <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/Hutang/DaftarPelunasan') }}">Daftar Pelunasan Hutang</a>
                                                     </li>
                                                     <!-- Tambahkan submenu tambahan di sini jika diperlukan -->
                                                 </ul>
                                             </li>
-                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramContoh') }}"
+                                            <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramPayroll/Laporan/PotonganKoperasi') }}"
                                             tabindex="-1">Potongan Koperasi (Toko)</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" href="{{ url('ProgramPayroll/Laporan/DaftarPotongan') }}"

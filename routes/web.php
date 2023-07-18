@@ -80,7 +80,21 @@ Route::get('ProgramPayroll/Transaksi/HitTHRHarian', 'App\Http\Controllers\Payrol
 // Payroll Laporan
 Route::get('ProgramPayroll/Laporan/Absen/LaporanAbnormal', 'App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController@index');
 Route::get('ProgramPayroll/Laporan/Absen/DaftarLembur', 'App\Http\Controllers\Payroll\Laporan\Absen\DaftarLemburSupervisor\DaftarLemburSupervisorController@index');
+Route::get('ProgramPayroll/Laporan/Staff/FormDaftarHadir', 'App\Http\Controllers\Payroll\Laporan\Staff\FormDaftarHadir\FormDaftarHadirController@index');
+Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapAbsen', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\RekapAbsen\RekapAbsenController@index');
+Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/CetakDetailAbsen', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\CetakDetailAbsen\CetakDetailAbsenController@index');
+Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapPerolehanASI', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\RekapPerolehanASI\RekapPerolehanASIController@index');
 
+Route::get('ProgramPayroll/Laporan/Staff/Lembur/LemburPerDivisi', 'App\Http\Controllers\Payroll\Laporan\Staff\Lembur\LemburPerDivisi\LemburPerDivisiController@index');
+Route::get('ProgramPayroll/Laporan/Staff/Lembur/LemburPerManager', 'App\Http\Controllers\Payroll\Laporan\Staff\Lembur\LemburPerManager\LemburPerManagerController@index');
+Route::get('ProgramPayroll/Laporan/Staff/Lembur/DetailLembur', 'App\Http\Controllers\Payroll\Laporan\Staff\Lembur\DetailLembur\DetailLemburController@index');
+
+Route::get('ProgramPayroll/Laporan/Staff/Hutang/KartuHutang', 'App\Http\Controllers\Payroll\Laporan\Staff\Hutang\KartuHutang\KartuHutangController@index');
+Route::get('ProgramPayroll/Laporan/Staff/Hutang/HutangKoperasi', 'App\Http\Controllers\Payroll\Laporan\Staff\Hutang\HutangKoperasi\HutangKoperasiController@index');
+Route::get('ProgramPayroll/Laporan/Staff/Hutang/AngsuranKoperasi', 'App\Http\Controllers\Payroll\Laporan\Staff\Hutang\AngsuranKoperasi\AngsuranKoperasiController@index');
+Route::get('ProgramPayroll/Laporan/Staff/Hutang/DaftarPelunasan', 'App\Http\Controllers\Payroll\Laporan\Staff\Hutang\DaftarPelunasan\DaftarPelunasanController@index');
+
+Route::get('ProgramPayroll/Laporan/PotonganKoperasi', 'App\Http\Controllers\Payroll\Laporan\Staff\PotonganKoperasi\PotonganKoperasiController@index');
 Route::get('ProgramPayroll/Laporan/DaftarPotongan', 'App\Http\Controllers\Payroll\Laporan\Staff\DaftarPotongan\DaftarPotonganController@index');
 Route::get('ProgramPayroll/Laporan/JumlahPegawai', 'App\Http\Controllers\Payroll\Laporan\Staff\JumlahPegawai\JumlahPegawaiController@index');
 Route::get('ProgramPayroll/Laporan/AngsuranBajuSeragam', 'App\Http\Controllers\Payroll\Laporan\Staff\AngsuranBajuSeragam\AngsuranBajuSeragamController@index');
