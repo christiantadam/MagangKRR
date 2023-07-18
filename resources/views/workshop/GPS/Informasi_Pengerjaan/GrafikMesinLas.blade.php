@@ -1161,5 +1161,5 @@
       </div>
     </div>
   </div>
-  <script src="{{ asset('js/GrafikLas.js') }}"></script>
+  <script src="{{ asset('jsjs/Andre-WorkShop/GPS/GrafikLas.js') }}"></script>
 @endsection

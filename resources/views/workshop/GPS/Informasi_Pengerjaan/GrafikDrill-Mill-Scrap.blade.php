@@ -2295,5 +2295,5 @@
       </div>
     </div>
   </div>
-  <script src="{{ asset('js/Grafikdrill.js') }}"></script>
+  <script src="{{ asset('js/Andre-WorkShop/GPS/Grafikdrill.js') }}"></script>
 @endsection
