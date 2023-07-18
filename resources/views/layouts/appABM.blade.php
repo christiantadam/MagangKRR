@@ -110,52 +110,52 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Schedule') }}">Schedule </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/Schedule') }}">Schedule </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Buat-Barcode') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/BuatBarcode') }}">Buat Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Repress') }}">Repress </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/Repress') }}">Repress </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/CBR') }}">Cetak Barcode Rusak </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/CBR') }}">Cetak Barcode Rusak </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Hanguskan-Barcode') }}">Hanguskan Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/HanguskanBarcode') }}">Hanguskan Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Kirim-Gudang') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/KirimGudang') }}">Kirim Gudang </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Batal-Kirim') }}">Batal Kirim </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/BatalKirim') }}">Batal Kirim </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Cek-Barcode') }}">Cek Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/CekBarcode') }}">Cek Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/CSJ') }}">Cetak Surat Jalan </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/CSJ') }}">Cetak Surat Jalan </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Total-Barcode') }}">Total Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/TotalBarcode') }}">Total Barcode </a>
                                 </li>
                             </ul>
                         </li>
@@ -168,70 +168,70 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Buat-Barcode2') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BuatBarcode') }}">Buat Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BRS') }}">Barcode Roll Sisa </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BRS') }}">Barcode Roll Sisa </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BBJ') }}">Barcode Barang Jadi </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BBJ') }}">Barcode Barang Jadi </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/CBR2') }}">Cetak Barcode Rusak </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/CBR') }}">Cetak Barcode Rusak </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Hanguskan-Barcode2') }}">Hanguskan Barcode
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/HanguskanBarcode') }}">Hanguskan Barcode
                                     </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Kirim-Gudang2') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimGudang') }}">Kirim Gudang </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Kirim-Circular') }}">Kirim Circular </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimCircular') }}">Kirim Circular </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Batal-Kirim2') }}">Batal Kirim </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BatalKirim') }}">Batal Kirim </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Repress2') }}">Repress </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/Repress') }}">Repress </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Cek-Barcode2') }}">Cek Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/CekBarcode') }}">Cek Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Penghangusan-Barcode') }}">Penghanguskan
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/Penghanguskan') }}">Penghanguskan
                                         Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/Setting-Timbangan') }}">Setting Timbangan
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/SettingTimbangan') }}">Setting Timbangan
                                     </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/MSD') }}">Mutasi Satu Divisi </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/MSD') }}">Mutasi Satu Divisi </a>
                                 </li>
                             </ul>
                         </li>
