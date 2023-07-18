@@ -298,12 +298,12 @@
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Pelunasan Penjualan Cash Advance </a>
+                                            tabindex="-1" href="{{ url('PelunasanPenjualanCashAdvance') }}">Pelunasan Penjualan Cash Advance </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Analisa Status Penjualan </a>
+                                            tabindex="-1" href="{{ url('AnalisaStatusPenjualan') }}">Analisa Status Penjualan </a>
                                     </li>
 
                                     <li><a class="test"
@@ -311,29 +311,26 @@
                                             tabindex="-1">Maintenance Nota Kredit &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('/') }}">Nota Kredit Retur</a>
+                                                    tabindex="-1"  href="{{ url('NotaKreditRetur') }}">Nota Kredit Retur</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Pot Harga</a>
+                                                    tabindex="-1" href="{{ url('PotHarga') }}">Pot Harga</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1" href="{{ url('/') }}">Free</a>
+                                                    tabindex="-1" href="{{ url('Free') }}">Free</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Kelebihan Bayar u/ Jual Tunai</a>
+                                                    tabindex="-1" href="{{ url('KelebihanBayarJualTunai') }}">Kelebihan Bayar u/ Jual Tunai</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1"
-                                                    href="{{ url('/') }}">Selisih Timbang</a>
+                                                    tabindex="-1" href="{{ url('SelisihTimbang') }}">Selisih Timbang</a>
                                             </li>
                                         </ul>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Acc Nota Kredit </a>
+                                            tabindex="-1" href="{{ url('ACCNotaKredit') }}">Acc Nota Kredit </a>
                                     </li>
 
                                     <li><a class="test"
@@ -341,7 +338,7 @@
                                             tabindex="-1">Maintenance BKK Nota Kredit &raquo;</a>
                                             <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
-                                                    tabindex="-1" href="{{ url('/') }}">Pengajuan</a>
+                                                    tabindex="-1" href="{{ url('Pengajuan') }}">Pengajuan</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 14px;display: block"
                                                     tabindex="-1"
@@ -365,12 +362,12 @@
                                 </a>
                                 <ul class="dropdown-menu" style=" ">
                                     <li><a class="test"style=" color: black;font-size: 15px;display: block; "
-                                            tabindex="-1">BKK </a>
+                                            tabindex="-1" href="{{ url('BKK') }}">BKK </a>
                                     </li>
 
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">BKM </a>
+                                            tabindex="-1" href="{{ url('BKM') }}">BKM </a>
                                     </li>
                                 </ul>
                             </div>
@@ -384,22 +381,22 @@
                                 </a>
                                 <ul class="dropdown-menu" style=" ">
                                     <li><a class="test"style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Cek Nota & Faktur </a>
+                                            tabindex="-1" href="{{ url('CekNotadanFaktur') }}">Cek Nota & Faktur </a>
                                     </li>
                                     <li><a class="test"style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Cetak Nota Kredit </a>
+                                            tabindex="-1" href="{{ url('CetakNotaKredit') }}">Cetak Nota Kredit </a>
                                     </li>
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Soplang </a>
+                                            tabindex="-1" href="{{ url('Soplang') }}">Soplang </a>
                                     </li>
                                     <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1">Rekap Piutang </a>
+                                            tabindex="-1" href="{{ url('RekapPiutang') }}">Rekap Piutang </a>
                                     </li>
                                     <li><a class="test"
-                                            style=" color: black;font-size: 1px;display: block; "
-                                            tabindex="-1">Kartu Hutang </a>
+                                            style=" color: black;font-size: 14px;display: block; "
+                                            tabindex="-1" href="{{ url('KartuHutang') }}">Kartu Hutang </a>
                                     </li>
                                 </ul>
                             </div>

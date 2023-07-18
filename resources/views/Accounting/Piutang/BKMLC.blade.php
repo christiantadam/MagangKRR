@@ -22,13 +22,13 @@
                                         <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnProses" name="isi" value="OK" class="btn">
+                                        <input type="submit" id="btnOk" name="ok" value="OK" class="btn">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="pilihBank" name="isi" value="Pilih Bank" class="btn">
+                                        <input type="submit" id="btnPilihBank" name="pilihBank" value="Pilih Bank" class="btn">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnGroupBKM" name="isi" value="Group BKM" class="btn">
+                                        <input type="submit" id="btnGroupBKM" name="groupBKM" value="Group BKM" class="btn">
                                     </div>
                                 </div>
 

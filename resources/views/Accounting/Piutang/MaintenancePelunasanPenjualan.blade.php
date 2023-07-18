@@ -130,7 +130,7 @@
                                                     <th>Pelunasan Currency</th>
                                                     <th>Kurang Lebih</th>
                                                     <th>Perkiraan</th>
-                                                    <th>Id...</th>
+                                                    <th>ID_Tagihan_Pembulatan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
