@@ -7,8 +7,15 @@
                 <div class="col-md-6 form-group">
                     <label for="id_komposisi">Id Komposisi:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="id_komposisi1">
-                        <input type="text" class="form-control" name="id_komposisi2" style="width: 12.5em;">
+                        <select name="id_komposisi" id="id_komposisi">
+                            <option selected disabled>-- Pilih Id Komposisi --</option>
+                            @foreach ($id_komposisi as $data)
+                                <option value="{{ $data->IdKomposisi }}">
+                                    {{ $data->NamaKomposisi }}</option>
+                            @endforeach
+                        </select>
+                        {{-- <input type="text" class="form-control" name="id_komposisi1"> --}}
+                        {{-- <input type="text" class="form-control" name="id_komposisi2" style="width: 12.5em;"> --}}
                         <button type="button" class="btn btn-outline-secondary">...</button>
                     </div>
                 </div>
