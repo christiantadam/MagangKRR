@@ -10,8 +10,6 @@ class ExtruderController extends Controller
 {
     public function index($pageName = "index", $formName = "index")
     {
-        $id_komposisi = DB::connection('ConnExtruder')->select('exec SP_5298_EXT_LIST_KOMPOSISI_1 @iddivisi = ?', ['EXT']);
-        // dd($id_komposisi);
         $viewName = $pageName == "index"
             ? 'extruder.index'
             : 'extruder.' . $pageName . '.index';
@@ -24,6 +22,10 @@ class ExtruderController extends Controller
             'formName' => $formName,
         ];
 
-        return view($viewName, $viewData, compact('id_komposisi'));
+        return view($viewName, $viewData);
     }
+
+    // $id_komposisi = DB::connection('ConnExtruder')->select('exec SP_5298_EXT_LIST_KOMPOSISI_1 @iddivisi = ?', ['EXT']);
+    // dd($id_komposisi[0]->IdKomposisi);
+    // return view($viewName, $viewData, compact('id_komposisi'));
 }

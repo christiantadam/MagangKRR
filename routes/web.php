@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extruder\ExtruderController;
+use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
 Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
 
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
-Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
+// Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
+
+Route::get('/Extruder/ExtruderNet/{formName?}', [MasterController::class, 'index']);
