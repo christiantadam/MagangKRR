@@ -61,7 +61,7 @@
                             </a>
                             <ul class="dropdown-menu" style="cursor: default">
                                 <li>
-                                    <a href="/MaintenanceDivisi" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Divisi</a>
+                                    <a href="{{ url('MaintenanceDivisi') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Divisi</a>
                                 </li>
                                 <li>
                                     <a href="/MaintenanceDrafter" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Drafter</a>

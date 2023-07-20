@@ -24,15 +24,6 @@ class MasterController extends Controller
         return view('WORKSHOP.Workshop.Master.MaintenanceMesin');
     }
 
-    public function MaintenanceDivisi()
-    {
-        $divisi = DB::connection('ConnExtruder')->select('exec SP_5298_WRK_DIVISI');
-       // dd($$divisi);
-        return view('WORKSHOP.Workshop.Master.MaintenanceDivisi',compact(['divisi']));
-
-
-    }
-
     public function UpdateNoGambar()
     {
         return view('WORKSHOP.Workshop.Master.UpdateNoGambar');

@@ -91,7 +91,7 @@ Route::get('Workshop', 'App\Http\Controllers\HomeController@Workshop');
 
 // Workshop - Master
 Route::get('MaintenanceDrafter', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceDrafter');
-Route::get('MaintenanceDivisi', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceDivisi');
+Route::resource('MaintenanceDivisi', App\Http\Controllers\WORKSHOP\Workshop\MaintenanceDivisiController::class);
 Route::get('MaintenanceMesin', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceMesin');
 Route::get('UpdateNoGambar', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@UpdateNoGambar');
 
