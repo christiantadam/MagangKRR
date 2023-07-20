@@ -311,15 +311,9 @@
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a href="http://127.0.0.1:8000" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('PrintTbl') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Print
-                                </a>
-                            </div>
-                            <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('bntkez') }}');" class="" type="button" id="" data-toggle=""
-                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Bantu Kez
                                 </a>
                             </div>
                         </ul>

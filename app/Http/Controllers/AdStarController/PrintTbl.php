@@ -5,10 +5,10 @@ namespace App\Http\Controllers\AdStarController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class bntkez extends Controller
+class PrintTbl extends Controller
 {
     public function index()
     {
-        return view('AdStar.bntkez');//
+        return view('AdStar.PrintTbl');//
     }
 }
