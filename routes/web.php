@@ -90,8 +90,9 @@ Route::get('HasilPengerjaan', 'App\Http\Controllers\WORKSHOP\Gps\LaporanControll
 Route::get('Workshop', 'App\Http\Controllers\HomeController@Workshop');
 
 // Workshop - Master
-Route::get('MaintenanceDrafter', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceDrafter');
 Route::resource('MaintenanceDivisi', App\Http\Controllers\WORKSHOP\Workshop\MaintenanceDivisiController::class);
+Route::resource('MaintenanceDrafter', App\Http\Controllers\WORKSHOP\Workshop\MaintenanceDrafterController::class);
+
 Route::get('MaintenanceMesin', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceMesin');
 Route::get('UpdateNoGambar', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@UpdateNoGambar');
 

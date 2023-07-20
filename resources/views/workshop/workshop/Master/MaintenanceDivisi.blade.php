@@ -15,7 +15,6 @@
   <div class="card-body">
     <form id="maintenanceDivisi" action="{{ url('MaintenanceDivisi') }}" method="POST">
       {{ csrf_field() }}
-      @method('put')
       <input type="hidden" name="_method" id="methodForm">
       <div class="row">
         <div class="col-lg-2">
@@ -26,7 +25,7 @@
           <select class="form-select" name="KodeDivisi" style="width: 36vh;
                 height: 6vh;" disabled
             id="kddivisi">
-            <option selected>Pilih Divisi</option>
+            <option disabled selected>Pilih Divisi</option>
             @foreach ($divisi as $d)
               <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
             @endforeach
