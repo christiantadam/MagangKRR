@@ -13,6 +13,22 @@
                                 <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('/Jurnal') }}" >
                                     {{ csrf_field() }}
                                 <div class="modal-body">
+                                    <div style="display: flex; flex-wrap: nowrap;">
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label>Posisi</label>
+                                            <select class="form-control" id="Posisi" name="Posisi" style="resize: none;height: 40px; value="" required>
+
+                                            </select>
+                                        </div>
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label><br> </label>
+                                            <select class="form-control" id="Posisi" name="Posisi" style="resize: none;height: 40px; value="" required>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <br>
                                     <label>Posisi</label>
                                     <select class="form-control" id="Posisi" name="Posisi" value="" required>
                                         <option value="">Opsi 1</option>

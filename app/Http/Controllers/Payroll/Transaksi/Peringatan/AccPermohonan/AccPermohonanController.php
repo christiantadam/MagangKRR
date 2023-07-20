@@ -12,9 +12,37 @@ class AccPermohonanController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.Peringatan.AccPermohonan.accPermohonan', compact('data'));
+
+
+
+        $peringatan = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PERINGATAN_BLM_ACC ?', [0]);
+        return view('Payroll.Transaksi.Peringatan.AccPermohonan.accPermohonan', compact('peringatan'));
+        dd($peringatan);
     }
+
+    public function prosesPeringatan(Request $request)
+    {
+        $dataPeringatan = $request->all();
+
+        // Loop melalui data peringatan dan eksekusi stored procedure untuk setiap data
+        foreach ($dataPeringatan as $peringatan) {
+            $kd_pegawai = $peringatan['kd_pegawai'];
+            $peringatan_ke = $peringatan['peringatan_ke'];
+            $TglBerlaku = $peringatan['TglBerlaku'];
+
+            // Eksekusi stored procedure menggunakan statement tanpa mengambil hasilnya
+            DB::connection('ConnPayroll')->statement('EXEC SP_1486_PAY_ACC_PERINGATAN ?, ?, ?, ?', [
+                'Adam', // Ganti 'Adam' dengan nilai UserAcc yang sesuai
+                $kd_pegawai,
+                $peringatan_ke,
+                $TglBerlaku
+            ]);
+        }
+
+        // Respon berhasil (optional)
+        return response()->json(['message' => 'Data peringatan berhasil diproses']);
+    }
+
 
     //Show the form for creating a new resource.
     public function create()
@@ -29,7 +57,7 @@ class AccPermohonanController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show()
     {
         //
     }

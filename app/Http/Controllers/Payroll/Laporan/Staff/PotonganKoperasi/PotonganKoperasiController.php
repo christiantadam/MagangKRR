@@ -12,7 +12,8 @@ class PotonganKoperasiController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
+        $divisi = DB::connection('ConnPayroll')->select('exec SP_1003_KOP_LIHATANGGOTA @NOKARTU = ?',[4384]);
+        dd($divisi);
         return view('Payroll.Laporan.Staff.PotonganKoperasi.PotonganKoperasi', compact('data'));
     }
 
@@ -29,7 +30,7 @@ class PotonganKoperasiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
         //
     }

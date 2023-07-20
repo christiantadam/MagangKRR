@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -301,7 +302,7 @@
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/LaporanAbnormal') }}">Laporan Absen Abnormal</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/DaftarLembur') }}">Daftar Lembur By Supervisor</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/DaftarLembur') }}">Daftar Lembur By Supervisor (X)</a>
                                             </li>
 
                                         </ul>

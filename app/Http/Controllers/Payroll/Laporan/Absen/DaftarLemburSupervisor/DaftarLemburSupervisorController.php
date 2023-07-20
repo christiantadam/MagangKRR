@@ -13,8 +13,23 @@ class DaftarLemburSupervisorController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Laporan.Absen.DaftarLemburSupervisor.daftarLemburSupervisor', compact('data'));
+        $divisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI');
+
+        return view('Payroll.Laporan.Absen.DaftarLemburSupervisor.daftarLemburSupervisor', compact('divisi'));
+
     }
+    public function getDataLembur()
+{
+    // Ambil data dari database berdasarkan divisi dan tanggal
+    $divisi = $_GET['divisi']; // Ambil nilai dari input divisi (pastikan divisi ini sesuai dengan name di select HTML)
+    $tanggal = $_GET['tanggal']; // Ambil nilai dari input tanggal (pastikan tanggal ini sesuai dengan name di input date HTML)
+
+    // Panggil stored procedure dengan menggunakan divisi dan tanggal sebagai parameter
+    $daftarLembur = DB::connection('ConnPayroll')->select('exec SP_5409_LBR_SLC_LEMBUR_SUPERVISOR @tanggal = ?, @divisi = ?', [$tanggal, $divisi]);
+
+    // Kirim data ke view
+    return view('Payroll.Laporan.Absen.DaftarLemburSupervisor.daftarLemburSupervisor', compact('daftarLembur'));
+}
 
     //Show the form for creating a new resource.
     public function create()
@@ -29,7 +44,7 @@ class DaftarLemburSupervisorController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show()
     {
         //
     }
