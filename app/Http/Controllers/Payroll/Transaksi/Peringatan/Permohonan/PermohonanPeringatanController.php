@@ -12,8 +12,9 @@ class PermohonanPeringatanController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.Peringatan.Permohonan.permohonanPeringatan', compact('data'));
+
+        $peringatanDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
+        return view('Payroll.Transaksi.Peringatan.Permohonan.permohonanPeringatan', compact('peringatanDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +30,7 @@ class PermohonanPeringatanController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

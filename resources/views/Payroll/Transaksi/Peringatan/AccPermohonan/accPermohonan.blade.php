@@ -1,5 +1,12 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script>
+    $(document).ready( function () {
+    $('#table_Peringatan').DataTable({
+        order: [[0, 'desc']],
+    });
+} );
+</script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -8,8 +15,8 @@
                     <div class="card-body-container" style="margin-left:-220px;"></div>
                     <div class="row">
                         <div class="table-responsive" style="margin:30px;">
-                            <table class="table table-bordered">
-                                <thead>
+                            <table id="table_Peringatan" class="table table-bordered">
+                                <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Peringatan</th>
                                         <th scope="col">Divisi</th>
@@ -18,12 +25,15 @@
                                         <th scope="col">Tgl Awal</th>
                                         <th scope="col">Tgl Akhir</th>
                                         <th scope="col">Uraian</th>
+                                        <th scope="col">Bulan</th>
+                                        <th scope="col">Tahun</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider">
+                                <tbody>
                                     @foreach ($peringatan as $item)
                                         <tr>
                                             <td><input type="checkbox" style="margin-right:5px;"
+                                                    {{-- data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }} --}}
                                                     data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
                                             </td>
                                             <td>{{ $item->Nama_Div }}</td>
@@ -32,6 +42,8 @@
                                             <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
                                             <td>{{ $item->TglAkhir ?? 'Null' }}</td>
                                             <td>{{ $item->uraian }}</td>
+                                            <td>{{ $item->bulan }}</td>
+                                            <td>{{ $item->tahun }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -43,7 +55,7 @@
                             <button type="button" class="btn btn-primary" style="margin-left: 10px; width:100px;"
                                 onclick="prosesPeringatan()">Proses</button>
                             <button type="button" class="btn btn-dark"
-                                style="margin-left: 10px; width:100px;">Keluar</button>
+                                style="margin-left: 10px; width:100px;" onclick="console.log()">Keluar</button>
                         </div>
                         <div class="col-6" style="text-align: right;">
                         </div>
@@ -66,12 +78,15 @@
             checkboxes.forEach(checkbox => {
                 const dataId = checkbox.getAttribute('data-id');
                 const [kd_pegawai, peringatan_ke, TglBerlaku] = dataId.split('_');
+                // const [kd_pegawai, peringatan_ke, bulan, tahun] = dataId.split('_');
 
                 // Tambahkan data ke array dataPeringatan
                 dataPeringatan.push({
                     kd_pegawai: kd_pegawai,
                     peringatan_ke: peringatan_ke,
-                    TglBerlaku: TglBerlaku
+                    // bulan : bulan,
+                    // tahun : tahun,
+                    TglBerlaku: TglBerlaku,
                 });
                 // console.log('kd_pegawai:', kd_pegawai);
                 // console.log('peringatan_ke:', peringatan_ke);
