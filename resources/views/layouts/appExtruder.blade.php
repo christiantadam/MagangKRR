@@ -19,6 +19,9 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('css/extruder_style.css') }}" rel="stylesheet">
+
+    {{-- jQuery --}}
+    <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
 </head>
 
 <body>

@@ -4,11 +4,13 @@
         <form>
 
             <div class="row mt-3">
+                <div class="col-md-3">
+                    <span class="aligned-text">Id Komposisi:</span>
+                </div>
                 <div class="col-md-6 form-group">
-                    <label for="id_komposisi">Id Komposisi:</label>
-                    <select class="form-select" name="id_komposisi" id="id_komposisi">
+                    <select class="form-select" name="select_id_komposisi" id="select_id_komposisi">
                         <option selected disabled>-- Pilih Id Komposisi --</option>
-                        @foreach ($formData['idKomposisi'] as $d)
+                        @foreach ($formData['listIdKomposisi'] as $d)
                             <option value="{{ $d->IdKomposisi }}">{{ $d->NamaKomposisi }}</option>
                         @endforeach
                     </select>
@@ -16,11 +18,13 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-md-5 form-group">
-                    <label for="id_komposisi">Mesin:</label>
-                    <select class="form-select" name="id_komposisi" id="id_komposisi">
+                <div class="col-md-3">
+                    <span class="aligned-text">Mesin:</span>
+                </div>
+                <div class="col-md-6 form-group">
+                    <select class="form-select" name="select_mesin" id="select_mesin">
                         <option selected disabled>-- Pilih Mesin --</option>
-                        @foreach ($formData['mesin'] as $d)
+                        @foreach ($formData['listMesin'] as $d)
                             <option value="{{ $d->IdMesin }}">{{ $d->TypeMesin }}</option>
                         @endforeach
                     </select>
@@ -29,20 +33,14 @@
 
             <div class="card mt-5">
                 <div class="card-body">
-                    <div style="width: 100%; overflow-x: auto;">
-                        <table class="table" style="table-layout: fixed;">
-                            <colgroup>
-                                <col style="width: 300px;">
-                                <col style="width: 125px;">
-                                <col style="width: 125px;">
-                                <col style="width: 125px;">
-                                <col style="width: 125px;">
-                                <col style="width: 125px;">
-                                <col style="width: 125px;">
-                            </colgroup>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="width: max-content">
                             <thead>
                                 <tr>
-                                    <th>Nama Type</th>
+                                    <th class="text-center">Jenis</th>
+                                    <th class="text-center" style="width: 100px">Id Type</th>
+                                    <th style="width: 500px">Nama Type</th>
                                     <th class="text-center">Qty Primer</th>
                                     <th class="text-center">Sat Primer</th>
                                     <th class="text-center">Qty Sekunder</th>
@@ -53,31 +51,26 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Data 1</td>
-                                    <td class="text-center">10</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">5</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">3</td>
-                                    <td class="text-center">kg</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td>temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
                                 </tr>
                                 <tr>
-                                    <td>Data 2</td>
-                                    <td class="text-center">8</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">4</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">kg</td>
-                                </tr>
-                                <tr>
-                                    <td>Data 3</td>
-                                    <td class="text-center">15</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">6</td>
-                                    <td class="text-center">kg</td>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">kg</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td>temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
+                                    <td class="text-center">temp</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -85,12 +78,14 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Objek:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="objek1">
-                                <input type="text" class="form-control" name="objek2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_objek">Objek:</label>
+                            <select name="select_objek" id="select_objek" class="form-select">
+                                <option selected disabled>-- Pilih Objek --</option>
+                                @foreach ($formData['listObjek'] as $d)
+                                    <option value="{{ $d->IdObjek }}">{{ $d->NamaObjek }}</option>
+                                @endforeach
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
@@ -104,12 +99,11 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok Utama:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="utama1">
-                                <input type="text" class="form-control" name="utama2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_kelompok_utama">Kelompok Utama:</label>
+                            <select name="select_kelompok_utama" id="select_kelompok_utama" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Kelompok Utama --</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
@@ -123,12 +117,11 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="kelompok1">
-                                <input type="text" class="form-control" name="kelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_kelompok">Kelompok:</label>
+                            <select name="select_kelompok" id="select_kelompok" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Kelompok --</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
@@ -142,31 +135,11 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="kelompok1">
-                                <input type="text" class="form-control" name="kelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <label for="objek">Tertier:</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="tertier1" value="0">
-                                <input type="text" class="form-control" name="tertier2">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-7 form-group">
-                            <label for="objek">SubKelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="subkelompok1">
-                                <input type="text" class="form-control" name="subkelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_sub_kelompok">Sub-kelompok:</label>
+                            <select name="select_sub_kelompok" id="select_sub_kelompok" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Sub-kelompok --</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-2 form-group">
@@ -221,6 +194,7 @@
 
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -239,4 +213,6 @@
 
         </form>
     </div>
+
+    <script src="{{ asset('js/Extruder/komposisiTropodo.js') }}"></script>
 @endsection

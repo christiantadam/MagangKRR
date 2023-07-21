@@ -27,3 +27,17 @@ Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 // Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/{formName?}', [MasterController::class, 'index']);
+
+#region ExtruderNet - Master
+
+Route::get(
+    '/ExtruderNet/formKomposisiTropodo/kelompokUtama/{id_objek}',
+    [MasterController::class, 'getKelompokUtama']
+);
+
+Route::get(
+    '/ExtruderNet/formKomposisiTropodo/kelompok/{id_kelompok_utama}',
+    [MasterController::class, 'getKelompok']
+);
+
+#endregion
