@@ -12,6 +12,8 @@ class ScheduleController extends Controller
     //Display a listing of the resource.
     public function index()
     {
+        $data2 = DB::connection('ConnABM')->select('exec SP_5409_INV_IdType_Schedule @divisi = ?, @idtype = ?',  ['terserah', 'seterah']);
+        //dd($data2);
         $data = 'HAPPY HAPPY HAPPY';
         return view('BarcodeKerta2.Schedule', compact('data'));
     }

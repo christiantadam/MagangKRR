@@ -7,7 +7,7 @@
         <div class="form-wrapper mt-4">
         <div class="form-container">
         <div class="card">
-            <div class="card-header">Cek Barcode</div>
+            <div class="card-header">Setting Timbangan</div>
             <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="form berat_woven">
                 <form action="#" method="post" role="form">

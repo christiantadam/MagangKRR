@@ -5,7 +5,6 @@
 
 
         <div class="form-wrapper mt-4">
-        <div class="form-container">
         <div class="card">
             <div class="card-header">Batal Kirim Gudang</div>
             <div class="card-body RDZOverflow RDZMobilePaddingLR0">

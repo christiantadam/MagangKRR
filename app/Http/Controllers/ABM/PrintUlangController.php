@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\ABM\BarcodeKerta;
+namespace App\Http\Controllers\ABM\PrintUlang;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class BuatBarcodeController extends Controller
+class PrintUlangController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
-
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeKerta2.BuatBarcode', compact('data'));
+        return view('PrintUlang', compact('data'));
     }
 
     //Show the form for creating a new resource.
