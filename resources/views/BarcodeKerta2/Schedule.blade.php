@@ -49,10 +49,10 @@
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="id_Divisi" id="id_Divsi"
-                                                placeholder="ID Divisi">
+                                            <input type="text" class="form-control" name="selectedDataInput" id="selectedDataInput"
+                                                placeholder="ID Divisi" readonly>
                                             <input type="text" class="form-control" name="Divisi" id="Divsi"
-                                                placeholder="Divisi">
+                                                placeholder="Divisi" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal()" id="ButtonDivisi">...</button></div>
                                             <div class="modal" id="myModal">
@@ -63,17 +63,28 @@
                                                     <table id="TableDivisi">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID Divisi </th>
-                                                                <th>Divisi </th>
+                                                                <th>ID Divisi</th>
+                                                                <th>Divisi</th>
+                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>ID Divii </td>
-                                                                <td>Divisi </td>
+                                                                <td>Test1</td>
+                                                                <td>Test1</td>
+
+                                                                <td> <!-- Add the checkbox here -->
+                                                                    <label>
+                                                                        <input type="checkbox" name="divisi" value="value2">
+                                                                    </label>
+                                                                </td>
                                                             </tr>
+                                                            <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,9 +97,9 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Kelut" id="id_Kelut"
-                                                placeholder="ID Kelut">
+                                                placeholder="ID Kelut" readonly>
                                             <input type="text" class="form-control" name="Kelut" id="Kelut"
-                                                placeholder="Kelut">
+                                                placeholder="Kelut" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal1()" id="ButtonKelut">...</button></div>
                                             <div class="modal" id="myModal1">
@@ -101,15 +112,24 @@
                                                             <tr>
                                                                 <th>ID Ketua Kelompok </th>
                                                                 <th>Ketua Kelompok </th>
+                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>ID Ketua Kelompok </td>
                                                                 <td>Ketua Kelompok </td>
+                                                                <td> <!-- Add the checkbox here -->
+                                                                    <label>
+                                                                        <input type="checkbox" name="kelut" value="value2">
+                                                                    </label>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,9 +141,9 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Kelompok" id="id_Kelompok"
-                                                placeholder="ID Kelompok">
+                                                placeholder="ID Kelompok" readonly>
                                             <input type="text" class="form-control" name="Kelompok" id="Kelompok"
-                                                placeholder="Kelompok">
+                                                placeholder="Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal2()" id="ButtonKelompok">...</button></div>
                                             <div class="modal" id="myModal2">
@@ -136,15 +156,24 @@
                                                             <tr>
                                                                 <th>ID Kelompok </th>
                                                                 <th>Kelompok </th>
+                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>ID Kelompok </td>
                                                                 <td>Kelompok </td>
+                                                                <td> <!-- Add the checkbox here -->
+                                                                    <label>
+                                                                        <input type="checkbox" name="kelompok" value="value2">
+                                                                    </label>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,9 +185,9 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_SubKelompok"
-                                                id="id_SubKelompok" placeholder="ID SubKelompok">
+                                                id="id_SubKelompok" placeholder="ID SubKelompok" readonly>
                                             <input type="text" class="form-control" name="Sub_kelompok" id="Sub_kelompok"
-                                                placeholder="Sub Kelompok">
+                                                placeholder="Sub Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal3()" id="ButtonSubKelompok">...</button></div>
                                             <div class="modal" id="myModal3">
@@ -171,15 +200,24 @@
                                                             <tr>
                                                                 <th>ID Sub Kelompok </th>
                                                                 <th>Sub Kelompok </th>
+                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>ID Sub Kelompok </td>
                                                                 <td>Sub Kelompok </td>
+                                                                <td> <!-- Add the checkbox here -->
+                                                                    <label>
+                                                                        <input type="checkbox" name="sub_kelompok" value="value2">
+                                                                    </label>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,9 +229,9 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Type" id="id_Type"
-                                                placeholder="ID Type">
+                                                placeholder="ID Type" readonly>
                                             <input type="text" class="form-control" name="Type" id="Type"
-                                                placeholder="Type">
+                                                placeholder="Type" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal4()" id="ButtonType">...</button></div>
                                             <div class="modal" id="myModal4">
@@ -206,15 +244,24 @@
                                                             <tr>
                                                                 <th>ID Type </th>
                                                                 <th>Type </th>
+                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>ID Type </td>
                                                                 <td>Type </td>
+                                                                <td> <!-- Add the checkbox here -->
+                                                                    <label>
+                                                                        <input type="checkbox" name="type" value="value2">
+                                                                    </label>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -224,17 +271,27 @@
                                     <div class="card">
                                         <div class="card-header">Type</div>
                                         <table>
-                                            <tr>
-                                                <th>Divisi </th>
-                                                <th>Kelut </th>
-                                                <th>Kelompok </th>
-                                                <th>Sub Kelompok </th>
-                                                <th>Type </th>
-                                            </tr>
+                                            <thead>
+                                                <tr>
+                                                    <th>Divisi </th>
+                                                    <th>Kelut </th>
+                                                    <th>Kelompok </th>
+                                                    <th>Sub Kelompok </th>
+                                                    <th>Type </th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Test1</td>
+                                                        <td>Test1</td>
+                                                        <td>Test1</td>
+                                                        <td>Test1</td>
+                                                        <td>Test1</td>
+                                                    </tr>
+                                                </tbody>
                                         </table>
                                     </div>
-                            </div>
-
+                                </div>
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
@@ -386,5 +443,7 @@
                 });
             });
         </script>
+
+
     </body>
 @endsection

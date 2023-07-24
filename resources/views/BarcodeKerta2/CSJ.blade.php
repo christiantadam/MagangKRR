@@ -83,7 +83,7 @@
                                         <div class="form-group col-md-3 d-flex justify-content-end">
                                             <span class="aligned-text">Tanggal:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-2 mt-3 mt-md-0">
                                             <input type="date" class="form-control" name="tgl" id="tgl"
                                                 placeholder="Tanggal">
                                         </div>
@@ -93,7 +93,7 @@
                                         <div class="form-group col-md-3 d-flex justify-content-end">
                                             <span class="aligned-text">Truk No. Pol:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Truk_pol" id="Truk_pol"
                                                 placeholder="No. Pol">
                                         </div>
@@ -121,7 +121,7 @@
                                     </div>
                             </div>
 
-                            <div class="mt-3">
+                            <div class="mt-3 text-center">
                                 <h5>Lembar 1 untuk : Penerima Barang <br>
                                     Lembar 2 untuk : Adm. Pembelian <br>
                                     Lembar 3 untuk : Gudang <br>

@@ -27,9 +27,9 @@
                                         <div class="text-center col-md-auto"><button type="submit">Keluar</button>
                                         </div>
                                     </div>
-                                    <h6 class="form-group mt-3">Lakukan Print Ulang Jika Barcode Rusak !!!</h6>
                                 </div>
                             </form>
+                            <h6 class="text-center mt-3">Lakukan Print Ulang Jika Barcode Rusak !!!</h6>
                         </div>
                     </div>
                 </div>

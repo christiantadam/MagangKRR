@@ -2,81 +2,86 @@
 @section('content')
 <body onload="Greeting()">
     <div id="app">
+            <div class="form-wrapper mt-4">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card-header">Permohonan Barcode</div>
+                        <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                            <div class="form berat_woven">
+                                <form action="#" method="post" role="form">
 
-
-
-        <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
-            <div class="card-body" style="flex: 1; margin-right: -20px; margin-left: 75px;">
             <!-- Konten Card Body Kiri -->
             <div class="form-wrapper mt-4">
             <div class="form-container">
             <div class="card">
-                <div class="card-header">Permohonan Barcode</div>
+                <div class="card-header">Input Data Barang</div>
                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                 <div class="form berat_woven">
                     <form action="#" method="post" role="form">
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Tanggal:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="date" class="form-control" name="Tanggal" id="Tanggal" placeholder="Tanggal" required>
+                            <div class="form-group col-md-2 mt-3 mt-md-0">
+                                <input type="date" class="form-control" name="Tanggal" id="Tanggal" placeholder="Tanggal" >
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Shift:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="text" class="form-control" name="Shift" id="Shift" placeholder="Shift" required>
+                            <div class="form-group col-md-4 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Shift" id="Shift" placeholder="Shift" >
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Kel. Utama:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="text" class="form-control" name="Kel_Utama" id="Kel_Utama" placeholder="Kel.Utama" required>
+                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Kel_Utama" id="Kel_Utama" placeholder="Kel.Utama" >
+                            </div>
+                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Kel_Utama" id="Kel_Utama" placeholder="Kel.Utama" >
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Kelompok:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="text" class="form-control" name="Jenis" id="Jenis" placeholder="Jenis" required>
+                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Jenis" id="Jenis" placeholder="Jenis" >
+                            </div>
+                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Jenis" id="Jenis" placeholder="Jenis" >
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Sub Kelompok:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="text" class="form-control" name="Sub_Kelompok2" id="Sub_Kelompok2" placeholder="Sub Kelompok" required>
+                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Sub_Kelompok2" id="Sub_Kelompok2" placeholder="Sub Kelompok" >
+                            </div>
+                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Sub_Kelompok2" id="Sub_Kelompok2" placeholder="Sub Kelompok" >
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Type:</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="text" class="form-control" name="Type_buatbarcode2" id="Type_buatbarcode2" placeholder="Type" required>
+                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Type_buatbarcode2" id="Type_buatbarcode2" placeholder="Type" >
                             </div>
-                        </div>
-
-                        <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
-                            <div class="card-body" style="flex: 1; margin-left: 10px;">
-                                <!-- Konten Card Body Kanan-->
-                                <div class="card">
-                                <div class="card-header">Jumlah Barcode</div>
-                                <h1 class="form-group">-</h1>
+                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                <input type="text" class="form-control" name="Type_buatbarcode2" id="Type_buatbarcode2" placeholder="Type" >
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -85,12 +90,13 @@
     </div>
 </div>
 
-        <div class="card-body" style="flex: 1; margin-left: 10px;">
+
+        <div class="card-body">
         <!-- Konten Card Body Kanan-->
         <div class="form-wrapper mt-4">
         <div class="form-container">
         <div class="card">
-            <div class="card-header">Permohonan Barcode</div>
+            <div class="card-header">Info Barang</div>
             <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="form berat_woven">
                 <form action="#" method="post" role="form">
@@ -139,7 +145,7 @@
     <div class="form-wrapper mt-4">
         <div class="form-container">
         <div class="card">
-            <div class="card-header">Permohonan Barcode</div>
+            <div class="card-header">Hasil Produksi</div>
             <div class="card-body RDZOverflow RDZMobilePaddingLR0">
             <div class="form berat_woven">
                 <form action="#" method="post" role="form">
@@ -187,6 +193,11 @@
                             <input type="text" class="form-control" name="Alafan" id="Alafan" placeholder="Alafan">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
         <main class="py-4">

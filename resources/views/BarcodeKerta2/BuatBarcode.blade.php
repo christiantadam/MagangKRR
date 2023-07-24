@@ -120,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                     <div class="card-body" style="flex: 1; margin-left: 10px;">
                         <!-- Konten Card Body Kanan-->
                         <div class="form-wrapper mt-4">
@@ -190,13 +191,13 @@
                                                                         <span class="aligned-text">Pilih Shift:</span>
                                                                     </div>
                                                                     <div class="form-group ">
-                                                                            <select id="shift">
-                                                                                <option value="1">Satu</option>
-                                                                                <option value="2">Dua</option>
-                                                                                <option value="3">Tiga</option>
-                                                                                <option value="4">Empat</option>
-                                                                                <option value="5">Lima</option>
-                                                                              </select>
+                                                                        <select id="shift">
+                                                                            <option value="1">Satu</option>
+                                                                            <option value="2">Dua</option>
+                                                                            <option value="3">Tiga</option>
+                                                                            <option value="4">Empat</option>
+                                                                            <option value="5">Lima</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
 
@@ -206,76 +207,83 @@
                                                                         <span class="aligned-text">No Barcode:</span>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <input type="text" class="form-control"  style="width: 500px"
-                                                                            name="NoBarcode" id="NoBarcode"
-                                                                            placeholder="No Barcode">
+                                                                        <input type="text" class="form-control"
+                                                                            style="width: 500px" name="NoBarcode"
+                                                                            id="NoBarcode" placeholder="No Barcode">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="card">
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="form-group col-md-3 d-flex justify-content-end mt-5">
-                                                                        <span class="aligned-text">Item Number:</span>
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="form-group col-md-3 d-flex justify-content-end mt-5">
+                                                                            <span class="aligned-text">Item Number:</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                name="NoBarcode" id="NoBarcode"
+                                                                                placeholder="No Barcode">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            name="NoBarcode" id="NoBarcode"
-                                                                            placeholder="No Barcode">
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="form-group col-md-3 d-flex justify-content-end">
-                                                                        <span class="aligned-text">Kode Barang:</span>
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="form-group col-md-3 d-flex justify-content-end">
+                                                                            <span class="aligned-text">Kode Barang:</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                name="NoBarcode" id="NoBarcode"
+                                                                                placeholder="No Barcode">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            name="NoBarcode" id="NoBarcode"
-                                                                            placeholder="No Barcode">
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="form-group col-md-3 d-flex justify-content-end">
-                                                                        <span class="aligned-text">Nama Type:</span>
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="form-group col-md-3 d-flex justify-content-end">
+                                                                            <span class="aligned-text">Nama Type:</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                style="width: 500px" name="Nama_type"
+                                                                                id="Nama_type" placeholder="Nama Type">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" style="width: 500px"
-                                                                            name="Nama_type" id="Nama_type"
-                                                                            placeholder="Nama Type">
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="form-group col-md-3 d-flex justify-content-end">
-                                                                        <span class="aligned-text">Sekunder:</span>
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="form-group col-md-3 d-flex justify-content-end">
+                                                                            <span class="aligned-text">Sekunder:</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                name="Sekunder" id="Sekunder"
+                                                                                placeholder="Sekunder">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            name="Sekunder" id="Sekunder"
-                                                                            placeholder="Sekunder">
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="form-group col-md-3 d-flex justify-content-end">
-                                                                        <span class="aligned-text">Tritier:</span>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            name="Tritier" id="Tritier"
-                                                                            placeholder="Tritier">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="form-group col-md-3 d-flex justify-content-end">
+                                                                            <span class="aligned-text">Tritier:</span>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control"
+                                                                                name="Tritier" id="Tritier"
+                                                                                placeholder="Tritier">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="text-center col-md-auto mt-3"><button
+                                                                    type="button">Timbang</button></div>
+                                                                <div class="text-center col-md-auto mt-3"><button
+                                                                    type="button">Print Ulang</button></div>
+                                                                <div class="text-center col-md-auto mt-3"><button
+                                                                    type="button">Scan Barcode</button></div>
+                                                                <div class="text-center col-md-auto mt-3"><button
+                                                                    type="button">Keluar</button></div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
                                                         <div class="text-center col-md-auto"><button
                                                                 type="submit">Keluar</button></div>
                                                     </div>
@@ -285,6 +293,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                             <main class="py-4">
                                 @yield('content')

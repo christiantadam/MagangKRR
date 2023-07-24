@@ -15,19 +15,31 @@
                         <div class="form-group col-md-3 d-flex justify-content-end">
                             <span class="aligned-text">Tanggal:</span>
                         </div>
-                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                        <div class="form-group col-md-2 mt-3 mt-md-0">
                             <input type="date" class="form-control" name="tgl_total_barcode" id="tgl_total_barcode" placeholder="tgl" required>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div
+                            class="form-group col-md-3 d-flex justify-content-end">
                             <span class="aligned-text">Pilih Shift:</span>
                         </div>
-                        <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="number" class="form-control" name="shift_total_barcode" id="shift_total_barcode" placeholder="Shift" required>
-                            <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
+                        <div class="form-group ml-3">
+                            <select id="shift">
+                                <option value="1">Satu</option>
+                                <option value="2">Dua</option>
+                                <option value="3">Tiga</option>
+                                <option value="4">Empat</option>
+                                <option value="5">Lima</option>
+                                <option value="6">Enam</option>
+                                <option value="7">Tuju</option>
+                                <option value="8">Delapan</option>
+                                <option value="9">Sembilan</option>
+                                <option value="10">Sepuluh</option>
+                            </select>
                         </div>
+                        <div class="form-group text-center col-md-auto"><button type="submit">Proses</button></div>
                     </div>
 
                     <div class="card mt-auto">

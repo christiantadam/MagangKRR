@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
+                    <div class="row mt-3 mb-3">
                         <div class="col- row justify-content-md-center">
                             <div class="text-center col-md-auto"><button type="submit">Cari</button></div>
                             <div class="text-center col-md-auto"><button type="submit">Proses</button></div>

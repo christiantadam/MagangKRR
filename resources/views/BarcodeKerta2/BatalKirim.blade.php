@@ -21,7 +21,7 @@
                     <th>-</th>
                 </tr>
             </table>
-            <div class="row mt-3">
+            <div class="row mt-3 mb-3">
                 <div class="col- row justify-content-md-center">
                     <div class="text-center col-md-auto"><button type="submit">Pilih Semua</button></div>
                     <div class="text-center col-md-auto"><button type="submit">Hapus</button></div>
@@ -29,11 +29,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
 
     <main class="py-4">
         @yield('content')

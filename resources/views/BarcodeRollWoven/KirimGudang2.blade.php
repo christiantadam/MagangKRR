@@ -12,22 +12,26 @@
             <div class="form berat_woven">
                 <form action="#" method="post" role="form">
                     <div class="row">
-                        <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="form-group col-md-2 d-flex justify-content-end">
                             <span class="aligned-text">Divisi:</span>
                         </div>
-                        <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="Divisi" id="Divsi" placeholder="Divisi" required>
+                        <div class="form-group col-md-2 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Divisi" id="Divsi" placeholder="Divisi" >
+                        </div>
+                        <div class="form-group col-md-6 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Divisi" id="Divsi" placeholder="Divisi" >
                             <div class="text-center col-md-auto"><button type="submit">...</button></div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="form-group col-md-2 d-flex justify-content-end">
                             <span class="aligned-text">No Barcode:</span>
                         </div>
-                        <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="No_barcode" id="No_barcode" placeholder="No Barcode" required>
+                        <div class="form-group col-md-6 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="No_barcode" id="No_barcode" placeholder="No Barcode" >
                         </div>
+                        <h6 class="ml-3 form-group">Tekan Enter</h6>
                     </div>
 
                     <div class="card mt-4">
@@ -66,14 +70,10 @@
                         </div>
                     </div>
 
-
-
-
-                    <div class="row mt-3">
+                    <div class="row mt-3 mb-3">
                         <div class="col- row justify-content-md-center">
                             <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
                             <div class="text-center col-md-auto"><button type="submit">Belum Dikirim</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Cetak S.Jalan</button></div>
                             <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
                         </div>
                     </div>

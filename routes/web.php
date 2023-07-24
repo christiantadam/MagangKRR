@@ -37,6 +37,10 @@ Route::get('/ABM/BarcodeKerta/CSJ', 'App\Http\Controllers\ABM\BarcodeKerta\CSJCo
 Route::get('/ABM/BarcodeKerta/TotalBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController@index');
 Route::get('/ABM/BarcodeKerta/BuatBarcode/PrintUlang', 'App\Http\Controllers\ABM\PrintUlangController@index');
 
+Route::get('/ABM/PermohonanPenerimaBarang', 'App\Http\Controllers\ABM\PermohonanPenerimaBarangController@index');
+Route::get('/ABM/ScanBarcode', 'App\Http\Controllers\ABM\ScanBarcodeController@index');
+Route::get('/ABM/PilihJenisRepress', 'App\Http\Controllers\ABM\PilihJenisRepressController@index');
+
 
 // Barcode Roll Woven
 Route::get('/ABM/BarcodeRollWoven/BuatBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\BuatBarcode2Controller@index');
