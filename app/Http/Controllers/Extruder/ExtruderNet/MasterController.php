@@ -15,6 +15,8 @@ class MasterController extends Controller
 
         if ($form_name == 'formKomposisiTropodo') {
             $form_data = $this->komposisiTropodo();
+        } else if ($form_name == 'formKomposisiMojosari') {
+            $form_data = $this->komposisiMojosari();
         }
 
         $view_data = [
@@ -24,6 +26,15 @@ class MasterController extends Controller
         ];
 
         return view($view_name, $view_data);
+    }
+
+    public function komposisiMojosari()
+    {
+        $id_komposisi = $this->getIdKomposisi('MEX');
+
+        return [
+            'listIdKomposisi' => $id_komposisi,
+        ];
     }
 
     public function komposisiTropodo()
@@ -116,5 +127,29 @@ class MasterController extends Controller
         // SELECT DISTINCT IdKelompok, NamaKelompok FROM vw_prg_5298_ext_subkel
         // WHERE IdKelompokUtama = @xidkelompokutama_kelompok AND IdKelompok = '001122'
         // ORDER BY NamaKelompok ASC
+    }
+
+    public function getSubKelompok($id_kelompok)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK @Xidkelompok_subkelompok = ?',
+            [$id_kelompok]
+        );
+
+        // SELECT DISTINCT NamaSubKelompok, IdSubKelompok FROM vw_prg_5298_ext_subkel
+        // WHERE IdKelompok = @xidkelompok_subkelompok
+        // ORDER BY NamaSubKelompok
+    }
+
+    public function getType($id_sub_kelompok)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDSUBKELOMPOK_TYPE @xidsubkelompok_type = ?',
+            [$id_sub_kelompok]
+        );
+
+        // SELECT * FROM vw_prg_5298_ext_type
+        // WHERE @xidsubkelompok_type = IdSubKelompok_Type AND NonAktif = 'Y'
+        // ORDER BY NamaType
     }
 }

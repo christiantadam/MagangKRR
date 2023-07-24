@@ -22,7 +22,7 @@
                     <span class="aligned-text">Mesin:</span>
                 </div>
                 <div class="col-md-6 form-group">
-                    <select class="form-select" name="select_mesin" id="select_mesin">
+                    <select class="form-select" name="select_mesin" id="select_mesin" disabled>
                         <option selected disabled>-- Pilih Mesin --</option>
                         @foreach ($formData['listMesin'] as $d)
                             <option value="{{ $d->IdMesin }}">{{ $d->TypeMesin }}</option>
@@ -78,9 +78,10 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="select_objek">Objek:</label>
-                            <select name="select_objek" id="select_objek" class="form-select">
+                            <label for="select_objek">Objek</label>
+                            <select name="select_objek" id="select_objek" class="form-select" disabled>
                                 <option selected disabled>-- Pilih Objek --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
                                 @foreach ($formData['listObjek'] as $d)
                                     <option value="{{ $d->IdObjek }}">{{ $d->NamaObjek }}</option>
                                 @endforeach
@@ -89,7 +90,7 @@
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Primer:</label>
+                            <label for="objek">Primer</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="primer1" value="0">
                                 <input type="text" class="form-control" name="primer2">
@@ -99,15 +100,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="select_kelompok_utama">Kelompok Utama:</label>
+                            <label for="select_kelompok_utama">Kelompok Utama</label>
                             <select name="select_kelompok_utama" id="select_kelompok_utama" class="form-select" disabled>
                                 <option selected disabled>-- Pilih Kelompok Utama --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
                                 <option value="temp">haloDunia</option>
                             </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Sekunder:</label>
+                            <label for="objek">Sekunder</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="sekunder1" value="0">
                                 <input type="text" class="form-control" name="sekunder2">
@@ -117,15 +119,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="select_kelompok">Kelompok:</label>
+                            <label for="select_kelompok">Kelompok</label>
                             <select name="select_kelompok" id="select_kelompok" class="form-select" disabled>
                                 <option selected disabled>-- Pilih Kelompok --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
                                 <option value="temp">haloDunia</option>
                             </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Tertier:</label>
+                            <label for="objek">Tertier</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="tertier1" value="0">
                                 <input type="text" class="form-control" name="tertier2">
@@ -135,15 +138,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="select_sub_kelompok">Sub-kelompok:</label>
+                            <label for="select_sub_kelompok">Sub-kelompok</label>
                             <select name="select_sub_kelompok" id="select_sub_kelompok" class="form-select" disabled>
                                 <option selected disabled>-- Pilih Sub-kelompok --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
                                 <option value="temp">haloDunia</option>
                             </select>
                         </div>
 
                         <div class="col-md-2 form-group">
-                            <label for="objek">Presentase:</label>
+                            <label for="objek">Presentase</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="presentase" value="0">
                                 <span class="input-group-text">%</span>
@@ -153,12 +157,12 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Type:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="type1">
-                                <input type="text" class="form-control" name="type2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_type">Type</label>
+                            <select name="select_type" id="select_type" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Type --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
                     </div>
 
@@ -176,19 +180,19 @@
 
                         <div class="col-md-1"></div>
 
-                        <div class="col-md-4">
-                            <div class="row mt-3 justify-content-center">
-                                <div class="col-md-4 text-center">
-                                    <button type="submit" style="height: -webkit-fill-available; width: 125px;">Tambah
+                        <div class="col-md-5">
+                            <div class="row mt-3 d-flex justify-content-center">
+                                <div class="col-lg-3 text-center">
+                                    <button type="submit" style="height: -webkit-fill-available;">Tambah
                                         Bahan</button>
                                 </div>
-                                <div class="col-md-4 text-center">
-                                    <button type="submit"
-                                        style="height: -webkit-fill-available; width: 125px;">Koreksi</button>
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-3 text-center">
+                                    <button type="submit" style="height: -webkit-fill-available;">Koreksi</button>
                                 </div>
-                                <div class="col-md-4 text-center">
-                                    <button type="submit"
-                                        style="height: -webkit-fill-available; width: 125px;">Hapus</button>
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-3 text-center">
+                                    <button type="submit" style="height: -webkit-fill-available;">Hapus</button>
                                 </div>
                             </div>
 

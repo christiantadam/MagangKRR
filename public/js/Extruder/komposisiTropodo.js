@@ -1,77 +1,133 @@
+const selectIdKomposisi = document.getElementById("select_id_komposisi");
+const selectMesin = document.getElementById("select_mesin");
+
 const selectObjek = document.getElementById("select_objek");
 const selectKelompokUtama = document.getElementById("select_kelompok_utama");
 const selectKelompok = document.getElementById("select_kelompok");
 const selectSubKelompok = document.getElementById("select_sub_kelompok");
+const selectType = document.getElementById("select_type");
+
+selectIdKomposisi.addEventListener("change", function () {
+    selectMesin.disabled = false;
+    clearOptions(selectMesin.id, true);
+
+    selectObjek.disabled = true;
+    selectKelompokUtama.disabled = true;
+    selectKelompok.disabled = true;
+    selectSubKelompok.disabled = true;
+    selectType.disabled = true;
+});
+
+selectMesin.addEventListener("change", function () {
+    selectObjek.disabled = false;
+    clearOptions(selectObjek.id, true);
+
+    selectKelompokUtama.disabled = true;
+    selectKelompok.disabled = true;
+    selectSubKelompok.disabled = true;
+    selectType.disabled = true;
+});
 
 selectObjek.addEventListener("change", function () {
-    const isEnabled = selectObjek.value != "-- Pilih Objek --";
-    selectKelompokUtama.disabled = !isEnabled;
+    selectKelompokUtama.disabled = false;
+    clearOptions(selectKelompokUtama.id);
 
-    fetchData(
-        "/ExtruderNet/formKomposisiTropodo/kelompokUtama/" + selectObjek.value,
-        selectKelompokUtama.id
-    );
+    selectKelompok.disabled = true;
+    selectSubKelompok.disabled = true;
+    selectType.disabled = true;
+});
+
+selectKelompokUtama.addEventListener("click", function () {
+    fetchData("/ExtruderNet/getKelompokUtama/" + selectObjek.value, this.id);
 });
 
 selectKelompokUtama.addEventListener("change", function () {
     if (selectKelompokUtama.value == "0117") {
         /*
-        Beri pesan konfirmasi berisi
-        "Anda akan memasukkan data bahan pembantu \n
-        Apakah Anda sudah memasukkan SEMUA BAHAN BAKU ??"
-        Bila pilih "YA", enable selectKelompok
+            Beri pesan konfirmasi berisi
+            "Anda akan memasukkan data bahan pembantu \n
+            Apakah Anda sudah memasukkan SEMUA BAHAN BAKU ??"
+            Jika "YA", enable selectKelompok
+            Jika "TIDAK", clear selectKelompokUtama
         */
     } else {
-        const isEnabled = selectObjek.value != "-- Pilih Kelompok Utama --";
-        selectKelompok.disabled = !isEnabled;
+        selectKelompok.disabled = false;
+        clearOptions(selectKelompok.id);
 
-        fetchData(
-            "/ExtruderNet/formKomposisiTropodo/kelompok/" +
-                selectKelompokUtama.value,
-            selectKelompok.id
-        );
+        selectSubKelompok.disabled = true;
+        selectType.disabled = true;
     }
 });
 
-/*
-button kelompok
+selectKelompok.addEventListener("click", function () {
+    fetchData("/ExtruderNet/getKelompok/" + selectKelompokUtama.value, this.id);
+});
 
-SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+selectKelompok.addEventListener("change", function () {
+    if (
+        selectKelompokUtama.value == "0057" ||
+        selectKelompokUtama.value == "0121" ||
+        selectKelompokUtama.value == "0009"
+    ) {
+        /*
+            SP_5298_EXT_CEK_KELOMPOK_MESIN
+            DB          Extruder
+            Parameter	@idkel = txtIdKelompok.Text
+            Untuk membandingkan mesin yang di DB INV dgn db EXT
+            Jika "TIDAK SAMA" maka beri pesan "Mesin tidak sama"
+        */
+    } else {
+        selectSubKelompok.disabled = false;
+        clearOptions(selectSubKelompok.id);
 
-db 	inventory
-param 	@XIdKelompokUtama_Kelompok = txtIdKelut.Text
-return 	"NamaKelompok", "IdKelompok"
+        selectType.disabled = true;
+    }
+});
 
-jika id kelompok utama "0057", "0121", "0009"
-	SP_5298_EXT_CEK_KELOMPOK_MESIN
-	db	extruder
-	param	@idkel = txtIdKelompok.Text
-	// untuk membandingkan mesin yang di db INV dgn db EXT
-	jika tidak sama maka beri pesan "Mesin tidak sama"
-*/
+selectSubKelompok.addEventListener("click", function () {
+    fetchData("/ExtruderNet/getSubKelompok/" + selectKelompok.value, this.id);
+});
 
-//#region Utilities
+selectSubKelompok.addEventListener("change", function () {
+    selectType.disabled = false;
+    clearOptions(selectType.id);
+});
 
-function fetchData(urlString, eleTarget) {
-    fetch(urlString)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.text();
-        })
-        .then((data) => {
-            // console.log(urlString);
-            console.log(data);
+selectType.addEventListener("click", function () {
+    fetchData("/ExtruderNet/getType/" + selectSubKelompok.value, this.id);
+});
 
-            addOption(eleTarget, data);
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+//#region Functions
+
+function fetchData(urlString, idTarget) {
+    const eleTarget = document.getElementById(idTarget);
+    const loadingOption = eleTarget.querySelector('[value="loading"]');
+
+    if (eleTarget.options.length <= 3) {
+        loadingOption.style.display = "block";
+
+        fetch(urlString)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.text();
+            })
+            .then((data) => {
+                // console.log(urlString);
+                // console.log(data);
+
+                addOptions(idTarget, data);
+                loadingOption.style.display = "none";
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                loadingOption.style.display = "none";
+            });
+    }
 }
 
-function addOption(idSelect, optionData) {
+function addOptions(idSelect, optionData) {
     const selectEle = document.getElementById(idSelect);
     optionData = JSON.parse(optionData);
 
@@ -84,9 +140,26 @@ function addOption(idSelect, optionData) {
         } else if (idSelect == selectKelompok.id) {
             newOption.value = optionData[i].IdKelompok;
             newOption.text = optionData[i].NamaKelompok;
+        } else if (idSelect == selectSubKelompok.id) {
+            newOption.value = optionData[i].IdSubKelompok;
+            newOption.text = optionData[i].NamaSubKelompok;
         }
 
         selectEle.appendChild(newOption);
+    }
+}
+
+function clearOptions(idSelect, onlySelection) {
+    const selectEle = document.getElementById(idSelect);
+    const labelEle = document.querySelector(`label[for="${idSelect}"]`);
+    selectEle.selectedIndex = 0;
+
+    if (!onlySelection) {
+        selectEle.innerHTML = `
+            <option selected disabled>-- Pilih ${labelEle.textContent} --</option>
+            <option value="loading" style="display: none" disabled>Loading...</option>
+            <option value="temp">haloDunia</option>
+        `;
     }
 }
 

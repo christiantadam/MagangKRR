@@ -31,13 +31,28 @@ Route::get('/Extruder/ExtruderNet/{formName?}', [MasterController::class, 'index
 #region ExtruderNet - Master
 
 Route::get(
-    '/ExtruderNet/formKomposisiTropodo/kelompokUtama/{id_objek}',
+    '/ExtruderNet/getIdKomposisi/{id_divisi}/{id_komposisi?}',
+    [MasterController::class, 'getIdKomposisi']
+);
+
+Route::get(
+    '/ExtruderNet/getKelompokUtama/{id_objek}/{type?}',
     [MasterController::class, 'getKelompokUtama']
 );
 
 Route::get(
-    '/ExtruderNet/formKomposisiTropodo/kelompok/{id_kelompok_utama}',
+    '/ExtruderNet/getKelompok/{id_kelompok_utama}/{type?}',
     [MasterController::class, 'getKelompok']
+);
+
+Route::get(
+    '/ExtruderNet/getSubKelompok/{id_kelompok}',
+    [MasterController::class, 'getSubKelompok']
+);
+
+Route::get(
+    '/ExtruderNet/getType/{id_sub_kelompok}',
+    [MasterController::class, 'getType']
 );
 
 #endregion

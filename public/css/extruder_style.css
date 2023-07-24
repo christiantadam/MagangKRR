@@ -20,6 +20,12 @@ button {
     transition: 0.25s;
 }
 
+@media screen and (max-width: 1024px) {
+    button {
+        padding: 5px;
+    }
+}
+
 button:hover {
     background-color: grey;
 }

@@ -6,16 +6,18 @@
             <div class="row mt-3">
                 <div class="col-md-7 row">
                     <div class="row mt-3">
-                        <div class="col-md-8 form-group">
-                            <label for="id_komposisi">Id Komposisi:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="id_komposisi1">
-                                <input type="text" class="form-control" name="id_komposisi2" style="width: 12.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                        <div class="col-md-9 form-group">
+                            <label for="select_id_komposisi">Id Komposisi</label>
+                            <select name="select_id_komposisi" id="select_id_komposisi" class="form-select">
+                                <option selected disabled>-- Pilih Id Komposisi --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                @foreach ($formData['listIdKomposisi'] as $d)
+                                    <option value="{{ $d->IdKomposisi }}">{{ $d->NamaKomposisi }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
                                     id="flexRadioDefault1">
@@ -41,53 +43,54 @@
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-6 form-group">
-                            <label for="id_komposisi">Mesin:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="mesin1">
-                                <input type="text" class="form-control" name="mesin2" style="width: 6.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                        <div class="col-md-12 form-group">
+                            <label for="select_mesin">Mesin</label>
+                            <select name="select_mesin" id="select_mesin" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Mesin --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12 form-group">
-                            <label for="id_komposisi">Hasil Produksi:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="hp1">
-                                <input type="text" class="form-control" name="hp2" style="width: 20em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_hp">Hasil Produksi</label>
+                            <select name="select_hp" id="select_hp" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Hasil Produksi --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12 form-group">
-                            <label for="id_komposisi">Hasil Produksi NG:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="hpng1">
-                                <input type="text" class="form-control" name="hpng2" style="width: 20em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_hp_ng">Hasil Produksi NG</label>
+                            <select name="select_hp_ng" id="select_hp_ng" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Hasil Produksi NG --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-md-12 form-group">
-                            <label for="id_komposisi">Afalan:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="afalan1">
-                                <input type="text" class="form-control" name="afalan2" style="width: 20em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_afalan">Afalan</label>
+                            <select name="select_afalan" id="select_afalan" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Afalan --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-5 d-flex align-items-end row">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-outline-secondary">Tambah Afalan</button>
+                        <button type="submit" class="btn btn-outline-secondary" style="margin-bottom: 15px">Tambah
+                            Afalan</button>
                     </div>
                     <div class="col-md-8">
                         <table class="table">
@@ -174,16 +177,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Objek:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="objek1">
-                                <input type="text" class="form-control" name="objek2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_objek">Objek</label>
+                            <select name="select_objek" id="select_objek" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Objek --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Primer:</label>
+                            <label for="objek">Primer</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="primer1" value="0">
                                 <input type="text" class="form-control" name="primer2">
@@ -193,16 +196,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok Utama:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="utama1">
-                                <input type="text" class="form-control" name="utama2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_kelompok_utama">Kelompok Utama</label>
+                            <select name="select_kelompok_utama" id="select_kelompok_utama" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Kelompok Utama --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Sekunder:</label>
+                            <label for="objek">Sekunder</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="sekunder1" value="0">
                                 <input type="text" class="form-control" name="sekunder2">
@@ -212,16 +215,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="kelompok1">
-                                <input type="text" class="form-control" name="kelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_kelompok">Kelompok</label>
+                            <select name="select_kelompok" id="select_kelompok" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Kelompok --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Tertier:</label>
+                            <label for="objek">Tertier</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="tertier1" value="0">
                                 <input type="text" class="form-control" name="tertier2">
@@ -231,35 +234,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Kelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="kelompok1">
-                                <input type="text" class="form-control" name="kelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4 form-group">
-                            <label for="objek">Tertier:</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="tertier1" value="0">
-                                <input type="text" class="form-control" name="tertier2">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-7 form-group">
-                            <label for="objek">SubKelompok:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="subkelompok1">
-                                <input type="text" class="form-control" name="subkelompok2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_sub_kelompok">Sub-kelompok</label>
+                            <select name="select_sub_kelompok" id="select_sub_kelompok" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Sub-kelompok --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-2 form-group">
-                            <label for="objek">Presentase:</label>
+                            <label for="objek">Presentase</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" name="presentase" value="0">
                                 <span class="input-group-text">%</span>
@@ -269,16 +253,16 @@
 
                     <div class="row mt-3">
                         <div class="col-md-7 form-group">
-                            <label for="objek">Type:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="type1">
-                                <input type="text" class="form-control" name="type2" style="width: 22.5em;">
-                                <button type="button" class="btn btn-outline-secondary">...</button>
-                            </div>
+                            <label for="select_type">Type</label>
+                            <select name="select_type" id="select_type" class="form-select" disabled>
+                                <option selected disabled>-- Pilih Type --</option>
+                                <option value="loading" style="display: none" disabled>Loading...</option>
+                                <option value="temp">haloDunia</option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 form-group">
-                            <label for="objek">Kode Barang:</label>
+                            <label for="objek">Kode Barang</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="kode_barang">
                             </div>
@@ -292,7 +276,7 @@
                         </div>
 
                         <div class="col-md-2 form-group">
-                            <label for="objek">Cadangan:</label>
+                            <label for="objek">Cadangan</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="cadangan" value="0">
                             </div>
@@ -313,4 +297,6 @@
 
         </form>
     </div>
+
+    <script src="{{ asset('js/Extruder/komposisiMojosari.js') }}"></script>
 @endsection
