@@ -99,7 +99,7 @@ function prosesdiklik() {
         maintenanceDrafter.submit();
     } else if ((hapus === true)) {
         methodForm.value = "DELETE";
-        maintenanceDrafter.action = "/MaintenanceDrafter/" + UserDrafter.value;
+        maintenanceDrafter.action = "/MaintenanceDrafter/" + UserDrafter    .value;
         maintenanceDrafter.submit();
     }
 }
