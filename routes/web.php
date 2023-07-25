@@ -23,8 +23,10 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 
 Route::get('Accounting', 'App\Http\Controllers\HomeController@Accounting');
 #region Maintenance Bank
-Route::get('MaintenanceBank', 'App\Http\Controllers\Accounting\Master\MaintenanceBankController@MaintenanceBank');
+// Route::get('MaintenanceBank', 'App\Http\Controllers\Accounting\Master\MaintenanceBankController@');
 Route::get('detailbank/{idBank}', 'App\Http\Controllers\Accounting\Master\MaintenanceBankController@getDataBank');
+Route::get('detailkodeperkiraan/{kodePerkiraan}', 'App\Http\Controllers\Accounting\Master\MaintenanceBankController@getKodePerkiraan');
+Route::resource('MaintenanceBank', App\Http\Controllers\Accounting\Master\MaintenanceBankController::class);
 #endregion
 
 Route::get('MaintenanceMataUang', 'App\Http\Controllers\Accounting\Master\MaintenanceMataUangController@MaintenanceMataUang');
@@ -93,5 +95,3 @@ Route::get('Soplang', 'App\Http\Controllers\Accounting\Informasi\SoplangControll
 Route::get('RekapPiutang', 'App\Http\Controllers\Accounting\Informasi\RekapPiutangController@RekapPiutang');
 Route::get('KartuHutang', 'App\Http\Controllers\Accounting\Informasi\KartuHutangController@KartuHutang');
 
-
-Route::get('ConnAccounting://sa:p@ssw0rd@127.0.0.1:1433/ACCOUNTING/{idBank}', 'MaintenanceBankController@getBankData');
