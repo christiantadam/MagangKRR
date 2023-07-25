@@ -93,11 +93,11 @@ Route::get('Workshop', 'App\Http\Controllers\HomeController@Workshop');
 Route::resource('MaintenanceDivisi', App\Http\Controllers\WORKSHOP\Workshop\Master\MaintenanceDivisiController::class);
 Route::resource('MaintenanceDrafter', App\Http\Controllers\WORKSHOP\Workshop\Master\MaintenanceDrafterController::class);
 Route::resource('UpdateNoGambar', App\Http\Controllers\WORKSHOP\Workshop\Master\UpdateNoGambarController::class);
+Route::resource('MaintenanceMesin', App\Http\Controllers\WORKSHOP\Workshop\Master\MaintenanceMesinController::class);
 
 Route::get('getdata/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Master\UpdateNoGambarController@Getdata');
+Route::get('getmesin/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Master\MaintenanceMesinController@getmesin');
 
-Route::get('MaintenanceMesin', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@MaintenanceMesin');
-Route::get('UpdateNoGambar', 'App\Http\Controllers\WORKSHOP\Workshop\MasterController@UpdateNoGambar');
 
 // Workshop - Transaksi
 Route::get('MaintenanceOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceOrderGambar');
