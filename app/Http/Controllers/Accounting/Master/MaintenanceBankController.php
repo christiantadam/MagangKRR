@@ -59,7 +59,7 @@ class MaintenanceBankController extends Controller
             $Aktif = 'T';
         }
 
-        DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_UDT_BANK_TBANK]
+        DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_UDT_BANK_TBANK]
         @Kode = ?,
         @IdBank = ?,
         @NamaBank = ?,

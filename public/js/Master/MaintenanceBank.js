@@ -195,7 +195,7 @@ namaBankselect.addEventListener("keypress", function (event) {
 btnProses.addEventListener ("click", function (event) {
     event.preventDefault();
     if (proses == 1) {
-        console.log("masuk isi");
+        // console.log("masuk isi");
         formkoreksi.submit();
     }
     else if (proses == 2) {
