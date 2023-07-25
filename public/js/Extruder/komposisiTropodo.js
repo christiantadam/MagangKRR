@@ -134,15 +134,21 @@ function addOptions(idSelect, optionData) {
     for (let i = 0; i < optionData.length; i++) {
         const newOption = document.createElement("option");
 
-        if (idSelect == selectKelompokUtama.id) {
-            newOption.value = optionData[i].IdKelompokUtama;
-            newOption.text = optionData[i].NamaKelompokUtama;
-        } else if (idSelect == selectKelompok.id) {
-            newOption.value = optionData[i].IdKelompok;
-            newOption.text = optionData[i].NamaKelompok;
-        } else if (idSelect == selectSubKelompok.id) {
-            newOption.value = optionData[i].IdSubKelompok;
-            newOption.text = optionData[i].NamaSubKelompok;
+        switch (idSelect) {
+            case selectKelompokUtama.id:
+                newOption.value = optionData[i].IdKelompokUtama;
+                newOption.text = optionData[i].NamaKelompokUtama;
+                break;
+            case selectKelompok.id:
+                newOption.value = optionData[i].IdKelompok;
+                newOption.text = optionData[i].NamaKelompok;
+                break;
+            case selectSubKelompok.id:
+                newOption.value = optionData[i].IdSubKelompok;
+                newOption.text = optionData[i].NamaSubKelompok;
+                break;
+            default:
+                break;
         }
 
         selectEle.appendChild(newOption);

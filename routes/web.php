@@ -31,6 +31,11 @@ Route::get('/Extruder/ExtruderNet/{formName?}', [MasterController::class, 'index
 #region ExtruderNet - Master
 
 Route::get(
+    '/ExtruderNet/getDataKomposisi/{no_komposisi}',
+    [MasterController::class, 'getDataKomposisi']
+);
+
+Route::get(
     '/ExtruderNet/getIdKomposisi/{id_divisi}/{id_komposisi?}',
     [MasterController::class, 'getIdKomposisi']
 );
@@ -53,6 +58,11 @@ Route::get(
 Route::get(
     '/ExtruderNet/getType/{id_sub_kelompok}',
     [MasterController::class, 'getType']
+);
+
+Route::get(
+    '/ExtruderNet/getBarang/{kode}/{kode_barang}/{id_komposisi}/{id_kelompok}/{id_divisi}/{mesin}',
+    [MasterController::class, 'getBarang']
 );
 
 #endregion

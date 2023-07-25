@@ -1,95 +1,61 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <div id="komposisi_mojosari" class="form" data-aos="fade-up">
+    <input type="text" id="form_name" style="display: none" value="{{ $formName }}">
+
+    <div id="form_komposisi_mojosari" class="form" data-aos="fade-up">
         <form>
 
             <div class="row mt-3">
-                <div class="col-md-7 row">
-                    <div class="row mt-3">
-                        <div class="col-md-9 form-group">
-                            <label for="select_id_komposisi">Id Komposisi</label>
-                            <select name="select_id_komposisi" id="select_id_komposisi" class="form-select">
-                                <option selected disabled>-- Pilih Id Komposisi --</option>
-                                <option value="loading" style="display: none" disabled>Loading...</option>
-                                @foreach ($formData['listIdKomposisi'] as $d)
-                                    <option value="{{ $d->IdKomposisi }}">{{ $d->NamaKomposisi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                <div class="col-md-7">
+                    <label for="select_id_komposisi">Id Komposisi</label>
+                    <select name="select_id_komposisi" id="select_id_komposisi" class="form-select">
+                        <option selected disabled>-- Pilih Id Komposisi --</option>
+                        <option value="loading" style="display: none" disabled>Loading...</option>
+                        @foreach ($formData['listIdKomposisi'] as $d)
+                            <option value="{{ $d->IdKomposisi }}">{{ $d->NamaKomposisi }}</option>
+                        @endforeach
+                    </select>
 
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Komposisi
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Hasil Produksi
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Afalan
-                                </label>
-                            </div>
-                        </div>
+                    <div class="mt-3">
+                        <label for="select_mesin">Mesin</label>
+                        <select name="select_mesin" id="select_mesin" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Mesin --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            <option value="temp">haloDunia</option>
+                        </select>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12 form-group">
-                            <label for="select_mesin">Mesin</label>
-                            <select name="select_mesin" id="select_mesin" class="form-select" disabled>
-                                <option selected disabled>-- Pilih Mesin --</option>
-                                <option value="loading" style="display: none" disabled>Loading...</option>
-                                <option value="temp">haloDunia</option>
-                            </select>
-                        </div>
+                    <div class="mt-3">
+                        <label for="select_hp">Hasil Produksi</label>
+                        <select name="select_hp" id="select_hp" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Hasil Produksi --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            <option value="temp">haloDunia</option>
+                        </select>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12 form-group">
-                            <label for="select_hp">Hasil Produksi</label>
-                            <select name="select_hp" id="select_hp" class="form-select" disabled>
-                                <option selected disabled>-- Pilih Hasil Produksi --</option>
-                                <option value="loading" style="display: none" disabled>Loading...</option>
-                                <option value="temp">haloDunia</option>
-                            </select>
-                        </div>
+                    <div class="mt-3">
+                        <label for="select_hp_ng">Hasil Produksi NG</label>
+                        <select name="select_hp_ng" id="select_hp_ng" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Hasil Produksi NG --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            <option value="temp">haloDunia</option>
+                        </select>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12 form-group">
-                            <label for="select_hp_ng">Hasil Produksi NG</label>
-                            <select name="select_hp_ng" id="select_hp_ng" class="form-select" disabled>
-                                <option selected disabled>-- Pilih Hasil Produksi NG --</option>
-                                <option value="loading" style="display: none" disabled>Loading...</option>
-                                <option value="temp">haloDunia</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-12 form-group">
-                            <label for="select_afalan">Afalan</label>
-                            <select name="select_afalan" id="select_afalan" class="form-select" disabled>
-                                <option selected disabled>-- Pilih Afalan --</option>
-                                <option value="loading" style="display: none" disabled>Loading...</option>
-                                <option value="temp">haloDunia</option>
-                            </select>
-                        </div>
+                    <div class="mt-3">
+                        <label for="select_afalan">Afalan</label>
+                        <select name="select_afalan" id="select_afalan" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Afalan --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            <option value="temp">haloDunia</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="col-md-5 d-flex align-items-end row">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-outline-secondary" style="margin-bottom: 15px">Tambah
+                        <button type="submit" class="btn btn-outline-secondary" style="margin-bottom: 7.5px">Tambah
                             Afalan</button>
                     </div>
                     <div class="col-md-8">

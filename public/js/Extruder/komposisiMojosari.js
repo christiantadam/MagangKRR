@@ -10,6 +10,14 @@ const selectKelompok = document.getElementById("select_kelompok");
 const selectSubKelompok = document.getElementById("select_sub_kelompok");
 const selectType = document.getElementById("select_type");
 
+const formName = document.getElementById("form_name").value;
+var idDivisi = "";
+if (formName == "formKomposisiMojosari") {
+    idDivisi = "MEX";
+} else {
+    idDivisi = "DEX";
+}
+
 selectIdKomposisi.addEventListener("change", function () {
     selectMesin.disabled = false;
     clearOptions(selectMesin.id);
@@ -25,7 +33,10 @@ selectIdKomposisi.addEventListener("change", function () {
 
 selectMesin.addEventListener("click", function () {
     fetchData(
-        "ExtruderNet/getIdKomposisi/MEX/" + selectIdKomposisi.value,
+        "ExtruderNet/getIdKomposisi/" +
+            idDivisi +
+            "/" +
+            selectIdKomposisi.value,
         this.id
     );
 });
@@ -42,7 +53,58 @@ selectMesin.addEventListener("change", function () {
     selectType.disabled = true;
 });
 
-selectHp.addEventListener("click", function () {});
+selectHp.addEventListener("click", function () {
+    fetchData(
+        "ExtruderNet/getBarang/5/null/" +
+            selectIdKomposisi.value +
+            "/null/" +
+            idDivisi +
+            "/null",
+        this.id
+    );
+});
+
+selectHp.addEventListener("change", function () {
+    selectHpNg.disabled = false;
+    clearOptions(selectHpNg.id);
+
+    selectAfalan.disabled = true;
+    selectObjek.disabled = true;
+    selectKelompok.disabled = true;
+    selectSubKelompok.disabled = true;
+    selectType.disabled = true;
+});
+
+selectHpNg.addEventListener("click", function () {
+    fetchData(
+        "ExtruderNet/getBarang/6/null/" +
+            selectIdKomposisi.value +
+            "/null/" +
+            idDivisi +
+            "/null",
+        this.id
+    );
+});
+
+selectAfalan.addEventListener("change", function () {
+    selectAfalan.disabled = false;
+    clearOptions(selectAfalan.id);
+
+    selectObjek.disabled = true;
+    selectKelompok.disabled = true;
+    selectSubKelompok.disabled = true;
+    selectType.disabled = true;
+});
+
+selectAfalan.addEventListener("click", function () {
+    fetchData(
+        "ExtruderNet/getBarang/7/null/" +
+            selectIdKomposisi.value +
+            "/7227/" +
+            idDivisi,
+        this.id
+    );
+});
 
 //#region Functions
 
@@ -81,12 +143,17 @@ function addOptions(idSelect, optionData) {
     for (let i = 0; i < optionData.length; i++) {
         const newOption = document.createElement("option");
 
-        if (idSelect == selectMesin.id) {
-            newOption.value = optionData[i].IdMesin;
-            newOption.text = optionData[i].TypeMesin;
-        } else if (idSelect == selectHp.id) {
-            newOption.value = optionData[i].KodeBarang;
-            newOption.text = optionData[i].NamaType;
+        switch (idSelect) {
+            case selectMesin.id:
+                newOption.value = optionData[i].IdMesin;
+                newOption.text = optionData[i].TypeMesin;
+                break;
+            case selectHp.id || selectHpNg.id || selectAfalan.id:
+                newOption.value = optionData[i].KodeBarang;
+                newOption.text = optionData[i].NamaType;
+                break;
+            default:
+                break;
         }
 
         selectEle.appendChild(newOption);
@@ -108,32 +175,3 @@ function clearOptions(idSelect, onlySelection) {
 }
 
 //#endregion
-
-// Button Id Komposisi (init)
-
-// SP_5298_EXT_LIST_KOMPOSISI_1
-// DB		ConnExtruder
-// PARAMETERS	@iddivisi = "MEX"
-// RETURN		NamaKomposisi, IdKomposisi
-
-// Jika sdh pilih Id Komposisi
-
-// SP_5298_EXT_LIST_KOMPOSISI_1
-// DB		ConnExtruder
-// PARAMETERS	@iddivisi = "MEX", @idkomposisi = txtIdKomposisi.Text
-// RETURN		IdMesin, TypeMesin (Masuk ke txtIdMesin.Text, txtNamaMesin.Text)
-
-// SP_1273_PRG_BOM_Barang
-// DB		ConnInventory
-// PARAMETERS	@Kode = "5", @iddivisi = "MEX", @idkomposisi = txtIdKomposisi.Text
-// RETURN		KodeBarang, NamaType (Masuk ke txtKodeHP.Text, txtNamaHP.Text)
-
-// SP_1273_PRG_BOM_Barang
-// DB		ConnInventory
-// PARAMETERS	@Kode = "6", @iddivisi = "MEX", @idkomposisi = txtIdKomposisi.Text
-// RETURN		KodeBarang, NamaType (Masuk ke txtKodeNG.Text, txtNamaNG.Text)
-
-// SP_1273_PRG_BOM_Barang
-// DB		ConnInventory
-// PARAMETERS	@Kode = "7", @iddivisi = "MEX", @idkomposisi = txtIdKomposisi.Text, @IdKelompok = "7227"
-// RETURN		KodeBarang, NamaType (Masuk ke listAfalan items, items(j).subitems)

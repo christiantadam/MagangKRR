@@ -1,6 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="komposisi_tropodo" class="form" data-aos="fade-up">
+        {{-- style="scale: 0.65; transform-origin: top;" --}}
         <form>
 
             <div class="row mt-3">
@@ -8,7 +9,7 @@
                     <span class="aligned-text">Id Komposisi:</span>
                 </div>
                 <div class="col-md-6 form-group">
-                    <select class="form-select" name="select_id_komposisi" id="select_id_komposisi">
+                    <select class="form-select" name="select_id_komposisi" id="select_id_komposisi" disabled>
                         <option selected disabled>-- Pilih Id Komposisi --</option>
                         @foreach ($formData['listIdKomposisi'] as $d)
                             <option value="{{ $d->IdKomposisi }}">{{ $d->NamaKomposisi }}</option>
@@ -183,16 +184,17 @@
                         <div class="col-md-5">
                             <div class="row mt-3 d-flex justify-content-center">
                                 <div class="col-lg-3 text-center">
-                                    <button type="submit" style="height: -webkit-fill-available;">Tambah
+                                    <button type="submit" style="height: -webkit-fill-available;" disabled>Tambah
                                         Bahan</button>
                                 </div>
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-3 text-center">
-                                    <button type="submit" style="height: -webkit-fill-available;">Koreksi</button>
+                                    <button type="submit" style="height: -webkit-fill-available;"
+                                        disabled>Koreksi</button>
                                 </div>
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-3 text-center">
-                                    <button type="submit" style="height: -webkit-fill-available;">Hapus</button>
+                                    <button type="submit" style="height: -webkit-fill-available;" disabled>Hapus</button>
                                 </div>
                             </div>
 
@@ -210,7 +212,7 @@
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-4 text-center">
-                    <button type="submit">Proses</button>
+                    <button type="submit" disabled>Proses</button>
                     <button type="submit">Keluar</button>
                 </div>
             </div>
