@@ -11,8 +11,8 @@ class UpdateNoGambarController extends Controller
 
     public function index()
     {
-        $Gambar = DB::connection('ConnPurchase')->select('exec [SP_5298_WRK_USER-DRAFTER]');
-        return view('WORKSHOP.Workshop.Master.UpdateNoGambar', compact(['Gambar']));
+        //$Gambar = DB::connection('ConnPurchase')->select('exec [SP_5298_WRK_USER-DRAFTER]');
+        return view('WORKSHOP.Workshop.Master.UpdateNoGambar');
     }
     public function Getdata($id)
     {
