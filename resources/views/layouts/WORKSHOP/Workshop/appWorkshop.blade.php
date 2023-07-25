@@ -67,7 +67,7 @@
                                     <a href="{{ url('MaintenanceDrafter') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Drafter</a>
                                 </li>
                                 <li>
-                                    <a href="/UpdateNoGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Update No. Gambar</a>
+                                    <a href="{{ url('UpdateNoGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Update No. Gambar</a>
                                 </li>
                                 <li>
                                     <a href="/MaintenanceMesin" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Mesin</a>
