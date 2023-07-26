@@ -234,12 +234,12 @@
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Open Top</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('OpnTop') }}');">Open Top</a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1">Close Top</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('ClsTop') }}');">Close Top</a>
                                     </li>
 
                                 </ul>

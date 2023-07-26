@@ -29,6 +29,8 @@ Route::get('MnOrdPrs', 'App\Http\Controllers\AdStarController\MnOrdPrs@index');
 Route::get('StpOrdPrs', 'App\Http\Controllers\AdStarController\StpOrdPrs@index');
 Route::get('UpKdBrng', 'App\Http\Controllers\AdStarController\UpKdBrng@index');
 Route::get('PrintTbl', 'App\Http\Controllers\AdStarController\PrintTbl@index');
+Route::get('OpnTop', 'App\Http\Controllers\AdStarController\OpnTop@index');
+Route::get('ClsTop', 'App\Http\Controllers\AdStarController\ClsTop@index');
 
 //route barcode
 Route::get('Schedule', 'App\Http\Controllers\BarcodeAdStarController\Schedule@index');

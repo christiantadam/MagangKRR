@@ -18,7 +18,7 @@ class AdStar extends Controller
         $users = DB::table('T_Mesin')
             ->select('*')
             ->get();
-        dd($users);
+        // dd($users);
         return view('AdStar.AdStar'); //
     }
 
