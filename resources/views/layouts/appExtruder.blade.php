@@ -202,18 +202,19 @@
                             <li class="dropdown">
                                 <a href="#"><span>Master</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="/Extruder/ExtruderNet/formKomposisiTropodo">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiTropodo">Maintenance
                                             Komposisi Bahan Tropodo</a></li>
-                                    <li><a href="/Extruder/ExtruderNet/formKomposisiMojosari">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari">Maintenance
                                             Komposisi Bahan Mojosari</a></li>
-                                    <li><a href="/Extruder/ExtruderNet/formKomposisiGedungD">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiGedungD">Maintenance
                                             Komposisi Bahan Gedung D Mojosari</a>
                                     </li>
                                     <li class="dropdown"><a href="#"><span>KITE</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formKiteMaster">Master</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formKiteEstimasi">Estimasi</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteMaster">Master</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteEstimasi">Estimasi</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -225,10 +226,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoOrderMaintenance">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderMaintenance">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoOrderACC">ACC Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoOrderStatus">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderACC">ACC
+                                                    Order</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderStatus">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -237,10 +239,11 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoKonversiMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoKonversiMohon">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoKonversiACC">ACC Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoKonversiACC">ACC
+                                                    Permohonan
                                                     Konversi</a></li>
                                         </ul>
                                     </li>
@@ -248,18 +251,22 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoBenangMohon">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangACC">ACC Sortir Benang
+                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoBenangACC">ACC Sortir
+                                                    Benang
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoGangguanProduksi">Pencatatan Gangguan
+                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoGangguanProduksi">Pencatatan
+                                            Gangguan
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoDaya">Pencatatan KwaH Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoEfisiensi">Pencatatan Efisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoPerawatan">Perawatan</a>
+                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoDaya">Pencatatan KwaH
+                                            Produksi</a>
+                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoEfisiensi">Pencatatan
+                                            Efisiensi</a>
+                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoPerawatan">Perawatan</a>
                                 </ul>
                             </li>
                             <li class="dropdown">

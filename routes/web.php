@@ -1,8 +1,16 @@
+<!--
+    TERKAHIR KERJA
+    VB - FrmMaintOrder.vb
+    Selesai btnType_Click
+    Lanjut txtPrimer_KeyPress
+ -->
+
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extruder\ExtruderController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
+use App\Http\Controllers\Extruder\ExtruderNet\TropodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,43 +34,19 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 // Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
-Route::get('/Extruder/ExtruderNet/{formName?}', [MasterController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Tropodo/{formName?}', [TropodoController::class, 'index']);
+
+#region ExtruderNet - Tropodo
+Route::get('/ExtruderNet/getListBenang/{kode}', [TropodoController::class, 'getListBenang']);
+#endregion
 
 #region ExtruderNet - Master
-
-Route::get(
-    '/ExtruderNet/getDataKomposisi/{no_komposisi}',
-    [MasterController::class, 'getDataKomposisi']
-);
-
-Route::get(
-    '/ExtruderNet/getIdKomposisi/{id_divisi}/{id_komposisi?}',
-    [MasterController::class, 'getIdKomposisi']
-);
-
-Route::get(
-    '/ExtruderNet/getKelompokUtama/{id_objek}/{type?}',
-    [MasterController::class, 'getKelompokUtama']
-);
-
-Route::get(
-    '/ExtruderNet/getKelompok/{id_kelompok_utama}/{type?}',
-    [MasterController::class, 'getKelompok']
-);
-
-Route::get(
-    '/ExtruderNet/getSubKelompok/{id_kelompok}',
-    [MasterController::class, 'getSubKelompok']
-);
-
-Route::get(
-    '/ExtruderNet/getType/{id_sub_kelompok}',
-    [MasterController::class, 'getType']
-);
-
-Route::get(
-    '/ExtruderNet/getBarang/{kode}/{kode_barang}/{id_komposisi}/{id_kelompok}/{id_divisi}/{mesin}',
-    [MasterController::class, 'getBarang']
-);
-
+Route::get('/ExtruderNet/getDataKomposisi/{no_komposisi}', [MasterController::class, 'getDataKomposisi']);
+Route::get('/ExtruderNet/getIdKomposisi/{id_divisi}/{id_komposisi?}', [MasterController::class, 'getIdKomposisi']);
+Route::get('/ExtruderNet/getKelompokUtama/{id_objek}/{type?}', [MasterController::class, 'getKelompokUtama']);
+Route::get('/ExtruderNet/getKelompok/{id_kelompok_utama}/{type?}', [MasterController::class, 'getKelompok']);
+Route::get('/ExtruderNet/getSubKelompok/{id_kelompok}', [MasterController::class, 'getSubKelompok']);
+Route::get('/ExtruderNet/getType/{id_sub_kelompok}', [MasterController::class, 'getType']);
+Route::get('/ExtruderNet/getBarang/{kode}/{kode_barang}/{id_komposisi}/{id_kelompok}/{id_divisi}/{mesin}', [MasterController::class, 'getBarang']);
 #endregion

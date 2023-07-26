@@ -1,8 +1,6 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_order_maintenance" class="form" data-aos="fade-up">
-    <form>
+    <div id="tropodo_order_maintenance" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tanggal:</div>
             <div class="col-lg-3">
@@ -81,35 +79,40 @@
 
             <div class="card-body">
                 <div class="form-group mt-3">
-                    <label for="benang">Type Benang:</label>
+                    <label for="select_benang">Type Benang</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="benang1">
-                        <input type="text" class="form-control" name="benang2" style="width: 65vw;">
-                        <button type="button" class="btn btn-outline-secondary">...</button>
+                        <select name="select_benang" id="select_benang" class="form-select">
+                            <option selected disabled>-- Pilih Type Benang --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            @foreach ($formData['listBenang'] as $d)
+                                <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
+                                    {{ $d->NamaType }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="primer">Primer:</label>
+                    <label for="primer">Primer</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="primer1" value="0">
-                        <input type="text" class="form-control" name="primer2" style="width: 12.5vw;">
+                        <input type="number" class="form-control" id="primer1" placeholder="0">
+                        <input type="text" class="form-control" id="primer2" style="width: 12.5vw;">
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="sekunder">Sekunder:</label>
+                    <label for="sekunder">Sekunder</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="sekunder1" value="0">
-                        <input type="text" class="form-control" name="sekunder2" style="width: 12.5vw;">
+                        <input type="number" class="form-control" id="sekunder1" placeholder="0">
+                        <input type="text" class="form-control" id="sekunder2" style="width: 12.5vw;">
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="tertier">Tertier:</label>
+                    <label for="tertier">Tertier</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="tertier1" value="0">
-                        <input type="text" class="form-control" name="tertier2" style="width: 12.5vw;">
+                        <input type="number" class="form-control" id="tertier1" placeholder="0">
+                        <input type="text" class="form-control" id="tertier2" style="width: 12.5vw;">
                     </div>
                 </div>
 
@@ -119,15 +122,15 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Tambah</button>
+                <button type="button" class="btn btn-outline-primary" id="btn_baru">Tambah</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Proses</button>
-                <button type="button" class="btn btn-outline-danger">Keluar</button>
+                <button type="button" class="btn btn-outline-success" id="btn_proses">Proses</button>
+                <button type="button" class="btn btn-outline-danger" id="btn_keluar">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/tropodoOrderMaintenance.js') }}"></script>
 @endsection

@@ -73,7 +73,10 @@ class MasterController extends Controller
             [$no_komposisi]
         );
 
-        // *ambil data dari tabel KomposisiBahan yang telah di-inner join dengan tabel-tabel lain
+        // TABLE NAMES
+        // Extruder - Detail_KonversiEXT, Master_KonversiEXT, MasterKomposisi, Detail_KomposisiBahan
+        // Inventory - Satuan_1, Satuan_2, Satuan_3, Type, Objek, Divisi, KelompokUtama, Kelompok, SubKelompok
+
         // PARAMETER @idkomposisi char(9)
 
         // RETURN listKomposisi(statustype, idtype, namatype, jumlahprimer, satuanprimer,
@@ -88,8 +91,8 @@ class MasterController extends Controller
             [$id_type]
         );
 
-        // SELECT * FROM VW_TYPE
-        // WHERE IdType = @idtype
+        // TABLE NAMES
+        // A, Satuan_1, Satuan_2, Satuan_3, Satuan_4, Objek, Divisi, Kelompok Utama, Kelompok, Sub-kelompok
 
         // PARAMETER @idtype varchar(20)
 
@@ -98,7 +101,7 @@ class MasterController extends Controller
         // txtSatTritier.Text(namasattritier)
     }
 
-    public function getIdKomposisi($id_divisi, $id_komposisi = null) // DB
+    public function getIdKomposisi($id_divisi, $id_komposisi = null)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_KOMPOSISI_1 @iddivisi = ?, @idkomposisi = ?',
@@ -118,7 +121,7 @@ class MasterController extends Controller
         // ORDER BY MasterKomposisi.NamaKomposisi
     }
 
-    public function getMesin($kode) // DB
+    public function getMesin($kode)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_MESIN @kode = ?',
@@ -130,7 +133,7 @@ class MasterController extends Controller
         // If @kode = 3     SELECT * FROM MasterMesin WHERE IdDivisi='DEX'
     }
 
-    public function getObjek($id_divisi) // DB
+    public function getObjek($id_divisi)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDDIVISI_OBJEK @xiddivisi_objek = ?',
@@ -141,7 +144,7 @@ class MasterController extends Controller
         // ORDER BY NamaObjek
     }
 
-    public function getKelompokUtama($id_objek, $type = null) // DB
+    public function getKelompokUtama($id_objek, $type = null)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA @xidobjek_kelompokutama = ?, @type = ?',
@@ -159,7 +162,7 @@ class MasterController extends Controller
         // ORDER BY NamaKelompokUtama
     }
 
-    public function getKelompok($id_kelompok_utama, $type = null) // DB
+    public function getKelompok($id_kelompok_utama, $type = null)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK @xidkelompokutama_kelompok = ?, @type = ?',
@@ -201,6 +204,8 @@ class MasterController extends Controller
         // SELECT * FROM vw_prg_5298_ext_type
         // WHERE @xidsubkelompok_type = IdSubKelompok_Type AND NonAktif = 'Y'
         // ORDER BY NamaType
+
+        // *ambil dari tabel Type
     }
 
     public function getBarang($kode, $kode_barang = null, $id_komposisi = null, $id_kelompok = null, $id_divisi = null, $mesin = null)
