@@ -54,25 +54,32 @@
                                                     onclick="openModal()">SJ Baru</button>
                                             </div>
 
+
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal()">&times;</span>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-3 d-flex justify-content-end">
-                                                            <span class="aligned-text">Surat Jalan Untuk:</span>
+                                                    <div class="card">
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3 d-flex justify-content-end">
+                                                                <span class="aligned-text mt-3 mb-3">Surat Jalan Untuk:</span>
+                                                            </div>
+                                                            <div class="form-group mt-3 ">
+                                                                <select id="shift">
+                                                                    <option value="1">Satu</option>
+                                                                    <option value="2">Dua</option>
+                                                                    <option value="3">Tiga</option>
+                                                                    <option value="4">Empat</option>
+                                                                    <option value="5">Lima</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="text-center col-md-auto" style="margin-top: 15px; margin-left:250px"><button
+                                                                    type="submit">Ok</button></div>
+                                                            <div class="text-center col-md-auto" style="margin-top: 15px" onclick="closeModal()"><button
+                                                                    type="submit">Cancel</button></div>
                                                         </div>
-                                                        <div class="form-group ">
-                                                            <select id="shift">
-                                                                <option value="1">Satu</option>
-                                                                <option value="2">Dua</option>
-                                                                <option value="3">Tiga</option>
-                                                                <option value="4">Empat</option>
-                                                                <option value="5">Lima</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="text-center col-md-auto"><button type="submit">Ok</button></div>
-                                                        <div class="text-center col-md-auto"><button type="submit">Cancel</button></div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="text-center col-md-auto"><button type="submit">Open</button></div>

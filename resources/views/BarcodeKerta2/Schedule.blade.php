@@ -65,19 +65,12 @@
                                                             <tr>
                                                                 <th>ID Divisi</th>
                                                                 <th>Divisi</th>
-                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>Test1</td>
                                                                 <td>Test1</td>
-
-                                                                <td> <!-- Add the checkbox here -->
-                                                                    <label>
-                                                                        <input type="checkbox" name="divisi" value="value2">
-                                                                    </label>
-                                                                </td>
                                                             </tr>
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
