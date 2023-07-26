@@ -12,10 +12,21 @@ class KontrakController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.Kontrak.kontrak', compact('data'));
+
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
+        $dataShift = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_SHIFT ');
+        // dd($dataShift);
+        return view('Payroll.Transaksi.Kontrak.kontrak', compact('dataDivisi','dataShift'));
     }
 
+    public function getPegawai($Id_Div)
+    {
+
+        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div], [1]);
+
+        // Return the options as JSON data
+        return response()->json($dataPegawai);
+    }
     //Show the form for creating a new resource.
     public function create()
     {
@@ -29,7 +40,7 @@ class KontrakController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
         //
     }

@@ -7,8 +7,118 @@
                     [0, 'asc']
                 ],
             });
+
+
+
+            // Function to remove the backdrop
+            function removeBackdrop() {
+                $('.modal-backdrop').remove();
+            }
+
+            // Function to show the modal
+            function showModalDivisi() {
+                $('#modalKdPeg').addClass('show');
+                $('#modalKdPeg').css('display', 'block');
+                $('body').addClass('modal-open');
+            }
+
+            // Function to hide the modal
+            function hideModalDivisi() {
+                $('#modalKdPeg').removeClass('show');
+                $('#modalKdPeg').css('display', 'none');
+                $('body').removeClass('modal-open');
+                removeBackdrop();
+            }
+
+            function showModalPegawai() {
+                $('#modalPeg').addClass('show');
+                $('#modalPeg').css('display', 'block');
+                $('body').addClass('modal-open');
+            }
+
+            // Function to hide the modal
+            function hideModalPegawai() {
+                $('#modalPeg').removeClass('show');
+                $('#modalPeg').css('display', 'none');
+                $('body').removeClass('modal-open');
+                removeBackdrop();
+            }
+
+            // Attach click event to DataTable rows
+            $('#table_Divisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+                var rowData = $('#table_Divisi').DataTable().row(this).data();
+                // Populate the input fields with the data
+                $('#Id_Div').val(rowData[0]);
+                $('#Nama_Div').val(rowData[1]);
+                fetch("/getPegawai/" + rowData[0])
+                    .then(response => {
+
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then(data => {
+
+                        // Handle the data retrieved from the server (data should be an object or an array)
+
+                        // Clear the existing table rows
+                        $('#table_Peg').DataTable().clear().draw();
+
+                        // Loop through the data and create table rows
+                        data.forEach(item => {
+                            var row = [item.kd_pegawai, item.nama_peg];
+                            $('#table_Peg').DataTable().row.add(row);
+                        });
+
+                        // Redraw the table to show the changes
+                        $('#table_Peg').DataTable().draw();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                // var idDivValue = rowData[0];
+                // submitFormWithIdDiv(idDivValue);
+                // Hide the modal immediately after populating the data
+                hideModalDivisi();
+            });
+            $('#table_Peg').DataTable({
+                order: [
+                    [0, 'asc']
+                ]
+            });
+
+            // Attach click event to table rows
+            $('#table_Peg tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+                console.log($('#table_Peg').DataTable().row(this));
+                var rowData = $('#table_Peg').DataTable().row(this).data();
+                console.log(rowData);
+                // Populate the input fields with the data
+                $('#Id_Peg').val(rowData[0]);
+                $('#Nama_Peg').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                hideModalPegawai();
+            });
+
+            // Attach click event to the button to show the modal
+            $('#divisiButton').on('click', function() {
+                showModalDivisi();
+            });
+
+            // Attach hidden event to the modal
+            $('#modalKdPeg').on('hidden.bs.modal', function() {
+                removeBackdrop();
+            });
+
         });
     </script>
+
+
+
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -52,8 +162,8 @@
                                             <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                         @endforeach
                                     </select> --}}
-                                    <button type="button" class="btn" style="margin-left: 10px; " data-toggle="modal"
-                                        data-target="#modalKdPeg">...</button>
+                                    <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
+                                        data-toggle="modal" data-target="#modalKdPeg">...</button>
 
                                     <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
@@ -114,12 +224,39 @@
                                     <span class="aligned-text">Kd Pegawai:</span>
                                 </div>
                                 <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input class="form-control" type="text" id="Id_Div" readonly
+                                    <input class="form-control" type="text" id="Id_Peg" readonly
                                         style="resize: none; height: 40px; max-width: 100px;">
-                                    <input class="form-control" type="text" id="Id_Div" readonly
+                                    <input class="form-control" type="text" id="Nama_Peg" readonly
                                         style="resize: none; height: 40px; max-width: 450px;">
                                     <button type="button" class="btn" style="margin-left: 10px;" data-toggle="modal"
-                                        data-target="#modalKdPeg">...</button>
+                                        data-target="#modalPeg">...</button>
+                                    <div class="modal fade" id="modalPeg" role="dialog" arialabelledby="modalLabel"
+                                        area-hidden="true" style="">
+                                        <div class="modal-dialog " role="document">
+                                            <div class="modal-content" style="">
+                                                <div class="modal-header" style="justify-content: center;">
+
+                                                    <div class="row" style=";">
+                                                        <div class="table-responsive" style="margin:30px;">
+                                                            <table id="table_Peg" class="table table-bordered">
+                                                                <thead class="thead-dark">
+                                                                    <tr>
+                                                                        <th scope="col">Id Pegawai</th>
+                                                                        <th scope="col">Nama Pegawai</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
@@ -329,12 +466,5 @@
 
 
         </div>
-    </div>
-
-    </div>
-    <br>
-
-    </div>
-    </div>
     </div>
 @endsection

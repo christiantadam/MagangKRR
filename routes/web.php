@@ -53,6 +53,7 @@ Route::get('ProgramPayroll/Transaksi/TransferAbsen', 'App\Http\Controllers\Payro
 Route::get('ProgramPayroll/Transaksi/VerifikasiAbsen', 'App\Http\Controllers\Payroll\Transaksi\VerifikasiAbsen\VerifikasiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/AbsenSimpang', 'App\Http\Controllers\Payroll\Transaksi\AbsenSimpang\AbsenSimpangController@index');
 Route::get('ProgramPayroll/Transaksi/Kontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@index');
+Route::get('getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
 Route::get('ProgramPayroll/Transaksi/KoreksiAbsen', 'App\Http\Controllers\Payroll\Transaksi\KoreksiAbsen\KoreksiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/InputLibur', 'App\Http\Controllers\Payroll\Transaksi\InputLibur\InputLiburController@index');
 Route::get('ProgramPayroll/Transaksi/InputRange', 'App\Http\Controllers\Payroll\Transaksi\InputRange\InputRangeController@index');
@@ -71,8 +72,12 @@ Route::get('ProgramPayroll/Transaksi/Absen1', 'App\Http\Controllers\Payroll\Tran
 Route::get('ProgramPayroll/Transaksi/Skorsing/Permohonan', 'App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController@index');
 Route::get('ProgramPayroll/Transaksi/Skorsing/AccBayar', 'App\Http\Controllers\Payroll\Transaksi\Skorsing\AccBayar\AccBayarController@index');
 Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@index');
+Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan/getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
+
+
 Route::get('ProgramPayroll/Transaksi/Peringatan/AccPermohonan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\AccPermohonan\AccPermohonanController@index');
 Route::post('ProgramPayroll/Transaksi/Peringatan/AccPermohonan/proses-peringatan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\AccPermohonan\AccPermohonanController@prosesPeringatan')->name('prosesPeringatan');
+
 
 Route::get('ProgramPayroll/Transaksi/Rekap', 'App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController@index');
 Route::get('ProgramPayroll/Transaksi/EstimasiGaji', 'App\Http\Controllers\Payroll\Transaksi\EstimasiGaji\EstimasiGajiController@index');
