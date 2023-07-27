@@ -6,6 +6,11 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Maintenance Bank</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('MaintenanceBank') }}" id="formkoreksi">
@@ -44,7 +49,6 @@
                                 <div>
                                     <div class="d-flex">
                                         <label for="kodePerkiraanSelect" class="col-md-2">Kode Perkiraan </label>
-                                        <input type="text" id="kodePerkiraan" name="kodePerkiraan">
                                         <input type="text" id="ketKodePerkiraan" name="ketKodePerkiraan">
                                         <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" style="width: 100px;">
                                             <option disabled selected>-- Pilih KdPerkiraan --</option>
@@ -87,9 +91,8 @@
                                 <div class="row">
                                     <input type="submit" name="isi" id="btnIsi" value="Isi" class="btn btn-primary" onclick="clickIsi()">
                                     <input type="submit" name="koreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary" onclick="clickKoreksi()">
-                                    <input type="submit" name="hapus"  id="btnHapus" value="Hapus" class="btn btn-primary">
+                                    <input type="submit" name="hapus"  id="btnHapus" value="Hapus" class="btn btn-primary" onclick="clickHapus()">
                                     <input type="submit" name="proses" id="btnProses" value="Proses" class="btn btn-primary" disabled>
-                                    <input type="submit" name="keluar" id="btnKeluar" value="Keluar" class="btn btn-primary">
                                     <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-primary" style="display: none" onclick="clickBatal()">
                                 </div>
                             </form>

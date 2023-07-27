@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Accounting\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MaintenanceStatusSupplierController extends Controller
 {
     //
     //Display a listing of the resource.
-    public function MaintenanceStatusSupplier()
+    public function index($idSupplier)
     {
-        $data = 'Accounting';
-        return view('Accounting.Master.MaintenanceStatusSupplier', compact('data'));
+        $maintenanceStatusSupplier = DB::connection('ConnAccounting')->select('exec [Sp_1273_ACC_LIST_IDSUPP_NOSTATUS]');
+        // dd($maintenanceMataUang);
+        return view('Accounting.Master.MaintenanceStatusSupplier', compact(['maintenanceStatusSupplier']));
     }
 
     //Show the form for creating a new resource.
@@ -28,7 +30,7 @@ class MaintenanceStatusSupplierController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

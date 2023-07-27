@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
+
 class MaintenanceBankController extends Controller
 {
     public function index()
     {
-
         $maintenanceBank = DB::connection('ConnAccounting')->select('exec SP_1273_ACC_LIST_BANK_ALL_TBANK');
         //dd($maintenanceBank);
         return view('Accounting.Master.MaintenanceBank', compact(['maintenanceBank']));
@@ -87,7 +87,7 @@ class MaintenanceBankController extends Controller
             $Saldo,
             $kodePerkiraan
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Mata Uang sudah diSIMPAN');
     }
 
     //Display the specified resource.
@@ -156,12 +156,25 @@ class MaintenanceBankController extends Controller
             $kodePerkiraan
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data sudah diKOREKSI');
     }
 
     //Remove the specified resource from storage.
     public function destroy($id)
     {
-        //
+        //dd('masuk delete');
+        // $ada = $this->getDataBank($id);
+        // if ($ada[0]->ada > 0) {
+        //     return redirect()->back()->with('success');
+        // } else {
+        // }
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_UDT_BANK_TBANK]
+        @Kode = ?,
+        @IdBank = ?', [
+            3,
+            $id
+        ]);
+        return redirect()->back()->with('success', 'Data sudah diHAPUS');
     }
 }

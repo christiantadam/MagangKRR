@@ -52,12 +52,15 @@ btnBatal.addEventListener('click', function (event) {
 
 btnProses.addEventListener('click', function (event) {
     event.preventDefault();
-    //updateDataInDatabase();
 })
 
 btnKoreksi.addEventListener('click', function (event) {
     event.preventDefault();
 });
+
+btnHapus.addEventListener('click', function(event) {
+    event.preventDefault();
+})
 
 function clickIsi() {
     namaBankselect.style.display = "none";
@@ -69,8 +72,6 @@ function clickIsi() {
     btnKeluar.style.display = "none";
     btnBatal.style.display = "block";
     proses = 1;
-
-
 }
 
 function clickBatal() {
@@ -80,7 +81,6 @@ function clickBatal() {
     btnKoreksi.disabled = false;
     btnHapus.disabled = false;
     btnProses.disabled = true;
-    btnKeluar.style.display = "block";
     btnBatal.style.display = "none";
 }
 
@@ -89,9 +89,17 @@ function clickKoreksi() {
     btnKoreksi.disabled = true;
     btnHapus.disabled = true;
     btnProses.disabled = false;
-    btnKeluar.style.display = "none";
     btnBatal.style.display = "block";
     proses = 2;
+}
+
+function clickHapus() {
+    btnIsi.disabled = true
+    btnKoreksi.disabled = true;
+    btnHapus.disabled = true;
+    btnProses.disabled = false;
+    btnBatal.style.display = "block";
+    proses = 3;
 }
 
 namaBankselect.addEventListener("change", function () {
@@ -110,18 +118,20 @@ kodePerkiraanSelect.addEventListener("change", function () {
     }
 });
 
-// kodePerkiraanSelect.addEventListener("keypress", function (event) {
-//     if (event.key == "Enter") {
-//         fetch("/detailkodeperkiraan/" + kodePerkiraanSelect.value)
-//             .then((response) => response.json())
-//             .then((options) => {
-//                 kodePerkiraan.value = kodePerkiraanSelect.value;
-//                 console.log(options);
-//                 kodePerkiraan.value = options[0].NoKodePerkiraan;
-//                 ketKodePerkiraan.value = options[0].Keterangan;
-//             });
-//     }
-// });
+kodePerkiraanSelect.addEventListener("keypress", function (event) {
+    fetch("/detailkodeperkiraan/" + kodePerkiraanSelect.value)
+        .then((response) => response.json())
+        .then((kodePerkiraanOptions) => {
+            // Cari data yang sesuai dengan kodePerkiraanSelect.value
+            var selectedKodePerkiraan = kodePerkiraanOptions.find(option => option.NoKodePerkiraan === kodePerkiraanSelect.value);
+            if (selectedKodePerkiraan) {
+                ketKodePerkiraan.value = selectedKodePerkiraan.Keterangan;
+            } else {
+                // Jika tidak ada data yang sesuai, kosongkan nilai kodePerkiraan dan ketKodePerkiraan
+                ketKodePerkiraan.value = "";
+            }
+        });
+})
 
 namaBankselect.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
@@ -179,11 +189,9 @@ namaBankselect.addEventListener("keypress", function (event) {
                         // Cari data yang sesuai dengan kodePerkiraanSelect.value
                         var selectedKodePerkiraan = kodePerkiraanOptions.find(option => option.NoKodePerkiraan === kodePerkiraanSelect.value);
                         if (selectedKodePerkiraan) {
-                            kodePerkiraan.value = selectedKodePerkiraan.NoKodePerkiraan;
                             ketKodePerkiraan.value = selectedKodePerkiraan.Keterangan;
                         } else {
                             // Jika tidak ada data yang sesuai, kosongkan nilai kodePerkiraan dan ketKodePerkiraan
-                            kodePerkiraan.value = "";
                             ketKodePerkiraan.value = "";
                         }
                     });
@@ -191,26 +199,21 @@ namaBankselect.addEventListener("keypress", function (event) {
     }
 });
 
-
 btnProses.addEventListener ("click", function (event) {
     event.preventDefault();
     if (proses == 1) {
         // console.log("masuk isi");
         formkoreksi.submit();
-    }
-    else if (proses == 2) {
-        console.log("masuk korek");
+    } else if (proses == 2) {
+        //console.log("masuk korek");
         methodform.value="PUT";
         formkoreksi.action = "/MaintenanceBank/" + idBank.value;
         formkoreksi.append(hiddenInput);
         formkoreksi.submit();
+    } else if (proses == 3) {
+        methodform.value="DELETE";
+        formkoreksi.action = "/MaintenanceBank/" + idBank.value;
+        formkoreksi.submit();
     }
 });
-
-// function clickProses(){
-//     methodform.value="PUT";
-//     formkoreksi.action = "/MaintenanceBank/" + idBank.value;
-//     formkoreksi.submit();
-// }
-
 
