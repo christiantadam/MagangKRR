@@ -54,7 +54,7 @@ class UpdateNoGambarController extends Controller
             //dd($ada[0]);
             $namaBarang = $ada['ambildata'][0] -> Nama_Brg;
             $kdBarang = $ada['ambildata'][0] -> Kd_Brg;
-            return redirect()->back()->with('success','Nomor Gambar Sudah dipakai untuk Kode Barang ' . $kdBarang .' Dengan nama '. $namaBarang .'. Tidak bisa diproses');
+            return redirect()->back()->with('error','Nomor Gambar Sudah dipakai untuk Kode Barang ' . $kdBarang .' Dengan nama '. $namaBarang .'. Tidak bisa diproses');
         }
         else {
 

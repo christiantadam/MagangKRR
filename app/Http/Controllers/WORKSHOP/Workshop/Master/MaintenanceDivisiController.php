@@ -31,7 +31,7 @@ class MaintenanceDivisiController extends Controller
         //dd($ada[0]->ada);
         if ($ada[0]->ada > 0) {
             //dd($ada[0]);
-            return redirect()->back()->with('success','Divisi '. $idDivisi . ' Sudah Ada!');
+            return redirect()->back()->with('error','Divisi '. $idDivisi . ' Sudah Ada!');
         }
         else {
             DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-DIVISI] @kode = ?, @kdDivisi = ?, @nmDivisi = ?', [1, $idDivisi, $namaDivisi]);
@@ -64,7 +64,7 @@ class MaintenanceDivisiController extends Controller
         //dd($ada);
         if ($ada[0]->ada > 0) {
             //dd($ada[0]);
-            return redirect()->back()->with('success','Data Divisi Tdk Boleh diHapus, karena sudah dipakai utk Transaksi ');
+            return redirect()->back()->with('error','Data Divisi Tdk Boleh diHapus, karena sudah dipakai utk Transaksi ');
         }
         else{
             DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-DIVISI] @kode = ?, @kdDivisi = ?', [3, $id]);
