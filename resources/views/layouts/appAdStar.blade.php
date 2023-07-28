@@ -59,6 +59,7 @@
                 border-radius: 5px;
                 margin-bottom: 20px;
                 background-color: #f9f9f9;
+                width: 100%
             }
 
             .card-title {
