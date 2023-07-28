@@ -12,10 +12,15 @@ class ScheduleController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data2 = DB::connection('ConnABM')->select('exec SP_5409_INV_IdType_Schedule @divisi = ?, @idtype = ?',  ['terserah', 'seterah']);
-        //dd($data2);
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeKerta2.Schedule', compact('data'));
+        //$data2 = DB::connection('ConnABM')->select('exec SP_5409_INV_IdType_Schedule @divisi = ?, @idtype = ?, @idkelut = ?, @kode = ?',  ['terserah', 'yeah', 'haey', '1']);
+        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataKelut = DB::connection('ConnABM')->select('exec SP_1273_BCD_SLC_KELUT ?, ?, ?', ["p", "1", "p"]);
+        $dataKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataSubKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompok_SubKelompok ?, ?, ?', ["p", NULL, "p"]);
+        $dataType = DB::connection('ConnABM')->select('exec SP_1003_INV_IdSubKelompok_Type ?', ["p"]);
+
+        // dd($dataType);
+        return view('BarcodeKerta2.Schedule', compact('dataDivisi', 'dataKelut', 'dataKelompok', 'dataSubKelompok','dataType'));
     }
 
     //Show the form for creating a new resource.

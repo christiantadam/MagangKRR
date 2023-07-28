@@ -49,9 +49,9 @@
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="selectedDataInput" id="selectedDataInput"
+                                            <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
                                                 placeholder="ID Divisi" readonly>
-                                            <input type="text" class="form-control" name="Divisi" id="Divsi"
+                                            <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal()" id="ButtonDivisi">...</button></div>
@@ -68,10 +68,13 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Test1</td>
-                                                                <td>Test1</td>
-                                                            </tr>
+                                                            @foreach ($dataDivisi as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdDivisi }}</td>
+                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                </tr>
+                                                            @endforeach
+
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -103,21 +106,17 @@
                                                     <table id="TableKelut">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID Ketua Kelompok </th>
-                                                                <th>Ketua Kelompok </th>
-                                                                <th>Select</th> <!-- New header for the checkbox column -->
+                                                                <th>ID Ketua Kelompok</th>
+                                                                <th>Ketua Kelompok</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>ID Ketua Kelompok </td>
-                                                                <td>Ketua Kelompok </td>
-                                                                <td> <!-- Add the checkbox here -->
-                                                                    <label>
-                                                                        <input type="checkbox" name="kelut" value="value2">
-                                                                    </label>
-                                                                </td>
-                                                            </tr>
+                                                            @foreach ($dataKelut as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdKelompokUtama }}</td>
+                                                                    <td>{{ $data->NamaKelompokUtama }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -149,19 +148,15 @@
                                                             <tr>
                                                                 <th>ID Kelompok </th>
                                                                 <th>Kelompok </th>
-                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>ID Kelompok </td>
-                                                                <td>Kelompok </td>
-                                                                <td> <!-- Add the checkbox here -->
-                                                                    <label>
-                                                                        <input type="checkbox" name="kelompok" value="value2">
-                                                                    </label>
-                                                                </td>
-                                                            </tr>
+                                                            @foreach ($dataKelompok as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->idkelompok }}</td>
+                                                                    <td>{{ $data->namakelompok }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -179,8 +174,8 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_SubKelompok"
                                                 id="id_SubKelompok" placeholder="ID SubKelompok" readonly>
-                                            <input type="text" class="form-control" name="Sub_kelompok" id="Sub_kelompok"
-                                                placeholder="Sub Kelompok" readonly>
+                                            <input type="text" class="form-control" name="Sub_kelompok"
+                                                id="Sub_kelompok" placeholder="Sub Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
                                                     onclick="openModal3()" id="ButtonSubKelompok">...</button></div>
                                             <div class="modal" id="myModal3">
@@ -193,19 +188,15 @@
                                                             <tr>
                                                                 <th>ID Sub Kelompok </th>
                                                                 <th>Sub Kelompok </th>
-                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>ID Sub Kelompok </td>
-                                                                <td>Sub Kelompok </td>
-                                                                <td> <!-- Add the checkbox here -->
-                                                                    <label>
-                                                                        <input type="checkbox" name="sub_kelompok" value="value2">
-                                                                    </label>
-                                                                </td>
-                                                            </tr>
+                                                            @foreach ($dataSubKelompok as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdSubkelompok }}</td>
+                                                                    <td>{{ $data->NamaSubKelompok }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -237,19 +228,15 @@
                                                             <tr>
                                                                 <th>ID Type </th>
                                                                 <th>Type </th>
-                                                                <th>Select</th> <!-- New header for the checkbox column -->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>ID Type </td>
-                                                                <td>Type </td>
-                                                                <td> <!-- Add the checkbox here -->
-                                                                    <label>
-                                                                        <input type="checkbox" name="type" value="value2">
-                                                                    </label>
-                                                                </td>
-                                                            </tr>
+                                                            @foreach ($dataType as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdType }}</td>
+                                                                    <td>{{ $data->NamaType }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -258,12 +245,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="text-center col-md-10 mb-3" id="TambahButton" style="margin-left:53.3%"><button
+                                                type="button">Tambah</button></div>
                                     </div>
 
 
                                     <div class="card">
-                                        <div class="card-header">Type</div>
-                                        <table>
+                                        <div class="card-header">Table Type</div>
+                                        <table id="TypeTable">
                                             <thead>
                                                 <tr>
                                                     <th>Divisi </th>
@@ -273,18 +262,12 @@
                                                     <th>Type </th>
                                                 </tr>
                                             </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Test1</td>
-                                                        <td>Test1</td>
-                                                        <td>Test1</td>
-                                                        <td>Test1</td>
-                                                        <td>Test1</td>
-                                                    </tr>
-                                                </tbody>
+                                            <tbody>
+
+                                            </tbody>
                                         </table>
                                     </div>
-                                </div>
+                            </div>
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
@@ -312,7 +295,127 @@
             });
         </script>
 
+        <!-- ... Rest of the code ... -->
+
+<script>
+    function addDataToTable() {
+        // Extract data from input fields
+        var divisi = document.getElementById('Divisi').value;
+        var kelut = document.getElementById('Kelut').value;
+        var kelompok = document.getElementById('Kelompok').value;
+        var subKelompok = document.getElementById('Sub_kelompok').value;
+        var type = document.getElementById('Type').value;
+
+        // Get the DataTable instance
+        var table = $('#TypeTable').DataTable();
+
+        // Add the new row to the DataTable
+        table.row.add([divisi, kelut, kelompok, subKelompok, type]).draw();
+    }
+
+    // Add an event listener to the "Tambah" button
+    var tambahButton = document.getElementById('TambahButton');
+    tambahButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        addDataToTable();
+    });
+</script>
+
+<!-- ... Rest of the code ... -->
+
+
         <script>
+            // function addDataToTable() {
+            //     // Extract data from input fields
+            //     var divisi = document.getElementById('Divisi').value;
+            //     var kelut = document.getElementById('Kelut').value;
+            //     var kelompok = document.getElementById('Kelompok').value;
+            //     var subKelompok = document.getElementById('Sub_kelompok').value;
+            //     var type = document.getElementById('Type').value;
+
+            //     // Append a new row to the table with the extracted data
+            //     var table = document.getElementById('TypeTable').getElementsByTagName('tbody')[0];
+            //     var newRow = table.insertRow(table.rows.length);
+            //     var cells = [divisi, kelut, kelompok, subKelompok, type];
+
+            //     for (var i = 0; i < cells.length; i++) {
+            //         var cell = newRow.insertCell(i);
+            //         cell.innerHTML = cells[i];
+            //     }
+            // }
+
+            // // Add an event listener to the "Tambah" button
+            // var tambahButton = document.getElementById('TambahButton');
+            // tambahButton.addEventListener('click', function(event) {
+            //     event.preventDefault();
+            //     addDataToTable();
+            // });
+
+            $('#TableDivisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdDivisi').val(rowData[0]);
+                $('#Divisi').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal();
+            });
+
+            $('#TableKelut tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableKelut').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_Kelut').val(rowData[0]);
+                $('#Kelut').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal1();
+            });
+
+            $('#TableKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_Kelompok').val(rowData[0]);
+                $('#Kelompok').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal2();
+            });
+
+            $('#TableSubKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableSubKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_SubKelompok').val(rowData[0]);
+                $('#Sub_kelompok').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal3();
+            });
+
+            $('#TableType tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableType').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_Type').val(rowData[0]);
+                $('#Type').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal4();
+            });
+
             var ButtonDivisi = document.getElementById('ButtonDivisi')
 
             ButtonDivisi.addEventListener("click", function(event) {
@@ -430,6 +533,14 @@
 
             $(document).ready(function() {
                 $('#TableDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TypeTable').DataTable({
                     order: [
                         [0, 'desc']
                     ],
