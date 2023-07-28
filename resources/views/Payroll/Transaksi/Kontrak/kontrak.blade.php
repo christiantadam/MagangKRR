@@ -277,195 +277,144 @@
                         </div>
 
 
-
-                        <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
-                            <div class="container19"> Tgl Masuk
+                        <div class="row" style="margin-left:-120px;">
+                            <div class="form-group col-md-3 d-flex justify-content-end">
+                                <span class="aligned-text">Tgl Masuk :</span>
                             </div>
-                            <div class="permohonan-s-p-container20">
-                                <div class="permohonan-s-p-container21">
+                            <div class="form-group col-md-9 mt-3 mt-md-0">
 
-
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                        style="width: 150px; margin-right:20px;" required>
-
-
-
-
-                                </div>
+                                <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                    value="{{ old('TglLapor', now()->format('Y-m-d')) }}" style="width: 150px;" required>
                             </div>
-
-
-
-
-
 
 
                         </div>
-                        <br>
-                        <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
-                            <div class="container19"> Masa Kontrak
+
+                        <div class="row" style="margin-left:-120px;">
+                            <div class="form-group col-md-3 d-flex justify-content-end">
+                                <span class="aligned-text">Masa Kontrak :</span>
                             </div>
-                            <div class="permohonan-s-p-container20">
-                                <div class="permohonan-s-p-container21">
+                            <div class="form-group col-md-9 mt-3 mt-md-0">
 
+                                <input class="form-control" type="date" id="TglMulai" name="TglMulai"
+                                    value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                    style="max-width: 200px;">
+                                <span class="aligned-text" style="margin-left: 15px;">s/d</span>
+                                <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
+                                    value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required
+                                    style="max-width: 200px;">
+                                <div
+                                    style="height: 40px; border: 1px solid black; display: flex; align-items: center; margin-left:15px;">
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="staff" name="pekerja" value="staff" checked
+                                            style="vertical-align: middle;">
+                                        <label for="staff" style="margin-left: 5px;">
 
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                        style="width: 150px; margin-right:20px;" required>
-
-
-
-
-                                </div>
-                            </div>
-                            <div class="container19" style="margin-left:-250px"> s/d
-                            </div>
-                            <div class="permohonan-s-p-container20" style="margin-left:-100px;">
-                                <div class="permohonan-s-p-container21">
-
-
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                        style="width: 150px; margin-right:20px;" required>
-
-
-
-
-                                </div>
-                            </div>
-
-                            <div
-                                style="height: 40px; border: 1px solid black; display: flex; align-items: center; margin-left:-155px;">
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="staff" name="pekerja" value="staff" checked
-                                        style="vertical-align: middle;">
-                                    <label for="staff" style="margin-left: 5px;">
-
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">1
-                                            Bulan</span>
-                                    </label>
-                                </div>
-
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="bukanStaff1" name="pekerja" value="bukanStaff"
-                                        style="vertical-align: middle;">
-                                    <label for="bukanStaff1" style="margin-left: 5px;">
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">3
-                                            Bulan</span>
-                                    </label>
-                                </div>
-
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                        style="vertical-align: middle;">
-                                    <label for="bukanStaff2" style="margin-left: 5px;">
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">6
-                                            Bulan</span>
-                                    </label>
-                                </div>
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                        style="vertical-align: middle;">
-                                    <label for="bukanStaff2" style="margin-left: 5px;">
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">9
-                                            Bulan</span>
-                                    </label>
-                                </div>
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                        style="vertical-align: middle;">
-                                    <label for="bukanStaff2" style="margin-left: 5px;">
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">12
-                                            Bulan</span>
-                                    </label>
-                                </div>
-                                <div style="padding: 10px; display: flex; align-items: center;">
-                                    <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                        style="vertical-align: middle;">
-                                    <label for="bukanStaff2" style="margin-left: 5px;">
-                                        <span style="display: inline-block; vertical-align: middle;"></span>
-                                        <span style="display: inline-block; vertical-align: middle; margin-left: 5px;">2
-                                            Tahun</span>
-                                    </label>
-                                </div>
-
-                                <!-- Tambahkan kode untuk radio button dan label berikutnya -->
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                        </div>
-                        <br>
-                        <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
-                            <div class="container19"> Tgl Keluar
-                            </div>
-                            <div class="permohonan-s-p-container20">
-                                <div class="permohonan-s-p-container21">
-
-
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                        style="width: 150px; margin-right:20px;" required>
-
-
-
-                                    <div
-                                        style="height: 40px; border: 1px solid black; display: flex; align-items: center; ">
-                                        <div style="padding: 10px; display: flex; align-items: center;">
-                                            <input type="radio" id="staff" name="pekerja" value="staff" checked
-                                                style="vertical-align: middle;">
-                                            <label for="staff" style="margin-left: 5px;">
-
-                                                <span
-                                                    style="display: inline-block; vertical-align: middle; margin-left: 5px;">Perpanjangan</span>
-                                            </label>
-                                        </div>
-
-                                        <div style="padding: 10px; display: flex; align-items: center;">
-                                            <input type="radio" id="bukanStaff1" name="pekerja" value="bukanStaff"
-                                                style="vertical-align: middle;">
-                                            <label for="bukanStaff1" style="margin-left: 5px;">
-
-                                                <span
-                                                    style="display: inline-block; vertical-align: middle; margin-left: 5px;">Resign
-                                                    3 Tahun</span>
-                                            </label>
-                                        </div>
-
-
-
-                                        <!-- Tambahkan kode untuk radio button dan label berikutnya -->
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">1
+                                                Bulan</span>
+                                        </label>
                                     </div>
-                                </div>
 
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff1" name="pekerja" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff1" style="margin-left: 5px;">
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">3
+                                                Bulan</span>
+                                        </label>
+                                    </div>
+
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">6
+                                                Bulan</span>
+                                        </label>
+                                    </div>
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">9
+                                                Bulan</span>
+                                        </label>
+                                    </div>
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">12
+                                                Bulan</span>
+                                        </label>
+                                    </div>
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                            <span style="display: inline-block; vertical-align: middle;"></span>
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">2
+                                                Tahun</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Tambahkan kode untuk radio button dan label berikutnya -->
+                                </div>
                             </div>
 
 
+                        </div>
+                        <div class="row" style="margin-left:-120px;">
+                            <div class="form-group col-md-3 d-flex justify-content-end">
+                                <span class="aligned-text">Tgl Keluar :</span>
+                            </div>
+                            <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                    value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
+                                    style="width: 150px; margin-right:20px;" required>
 
 
 
+                                <div style="height: 40px; border: 1px solid black; display: flex; align-items: center; ">
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="staff" name="opsiKeluar" value="staff" checked
+                                            style="vertical-align: middle;">
+                                        <label for="staff" style="margin-left: 5px;">
+
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">Perpanjangan</span>
+                                        </label>
+                                    </div>
+
+                                    <div style="padding: 10px; display: flex; align-items: center;">
+                                        <input type="radio" id="bukanStaff1" name="opsiKeluar" value="bukanStaff"
+                                            style="vertical-align: middle;">
+                                        <label for="bukanStaff1" style="margin-left: 5px;">
+
+                                            <span
+                                                style="display: inline-block; vertical-align: middle; margin-left: 5px;">Resign
+                                                3 Tahun</span>
+                                        </label>
+                                    </div>
 
 
 
-
-
-
-
-
-
+                                    <!-- Tambahkan kode untuk radio button dan label berikutnya -->
+                                </div>
+                            </div>
 
 
                         </div>
+
+
+
 
 
 

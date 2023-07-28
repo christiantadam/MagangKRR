@@ -15,8 +15,9 @@ class KontrakController extends Controller
 
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
         $dataShift = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_SHIFT ');
-        // dd($dataShift);
+        // dd($dataDivisi);
         return view('Payroll.Transaksi.Kontrak.kontrak', compact('dataDivisi','dataShift'));
+
     }
 
     public function getPegawai($Id_Div)
