@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <table class="table table-hover mt-3" style="table-layout: fixed;">
+        <table id="table_order" class="table table-hover mt-3" style="table-layout: fixed;">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">
@@ -35,12 +35,12 @@
             <thead>
                 <tr>
                     <th>Nama Type</th>
-                    <th class="text-center">Qty Primer</th>
-                    <th class="text-center">Sat Primer</th>
-                    <th class="text-center">Qty Sekunder</th>
-                    <th class="text-center">Sat Sekunder</th>
-                    <th class="text-center">Qty Tertier</th>
-                    <th class="text-center">Sat Tertier</th>
+                    <th class="text-center">Qty. Primer</th>
+                    <th class="text-center">Sat. Primer</th>
+                    <th class="text-center">Qty. Sekunder</th>
+                    <th class="text-center">Sat. Sekunder</th>
+                    <th class="text-center">Qty. Tertier</th>
+                    <th class="text-center">Sat. Tertier</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,54 +80,52 @@
             <div class="card-body">
                 <div class="form-group mt-3">
                     <label for="select_benang">Type Benang</label>
-                    <div class="input-group">
-                        <select name="select_benang" id="select_benang" class="form-select">
-                            <option selected disabled>-- Pilih Type Benang --</option>
-                            <option value="loading" style="display: none" disabled>Loading...</option>
-                            @foreach ($formData['listBenang'] as $d)
-                                <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
-                                    {{ $d->NamaType }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <select name="select_benang" id="select_benang" class="form-select">
+                        <option selected disabled>-- Pilih Type Benang --</option>
+                        <option value="loading" style="display: none" disabled>Loading...</option>
+                        @foreach ($formData['listBenang'] as $d)
+                            <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
+                                {{ $d->NamaType }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="primer">Primer</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="primer1" placeholder="0">
-                        <input type="text" class="form-control" id="primer2" style="width: 12.5vw;">
+                        <input type="number" id="primer1" class="form-control detail_order" placeholder="0">
+                        <input type="text" id="primer2" class="form-control detail_order" style="width: 12.5vw;">
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="sekunder">Sekunder</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="sekunder1" placeholder="0">
-                        <input type="text" class="form-control" id="sekunder2" style="width: 12.5vw;">
+                        <input type="number" id="sekunder1" class="form-control detail_order" placeholder="0">
+                        <input type="text" id="sekunder2" class="form-control detail_order" style="width: 12.5vw;">
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="tertier">Tertier</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="tertier1" placeholder="0">
-                        <input type="text" class="form-control" id="tertier2" style="width: 12.5vw;">
+                        <input type="number" id="tertier1" class="form-control detail_order" placeholder="0">
+                        <input type="text" id="tertier2" class="form-control detail_order" style="width: 12.5vw;">
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-outline-info float-end">Tambah<br>Detail</button>
+                <button type="submit" id="btn_detail" class="btn btn-outline-info float-end">Tambah<br>Detail</button>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" class="btn btn-outline-primary" id="btn_baru">Tambah</button>
+                <button type="button" id="btn_baru" class="btn btn-outline-primary">Tambah</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="button" class="btn btn-outline-success" id="btn_proses">Proses</button>
-                <button type="button" class="btn btn-outline-danger" id="btn_keluar">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
             </div>
         </div>
     </div>

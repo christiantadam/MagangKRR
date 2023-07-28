@@ -1,8 +1,8 @@
 <!--
     TERKAHIR KERJA
     VB - FrmMaintOrder.vb
-    Selesai btnType_Click
-    Lanjut txtPrimer_KeyPress
+    Selesai     btnTambahDet_Click
+    Lanjut      btnProses_Click
  -->
 
 <?php

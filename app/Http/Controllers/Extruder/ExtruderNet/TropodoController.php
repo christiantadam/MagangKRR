@@ -17,7 +17,6 @@ class TropodoController extends Controller
             case 'formTropodoOrderMaintenance':
                 $form_data = [
                     'listBenang' => $this->getListBenang(2),
-                    // *ambil data Type dengan IdSubKelompok yang punya IdKelompokUtama '0121' atau '2481'
                 ];
                 // dd($form_data);
                 break;
@@ -46,5 +45,6 @@ class TropodoController extends Controller
         // SP_5298_EXT_LIST_BENANG : PARAMETER @kode int
         // TABLE Inventory - Objek, KelompokUtama, Divisi, Satuan, Type, Sub-Kelompok, Kelompok
         // RETURN NamaType, SatPrimer, SatSekunder, SatTritier
+        // *ambil data Type dengan IdSubKelompok yang punya IdKelompokUtama '0121' atau '2481'
     }
 }
