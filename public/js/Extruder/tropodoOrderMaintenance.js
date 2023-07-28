@@ -16,6 +16,10 @@ const slcType = document.getElementById("select_benang");
 
 const listDetail = document.querySelectorAll(".card .detail_order");
 
+const btnConfirm = document.getElementById("btn_confirm");
+const btnCancel = document.getElementById("btn_cancel");
+const modalConfirmBody = document.getElementById("modal_body");
+
 // listDetail.forEach((ele) => {
 //     console.log(ele.id);
 // });
@@ -32,28 +36,7 @@ var listDummy = [
         satTersier: "Tersier 1-1",
         qtyTersier: "Tersier 2-1",
     },
-    {
-        idType: 2,
-        namaType: "Type B",
-        satPrimer: "Primer 1-2",
-        qtyPrimer: "Primer 2-2",
-        satSekunder: "Sekunder 1-2",
-        qtySekunder: "Sekunder 2-2",
-        satTersier: "Tersier 1-2",
-        qtyTersier: "Tersier 2-2",
-    },
-    {
-        idType: 3,
-        namaType: "Type C",
-        satPrimer: "Primer 1-3",
-        qtyPrimer: "Primer 2-3",
-        satSekunder: "Sekunder 1-3",
-        qtySekunder: "Sekunder 2-3",
-        satTersier: "Tersier 1-3",
-        qtyTersier: "Tersier 2-3",
-    },
 ];
-
 //#endregion
 
 //#region Events
@@ -98,19 +81,24 @@ txtPrimer1.addEventListener("keypress", function (event) {
     }
 });
 
-txtSekunder1.addEventListener("keypress", function () {
-    txtTersier1.disabled = false;
-    txtTersier1.focus();
+txtSekunder1.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        txtTersier1.disabled = false;
+        txtTersier1.focus();
+    }
 });
 
-txtTersier1.addEventListener("keypress", function () {
-    btnDetail.disabled = false;
-    btnDetail.focus();
+txtTersier1.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        btnDetail.disabled = false;
+        btnDetail.focus();
+    }
 });
 
 btnDetail.addEventListener("click", function () {
     // Lakukan pengecekkan untuk tiap input pada card Detail Order
     var isDetailEmpty = false;
+
     if (slcType.selectedIndex != 0) {
         listDetail.forEach((ele) => {
             if (ele.value == "") isDetailEmpty = true;
@@ -119,6 +107,7 @@ btnDetail.addEventListener("click", function () {
 
     if (isDetailEmpty) {
         alert("Ada data yang belum terisi. \nMohon periksa kembali.");
+        return;
     }
 
     // Lakukan pencarian terhadap tabel berdasarkan Nama Type
@@ -137,16 +126,32 @@ btnDetail.addEventListener("click", function () {
         };
 
         addDataToTable([dataDetail]);
-    }
 
-    // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
-    const addConfirm = window.confirm(
-        "Ingin input data bahan / hasil produksi lagi?"
-    );
-    if (addConfirm) {
+        // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
+        showModal(
+            "Tambah Data",
+            "Ingin input data bahan / hasil produksi lagi?",
+            () => {
+                clearDataDetail();
+                slcType.focus();
+            },
+            () => {
+                btnProses.focus();
+            }
+        );
+    }
+});
+
+btnKeluar.addEventListener("click", function () {
+    if (this.textContent == "Keluar") {
+        window.location.href = "/Extruder/ExtruderNet";
+    } else {
+        toggleButtons(1);
+        listOrder = [];
+        clearTable();
         clearDataDetail();
-        slcType.focus();
-    } else btnProses.focus();
+        disableDetail();
+    }
 });
 //#endregion
 
@@ -183,6 +188,21 @@ function disableDetail() {
     });
 }
 
+function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
+    btnConfirm.textContent = txtBtn;
+    modalConfirmBody.textContent = txtBody;
+
+    btnConfirm.addEventListener("click", function () {
+        confirmFun();
+    });
+    btnCancel.addEventListener("click", function () {
+        cancelFun();
+    });
+
+    $("#confirmation_modal").modal("show");
+    btnConfirm.focus();
+}
+
 function addDataToTable(listData) {
     const tableBody = document.querySelector("#table_order tbody");
 
@@ -202,6 +222,14 @@ function addDataToTable(listData) {
 
         tableBody.appendChild(row);
     }
+}
+
+function clearTable() {
+    const tableBody = document.querySelector("#table_order tbody");
+
+    tableBody.innerHTML = `
+        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    `;
 }
 
 function isTableContains(searchStr) {
@@ -272,7 +300,7 @@ function addOptions(idSelect, optionData) {
 function init() {
     toggleButtons(1);
     btnBaru.focus();
-    addDataToTable(listDummy);
+    // addDataToTable(listDummy);
 }
 //#endregion
 

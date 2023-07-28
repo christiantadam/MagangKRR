@@ -4,21 +4,21 @@
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tanggal:</div>
             <div class="col-lg-3">
-                <input type="date" name="tanggal" id="tanggal" class="form-control">
+                <input type="date" name="tanggal" id="tanggal" class="form-control" disabled>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">No. Order:</div>
             <div class="col-lg-3">
-                <input type="text" name="no_order" id="no_order" class="form-control">
+                <input type="text" name="no_order" id="no_order" class="form-control" disabled>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Identifikasi Order:</div>
             <div class="col-lg-8">
-                <input type="text" name="identifikasi" id="identifikasi" class="form-control">
+                <input type="text" name="identifikasi" id="identifikasi" class="form-control" disabled>
             </div>
         </div>
 
@@ -45,30 +45,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Data 1</td>
+                    <td>Halo Dunia</td>
                     <td class="text-center">10</td>
                     <td class="text-center">kg</td>
-                    <td class="text-center">5</td>
+                    <td class="text-center">10</td>
                     <td class="text-center">kg</td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">kg</td>
-                </tr>
-                <tr>
-                    <td>Data 2</td>
-                    <td class="text-center">8</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">4</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">2</td>
-                    <td class="text-center">kg</td>
-                </tr>
-                <tr>
-                    <td>Data 3</td>
-                    <td class="text-center">15</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">6</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">1</td>
+                    <td class="text-center">10</td>
                     <td class="text-center">kg</td>
                 </tr>
             </tbody>
@@ -80,7 +62,7 @@
             <div class="card-body">
                 <div class="form-group mt-3">
                     <label for="select_benang">Type Benang</label>
-                    <select name="select_benang" id="select_benang" class="form-select">
+                    <select name="select_benang" id="select_benang" class="form-select" disabled>
                         <option selected disabled>-- Pilih Type Benang --</option>
                         <option value="loading" style="display: none" disabled>Loading...</option>
                         @foreach ($formData['listBenang'] as $d)
@@ -93,28 +75,32 @@
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="primer">Primer</label>
                     <div class="input-group">
-                        <input type="number" id="primer1" class="form-control detail_order" placeholder="0">
-                        <input type="text" id="primer2" class="form-control detail_order" style="width: 12.5vw;">
+                        <input type="number" id="primer1" class="form-control detail_order" placeholder="0" disabled>
+                        <input type="text" id="primer2" class="form-control detail_order" style="width: 12.5vw;"
+                            disabled>
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="sekunder">Sekunder</label>
                     <div class="input-group">
-                        <input type="number" id="sekunder1" class="form-control detail_order" placeholder="0">
-                        <input type="text" id="sekunder2" class="form-control detail_order" style="width: 12.5vw;">
+                        <input type="number" id="sekunder1" class="form-control detail_order" placeholder="0" disabled>
+                        <input type="text" id="sekunder2" class="form-control detail_order" style="width: 12.5vw;"
+                            disabled>
                     </div>
                 </div>
 
                 <div class="form-group mt-3" style="width: 25vw;">
                     <label for="tertier">Tertier</label>
                     <div class="input-group">
-                        <input type="number" id="tertier1" class="form-control detail_order" placeholder="0">
-                        <input type="text" id="tertier2" class="form-control detail_order" style="width: 12.5vw;">
+                        <input type="number" id="tertier1" class="form-control detail_order" placeholder="0" disabled>
+                        <input type="text" id="tertier2" class="form-control detail_order" style="width: 12.5vw;"
+                            disabled>
                     </div>
                 </div>
 
-                <button type="submit" id="btn_detail" class="btn btn-outline-info float-end">Tambah<br>Detail</button>
+                <button type="submit" id="btn_detail" class="btn btn-outline-info float-end"
+                    disabled>Tambah<br>Detail</button>
             </div>
         </div>
 
@@ -124,7 +110,7 @@
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-success" disabled>Proses</button>
                 <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
             </div>
         </div>
