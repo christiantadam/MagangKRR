@@ -43,10 +43,13 @@
 
         <style>
             .body {
+
                 font-family: Arial, sans-serif;
                 max-width: px;
                 margin: 0 auto;
                 padding: 20px;
+                height: 100VH;
+                background-image: url('images/walpaper-2.png');
             }
 
             h2 {
@@ -59,7 +62,8 @@
                 border-radius: 5px;
                 margin-bottom: 20px;
                 background-color: #f9f9f9;
-                width: 100%
+                width: 100%;
+                opacity: 0.95
             }
 
             .card-title {

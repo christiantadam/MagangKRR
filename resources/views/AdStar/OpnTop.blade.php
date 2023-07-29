@@ -97,22 +97,14 @@
                     <div class=radio>
                         <label for="size">Front :</label>
                         <input type="text" id="customer" required>
-                    </div>
-                </div>
-                <div class="input-container">
-                    <div class=radio>
-                        <label for="size">Back :</label>
-                        <input type="text" id="customer" required>
-                    </div>
-                </div>
-                <div class="input-container">
-                    <div class=radio>
                         <label for="size">Top Patch :</label>
                         <input type="text" id="customer" required>
                     </div>
                 </div>
                 <div class="input-container">
                     <div class=radio>
+                        <label for="size">Back :</label>
+                        <input type="text" id="customer" required>
                         <label for="size">Bottom Patch :</label>
                         <input type="text" id="customer" required>
                     </div>
@@ -126,7 +118,259 @@
                     <input type="text" name="W_inputH" id="W_inputH" class="input W_inputH" placeholder="H">
                     <input type="text" name="W_inputFA" id="W_inputfA" class="input W_inputFA" placeholder="Front Area">
                 </div>
+                <div class="input-container">
+                    <div class=radio>
+                        <u>PERFOMANCE STANDARD</u>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class=radio>
+                        <label for="size">Air Permeability :</label>
+                        <input type="text" id="customer" required>
+                        <label for="size">Nm3h</label>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class=radio>
+                        <label for="size">Tinggi Bag(berdiri) :</label>
+                        <input type="text" id="customer" required>
+                        <label for="size">cm</label>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button class="add">Calculate</button>
+                </div>
             </div>
         </div>
+        <div class="card">
+            <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                        <th rowspan="2">Dimension</th>
+                        <th rowspan="2">Standard(cm)</th>
+                        <th rowspan="2">Tolerance</th>
+                        <th colspan="6">Material</th>
+                        <th rowspan="2">Cloth Weight (gr)</th>
+                        <th rowspan="2">Lamination Weight (gr)</th>
+                        <th rowspan="2">Cloth + Kertas + Lami (gr)</th>
+                    </tr>
+                    <tr>
+                        <th> Size (cm)</th>
+                        <th> Mesh</th>
+                        <th colspan="4">Yarn Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td> W. Width</td>
+                        <td> 0 </td>
+                        <td> ±0.7</td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td>Wa</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                    </tr>
+                    <tr>
+                        <td> H. Height</td>
+                        <td> 0 </td>
+                        <td> ±1</td>
+                        <td>We</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td> TW Top Cover Width</td>
+                        <td> 0 </td>
+                        <td> ±0.5</td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td>Wa</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                    </tr>
+                    <tr>
+                        <td> TL Top Cover Length</td>
+                        <td> 0 </td>
+                        <td> ±1</td>
+                        <td>We</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td> BW. Bottom Patch Width</td>
+                        <td> 0 </td>
+                        <td> ±0.5</td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td>Wa</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                    </tr>
+                    <tr>
+                        <td> BL. Bottom Patch Length</td>
+                        <td> 0 </td>
+                        <td> ±1</td>
+                        <td>We</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td> VS. Valve Seal</td>
+                        <td> 0 </td>
+                        <td> ±0.5</td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td rowspan="2">
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td>Wa</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                        <td rowspan="2">0</td>
+                    </tr>
+                    <tr>
+                        <td> VL. Valve Length</td>
+                        <td> 0 </td>
+                        <td> ±0.5</td>
+                        <td>We</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>Kertas</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>
+                            <input type="text" id="customer" required>
+                            <label for="size">X</label>
+                            <input type="text" id="customer" required>
+                        </td>
+                        <td>---</td>
+                        <td colspan="4">---</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>BB. Block Bottom</td>
+                        <td>0</td>
+                        <td>±0.5</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td colspan="4">---</td>
+                        <th>Total Clotch</th>
+                        <th>Total Lami</th>
+                        <th>Total (gr)</th>
+                    </tr>
+                    <tr>
+                        <td>BC. Block Cover</td>
+                        <td>0</td>
+                        <td>±0.5</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td colspan="4">---</td>
+                        <td rowspan="3">0</td>
+                        <td rowspan="3">0</td>
+                        <td rowspan="3">0</td>
+                    </tr>
+                    <tr>
+                        <td>TO. Top Fabric Overlap</td>
+                        <td>1</td>
+                        <td>±0.2</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td colspan="4">---</td>
+                    </tr>
+                    <tr>
+                        <td>BO. Bottom Fabric Overlap</td>
+                        <td>1</td>
+                        <td>±0.2</td>
+                        <td>---</td>
+                        <td>---</td>
+                        <td colspan="4">---</td>
+                    </tr>
+
+
+                    {{-- <?php
+                      // Simulasi pengambilan data dari database
+                      $data = array(
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        array("Value 1", "Value 2"),
+                        // Tambahkan data lainnya dari database
+                      );
+
+                      // Iterasi melalui data dan buat baris tabel
+                      foreach ($data as $row) {
+                        echo "<tr>";
+                        echo "<td>".$row[0]."</td>";
+                        echo "<td>".$row[1]."</td>";
+                        echo "</tr>";
+                      }
+                    ?> --}}
+                  </tbody>
+                </table>
+              </div>
+        </div>
+
     </div>
 @endsection

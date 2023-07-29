@@ -3,6 +3,7 @@
     max-width: px;
     margin: 0 auto;
     padding: 20px;
+    height: AUTO;
 }
 
 h2 {
@@ -186,30 +187,30 @@ button[type="submit"] {
     z-index: 0;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 311px;
-    left: 53px;
+    top: 335px;
+    left: 49px;
     height: 18px;
-    width: 45px;
+    width: 53px;
 }
 
 .W_inputW{
     z-index: 0;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 39px;
-    left: 230px;
+    top: 32px;
+    left: 256px;
     height: 18px;
-    width: 45px;
+    width: 59px;
 }
 
 .W_inputH{
     z-index: 0;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 190px;
-    left: 384px;
+    top: 201px;
+    left: 437px;
     height: 18px;
-    width: 45px;
+    width: 51px;
 }
 
 /* tulisan front area */
@@ -217,8 +218,38 @@ button[type="submit"] {
     z-index: 0;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 251px;
-    left: 208px;
+    top: 270px;
+    left: 232px;
     height: 18px;
     width: 205px;
+}
+
+.W_inputBC{
+    z-index: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 118px;
+    left: 49px;
+    height: 18px;
+    width: 53px;
+}
+
+.W_inputVS{
+    z-index: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 188px;
+    left: 128px;
+    height: 18px;
+    width: 53px;
+}
+
+.W_inputVL{
+    z-index: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 223px;
+    left: 180px;
+    height: 18px;
+    width: 53px;
 }
