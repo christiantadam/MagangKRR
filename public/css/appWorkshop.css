@@ -9545,3 +9545,7 @@ a.text-dark:hover {
     transform-origin: 0 0;
     translate: 10%;
 } */
+
+.max-content-row {
+   width: max-content;
+}

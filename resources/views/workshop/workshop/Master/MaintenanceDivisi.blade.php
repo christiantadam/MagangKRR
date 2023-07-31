@@ -55,7 +55,7 @@
               onclick="hapusdiklik()"><u>H</u>APUS</button>
             <button type="button" class="btn btn-danger custom-btn" id="batal" style="display: none"
               onclick="bataldiklik()"><u>B</u>atal</button>
-            <button type="button" class="btn btn-primary custom-btn" id="proses" disabled
+            <button type="button" class="btn btn-primary custom-btn" id="proses"
               onclick="prosesdiklik()"><u>P</u>ROSES</button>
           </div>
         </div>

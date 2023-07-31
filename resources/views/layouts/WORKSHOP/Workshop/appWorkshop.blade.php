@@ -81,7 +81,7 @@
                             </a>
 
                             <ul class="dropdown-menu" style="cursor: default">
-                                <li><a href="/MaintenanceOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Gambar</a>
+                                <li><a href="{{ url('MaintenanceOrderGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Gambar</a>
                                 </li>
                                 <li><a href="/ACCManagerGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>

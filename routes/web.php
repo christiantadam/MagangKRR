@@ -99,8 +99,12 @@ Route::get('getdata/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Master\Update
 Route::get('getmesin/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Master\MaintenanceMesinController@getmesin');
 
 
+
 // Workshop - Transaksi
-Route::get('MaintenanceOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceOrderGambar');
+Route::resource('MaintenanceOrderGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController::class);
+
+Route::get('getalldata/{tgl_awal}/{tgl_akhir}/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController@GetDataAll');
+
 Route::get('ACCManagerGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerGambar');
 Route::get('ACCDirekturGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturGambar');
 Route::get('PenerimaOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderGambar');
