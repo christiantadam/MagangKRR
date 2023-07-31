@@ -29,10 +29,13 @@
                                     <th>Type </th>
                                     <th>Barcode </th>
                                     <th>SubKelompok </th>
-                                    <th>- </th>
-                                    <th>- </th>
-                                    <th>- </th>
-                                    <th>- </th>
+                                    <th>Kelompok </th>
+                                    <th>Kode Barang </th>
+                                    <th>Noln... </th>
+                                    <th>Jumlah Primer </th>
+                                    <th>Jumlah Sekunder </th>
+                                    <th>Jumlah Tritier </th>
+                                    <th>Tanggal </th>
                                 </tr>
                             </table>
                         </div>
@@ -47,6 +50,8 @@
                                     <th>Primer </th>
                                     <th>Sekunder </th>
                                     <th>Tertier </th>
+                                    <th>Id Type </th>
+                                    <th>Tanggal </th>
                                 </tr>
                             </table>
                         </div>

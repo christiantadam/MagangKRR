@@ -2,40 +2,7 @@
 @section('content')
 
     <body onload="Greeting()">
-        <style>
-            /* Gaya untuk modal */
-            .modal {
-                display: none;
-                /* Sembunyikan modal secara default */
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.7);
-                /* Latar belakang gelap transparan */
-            }
 
-            .modal-content {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                padding: 20px;
-                background-color: white;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                border-radius: 5px;
-                width: 1000px;
-            }
-
-            .close-btn {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                size: 100%;
-                cursor: pointer;
-            }
-        </style>
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
@@ -45,12 +12,14 @@
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
                                                 placeholder="ID Divisi" readonly>
+                                        </div>
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
@@ -88,12 +57,14 @@
 
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Kelut:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Kelut" id="id_Kelut"
                                                 placeholder="ID Kelut" readonly>
+                                        </div>
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Kelut" id="Kelut"
                                                 placeholder="Kelut" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
@@ -128,12 +99,14 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Kelompok:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Kelompok" id="id_Kelompok"
                                                 placeholder="ID Kelompok" readonly>
+                                        </div>
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Kelompok" id="Kelompok"
                                                 placeholder="Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
@@ -168,12 +141,14 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Sub Kelompok:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_SubKelompok"
                                                 id="id_SubKelompok" placeholder="ID SubKelompok" readonly>
+                                        </div>
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Sub_kelompok"
                                                 id="Sub_kelompok" placeholder="Sub Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
@@ -208,12 +183,14 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Type:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Type" id="id_Type"
                                                 placeholder="ID Type" readonly>
+                                        </div>
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Type" id="Type"
                                                 placeholder="Type" readonly>
                                             <div class="text-center col-md-auto"><button type="submit"
@@ -245,8 +222,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-center col-md-10 mb-3" id="TambahButton" style="margin-left:53.3%"><button
-                                                type="button">Tambah</button></div>
+                                        <div class="text-center col-md-10 mb-3" id="TambahButton"
+                                            style="margin-left:53.3%"><button type="button">Tambah</button></div>
                                     </div>
 
 
@@ -271,9 +248,12 @@
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit">Pilih Semua</button></div>
-                                    <div class="text-center col-md-auto"><button type="submit">Hapus</button></div>
-                                    <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit">Pilih
+                                            Semua</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit">Hapus</button>
+                                    </div>
+                                    <div class="text-center col-md-auto"><button type="submit">Keluar</button>
+                                    </div>
                                 </div>
                             </div>
                             </form>
@@ -297,31 +277,31 @@
 
         <!-- ... Rest of the code ... -->
 
-<script>
-    function addDataToTable() {
-        // Extract data from input fields
-        var divisi = document.getElementById('Divisi').value;
-        var kelut = document.getElementById('Kelut').value;
-        var kelompok = document.getElementById('Kelompok').value;
-        var subKelompok = document.getElementById('Sub_kelompok').value;
-        var type = document.getElementById('Type').value;
+        <script>
+            function addDataToTable() {
+                // Extract data from input fields
+                var divisi = document.getElementById('Divisi').value;
+                var kelut = document.getElementById('Kelut').value;
+                var kelompok = document.getElementById('Kelompok').value;
+                var subKelompok = document.getElementById('Sub_kelompok').value;
+                var type = document.getElementById('Type').value;
 
-        // Get the DataTable instance
-        var table = $('#TypeTable').DataTable();
+                // Get the DataTable instance
+                var table = $('#TypeTable').DataTable();
 
-        // Add the new row to the DataTable
-        table.row.add([divisi, kelut, kelompok, subKelompok, type]).draw();
-    }
+                // Add the new row to the DataTable
+                table.row.add([divisi, kelut, kelompok, subKelompok, type]).draw();
+            }
 
-    // Add an event listener to the "Tambah" button
-    var tambahButton = document.getElementById('TambahButton');
-    tambahButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        addDataToTable();
-    });
-</script>
+            // Add an event listener to the "Tambah" button
+            var tambahButton = document.getElementById('TambahButton');
+            tambahButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                addDataToTable();
+            });
+        </script>
 
-<!-- ... Rest of the code ... -->
+        <!-- ... Rest of the code ... -->
 
 
         <script>
