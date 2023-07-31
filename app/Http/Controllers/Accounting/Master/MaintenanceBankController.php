@@ -23,7 +23,7 @@ class MaintenanceBankController extends Controller
         return response()->json($data);
     }
 
-    function getKodePerkiraan($kodePerkiraan)
+    function getKodePerkiraan()
     {
         $data =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_BKK1_KODEPERKIRAAN]');
         return response()->json($data);

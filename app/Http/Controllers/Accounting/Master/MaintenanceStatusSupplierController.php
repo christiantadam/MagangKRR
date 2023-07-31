@@ -10,12 +10,22 @@ class MaintenanceStatusSupplierController extends Controller
 {
     //
     //Display a listing of the resource.
-    public function index($idSupplier)
+    public function index()
     {
-        $maintenanceStatusSupplier = DB::connection('ConnAccounting')->select('exec [Sp_1273_ACC_LIST_IDSUPP_NOSTATUS]');
-        // dd($maintenanceMataUang);
+        $maintenanceStatusSupplier = DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_SUPP_NOSTATUS]');
+        //dd($maintenanceStatusSupplier);
         return view('Accounting.Master.MaintenanceStatusSupplier', compact(['maintenanceStatusSupplier']));
     }
+
+    // function getDataMataUang($request)
+    // {
+    //     dd($request->all());
+    //     $idSupplier = $request->idSupplier;
+    //     $status = $request->status;
+
+    //     $detailstatussupplier =  DB::connection('ConnPurchase')->select('exec [Sp_1273_ACC_UDT_STATUS_YSUPPLIER] @IDSupplier = ?, @Status = ?', [$idSupplier, $status]);
+    //     return response()->json($detailstatussupplier);
+    // }
 
     //Show the form for creating a new resource.
     public function create()
@@ -44,7 +54,10 @@ class MaintenanceStatusSupplierController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        // $idSupplier = $request->idSupplier;
+        // $status = $request->status;
+        // $data =  DB::connection('ConnAccounting')->select('exec [Sp_1273_ACC_UDT_STATUS_YSUPPLIER] @IDSupplier = ?, @Status = ?', [$idSupplier, $status]);
+        // return response()->json($data);
     }
 
     //Remove the specified resource from storage.

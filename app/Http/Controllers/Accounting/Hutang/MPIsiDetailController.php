@@ -6,21 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MaintenancePenagihanController extends Controller
+class MPIsiDetailController extends Controller
 {
     public function index()
     {
-        $maintenancePenagihan = DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_SUPPLIER]');
-        // dd($maintenanceMataUang);
-        return view('Accounting.Hutang.MaintenancePenagihan', compact(['maintenancePenagihan']));
+        $divisi =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_TT_DIVISI]');
+        return view('Accounting.Hutang.MPIsiDetail', compact(['divisi']));
     }
 
-    // function getDataSupplier($namaSupplier)
+    // function getDataDivisi()
     // {
-    //     $data = DB::connection('ConnAccounting')
-    //            ->select("SELECT * FROM PURCHASE.dbo.YSUPPLIER WHERE NM_SUP = ?", [$namaSupplier]);
-
-    //     return response()->json($data);
+    //     $divisi =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_TT_DIVISI]');
+    //     return response()->json($divisi);
     // }
 
     //Show the form for creating a new resource.
@@ -58,4 +55,5 @@ class MaintenancePenagihanController extends Controller
     {
         //
     }
+
 }

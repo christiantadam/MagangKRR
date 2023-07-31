@@ -35,11 +35,20 @@ Route::resource('MaintenanceMataUang', App\Http\Controllers\Accounting\Master\Ma
 #endregion
 
 #region Maintenance Status Supplier
-//Route::get('MaintenanceStatusSupplier', 'App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController@MaintenanceStatusSupplier');
+Route::get('detailStatusSupplier/{idSupplier}', 'App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController@getDataMataUang');
 Route::resource('MaintenanceStatusSupplier', App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController::class);
 #endregion
 
-Route::get('MaintenancePenagihan', 'App\Http\Controllers\Accounting\Hutang\MaintenancePenagihanController@MaintenancePenagihan');
+#region Maintenance Status Penagihan
+//Route::get('detailSupplier/{idSupplier}', 'App\Http\Controllers\Accounting\Hutang\MaintenancePenagihanController@getDataSupplier');
+//Route::resource('MPIsiDetail', App\Http\Controllers\Accounting\Hutang\MPIsiDetail::class);
+//Route::get('/isiDetail', 'App\Http\Controllers\Accounting\Hutang\MPIsiDetailController@show')->name('isiDetail');
+Route::resource('MPIsiDetail', App\Http\Controllers\Accounting\Hutang\MPIsiDetailController::class);
+Route::post('handle_form_submission_faktur', 'IsiDeatilFakturPajak@handleFormSubmission');
+Route::get('detaildivisi/{idDivisi}', 'App\Http\Controllers\Accounting\Master\MPIsiDetailController@getDataDivisi');
+Route::resource('MaintenancePenagihan', App\Http\Controllers\Accounting\Hutang\MaintenancePenagihanController::class);
+#endregion
+
 Route::get('BatalPenagihan', 'App\Http\Controllers\Accounting\Hutang\BatalPenagihanController@BatalPenagihan');
 Route::get('UpdatePIB', 'App\Http\Controllers\Accounting\Hutang\UpdatePIBController@UpdatePIB');
 Route::get('ACCSerahTerimaPenagihan', 'App\Http\Controllers\Accounting\Hutang\ACCSerahTerimaPenagihanController@ACCSerahTerimaPenagihan');

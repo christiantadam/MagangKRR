@@ -4,24 +4,18 @@ namespace App\Http\Controllers\Accounting\Hutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class MaintenancePenagihanController extends Controller
+class IsiDetailFakturPajakController extends Controller
 {
-    public function index()
+    public function handleFormSubmission(Request $request)
     {
-        $maintenancePenagihan = DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_SUPPLIER]');
-        // dd($maintenanceMataUang);
-        return view('Accounting.Hutang.MaintenancePenagihan', compact(['maintenancePenagihan']));
+        // Proses data yang dikirim dari modal di sini
+        // Contoh: Simpan data ke database atau lakukan tindakan lain
+
+        // Setelah data diproses, Anda dapat mengarahkan pengguna ke halaman lain jika diperlukan.
+        // Misalnya, kembalikan ke halaman utama:
+        return redirect()->route('home');
     }
-
-    // function getDataSupplier($namaSupplier)
-    // {
-    //     $data = DB::connection('ConnAccounting')
-    //            ->select("SELECT * FROM PURCHASE.dbo.YSUPPLIER WHERE NM_SUP = ?", [$namaSupplier]);
-
-    //     return response()->json($data);
-    // }
 
     //Show the form for creating a new resource.
     public function create()

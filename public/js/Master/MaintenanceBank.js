@@ -69,7 +69,7 @@ function clickIsi() {
     btnKoreksi.disabled = true;
     btnHapus.disabled = true;
     btnProses.disabled = false;
-    btnKeluar.style.display = "none";
+    //btnKeluar.style.display = "none";
     btnBatal.style.display = "block";
     proses = 1;
 }

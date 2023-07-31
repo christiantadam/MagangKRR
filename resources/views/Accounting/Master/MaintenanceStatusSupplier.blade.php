@@ -14,7 +14,8 @@
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('MaintenanceStatusSupplier') }}" id="formkoreksi">
-                                @csrf
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div>
                                     <table style="width: 100%" id="tabelStatusSupplier" name="tabelStatusSupplier">
@@ -29,21 +30,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($maintenanceStatusSupplier as $mss)
                                         <tr>
-                                            <td>Data 1</td>
-                                            <td>Data 2</td>
-                                            <td>Data 3</td>
-                                            <td>Data 4</td>
-                                            <td>Data 5</td>
-                                            <td>Data 6</td>
+                                            <td><input type="checkbox" class="checkbox-item" data-id-supplier="{{ $mss->NO_SUP }}" data-nama-supplier="{{ $mss->NM_SUP }}" data-id-jenis-supplier="{{ $mss->ID_MATAUANG }}" data-nama-jenis-supplier="{{ $mss->Nama_MataUang }}">{{ $mss->NO_SUP }}</td>
+                                            <td>{{ $mss->NM_SUP }}</td>
+                                            <td>{{ $mss->SALDO_HUTANG }}</td>
+                                            <td>{{ $mss->SALDO_HUTANG_Rp }}</td>
+                                            <td>{{ $mss->Nama_MataUang }}</td>
+                                            <td>{{ $mss->STATUS }}</td>
                                         </tr>
+                                    @endforeach
                                     </tbody>
-
                                     </table>
                                 </div>
 
                                 <p><div class="container fluid">
-                                    <p><div class="row">
+                                    <p><div class="row" onchange="fillColumns()">
                                         <div class="col-md-2 ">
                                             <label for="idSupplier">ID/Nm.Supplier</label>
                                         </div>
@@ -51,26 +53,27 @@
                                             <input type="text" name="idSupplier" id="idSupplier" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                            <input type="text" name="namaSupplier" id="namaSupplier" class="form-control" style="width: 100%">
                                         </div>
                                         <div>
-                                            <select name="supplierSelect" class="form-control" onchange="fillColumns()">
-                                                <option value=""></option>
-                                                <option value="ID 1">ID1</option>
-                                                <option value="ID 2">ID2</option>
+                                            <select name="nama_select" id="idMataUang" name="idMataUang" class="form-control">
+                                                {{-- <option disabled selected>-- Pilih Id/Nm. Supp --</option>
+                                                @foreach ($maintenanceStatusSupplier as $mss)
+                                                <option value="{{ $mss->NO_SUP }}">{{ $mss->NO_SUP }} | {{ $mss->NM_SUP }}</option>
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
 
-                                    <p><div class="row">
+                                    <p><div class="row" onchange="fillColumns()">
                                         <div class="col-md-2">
-                                            <label for="id">Jenis Supplier</label>
+                                            <label for="id" >Jenis Supplier</label>
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="text" name="jenissupplier1" class="form-control" style="width: 100%">
+                                            <input type="text" name="idJenisSupplier" id="idJenisSupplier" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" name="jenissupplier2" class="form-control" style="width: 100%">
+                                            <input type="text" name="namaJenisSupplier" id="namaJenisSupplier" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
 
@@ -93,13 +96,13 @@
                                             <input type="submit" name="isi" value="Isi" id="btnIsi" class="btn btn-primary">
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" name="koreksi" value="Koreksi" id="btnKoreksi" class="btn btn-primary">
+                                            <input type="submit" name="koreksi" value="Koreksi" id="btnKoreksi" class="btn btn-primary" onclick="clickKoreksi()">
                                         </div>
-                                        <div class="col-10">
-                                            <input type="submit" name="keluar" value="Keluar" id="btnKeluar" class="btn btn-primary d-flex ml-auto">
+                                        <div class="col-1">
+                                            <input type="submit" name="proses" value="Proses" id="btnProses" class="btn btn-primary" style="display: none" onclick="clickKoreksi()">
                                         </div>
-                                        <div class="col-10">
-                                            <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-primary" style="display: none" onclick="">
+                                        <div class="col-9">
+                                            <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto" style="display: none" onclick="clickBatal()">
                                         </div>
                                     </div>
                                     </div>
