@@ -53,6 +53,7 @@ Route::get('ProgramPayroll/Transaksi/TransferAbsen', 'App\Http\Controllers\Payro
 Route::get('ProgramPayroll/Transaksi/VerifikasiAbsen', 'App\Http\Controllers\Payroll\Transaksi\VerifikasiAbsen\VerifikasiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/AbsenSimpang', 'App\Http\Controllers\Payroll\Transaksi\AbsenSimpang\AbsenSimpangController@index');
 Route::get('ProgramPayroll/Transaksi/Kontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@index');
+Route::post('ProgramPayroll/Transaksi/updateKontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@update');
 Route::get('getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
 Route::get('ProgramPayroll/Transaksi/KoreksiAbsen', 'App\Http\Controllers\Payroll\Transaksi\KoreksiAbsen\KoreksiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/InputLibur', 'App\Http\Controllers\Payroll\Transaksi\InputLibur\InputLiburController@index');

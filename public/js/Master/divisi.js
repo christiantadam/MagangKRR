@@ -40,6 +40,20 @@ $(document).ready(function () {
         simpanNilaiOpsi();
         // You can also call simpanData() here if needed.
     });
+
+    function showModalManager() {
+        $("#modalManager").addClass("show");
+        $("#modalManager").css("display", "block");
+        $("body").addClass("modal-open");
+    }
+
+    // Function to hide the modal
+    function hideModalManager() {
+        $("#modalManager").removeClass("show");
+        $("#modalManager").css("display", "none");
+        $("body").removeClass("modal-open");
+        removeBackdrop();
+    }
     function simpanNilaiOpsi() {
         const radioPerpanjang = document.getElementById("perpanjang");
         const radioResign = document.getElementById("resign");
@@ -175,31 +189,31 @@ submitForm()
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/getPegawai/" + rowData[0])
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
+        // fetch("/getPegawai/" + rowData[0])
+        //     .then((response) => {
+        //         if (!response.ok) {
+        //             throw new Error("Network response was not ok");
+        //         }
+        //         return response.json(); // Assuming the response is in JSON format
+        //     })
+        //     .then((data) => {
+        //         // Handle the data retrieved from the server (data should be an object or an array)
 
-                // Clear the existing table rows
-                $("#table_Peg_Lama").DataTable().clear().draw();
+        //         // Clear the existing table rows
+        //         $("#table_Peg_Lama").DataTable().clear().draw();
 
-                // Loop through the data and create table rows
-                data.forEach((item) => {
-                    var row = [item.kd_pegawai, item.nama_peg];
-                    $("#table_Peg_Lama").DataTable().row.add(row);
-                });
+        //         // Loop through the data and create table rows
+        //         data.forEach((item) => {
+        //             var row = [item.kd_pegawai, item.nama_peg];
+        //             $("#table_Peg_Lama").DataTable().row.add(row);
+        //         });
 
-                // Redraw the table to show the changes
-                $("#table_Peg_Lama").DataTable().draw();
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        //         // Redraw the table to show the changes
+        //         $("#table_Peg_Lama").DataTable().draw();
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error:", error);
+        //     });
         // var idDivValue = rowData[0];
         // submitFormWithIdDiv(idDivValue);
         // Hide the modal immediately after populating the data
@@ -216,8 +230,8 @@ submitForm()
         var rowData = $("#table_Peg_Lama").DataTable().row(this).data();
         console.log(rowData);
         // Populate the input fields with the data
-        $("#Id_Peg_Lama").val(rowData[0]);
-        $("#Nama_Peg_Lama").val(rowData[1]);
+        $("#Nama_Posisi").val(rowData[0]);
+        $("#Kd_Posisi").val(rowData[1]);
 
         // Hide the modal immediately after populating the data
         hideModalPegawai();
@@ -280,6 +294,27 @@ submitForm()
         removeBackdrop();
     }
 
+    $("#table_Manager").DataTable({
+        order: [[0, "asc"]],
+    });
+
+    // Attach click event to table rows
+    $("#table_Manager tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        console.log($("#table_Manager").DataTable().row(this));
+        var rowData = $("#table_Manager").DataTable().row(this).data();
+        console.log(rowData);
+        // Populate the input fields with the data
+        $("#Nama_Manager").val(rowData[0]);
+        $("#KD_Manager").val(rowData[1]);
+
+        // Hide the modal immediately after populating the data
+        hideModalManager();
+    });
+
+    $("#tabelDivisi").DataTable({
+        order: [[0, "asc"]],
+    });
     // Attach click event to the button to show the modal
     $("#divisiButton").on("click", function () {
         showModalDivisi();

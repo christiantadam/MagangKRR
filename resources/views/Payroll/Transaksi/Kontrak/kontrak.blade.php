@@ -91,9 +91,9 @@
                                 <span class="aligned-text">Kode Pegawai:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Peg" readonly
+                                <input class="form-control" type="text" id="Id_Peg_Lama" readonly
                                     style="resize: none; height: 40px; max-width: 100px;">
-                                <input class="form-control" type="text" id="Nama_Peg" readonly
+                                <input class="form-control" type="text" id="Nama_Peg_Lama" readonly
                                     style="resize: none; height: 40px; max-width: 450px;">
                                 <button type="button" class="btn" style="margin-left: 10px;" data-toggle="modal"
                                     data-target="#modalPeg">...</button>
@@ -105,7 +105,7 @@
 
                                                 <div class="row" style=";">
                                                     <div class="table-responsive" style="margin:30px;">
-                                                        <table id="table_Peg" class="table table-bordered">
+                                                        <table id="table_Peg_Lama" class="table table-bordered">
                                                             <thead class="thead-dark">
                                                                 <tr>
                                                                     <th scope="col">Id Pegawai</th>
@@ -209,7 +209,7 @@
                                 <span class="aligned-text">Kode Pegawai Baru:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Peg_Baru"
+                                <input class="form-control" type="text" id="Kd_Peg_Baru"
                                     style="resize: none; height: 40px; max-width: 100px;">
                                 <span class="aligned-text" style="margin-left:50px;">Shift:</span>
                                 <input class="form-control" type="text" id="Shift" readonly
@@ -283,7 +283,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
                                     value="{{ old('TglLapor', now()->format('Y-m-d')) }}" style="width: 150px;" required>
                             </div>
 
@@ -296,72 +296,74 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                    value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
-                                    style="max-width: 200px;">
+                                <input class="form-control" type="date" id="TglMulai" name="MasaKontrak"
+                                    value="{{ old('TglMulai', now()->format('m/d/y')) }}" required
+                                    style="max-width: 200px;" placeholder="mm/dd/yy" format="mm/dd/yy">
+
                                 <span class="aligned-text" style="margin-left: 15px;">s/d</span>
-                                <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
-                                    value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required
-                                    style="max-width: 200px;">
+                                <input class="form-control" type="date" id="TglSelesai" name="MasaKontrak"
+                                    value="{{ old('TglSelesai', now()->format('m/d/y')) }}" required
+                                    style="max-width: 200px;" placeholder="mm/dd/yy" format="mm/dd/yy">
+
                                 <div
                                     style="height: 40px; border: 1px solid black; display: flex; align-items: center; margin-left:15px;">
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="staff" name="pekerja" value="staff" checked
-                                            style="vertical-align: middle;">
-                                        <label for="staff" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak1" name="opsiKontrak" value="1 Bulan" checked
+                                            style="vertical-align: middle;">&nbsp;1 Bulan
+                                        {{-- <label for="staff" style="margin-left: 5px;">
 
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">1
                                                 Bulan</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
 
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff1" name="pekerja" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff1" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak2" name="opsiKontrak" value="3 Bulan"
+                                            style="vertical-align: middle;">&nbsp;3 Bulan
+                                        {{-- <label for="bukanStaff1" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">3
                                                 Bulan</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
 
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak3" name="opsiKontrak" value="6 bulan"
+                                            style="vertical-align: middle;">&nbsp;6 Bulan
+                                        {{-- <label for="bukanStaff2" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">6
                                                 Bulan</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak4" name="opsiKontrak" value="9 bulan"
+                                            style="vertical-align: middle;">&nbsp;9 Bulan
+                                        {{-- <label for="bukanStaff2" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">9
                                                 Bulan</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak5" name="opsiKontrak" value="12 bulan"
+                                            style="vertical-align: middle;">&nbsp;12 Bulan
+                                        {{-- <label for="bukanStaff2" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">12
                                                 Bulan</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff2" name="pekerja" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff2" style="margin-left: 5px;">
+                                        <input type="radio" id="kontrak6" name="opsiKontrak" value="2 tahun"
+                                            style="vertical-align: middle;">&nbsp;2 Tahun
+                                        {{-- <label for="bukanStaff2" style="margin-left: 5px;">
                                             <span style="display: inline-block; vertical-align: middle;"></span>
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">2
                                                 Tahun</span>
-                                        </label>
+                                        </label> --}}
                                     </div>
 
                                     <!-- Tambahkan kode untuk radio button dan label berikutnya -->
@@ -376,37 +378,33 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                <input class="form-control" type="date" id="TglKeluar" name="TglKeluar"
                                     value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
                                     style="width: 150px; margin-right:20px;" required>
 
 
 
-                                <div style="height: 40px; border: 1px solid black; display: flex; align-items: center; ">
+                                <div style="height: 40px; border: 1px solid black; display: flex; align-items: center;">
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="staff" name="opsiKeluar" value="staff" checked
-                                            style="vertical-align: middle;">
-                                        <label for="staff" style="margin-left: 5px;">
-
+                                        <input type="radio" id="perpanjang" name="opsiKeluar"
+                                            value="Perpanjangan Kontrak" checked style="vertical-align: middle;"
+                                            onclick="">
+                                        <label for="perpanjang" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">Perpanjangan</span>
                                         </label>
                                     </div>
 
                                     <div style="padding: 10px; display: flex; align-items: center;">
-                                        <input type="radio" id="bukanStaff1" name="opsiKeluar" value="bukanStaff"
-                                            style="vertical-align: middle;">
-                                        <label for="bukanStaff1" style="margin-left: 5px;">
-
+                                        <input type="radio" id="resign" name="opsiKeluar"
+                                            value="Resign 3 Tahun Perpanjangan Kontrak" style="vertical-align: middle;"
+                                            onclick="">
+                                        <label for="resign" style="margin-left: 5px;">
                                             <span
                                                 style="display: inline-block; vertical-align: middle; margin-left: 5px;">Resign
                                                 3 Tahun</span>
                                         </label>
                                     </div>
-
-
-
-                                    <!-- Tambahkan kode untuk radio button dan label berikutnya -->
                                 </div>
                             </div>
 
@@ -422,8 +420,8 @@
                         <br>
 
                         <div style="text-align: right; margin: 20px;">
-
-                            <button type="button" class="btn btn-primary">Simpan</button>
+                            <div id="form-container"></div>
+                            <button type="button" id="btnSimpan" class="btn btn-primary" >Simpan</button>
                         </div>
                     </div>
 

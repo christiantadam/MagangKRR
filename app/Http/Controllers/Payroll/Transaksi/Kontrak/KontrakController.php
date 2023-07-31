@@ -55,7 +55,24 @@ class KontrakController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_HR_RENEW_CONTRACT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [
+            $data['Id_Div_Baru'],
+            $data['Id_Div'],
+            $data['Id_Peg_Lama'],
+            $data['Kd_Peg_Baru'],
+            $data['TglKeluar'],
+            $data['awalKontrak'],
+            $data['akhirKontrak'],
+            $data['Shift'],
+            $data['ketlama'],
+            $data['ketbaru'],
+            $data['TglMasuk']
+
+        ]);
+
     }
 
     //Remove the specified resource from storage.

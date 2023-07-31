@@ -13,9 +13,20 @@ class DivisiController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Master.Divisi.divisi', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
+        $dataPosisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_POSISI ?', [0]);
+        $dataManager = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
+        // dd($dataManager);
+        return view('Payroll.Master.Divisi.divisi', compact('dataDivisi','dataPosisi', 'dataManager'));
     }
+    public function getPegawai($Id_Div)
+    {
 
+        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div], [1]);
+
+        // Return the options as JSON data
+        return response()->json($dataPegawai);
+    }
     //Show the form for creating a new resource.
     public function create()
     {
@@ -29,7 +40,7 @@ class DivisiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
         //
     }
