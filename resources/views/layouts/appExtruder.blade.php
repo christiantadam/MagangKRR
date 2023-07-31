@@ -397,8 +397,12 @@
 
     <!-- Modal -->
     <div class="modal fade" id="confirmation_modal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Pesan Konfirmasi</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
                 <div id="modal_body" class="modal-body">
                     ...
                 </div>

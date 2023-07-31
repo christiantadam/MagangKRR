@@ -3,22 +3,22 @@
     <div id="tropodo_order_maintenance" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tanggal:</div>
-            <div class="col-lg-3">
-                <input type="date" name="tanggal" id="tanggal" class="form-control" disabled>
+            <div class="col-lg-2">
+                <input type="date" id="tanggal" class="form-control">
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">No. Order:</div>
-            <div class="col-lg-3">
-                <input type="text" name="no_order" id="no_order" class="form-control" disabled>
+            <div class="col-lg-2">
+                <input type="text" id="no_order" class="form-control" disabled>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Identifikasi Order:</div>
             <div class="col-lg-8">
-                <input type="text" name="identifikasi" id="identifikasi" class="form-control" disabled>
+                <input type="text" id="identifikasi" class="form-control" disabled>
             </div>
         </div>
 
@@ -45,13 +45,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Halo Dunia</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">kg</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">kg</td>
+                    <td colspan="7" class="text-center">
+                        <h1 class="mt-3">Tabel masih kosong...</h1>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -60,47 +56,57 @@
             <div class="card-header">Detail Order</div>
 
             <div class="card-body">
-                <div class="form-group mt-3">
-                    <label for="select_benang">Type Benang</label>
-                    <select name="select_benang" id="select_benang" class="form-select" disabled>
-                        <option selected disabled>-- Pilih Type Benang --</option>
-                        <option value="loading" style="display: none" disabled>Loading...</option>
-                        @foreach ($formData['listBenang'] as $d)
-                            <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
-                                {{ $d->NamaType }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="primer">Primer</label>
-                    <div class="input-group">
-                        <input type="number" id="primer1" class="form-control detail_order" placeholder="0" disabled>
-                        <input type="text" id="primer2" class="form-control detail_order" style="width: 12.5vw;"
-                            disabled>
+                <div class="form-group mt-3 row">
+                    <div class="col-lg-2"><span class="aligned-text">Type Benang:</span></div>
+                    <div class="col-lg-8">
+                        <select id="select_benang" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Type Benang --</option>
+                            <option value="loading" style="display: none" disabled>Loading...</option>
+                            @foreach ($formData['listBenang'] as $d)
+                                <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
+                                    {{ $d->NamaType }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="sekunder">Sekunder</label>
-                    <div class="input-group">
-                        <input type="number" id="sekunder1" class="form-control detail_order" placeholder="0" disabled>
-                        <input type="text" id="sekunder2" class="form-control detail_order" style="width: 12.5vw;"
-                            disabled>
+                <div class="form-group mt-3 row">
+                    <div class="col-lg-2"><span class="aligned-text">Primer:</span></div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <input type="number" id="primer_qty" class="form-control detail_order" placeholder="0"
+                                disabled>
+                            <span id="primer_sat" class="input-group-text">NULL</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group mt-3" style="width: 25vw;">
-                    <label for="tertier">Tertier</label>
-                    <div class="input-group">
-                        <input type="number" id="tertier1" class="form-control detail_order" placeholder="0" disabled>
-                        <input type="text" id="tertier2" class="form-control detail_order" style="width: 12.5vw;"
-                            disabled>
+                <div class="form-group mt-3 row">
+                    <div class="col-lg-2"><span class="aligned-text">Sekunder:</span></div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <input type="number" id="sekunder_qty" class="form-control detail_order" placeholder="0"
+                                disabled>
+                            <span id="sekunder_sat" class="input-group-text">NULL</span>
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit" id="btn_detail" class="btn btn-outline-info float-end"
-                    disabled>Tambah<br>Detail</button>
+                <div class="form-group mt-3 row">
+                    <div class="col-lg-2"><span class="aligned-text">Tersier:</span></div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <input type="number" id="tersier_qty" class="form-control detail_order" placeholder="0"
+                                disabled>
+                            <span id="tersier_sat" class="input-group-text">NULL</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <button type="submit" id="btn_detail" class="btn btn-outline-info float-end"
+                            disabled>Tambah<br>Detail</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 

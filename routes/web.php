@@ -1,10 +1,3 @@
-<!--
-    TERKAHIR KERJA
-    VB - FrmMaintOrder.vb
-    Selesai     btnTambahDet_Click
-    Lanjut      btnProses_Click
- -->
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -39,6 +32,11 @@ Route::get('/Extruder/ExtruderNet/Tropodo/{formName?}', [TropodoController::clas
 
 #region ExtruderNet - Tropodo
 Route::get('/ExtruderNet/getListBenang/{kode}', [TropodoController::class, 'getListBenang']);
+Route::get('/ExtruderNet/insOrderBenang/{tanggal}/{identifikasi?}/{user}/{kode?}', [TropodoController::class, 'insOrderBenang']);
+Route::get('/ExtruderNet/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tersier}/{prod_primer}/{prod_sekunder}/{prod_tersier}', [TropodoController::class, 'insOrderDetail']);
+Route::get('/ExtruderNet/updCounterOrder/{id_divisi}', [TropodoController::class, 'updCounterOrder']);
+
+Route::get('/ExtruderNet/getOrderBlmAcc/{divisi}', [TropodoController::class, 'getOrderBlmAcc']);
 #endregion
 
 #region ExtruderNet - Master

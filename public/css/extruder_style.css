@@ -13,7 +13,7 @@
     }
 }
 
-button {
+button:not(.btn-close) {
     border-radius: 3px;
     padding: 10px 30px;
     min-width: 75px;

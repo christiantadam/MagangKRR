@@ -1,11 +1,15 @@
 //#region Variables
+const dateInput = document.getElementById("tanggal");
+
+const txtNoOrder = document.getElementById("no_order");
 const txtIdentifikasi = document.getElementById("identifikasi");
-const txtPrimer1 = document.getElementById("primer1");
-const txtSekunder1 = document.getElementById("sekunder1");
-const txtTersier1 = document.getElementById("tertier1");
-const txtPrimer2 = document.getElementById("primer2");
-const txtSekunder2 = document.getElementById("sekunder2");
-const txtTersier2 = document.getElementById("tertier2");
+const txtPrimerQty = document.getElementById("primer_qty");
+const txtSekunderQty = document.getElementById("sekunder_qty");
+const txtTersierQty = document.getElementById("tersier_qty");
+
+const spnPrimerSat = document.getElementById("primer_sat");
+const spnSekunderSat = document.getElementById("sekunder_sat");
+const spnTersierSat = document.getElementById("tersier_sat");
 
 const btnBaru = document.getElementById("btn_baru");
 const btnProses = document.getElementById("btn_proses");
@@ -43,6 +47,7 @@ var listDummy = [
 btnBaru.addEventListener("click", function () {
     txtIdentifikasi.value = "";
     listOrder = [];
+    clearTable();
     clearDataDetail();
     toggleButtons(2);
     txtIdentifikasi.focus();
@@ -63,35 +68,50 @@ txtIdentifikasi.addEventListener("keypress", function (event) {
 
 slcType.addEventListener("change", function () {
     if (this.value != "-- Pilih Type Benang --") {
-        txtPrimer1.disabled = false;
-        txtPrimer1.focus();
-        txtPrimer1.value = "";
+        txtPrimerQty.disabled = false;
+        txtPrimerQty.focus();
+        txtPrimerQty.value = "";
 
         const [SatPrimer, SatSekunder, SatTirtier] = this.value.split(",");
-        txtPrimer2.value = SatPrimer;
-        txtSekunder2.value = SatSekunder;
-        txtTersier2.value = SatTirtier;
+        spnPrimerSat.textContent = SatPrimer;
+        spnSekunderSat.textContent = SatSekunder;
+        spnTersierSat.textContent = SatTirtier;
+
+        txtPrimerQty.disabled = false;
+        txtPrimerQty.focus();
     }
 });
 
-txtPrimer1.addEventListener("keypress", function (event) {
+txtPrimerQty.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        txtSekunder1.disabled = false;
-        txtSekunder1.focus();
+        txtSekunderQty.disabled = false;
+        txtSekunderQty.focus();
+
+        if (this.value == "") {
+            this.value = 0;
+        }
     }
 });
 
-txtSekunder1.addEventListener("keypress", function (event) {
+txtSekunderQty.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        txtTersier1.disabled = false;
-        txtTersier1.focus();
+        txtTersierQty.disabled = false;
+        txtTersierQty.focus();
+
+        if (this.value == "") {
+            this.value = 0;
+        }
     }
 });
 
-txtTersier1.addEventListener("keypress", function (event) {
+txtTersierQty.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         btnDetail.disabled = false;
         btnDetail.focus();
+
+        if (this.value == "") {
+            this.value = 0;
+        }
     }
 });
 
@@ -117,15 +137,16 @@ btnDetail.addEventListener("click", function () {
         dataDetail = {
             idType: slcType.value,
             namaType: slcType.options[slcType.selectedIndex].text,
-            satPrimer: txtPrimer2.value,
-            qtyPrimer: txtPrimer1.value,
-            satSekunder: txtSekunder2.value,
-            qtySekunder: txtSekunder1.value,
-            satTersier: txtTersier2.value,
-            qtyTersier: txtTersier1.value,
+            satPrimer: spnPrimerSat.textContent,
+            qtyPrimer: txtPrimerQty.value,
+            satSekunder: spnSekunderSat.textContent,
+            qtySekunder: txtSekunderQty.value,
+            satTersier: spnTersierSat.textContent,
+            qtyTersier: txtTersierQty.value,
         };
 
-        addDataToTable([dataDetail]);
+        listOrder.push(dataDetail);
+        addDataToTable(listOrder);
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
         showModal(
@@ -151,6 +172,70 @@ btnKeluar.addEventListener("click", function () {
         clearTable();
         clearDataDetail();
         disableDetail();
+    }
+});
+
+btnProses.addEventListener("click", function () {
+    if (listOrder.length < 1) {
+        alert("Data order masih kosong!");
+    } else {
+        fetchData(
+            "/ExtruderNet/insOrderBenang/" +
+                dateInput.value +
+                "/" +
+                txtIdentifikasi.value +
+                "/tempUsr"
+        );
+
+        // for (let i = 0; i < listOrder.length; i++) {
+        //     fetchData(
+        //         "/ExtruderNet/insOrderDetail/" +
+        //             txtNoOrder.value +
+        //             "/" +
+        //             listOrder[i].namaType +
+        //             "/" +
+        //             listOrder[i].qtyPrimer +
+        //             "/" +
+        //             listOrder[i].qtySekunder +
+        //             "/" +
+        //             listOrder[i].qtyTersier +
+        //             "/0/0/0"
+        //     );
+        // }
+
+        // fetchData("/ExtruderNet/updCounterOrder/EXT", "NOT SELECT");
+
+        alert("Data berhasil disimpan!");
+        toggleButtons(1);
+        disableDetail();
+        txtNoOrder.value = "";
+        txtIdentifikasi.value = "";
+        btnBaru.focus();
+    }
+});
+
+$("#confirmation_modal").on("shown.bs.modal", function () {
+    $("#btn_confirm").focus();
+});
+
+$("#confirmation_modal").on("keydown", function (event) {
+    const btnConfirmJQ = $("#btn_confirm");
+    const btnCancelJQ = $("#btn_cancel");
+
+    if (event.key === "ArrowLeft") {
+        if (document.activeElement === btnConfirmJQ[0]) {
+            btnCancelJQ.focus();
+        } else if (document.activeElement === btnCancelJQ[0]) {
+            btnConfirmJQ.focus();
+        }
+    }
+
+    if (event.key === "ArrowRight") {
+        if (document.activeElement === btnConfirmJQ[0]) {
+            btnCancelJQ.focus();
+        } else if (document.activeElement === btnCancelJQ[0]) {
+            btnConfirmJQ.focus();
+        }
     }
 });
 //#endregion
@@ -200,11 +285,11 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
     });
 
     $("#confirmation_modal").modal("show");
-    btnConfirm.focus();
 }
 
 function addDataToTable(listData) {
     const tableBody = document.querySelector("#table_order tbody");
+    tableBody.innerHTML = ``;
 
     for (const item of listData) {
         const row = document.createElement("tr");
@@ -212,12 +297,12 @@ function addDataToTable(listData) {
         row.innerHTML = `
             <td style="display: none">${item.idType}</td>
             <td>${item.namaType}</td>
-            <td class="text-center">${item.satPrimer}</td>
             <td class="text-center">${item.qtyPrimer}</td>
-            <td class="text-center">${item.satSekunder}</td>
+            <td class="text-center">${item.satPrimer}</td>
             <td class="text-center">${item.qtySekunder}</td>
-            <td class="text-center">${item.satTersier}</td>
+            <td class="text-center">${item.satSekunder}</td>
             <td class="text-center">${item.qtyTersier}</td>
+            <td class="text-center">${item.satTersier}</td>
         `;
 
         tableBody.appendChild(row);
@@ -225,11 +310,17 @@ function addDataToTable(listData) {
 }
 
 function clearTable() {
-    const tableBody = document.querySelector("#table_order tbody");
+    const tabelKu = document.getElementById("table_order");
 
-    tableBody.innerHTML = `
-        <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-    `;
+    const tableBody = tabelKu.querySelector("tbody");
+    const numColumns = tabelKu.querySelectorAll("thead th").length;
+
+    tableBody.innerHTML =
+        `<td colspan="` +
+        numColumns +
+        `" class="text-center">
+            <h1 class="mt-3">Tabel masih kosong...</h1>
+        </td>`;
 }
 
 function isTableContains(searchStr) {
@@ -248,59 +339,18 @@ function isTableContains(searchStr) {
     return false; // The string is not found, return false
 }
 
-function fetchData(urlString, idTarget) {
-    const eleTarget = document.getElementById(idTarget);
-    const loadingOption = eleTarget.querySelector('[value="loading"]');
-
-    if (eleTarget.options.length <= 3) {
-        loadingOption.style.display = "block";
-
-        fetch(urlString)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.text();
-            })
-            .then((data) => {
-                // console.log(urlString);
-                // console.log(data);
-
-                addOptions(idTarget, data);
-                loadingOption.style.display = "none";
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                loadingOption.style.display = "none";
-            });
-    }
-}
-
-function addOptions(idSelect, optionData) {
-    const selectEle = document.getElementById(idSelect);
-    optionData = JSON.parse(optionData);
-
-    for (let i = 0; i < optionData.length; i++) {
-        const newOption = document.createElement("option");
-
-        switch (idSelect) {
-            // case selectKelompokUtama.id:
-            //     newOption.value = optionData[i].IdKelompokUtama;
-            //     newOption.text = optionData[i].NamaKelompokUtama;
-            //     break;
-
-            default:
-                break;
-        }
-
-        selectEle.appendChild(newOption);
-    }
+function getCurrentDate() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    dateInput.value = `${year}-${month}-${day}`;
 }
 
 function init() {
     toggleButtons(1);
     btnBaru.focus();
-    // addDataToTable(listDummy);
+    getCurrentDate();
 }
 //#endregion
 

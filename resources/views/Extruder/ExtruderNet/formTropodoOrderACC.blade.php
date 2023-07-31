@@ -1,8 +1,6 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_order_acc" class="form" data-aos="fade-up">
-    <form>
+    <div id="tropodo_order_acc" class="form" data-aos="fade-up">
         <table class="table table-hover mt-3">
             <thead>
                 <tr>
@@ -79,10 +77,10 @@
         </table>
 
         <div class="float-end mt-3">
-            <button type="submit" class="btn btn-outline-success">Proses</button>
+            <button type="submit" class="btn btn-outline-success" onclick="showOrder()">Proses</button>
             <button type="button" class="btn btn-outline-danger">Keluar</button>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/tropodoOrderACC.js') }}"></script>
 @endsection
