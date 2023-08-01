@@ -203,11 +203,11 @@
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Kode Transaksi:</span>
                                         </div>
-                                        <div class="form-group col-md-4 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Transaksi" id="Transaksi"
                                                 placeholder="Transaksi">
                                         </div>
-                                        <div class="form-group col-md-4 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Transaksi" id="Transaksi"
                                                 placeholder="Transaksi">
                                         </div>
@@ -278,12 +278,11 @@
                                     </div>
                             </div>
                         </div>
-                    </div>
 
                     <div class="form-wrapper mt-4">
                         <div class="form-container">
-                            <div class="card">
-                                <div class="card-header">Pemberi Barang</div>
+                            <div class="card" style="margin-bottom: 30px; margin-left: 30px; margin-right: 30px;">
+                                <div class="card-header">Dimutasi</div>
                                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                                     <div class="form berat_woven">
                                         <form action="#" method="post" role="form">
@@ -356,6 +355,7 @@
             </div>
         </div>
         </div>
+    </div>
         <main class="py-4">
             @yield('content')
         </main>

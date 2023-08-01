@@ -61,10 +61,11 @@
                                                     <div class="card">
 
                                                         <div class="row">
-                                                            <div class="form-group col-md-3 d-flex justify-content-end">
-                                                                <span class="aligned-text mt-3 mb-3">Surat Jalan Untuk:</span>
+                                                            <div class=" col-md-3 d-flex justify-content-end">
+                                                                <span class="aligned-text mt-4 mb-3">Surat Jalan
+                                                                    Untuk:</span>
                                                             </div>
-                                                            <div class="form-group mt-3 ">
+                                                            <div class="form-group mt-4 ">
                                                                 <select id="shift">
                                                                     <option value="1">Satu</option>
                                                                     <option value="2">Dua</option>
@@ -73,10 +74,12 @@
                                                                     <option value="5">Lima</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="text-center col-md-auto" style="margin-top: 15px; margin-left:250px"><button
-                                                                    type="submit">Ok</button></div>
-                                                            <div class="text-center col-md-auto" style="margin-top: 15px" onclick="closeModal()"><button
-                                                                    type="submit">Cancel</button></div>
+                                                            <div class="text-center col-md-auto mt-3"
+                                                                style="margin-top: 15px; margin-left:250px"><button
+                                                                    type="button">Ok</button></div>
+                                                            <div class="text-center col-md-auto mt-3" style="margin-top: 15px"
+                                                                onclick="closeModal()"><button
+                                                                    type="button">Cancel</button></div>
                                                         </div>
                                                     </div>
 
@@ -108,22 +111,27 @@
 
                                     <div class="card mt-auto">
                                         <div class="card-header">Type</div>
-                                        <table>
-                                            <tr>
-                                                <th>Type </th>
-                                                <th>No Barcode </th>
-                                                <th>Sub Kelompok </th>
-                                                <th>Kelompok </th>
-                                                <th>Kode Barang</th>
-                                                <th>Noln.. </th>
-                                                <th>Primal</th>
-                                                <th>Sekunder</th>
-                                                <th>Tertier</th>
-                                                <th>Tanggal</th>
-                                                <th>Divisi</th>
-                                                <th>Shift</th>
-                                                <th>-</th>
-                                            </tr>
+                                        <table id="TypeTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type </th>
+                                                    <th>No Barcode </th>
+                                                    <th>Sub Kelompok </th>
+                                                    <th>Kelompok </th>
+                                                    <th>Kode Barang</th>
+                                                    <th>Noln.. </th>
+                                                    <th>Primal</th>
+                                                    <th>Sekunder</th>
+                                                    <th>Tertier</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Divisi</th>
+                                                    <th>Shift</th>
+                                                    <th>-</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
                                         </table>
                                     </div>
                             </div>
@@ -175,6 +183,14 @@
                     $(this).next('ul').toggle();
                     e.stopPropagation();
                     e.preventDefault();
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TypeTable').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
                 });
             });
         </script>

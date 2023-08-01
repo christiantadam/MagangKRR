@@ -16,50 +16,59 @@
                                                 <span class="aligned-text">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                                <input type="date" class="form-control" name="tanggal" id="tanggalInput"
                                                     placeholder="Tanggal">
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
-                                            <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal()" id="ButtonShift">Pilih Shift</button></div>
+                                            <div class="text-center col-md-auto">
+                                                <button type="button" onclick="openModal()" id="ButtonShift"
+                                                    style="width:180px;">Pilih
+                                                    Shift</button>
+                                            </div>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                    <span>&times;</span>
                                                     <div class="card col-md-auto"
                                                         style="margin-left:50px; margin-right:50px; margin-top:50px; margin-bottom:50px;">
                                                         <div class="row form-group">
                                                             <div class="col-md-3 d-flex justify-content-end">
                                                                 <span class="aligned-text mt-3">Pilih Shift:</span>
                                                             </div>
-                                                            <div class="mt-4">
-                                                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                                    <input type="text" class="form-control"
-                                                                        name="Shift" id="Shift" placeholder="Shift">
-                                                                </div>
+                                                            <div class="form-group mt-4">
+                                                                <select id="Shift"
+                                                                    style="width: 100px; margin-top: 10px">
+                                                                    <option value="Pagi">1</option>
+                                                                    <option value="Sore">2</option>
+                                                                    <option value="Malam">3</option>
+                                                                </select>
                                                             </div>
                                                             <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px; margin-left:200px"><button
-                                                                    type="button">Ok</button></div>
+                                                                style="margin-top: 15px; margin-left:200px">
+                                                                <button type="button" id="okButton"
+                                                                    onclick="setShiftValue()">Ok</button>
+                                                            </div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
-                                                                onclick="closeModal()"><button
-                                                                    type="button">Cancel</button></div>
+                                                                onclick="closeModal()">
+                                                                <button type="button">Cancel</button>
+                                                            </div>
                                                         </div>
                                                         <div class="text-center">
-                                                            <h6>Pilih 1 Untuk Shift Pagi, Pilih 2 Untuk Shift Sore, dan
-                                                                <br>Pilih 3 Untuk Shift Malam
-                                                            </h6>
+                                                            <h6>Ketik 1 Untuk Shift Pagi, Ketik 2 Untuk Shift Sore,
+                                                                dan<br>Ketik 3 Untuk Shift Malam</h6>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal1()" id="ButtonDivisi">Divisi</button></div>
+                                            <div class="text-center col-md-auto mt-3">
+                                                <button type="button" onclick="openModal1()" id="ButtonDivisi"
+                                                    style="width:180px;" disabled>Divisi</button>
+                                            </div>
                                             <div class="modal" id="myModal1">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal1()">&times;</span>
@@ -74,28 +83,31 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>-</td>
-                                                                <td>-</td>
+                                                                <td>p</td>
+                                                                <td>p</td>
                                                             </tr>
-
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="closeModal1()">Process</button>
+                                                        <button type="button" onclick="enableButtonType()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal2()" id="ButtonType">Nama Type</button></div>
+                                            <div class="text-center col-md-auto mt-3">
+                                                <button type="button" onclick="openModal2()" id="ButtonType"
+                                                    style="width:180px;"disabled>Nama
+                                                    Type</button>
+                                            </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal2()">&times;</span>
-                                                    <h2>Table Divisi</h2>
-                                                    <p>Id Divisi & Divisi</p>
+                                                    <h2>Table Type</h2>
+                                                    <p>Id Type & Type</p>
                                                     <table id="TableType">
                                                         <thead>
                                                             <tr>
@@ -104,14 +116,13 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>-</td>
+                                                                <td>Test</td>
                                                             </tr>
-
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="closeModal2()">Process</button>
+                                                        <button type="button" onclick="enableButtonType()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,7 +130,9 @@
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal3()" id="ButtonJumlahBarang">Isi Jumlah Barang</button></div>
+                                                    onclick="openModal3()" id="ButtonJumlahBarang" style="width:180px;">Isi
+                                                    Jumlah
+                                                    Barang</button></div>
                                             <div class="modal" id="myModal3">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal3()">&times;</span>
@@ -132,14 +145,15 @@
                                                             <div class="mt-4">
                                                                 <div class="form-group col-md-9 mt-3 mt-md-0">
                                                                     <input type="text" class="form-control"
-                                                                        name="Sekunder" id="Sekunder" placeholder="Sekunder">
+                                                                        name="Sekunder" id="Sekunder"
+                                                                        placeholder="Sekunder">
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
                                                                 style="margin-top: 15px; margin-left:200px"><button
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
-                                                                onclick="closeModal()"><button
+                                                                onclick="closeModal3()"><button
                                                                     type="button">Cancel</button></div>
                                                         </div>
                                                         <div class="text-center">
@@ -153,25 +167,27 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button
-                                                    type="button">Timbang</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width:180px;">Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width:180px;">Print
                                                     Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal4()" id="ButtonJumlahBarang">Acc Barcode</button></div>
+                                                    onclick="openModal4()" id="ButtonJumlahBarang"
+                                                    style="width:180px;">Acc Barcode</button>
+                                            </div>
                                             <div class="modal" id="myModal4">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal4()">&times;</span>
-                                                    <div class="card col-md-auto"
-                                                        style="margin-left:50px; margin-right:50px; margin-top:50px; margin-bottom:50px;">
+                                                    <div class="card col-md-auto">
                                                         <div class="row form-group">
                                                             <div class="col-md-3 d-flex justify-content-end">
                                                                 <span class="aligned-text mt-3">No Barcode:</span>
@@ -179,7 +195,8 @@
                                                             <div class="mt-4">
                                                                 <div class="form-group col-md-auto mt-3 mt-md-1">
                                                                     <input type="text" class="form-control"
-                                                                        name="Barcode" id="Barcode" placeholder="Barcode">
+                                                                        name="Barcode" id="Barcode"
+                                                                        placeholder="Barcode">
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
@@ -195,13 +212,15 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width:180px;">Print
                                                     Ulang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button" >Keluar</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    class="btn-danger" style="width:180px;">Keluar</button>
                                             </div>
                                         </div>
                                         <div>
@@ -215,7 +234,7 @@
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
                                                 <input class="form-control" type="date" name="tanggal" rows="tanggal"
-                                                    placeholder="Tanggal" readonly>
+                                                    id="tanggalOutput" placeholder="Tanggal" readonly>
                                             </div>
                                         </div>
 
@@ -224,7 +243,7 @@
                                                 <span class="aligned-text">Shift:</span>
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="shift" rows="shift"
+                                                <input class="form-control" type="text" name="shift" id="shift"
                                                     placeholder="Shift" readonly>
                                             </div>
                                         </div>
@@ -234,7 +253,7 @@
                                                 <span class="aligned-text">Type :</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="Type" rows="Type" placeholder="Type" readonly></textarea>
+                                                <textarea class="form-control" name="Type" id="Type" rows="Type" placeholder="Type" readonly></textarea>
                                             </div>
                                         </div>
 
@@ -282,7 +301,8 @@
                                     </div>
                                 </div>
 
-                                <div class="card mt-3" style="width: 83.2%; margin-left:250px">
+
+                                <div class="card mt-3" style="width: 83.3%; margin-left:250px">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -290,8 +310,9 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="primer" rows="primer"
-                                                placeholder="Primer">
-                                            <div class="text-center col-md-auto"><button type="button">Ball</button>
+                                                placeholder="Primer" readonly>
+                                            <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">Ball</button>
                                             </div>
                                         </div>
                                     </div>
@@ -301,9 +322,12 @@
                                             <span class="aligned-text">Sekunder:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="sekunder" rows="sekunder"
-                                                placeholder="Sekunder">
-                                            <div class="text-center col-md-auto"><button type="button">LBR</button></div>
+                                            <input class="form-control" type="text" name="sekunder" id="Sekunder"
+                                                rows="sekunder" placeholder="Sekunder" readonly>
+                                            <div class="text-center col-md-auto">
+                                                <button type="button" style="width: 100px"
+                                                    onclick="openModal3()">LBR</button>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -313,8 +337,9 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="tritier" rows="tritier"
-                                                placeholder="Tritier">
-                                            <div class="text-center col-md-auto"><button type="button">KG</button></div>
+                                                placeholder="Tritier" readonly>
+                                            <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">KG</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -423,6 +448,96 @@
                     ],
                 });
             });
+
+            // Get the input elements
+            const tanggalInput = document.getElementById("tanggalInput");
+            const tanggalOutput = document.getElementById("tanggalOutput");
+
+            // Add an event listener to the first input field to update the second input field
+            tanggalInput.addEventListener("input", function() {
+                // Get the selected date value from the first input field
+                const selectedDate = tanggalInput.value;
+
+                // Update the value of the second input field with the selected date
+                tanggalOutput.value = selectedDate;
+            });
+
+            function setSekunderValueManually() {
+                // Get the input value from the prompt
+                const sekunderInputValue = prompt("Enter the sekunder value:");
+
+                // Set the input value to the "Sekunder" input field
+                document.getElementById("Sekunder").value = sekunderInputValue;
+            }
+
+            // Add event listener to the "LBR" button to set the sekunder value manually
+            document.querySelector("#Sekunder + .text-center button").addEventListener("click", setSekunderValueManually);
+
+            // Function to enable the "Type" button and disable the "Process" button
+            function enableButtonType() {
+                const buttonType = document.getElementById("ButtonType");
+                buttonType.removeAttribute("disabled");
+
+                // Get the selected value from the "TableType" table
+                const selectedType = document.querySelector("#TableType tbody tr td").textContent;
+
+                // Set the selected value to the input field
+                document.getElementById("Type").value = selectedType;
+
+                // Close the modal after the "Process" button is clicked
+                closeModal1();
+
+                closeModal2();
+            }
+
+            // Function to set the selected sekunder value and close the modal
+            function setSekunderValue() {
+                // Get the selected sekunder value from the modal input
+                const selectedSekunder = document.getElementById("Sekunder").value;
+
+                // Set the selected sekunder value to the destination input
+                document.getElementById("Sekunder").value = selectedSekunder;
+
+                // Close the modal
+                closeModal3();
+            }
+
+            // Add event listener to the "Ok" button to set the sekunder value and close the modal
+            document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
+                setSekunderValue);
+
+            // Rest of your JavaScript code for handling modals and other functionality can be placed here
+            // Make sure you have already defined the functions: openModal3, closeModal3, etc.
+
+
+
+            // Function to enable the "Divisi" button after selecting the shift
+            function enableButtonDivisi() {
+                const buttonDivisi = document.getElementById("ButtonDivisi");
+                buttonDivisi.removeAttribute("disabled");
+            }
+
+            // Rest of your JavaScript code for handling modals and other functionality can be placed here
+            // Make sure you have already defined the functions: openModal1, closeModal1, openModal2, closeModal2, etc.
+
+
+            // Function to set the selected shift value and close the modal
+            function setShiftValue() {
+                // Get the selected shift value from the modal input
+                const selectedShift = document.getElementById("Shift").value;
+
+                // Set the selected shift value to the read-only input with the ID "shift"
+                document.getElementById("shift").value = selectedShift;
+
+                // Enable the "Divisi" button
+                enableButtonDivisi();
+
+                // Close the modal
+                closeModal();
+            }
+
+            // Rest of your JavaScript code for handling modals and other functionality can be placed here
+            // Make sure you have already defined the functions: openModal, closeModal, etc.
         </script>
     </body>
 @endsection

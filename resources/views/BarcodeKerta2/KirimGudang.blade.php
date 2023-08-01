@@ -14,7 +14,7 @@
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
-                                        <div class="form-group col-md-3 mt-3 mt-md-0">
+                                        <div class="form-group col-md-2 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Divisi" id="Divsi"
                                                 placeholder="Divisi" readonly>
                                         </div>
@@ -29,7 +29,7 @@
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">No Barcode:</span>
                                         </div>
-                                        <div class="form-group col-md-8 mt-3 mt-md-0">
+                                        <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="No_barcode" id="No_barcode"
                                                 placeholder="No Barcode">
                                         </div>
@@ -44,22 +44,30 @@
                                                 placeholder="No SP">
                                             <div class="text-center col-md-auto"><button type="submit">...</button></div>
                                         </div>
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
+                                            <input type="text" class="form-control" name="No_sp" id="No_sp"
+                                                placeholder="No SP">
+                                        </div>
                                     </div>
 
                                     <div class="card mt-4">
                                         <div class="card-header">Type</div>
                                         <h5 class="mt-3">Rekap Barcode Yang Dikirim</h5>
-                                        <table>
-                                            <tr>
-                                                <th>Tanggal </th>
-                                                <th>Type </th>
-                                                <th>Shift </th>
-                                                <th>Primer </th>
-                                                <th>Sekunder </th>
-                                                <th>Tertier </th>
-                                                <th>IdType</th>
-                                                <th>No SP</th>
-                                            </tr>
+                                        <table id="RekapKirim">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tanggal </th>
+                                                    <th>Type </th>
+                                                    <th>Shift </th>
+                                                    <th>Primer </th>
+                                                    <th>Sekunder </th>
+                                                    <th>Tertier </th>
+                                                    <th>IdType</th>
+                                                    <th>No SP</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
                                         </table>
                                     </div>
                             </div>
@@ -67,30 +75,32 @@
                             <div class="card mt-4">
                                 <div class="card-header">Type</div>
                                 <h5 class="mt-3">Daftar Barcode Yang Dikirim</h5>
-                                <table>
-                                    <tr>
-                                        <th>Tanggal </th>
-                                        <th>Type </th>
-                                        <th>Shift </th>
-                                        <th>No Barcode </th>
-                                        <th>SubKelompok </th>
-                                        <th>Kelompok </th>
-                                        <th>Kode Barang</th>
-                                        <th>Noln...</th>
-                                        <th>Primer</th>
-                                        <th>Sekunder</th>
-                                        <th>Tritier</th>
-                                        <th>No SP</th>
-                                    </tr>
+                                <table id="DaftarKirim">
+                                    <thead>
+                                        <tr>
+                                            <th>Tanggal </th>
+                                            <th>Type </th>
+                                            <th>Shift </th>
+                                            <th>No Barcode </th>
+                                            <th>SubKelompok </th>
+                                            <th>Kelompok </th>
+                                            <th>Kode Barang</th>
+                                            <th>Noln...</th>
+                                            <th>Primer</th>
+                                            <th>Sekunder</th>
+                                            <th>Tritier</th>
+                                            <th>No SP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
 
-
-
-
                         <div class="row mt-3 mb-3">
-                            <div class="text-center col-md-auto" style="margin-left: 280px"><button type="submit"
+                            <div class="text-center col-md-auto" style="margin-left: 300px"><button type="button"
                                     onclick="openModal()" id="ButtonProcess">Process</button></div>
                             <div class="modal" id="myModal">
                                 <div class="modal-content">
@@ -118,9 +128,12 @@
                                 </div>
                             </div>
 
-                            <div class="text-center col-md-auto"><button type="submit">Belum Dikirim</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Cetak S.Jalan</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
+                            <div class="text-center col-md-auto" style="margin-left: -15px"><button type="button">Belum
+                                    Dikirim</button></div>
+                            <a href="{{ url('ABM/BarcodeKerta/CSJ') }}">
+                                <button type="button">Cek S.Jalan</button>
+                            </a>
+                            <div class="text-center col-md-auto"><button type="button">Keluar</button></div>
                         </div>
                     </div>
                     </form>
@@ -155,6 +168,22 @@
                 var modal = document.getElementById('myModal');
                 modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
             }
+
+            $(document).ready(function() {
+                $('#RekapKirim').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#DaftarKirim').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
 
             $(document).ready(function() {
                 $('#TableProcess').DataTable({
