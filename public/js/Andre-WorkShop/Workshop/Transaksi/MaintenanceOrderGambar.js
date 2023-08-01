@@ -8,7 +8,7 @@ let bodytable = document.getElementById("datatable");
 
 //array
 let dataarray = [];
-
+let user = 4384;
 //form
 let formMaintenanceOrderGambar = document.getElementById(
     "formMaintenanceOrderGambar"
@@ -29,6 +29,8 @@ let ket_direktur = document.getElementById("ket_direktur");
 let tgl_teknik = document.getElementById("tgl_teknik");
 let ket_teknik = document.getElementById("ket_teknik");
 let judulstatus = document.getElementById("status");
+let pilih;
+
 
 //buat data table
 let table_data = $("#tableklik").DataTable();
@@ -38,6 +40,15 @@ let tglACCdirektur = null;
 let tglTSmanager = null;
 let tglTSdirektur = null;
 let tglteknikT = null;
+
+//modal
+// let isibaru = document.getElementById('isibaru');
+let isibarutitle = document.getElementById('isibarutitle');
+let mesin = document.getElementById('Mesin');
+let pengordermodalbaru = document.getElementById('PengorderBaru');
+let isimodifikasititle = document.getElementById('isimodifikasititle');
+//btn
+let isi = document.getElementById("isi");
 
 // Get the current date
 const currentDate = new Date();
@@ -64,40 +75,31 @@ tgl_akhir.value = formattedCurrentDate;
 //     const day = String(date.getDate()).padStart(2, "0");
 //     return `${year}-${month}-${day}`;
 // };
+function AllData(tglAwal, tglAkhir, idDivisi) {
+    fetch("/getalldata/" + tglAwal + "/" + tglAkhir + "/" + idDivisi)
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            datas.forEach((data) => {
+                // Ambil nilai Tgl_Order dari setiap objek data
+                const tglOrder = data.Tgl_Order;
+                // const tglTSmanager = data.Tgl_TdStjMg;
 
-Divisi.addEventListener("change", function () {
-    // const selectedValue = this.value;
-    // const selectedText = this.options[this.selectedIndex].text;
+                // Split tanggal dan waktu dengan separator spasi
+                const [tanggal, waktu] = tglOrder.split(" ");
+                // const [tanggalTsM, waktuTsM] = tglTSmanager.split(" ");
 
-    // Show a confirmation alert
+                // Update properti Tgl_Order pada setiap objek data dengan format tanggal saja
+                data.Tgl_Order = tanggal;
+                // data.Tgl_TdStjMg = tanggalTsM;
+            });
+            if (datas.length == 0) {
+                console.log("masuk ke == 0");
 
-    const isConfirmed = confirm(`Tampilkan Semua Order??`);
-
-    // If confirmed, proceed with the fetch operation
-    if (isConfirmed) {
-        fetch(
-            "/getalldata/" +
-                tgl_awal.value +
-                "/" +
-                tgl_akhir.value +
-                "/" +
-                Divisi.value
-        )
-            .then((response) => response.json())
-            .then((datas) => {
-                datas.forEach((data) => {
-                    // Ambil nilai Tgl_Order dari setiap objek data
-                    const tglOrder = data.Tgl_Order;
-                    // const tglTSmanager = data.Tgl_TdStjMg;
-
-                    // Split tanggal dan waktu dengan separator spasi
-                    const [tanggal, waktu] = tglOrder.split(" ");
-                    // const [tanggalTsM, waktuTsM] = tglTSmanager.split(" ");
-
-                    // Update properti Tgl_Order pada setiap objek data dengan format tanggal saja
-                    data.Tgl_Order = tanggal;
-                    // data.Tgl_TdStjMg = tanggalTsM;
-                });
+                alert(
+                    "Tidak ada Order, tgl " + tglAwal + " s/d tgl " + tglAkhir
+                );
+            } else {
                 console.log(datas); // Optional: Check the data in the console
                 $("#tableklik").DataTable({
                     destroy: true, // Destroy any existing DataTable before reinitializing
@@ -112,17 +114,178 @@ Divisi.addEventListener("change", function () {
                         { title: "Kd. Brg", data: "Kd_Brg" },
                     ],
                 });
-                // initializeDataTable(datas);
-                datas.forEach((data) => {
-                    //console.log(data);
-                    dataarray.push(data.Id_Order, data.Tgl_Order);
-                    //console.log(dataarray);
-                });
-                //console.log(dataarray);
+            }
+
+            // initializeDataTable(datas);
+            // datas.forEach((data) => {
+            //     //console.log(data);
+            //     dataarray.push(data.Id_Order, data.Tgl_Order);
+            //     //console.log(dataarray);
+            // });
+            //console.log(dataarray);
+        });
+}
+function Mesin(iddivisi) {
+    fetch(
+        "/mesin/" +
+            iddivisi
+    )
+        .then((response) => response.json())
+        .then((options) => {
+           // Optional: Check the data in the console
+               //console.log(options);
+               mesin.innerHTML = "";
+               //
+               const defaultOption = document.createElement("option");
+               defaultOption.disabled = true;
+               defaultOption.selected = true;
+               defaultOption.innerText = "Pilih Mesin";
+               mesin.appendChild(defaultOption);
+               //
+               options.forEach((entry) => {
+                   const option = document.createElement("option");
+                   option.value = entry.Nomer;
+                   option.innerText = entry.Mesin + "--" + entry.Nomer;
+                   mesin.appendChild(option);
+               });
+        });
+}
+//panggil data berdasarkan user
+function AllDataUser(tglAwal, tglAkhir, idUser, idDivisi) {
+    fetch(
+        "/GatDataForUserOrder/" +
+            tglAwal +
+            "/" +
+            tglAkhir +
+            "/" +
+            idUser +
+            "/" +
+            idDivisi
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            datas.forEach((data) => {
+                // Ambil nilai Tgl_Order dari setiap objek data
+                const tglOrder = data.Tgl_Order;
+                // const tglTSmanager = data.Tgl_TdStjMg;
+
+                // Split tanggal dan waktu dengan separator spasi
+                const [tanggal, waktu] = tglOrder.split(" ");
+                // const [tanggalTsM, waktuTsM] = tglTSmanager.split(" ");
+
+                // Update properti Tgl_Order pada setiap objek data dengan format tanggal saja
+                data.Tgl_Order = tanggal;
+                // data.Tgl_TdStjMg = tanggalTsM;
             });
+            console.log(datas.length); // Optional: Check the data in the console
+            if (datas.length == 0) {
+                //console.log("masuk ke == 0");
+                alert(
+                    "Tidak ada Order, tgl " +
+                        tglAwal +
+                        " s/d tgl " +
+                        tglAkhir +
+                        " u/ User " +
+                        idUser
+                );
+            } else {
+                $("#tableklik").DataTable({
+                    destroy: true, // Destroy any existing DataTable before reinitializing
+                    data: datas,
+                    columns: [
+                        { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
+                        { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
+                        { title: "Nama Barang", data: "Nama_Brg" }, // Sesuaikan 'country' dengan properti kolom di data
+                        { title: "Status Order", data: "Status" },
+                        { title: "No_Gbr_Revisi", data: "No_Gbr_Rev" },
+                        { title: "Mesin", data: "Mesin" },
+                        { title: "Kd. Brg", data: "Kd_Brg" },
+                    ],
+                });
+            }
+            // initializeDataTable(datas);
+            // datas.forEach((data) => {
+            //     //console.log(data);
+            //     dataarray.push(data.Id_Order, data.Tgl_Order);
+            //     //console.log(dataarray);
+            // });
+            //console.log(dataarray);
+        });
+}
+function cleardata() {
+    judulstatus.textContent = "";
+    no_order.value = "";
+    no_gambar_rev.value = "";
+    // jmlh1.value = selectedRows[0].
+    jmlh2.value = "";
+    keterangan_order.value = "";
+    pengorder.value = "";
+    acc_manager.value = ""; //tglACCmanager[0];
+    manager.value = "";
+    acc_direktur.value = "";
+    tgl_manager.value = "";
+    ket_manager.value = "";
+    tgl_direktur.value = "";
+    ket_direktur.value = "";
+    tgl_teknik.value = "";
+    ket_teknik.value = "";
+}
+
+Divisi.addEventListener("change", function () {
+    // const selectedValue = this.value;
+    // const selectedText = this.options[this.selectedIndex].text;
+
+    // Show a confirmation alert
+
+    const isConfirmed = confirm(`Tampilkan Semua Order??`);
+
+    // If confirmed, proceed with the fetch operation
+    if (isConfirmed) {
+        pilih = 1;
+        cleardata();
+        // const table = $("#tableklik").DataTable();
+        table_data.clear().draw();
+        AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
     } else {
+        console.log("masuk");
+        pilih = 2;
+        cleardata();
+        // dataTable.fnClearTable();
+        AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
     }
 });
+function Refresh() {
+    if (pilih == 1) {
+        AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
+        cleardata();
+        // table_data.clear();
+    } else if (pilih == 2) {
+        AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+        // table_data.clear();
+        cleardata();
+    }
+}
+function klikisi() {
+    if (Divisi.value != "Pilih Divisi") {
+        const isConfirmed = confirm(`Order Gambar Baru??`);
+        if (isConfirmed) {
+            Mesin(Divisi.value)
+            isi.setAttribute("data-toggle", "modal");
+            isi.setAttribute("data-target", "#isibaru");
+            isibarutitle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+            pengordermodalbaru.value = user ;
+        } else {
+            isi.setAttribute("data-toggle", "modal");
+            isi.setAttribute("data-target", "#modifikasi");
+            isimodifikasititle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+        }
+    }
+    else {
+        alert("Pilih Divisi Anda")
+    }
+
+}
 
 $("#tableklik tbody").off("click", "tr");
 $("#tableklik tbody").on("click", "tr", function () {
@@ -136,9 +299,6 @@ $("#tableklik tbody").on("click", "tr", function () {
     const table = $("#tableklik").DataTable();
     let selectedRows = table.rows(".selected").data().toArray();
     console.log(selectedRows[0]);
-    if (selectedRows[0].Tgl_Tolak_Mng) {
-        tglteknikT = selectedRows[0].Tgl_Tolak_Mng.split(" ");
-    }
     // let tglteknikT = selectedRows[0].Tgl_Tolak_Mng.split(" ");
     judulstatus.textContent = selectedRows[0].Status;
     no_order.value = selectedRows[0].Id_Order;

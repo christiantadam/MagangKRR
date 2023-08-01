@@ -104,6 +104,8 @@ Route::get('getmesin/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Master\Maint
 Route::resource('MaintenanceOrderGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController::class);
 
 Route::get('getalldata/{tgl_awal}/{tgl_akhir}/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController@GetDataAll');
+Route::get('GatDataForUserOrder/{tgl_awal}/{tgl_akhir}/{iduserOrder}/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController@GatDataForUserOrder');
+Route::get('mesin/{idDivisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderGambarController@mesin');
 
 Route::get('ACCManagerGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerGambar');
 Route::get('ACCDirekturGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturGambar');
