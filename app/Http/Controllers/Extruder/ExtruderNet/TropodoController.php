@@ -30,7 +30,7 @@ class TropodoController extends Controller
                 break;
         }
 
-        // dd($form_data);
+        // dd($this->getListSpek("EXT0001002"));
 
         $view_data = [
             'pageName' => 'ExtruderNet',
@@ -55,6 +55,24 @@ class TropodoController extends Controller
         // *ambil data Type dengan IdSubKelompok yang punya IdKelompokUtama '0121' atau '2481'
     }
 
+    public function getNoOrder($kode = null)
+    {
+        $divisi = $kode == 'D'
+            ? 'DEX'
+            : 'EXT';
+
+        $mCounterResult = DB::connection('ConnExtruder')
+            ->select('SELECT IdOrder + 1 AS mCounter FROM CounterTrans WHERE divisi = ?', [$divisi]);
+
+        $mCounter = $mCounterResult[0]->mCounter;
+        $mCode = '000000000' . $mCounter;
+        $mCode = $divisi . substr($mCode, -7);
+
+        return response()->json(['NoOrder' => $mCode]);
+
+        // *Query SELECT pada SP_5298_EXT_INSERT_ORDER_BENANG
+    }
+
     public function insOrderBenang($tanggal, $identifikasi = null, $user, $kode = null)
     {
         return DB::connection('ConnExtruder')->statement(
@@ -65,14 +83,13 @@ class TropodoController extends Controller
         // SP_5298_EXT_INSERT_ORDER_BENANG
         // PARAMETER @tanggal datetime, @identifikasi varchar(100) = null, @user char(7), @kode char(1) = null
         // INSERT : TABLE OrderMasterEXT
-        // RETURN NoOrder : TABLE CounterTrans
     }
 
     public function insOrderDetail($id_order, $type_benang, $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_ORDERDETAIL_BENANG @idorder = ?, @typebenang = ?, @jumlahprimer = ?, @jumlahsekunder = ?, @jumlahtritier = ?, @jumprodprimer = ?, @jumprodsekunder = ?, @jumprodtritier = ?',
-            [$id_order, $type_benang, $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier]
+            [$id_order, strtoupper(str_replace('_', ' ', $type_benang)), $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier]
         );
 
         // SP_5298_EXT_INSERT_ORDERDETAIL_BENANG
@@ -102,6 +119,17 @@ class TropodoController extends Controller
 
         // SP_5298_EXT_ORDER_BLM_ACC : PARAMETER @divisi char(3)
         // RETURN IdOrder, Identifikasi : TABLE OrderMasterEXT
+    }
+
+    public function getListSpek($id_order)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_SPEK_ORDER_1 @idorder = ?',
+            [$id_order]
+        );
+
+        // SP_5298_EXT_LIST_SPEK_ORDER_1 : PARAMETER @idorder varchar(10)
+        // RETURN * : TABLE OrderDetailEXT
     }
     #endregion
 }

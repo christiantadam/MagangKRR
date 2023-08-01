@@ -21,9 +21,6 @@
     <script src="{{ asset('vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="{{ asset('js/extruder_main.js') }}"></script>
 </head>
 
 <body>
@@ -415,6 +412,9 @@
             </div>
         </div>
     </div><!-- End Modal -->
+
+    <!-- Template Main JS File -->
+    <script src="{{ asset('js/extruder_main.js') }}"></script>
 
     <main id="main">
         <div class="container">

@@ -19,35 +19,31 @@ const btnDetail = document.getElementById("btn_detail");
 const slcType = document.getElementById("select_benang");
 
 const listDetail = document.querySelectorAll(".card .detail_order");
-
-const btnConfirm = document.getElementById("btn_confirm");
-const btnCancel = document.getElementById("btn_cancel");
-const modalConfirmBody = document.getElementById("modal_body");
-
 // listDetail.forEach((ele) => {
 //     console.log(ele.id);
 // });
 
+var tempData = [];
 var listOrder = [];
-var listDummy = [
-    {
-        idType: 1,
-        namaType: "Type A",
-        satPrimer: "Primer 1-1",
-        qtyPrimer: "Primer 2-1",
-        satSekunder: "Sekunder 1-1",
-        qtySekunder: "Sekunder 2-1",
-        satTersier: "Tersier 1-1",
-        qtyTersier: "Tersier 2-1",
-    },
-];
+// var listDummy = [
+//     {
+//         idType: 1,
+//         namaType: "Type A",
+//         satPrimer: "Primer 1-1",
+//         qtyPrimer: "Primer 2-1",
+//         satSekunder: "Sekunder 1-1",
+//         qtySekunder: "Sekunder 2-1",
+//         satTersier: "Tersier 1-1",
+//         qtyTersier: "Tersier 2-1",
+//     },
+// ];
 //#endregion
 
 //#region Events
 btnBaru.addEventListener("click", function () {
     txtIdentifikasi.value = "";
     listOrder = [];
-    clearTable();
+    clearTable("table_order");
     clearDataDetail();
     toggleButtons(2);
     txtIdentifikasi.focus();
@@ -131,7 +127,12 @@ btnDetail.addEventListener("click", function () {
     }
 
     // Lakukan pencarian terhadap tabel berdasarkan Nama Type
-    if (isTableContains(slcType.options[slcType.selectedIndex].text)) {
+    if (
+        isTableContains(
+            "table_order",
+            slcType.options[slcType.selectedIndex].text
+        )
+    ) {
         alert("Sudah ada type benang yang sama dalam order.");
     } else {
         dataDetail = {
@@ -146,7 +147,7 @@ btnDetail.addEventListener("click", function () {
         };
 
         listOrder.push(dataDetail);
-        addDataToTable(listOrder);
+        addDataToTable("table_order", listOrder, 0);
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
         showModal(
@@ -169,17 +170,44 @@ btnKeluar.addEventListener("click", function () {
     } else {
         toggleButtons(1);
         listOrder = [];
-        clearTable();
+        clearTable("table_order");
         clearDataDetail();
         disableDetail();
     }
+});
+
+txtNoOrder.addEventListener("change", function () {
+    for (let i = 0; i < listOrder.length; i++) {
+        fetchStmt(
+            "/ExtruderNet/insOrderDetail/" +
+                txtNoOrder.value +
+                "/" +
+                toSnakeCase(listOrder[i].namaType) +
+                "/" +
+                listOrder[i].qtyPrimer +
+                "/" +
+                listOrder[i].qtySekunder +
+                "/" +
+                listOrder[i].qtyTersier +
+                "/0/0/0"
+        );
+    }
+
+    fetchStmt("/ExtruderNet/updCounterOrder/EXT");
+
+    alert("Data berhasil disimpan!");
+    toggleButtons(1);
+    disableDetail();
+    txtNoOrder.value = "";
+    txtIdentifikasi.value = "";
+    btnBaru.focus();
 });
 
 btnProses.addEventListener("click", function () {
     if (listOrder.length < 1) {
         alert("Data order masih kosong!");
     } else {
-        fetchData(
+        fetchStmt(
             "/ExtruderNet/insOrderBenang/" +
                 dateInput.value +
                 "/" +
@@ -187,55 +215,15 @@ btnProses.addEventListener("click", function () {
                 "/tempUsr"
         );
 
-        // for (let i = 0; i < listOrder.length; i++) {
-        //     fetchData(
-        //         "/ExtruderNet/insOrderDetail/" +
-        //             txtNoOrder.value +
-        //             "/" +
-        //             listOrder[i].namaType +
-        //             "/" +
-        //             listOrder[i].qtyPrimer +
-        //             "/" +
-        //             listOrder[i].qtySekunder +
-        //             "/" +
-        //             listOrder[i].qtyTersier +
-        //             "/0/0/0"
-        //     );
-        // }
-
-        // fetchData("/ExtruderNet/updCounterOrder/EXT", "NOT SELECT");
-
-        alert("Data berhasil disimpan!");
-        toggleButtons(1);
-        disableDetail();
-        txtNoOrder.value = "";
-        txtIdentifikasi.value = "";
-        btnBaru.focus();
-    }
-});
-
-$("#confirmation_modal").on("shown.bs.modal", function () {
-    $("#btn_confirm").focus();
-});
-
-$("#confirmation_modal").on("keydown", function (event) {
-    const btnConfirmJQ = $("#btn_confirm");
-    const btnCancelJQ = $("#btn_cancel");
-
-    if (event.key === "ArrowLeft") {
-        if (document.activeElement === btnConfirmJQ[0]) {
-            btnCancelJQ.focus();
-        } else if (document.activeElement === btnCancelJQ[0]) {
-            btnConfirmJQ.focus();
-        }
-    }
-
-    if (event.key === "ArrowRight") {
-        if (document.activeElement === btnConfirmJQ[0]) {
-            btnCancelJQ.focus();
-        } else if (document.activeElement === btnCancelJQ[0]) {
-            btnConfirmJQ.focus();
-        }
+        fetch("/ExtruderNet/getNoOrder")
+            .then((response) => response.json())
+            .then((data) => {
+                txtNoOrder.value = data.NoOrder;
+                txtNoOrder.dispatchEvent(new Event("change"));
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
     }
 });
 //#endregion
@@ -273,80 +261,6 @@ function disableDetail() {
     });
 }
 
-function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
-    btnConfirm.textContent = txtBtn;
-    modalConfirmBody.textContent = txtBody;
-
-    btnConfirm.addEventListener("click", function () {
-        confirmFun();
-    });
-    btnCancel.addEventListener("click", function () {
-        cancelFun();
-    });
-
-    $("#confirmation_modal").modal("show");
-}
-
-function addDataToTable(listData) {
-    const tableBody = document.querySelector("#table_order tbody");
-    tableBody.innerHTML = ``;
-
-    for (const item of listData) {
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td style="display: none">${item.idType}</td>
-            <td>${item.namaType}</td>
-            <td class="text-center">${item.qtyPrimer}</td>
-            <td class="text-center">${item.satPrimer}</td>
-            <td class="text-center">${item.qtySekunder}</td>
-            <td class="text-center">${item.satSekunder}</td>
-            <td class="text-center">${item.qtyTersier}</td>
-            <td class="text-center">${item.satTersier}</td>
-        `;
-
-        tableBody.appendChild(row);
-    }
-}
-
-function clearTable() {
-    const tabelKu = document.getElementById("table_order");
-
-    const tableBody = tabelKu.querySelector("tbody");
-    const numColumns = tabelKu.querySelectorAll("thead th").length;
-
-    tableBody.innerHTML =
-        `<td colspan="` +
-        numColumns +
-        `" class="text-center">
-            <h1 class="mt-3">Tabel masih kosong...</h1>
-        </td>`;
-}
-
-function isTableContains(searchStr) {
-    const table = document.getElementById("table_order");
-    const rows = table.getElementsByTagName("tr");
-
-    for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        for (let j = 0; j < cells.length; j++) {
-            if (cells[j].textContent.includes(searchStr)) {
-                return true; // The string is found, return true
-            }
-        }
-    }
-
-    return false; // The string is not found, return false
-}
-
-function getCurrentDate() {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    dateInput.value = `${year}-${month}-${day}`;
-}
-
 function init() {
     toggleButtons(1);
     btnBaru.focus();
@@ -355,4 +269,3 @@ function init() {
 //#endregion
 
 init();
-// alert("Halo dunia.");

@@ -35,12 +35,12 @@
             <thead>
                 <tr>
                     <th>Nama Type</th>
-                    <th class="text-center">Qty. Primer</th>
-                    <th class="text-center">Sat. Primer</th>
-                    <th class="text-center">Qty. Sekunder</th>
-                    <th class="text-center">Sat. Sekunder</th>
-                    <th class="text-center">Qty. Tertier</th>
-                    <th class="text-center">Sat. Tertier</th>
+                    <th>Qty. Primer</th>
+                    <th>Sat. Primer</th>
+                    <th>Qty. Sekunder</th>
+                    <th>Sat. Sekunder</th>
+                    <th>Qty. Tertier</th>
+                    <th>Sat. Tertier</th>
                 </tr>
             </thead>
             <tbody>
