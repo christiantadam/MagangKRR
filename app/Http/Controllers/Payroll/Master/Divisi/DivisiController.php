@@ -13,10 +13,10 @@ class DivisiController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [0]);
         $dataPosisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_POSISI ?', [0]);
         $dataManager = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
-        // dd($dataManager);
+        // dd($dataDivisi);
         return view('Payroll.Master.Divisi.divisi', compact('dataDivisi','dataPosisi', 'dataManager'));
     }
     public function getPegawai($Id_Div)

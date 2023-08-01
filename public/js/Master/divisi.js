@@ -315,6 +315,12 @@ submitForm()
     $("#tabelDivisi").DataTable({
         order: [[0, "asc"]],
     });
+    $('.hidden-column').hide();
+
+    // Add click event to the button to toggle hidden column
+    $('#toggleColumnBtn').on('click', function() {
+      $('.hidden-column').toggle();
+    });
     // Attach click event to the button to show the modal
     $("#divisiButton").on("click", function () {
         showModalDivisi();
@@ -324,4 +330,7 @@ submitForm()
     $("#modalKdPeg").on("hidden.bs.modal", function () {
         removeBackdrop();
     });
+
+
+
 });
