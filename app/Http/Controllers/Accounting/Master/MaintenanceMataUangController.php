@@ -18,7 +18,8 @@ class MaintenanceMataUangController extends Controller
     }
     function getDataMataUang($idMataUang)
     {
-        $data =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_UANG_ID_TMATAUANG] @IdMataUang = ?', [$idMataUang]);
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_UANG_ID_TMATAUANG]
+        @IdMataUang = ?', [$idMataUang]);
         return response()->json($data);
     }
 

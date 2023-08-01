@@ -14,11 +14,12 @@ class MPIsiDetailController extends Controller
         return view('Accounting.Hutang.MPIsiDetail', compact(['divisi']));
     }
 
-    // function getDataDivisi()
-    // {
-    //     $divisi =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_TT_DIVISI]');
-    //     return response()->json($divisi);
-    // }
+    function getTabelPO($noPO)
+    {
+
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_TT_TERIMABRG_BELI] @SPPB = ?', [$noPO]);
+        return response()->json($tabel);
+    }
 
     //Show the form for creating a new resource.
     public function create()

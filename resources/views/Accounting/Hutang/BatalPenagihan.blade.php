@@ -8,34 +8,35 @@
                     <div class="card-header">Batal Penagihan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('BatalPenagihan') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
-
                                 <div class="container fluid">
                                     <p><div class="row">
                                             <div class="col-md-4">
-                                                <label for="id">BULAN / TAHUN</label>
+                                                <label for="id">BULAN/TAHUN</label>
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" name="bulan" class="form-control" style="width: 100%">
+                                                <input type="number" name="bulan" id="bulan" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="col-md-2">
-                                                <input type="number" name="tahun" class="form-control" style="width: 100%">
+                                                <input type="number" name="tahun" id="tahun" class="form-control" style="width: 100%">
                                             </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="container fluid">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">ID Penagihan</label>
+                                            <label for="idPenagihan">ID Penagihan</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <select name="nama_select" class="form-control" style="width: 200px;">
-                                                <option value="option1">Pilihan 1</option>
-                                                <option value="option2">Pilihan 2</option>
-                                                <option value="option3">Pilihan 3</option>
+                                            <select id="idPenagihan" name="idPenagihan" class="form-control">
+                                                <option disabled selected>-- Pilih ID --</option>
+                                                {{-- @foreach ($batalPenagihan as $p)
+                                                <option value="{{ $p->Id_Penagihan }}">{{ $p->Id_Penagihan }}</option>
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
@@ -48,7 +49,7 @@
                                             <label for="supplier">Supplier</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" id="supplier" class="form-control" style="width: 400px">
+                                            <input type="text" id="supplier" name="supplier" class="form-control" style="width: 400px">
                                         </div>
                                     </div>
                                 </div>
@@ -114,4 +115,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Hutang/BatalPenagihan.js') }}"></script>
 @endsection

@@ -19,7 +19,7 @@
                                                     <label for="po" style="margin-right: 10px;">PO</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" id="po" class="form-control" style="width: 100%">
+                                                    <input type="text" id="noPO" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-1">
                                                     <label for="divisi" style="margin-right: 10px;">Divisi</label>
