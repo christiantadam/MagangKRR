@@ -34,9 +34,9 @@
                                         <div class="col-md-2">
                                             <select id="idPenagihan" name="idPenagihan" class="form-control">
                                                 <option disabled selected>-- Pilih ID --</option>
-                                                {{-- @foreach ($batalPenagihan as $p)
+                                                @foreach ($penagihan as $p)
                                                 <option value="{{ $p->Id_Penagihan }}">{{ $p->Id_Penagihan }}</option>
-                                                @endforeach --}}
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

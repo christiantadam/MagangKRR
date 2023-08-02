@@ -16,7 +16,6 @@ class MPIsiDetailController extends Controller
 
     function getTabelPO($noPO)
     {
-
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_TT_TERIMABRG_BELI] @SPPB = ?', [$noPO]);
         return response()->json($tabel);
     }

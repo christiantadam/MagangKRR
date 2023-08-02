@@ -11,15 +11,19 @@ class BatalPenagihanController extends Controller
 
     public function index()
     {
-        $batalPenagihan = 'batalPenagihan';
-        return view('Accounting.Hutang.BatalPenagihan', compact(['batalPenagihan']));
+        $bulan = now()->format('m');
+        $tahun = now()->format('y');
+        // $date = '2023-04-03';
+        $penagihan = db::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDTT_BTLTT] @Bln = ?, @Thn = ?', [$bulan, $tahun]);
+        // dd($nosp);
+        return view('Accounting.Hutang.BatalPenagihan', compact(['penagihan']));
     }
 
-    function getDataPenagihan($bulan, $tahun)
-    {
-        $penagihan =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDTT_BTLTT] @Bln = ?, @Thn = ?', [$bulan, $tahun]);
-        return response()->json($penagihan);
-    }
+    // function getDataPenagihan($bulan, $tahun)
+    // {
+    //     $penagihan =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDTT_BTLTT] @Bln = ?, @Thn = ?', [$bulan, $tahun]);
+    //     return response()->json($penagihan);
+    // }
 
     //Show the form for creating a new resource.
     public function create()
