@@ -41,7 +41,7 @@
                     <!-- Konten Card Body Kiri -->
                     <div class="form-wrapper mt-4">
                         <div class="form-container">
-                            <div class="card">
+                            <div class="card" style="width: 1500px; margin-left:-300px">
                                 <div class="card-header">Pemberi Barang</div>
                                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                                     <div class="form berat_woven">
@@ -51,14 +51,35 @@
                                                     <span class="aligned-text">Divisi:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Divisi" id="Divisi"
-                                                        placeholder="Divisi">
+                                                    <input type="text" class="form-control" name="id_Divisi"
+                                                        id="id_Divisi" placeholder="ID Divisi" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Divisi" id="Divisi"
-                                                        placeholder="Divisi">
-                                                    <div class="text-center col-md-auto mb-3"><button
-                                                            type="button">...</button>
+                                                        placeholder="Divisi" readonly>
+                                                    <div class="text-center col-md-auto"><button type="submit"
+                                                            onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                                    <div class="modal" id="myModal">
+                                                        <div class="modal-content">
+                                                            <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                            <h2>Table Divisi</h2>
+                                                            <p>Id Divisi & Divisi</p>
+                                                            <table id="TableDivisi">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID Divisi</th>
+                                                                        <th>Divisi</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-center col-md-auto">
+                                                                <button type="button"
+                                                                    onclick="closeModal()">Process</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,88 +89,58 @@
                                                     <span class="aligned-text">Objek:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Objek" id="Objek"
-                                                        placeholder="Objek">
+                                                    <input type="text" class="form-control" name="id_Objek"
+                                                        id="id_Objek" placeholder="ID Objek" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Objek" id="Objek"
-                                                        placeholder="Objek">
-                                                    <div class="text-center col-md-auto mb-3"><button
-                                                            type="button">...</button>
+                                                        placeholder="Objek" readonly>
+                                                    <div class="text-center col-md-auto"><button type="submit"
+                                                            onclick="openModal1()" id="ButtonObjek">...</button></div>
+                                                    <div class="modal" id="myModal1">
+                                                        <div class="modal-content">
+                                                            <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                                            <h2>Table Objek</h2>
+                                                            <p>Id Objek & Objek</p>
+                                                            <table id="TableObjek">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID Objek</th>
+                                                                        <th>Objek</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-center col-md-auto">
+                                                                <button type="button"
+                                                                    onclick="closeModal()">Process</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="card mt-auto">
                                                 <div class="card-header">Type</div>
-                                                <table>
-                                                    <tr>
-                                                        <thead>
-                                                            <th>Id Transaksi</th>
-                                                            <th>Kelompok Utama </th>
-                                                            <th>Kelompok </th>
-                                                            <th>Sub Kelompok</th>
-                                                            <th>Nama Type</th>
-                                                            <th>Alasan Mutasi</th>
-                                                            <th>User</th>
-                                                            <th>Primer</th>
-                                                            <th>Sekunder</th>
-                                                            <th>Tritier</th>
-                                                            <th>Tanggal Mohon</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                        </tbody>
-                                                        <tbody>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                        </tbody>
-                                                        <tbody>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                        </tbody>
-                                                        <tbody>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                            <td>-</td>
-                                                        </tbody>
-                                                    </tr>
+                                                <table id="TableType">
+                                                    <thead>
+                                                        <th>Id Transaksi</th>
+                                                        <th>Kelompok Utama </th>
+                                                        <th>Kelompok </th>
+                                                        <th>Sub Kelompok</th>
+                                                        <th>Nama Type</th>
+                                                        <th>Alasan Mutasi</th>
+                                                        <th>User</th>
+                                                        <th>Primer</th>
+                                                        <th>Sekunder</th>
+                                                        <th>Tritier</th>
+                                                        <th>Tanggal Mohon</th>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
                                                 </table>
                                             </div>
                                             <div class="row mt-3 mb-3">
@@ -163,11 +154,11 @@
                                                     <input class="form-control col-md-2 ml-5" name="type" rows="blank">
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </form>
                 </div>
 
@@ -184,8 +175,15 @@
                     });
                 });
 
-                var PrintUlang = document.getElementById('PrintUlang')
-                PrintUlang.addEventListener("click", function(event) {
+                var ButtonDivisi = document.getElementById('ButtonDivisi')
+
+                ButtonDivisi.addEventListener("click", function(event) {
+                    event.preventDefault();
+                });
+
+                var ButtonObjek = document.getElementById('ButtonObjek')
+
+                ButtonObjek.addEventListener("click", function(event) {
                     event.preventDefault();
                 });
 
@@ -198,6 +196,41 @@
                     var modal = document.getElementById('myModal');
                     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
                 }
+
+                function openModal1() {
+                    var modal = document.getElementById('myModal');
+                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+                }
+
+                function closeModal1() {
+                    var modal = document.getElementById('myModal');
+                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+                }
+
+
+                $(document).ready(function() {
+                    $('#TableDivisi').DataTable({
+                        order: [
+                            [0, 'desc']
+                        ],
+                    });
+                });
+
+                $(document).ready(function() {
+                    $('#TableObjek').DataTable({
+                        order: [
+                            [0, 'desc']
+                        ],
+                    });
+                });
+
+                $(document).ready(function() {
+                    $('#TableType').DataTable({
+                        order: [
+                            [0, 'desc']
+                        ],
+                    });
+                });
             </script>
     </body>
 @endsection

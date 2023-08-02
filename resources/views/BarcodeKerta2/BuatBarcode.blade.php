@@ -9,8 +9,8 @@
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form berat_woven">
                             <form action="#" method="post" role="form">
-                                <div style="display:flex;gap:3%">
-                                    <div style="display: flex; flex-direction: column;gap:5px;white-space:nowrap">
+                                <div style="display:flex; gap:3%">
+                                    <div style="display: flex; flex-direction: column; gap:5px; white-space:nowrap">
                                         <div class="row">
                                             <div class="form-group col-md-5 d-flex justify-content-end">
                                                 <span class="aligned-text">Tanggal:</span>
@@ -97,11 +97,10 @@
                                         </div>
 
 
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
+                                        <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px;"disabled>Nama
-                                                    Type</button>
+                                                    style="width:180px;" disabled>Nama Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -122,17 +121,18 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="enableButtonType()">Process</button>
+                                                        <button type="button"
+                                                            onclick="enableButtonJumlahBarang()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal3()" id="ButtonJumlahBarang" style="width:180px;">Isi
-                                                    Jumlah
-                                                    Barang</button></div>
+                                            <div class="text-center col-md-auto mt-3">
+                                                <button type="button" onclick="openModal3()" id="ButtonJumlahBarang"
+                                                    style="width:180px;" disabled>Isi Jumlah Barang</button>
+                                            </div>
                                             <div class="modal" id="myModal3">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal3()">&times;</span>
@@ -150,16 +150,17 @@
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px; margin-left:200px"><button
-                                                                    type="button">Ok</button></div>
+                                                                style="margin-top: 15px; margin-left:200px">
+                                                                <button type="button"
+                                                                    onclick="setSekunderValue()">Ok</button>
+                                                            </div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
-                                                                onclick="closeModal3()"><button
-                                                                    type="button">Cancel</button></div>
+                                                                onclick="closeModal3()">
+                                                                <button type="button">Cancel</button>
+                                                            </div>
                                                         </div>
                                                         <div class="text-center">
-                                                            <h6>Masukan Jumlah Pcs, lembar, atau meter
-                                                                <br>Barang
-                                                            </h6>
+                                                            <h6>Masukan Jumlah Pcs, lembar, atau meter<br>Barang</h6>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -285,14 +286,16 @@
                                                     </div>
                                                     <div class="form-group col-md-5 mt-3 mt-md-0">
                                                         <input class="form-control" type="text" name="Lembar"
-                                                            rows="Lembar" placeholder="Lembar" readonly>
+                                                            id="LembarOutput" rows="Lembar" placeholder="Lembar"
+                                                            readonly>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div style="margin-top:-20px; margin-left:-198px">
                                                     <div class="d-flex flex-column align-items-center">
-                                                        <label for="text" class="aligned-text">Jumlah Barcode:</label>
+                                                        <label for="text" class="aligned-text">Jumlah
+                                                            Barcode:</label>
                                                         <textarea class="form-control" type="text" name="text" rows="5" style="margin-right: 10px;" readonly></textarea>
                                                     </div>
                                                 </div>
@@ -302,7 +305,7 @@
                                 </div>
 
 
-                                <div class="card mt-3" style="width: 83.3%; margin-left:250px">
+                                <div class="card mt-3" style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -322,11 +325,9 @@
                                             <span class="aligned-text">Sekunder:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="sekunder" id="Sekunder"
-                                                rows="sekunder" placeholder="Sekunder" readonly>
+                                            <input class="form-control" type="text" name="sekunder" id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
                                             <div class="text-center col-md-auto">
-                                                <button type="button" style="width: 100px"
-                                                    onclick="openModal3()">LBR</button>
+                                                <button type="button" style="width: 100px" onclick="openModal3()">LBR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -462,16 +463,11 @@
                 tanggalOutput.value = selectedDate;
             });
 
-            function setSekunderValueManually() {
-                // Get the input value from the prompt
-                const sekunderInputValue = prompt("Enter the sekunder value:");
-
-                // Set the input value to the "Sekunder" input field
-                document.getElementById("Sekunder").value = sekunderInputValue;
+            function enableButtonJumlahBarang() {
+                document.getElementById("ButtonJumlahBarang").disabled = false;
+                closeModal2()
             }
 
-            // Add event listener to the "LBR" button to set the sekunder value manually
-            document.querySelector("#Sekunder + .text-center button").addEventListener("click", setSekunderValueManually);
 
             // Function to enable the "Type" button and disable the "Process" button
             function enableButtonType() {
@@ -490,15 +486,10 @@
                 closeModal2();
             }
 
-            // Function to set the selected sekunder value and close the modal
             function setSekunderValue() {
-                // Get the selected sekunder value from the modal input
-                const selectedSekunder = document.getElementById("Sekunder").value;
-
-                // Set the selected sekunder value to the destination input
-                document.getElementById("Sekunder").value = selectedSekunder;
-
-                // Close the modal
+                const sekunderValue = document.getElementById("Sekunder").value;
+                document.getElementById("SekunderOutput").value = sekunderValue;
+                document.getElementById("LembarOutput").value = sekunderValue;
                 closeModal3();
             }
 
