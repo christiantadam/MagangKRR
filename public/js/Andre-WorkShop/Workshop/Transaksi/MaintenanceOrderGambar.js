@@ -42,11 +42,33 @@ let tglTSdirektur = null;
 let tglteknikT = null;
 
 //modal
+let modetrans;
 // let isibaru = document.getElementById('isibaru');
 let isibarutitle = document.getElementById('isibarutitle');
 let mesin = document.getElementById('Mesin');
 let pengordermodalbaru = document.getElementById('PengorderBaru');
 let isimodifikasititle = document.getElementById('isimodifikasititle');
+let MesinModif = document.getElementById('MesinModif');
+//btn proses
+let prosesbaru  = document.getElementById('prosesbaru');
+let prosesmodifikasi = document.getElementById('prosesmodifikasi');
+//form modal
+let formbaru = document.getElementById('formbaru');
+let formModifikasi = document.getElementById('formModifikasi');
+let methodFormBaru = document.getElementById('methodFormBaru');
+let methodFormModifikasi = document.getElementById('methodFormModifikasi');
+//id div
+let iddivisimodalmodif = document.getElementById('iddivisimodalmodif');
+let iddivisimodalbaru = document.getElementById('iddivisimodalbaru');
+//form modif
+let KodeBarang = document.getElementById('KodeBarang');
+let GambarRev = document.getElementById('GambarRev');
+let NamaBarangModif = document.getElementById('NamaBarangModif');
+let PengorderModif = document.getElementById('PengorderModif');
+
+//pembeda
+let pembedaStore = document.getElementById('pembedaStore');
+
 //btn
 let isi = document.getElementById("isi");
 
@@ -125,31 +147,52 @@ function AllData(tglAwal, tglAkhir, idDivisi) {
             //console.log(dataarray);
         });
 }
-function Mesin(iddivisi) {
+function Mesin(iddivisi,nomor) {
     fetch(
         "/mesin/" +
             iddivisi
     )
         .then((response) => response.json())
         .then((options) => {
+            //mesin buat form baru
+            if (nomor == 1) {
+                mesin.innerHTML = "";
+                //
+                const defaultOption = document.createElement("option");
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                defaultOption.innerText = "Pilih Mesin";
+                mesin.appendChild(defaultOption);
+                //
+                options.forEach((entry) => {
+                    const option = document.createElement("option");
+                    option.value = entry.Nomer;
+                    option.innerText = entry.Mesin + "--" + entry.Nomer;
+                    mesin.appendChild(option);
+                });
+            }
+            else if (nomor == 2) {
+                MesinModif.innerHTML = "";
+                //
+                const defaultOption = document.createElement("option");
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                defaultOption.innerText = "Pilih Mesin";
+                MesinModif.appendChild(defaultOption);
+                //
+                options.forEach((entry) => {
+                    const option = document.createElement("option");
+                    option.value = entry.Nomer;
+                    option.innerText = entry.Mesin + "--" + entry.Nomer;
+                    MesinModif.appendChild(option);
+                });
+            }
            // Optional: Check the data in the console
                //console.log(options);
-               mesin.innerHTML = "";
-               //
-               const defaultOption = document.createElement("option");
-               defaultOption.disabled = true;
-               defaultOption.selected = true;
-               defaultOption.innerText = "Pilih Mesin";
-               mesin.appendChild(defaultOption);
-               //
-               options.forEach((entry) => {
-                   const option = document.createElement("option");
-                   option.value = entry.Nomer;
-                   option.innerText = entry.Mesin + "--" + entry.Nomer;
-                   mesin.appendChild(option);
-               });
+
         });
 }
+
 //panggil data berdasarkan user
 function AllDataUser(tglAwal, tglAkhir, idUser, idDivisi) {
     fetch(
@@ -269,15 +312,20 @@ function Refresh() {
 function klikisi() {
     if (Divisi.value != "Pilih Divisi") {
         const isConfirmed = confirm(`Order Gambar Baru??`);
+        modetrans = 1;
         if (isConfirmed) {
-            Mesin(Divisi.value)
+            Mesin(Divisi.value,1)
             isi.setAttribute("data-toggle", "modal");
             isi.setAttribute("data-target", "#isibaru");
             isibarutitle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+            iddivisimodalbaru.value = Divisi.value;
             pengordermodalbaru.value = user ;
         } else {
+            Mesin(Divisi.value,2)
             isi.setAttribute("data-toggle", "modal");
             isi.setAttribute("data-target", "#modifikasi");
+            iddivisimodalmodif.value = Divisi.value;
+            PengorderModif.value = user;
             isimodifikasititle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
         }
     }
@@ -286,6 +334,53 @@ function klikisi() {
     }
 
 }
+function Getbarang(KDbarang , iddiv) {
+    fetch(
+        "/GetBarang/" +
+            KDbarang +
+            "/" +
+            iddiv
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas.length == 0) {
+                alert("Kode Barang Tidak Ada")
+            }
+            else{
+                GambarRev.value = datas[0].NO_GAMBAR;
+                NamaBarangModif.value = datas[0].NM_BRG;
+            }
+        });
+}
+KodeBarang.addEventListener("keypress",function (event) {
+    if (event.key == "Enter") {
+        let kodeBarang9digit;
+        kodeBarang9digit = document.getElementById("KodeBarang");
+        // console.log(kodeBarang9digit.value);
+        // alert('Kode barang dienter');
+        if (kodeBarang9digit.value.length < 9) {
+            // alert("kode barang tidak sesuai");
+            kodeBarang9digit.value = KodeBarang.value.padStart(9, "0");
+            // console.log(kodeBarang9digit.value);
+        }
+        KodeBarang.value = kodeBarang9digit.value;
+        //console.log(KodeBarang.value);
+        Getbarang(KodeBarang.value, Divisi.value)
+    }
+})
+
+prosesbaru.addEventListener('click', function(){
+    if (modetrans == 1) {
+        formbaru.submit();
+    }
+})
+prosesmodifikasi.addEventListener('click', function(){
+    if(modetrans== 1){
+        pembedaStore.value = 1;
+        formModifikasi.submit();
+    }
+})
 
 $("#tableklik tbody").off("click", "tr");
 $("#tableklik tbody").on("click", "tr", function () {
@@ -303,7 +398,7 @@ $("#tableklik tbody").on("click", "tr", function () {
     judulstatus.textContent = selectedRows[0].Status;
     no_order.value = selectedRows[0].Id_Order;
     no_gambar_rev.value = selectedRows[0].No_Gbr_Rev;
-    // jmlh1.value = selectedRows[0].
+    //jmlh1.value = selectedRows[0].
     jmlh2.value = selectedRows[0].Nama_satuan;
     keterangan_order.value = selectedRows[0].Ket_Order;
     pengorder.value = selectedRows[0].NmUserOd;

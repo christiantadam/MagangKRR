@@ -30,6 +30,11 @@ class MaintenanceOrderGambarController extends Controller
         return response()->json($mesin);
     }
 
+    public function GetBarang($KdBrg,$IdDiv) {
+        $Barang = DB::connection('Connworkshop')->select('exec [SP_5298_WRK_LIST-NO-GBR] @kode = ?, @KdBrg = ?, @IdDiv = ?', [2,$KdBrg,$IdDiv]);
+        return response()->json($Barang);
+    }
+
     public function create()
     {
         //
@@ -38,7 +43,34 @@ class MaintenanceOrderGambarController extends Controller
 
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $pembeda = $request->lblKdDivisi;
+        if ($pembeda == 1) {
+            $tgl = $request->TglMaintenanceGambarBaru;
+            $iddiv = $request->iddivisimodif;
+            $namaBarang = $request->NamaBarang;
+            $userod = $request->PengorderBaru;
+            $ketod = $request->KeteranganModif;
+            $nosat = $request->Satuan;
+            $nomesin = $request->Mesin;
+            $noGbr = $request->GambarRev;
+            $kdBrg = $request->KodeBarang;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_INSERT-ORDER-GBR-MODIF] @kode = ?, @tgl = ?, @IdDiv = ?, @namaBrg = ?, @userOd = ?, @ketOd = ?, @noSat = ?, @noGbr = ?, @kdBrg = ?, @noMesin = ?', [1, $tgl, $iddiv, $namaBarang , $userod , $ketod , $nosat ,$noGbr,$kdBrg, $nomesin]);
+
+        }
+        else{
+            $tgl = $request->TglMaintenanceGambarBaru;
+            $iddiv = $request->iddivisibaru;
+            $namaBarang = $request->NamaBarang;
+            $userod = $request->PengorderBaru;
+            $ketod = $request->Keterangan;
+            $nosat = $request->Satuan;
+            $nomesin = $request->Mesin;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_INSERT-ORDER-GBR-BARU] @kode = ?, @tgl = ?, @IdDiv = ?, @namaBrg = ?, @userOd = ?, @ketOd = ?, @noSat = ?, @noMesin = ?', [1, $tgl, $iddiv, $namaBarang , $userod , $ketod , $nosat , $nomesin]);
+        }
+        //ini buat kasih pesan sukses
+        //echo "wdawda";
+        return redirect()->back()->with('success','Data TerSIMPAN');
     }
 
 

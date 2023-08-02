@@ -1,5 +1,14 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+  @if (Session::has('success'))
+    <div class="alert alert-success">
+      {{ Session::get('success') }}
+    </div>
+  @elseif (Session::has('error'))
+    <div class="alert alert-danger">
+      {{ Session::get('error') }}
+    </div>
+  @endif
   <div class="card-header">
     Maintenance Order Gambar
   </div>
@@ -72,7 +81,7 @@
       </div>
       <div class="col-lg-6">
         <div class="div" style="text-align: -webkit-center; ">
-          <span id="status" style="text-align: -webkit-center;"></span>
+          <h5 id="status" style="text-align: -webkit-center;"></h5>
         </div>
         <form action="" id="formMaintenanceOrderGambar">
           {{ csrf_field() }}
@@ -277,88 +286,94 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <form method="post" id="formbaru" action="{{ url('MaintenanceOrderGambar') }}">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodFormBaru">
+          <input type="hidden" name="iddivisibaru" id="iddivisimodalbaru">
+          <div class="modal-body">
 
-          <span><b>Buat Gambar Baru</b></span>
 
-          <div class="row">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Tanggal</span>
+            <span><b>Buat Gambar Baru</b></span>
+
+            <div class="row">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Tanggal</span>
+              </div>
+
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <input type="date" name="TglMaintenanceGambarBaru" class="form-control"
+                  id="TglMaintenanceGambarBaru">
+              </div>
             </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="date" name="TglMaintenanceGambarBaru" class="form-control"
-                id="TglMaintenanceGambarBaru">
-            </div>
-          </div>
+            <div class="row mt-3">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Nama Barang</span>
+              </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Nama Barang</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="NamaBarang" class="form-control" id="NamaBarang">
-            </div>
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Keterangan</span>
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <input type="text" name="NamaBarang" class="form-control" id="NamaBarang">
+              </div>
             </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="Keterangan" class="form-control" id="Keterangan">
-            </div>
-          </div>
+            <div class="row mt-3">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Keterangan</span>
+              </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Jumlah</span>
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <input type="text" name="Keterangan" class="form-control" id="Keterangan">
+              </div>
             </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <div class="input-group">
-                <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                <select class="form-select" name="KodeDivisi" style="width: 36vh; height: 6.6vh;" id="kddivisi">
-                  <option disabled selected>Pilih Satuan</option>
-                  @foreach ($satuan as $s)
-                    <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
-                  @endforeach
-                </select>
+            <div class="row mt-3">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Jumlah</span>
+              </div>
+
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <div class="input-group">
+                  <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
+                  <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="kddivisi">
+                    <option disabled selected>Pilih Satuan</option>
+                    @foreach ($satuan as $s)
+                      <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Mesin</span>
+              </div>
+
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <div class="input-group">
+                  <select class="form-select" name="Mesin" style="width: 36vh; height: 6.6vh;" id="Mesin">
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                <span class="custom-alignment">Peng-Order</span>
+              </div>
+
+              <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                <input type="text" name="PengorderBaru" class="form-control" id="PengorderBaru" readonly>
               </div>
             </div>
           </div>
-
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Mesin</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <div class="input-group">
-                <select class="form-select" name="Mesin" style="width: 36vh; height: 6.6vh;" id="Mesin">
-                </select>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="prosesbaru">Proses</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
           </div>
+        </form>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Peng-Order</span>
-            </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="PengorderBaru" class="form-control" id="PengorderBaru" readonly>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Proses</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        </div>
       </div>
     </div>
   </div>
@@ -376,109 +391,137 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <form action="" method="post" id="formModifikasi" action="{{ url('MaintenanceOrderGambar') }}">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodFormModifikasi">
+          <input type="hidden" name="iddivisimodif" id="iddivisimodalmodif">
 
-          <span><b>Modifikasi Gambar</b></span>
+          <div class="modal-body">
+            <div class="container">
+              <span><b>Modifikasi Gambar</b></span>
 
-          <div class="row">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Tanggal</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="date" name="TglMaintenanceGambarBaru" class="form-control"
-                id="TglMaintenanceGambarBaru">
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="row mt-3">
+              <div class="row">
                 <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-                  <span class="custom-alignment">Kd. Barang</span>
+                  <span class="custom-alignment">Tanggal</span>
                 </div>
 
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-                  <input type="text" name="KodeBarang" class="form-control" id="KodeBarang">
+                  <input type="date" name="TglMaintenanceGambarBaru" class="form-control"
+                    id="TglMaintenanceGambarBaru">
+                </div>
+              </div>
+
+              <div class="row" style="margin-left: 12.5vh;margin-top: 3vh;">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-6"> <!-- Updated class: col-lg-4 -->
+                      <span class="custom-alignment">Kd. Barang</span>
+                    </div>
+
+                    <div class="col-6"> <!-- Updated class: col-lg-8 -->
+                      <input type="text" name="KodeBarang" class="form-control" id="KodeBarang">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="row">
+                    <div class="col-6"> <!-- Updated class: col-lg-4 -->
+                      <span class="custom-alignment">No. Gambar Rev</span>
+                    </div>
+
+                    <div class="col-6"> <!-- Updated class: col-lg-8 -->
+                      <input type="text" name="GambarRev" class="form-control" id="GambarRev">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mt-3">
+                <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                  <span class="custom-alignment">Nama Barang</span>
+                </div>
+
+                <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                  <input type="text" name="NamaBarang" class="form-control" id="NamaBarangModif">
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-                  <span class="custom-alignment">No. Gambar Rev</span>
+                  <span class="custom-alignment">Keterangan Modifikasi</span>
                 </div>
 
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-                  <input type="text" name="GambarRev" class="form-control" id="GambarRev">
+                  <input type="text" name="KeteranganModif" class="form-control" id="KeteranganModif">
                 </div>
               </div>
-          </div>
 
+              <div class="row mt-3">
+                <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                  <span class="custom-alignment">Jumlah</span>
+                </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Nama Barang</span>
-            </div>
+                <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                  <div class="input-group">
+                    <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
+                    <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="kddivisi">
+                      <option disabled selected>Pilih Satuan</option>
+                      @foreach ($satuan as $s)
+                        <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="NamaBarang" class="form-control" id="NamaBarang">
-            </div>
-          </div>
+              <div class="row mt-3">
+                <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                  <span class="custom-alignment">Mesin</span>
+                </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Keterangan</span>
-            </div>
+                <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                  <div class="input-group">
+                    <select class="form-select" name="Mesin" style="width: 36vh; height: 6.6vh;" id="MesinModif">
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="Keterangan" class="form-control" id="Keterangan">
-            </div>
-          </div>
+              <div class="row mt-3">
+                <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
+                  <span class="custom-alignment">Peng-Order</span>
+                </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Jumlah</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <div class="input-group">
-                <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                <select class="form-select" name="KodeDivisi" style="width: 36vh; height: 6.6vh;" id="kddivisi">
-                  <option disabled selected>Pilih Satuan</option>
-                  @foreach ($satuan as $s)
-                    <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
-                  @endforeach
-                </select>
+                <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
+                  <input type="text" name="PengorderBaru" class="form-control" id="PengorderModif" readonly>
+                </div>
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row">
+                <div class="col" style="padding-left: 37vh" hidden>
+                  <div class="row">
+                    <div class="col-4"> <!-- Updated class: col-lg-4 -->
+                      <span class="custom-alignment">lblKdDivisi</span>
+                    </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Mesin</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <div class="input-group">
-                <select class="form-select" name="Mesin" style="width: 36vh; height: 6.6vh;" id="Mesin">
-                </select>
+                    <div class="col-8"> <!-- Updated class: col-lg-8 -->
+                      <input type="text" name="lblKdDivisi" class="form-control" id="pembedaStore">
+                    </div>
+                  </div>
+                </div>
+                <div class="col" style="text-align-last: right;">
+                  <button type="button" class="btn btn-primary" id="prosesmodifikasi">Proses</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="row mt-3">
-            <div class="col-lg-4"> <!-- Updated class: col-lg-4 -->
-              <span class="custom-alignment">Peng-Order</span>
-            </div>
-
-            <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-              <input type="text" name="PengorderBaru" class="form-control" id="PengorderBaru" readonly>
-            </div>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Proses</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
