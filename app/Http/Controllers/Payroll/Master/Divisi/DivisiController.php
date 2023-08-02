@@ -12,6 +12,7 @@ class DivisiController extends Controller
     //Display a listing of the resource.
     public function index()
     {
+
         $data = 'HAPPY HAPPY HAPPY';
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [0]);
         $dataPosisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_POSISI ?', [0]);
@@ -26,6 +27,54 @@ class DivisiController extends Controller
 
         // Return the options as JSON data
         return response()->json($dataPegawai);
+    }
+
+    public function InsertDivisi(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_DIVISI ?, ?, ?, ?, ?, ?, ?, ?, ?', [
+            $data['kd_div'],
+            $data['nama_div'],
+            $data['status'],
+            $data['no_kabag'],
+            $data['jam'],
+            $data['aturan'],
+            $data['Id_Group_Div'],
+            $data['kstatus'],
+            $data['div_pos']
+
+        ]);
+        return redirect()->route('divisi.index')->with('success', 'Data inserted successfully!');
+    }
+
+    public function UpdateDivisi(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_DIVISI ?, ?, ?, ?, ?, ?, ?, ?, ?', [
+            $data['kd_div'],
+            $data['nama_div'],
+            $data['status'],
+            $data['no_kabag'],
+            $data['jam'],
+            $data['aturan'],
+            $data['Id_Group_Div'],
+            $data['kstatus'],
+            $data['div_pos']
+        ]);
+        return redirect()->route('divisi.index')->with('success', 'Data Updated successfully!');
+    }
+
+    public function DeleteDivisi(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_DEL_DIVISI ?', [
+            $data['kd_div']
+
+        ]);
+        return redirect()->route('divisi.index')->with('success', 'Data Deleted successfully!');
     }
     //Show the form for creating a new resource.
     public function create()
