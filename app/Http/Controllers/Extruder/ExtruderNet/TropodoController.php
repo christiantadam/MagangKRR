@@ -15,18 +15,17 @@ class TropodoController extends Controller
 
         switch ($form_name) {
             case 'formTropodoOrderMaintenance':
-                $form_data = [
-                    'listBenang' => $this->getListBenang(2),
-                ];
+                $form_data = ['listBenang' => $this->getListBenang(2)];
                 break;
             case 'formTropodoOrderACC':
-                $form_data = [
-                    'listOrderBlmAcc' => $this->getOrderBlmAcc('EXT'),
-                ];
+                $form_data = ['listOrderBlmAcc' => $this->getOrderBlmAcc('EXT')];
                 break;
+            case 'formTropodoOrderStatus':
+                $form_data = [
+                    'listBatalOrder' => $this->getListBatalOrd('EXT'),
+                ];
 
             default:
-                # code...
                 break;
         }
 
@@ -49,9 +48,9 @@ class TropodoController extends Controller
             [$kode]
         );
 
-        // SP_5298_EXT_LIST_BENANG : PARAMETER @kode int
+        // PARAMETER @kode int
         // TABLE Inventory - Objek, KelompokUtama, Divisi, Satuan, Type, Sub-Kelompok, Kelompok
-        // RETURN NamaType, SatPrimer, SatSekunder, SatTritier
+        // SELECT : NamaType, SatPrimer, SatSekunder, SatTritier
         // *ambil data Type dengan IdSubKelompok yang punya IdKelompokUtama '0121' atau '2481'
     }
 
@@ -80,7 +79,6 @@ class TropodoController extends Controller
             [$tanggal, $identifikasi, $user, $kode]
         );
 
-        // SP_5298_EXT_INSERT_ORDER_BENANG
         // PARAMETER @tanggal datetime, @identifikasi varchar(100) = null, @user char(7), @kode char(1) = null
         // INSERT : TABLE OrderMasterEXT
     }
@@ -92,7 +90,6 @@ class TropodoController extends Controller
             [$id_order, strtoupper(str_replace('_', ' ', $type_benang)), $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier]
         );
 
-        // SP_5298_EXT_INSERT_ORDERDETAIL_BENANG
         // PARAMETER @idorder varchar(10), @typebenang varchar(100), @jumlahprimer numeric(9,2), @jumlahsekunder numeric(9,2), @jumlahtritier numeric(9,2), @jumprodprimer numeric(9,2), @jumprodsekunder numeric(9,2),	@jumprodtritier numeric(9,2)
         // INSERT : TABLE OrderDetailEXT
     }
@@ -104,7 +101,7 @@ class TropodoController extends Controller
             [$id_divisi]
         );
 
-        // SP_5298_EXT_UPDATE_COUNTER_ORDER : PARAMETER @iddivisi varchar(3)
+        // PARAMETER @iddivisi varchar(3)
         // UPDATE : TABLE CounterTrans
     }
     #endregion
@@ -117,8 +114,8 @@ class TropodoController extends Controller
             [$divisi]
         );
 
-        // SP_5298_EXT_ORDER_BLM_ACC : PARAMETER @divisi char(3)
-        // RETURN IdOrder, Identifikasi : TABLE OrderMasterEXT
+        // PARAMETER @divisi char(3)
+        // SELECT : OrderMasterEXT - IdOrder, Identifikasi
     }
 
     public function getListSpek($id_order)
@@ -128,8 +125,55 @@ class TropodoController extends Controller
             [$id_order]
         );
 
-        // SP_5298_EXT_LIST_SPEK_ORDER_1 : PARAMETER @idorder varchar(10)
-        // RETURN * : TABLE OrderDetailEXT
+        // PARAMETER @idorder varchar(10)
+        // SELECT : OrderDetailEXT - *
+    }
+
+    public function updAccOrder($id_order, $user_acc)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_ACC_ORDER @idorder = ?, @useracc = ?',
+            [$id_order, $user_acc]
+        );
+
+        // PARAMETER @idorder varchar(10), @useracc char(4)
+        // UPDATE : TABLE OrderMasterExt
     }
     #endregion
+
+    #region Order - Status
+    public function getListBatalOrd($id_divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_BATAL_ORDER @iddivisi = ?',
+            [$id_divisi]
+        );
+
+        // PARAMETER @iddivisi char(3)
+        // SELECT : OrderMasterEXT - IdOrder, TanggalOrder, Identifikasi
+        // OrderDetailEXT - TglSelesai, SaatLog
+    }
+
+    public function getListOrderBtl($id_order)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_ORDER_BATAL @idorder = ?',
+            [$id_order]
+        );
+
+        // PARAMETER @idorder varchar(10)
+        // SELECT : OrderMasterEXT - IdOrder, TanggalOrder, Identifikasi, SaatLog
+        // OrderDetailEXT - TypeBenang, JumlahPrimer, JumlahSekunder, JumlahTritier, JumlahProduksiPrimer, JumlahProduksiSekunder, Jumlah ProduksiTritier, TglSelesai, StatusOrder
+    }
+
+    public function updStatusOrder($id_order, $status, $ket)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_STATUS_ORDER @idorder = ?, @status = ?, @ket = ?',
+            [$id_order, $status, strtoupper(str_replace('_', ' ', $ket))]
+        );
+
+        // PARAMETER @idorder varchar(10), @status varchar(30), @ket varchar(50)
+        // UPDATE : OrderDetailEXT
+    }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_order_acc" class="form" data-aos="fade-up">
-        <table id="table_order" class="table table-hover mt-3">
+        <table id="table_order" class="table table-hover mt-3" style="min-height: 150px">
             <thead>
                 <tr>
                     <th scope="col">Identifikasi Order</th>
@@ -17,7 +17,7 @@
             </tbody>
         </table>
 
-        <table id="table_type" class="table table-hover mt-5" style="table-layout: fixed;">
+        <table id="table_type" class="table table-hover mt-5" style="table-layout: fixed; min-height: 150px;">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">
@@ -53,5 +53,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/tropodoOrderACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoOrderACC.js') }}"></script>
 @endsection

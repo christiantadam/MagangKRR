@@ -60,7 +60,64 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
 //#endregion
 
 //#region Table Functions
-function addDataToTable(tableId, listData, hidden = null) {
+function addTable_DataTable(tableId, listData, rowFun = null, hidden = null) {
+    if ($.fn.DataTable.isDataTable("#" + tableId)) {
+        $("#" + tableId)
+            .DataTable()
+            .destroy();
+    }
+
+    $("#" + tableId + " tbody").empty();
+
+    $("#" + tableId).DataTable({
+        data: listData,
+        columns: Object.keys(listData[0]).map((key, index) => ({
+            data: key,
+            visible: index !== hidden,
+        })),
+        responsive: true,
+        rowCallback: function (row, data, index) {
+            if (rowFun != null) {
+                row.style.cursor = "pointer";
+
+                row.addEventListener("click", function () {
+                    rowFun(data, index);
+                });
+            }
+        },
+    });
+}
+
+function clearTable_DataTable(tableId) {
+    const tbodyKu = document.querySelector("#" + tableId + " tbody");
+    const numColumns = document.querySelector(
+        "#" + tableId + " thead th"
+    ).length;
+
+    var str =
+        `<tr><td colspan="` +
+        numColumns +
+        `" class="text-center">
+            <h1 class="mt-3">Tabel masih kosong...</h1>
+        </td>`;
+    for (let i = 0; i < numColumns.length - 1; i++) {
+        str += `<td style="display: none"></td>`;
+    }
+    tbodyKu.innerHTML = str;
+
+    if ($.fn.DataTable.isDataTable("#" + tableId)) {
+        $("#" + tableId)
+            .DataTable()
+            .destroy();
+    }
+
+    $("#" + tableId + " tbody").empty();
+    $("#" + tableId).DataTable({ responsive: true });
+}
+
+function searchTable_DataTable(tableId, searchStr) {}
+
+function addTable_Vanilla(tableId, listData, hidden = null) {
     const tableBody = document.querySelector("#" + tableId + " tbody");
     tableBody.innerHTML = "";
 
@@ -86,7 +143,7 @@ function addDataToTable(tableId, listData, hidden = null) {
     }
 }
 
-function clearTable(tableId) {
+function clearTable_Vanilla(tableId) {
     const tabelKu = document.getElementById(tableId);
 
     const tableBody = tabelKu.querySelector("tbody");
@@ -100,7 +157,7 @@ function clearTable(tableId) {
         </td>`;
 }
 
-function isTableContains(tableId, searchStr) {
+function searchTable_Vanilla(tableId, searchStr) {
     const table = document.getElementById(tableId);
     const rows = table.getElementsByTagName("tr");
 
@@ -131,12 +188,6 @@ function fetchStmt(urlString) {
 
 function toSnakeCase(inputString) {
     return inputString.toLowerCase().replace(/\s+/g, "_");
-}
-
-function toTitleCase(snakeString) {
-    return snakeString
-        .replace(/_/g, " ")
-        .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 function getCurrentDate() {

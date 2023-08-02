@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <table id="table_order" class="table table-hover mt-3" style="table-layout: fixed;">
+        <table id="table_order" class="table table-hover mt-3" style="table-layout: fixed; min-height: 150px;">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">
@@ -122,5 +122,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/tropodoOrderMaintenance.js') }}"></script>
+    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoOrderMaintenance.js') }}"></script>
 @endsection

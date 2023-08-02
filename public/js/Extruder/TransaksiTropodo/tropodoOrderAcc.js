@@ -10,13 +10,24 @@ var listDetail = [];
 
 //#region Events
 btnProses.addEventListener("click", function () {
-    var success = true;
     const checkedOrder = [];
     checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {
             checkedOrder.push(checkbox.id);
         }
     });
+
+    checkedOrder.forEach((order) => {
+        fetchStmt("/ExtruderNet/updAccOrder/" + order + "/tmpUser");
+    });
+
+    alert("Data berhasil tersimpan!");
+    clearTable("table_type");
+    showOrder();
+});
+
+btnKeluar.addEventListener("click", function () {
+    window.location.href = "/Extruder/ExtruderNet";
 });
 //#endregion
 
@@ -34,7 +45,7 @@ function showOrder() {
                 listOrder.push({
                     Identifikasi:
                         strCheckBox +
-                        data[i].Identifikasi +
+                        data[i].IDOrder +
                         `"> ` +
                         data[i].Identifikasi,
                     IDOrder: data[i].IDOrder,
@@ -98,3 +109,5 @@ function clickableTableOrder() {
     });
 }
 //#endregion
+
+showOrder();

@@ -212,7 +212,7 @@ btnProses.addEventListener("click", function () {
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
-                "/tempUsr"
+                "/tmpUser"
         );
 
         fetch("/ExtruderNet/getNoOrder")

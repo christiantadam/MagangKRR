@@ -1,3 +1,5 @@
+<!-- Setelah selesai Tropodo Order Status, kembali ke form sebelumnya untuk mengimplementasikan DataTable -->
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,11 @@ Route::get('/ExtruderNet/updCounterOrder/{id_divisi}', [TropodoController::class
 
 Route::get('/ExtruderNet/getOrderBlmAcc/{divisi}', [TropodoController::class, 'getOrderBlmAcc']);
 Route::get('/ExtruderNet/getListSpek/{id_order}', [TropodoController::class, 'getListSpek']);
+Route::get('/ExtruderNet/updAccOrder/{id_order}/{user_acc}', [TropodoController::class, 'updAccOrder']);
+
+Route::get('/ExtruderNet/getListBatalOrd/{id_divisi}', [TropodoController::class, 'getListBatalOrd']);
+Route::get('/ExtruderNet/getListOrderBtl/{id_order}', [TropodoController::class, 'getListOrderBtl']);
+Route::get('/ExtruderNet/updStatusOrder/{id_order}/{status}/{ket}', [TropodoController::class, 'updStatusOrder']);
 #endregion
 
 #region ExtruderNet - Master
