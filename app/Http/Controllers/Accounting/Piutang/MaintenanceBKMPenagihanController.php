@@ -18,10 +18,16 @@ class MaintenanceBKMPenagihanController extends Controller
     public function getTabelPenagihan($bulan, $tahun)
     {
         //dd($bulan, $tahun);
-
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_PELUNASAN_TAGIHAN] @bln = ?, @thn = ?', [$bulan, $tahun]);
         return response()->json($tabel);
     }
+
+    function getDataBank()
+    {
+        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
+        return response()->json($bank);
+    }
+
 
     //Show the form for creating a new resource.
     public function create()

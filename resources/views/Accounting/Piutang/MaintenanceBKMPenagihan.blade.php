@@ -19,7 +19,7 @@
                                     <div class="col-md-1">
                                         <input type="text" id="bulan" class="form-control" style="width: 100%">
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <input type="text" id="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
@@ -83,7 +83,7 @@
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 40%;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
@@ -129,7 +129,7 @@
                                     <!--CARD 2-->
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <input type="radio" name="radiogrup1" value="radio_1" id="radio_2">
                                                 <label for="radio_2">Detail Biaya</label>
                                             </div>
@@ -165,7 +165,7 @@
                                     <!--CARD 3-->
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
-                                            <div class="col-md-7">
+                                            <div class="col-md-12">
                                                 <input type="radio" name="radiogrup1" value="radio_1" id="radio_3">
                                                 <label for="radio_3">Detail Kurang/Lebih</label>
                                             </div>
@@ -259,39 +259,36 @@
                                                             <label for="bankSelect" style="margin-right: 10px;">Bank</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" id="idBank" class="form-control" style="width: 100%">
+                                                            <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-7">
-                                                            <select name="namaBankSelect" id="supplierSelect" class="form-control" disabled>
-                                                                <option disabled selected>-- Pilih Bank --</option>
-                                                                {{-- @foreach ($maintenancePenagihan as $mp)
-                                                                <option value="{{ $mp->NO_SUP }}">{{ $mp->NO_SUP }} | {{ $mp->NM_SUP }}</option>
-                                                                @endforeach --}}
+                                                            <select name="namaBankSelect" id="namaBankSelect" class="form-control">
+
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
-                                                            <label for="bulanTahun" style="margin-right: 10px;">Mata Uang</label>
+                                                            <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="bulan" class="form-control" style="width: 100%">
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <div class="col-md-3">
-                                                            <label for="bulanTahun" style="margin-right: 10px;">Nilai Pelunasan</label>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <input type="text" id="bulan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="mataUang" name="mataUang" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
-                                                            <label for="bulanTahun" style="margin-right: 10px;">No. Bukti</label>
+                                                            <label for="nilaiPelunasan" style="margin-right: 10px;">Nilai Pelunasan</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="bulan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="nilaiPelunasan" name="nilaiPelunasan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="noBukti" style="margin-right: 10px;">No. Bukti</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="noBukti" namee="noBukti" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -301,7 +298,7 @@
                                                         <div class="col-3">
                                                         </div>
                                                         <div class="col-4">
-                                                            <input type="submit" id="btnTutup" name="btnTutup" value="Tutup" class="btn btn-primary">
+                                                            <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
                                                 </div>
