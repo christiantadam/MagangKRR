@@ -77,15 +77,18 @@
                                                     <table id="TableDivisi">
                                                         <thead>
                                                             <tr>
-                                                                <th>Nama Divisi</th>
-                                                                <th>Id Divisi</th>
+                                                                <th>ID Divisi</th>
+                                                                <th>Divisi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>p</td>
-                                                                <td>p</td>
-                                                            </tr>
+                                                            @foreach ($dataDivisi as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdDivisi }}</td>
+                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                </tr>
+                                                            @endforeach
+
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -362,6 +365,19 @@
                     e.stopPropagation();
                     e.preventDefault();
                 });
+            });
+
+            $('#TableDivisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdDivisi').val(rowData[0]);
+                $('#Divisi').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal();
             });
 
             var ButtonShift = document.getElementById('ButtonShift')

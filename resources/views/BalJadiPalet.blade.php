@@ -116,25 +116,29 @@
                                             </div>
                                         </div>
 
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Scan
+                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%;">
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width: 180px">Scan
                                                     Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width: 180px">Print
                                                     Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Acc
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width: 180px">Acc
                                                     Barcode</button></div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button">Keluar</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width: 180px" class="btn-danger">Keluar</button>
                                             </div>
                                         </div>
                                         <div>
@@ -194,7 +198,7 @@
                                 </div>
                         </div>
 
-                        <div class="card mt-3" style="width: 83.2%; margin-left:250px">
+                        <div class="card mt-3" style="width: 78%; margin-left:327px">
                             <div class="card-header">Total</div>
                             <div class="row mt-3">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -232,7 +236,7 @@
                         </div>
 
 
-                        <div class="card mt-3" style="width: 83.2%; margin-left:250px">
+                        <div class="card mt-3" style="width: 78%; margin-left:327px">
                             <div class="card-header">Input Data Barang</div>
                             <div class="row mt-3">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -307,7 +311,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="mt-3">Gunakan Untuk Menggabungkan Bal Menjadi 1 Palet (Press Ulang)</h4>
+                        <h4 class="mt-4">Gunakan Untuk Menggabungkan Bal Menjadi 1 Palet (Press Ulang)</h4>
                     </div>
                     </form>
                 </div>
