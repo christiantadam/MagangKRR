@@ -501,10 +501,19 @@ KodeBarang.addEventListener("keypress", function (event) {
 });
 hapus.addEventListener("click", function (event) {
     event.preventDefault();
-    methodForm.value = "DELETE";
-    console.log("delete", no_order.value);
-    formMaintenanceOrderGambar.action = "/MaintenanceOrderGambar/" + no_order.value;
-    formMaintenanceOrderGambar.submit();
+    if (manager.value != "") {
+        alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC")
+    }
+    else if(user != userorder){
+        alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder)
+    }
+    else{
+        methodForm.value = "DELETE";
+        console.log("delete", no_order.value);
+        formMaintenanceOrderGambar.action = "/MaintenanceOrderGambar/" + no_order.value;
+        formMaintenanceOrderGambar.submit();
+    }
+
 });
 
 prosesbaru.addEventListener("click", function () {

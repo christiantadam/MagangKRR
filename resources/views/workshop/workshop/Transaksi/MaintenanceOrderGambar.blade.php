@@ -365,7 +365,7 @@
               </div>
 
               <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-                <input type="text" name="PengorderBaru" class="form-control" id="PengorderBaru" readonly>
+                <input type="text" name="PengorderBaru" class="form-control" id="PengorderBaru" readonly style="color: blue;font-weight: bold;">
               </div>
             </div>
           </div>
@@ -498,7 +498,7 @@
                 </div>
 
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
-                  <input type="text" name="PengorderBaru" class="form-control" id="PengorderModif" readonly>
+                  <input type="text" name="PengorderBaru" class="form-control" id="PengorderModif" readonly style="color: blue;font-weight: bold;">
                 </div>
               </div>
             </div>
