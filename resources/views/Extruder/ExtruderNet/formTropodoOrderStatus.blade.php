@@ -20,14 +20,14 @@
                     <div class="row">
                         <div class="col-lg-2 aligned-text">Tanggal:</div>
                         <div class="col-lg-3">
-                            <input type="date" id="tanggal" class="form-control inputKu" disabled>
+                            <input type="date" id="tanggal" class="form-control" disabled>
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col-lg-2 aligned-text">Spek:</div>
                         <div class="col-lg-9">
-                            <input type="text" id="spek" class="form-control inputKu" disabled>
+                            <input type="text" id="spek" class="form-control" disabled>
                         </div>
                     </div>
 
@@ -35,12 +35,12 @@
 
                         <div class="col-lg-2 aligned-text">Jumlah Order:</div>
                         <div class="col-lg-3">
-                            <input type="number" id="jmlh_order" class="form-control inputKu" placeholder="0" disabled>
+                            <input type="number" id="jmlh_order" class="form-control" placeholder="0" disabled>
                         </div>
 
                         <div class="col-lg-3 aligned-text">Jumlah Produksi:</div>
                         <div class="col-lg-3">
-                            <input type="number" id="jmlh_produksi" class="form-control inputKu" placeholder="0" disabled>
+                            <input type="number" id="jmlh_produksi" class="form-control" placeholder="0" disabled>
                         </div>
 
                     </div>
@@ -60,13 +60,13 @@
                     <div class="row mt-3">
                         <div class="col-lg-2 aligned-text">Keterangan:</div>
                         <div class="col-lg-9">
-                            <input type="text" id="keterangan" class="form-control inputKu">
+                            <input type="text" id="keterangan" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <table id="table_order" class="hover cell-border" style="min-height: 150px">
+            <table id="table_order" class="hover cell-border">
                 <thead>
                     <tr>
                         <th scope="col">Tanggal Order</th>
@@ -88,7 +88,7 @@
             </table>
 
             <div class="float-end mt-4 mb-3">
-                <button id="btn_proses" type="submit" class="btn btn-outline-success" disabled>Proses</button>
+                <button id="btn_proses" type="button" class="btn btn-outline-success" disabled>Proses</button>
                 <button id="btn_keluar" type="button" class="btn btn-outline-danger"
                     style="margin-left: 25px">Keluar</button>
             </div>

@@ -19,31 +19,16 @@ const btnDetail = document.getElementById("btn_detail");
 const slcType = document.getElementById("select_benang");
 
 const listDetail = document.querySelectorAll(".card .detail_order");
-// listDetail.forEach((ele) => {
-//     console.log(ele.id);
-// });
 
 var tempData = [];
 var listOrder = [];
-// var listDummy = [
-//     {
-//         idType: 1,
-//         namaType: "Type A",
-//         satPrimer: "Primer 1-1",
-//         qtyPrimer: "Primer 2-1",
-//         satSekunder: "Sekunder 1-1",
-//         qtySekunder: "Sekunder 2-1",
-//         satTersier: "Tersier 1-1",
-//         qtyTersier: "Tersier 2-1",
-//     },
-// ];
 //#endregion
 
 //#region Events
 btnBaru.addEventListener("click", function () {
+    clearTable_DataTable("table_order");
     txtIdentifikasi.value = "";
     listOrder = [];
-    clearTable("table_order");
     clearDataDetail();
     toggleButtons(2);
     txtIdentifikasi.focus();
@@ -128,7 +113,7 @@ btnDetail.addEventListener("click", function () {
 
     // Lakukan pencarian terhadap tabel berdasarkan Nama Type
     if (
-        isTableContains(
+        searchTable_DataTable(
             "table_order",
             slcType.options[slcType.selectedIndex].text
         )
@@ -136,7 +121,6 @@ btnDetail.addEventListener("click", function () {
         alert("Sudah ada type benang yang sama dalam order.");
     } else {
         dataDetail = {
-            idType: slcType.value,
             namaType: slcType.options[slcType.selectedIndex].text,
             satPrimer: spnPrimerSat.textContent,
             qtyPrimer: txtPrimerQty.value,
@@ -147,7 +131,7 @@ btnDetail.addEventListener("click", function () {
         };
 
         listOrder.push(dataDetail);
-        addDataToTable("table_order", listOrder, 0);
+        addTable_DataTable("table_order", listOrder);
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
         showModal(
@@ -170,7 +154,7 @@ btnKeluar.addEventListener("click", function () {
     } else {
         toggleButtons(1);
         listOrder = [];
-        clearTable("table_order");
+        clearTable_DataTable("table_order");
         clearDataDetail();
         disableDetail();
     }
@@ -226,6 +210,34 @@ btnProses.addEventListener("click", function () {
             });
     }
 });
+
+btnBaru.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowRight") {
+        if (btnProses.disabled == false) {
+            btnProses.focus();
+        } else {
+            btnKeluar.focus();
+        }
+    }
+});
+
+btnProses.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+        btnBaru.focus();
+    } else if (event.key === "ArrowRight") {
+        btnKeluar.focus();
+    }
+});
+
+btnKeluar.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+        if (btnProses.disabled == false) {
+            btnProses.focus();
+        } else {
+            btnBaru.focus();
+        }
+    }
+});
 //#endregion
 
 //#region Functions
@@ -262,10 +274,13 @@ function disableDetail() {
 }
 
 function init() {
+    $("#table_order").DataTable({ responsive: true, paging: false });
     toggleButtons(1);
     btnBaru.focus();
     getCurrentDate();
 }
 //#endregion
 
-init();
+$(document).ready(() => {
+    init();
+});

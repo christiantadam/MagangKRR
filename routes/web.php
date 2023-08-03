@@ -1,11 +1,14 @@
-<!-- Setelah selesai Tropodo Order Status, kembali ke form sebelumnya untuk mengimplementasikan DataTable -->
+<!--
+    LAST: Sub getSatuan | FrmMohonKonversi.vb
+ -->
 
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extruder\ExtruderController;
+use App\Http\Controllers\Extruder\ExtruderNet\KonversiController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
-use App\Http\Controllers\Extruder\ExtruderNet\TropodoController;
+use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,25 +30,31 @@ Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
 Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
 
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
-// Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
+Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class, 'index']);
-Route::get('/Extruder/ExtruderNet/Tropodo/{formName?}', [TropodoController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
 
-#region ExtruderNet - Tropodo
-Route::get('/ExtruderNet/getListBenang/{kode}', [TropodoController::class, 'getListBenang']);
-Route::get('/ExtruderNet/getNoOrder/{kode?}', [TropodoController::class, 'getNoOrder']);
-Route::get('/ExtruderNet/insOrderBenang/{tanggal}/{identifikasi?}/{user}/{kode?}', [TropodoController::class, 'insOrderBenang']);
-Route::get('/ExtruderNet/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tersier}/{prod_primer}/{prod_sekunder}/{prod_tersier}', [TropodoController::class, 'insOrderDetail']);
-Route::get('/ExtruderNet/updCounterOrder/{id_divisi}', [TropodoController::class, 'updCounterOrder']);
+#region ExtruderNet - Bagian Order
+Route::get('/ExtruderNet/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
+Route::get('/ExtruderNet/getNoOrder/{kode?}', [OrderController::class, 'getNoOrder']);
+Route::get('/ExtruderNet/insOrderBenang/{tanggal}/{identifikasi?}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
+Route::get('/ExtruderNet/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tersier}/{prod_primer}/{prod_sekunder}/{prod_tersier}', [OrderController::class, 'insOrderDetail']);
+Route::get('/ExtruderNet/updCounterOrder/{id_divisi}', [OrderController::class, 'updCounterOrder']);
 
-Route::get('/ExtruderNet/getOrderBlmAcc/{divisi}', [TropodoController::class, 'getOrderBlmAcc']);
-Route::get('/ExtruderNet/getListSpek/{id_order}', [TropodoController::class, 'getListSpek']);
-Route::get('/ExtruderNet/updAccOrder/{id_order}/{user_acc}', [TropodoController::class, 'updAccOrder']);
+Route::get('/ExtruderNet/getOrderBlmAcc/{divisi}', [OrderController::class, 'getOrderBlmAcc']);
+Route::get('/ExtruderNet/getListSpek/{id_order}', [OrderController::class, 'getListSpek']);
+Route::get('/ExtruderNet/updAccOrder/{id_order}/{user_acc}', [OrderController::class, 'updAccOrder']);
 
-Route::get('/ExtruderNet/getListBatalOrd/{id_divisi}', [TropodoController::class, 'getListBatalOrd']);
-Route::get('/ExtruderNet/getListOrderBtl/{id_order}', [TropodoController::class, 'getListOrderBtl']);
-Route::get('/ExtruderNet/updStatusOrder/{id_order}/{status}/{ket}', [TropodoController::class, 'updStatusOrder']);
+Route::get('/ExtruderNet/getListBatalOrd/{id_divisi}', [OrderController::class, 'getListBatalOrd']);
+Route::get('/ExtruderNet/getListOrderBtl/{id_order}', [OrderController::class, 'getListOrderBtl']);
+Route::get('/ExtruderNet/updStatusOrder/{id_order}/{status}/{ket}', [OrderController::class, 'updStatusOrder']);
+#endregion
+
+#region ExtrudeerNet - Bagian Konversi
+Route::get('/ExtruderNet/getListKomposisi/{id_komposisi}', [KonversiController::class, 'getListKomposisi']);
+Route::get('/ExtruderNet/getSatuan/{id_type}', [KonversiController::class, 'getSatuan']);
 #endregion
 
 #region ExtruderNet - Master

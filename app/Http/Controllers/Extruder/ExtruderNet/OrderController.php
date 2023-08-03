@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TropodoController extends Controller
+class OrderController extends Controller
 {
     public function index($form_name)
     {
@@ -168,7 +168,7 @@ class TropodoController extends Controller
 
     public function updStatusOrder($id_order, $status, $ket)
     {
-        return DB::connection('ConnExtruder')->select(
+        return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_STATUS_ORDER @idorder = ?, @status = ?, @ket = ?',
             [$id_order, $status, strtoupper(str_replace('_', ' ', $ket))]
         );
@@ -176,4 +176,5 @@ class TropodoController extends Controller
         // PARAMETER @idorder varchar(10), @status varchar(30), @ket varchar(50)
         // UPDATE : OrderDetailEXT
     }
+    #endregion
 }

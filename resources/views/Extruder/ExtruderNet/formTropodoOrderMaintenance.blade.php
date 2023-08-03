@@ -15,14 +15,14 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 mb-4">
             <div class="col-lg-2 aligned-text">Identifikasi Order:</div>
             <div class="col-lg-8">
                 <input type="text" id="identifikasi" class="form-control" disabled>
             </div>
         </div>
 
-        <table id="table_order" class="table table-hover mt-3" style="table-layout: fixed; min-height: 150px;">
+        <table id="table_order" class="hover cell-border mt-3">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">
@@ -48,15 +48,21 @@
                     <td colspan="7" class="text-center">
                         <h1 class="mt-3">Tabel masih kosong...</h1>
                     </td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-header">Detail Order</div>
 
             <div class="card-body">
-                <div class="form-group mt-3 row">
+                <div class="mt-3 row">
                     <div class="col-lg-2"><span class="aligned-text">Type Benang:</span></div>
                     <div class="col-lg-8">
                         <select id="select_benang" class="form-select" disabled>
@@ -70,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mt-3 row">
+                <div class="mt-3 row">
                     <div class="col-lg-2"><span class="aligned-text">Primer:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">
@@ -81,7 +87,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mt-3 row">
+                <div class="mt-3 row">
                     <div class="col-lg-2"><span class="aligned-text">Sekunder:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">
@@ -92,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="form-group mt-3 row">
+                <div class="mt-3 row">
                     <div class="col-lg-2"><span class="aligned-text">Tersier:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">

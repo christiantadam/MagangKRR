@@ -12,7 +12,7 @@ const btnKeluar = document.getElementById("btn_keluar");
 const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
-const listOfInput = document.querySelectorAll(".card .inputKu");
+const listOfInput = document.querySelectorAll(".card .form-control");
 //#endregion
 
 //#region Events
@@ -55,6 +55,8 @@ slcOrder.addEventListener("change", function () {
             .catch((error) => {
                 console.error("Error: ", error);
             });
+
+        slcStatus.focus();
     }
 });
 
@@ -80,12 +82,12 @@ btnProses.addEventListener("click", function () {
         txtKeterangan.focus();
     } else {
         fetchStmt(
-            "/ExtruderNet/updSatusOrder/" +
+            "/ExtruderNet/updStatusOrder/" +
                 slcOrder.value +
                 "/" +
                 slcStatus.value +
                 "/" +
-                toSnakeCase(txtKeterangan)
+                toSnakeCase(txtKeterangan.value)
         );
 
         alert("Data telah diproses!");
@@ -126,12 +128,10 @@ function rowClicked(data) {
     txtSpek.value = data.TypeBenang;
     txtJmlhOrder.value = data.JumlahTritier;
     txtJmlhProd.value = data.JumlahProduksiTritier;
-
-    slcStatus.focus();
 }
 
 function init() {
-    $("#table_order").DataTable({ responsive: true });
+    $("#table_order").DataTable({ responsive: true, paging: false });
     slcOrder.focus();
 }
 //#endregion

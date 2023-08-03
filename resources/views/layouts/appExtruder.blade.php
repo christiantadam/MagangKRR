@@ -228,11 +228,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderMaintenance">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderMaintenance">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderACC">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderACC">ACC
                                                     Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoOrderStatus">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderStatus">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -241,10 +241,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoKonversiMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formTropodoKonversiMohon">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoKonversiACC">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formTropodoKonversiACC">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>

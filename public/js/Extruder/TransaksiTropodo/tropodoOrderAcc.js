@@ -29,20 +29,31 @@ btnProses.addEventListener("click", function () {
 btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/ExtruderNet";
 });
+
+btnProses.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowRight") {
+        btnKeluar.focus();
+    }
+});
+
+btnKeluar.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+        btnProses.focus();
+    }
+});
 //#endregion
 
 //#region Functions
 function showOrder() {
-    listOrder = [];
-    listDetail = [];
+    listTableOrder = [];
 
     fetch("/ExtruderNet/getOrderBlmAcc/EXT")
         .then((response) => response.json())
         .then((data) => {
-            listOrder = [];
+            listTableOrder = [];
             const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
             for (let i = 0; i < data.length; i++) {
-                listOrder.push({
+                listTableOrder.push({
                     Identifikasi:
                         strCheckBox +
                         data[i].IDOrder +
@@ -52,8 +63,7 @@ function showOrder() {
                 });
             }
 
-            addDataToTable("table_order", listOrder);
-            clickableTableOrder();
+            addTable_DataTable("table_order", listTableOrder, rowClicked);
 
             checkboxes = document.querySelectorAll("input[type='checkbox']");
             checkboxes.forEach((checkbox) => {
@@ -67,47 +77,62 @@ function showOrder() {
         });
 }
 
-function clickableTableOrder() {
-    const tableRows = document.querySelectorAll("#table_order tbody tr");
-    tableRows.forEach((row) => {
-        row.addEventListener("click", function () {
-            const tableTypeRow = document.querySelector("#table_type tbody");
-            tableTypeRow.innerHTML = `
-                <tr><h1 class="mt-3">Memuat data...</h1></tr>
-            `;
+function rowClicked(data) {
+    const tbodyType = document.querySelector("#table_type tbody");
+    tbodyType.innerHTML = `
+        <tr>
+            <td colspan="7" class="text-center">
+                <h1 class="mt-3">Memuat data...</h1>
+            </td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+        </tr>
+    `;
 
-            const cells = this.querySelectorAll("td");
-            console.log(cells[1].textContent);
-            fetch("/ExtruderNet/getListSpek/" + cells[1].textContent)
-                .then((response) => response.json())
-                .then((data) => {
-                    listDetail = [];
-                    for (let i = 0; i < data.length; i++) {
-                        listDetail.push({
-                            TypeBenang: data[i].TypeBenang,
-                            JumlahPrimer: data[i].JumlahPrimer,
-                            SatuanPrimer: "NULL",
-                            JumlahSekunder: data[i].JumlahSekunder,
-                            SatuanSekunder: "NULL",
-                            JumlahTritier: data[i].JumlahTritier,
-                            SatuanTritier: "KG",
-                        });
-                    }
-
-                    addDataToTable("table_type", listDetail);
-
-                    if (data.length <= 0) {
-                        const tableTypeRow =
-                            document.querySelector("#table_type tbody");
-                        tableTypeRow.innerHTML =
-                            `<tr><td colspan="7"><h3 class="mt-3">Data untuk <b>Order ` +
-                            cells[0].textContent +
-                            `</b> tidak ditemukan.</h3></td></tr>`;
-                    }
+    fetch("/ExtruderNet/getListSpek/" + data.IDOrder)
+        .then((response) => response.json())
+        .then((dataFetch) => {
+            listTableType = [];
+            for (let i = 0; i < dataFetch.length; i++) {
+                listTableType.push({
+                    TypeBenang: dataFetch[i].TypeBenang,
+                    JumlahPrimer: dataFetch[i].JumlahPrimer,
+                    SatuanPrimer: "NULL",
+                    JumlahSekunder: dataFetch[i].JumlahSekunder,
+                    SatuanSekunder: "NULL",
+                    JumlahTritier: dataFetch[i].JumlahTritier,
+                    SatuanTritier: "KG",
                 });
+            }
+
+            addTable_DataTable("table_type", listTableType);
+
+            if (dataFetch.length <= 0) {
+                tbodyType.innerHTML =
+                    `<tr><td colspan="7"><h3 class="mt-3">Data untuk <b>Order ` +
+                    data.IDOrder +
+                    `</b> tidak ditemukan.</h3></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td>
+                    <td style="display: none"></td></tr>`;
+            }
         });
-    });
+}
+
+function init() {
+    $("#table_order").DataTable({ responsive: true, paging: false });
+    $("#table_type").DataTable({ responsive: true, paging: false });
+    showOrder();
 }
 //#endregion
 
-showOrder();
+$(document).ready(() => {
+    init();
+});

@@ -60,7 +60,12 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
 //#endregion
 
 //#region Table Functions
-function addTable_DataTable(tableId, listData, rowFun = null, hidden = null) {
+function addTable_DataTable(
+    tableId,
+    listData,
+    rowFun = null,
+    tableHeight = "250px"
+) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
         $("#" + tableId)
             .DataTable()
@@ -70,12 +75,11 @@ function addTable_DataTable(tableId, listData, rowFun = null, hidden = null) {
     $("#" + tableId + " tbody").empty();
 
     $("#" + tableId).DataTable({
-        data: listData,
-        columns: Object.keys(listData[0]).map((key, index) => ({
-            data: key,
-            visible: index !== hidden,
-        })),
         responsive: true,
+        paging: false,
+        scrollY: tableHeight,
+        data: listData,
+        columns: Object.keys(listData[0]).map((key) => ({ data: key })),
         rowCallback: function (row, data, index) {
             if (rowFun != null) {
                 row.style.cursor = "pointer";
@@ -89,88 +93,36 @@ function addTable_DataTable(tableId, listData, rowFun = null, hidden = null) {
 }
 
 function clearTable_DataTable(tableId) {
+    $("#" + tableId)
+        .DataTable()
+        .clear()
+        .draw();
+
     const tbodyKu = document.querySelector("#" + tableId + " tbody");
-    const numColumns = document.querySelector(
-        "#" + tableId + " thead th"
-    ).length;
-
-    var str =
-        `<tr><td colspan="` +
-        numColumns +
-        `" class="text-center">
-            <h1 class="mt-3">Tabel masih kosong...</h1>
-        </td>`;
-    for (let i = 0; i < numColumns.length - 1; i++) {
-        str += `<td style="display: none"></td>`;
-    }
-    tbodyKu.innerHTML = str;
-
-    if ($.fn.DataTable.isDataTable("#" + tableId)) {
-        $("#" + tableId)
-            .DataTable()
-            .destroy();
-    }
-
-    $("#" + tableId + " tbody").empty();
-    $("#" + tableId).DataTable({ responsive: true });
+    tbodyKu.innerHTML = `
+        <tr>
+            <td colspan="7" class="text-center">
+                <h1 class="mt-3">Tabel masih kosong...</h1>
+            </td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+            <td style="display: none"></td>
+        </tr>
+    `;
 }
 
-function searchTable_DataTable(tableId, searchStr) {}
+function searchTable_DataTable(tableId, searchStr) {
+    const dataTable = $("#" + tableId).DataTable();
+    const columnIdx = 0;
+    const foundRows = dataTable
+        .column(columnIdx)
+        .search(searchStr, true, false)
+        .draw();
 
-function addTable_Vanilla(tableId, listData, hidden = null) {
-    const tableBody = document.querySelector("#" + tableId + " tbody");
-    tableBody.innerHTML = "";
-
-    for (const item of listData) {
-        const row = document.createElement("tr");
-
-        let columnIndex = 0; // Counter for the second loop
-
-        for (const [key, value] of Object.entries(item)) {
-            const cell = document.createElement("td");
-            cell.innerHTML = value || "";
-
-            if (hidden !== null && columnIndex === hidden) {
-                // Hidden cell
-                cell.style.display = "none";
-            }
-            row.appendChild(cell);
-
-            columnIndex++; // Increment the column index
-        }
-
-        tableBody.appendChild(row);
-    }
-}
-
-function clearTable_Vanilla(tableId) {
-    const tabelKu = document.getElementById(tableId);
-
-    const tableBody = tabelKu.querySelector("tbody");
-    const numColumns = tabelKu.querySelectorAll("thead th").length;
-
-    tableBody.innerHTML =
-        `<td colspan="` +
-        numColumns +
-        `" class="text-center">
-            <h1 class="mt-3">Tabel masih kosong...</h1>
-        </td>`;
-}
-
-function searchTable_Vanilla(tableId, searchStr) {
-    const table = document.getElementById(tableId);
-    const rows = table.getElementsByTagName("tr");
-
-    for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        for (let j = 0; j < cells.length; j++) {
-            if (cells[j].textContent.includes(searchStr)) {
-                return true; // The string is found, return true
-            }
-        }
-    }
-
-    return false; // The string is not found, return false
+    return foundRows > 0;
 }
 //#endregion
 

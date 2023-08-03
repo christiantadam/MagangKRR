@@ -1,26 +1,23 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_konversi_mohon" class="form" data-aos="fade-up">
-    <form>
-        <div class="row mt-3">
-            <div class="col-lg-3">
-                <label for="nomor">Nomor:</label>
-                <div class="input-group">
-                    <input type="text" name="nomor" id="nomor" class="form-control">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+    <div id="tropodo_konversi_mohon" class="form" data-aos="fade-up">
+        <div class="form-group row mt-3">
+            <div class="col-lg-2"><span class="aligned-text">Nomor: </span></div>
+            <div class="col-lg-8">
+                <select id="select_nomor" class="form-select">
+                    <option selected disabled>-- Pilih Nomor --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="no_order">No. Order:</label>
-                <div class="input-group">
-                    <input type="text" name="no_order1" id="no_order1" class="form-control">
-                    <input type="text" name="no_order2" id="no_order2" class="form-control" style="width: 12.5vw;">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+                <select id="select_order" class="form-select">
+                    <option selected disabled>-- Pilih Nomor Order --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
 
             <div class="col-lg-1"></div>
@@ -41,17 +38,17 @@
         <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="spek">Spek:</label>
-                <div class="input-group">
-                    <input type="text" name="spek" id="spek" class="form-control">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+                <select id="select_spek" class="form-select">
+                    <option selected disabled>-- Pilih Spek --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
 
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
                 <label for="ukuran">Ukuran:</label>
-                <input type="number" name="ukuran" id="ukuran" class="form-control" value="0">
+                <input type="number" name="ukuran" id="ukuran" class="form-control" placeholder="0">
             </div>
 
             <div class="col-lg-1"></div>
@@ -70,18 +67,17 @@
         <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="mesin">Mesin:</label>
-                <div class="input-group">
-                    <input type="text" name="mesin1" id="mesin1" class="form-control">
-                    <input type="text" name="mesin2" id="mesin2" class="form-control" style="width: 12.5vw;">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+                <select id="select_mesin" class="form-select">
+                    <option selected disabled>-- Pilih Mesin --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
 
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
                 <label for="denier">Denier:</label>
-                <input type="number" name="denier" id="denier" class="form-control" value="0">
+                <input type="number" name="denier" id="denier" class="form-control" placeholder="0">
             </div>
 
             <div class="col-lg-1"></div>
@@ -95,11 +91,10 @@
         <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="komposisi">Komposisi:</label>
-                <div class="input-group">
-                    <input type="text" name="komposisi1" id="komposisi1" class="form-control">
-                    <input type="text" name="komposisi2" id="komposisi2" class="form-control" style="width: 12.5vw;">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+                <select id="select_komposisi" class="form-select">
+                    <option selected disabled>-- Pilih Komposisi --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
 
             <div class="col-lg-1"></div>
@@ -117,91 +112,65 @@
             </div>
         </div>
 
-        <div class="card mt-3">
+        <div class="card mt-5">
             <div class="card-body">
-                <div style="width: 100%; overflow-x: auto;">
-                    <table class="table table-hover" style="table-layout: fixed;">
-                        <colgroup>
-                            <col style="width: 300px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>Nama Type</th>
-                                <th class="text-center">Qty Primer</th>
-                                <th class="text-center">Sat Primer</th>
-                                <th class="text-center">Qty Sekunder</th>
-                                <th class="text-center">Sat Sekunder</th>
-                                <th class="text-center">Qty Tertier</th>
-                                <th class="text-center">Sat Tertier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Data 1</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">5</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">3</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                            <tr>
-                                <td>Data 2</td>
-                                <td class="text-center">8</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">4</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">2</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                            <tr>
-                                <td>Data 3</td>
-                                <td class="text-center">15</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">6</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table id="table_konversi" class="hover cell-border mt-3">
+                    <thead>
+                        <tr>
+                            <th>Nama Type</th>
+                            <th>Id Type</th>
+                            <th>Qty. Primer</th>
+                            <th>Sat. Primer</th>
+                            <th>Qty. Sekunder</th>
+                            <th>Sat. Sekunder</th>
+                            <th>Qty. Tersier</th>
+                            <th>Sat. Tersier</th>
+                            <th>Presentase</th>
+                            <th>Jenis</th>
+                            <th>Sub-kelompok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @php $col_length = 11; @endphp
+                            <td colspan="{{ $col_length }}" class="text-center">
+                                <h1 class="mt-3">Tabel masih kosong...</h1>
+                            </td>
+                            @for ($i = 0; $i < $col_length - 1; $i++)
+                                <td style="display: none"></td>
+                            @endfor
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="row mt-3">
 
                     <div class="col-lg-6">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>title1</th>
-                                    <th>title2</th>
-                                    <th>title3</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>data1</td>
-                                    <td>data2</td>
-                                    <td>data3</td>
-                                </tr>
-                                <tr>
-                                    <td>data1</td>
-                                    <td>data2</td>
-                                    <td>data3</td>
-                                </tr>
-                                <tr>
-                                    <td>data1</td>
-                                    <td>data2</td>
-                                    <td>data3</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="mt-2">
+                            <table id="table_komposisi" class="hover cell-border">
+                                <thead>
+                                    <tr>
+                                        <th>Jenis</th>
+                                        <th>Id Type</th>
+                                        <th>Nama Type</th>
+                                        <th>Sub-kelompok</th>
+                                        <th>Sat. Primer</th>
+                                        <th>Sat. Sekunder</th>
+                                        <th>Sat. Tersier</th>
+                                        <th>Id Subkel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $col_length = 8; @endphp
+                                    <td colspan="{{ $col_length }}">
+                                        <h1 class="mt-3" style="margin-left: 100px">Tabel masih kosong...</h1>
+                                    </td>
+                                    @for ($i = 0; $i < $col_length - 1; $i++)
+                                        <td style="display: none"></td>
+                                    @endfor
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="col-lg-6">
@@ -209,8 +178,10 @@
                             <div class="col-lg-12">
                                 <label for="item_produksi">Item Produksi:</label>
                                 <div class="input-group">
-                                    <input type="text" name="item_produksi1" id="item_produksi1" class="form-control">
-                                    <input type="text" name="item_produksi2" id="item_produksi2" class="form-control" style="width: 12.5vw;">
+                                    <input type="text" name="item_produksi1" id="item_produksi1"
+                                        class="form-control">
+                                    <input type="text" name="item_produksi2" id="item_produksi2" class="form-control"
+                                        style="width: 12.5vw;">
                                 </div>
                             </div>
                         </div>
@@ -223,7 +194,8 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="primer">Primer:</label>
-                                <input type="number" name="primer" id="primer" class="form-control" value="0">
+                                <input type="number" name="primer" id="primer" class="form-control"
+                                    placeholder="0">
                             </div>
                         </div>
 
@@ -235,7 +207,8 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="sekunder">Sekunder:</label>
-                                <input type="number" name="sekunder" id="sekunder" class="form-control" value="0">
+                                <input type="number" name="sekunder" id="sekunder" class="form-control"
+                                    placeholder="0">
                             </div>
                         </div>
 
@@ -247,7 +220,8 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="tritier">Tritier:</label>
-                                <input type="number" name="tritier" id="tritier" class="form-control" value="0">
+                                <input type="number" name="tritier" id="tritier" class="form-control"
+                                    placeholder="0">
                             </div>
                         </div>
 
@@ -282,7 +256,7 @@
                 <button type="button" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoKonversiMohon.js') }}"></script>
 @endsection
