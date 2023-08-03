@@ -23,7 +23,7 @@ class KontrakController extends Controller
     public function getPegawai($Id_Div)
     {
 
-        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div], [1]);
+        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div]);
 
         // Return the options as JSON data
         return response()->json($dataPegawai);

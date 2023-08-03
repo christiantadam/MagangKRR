@@ -1,267 +1,564 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script>
+    $("#tabel_Divisi").DataTable({
+        order: [[0, "asc"]],
+    });
+    </script>
+<script type="text/javascript" src="{{ asset('js/Master/keluarga.js') }}"></script>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
-                <div class="card">
-                    <div class="card-header">PEKERJA</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <h5>
-                            <div class="panel-body">
-                                <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('/Jurnal') }}" >
-                                    {{ csrf_field() }}
 
-                                        <div class="modal-body">
+                <div class="card" style="width:1200px;">
+                    <div class="card-header" style="">Maintenance Keluarga Karyawan</div>
 
-                                            <br>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label>Divisi</label>
-                                                    <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                        <option value="">Divisi 1</option>
-                                                        <option value="">Divisi 1</option>
-                                                        <option value="">Divisi 1</option>
-                                                    </select>
-                                                </div>
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label>PISAT</label>
-                                                    <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                        <option value="">Opsi 1</option>
-                                                        <option value="">Opsi 2</option>
-                                                        <option value="">Opsi 3</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label>Karyawan</label>
-                                                    <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                        <option value="">Nama1</option>
-                                                        <option value="">Nama2</option>
-                                                        <option value="">Nama3</option>
-                                                    </select>
-                                                </div>
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label>Status Kawin</label>
-                                                    <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                        <option value="">Menikah</option>
-                                                        <option value="">Belum Menikah</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <label>No. KK</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <div style="flex: 1; margin-right: 10px;">
 
-                                                    <div style="display: flex; flex-wrap: nowrap;">
-                                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+
+
+                    <div class="card-body" style="">
+                        <div class="PEKERJA" style="">
+                            <div class="card-body-container" style="display: flex; flex-wrap: wrap; margin: 10px;">
+                                <div class="card-body" style="flex: 0 0 50%; max-width: 50%;">
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <input type="radio" id="opsiKerja1" name="opsiKerja" value="Harian" checked
+                                                style="vertical-align: middle;">&nbsp;Harian
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input type="radio" id="opsiKerja2" name="opsiKerja" value="Staff"
+                                                style="vertical-align: middle;">&nbsp;Staff
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Divisi:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 450px;">
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                style="resize: none; height: 40px; max-width: 250px;">
+                                                <option value=""></option>
+                                                @foreach ($divisi as $data)
+                                                    <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                @endforeach
+                                            </select> --}}
+                                            <button type="button" class="btn" style="margin-left: 10px; "
+                                                id="divisiButton" data-toggle="modal" data-target="#modalDivPeg">...</button>
+
+                                            <div class="modal fade" id="modalDivPeg" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="tabel_Divisi" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Id Divisi</th>
+                                                                                <th scope="col">Nama Divisi</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                            {{-- @foreach ($peringatan as $item)
+                                                                                <tr>
+                                                                                    <td><input type="checkbox" style="margin-right:5px;"
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                    </td>
+                                                                                    <td>{{ $item->Nama_Div }}</td>
+                                                                                    <td>{{ $item->kd_pegawai }}</td>
+                                                                                    <td>{{ $item->Nama_Peg }}</td>
+                                                                                    <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->uraian }}</td>
+                                                                                    <td>{{ $item->bulan }}</td>
+                                                                                    <td>{{ $item->tahun }}</td>
+                                                                                </tr>
+                                                                            @endforeach --}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <input type="radio" id="pbpjs" name="bpjs" value="bpjs" checked>
-                                                    <label for="staff">Penanggung BPJS</label>
-                                                </div>
                                             </div>
-                                            <div style="text-align: right; margin-top: 20px;">
-                                                <button type="button" class="btn btn-secondary">Clear</button>
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text"> Karyawan:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Peg" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Peg" readonly
+                                                style="resize: none; height: 40px; max-width: 450px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;" id="karyawanButton"
+                                                data-toggle="modal" data-target="#modalKaryawan">...</button>
+                                            <div class="modal fade" id="modalKaryawan" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="tabel_Karyawan" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Id Pegawai</th>
+                                                                                <th scope="col">Nama Pegawai</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
 
 
                                         </div>
-                                </form>
 
-                            </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">No. KK :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
+                                            <input type="text" class="form-control" name="KK"q id="NomorKK"
+                                                placeholder="" required>
 
+                                        </div>
+                                    </div>
+                                </div>
 
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div class="card-header">KELUARGA</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <h5>
-                            <div class="panel-body">
-                                <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('/Jurnal') }}" >
-                                    {{ csrf_field() }}
-
-                                        <div class="modal-body">
-
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">IdKeluarga</th>
-                                                            <th scope="col">Nama</th>
-                                                            <th scope="col">Hubungan</th>
-                                                            <th scope="col">JnsKelamin</th>
-                                                            <th scope="col">KotaLahir</th>
-                                                            <th scope="col">TglLahir</th>
-                                                            <th scope="col">PISAT</th>
-                                                            <th scope="col">Status</th>
-                                                            <th scope="col">NIK</th>
-                                                            <th scope="col">Id BPJS</th>
-                                                            <th scope="col">Klinik</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-group-divider">
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Axell</td>
-                                                            <td>L</td>
-                                                            <td>axelltama@gmail.com</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            {{-- <td>
-                                                                <a href="" title="Edit Employee">
-                                                                    <button class="btn btn-primary btn-sm">
-                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                                    </button>
-                                                                </a>
-                                                                <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
-                                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                                    </button>
-                                                                </form>
-                                                            </td> --}}
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                            <td>Jl. Rungkut Harapn</td>
-                                                        </tr>
-                                                        {{-- @foreach ($employees as $data)
-                                                        <tr>
-                                                            <td>{{ $data->id }}</td>
-                                                            <td>{{ $data->name }}</td>
-                                                            <td>{{ $data->gender }}</td>
-                                                            <td>{{ $data->email }}</td>
-                                                            <td>{{ $data->address }}</td>
-                                                            <td>
-                                                                <a href="{{ route('employees.edit', $data->id) }}" title="Edit Employee">
-                                                                    <button class="btn btn-primary btn-sm">
-                                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                                    </button>
-                                                                </a>
-                                                                <form method="POST" action="{{route('employees.destroy', $data->id)}}" accept-charset="UTF-8" style="display:inline">
-                                                                @csrf
-                                                                @method('delete')
-                                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                                    </button>
-                                                                </form>
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach --}}
-                                                    </tbody>
-
-                                                </table>
-                                            </div>
-                                            <div style="flex: 1; margin-right: 10px;">
-                                                <label>Nama</label>
-                                                <textarea class="form-control" id="NoKartu" name="NoKartu" style="resize: none;height: 40px;" required></textarea>
-                                            </div>
+                                <div class="card-body" style="flex: 0 0 50%; max-width: 50%;">
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
                                             <br>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">PISAT:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 450px;">
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                style="resize: none; height: 40px; max-width: 250px;">
+                                                <option value=""></option>
+                                                @foreach ($divisi as $data)
+                                                    <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                @endforeach
+                                            </select> --}}
+                                            <button type="button" class="btn" style="margin-left: 10px; "
+                                                id="divisi2Button" data-toggle="modal"
+                                                data-target="#modalKdPeg">...</button>
 
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label>Hubungan</label>
-                                                    <div style="display: flex; flex-wrap: nowrap;">
-                                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <div class="modal fade" id="modalKdPeg" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="tabel_PISAT" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Kode PISAT</th>
+                                                                                <th scope="col">PISAT</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($dataPISAT as $data)
+                                                                                <tr>
+
+                                                                                    <td>{{ $data->KdPisat }}</td>
+                                                                                    <td>{{ $data->Pisat }}</td>
+
+
+
+                                                                                </tr>
+                                                                            @endforeach
+                                                                            {{-- @foreach ($peringatan as $item)
+                                                                                <tr>
+                                                                                    <td><input type="checkbox" style="margin-right:5px;"
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                    </td>
+                                                                                    <td>{{ $item->Nama_Div }}</td>
+                                                                                    <td>{{ $item->kd_pegawai }}</td>
+                                                                                    <td>{{ $item->Nama_Peg }}</td>
+                                                                                    <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->uraian }}</td>
+                                                                                    <td>{{ $item->bulan }}</td>
+                                                                                    <td>{{ $item->tahun }}</td>
+                                                                                </tr>
+                                                                            @endforeach --}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <div style="flex: 1; margin-right: 10px;">
-                                                    <label style="display: inline-block; margin-right: 5px;">Jenis Kelamin</label>
-                                                    <div style="display: flex; flex-wrap: nowrap;">
-                                                        <div style="padding: 10px">
-                                                            <input type="radio" id="staff" name="pekerja" value="staff" checked style="vertical-align: middle;">
-                                                            <label for="staff" style="display: inline-block; margin-right: 5px;">Laki-laki (L)</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text"> Status Kawin:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Peg" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Peg" readonly
+                                                style="resize: none; height: 40px; max-width: 450px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;"
+                                                data-toggle="modal" data-target="#modalPeg">...</button>
+                                            <div class="modal fade" id="modalPeg" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="table_Peg" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Id Pegawai</th>
+                                                                                <th scope="col">Nama Pegawai</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
-                                                        <div style="padding: 10px">
-                                                            <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff" style="vertical-align: middle;">
-                                                            <label for="bukanStaff" style="display: inline-block; margin-right: 5px;">Perempuan (P)</label>
-                                                        </div>
-
                                                     </div>
                                                 </div>
-
-
-
-
                                             </div>
-                                            <br>
-                                                <label style="margin-right: 10px;">Tanggal, Kota Lahir</label>
-                                                <div style="display: flex; align-items: center;">
-                                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor" value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
-                                                    <textarea class="form-control" id="NoInduk" name="NoInduk" style="resize: none; height: 40px;" required></textarea>
-
-                                                </div>
-                                            <br>
-                                            <div style="flex: 1; margin-right: 10px;">
-                                                <label>PISAT</label>
-                                                <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                    <option value="">PISAT1</option>
-                                                    <option value="">PISAT2</option>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <div style="flex: 1; margin-right: 10px;">
-                                                <label>Status Kawin</label>
-                                                <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                    <option value="">Menikah</option>
-                                                    <option value="">Belum Menikah</option>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <label>NIK</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-
-                                                <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
-                                            </div>
-                                            <br>
-                                            <label>Id BPJS</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-
-                                                <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
-                                            </div>
-                                            <br>
-                                            <div style="flex: 1; margin-right: 10px;">
-                                                <label>Klinik</label>
-                                                <select class="form-control" id="Shift" name="Shift" style="resize: none;height: 40px; value="" required>
-                                                    <option value="">Klinik 1</option>
-                                                    <option value="">Klinik 2</option>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <div style="text-align: right; margin-top: 20px;">
-                                                <button type="button" class="btn btn-secondary">Clear</button>
-                                                <button type="button" class="btn btn-info">Tambah</button>
-                                                <button type="button" class="btn btn-warning">Koreksi</button>
-                                                <button type="button" class="btn btn-danger">Hapus</button>
-                                                <button type="button" class="btn btn-dark">Keluar</button>
-                                            </div>
-
-
 
 
 
                                         </div>
-                                </form>
+
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+
+
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input type="checkbox" checked>&nbsp;Penanggung BPJS
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-6" style="text-align: left;">
+
+                                </div>
+                                <div class="col-6" style="text-align: right;">
+                                    <button type="button" class="btn"
+                                        style="margin-left: 10px; width:100px;"
+                                        onclick="">Clear</button>
+                                    <button type="button" class="btn " style="margin-left: 10px; width:100px;"
+                                        onclick="">Simpan</button>
+                                </div>
+
+
+
 
                             </div>
 
 
-                        </h5>
+
+
+
+
+                        </div>
+                        <div class="KELUARGA" style="">
+                            <div class="card-body-container" style="display: flex; flex-wrap: wrap; margin: 10px;">
+                                <div class="card-body" style="flex: 0 0 80%; max-width: 80%;">
+
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Nama:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 450px;">
+
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                style="resize: none; height: 40px; max-width: 250px;">
+                                                <option value=""></option>
+                                                @foreach ($divisi as $data)
+                                                    <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                @endforeach
+                                            </select> --}}
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Hubungan:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 50px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 150px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;"
+                                                data-toggle="modal" data-target="#modalPeg">...</button>
+                                            <span class="aligned-text" style="margin-left:30px;">&nbsp;Kelamin:</span>
+                                            <input type="radio" id="kontrak1" name="opsiKontrak" value="Harian"
+                                                checked style="vertical-align: middle;">&nbsp;Perempuan (P)&nbsp;
+                                            <input type="radio" id="kontrak1" name="opsiKontrak" value="Staff"
+                                                checked style="vertical-align: middle;">&nbsp;Laki-laki (L)
+
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                        style="resize: none; height: 40px; max-width: 250px;">
+                                                        <option value=""></option>
+                                                        @foreach ($divisi as $data)
+                                                            <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                        @endforeach
+                                                    </select> --}}
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Tanggal, Kota Lahir:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
+                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
+                                                style="width: 150px;" required>
+                                            <input class="form-control" type="text" id="Kota_Lahir" readonly
+                                                style="resize: none; height: 40px; max-width: 400px;">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">PISAT:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 50px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 150px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;"
+                                                data-toggle="modal" data-target="#modalPeg">...</button>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Status Kawin:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 50px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 150px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;"
+                                                data-toggle="modal" data-target="#modalPeg">...</button>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text"> NIK:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 550px;">
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text"> Id BPJS:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 550px;">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-left: -120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Klinik:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Klinik" readonly
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                                style="resize: none; height: 40px; max-width: 405px;">
+                                            <button type="button" class="btn" style="margin-left: 10px;"
+                                                data-toggle="modal" data-target="#modalPeg">...</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body" style="flex: 0 0 20%; max-width: 20%;">
+                                    <div class="row" style="margin-left: 50px;">
+                                        <button type="button" class="btn" id="isiButton"
+                                            style="width: 200px;">CLEAR</button>
+                                        <div id="form-container"></div>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <br>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <br>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <br>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <br>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <button type="button" class="btn" id="koreksiButton"
+                                            style="width: 200px;">TAMBAH</button>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <button type="button" class="btn" id="koreksiButton"
+                                            style="width: 200px;">KOREKSI</button>
+
+                                    </div>
+                                    <div class="row" style="margin-left: 50px; margin-top: 20px;">
+                                        <button type="button" class="btn" id="koreksiButton"
+                                            style="width: 200px;">HAPUS</button>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="row" style="padding-top: 20px; margin:20px;">
+                        <div class="col-6" style="text-align: left; ">
+                            <button type="button" class="btn btn-primary"
+                                style="margin-left: 10px;width:100px;">Isi</button>
+                            <button type="button" class="btn btn-secondary"
+                                style="margin-left: 10px;width:100px;">Koreksi</button>
+                            <button type="button" class="btn btn-danger"
+                                style="margin-left: 10px;width:100px;">Hapus</button>
+                            <button type="button" class="btn btn-dark"
+                                style="margin-left: 10px;width:100px;">Keluar</button>
+
+                        </div>
+                        <div class="col-6" style="text-align: right; ">
+
+
+                        </div>
                     </div>
                 </div>
+
+
+
+
+
+
             </div>
+
+
+
+
+
+
+
+
+            <br>
+
+
+
+
+
+
+
         </div>
     </div>
 @endsection

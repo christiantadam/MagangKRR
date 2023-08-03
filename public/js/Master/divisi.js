@@ -672,7 +672,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = {
             kd_div: idDivInput,
-
         };
         console.log(data);
 
