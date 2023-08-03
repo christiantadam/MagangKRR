@@ -30,7 +30,7 @@ let tgl_teknik = document.getElementById("tgl_teknik");
 let ket_teknik = document.getElementById("ket_teknik");
 let judulstatus = document.getElementById("status");
 let pilih;
-
+let userorder;
 
 //buat data table
 let table_data = $("#tableklik").DataTable();
@@ -44,33 +44,56 @@ let tglteknikT = null;
 //modal
 let modetrans;
 // let isibaru = document.getElementById('isibaru');
-let isibarutitle = document.getElementById('isibarutitle');
-let mesin = document.getElementById('Mesin');
-let pengordermodalbaru = document.getElementById('PengorderBaru');
-let isimodifikasititle = document.getElementById('isimodifikasititle');
-let MesinModif = document.getElementById('MesinModif');
+let isibarutitle = document.getElementById("isibarutitle");
+let pengordermodalbaru = document.getElementById("PengorderBaru");
+let isimodifikasititle = document.getElementById("isimodifikasititle");
 //btn proses
-let prosesbaru  = document.getElementById('prosesbaru');
-let prosesmodifikasi = document.getElementById('prosesmodifikasi');
+let prosesbaru = document.getElementById("prosesbaru");
+let prosesmodifikasi = document.getElementById("prosesmodifikasi");
 //form modal
-let formbaru = document.getElementById('formbaru');
-let formModifikasi = document.getElementById('formModifikasi');
-let methodFormBaru = document.getElementById('methodFormBaru');
-let methodFormModifikasi = document.getElementById('methodFormModifikasi');
+let formbaru = document.getElementById("formbaru");
+let formModifikasi = document.getElementById("formModifikasi");
+let methodFormBaru = document.getElementById("methodFormBaru");
+let methodFormModifikasi = document.getElementById("methodFormModifikasi");
 //id div
-let iddivisimodalmodif = document.getElementById('iddivisimodalmodif');
-let iddivisimodalbaru = document.getElementById('iddivisimodalbaru');
+let iddivisimodalmodif = document.getElementById("iddivisimodalmodif");
+let iddivisimodalbaru = document.getElementById("iddivisimodalbaru");
 //form modif
-let KodeBarang = document.getElementById('KodeBarang');
-let GambarRev = document.getElementById('GambarRev');
-let NamaBarangModif = document.getElementById('NamaBarangModif');
-let PengorderModif = document.getElementById('PengorderModif');
+let PengorderModif = document.getElementById("PengorderModif");
+//input modal baru
+let TglMaintenanceGambarBaru = document.getElementById(
+    "TglMaintenanceGambarBaru"
+);
+let TNoD = document.getElementById("TNoD");
+let NamaBarang = document.getElementById("NamaBarang");
+let Keterangan = document.getElementById("Keterangan");
+let satuanB = document.getElementById("satuanB");
+let mesin = document.getElementById("Mesin");
+let tglmaintenance;
+let itemname;
+var selectmesin;
+
+//modal modif
+let TglMaintenanceGambarmodif = document.getElementById(
+    "TglMaintenanceGambarmodif"
+);
+let TNoDModif = document.getElementById("TNoDModif");
+let NamaBarangModif = document.getElementById("NamaBarangModif");
+let GambarRev = document.getElementById("GambarRev");
+let KodeBarang = document.getElementById("KodeBarang");
+let KeteranganModif = document.getElementById("KeteranganModif");
+let satuanmodif = document.getElementById("satuanmodif");
+let MesinModif = document.getElementById("MesinModif");
+let kodebarangsimpan;
 
 //pembeda
-let pembedaStore = document.getElementById('pembedaStore');
-
+let pembedaStore = document.getElementById("pembedaStore");
+//form delete
+let methodForm = document.getElementById('methodForm');
 //btn
 let isi = document.getElementById("isi");
+let koreksi = document.getElementById("koreksi");
+let hapus = document.getElementById("hapus");
 
 // Get the current date
 const currentDate = new Date();
@@ -90,6 +113,9 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
 
+// Do this before you initialize any of your modals
+// $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
 // const formatDate = (dateString) => {
 //     const date = new Date(dateString);
 //     const year = date.getFullYear();
@@ -97,6 +123,7 @@ tgl_akhir.value = formattedCurrentDate;
 //     const day = String(date.getDate()).padStart(2, "0");
 //     return `${year}-${month}-${day}`;
 // };
+//#region get All data
 function AllData(tglAwal, tglAkhir, idDivisi) {
     fetch("/getalldata/" + tglAwal + "/" + tglAkhir + "/" + idDivisi)
         .then((response) => response.json())
@@ -147,53 +174,51 @@ function AllData(tglAwal, tglAkhir, idDivisi) {
             //console.log(dataarray);
         });
 }
-function Mesin(iddivisi,nomor) {
-    fetch(
-        "/mesin/" +
-            iddivisi
-    )
+//#endregion
+//#region get mesin
+function Mesin(iddivisi) {
+    fetch("/mesin/" + iddivisi)
         .then((response) => response.json())
         .then((options) => {
             //mesin buat form baru
-            if (nomor == 1) {
-                mesin.innerHTML = "";
-                //
-                const defaultOption = document.createElement("option");
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                defaultOption.innerText = "Pilih Mesin";
-                mesin.appendChild(defaultOption);
-                //
-                options.forEach((entry) => {
-                    const option = document.createElement("option");
-                    option.value = entry.Nomer;
-                    option.innerText = entry.Mesin + "--" + entry.Nomer;
-                    mesin.appendChild(option);
-                });
-            }
-            else if (nomor == 2) {
-                MesinModif.innerHTML = "";
-                //
-                const defaultOption = document.createElement("option");
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                defaultOption.innerText = "Pilih Mesin";
-                MesinModif.appendChild(defaultOption);
-                //
-                options.forEach((entry) => {
-                    const option = document.createElement("option");
-                    option.value = entry.Nomer;
-                    option.innerText = entry.Mesin + "--" + entry.Nomer;
-                    MesinModif.appendChild(option);
-                });
-            }
-           // Optional: Check the data in the console
-               //console.log(options);
 
+            mesin.innerHTML = "";
+            //
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih Mesin";
+            mesin.appendChild(defaultOption);
+            //
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.Nomer;
+                option.innerText = entry.Mesin + "--" + entry.Nomer;
+                mesin.appendChild(option);
+            });
+
+            MesinModif.innerHTML = "";
+            //
+            const defaultOption1 = document.createElement("option");
+            defaultOption1.disabled = true;
+            defaultOption1.selected = true;
+            defaultOption1.innerText = "Pilih Mesin";
+            MesinModif.appendChild(defaultOption1);
+            //
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.Nomer;
+                option.innerText = entry.Mesin + "--" + entry.Nomer;
+                MesinModif.appendChild(option);
+            });
+
+            // Optional: Check the data in the console
+            //console.log(options);
         });
 }
-
+//#endregion
 //panggil data berdasarkan user
+//#region getdata by user
 function AllDataUser(tglAwal, tglAkhir, idUser, idDivisi) {
     fetch(
         "/GatDataForUserOrder/" +
@@ -256,6 +281,9 @@ function AllDataUser(tglAwal, tglAkhir, idUser, idDivisi) {
             //console.log(dataarray);
         });
 }
+//#endregion
+//#region cleardata
+
 function cleardata() {
     judulstatus.textContent = "";
     no_order.value = "";
@@ -274,6 +302,7 @@ function cleardata() {
     tgl_teknik.value = "";
     ket_teknik.value = "";
 }
+//#endregion
 
 Divisi.addEventListener("change", function () {
     // const selectedValue = this.value;
@@ -282,7 +311,7 @@ Divisi.addEventListener("change", function () {
     // Show a confirmation alert
 
     const isConfirmed = confirm(`Tampilkan Semua Order??`);
-
+    Mesin(Divisi.value);
     // If confirmed, proceed with the fetch operation
     if (isConfirmed) {
         pilih = 1;
@@ -314,46 +343,147 @@ function klikisi() {
         const isConfirmed = confirm(`Order Gambar Baru??`);
         modetrans = 1;
         if (isConfirmed) {
-            Mesin(Divisi.value,1)
             isi.setAttribute("data-toggle", "modal");
             isi.setAttribute("data-target", "#isibaru");
-            isibarutitle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+            isibarutitle.textContent =
+                Divisi.options[Divisi.selectedIndex].text.split("--")[1];
             iddivisimodalbaru.value = Divisi.value;
-            pengordermodalbaru.value = user ;
+            pengordermodalbaru.value = user;
         } else {
-            Mesin(Divisi.value,2)
             isi.setAttribute("data-toggle", "modal");
             isi.setAttribute("data-target", "#modifikasi");
             iddivisimodalmodif.value = Divisi.value;
             PengorderModif.value = user;
-            isimodifikasititle.textContent = Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+            isimodifikasititle.textContent =
+                Divisi.options[Divisi.selectedIndex].text.split("--")[1];
         }
+    } else {
+        alert("Pilih Divisi Anda");
     }
-    else {
-        alert("Pilih Divisi Anda")
-    }
-
 }
-function Getbarang(KDbarang , iddiv) {
-    fetch(
-        "/GetBarang/" +
-            KDbarang +
-            "/" +
-            iddiv
-    )
+//#region btn koreksi
+function klikkoreksi() {
+    if (Divisi.value != "Pilih Divisi") {
+        if (tgl_teknik.value != "") {
+            alert(
+                "Order Tidak Boleh Di-KOREKSI. Order ditolak oleh Div. Teknik."
+            );
+        } else if (acc_manager.value != "" || manager.value != "") {
+            alert("Order Tidak Boleh Di-KOREKSI. Sudah di-ACC.");
+        } else if (user != userorder) {
+            console.log(user, userorder);
+            alert(
+                "Anda Tidak Boleh Meng-KOREKSI Order Dari User " +
+                    pengorder.value
+            );
+        } else {
+            const isConfirmed = confirm(`Order Gambar Baru??`);
+            modetrans = 2;
+            if (isConfirmed) {
+                koreksi.setAttribute("data-toggle", "modal");
+                koreksi.setAttribute("data-target", "#isibaru");
+                isibarutitle.textContent =
+                    Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+                iddivisimodalbaru.value = Divisi.value;
+                pengordermodalbaru.value = user;
+                TglMaintenanceGambarBaru.value = tglmaintenance;
+                TNoD.value = no_order.value;
+                NamaBarang.value = itemname;
+                Keterangan.value = keterangan_order.value;
+                satuanB.selectedIndex = 0;
+                for (let i = 0; i < satuanB.length; i++) {
+                    // console.log(satuanJual.selectedIndex);
+                    satuanB.selectedIndex += 1;
+                    if (
+                        satuanB.options[satuanB.selectedIndex].text ===
+                        jmlh2.value.trim()
+                    ) {
+                        break;
+                    }
+                }
+                mesin.selectedIndex = 0;
+                //console.log(mesin.length);
+                for (let i = 0; i < mesin.length; i++) {
+                    // console.log(satuanJual.selectedIndex);
+                    mesin.selectedIndex += 1;
+                    // console.log(mesin.option[mesin.selectedIndex].text.split("--"));
+                    if (
+                        mesin.options[mesin.selectedIndex].text.split(
+                            "--"
+                        )[0] === selectmesin.trim()
+                    ) {
+                        break;
+                    }
+                }
+                // satuanB.value = jmlh2.value;
+                // mesin.value = selectmesin;
+            } else {
+                koreksi.setAttribute("data-toggle", "modal");
+                koreksi.setAttribute("data-target", "#modifikasi");
+                iddivisimodalmodif.value = Divisi.value;
+                PengorderModif.value = user;
+                isimodifikasititle.textContent =
+                    Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+                TglMaintenanceGambarmodif.value = tglmaintenance;
+                TNoDModif.value = no_order.value;
+                GambarRev.value = no_gambar_rev.value;
+                KodeBarang.value = kodebarangsimpan;
+                NamaBarangModif.value = itemname;
+                KeteranganModif.value = keterangan_order.value;
+
+                satuanmodif.selectedIndex = 0;
+                for (let i = 0; i < satuanmodif.length; i++) {
+                    // console.log(satuanJual.selectedIndex);
+                    satuanmodif.selectedIndex += 1;
+                    if (
+                        satuanmodif.options[satuanmodif.selectedIndex].text ===
+                        jmlh2.value.trim()
+                    ) {
+                        break;
+                    }
+                }
+                MesinModif.selectedIndex = 0;
+                //console.log(MesinModif.length);
+                for (let i = 0; i < MesinModif.length; i++) {
+                    // console.log(satuanJual.selectedIndex);
+                    MesinModif.selectedIndex += 1;
+                    // console.log(MesinModif.option[MesinModif.selectedIndex].text.split("--"));
+                    if (
+                        MesinModif.options[MesinModif.selectedIndex].text.split(
+                            "--"
+                        )[0] === selectmesin.trim()
+                    ) {
+                        break;
+                    }
+                }
+
+                // satuanmodif.value = jmlh2.value;
+                // MesinModif.value = selectmesin;
+                console.log(jmlh2.value);
+                console.log(selectmesin);
+            }
+        }
+    } else {
+        alert("Pilih Divisi Anda");
+    }
+}
+//#endregion
+function Getbarang(KDbarang, iddiv) {
+    fetch("/GetBarang/" + KDbarang + "/" + iddiv)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
             if (datas.length == 0) {
-                alert("Kode Barang Tidak Ada")
-            }
-            else{
+                alert("Kode Barang Tidak Ada");
+                GambarRev.value = "";
+                NamaBarangModif.value = "";
+            } else {
                 GambarRev.value = datas[0].NO_GAMBAR;
                 NamaBarangModif.value = datas[0].NM_BRG;
             }
         });
 }
-KodeBarang.addEventListener("keypress",function (event) {
+KodeBarang.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         let kodeBarang9digit;
         kodeBarang9digit = document.getElementById("KodeBarang");
@@ -366,21 +496,36 @@ KodeBarang.addEventListener("keypress",function (event) {
         }
         KodeBarang.value = kodeBarang9digit.value;
         //console.log(KodeBarang.value);
-        Getbarang(KodeBarang.value, Divisi.value)
+        Getbarang(KodeBarang.value, Divisi.value);
     }
-})
+});
+hapus.addEventListener("click", function (event) {
+    event.preventDefault();
+    methodForm.value = "DELETE";
+    console.log("delete", no_order.value);
+    formMaintenanceOrderGambar.action = "/MaintenanceOrderGambar/" + no_order.value;
+    formMaintenanceOrderGambar.submit();
+});
 
-prosesbaru.addEventListener('click', function(){
+prosesbaru.addEventListener("click", function () {
     if (modetrans == 1) {
         formbaru.submit();
+    } else if (modetrans == 2) {
+        methodFormBaru.value = "PUT";
+        formbaru.action = "/MaintenanceOrderGambar/" + no_order.value;
+        formbaru.submit();
     }
-})
-prosesmodifikasi.addEventListener('click', function(){
-    if(modetrans== 1){
-        pembedaStore.value = 1;
+});
+prosesmodifikasi.addEventListener("click", function () {
+    pembedaStore.value = 1;
+    if (modetrans == 1) {
+        formModifikasi.submit();
+    } else if (modetrans == 2) {
+        methodFormModifikasi.value = "PUT";
+        formModifikasi.action = "/MaintenanceOrderGambar/" + no_order.value;
         formModifikasi.submit();
     }
-})
+});
 
 $("#tableklik tbody").off("click", "tr");
 $("#tableklik tbody").on("click", "tr", function () {
@@ -411,4 +556,9 @@ $("#tableklik tbody").on("click", "tr", function () {
     ket_direktur.value = selectedRows[0].Ref_TdStjDir;
     tgl_teknik.value = selectedRows[0].Tgl_Tolak_Mng?.split(" ")[0] ?? "";
     ket_teknik.value = selectedRows[0].Ref_Tolak_Mng;
+    userorder = selectedRows[0].User_Order;
+    tglmaintenance = selectedRows[0].Tgl_Order;
+    itemname = selectedRows[0].Nama_Brg;
+    selectmesin = selectedRows[0].Mesin;
+    kodebarangsimpan = selectedRows[0].Kd_Brg;
 });

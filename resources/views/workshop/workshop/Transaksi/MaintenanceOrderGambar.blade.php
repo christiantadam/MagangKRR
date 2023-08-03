@@ -83,8 +83,9 @@
         <div class="div" style="text-align: -webkit-center; ">
           <h5 id="status" style="text-align: -webkit-center;"></h5>
         </div>
-        <form action="" id="formMaintenanceOrderGambar">
+        <form id="formMaintenanceOrderGambar" method="POST">
           {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodForm">
 
           <div class="row">
             <div class="col-lg-5">
@@ -234,8 +235,9 @@
               <div class="input-group">
                 <button type="button" class="btn btn-success custom-btn" onclick="klikisi()"
                   id="isi">ISI</button>
-                <button type="button" class="btn btn-warning custom-btn">KOREKSI</button>
-                <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
+                <button type="button" class="btn btn-warning custom-btn" onclick="klikkoreksi()"
+                  id="koreksi">KOREKSI</button>
+                <button class="btn btn-danger custom-btn" id="hapus">HAPUS</button>
               </div>
             </div>
             {{--
@@ -334,7 +336,7 @@
               <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
                 <div class="input-group">
                   <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                  <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="kddivisi">
+                  <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="satuanB">
                     <option disabled selected>Pilih Satuan</option>
                     @foreach ($satuan as $s)
                       <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
@@ -368,6 +370,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <input type="hidden" name="TNoD" id="TNoD">
             <button type="button" class="btn btn-primary" id="prosesbaru">Proses</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
           </div>
@@ -407,7 +410,7 @@
 
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
                   <input type="date" name="TglMaintenanceGambarBaru" class="form-control"
-                    id="TglMaintenanceGambarBaru">
+                    id="TglMaintenanceGambarmodif">
                 </div>
               </div>
 
@@ -466,7 +469,7 @@
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
                   <div class="input-group">
                     <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                    <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="kddivisi">
+                    <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="satuanmodif">
                       <option disabled selected>Pilih Satuan</option>
                       @foreach ($satuan as $s)
                         <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
@@ -515,6 +518,7 @@
                   </div>
                 </div>
                 <div class="col" style="text-align-last: right;">
+                  <input type="hidden" name="TNoDModif" id="TNoDModif">
                   <button type="button" class="btn btn-primary" id="prosesmodifikasi">Proses</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
