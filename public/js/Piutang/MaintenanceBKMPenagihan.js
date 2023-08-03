@@ -228,6 +228,19 @@ function clickOK() {
         alert('Harap isi bulan dan tahun terlebih dahulu!');
         return;
     }
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    const selectedMonth = parseInt(bulanValue, 10);
+    const selectedYear = parseInt(tahunValue, 10);
+
+    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
+        alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
+        bulan.value = "";
+        tahun.value = "";
+        return;
+    }
 }
 
 function validatePilihBank() {
@@ -248,4 +261,3 @@ function validatePilihBank() {
         }
     }
 };
-
