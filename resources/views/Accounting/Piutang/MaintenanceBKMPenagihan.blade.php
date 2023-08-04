@@ -88,7 +88,7 @@
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 180%; table-layout: fixed;">
+                                                <table style="width: 180%; table-layout: fixed;"id="tabelDetailPelunasan">
                                                     <colgroup>
                                                     <col style="width: 20%;">
                                                     <col style="width: 20%;">
@@ -110,7 +110,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
+                                                    {{-- <tr>
                                                         <td>Data 1</td>
                                                         <td>Data 2</td>
                                                         <td>Data 3</td>
@@ -118,7 +118,7 @@
                                                         <td>Data 5</td>
                                                         <td>Data 6</td>
                                                         <td>Data 7</td>
-                                                    </tr>
+                                                    </tr> --}}
                                                     <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
@@ -212,7 +212,7 @@
                                     </div>
                                 </div>
 
-                                <!--MODAL PILIH BANKs-->
+                                <!--MODAL PILIH BANK-->
                                 <div class="modal fade" id="pilihBank" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -222,7 +222,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form id="formPilihBank" method="post" action="/proses_pilih_bank">
+                                            <form id="formPilihBank" method="post" action="/">
                                                 <div class="modal-body">
                                                     <div class="d-flex">
                                                         <div class="col-md-3">

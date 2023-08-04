@@ -1,8 +1,11 @@
 let tahun = document.getElementById('tahun');
 let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
+let tabelDetailPelunasan = document.getElementById('tabelDetailPelunasan');
 let pilihBank = document.getElementById('pilihBank');
 let selectedRows = [];
+let selectedIdPelunasan = [];
+let dataTable;
 
 let idPelunasan = document.getElementById('idPelunasan');
 let tanggalInput = document.getElementById('tanggalInput');
@@ -19,36 +22,98 @@ let btnProses = document.getElementById("btnProses");
 let btnTutup = document.getElementById("btnTutup");
 let btnTutupModal = document.getElementById("btnTutupModal");
 
+let modalkoreksi = document.getElementById("formkoreksi");
+let methodform = document.getElementById("methodkoreksi");
+
 btnTutupModal.addEventListener('click', function(event) {
     event.preventDefault();
     $('#pilihBank').modal('hide')
 });
 
-namaBankSelect.addEventListener("change", function () {
-    if (this.selectedIndex !== 0) {
-        this.classList.add("input-error");
-        this.setCustomValidity("Tekan Enter!");
-        this.reportValidity();
-    }
-});
+btnOK.addEventListener('click', function (event) {
+    event.preventDefault();
+    clickOK();
+        fetch("/detailtabelpenagihan/" + bulan.value +"/"+ tahun.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                dataTable = $("#tabelDataPelunasan").DataTable({
+                    data: options,
+                    columns: [
+                        {
+                            title: "Tgl Pelunasan", data: "Tgl_Pelunasan",
+                            render: function (data) {
+                                return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
+                            },
+                        },
+                        // { title: "Tgl Pelunasan", data: "Tgl_Pelunasan" },
+                        { title: "Id. Pelunasan", data: "Id_Pelunasan" },
+                        { title: "Id. Bank", data: "Id_bank" },
+                        { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
+                        { title: "Mata Uang", data: "Nama_MataUang" },
+                        { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
+                        { title: "No. Bukti", data: "No_Bukti" },
+                        { title: "Tgl Pembuatan", data: "Tgl_Pembuatan" },
+                    ],
+                });
+            });
+        });
 
-namaBankSelect.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        event.preventDefault();
-        // console.log(idBank.value);
-        const selectedOption = namaBankSelect.options[namaBankSelect.selectedIndex];
-        if (selectedOption) {
-            const idBankInput = document.getElementById('idBank');
-            const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
-            const idBank = selectedValue.split(" | ")[0];
-            idBankInput.value = idBank;
+function validatePilihBank() {
+    const checkedRows = document.querySelectorAll('input[name="divisiCheckbox"]:checked');
+    if (checkedRows.length === 0) {
+        alert('Pilih 1 Data Pelunasan!');
+        return;
+    } else {
+        $('#pilihBank').modal('show');
+    }
+    const modal = document.getElementById('pilihBankModal');
+    modal.style.display = 'block';
+
+    // Close the modal when the user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
         }
+    }
+}
+
+function clickOK() {
+    let bulanValue = bulan.value;
+    let tahunValue = tahun.value;
+    if (bulanValue.trim() === '' || tahunValue.trim() === '') {
+        alert('Harap isi bulan dan tahun terlebih dahulu!');
+        return;
+    }
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+
+    const selectedMonth = parseInt(bulanValue, 10);
+    const selectedYear = parseInt(tahunValue, 10);
+
+    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
+        alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
+        bulan.value = "";
+        tahun.value = "";
+        return;
+    }
+}
+
+namaBankSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    // console.log(idBank.value);
+    const selectedOption = namaBankSelect.options[namaBankSelect.selectedIndex];
+    if (selectedOption) {
+        const idBankInput = document.getElementById('idBank');
+        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
+        const idBank = selectedValue.split(" | ")[0];
+        idBankInput.value = idBank;
     }
 });
 
 btnPilihBank.addEventListener('click', function (event) {
     event.preventDefault();
-    //console.log(idBank.value);
     validatePilihBank();
     fetch("/detailbank/")
         .then((response) => response.json())
@@ -68,7 +133,6 @@ btnPilihBank.addEventListener('click', function (event) {
                 option.innerText = entry.Id_Bank + "|" + entry.Nama_Bank;
                 namaBankSelect.appendChild(option);
             });
-
         });
      // Menyimpan data dari baris yang dicentang
     let rows = tabelDataPelunasan.getElementsByTagName("tr");
@@ -106,16 +170,37 @@ btnPilihBank.addEventListener('click', function (event) {
                 Nama_MataUang: cells.eq(4).text(),
                 Nilai_Pelunasan: cells.eq(5).text(),
                 No_Bukti: cells.eq(6).text(),
-                //No_Bukti: cells.eq(8).text(), // Ganti indeks sesuai dengan kolom yang sesuai
             };
             selectedRowData.push(rowData);
+            selectedIdPelunasan.push(cells.eq(1).text());
+
+            //masih harus diperbaiki tempatnya, supaya data muncul setelah klik checkbox
+            fetch("/tabeldetailpelunasan/" + selectedIdPelunasan)
+                .then((response) => response.json())
+                .then((options) => {
+                    dataTable = $("#tabelDetailPelunasan").DataTable({
+                    data: options,
+                    columns: [
+                        {
+                            title: "Id. Penagihan", data: "ID_Penagihan",
+                            render: function (data) {
+                                return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                            },
+                        },
+                        { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                        { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah" },
+                        { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+                        { title: "Customer", data: "NamaCust" },
+                        { title: "Id. Detail", data: "ID_Detail_Pelunasan" },
+                        { title: "Tgl Penagihan", data: "Tgl_Penagihan" },
+                    ],
+                });
+            })
         });
 
-            table.clear().clear().rows.add(data).draw();
-
+            dataTable.clear().rows.add(data).draw();
             // // Add the data rows
             // table.rows.add(data);
-
             // // Redraw the DataTable
             // table.draw();
 
@@ -134,7 +219,6 @@ btnPilihBank.addEventListener('click', function (event) {
                         "checked",
                         !checkbox.prop("checked")
                     );
-
                     const selectedCheckbox = $(
                         "#tabelDataPelunasan tbody input[type='checkbox']:checked"
                     );
@@ -157,7 +241,7 @@ $('#formPilihBank').on('submit', function (event) {
         const rowData = dataTable.row(row).data();
         selectedRowsData.push(rowData);
     });
-    console.log(selectedRowsData); // Cetak data yang dicentang pada konsol untuk memastikan data yang sesuai diambil
+    console.log(selectedRowsData);
 });
 
 $("#btnPilihBank").on("click", function (event) {
@@ -191,73 +275,56 @@ $("#btnPilihBank").on("click", function (event) {
     modal.modal('show');
 });
 
-btnOK.addEventListener('click', function (event) {
+$("#btnProses").on("click", function (event) {
     event.preventDefault();
-    clickOK();
-        fetch("/detailtabelpenagihan/" + bulan.value +"/"+ tahun.value)
-            .then((response) => response.json())
-            .then((options) => {
-                console.log(options);
-                $("#tabelDataPelunasan").DataTable({
-                    data: options,
-                    columns: [
-                        {
-                            title: "Tgl Pelunasan",
-                            data: "Tgl_Pelunasan",
-                            render: function (data) {
-                                return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
-                            },
-                        },
-                        // { title: "Tgl Pelunasan", data: "Tgl_Pelunasan" },
-                        { title: "Id. Pelunasan", data: "Id_Pelunasan" },
-                        { title: "Id. Bank", data: "Id_bank" },
-                        { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
-                        { title: "Mata Uang", data: "Nama_MataUang" },
-                        { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
-                        { title: "No. Bukti", data: "No_Bukti" },
-                        { title: "Tgl Pembuatan", data: "" },
-                    ],
-                });
-            });
-        });
 
-function clickOK() {
-    let bulanValue = bulan.value;
-    let tahunValue = tahun.value;
-    if (bulanValue.trim() === '' || tahunValue.trim() === '') {
-        alert('Harap isi bulan dan tahun terlebih dahulu!');
-        return;
-    }
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const formattedDate = `${month}/${day}/${year}`;
 
-    const selectedMonth = parseInt(bulanValue, 10);
-    const selectedYear = parseInt(tahunValue, 10);
+    const idBank = $("#idBank").val();
+    const selectedRowsIndices = [];
+    $("#tabelDataPelunasan tbody input[type='checkbox']:checked").each(function () {
+        const row = $(this).closest("tr");
+        const rowIndex = dataTable.row(row).index();
+        selectedRowsIndices.push(rowIndex);
+    });
+    // Update the "Id. Bank" column with the selected value for the selected rows
+    updateIdBankColumn(idBank, selectedRowsIndices);
 
-    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
-        alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
-        bulan.value = "";
-        tahun.value = "";
-        return;
-    }
-}
-
-function validatePilihBank() {
-    const checkedRows = document.querySelectorAll('input[name="divisiCheckbox"]:checked');
-    if (checkedRows.length === 0) {
-        alert('Pilih 1 Data Pelunasan!');
-        return;
-    } else {
-        $('#pilihBank').modal('show');
-    }
-    const modal = document.getElementById('pilihBankModal');
-    modal.style.display = 'block';
-
-    // Close the modal when the user clicks outside of it
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    selectedRowsIndices.forEach((rowIdx) => {
+        const row = dataTable.row(rowIdx);
+        if (row) {
+          const rowData = row.data();
+          rowData["Tgl_Pembuatan"] = formattedDate;
+          row.data(rowData).draw();
         }
-    }
-};
+      });
+
+    $('#pilihBank').modal('hide');
+});
+
+function updateIdBankColumn(namaBankSelect, selectedRows) {
+    // Loop through each selected row index and update the data for the specific column
+    selectedRows.forEach((rowIdx) => {
+      // Get the DataTable row object for the selected row index
+      const row = dataTable.row(rowIdx);
+      if (row) {
+        // Get the current data for the row
+        const rowData = row.data();
+
+        const selectedValue = namaBankSelect.split("|");
+        const idBankValue = selectedValue[0];
+
+        // Update the "Id. Bank" column in the selected row with the id value
+        rowData["Id_bank"] = idBankValue;
+        row.data(rowData).draw();
+      }
+    });
+  }
+
+
+
+

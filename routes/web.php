@@ -75,6 +75,7 @@ Route::get('UraianBKK', 'App\Http\Controllers\Accounting\Hutang\UraianBKKControl
 Route::resource('MaintenanceBKMPenagihan', App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController::class);
 Route::get('detailtabelpenagihan/{bulan}/{tahun}', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@getTabelPenagihan');
 Route::get('detailbank', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@getDataBank');
+Route::get('tabeldetailpelunasan/{idPelunasan}', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@getTabelDetailPelunasan');
 //Route::get('MaintenanceBKMPenagihan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKMPenagihanController@MaintenanceBKMPenagihan');
 #endregion
 

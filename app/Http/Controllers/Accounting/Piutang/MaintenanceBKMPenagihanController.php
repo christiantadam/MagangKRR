@@ -22,6 +22,13 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getTabelDetailPelunasan($idPelunasan)
+    {
+        //dd($bulan, $tahun);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_DETAIL_PELUNASAN] @idPelunasan = ?', [$idPelunasan]);
+        return response()->json($tabel);
+    }
+
     function getDataBank()
     {
         $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
