@@ -13,6 +13,8 @@ const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
 const listOfInput = document.querySelectorAll(".card .form-control");
+
+const listOrder = [];
 //#endregion
 
 //#region Events
@@ -37,11 +39,11 @@ slcOrder.addEventListener("change", function () {
         fetch("/ExtruderNet/getListOrderBtl/" + slcOrder.value)
             .then((response) => response.json())
             .then((data) => {
-                listForTable = [];
+                listOrder.splice(0);
                 var tglKu = "";
                 for (let i = 0; i < data.length; i++) {
                     tglKu = data[i].TanggalOrder.split(" ")[0].split("-");
-                    listForTable.push({
+                    listOrder.push({
                         TanggalOrder: `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`,
                         TypeBenang: data[i].TypeBenang,
                         JumlahTritier: data[i].JumlahTritier,
@@ -49,7 +51,7 @@ slcOrder.addEventListener("change", function () {
                     });
                 }
 
-                addTable_DataTable("table_order", listForTable, rowClicked);
+                addTable_DataTable("table_order", listOrder, rowClicked);
                 window.scrollTo(0, document.body.scrollHeight);
             })
             .catch((error) => {

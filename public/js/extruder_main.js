@@ -124,6 +124,21 @@ function searchTable_DataTable(tableId, searchStr) {
 
     return foundRows > 0;
 }
+
+function addSpecificData(tableId, x, y, data) {
+    const table = document.getElementById(tableId);
+    const targetRow = table.rows[y];
+
+    if (targetRow) {
+        if (x >= 0 && x < targetRow.cells.length) {
+            targetRow.cells[x].innerText = data;
+        } else {
+            console.error("Invalid column index:", x);
+        }
+    } else {
+        console.error("Invalid row index:", y);
+    }
+}
 //#endregion
 
 function fetchStmt(urlString) {

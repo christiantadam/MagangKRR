@@ -55,6 +55,9 @@ Route::get('/ExtruderNet/updStatusOrder/{id_order}/{status}/{ket}', [OrderContro
 #region ExtrudeerNet - Bagian Konversi
 Route::get('/ExtruderNet/getListKomposisi/{id_komposisi}', [KonversiController::class, 'getListKomposisi']);
 Route::get('/ExtruderNet/getSatuan/{id_type}', [KonversiController::class, 'getSatuan']);
+Route::get('/ExtruderNet/getSaldoBarang/{id_type}', [KonversiController::class, 'getSaldoBarang']);
+Route::get('/ExtruderNet/getDataKonversi/{id_konversi}', [KonversiController::class, 'getDataKonversi']);
+Route::get('/ExtruderNet/insTmpTransaksi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
 #endregion
 
 #region ExtruderNet - Master

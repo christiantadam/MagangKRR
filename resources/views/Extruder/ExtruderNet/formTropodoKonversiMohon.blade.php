@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 master">
             <div class="col-lg-4">
                 <label for="no_order">No. Order:</label>
                 <select id="select_order" class="form-select">
@@ -24,18 +24,18 @@
 
             <div class="col-lg-2">
                 <label for="lot">Lot:</label>
-                <input type="text" name="lot" id="lot" class="form-control">
+                <input type="text" id="lot" class="form-control">
             </div>
 
             <div class="col-lg-1"></div>
 
             <div class="col-lg-4">
                 <label for="tanggal">Tanggal:</label>
-                <input type="date" name="tanggal" id="tanggal" class="form-control">
+                <input type="date" id="tanggal" class="form-control">
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 master">
             <div class="col-lg-4">
                 <label for="spek">Spek:</label>
                 <select id="select_spek" class="form-select">
@@ -48,7 +48,7 @@
 
             <div class="col-lg-2">
                 <label for="ukuran">Ukuran:</label>
-                <input type="number" name="ukuran" id="ukuran" class="form-control" placeholder="0">
+                <input type="number" id="ukuran" class="form-control" placeholder="0">
             </div>
 
             <div class="col-lg-1"></div>
@@ -56,15 +56,15 @@
             <div class="col-lg-4">
                 <label for="tanggal">Shift:</label>
                 <div class="input-group">
-                    <input type="text" name="shift" id="shift" class="form-control" style="max-width: 50px;">
-                    <input type="time" name="shift_awal" id="shift_awal" class="form-control">
+                    <input type="text" id="shift" class="form-control" style="max-width: 50px;">
+                    <input type="time" id="shift_awal" class="form-control">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" name="shift_akhir" id="shift_akhir" class="form-control">
+                    <input type="time" id="shift_akhir" class="form-control">
                 </div>
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 master">
             <div class="col-lg-4">
                 <label for="mesin">Mesin:</label>
                 <select id="select_mesin" class="form-select">
@@ -77,18 +77,18 @@
 
             <div class="col-lg-2">
                 <label for="denier">Denier:</label>
-                <input type="number" name="denier" id="denier" class="form-control" placeholder="0">
+                <input type="number" id="denier" class="form-control" placeholder="0">
             </div>
 
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
                 <label for="waktu_mulai">Mulai:</label>
-                <input type="time" name="waktu_mulai" id="waktu_mulai" class="form-control">
+                <input type="time" id="waktu_mulai" class="form-control">
             </div>
         </div>
 
-        <div class="row mt-3">
+        <div class="row mt-3 master">
             <div class="col-lg-4">
                 <label for="komposisi">Komposisi:</label>
                 <select id="select_komposisi" class="form-select">
@@ -101,14 +101,19 @@
 
             <div class="col-lg-2">
                 <label for="warna">Warna:</label>
-                <input type="text" name="warna" id="warna" class="form-control">
+                <input type="text" id="warna" class="form-control">
             </div>
 
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
                 <label for="waktu_selesai">Selesai:</label>
-                <input type="time" name="waktu_selesai" id="waktu_selesai" class="form-control">
+                <input type="time" id="waktu_selesai" class="form-control">
+            </div>
+
+            <div class="col-lg-2">
+                <label for="temp"></label>
+                <input type="text" id="no_urut" class="form-control" placeholder="Nomor Urut">
             </div>
         </div>
 
@@ -140,6 +145,23 @@
                                 <td style="display: none"></td>
                             @endfor
                         </tr>
+
+                        {{-- @php $col_length = 11; @endphp
+                        <tr>
+                            @for ($i = 0; $i < $col_length; $i++)
+                                <td>temp</td>
+                            @endfor
+                        </tr>
+                        <tr>
+                            @for ($i = 0; $i < $col_length; $i++)
+                                <td>temp</td>
+                            @endfor
+                        </tr>
+                        <tr>
+                            @for ($i = 0; $i < $col_length; $i++)
+                                <td>temp</td>
+                            @endfor
+                        </tr> --}}
                     </tbody>
                 </table>
 
@@ -178,9 +200,8 @@
                             <div class="col-lg-12">
                                 <label for="item_produksi">Item Produksi:</label>
                                 <div class="input-group">
-                                    <input type="text" name="item_produksi1" id="item_produksi1"
-                                        class="form-control">
-                                    <input type="text" name="item_produksi2" id="item_produksi2" class="form-control"
+                                    <input type="text" id="item_produksi1" class="form-control">
+                                    <input type="text" id="item_produksi2" class="form-control"
                                         style="width: 12.5vw;">
                                 </div>
                             </div>
@@ -189,52 +210,52 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_primer">Stok Primer:</label>
-                                <input type="text" name="stok_primer" id="stok_primer" class="form-control">
+                                <input type="text" id="stok_primer" class="form-control">
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="primer">Primer:</label>
-                                <input type="number" name="primer" id="primer" class="form-control"
-                                    placeholder="0">
+                                <input type="number" id="primer" class="form-control" placeholder="0">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_sekunder">Stok Sekunder:</label>
-                                <input type="text" name="stok_sekunder" id="stok_sekunder" class="form-control">
+                                <input type="text" id="stok_sekunder" class="form-control">
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="sekunder">Sekunder:</label>
-                                <input type="number" name="sekunder" id="sekunder" class="form-control"
-                                    placeholder="0">
+                                <input type="number" id="sekunder" class="form-control" placeholder="0">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_tritier">Stok Tritier:</label>
-                                <input type="text" name="stok_tritier" id="stok_tritier" class="form-control">
+                                <input type="text" id="stok_tritier" class="form-control">
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="tritier">Tritier:</label>
-                                <input type="number" name="tritier" id="tritier" class="form-control"
-                                    placeholder="0">
+                                <input type="number" id="tritier" class="form-control" placeholder="0">
                             </div>
                         </div>
 
                         <div class="row mt-4">
                             <div class="col-lg-3">
-                                <input type="text" name="temp" id="temp" class="form-control">
+                                <input type="text" id="jenis" class="form-control" placeholder="Jenis">
                             </div>
 
                             <div class="col-lg-9">
                                 <div class="float-end">
-                                    <button type="button" class="btn btn-outline-success">Tambah Item</button>
-                                    <button type="button" class="btn btn-outline-warning">Koreksi</button>
-                                    <button type="button" class="btn btn-outline-danger">Hapus</button>
+                                    <button type="button" id="btn_tambah_item" class="btn btn-outline-success">Tambah
+                                        Item</button>
+                                    <button type="button" id="btn_koreksi_dalam"
+                                        class="btn btn-outline-warning">Koreksi</button>
+                                    <button type="button" id="btn_hapus_dalam"
+                                        class="btn btn-outline-danger">Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -246,14 +267,14 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Konversi Baru</button>
-                <button type="submit" class="btn btn-outline-warning">Koreksi</button>
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_konversi_baru" class="btn btn-outline-success">Konversi Baru</button>
+                <button type="button" id="btn_koreksi_luar" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus_luar" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
     </div>

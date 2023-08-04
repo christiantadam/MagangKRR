@@ -2,10 +2,10 @@
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
-var checkboxes = null;
+const listOrder = [];
+const listDetailOrder = [];
 
-var listOrder = [];
-var listDetail = [];
+var checkboxes = null;
 //#endregion
 
 //#region Events
@@ -22,7 +22,7 @@ btnProses.addEventListener("click", function () {
     });
 
     alert("Data berhasil tersimpan!");
-    clearTable("table_type");
+    clearTable("table_detail_order");
     showOrder();
 });
 
@@ -45,15 +45,13 @@ btnKeluar.addEventListener("keydown", function (event) {
 
 //#region Functions
 function showOrder() {
-    listTableOrder = [];
-
     fetch("/ExtruderNet/getOrderBlmAcc/EXT")
         .then((response) => response.json())
         .then((data) => {
-            listTableOrder = [];
+            listOrder.splice(0);
             const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
             for (let i = 0; i < data.length; i++) {
-                listTableOrder.push({
+                listOrder.push({
                     Identifikasi:
                         strCheckBox +
                         data[i].IDOrder +
@@ -63,7 +61,7 @@ function showOrder() {
                 });
             }
 
-            addTable_DataTable("table_order", listTableOrder, rowClicked);
+            addTable_DataTable("table_order", listOrder, rowClicked);
 
             checkboxes = document.querySelectorAll("input[type='checkbox']");
             checkboxes.forEach((checkbox) => {
@@ -78,7 +76,7 @@ function showOrder() {
 }
 
 function rowClicked(data) {
-    const tbodyType = document.querySelector("#table_type tbody");
+    const tbodyType = document.querySelector("#table_detail_order tbody");
     tbodyType.innerHTML = `
         <tr>
             <td colspan="7" class="text-center">
@@ -96,9 +94,9 @@ function rowClicked(data) {
     fetch("/ExtruderNet/getListSpek/" + data.IDOrder)
         .then((response) => response.json())
         .then((dataFetch) => {
-            listTableType = [];
+            listDetailOrder.splice(0);
             for (let i = 0; i < dataFetch.length; i++) {
-                listTableType.push({
+                listDetailOrder.push({
                     TypeBenang: dataFetch[i].TypeBenang,
                     JumlahPrimer: dataFetch[i].JumlahPrimer,
                     SatuanPrimer: "NULL",
@@ -109,7 +107,7 @@ function rowClicked(data) {
                 });
             }
 
-            addTable_DataTable("table_type", listTableType);
+            addTable_DataTable("table_detail_order", listDetailOrder);
 
             if (dataFetch.length <= 0) {
                 tbodyType.innerHTML =
@@ -128,7 +126,7 @@ function rowClicked(data) {
 
 function init() {
     $("#table_order").DataTable({ responsive: true, paging: false });
-    $("#table_type").DataTable({ responsive: true, paging: false });
+    $("#table_detail_order").DataTable({ responsive: true, paging: false });
     showOrder();
 }
 //#endregion

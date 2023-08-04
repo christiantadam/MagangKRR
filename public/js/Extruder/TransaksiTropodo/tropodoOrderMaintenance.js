@@ -18,17 +18,16 @@ const btnDetail = document.getElementById("btn_detail");
 
 const slcType = document.getElementById("select_benang");
 
-const listDetail = document.querySelectorAll(".card .detail_order");
+const listOfDetail = document.querySelectorAll(".card .detail_order");
 
-var tempData = [];
-var listOrder = [];
+const listOrder = [];
 //#endregion
 
 //#region Events
 btnBaru.addEventListener("click", function () {
     clearTable_DataTable("table_order");
     txtIdentifikasi.value = "";
-    listOrder = [];
+    listOrder.splice(0);
     clearDataDetail();
     toggleButtons(2);
     txtIdentifikasi.focus();
@@ -101,7 +100,7 @@ btnDetail.addEventListener("click", function () {
     var isDetailEmpty = false;
 
     if (slcType.selectedIndex != 0) {
-        listDetail.forEach((ele) => {
+        listOfDetail.forEach((ele) => {
             if (ele.value == "") isDetailEmpty = true;
         });
     } else isDetailEmpty = true;
@@ -153,7 +152,7 @@ btnKeluar.addEventListener("click", function () {
         window.location.href = "/Extruder/ExtruderNet";
     } else {
         toggleButtons(1);
-        listOrder = [];
+        listOrder.splice(0);
         clearTable_DataTable("table_order");
         clearDataDetail();
         disableDetail();
@@ -261,14 +260,14 @@ function toggleButtons(tmb) {
 
 function clearDataDetail() {
     slcType.selectedIndex = 0;
-    listDetail.forEach((ele) => {
+    listOfDetail.forEach((ele) => {
         ele.value = "";
     });
 }
 
 function disableDetail() {
     slcType.disabled = true;
-    listDetail.forEach((ele) => {
+    listOfDetail.forEach((ele) => {
         ele.disabled = true;
     });
 }

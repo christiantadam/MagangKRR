@@ -18,7 +18,7 @@
             </tbody>
         </table>
 
-        <table id="table_type" class="hover cell-border mt-5">
+        <table id="table_detail_order" class="hover cell-border mt-5">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">
