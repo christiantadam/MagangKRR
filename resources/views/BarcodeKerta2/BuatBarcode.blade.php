@@ -2,6 +2,13 @@
 @section('content')
 
     <body onload="Greeting()">
+        <style>
+            .form-size-plus {
+                font-size: 20px;
+                /* Ukuran teks secara keseluruhan */
+            }
+        </style>
+
         <div class="form-wrapper mt-4">
             <div style="width: 80%;">
                 <div class="card">
@@ -299,7 +306,11 @@
                                                     <div class="d-flex flex-column align-items-center">
                                                         <label for="text" class="aligned-text">Jumlah
                                                             Barcode:</label>
-                                                        <textarea class="form-control" type="text" name="text" rows="5" style="margin-right: 10px;" readonly></textarea>
+                                                        <div class="textarea-container">
+                                                            <textarea class="form-control" name="text" rows="5" readonly>
+                                                                </textarea>
+                                                            <div class="centered-text">0</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -308,7 +319,8 @@
                                 </div>
 
 
-                                <div class="card mt-3" style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
+                                <div class="card mt-3"
+                                    style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -316,7 +328,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="primer" rows="primer"
-                                                placeholder="Primer" readonly>
+                                                placeholder="1" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">Ball</button>
                                             </div>
@@ -328,9 +340,11 @@
                                             <span class="aligned-text">Sekunder:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="sekunder" id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
+                                            <input class="form-control" type="text" name="sekunder"
+                                                id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
                                             <div class="text-center col-md-auto">
-                                                <button type="button" style="width: 100px" onclick="openModal3()">LBR</button>
+                                                <button type="button" style="width: 100px"
+                                                    onclick="openModal3()">LBR</button>
                                             </div>
                                         </div>
                                     </div>

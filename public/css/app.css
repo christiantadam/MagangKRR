@@ -9504,3 +9504,17 @@ a.text-dark:hover {
     cursor: pointer;
 }
 
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    /* Anda dapat menambahkan properti gaya lain di sini */
+}
+
+.textarea-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}

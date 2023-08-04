@@ -12,8 +12,16 @@ class PermohonanPenerimaBarangController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('PermohonanPenerimaBarang', compact('data'));
+
+        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek ?, ?, ?, ?', ["p", "p", NULL, "p"]);
+        $dataKelut = DB::connection('ConnABM')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?, ?', ["p", NULL, "p"]);
+        $dataKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataSubKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK ?, ?, ?', ["p", NULL, "p"]);
+
+
+        // dd($dataSubKelompok);
+        return view('PermohonanPenerimaBarang', compact('dataDivisi', 'dataObjek', 'dataKelut', 'dataKelompok', 'dataSubKelompok'));
     }
 
     //Show the form for creating a new resource.

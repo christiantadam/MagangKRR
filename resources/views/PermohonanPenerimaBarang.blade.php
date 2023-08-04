@@ -70,9 +70,9 @@
                                                     <div class="modal" id="myModal">
                                                         <div class="modal-content">
                                                             <span class="close-btn" onclick="closeModal()">&times;</span>
-                                                            <h2>Table Divisi</h2>
+                                                            <h2>Table Divisi Pemberi</h2>
                                                             <p>Id Divisi & Divisi</p>
-                                                            <table id="TableDivisi">
+                                                            <table id="TablePenerimaDivisi">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID Divisi</th>
@@ -80,6 +80,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataDivisi as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdDivisi }}</td>
+                                                                            <td>{{ $data->NamaDivisi }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -109,7 +115,7 @@
                                                             <span class="close-btn" onclick="closeModal1()">&times;</span>
                                                             <h2>Table Objek</h2>
                                                             <p>Id Objek & Objek</p>
-                                                            <table id="TableObjek">
+                                                            <table id="TablePenerimaObjek">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID Objek</th>
@@ -117,6 +123,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataObjek as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdObjek }}</td>
+                                                                            <td>{{ $data->NamaObjek }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -146,7 +158,7 @@
                                                             <span class="close-btn" onclick="closeModal2()">&times;</span>
                                                             <h2>Table Ketua Kelompok</h2>
                                                             <p>Id Ketua Kelompok & Ketua Kelompok</p>
-                                                            <table id="TableKelut">
+                                                            <table id="TablePenerimaKelut">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID Ketua Kelompok</th>
@@ -154,6 +166,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataKelut as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdKelompokUtama }}</td>
+                                                                            <td>{{ $data->NamaKelompokUtama }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -193,7 +211,7 @@
                                                             <span class="close-btn" onclick="closeModal3()">&times;</span>
                                                             <h2>Table Kelompok</h2>
                                                             <p>Id Kelompok & Kelompok</p>
-                                                            <table id="TableKelompok">
+                                                            <table id="TablePenerimaKelompok">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID Kelompok</th>
@@ -201,6 +219,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataKelompok as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->idkelompok }}</td>
+                                                                            <td>{{ $data->namakelompok }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -231,7 +255,7 @@
                                                             <span class="close-btn" onclick="closeModal4()">&times;</span>
                                                             <h2>Table Sub Kelompok</h2>
                                                             <p>ID Sub Kelompok & Sub Kelompok</p>
-                                                            <table id="TableSubKelompok">
+                                                            <table id="TablePenerimaSubKelompok">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID Sub Kelompok</th>
@@ -239,6 +263,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataSubKelompok as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdSubkelompok }}</td>
+                                                                            <td>{{ $data->NamaSubKelompok }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -270,20 +300,20 @@
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
+                                            <input type="text" class="form-control" name="IdDivisi2" id="IdDivisi2"
                                                 placeholder="ID Divisi" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divisi"
+                                            <input type="text" class="form-control" name="Divisi2" id="Divisi2"
                                                 placeholder="Divisi" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal()" id="ButtonDivisi">...</button></div>
-                                            <div class="modal" id="myModal">
+                                                    onclick="openModal7()" id="ButtonDivisi">...</button></div>
+                                            <div class="modal" id="myModal7">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal()">&times;</span>
-                                                    <h2>Table Divisi</h2>
+                                                    <span class="close-btn" onclick="closeModal7()">&times;</span>
+                                                    <h2>Table Divisi Penerima</h2>
                                                     <p>Id Divisi & Divisi</p>
-                                                    <table id="TableDivisi">
+                                                    <table id="TablePemberiDivisi">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID Divisi</th>
@@ -291,10 +321,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($dataDivisi as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdDivisi }}</td>
+                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                        <button type="button" onclick="closeModal7()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,20 +342,20 @@
                                             <span class="aligned-text">Objek:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdObjek" id="IdObjek"
+                                            <input type="text" class="form-control" name="IdObjek2" id="IdObjek2"
                                                 placeholder="ID Objek" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Objek" id="Objek"
+                                            <input type="text" class="form-control" name="Objek2" id="Objek2"
                                                 placeholder="Objek" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal1()" id="ButtonObjek">...</button></div>
-                                            <div class="modal" id="myModal1">
+                                                    onclick="openModal8()" id="ButtonObjek">...</button></div>
+                                            <div class="modal" id="myModal8">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal8()">&times;</span>
                                                     <h2>Table Objek</h2>
                                                     <p>Id Objek & Objek</p>
-                                                    <table id="TableObjek">
+                                                    <table id="TablePemberiObjek">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID Objek</th>
@@ -327,10 +363,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($dataObjek as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdObjek }}</td>
+                                                                    <td>{{ $data->NamaObjek }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal1()">Process</button>
+                                                        <button type="button" onclick="closeModal8()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -342,20 +384,20 @@
                                             <span class="aligned-text">Ketua Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdKelut" id="IdKelut"
+                                            <input type="text" class="form-control" name="IdKelut2" id="IdKelut2"
                                                 placeholder="ID Ketua Kelompok" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="ketua_Kelompok"
-                                                id="ketua_Kelompok" placeholder="Ketua Kelompok" readonly>
+                                            <input type="text" class="form-control" name="ketua_Kelompok2"
+                                                id="ketua_Kelompok2" placeholder="Ketua Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal2()" id="ButtonKelut">...</button></div>
-                                            <div class="modal" id="myModal2">
+                                                    onclick="openModal9()" id="ButtonKelut">...</button></div>
+                                            <div class="modal" id="myModal9">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal9()">&times;</span>
                                                     <h2>Table Ketua Kelompok</h2>
                                                     <p>Id Ketua Kelompok & Ketua Kelompok</p>
-                                                    <table id="TableKelut">
+                                                    <table id="TablePemberiKelut">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID Ketua Kelompok</th>
@@ -363,10 +405,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($dataKelut as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdKelompokUtama }}</td>
+                                                                    <td>{{ $data->NamaKelompokUtama }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal2()">Process</button>
+                                                        <button type="button" onclick="closeModal9()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -378,56 +426,35 @@
                                             <span class="aligned-text">Kode Transaksi:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdTransaksi"
-                                                id="IdTransaksi" placeholder="ID Kode Transaksi" readonly>
+                                            <input type="text" class="form-control" name="Transaksi"
+                                                id="Transaksi" placeholder="Kode Transakski">
                                         </div>
-                                        <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="kode_Transaksi"
-                                                id="kode_Transaksi" placeholder="Kode Transaksi" readonly>
-                                            <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal5()" id="ButtonTransaksi">...</button></div>
-                                            <div class="modal" id="myModal5">
-                                                <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal5()">&times;</span>
-                                                    <h2>Table Kode Transaksik</h2>
-                                                    <p>Id Kode Transaksik & Kode Transaksik</p>
-                                                    <table id="TableTransaksi">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>ID Kode Transaksi</th>
-                                                                <th>Kode Transaksi</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal5()">Process</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
+                                            <input type="text" class="form-control" name="Transaksi"
+                                                id="Transaksi" placeholder="Kode Transakski">
                                         </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdKelut" id="IdKelut"
-                                                placeholder="ID Kelompok" readonly>
+                                            <input type="text" class="form-control" name="IdKelompok2"
+                                                id="IdKelompok2" placeholder="ID Kelompok" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Kelompok" id="Kelompok"
+                                            <input type="text" class="form-control" name="Kelompok2" id="Kelompok2"
                                                 placeholder="Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal3()" id="ButtonKelut">...</button></div>
-                                            <div class="modal" id="myModal3">
+                                                    onclick="openModal10()" id="ButtonKelut">...</button></div>
+                                            <div class="modal" id="myModal10">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal3()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal10()">&times;</span>
                                                     <h2>Table Kelompok</h2>
                                                     <p>Id Kelompok & Kelompok</p>
-                                                    <table id="TableKelut">
+                                                    <table id="TablePemberiKelompok">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID Kelompok</th>
@@ -435,10 +462,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($dataKelompok as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->idkelompok }}</td>
+                                                                    <td>{{ $data->namakelompok }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal3()">Process</button>
+                                                        <button type="button" onclick="closeModal10()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -450,21 +483,21 @@
                                             <span class="aligned-text">Sub Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdSubKelompok"
-                                                id="IdSubKelompok" placeholder="ID Sub Kelompok" readonly>
+                                            <input type="text" class="form-control" name="IdSubKelompok2"
+                                                id="IdSubKelompok2" placeholder="ID Sub Kelompok" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="SubKelompok"
-                                                id="SubKelompok" placeholder="Sub Kelompok" readonly>
+                                            <input type="text" class="form-control" name="SubKelompok2"
+                                                id="SubKelompok2" placeholder="Sub Kelompok" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal4()" id="ButtonSubKelompok">...</button>
+                                                    onclick="openModal11()" id="ButtonSubKelompok">...</button>
                                             </div>
-                                            <div class="modal" id="myModal4">
+                                            <div class="modal" id="myModal11">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal4()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal11()">&times;</span>
                                                     <h2>Table Sub Kelompok</h2>
                                                     <p>ID Sub Kelompok & Sub Kelompok</p>
-                                                    <table id="TableSubKelompok">
+                                                    <table id="TablePemberiSubKelompok">
                                                         <thead>
                                                             <tr>
                                                                 <th>ID Sub Kelompok</th>
@@ -472,10 +505,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($dataSubKelompok as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdSubkelompok }}</td>
+                                                                    <td>{{ $data->NamaSubKelompok }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal4()">Process</button>
+                                                        <button type="button" onclick="closeModal11()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,8 +553,8 @@
                                         <span class="aligned-text">Kode Type Barang:</span>
                                     </div>
                                     <div class="form-group col-md-7 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="typeBarang"
-                                            id="typeBarang" placeholder="Kode Type Barang" readonly>
+                                        <input type="text" class="form-control" name="typeBarang" id="typeBarang"
+                                            placeholder="Kode Type Barang" readonly>
                                         <div class="text-center col-md-auto"><button type="button"
                                                 onclick="openModal6()" id="ButtontypeBarang">...</button>
                                         </div>
@@ -545,8 +584,8 @@
                                         <span class="aligned-text">Nama Barang:</span>
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="NamaBarang"
-                                            id="NamaBarang" placeholder="Nama Barang" readonly>
+                                        <input type="text" class="form-control" name="NamaBarang" id="NamaBarang"
+                                            placeholder="Nama Barang" readonly>
                                         <div class="text-center col-md-auto"><button type="button"
                                                 onclick="openModal7()" id="ButtonNamaBarang">...</button>
                                         </div>
@@ -772,17 +811,22 @@
                                     <div class="form-container">
                                         <div class="row mt-3 mb-3">
                                             <div class="col- row justify-content-md-center">
-                                                <div class="text-center col-md-auto" onclick="toggleHiddenTable()">
-                                                    <button type="Button">Isi</button>
+                                                <div class="text-center col-md-auto"><button style="width: 100px"
+                                                        type="button" onclick="toggleHiddenTable()">Isi</button>
                                                 </div>
-                                                <div class="text-center col-md-auto"><button
+                                                <div class="text-center col-md-auto"><button style="width: 100px"
                                                         type="button">Koreksi</button></div>
-                                                <div class="text-center col-md-auto"><button type="button">Hapus</button>
+                                                <div class="text-center col-md-auto"><button style="width: 100px"
+                                                        type="button">Hapus</button>
                                                 </div>
-                                                <div class="text-center col-md-auto"><button
+                                                <div class="text-center col-md-auto"><button style="width: 100px"
                                                         type="button">Proses</button></div>
-                                                <div class="text-center col-md-auto"><button
-                                                        type="button">Keluar</button></div>
+                                                <div class="text-center col-md-auto">
+                                                    <button style="width: 100px" type="button"
+                                                        id="keluarButton">Keluar</button>
+                                                    <button style="width: 100px" class="d-none" type="button"
+                                                        id="batalButton" onclick="toggleHiddenTable2()">Batal</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -814,8 +858,210 @@
                 });
             });
 
+            $('#TablePemberiDivisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePemberiDivisi').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdDivisi2').val(rowData[0]);
+                $('#Divisi2').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal7();
+            });
+
+            $('#TablePenerimaDivisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePenerimaDivisi').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdDivisi').val(rowData[0]);
+                $('#Divisi').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal();
+            });
+
             $(document).ready(function() {
-                $('#TableType').DataTable({
+                $('#TablePemberiDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TablePenerimaDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $('#TablePemberiObjek tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePemberiObjek').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdObjek2').val(rowData[0]);
+                $('#Objek2').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal8();
+            });
+
+            $('#TablePenerimaObjek tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePenerimaObjek').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdObjek').val(rowData[0]);
+                $('#Objek').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal1();
+            });
+
+            $(document).ready(function() {
+                $('#TablePemberiObjek').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TablePenerimaObjek').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $('#TablePemberiKelut tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePemberiKelut').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdKelut2').val(rowData[0]);
+                $('#ketua_Kelompok2').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal9();
+            });
+
+            $('#TablePenerimaKelut tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePenerimaKelut').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdKelut').val(rowData[0]);
+                $('#ketua_Kelompok').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal2();
+            });
+
+            $(document).ready(function() {
+                $('#TablePemberiKelut').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TablePenerimaKelut').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $('#TablePemberiKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePemberiKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdKelompok2').val(rowData[0]);
+                $('#Kelompok2').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal10();
+            });
+
+            $('#TablePenerimaKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePenerimaKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdKelompok').val(rowData[0]);
+                $('#Kelompok').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal3();
+            });
+
+            $(document).ready(function() {
+                $('#TablePemberiKelompok').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TablePenerimaKelompok').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $('#TablePenerimaSubKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePenerimaSubKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdSubKelompok').val(rowData[0]);
+                $('#SubKelompok').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal4();
+            });
+
+            $('#TablePemberiSubKelompok tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TablePemberiSubKelompok').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#IdSubKelompok2').val(rowData[0]);
+                $('#SubKelompok2').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal11();
+            });
+
+            $(document).ready(function() {
+                $('#TablePenerimaSubKelompok').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TablePemberiSubKelompok').DataTable({
                     order: [
                         [0, 'desc']
                     ],
@@ -934,7 +1180,55 @@
                 modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
             }
 
+            function openModal7() {
+                var modal = document.getElementById('myModal7');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
 
+            function closeModal7() {
+                var modal = document.getElementById('myModal7');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal8() {
+                var modal = document.getElementById('myModal8');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal8() {
+                var modal = document.getElementById('myModal8');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal9() {
+                var modal = document.getElementById('myModal9');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal9() {
+                var modal = document.getElementById('myModal9');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal10() {
+                var modal = document.getElementById('myModal10');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal10() {
+                var modal = document.getElementById('myModal10');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal11() {
+                var modal = document.getElementById('myModal11');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal11() {
+                var modal = document.getElementById('myModal11');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
 
             document.addEventListener("DOMContentLoaded", function() {
                 var hiddenTable = document.getElementById('hiddenTable');
@@ -947,49 +1241,31 @@
             function toggleHiddenTable() {
                 var hiddenTable = document.getElementById('hiddenTable');
                 var hiddenSection = document.getElementById('hiddenSection');
+                const batalButton = document.getElementById('batalButton');
+                const keluarButton = document.getElementById('keluarButton');
+                batalButton.classList.remove("d-none");
+                keluarButton.classList.add("d-none");
 
-                if (hiddenTable.style.display === 'none') {
-                    hiddenTable.style.display = 'block'; // Tampilkan tabel type saat tombol "Isi" ditekan
-                    hiddenSection.style.display = 'none'; // Sembunyikan pemberi barang2 saat tombol "Isi" ditekan
-                } else {
-                    hiddenTable.style.display = 'none'; // Sembunyikan tabel type saat tombol "Isi" ditekan lagi
-                    hiddenSection.style.display = 'block'; // Tampilkan pemberi barang2 saat tombol "Isi" ditekan lagi
-                }
+                hiddenTable.style.display = 'none'; // Tampilkan tabel type saat tombol "Isi" ditekan
+                hiddenSection.style.display = 'block'; // Sembunyikan pemberi barang2 saat tombol "Isi" ditekan
+
+            }
+
+            function toggleHiddenTable2() {
+                var hiddenTable = document.getElementById('hiddenTable');
+                var hiddenSection = document.getElementById('hiddenSection');
+                const batalButton = document.getElementById('batalButton');
+                const keluarButton = document.getElementById('keluarButton');
+                batalButton.classList.add("d-none");
+                keluarButton.classList.remove("d-none");
+
+                hiddenTable.style.display = 'block'; // Sembunyikan tabel type saat tombol "Isi" ditekan lagi
+                hiddenSection.style.display = 'none'; // Tampilkan pemberi barang2 saat tombol "Isi" ditekan lagi
+
             }
 
             $(document).ready(function() {
-                $('#TableDivisi').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableObjek').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableKelut').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableKelompok').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-            $(document).ready(function() {
-                $('#TableSubKelompok').DataTable({
+                $('#TableType').DataTable({
                     order: [
                         [0, 'desc']
                     ],
