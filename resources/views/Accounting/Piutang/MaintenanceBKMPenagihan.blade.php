@@ -222,7 +222,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form id="formPilihBank" method="post" action="/">
+                                            <form id="formPilihBank" method="POST" action="{{ url('DetailPelunasan') }}" id="modalkoreksi">
                                                 <div class="modal-body">
                                                     <div class="d-flex">
                                                         <div class="col-md-3">

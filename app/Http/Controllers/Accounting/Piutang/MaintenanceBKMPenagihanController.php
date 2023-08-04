@@ -63,7 +63,12 @@ class MaintenanceBKMPenagihanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        dd($request->all());
+        $idBank = $request->idBank;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_LIST_BANK_1]
+        @idBank = ?', [$idBank]);
+        return redirect()->back()->with('success', 'Data sudah diKOREKSI');
     }
 
     //Remove the specified resource from storage.

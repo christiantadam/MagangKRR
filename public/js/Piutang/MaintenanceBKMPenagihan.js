@@ -150,6 +150,7 @@ btnPilihBank.addEventListener('click', function (event) {
                 No_Bukti: cells[6].innerText,
                 //No_Bukti: cells[8].innerText
             };
+
             selectedRows.push(rowData);
         }
     }
