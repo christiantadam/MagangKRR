@@ -33,7 +33,9 @@ Route::get('getPegawaiKeluarga/{Id_Div}', 'App\Http\Controllers\Payroll\Master\K
 Route::get('getDataKeluarga/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataKeluarga');
 Route::get('getDataPegawai/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataPegawai');
 Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
-
+Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
+Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
+Route::post('ProgramPayroll/Master/Karyawan/hapusKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@hapusKeluarga');
 
 Route::get('ProgramPayroll/Master/Divisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@index')->name('divisi.index');
 //Divisi

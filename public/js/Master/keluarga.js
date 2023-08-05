@@ -14,6 +14,9 @@ $(document).ready(function () {
     $("#tabel_Keluarga").DataTable({
         order: [[0, "asc"]],
     });
+    $("#tabel_Klinik").DataTable({
+        order: [[0, "asc"]],
+    });
     function hideModalDivisi() {
         $("#modalDivPeg").removeClass("show");
         $("#modalDivPeg").css("display", "none");
@@ -46,6 +49,39 @@ $(document).ready(function () {
     const karyawanButton = document.getElementById("karyawanButton");
     const clearButtonPekerja = document.getElementById("ClearPekerja");
     const simpanButtonPekerja = document.getElementById("SimpanPekerja");
+    const clearButtonKel = document.getElementById("clearButtonKel");
+    const tambahButtonKel = document.getElementById("tambahButtonKel");
+    const simpanTambahKel = document.getElementById("simpanTambahKel");
+    const batalTambahKel = document.getElementById("batalTambahKel");
+    const koreksiButtonKel = document.getElementById("koreksiButtonKel");
+    const simpanKoreksiKel = document.getElementById("simpanKoreksiKel");
+    const batalKoreksiKel = document.getElementById("batalKoreksiKel");
+    const hapusButtonKel = document.getElementById("hapusButtonKel");
+    tambahButtonKel.addEventListener("click", function (event) {
+        tambahButtonKel.hidden = true;
+        simpanTambahKel.hidden = false;
+        batalTambahKel.hidden = false;
+        koreksiButtonKel.hidden = true;
+    });
+    batalTambahKel.addEventListener("click", function (event) {
+        tambahButtonKel.hidden = false;
+        simpanTambahKel.hidden = true;
+        batalTambahKel.hidden = true;
+        koreksiButtonKel.hidden = false;
+    });
+    koreksiButtonKel.addEventListener("click", function (event) {
+        koreksiButtonKel.hidden = true;
+        tambahButtonKel.hidden = true;
+        simpanKoreksiKel.hidden = false;
+        batalKoreksiKel.hidden = false;
+
+    });
+    batalKoreksiKel.addEventListener("click", function (event) {
+        tambahButtonKel.hidden = false;
+        simpanKoreksiKel.hidden = true;
+        batalKoreksiKel.hidden = true;
+        koreksiButtonKel.hidden = false;
+    });
     clearButtonPekerja.addEventListener("click", function () {
         const checkbox = document.getElementById("checkBPJS");
         checkbox.checked = false;
@@ -59,6 +95,24 @@ $(document).ready(function () {
         $("#Kd_Kawin").val("");
         $("#Kawin").val("");
         $("#tabel_Keluarga").DataTable().clear().draw();
+
+    });
+    clearButtonKel.addEventListener("click", function () {
+        $("#Id_Keluarga").val("");
+        $("#Nama_Keluarga").val("");
+        $("#Id_Hub_Keluarga").val("");
+        $("#Status_Hub_Keluarga").val("");
+        $('input[name="opsiKelamin"]').prop('checked', false);
+        $("#Kota_Lahir").val("");
+        $("#TglLahir").val("");
+        $("#Id_Pisat_Kel").val("");
+        $("#Nama_Pisat_Kel").val("");
+        $("#Id_Status_Kawin_Kel").val("");
+        $("#Status_Kawin_Kel").val("");
+        $("#NIK_Kel").val("");
+        $("#BPJS_Kel").val("");
+        $("#Id_Klinik_Kel").val("");
+        $("#Nama_Klinik_Kel").val("");
 
     });
 
@@ -191,6 +245,190 @@ $(document).ready(function () {
             });
     });
 
+    simpanTambahKel.addEventListener("click", function (event) {
+        event.preventDefault();
+        const idPeg = document.getElementById("Id_Peg").value;
+        const idNik = document.getElementById("NIK_Kel").value;
+        const nmKel = document.getElementById("Nama_Keluarga").value;
+        const statKel = document.getElementById("Id_Hub_Keluarga").value;
+        const tglLahir = document.getElementById("TglLahir").value;
+        const idPisat = document.getElementById("Id_Pisat_Kel").value;
+        const kotaLahir = document.getElementById("Kota_Lahir").value;
+        const checkedKelamin = document.querySelector('input[name="opsiKelamin"]:checked');
+        const statKawin = document.getElementById("Id_Status_Kawin_Kel").value;
+        const idbpjs = document.getElementById("BPJS_Kel").value;
+        const idklinik = document.getElementById("Id_Klinik_Kel").value;
+        const data = {
+            kdPeg: idPeg,
+            idNik: idNik,
+            nmKel: nmKel,
+            statKel: statKel,
+            tglLahir: tglLahir,
+            idPisat: idPisat,
+            kotaLahir: kotaLahir,
+            kelamin: checkedKelamin.value,
+            statKawin: statKawin,
+            idbpjs: idbpjs,
+            idklinik: idklinik,
+
+        };
+        console.log(data);
+
+        const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "tambahKeluarga");
+        form.setAttribute("method", "POST");
+
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
+
+        formContainer.appendChild(form);
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
+
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
+    });
+    simpanKoreksiKel.addEventListener("click", function (event) {
+        event.preventDefault();
+        const idKel = document.getElementById("Id_Keluarga").value;
+        const idNik = document.getElementById("NIK_Kel").value;
+        const nmKel = document.getElementById("Nama_Keluarga").value;
+        const statKel = document.getElementById("Id_Hub_Keluarga").value;
+        const tglLahir = document.getElementById("TglLahir").value;
+        const idPisat = document.getElementById("Id_Pisat_Kel").value;
+        const kotaLahir = document.getElementById("Kota_Lahir").value;
+        const checkedKelamin = document.querySelector('input[name="opsiKelamin"]:checked');
+        const statKawin = document.getElementById("Id_Status_Kawin_Kel").value;
+        const idbpjs = document.getElementById("BPJS_Kel").value;
+        const idklinik = document.getElementById("Id_Klinik_Kel").value;
+        const data = {
+            idKel: idKel,
+            idNik: idNik,
+            nmKel: nmKel,
+            statKel: statKel,
+            tglLahir: tglLahir,
+            idPisat: idPisat,
+            kotaLahir: kotaLahir,
+            kelamin: checkedKelamin.value,
+            statKawin: statKawin,
+            idbpjs: idbpjs,
+            idklinik: idklinik,
+
+        };
+        console.log(data);
+
+        const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "updateKeluarga");
+        form.setAttribute("method", "POST");
+
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
+
+        formContainer.appendChild(form);
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
+
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
+    });
+    hapusButtonKel.addEventListener("click", function (event) {
+        event.preventDefault();
+        const idKel = document.getElementById("Id_Keluarga").value;
+
+        const data = {
+            idKel: idKel,
+        };
+
+        const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "hapusKeluarga");
+        form.setAttribute("method", "POST");
+
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
+
+        formContainer.appendChild(form);
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
+
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
+    });
+
     $("#tabel_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#tabel_Divisi").DataTable().row(this).data();
@@ -251,21 +489,25 @@ $(document).ready(function () {
 
                 // Clear the existing table rows
                 $("#tabel_Keluarga").DataTable().clear().draw();
-
+                console.log(data);
                 // Loop through the data and create table rows
                 data.forEach((item) => {
                     var row = [
                         item.IdKeluarga,
                         item.Nama,
+                        item.StatusKeluarga,
                         item.Hubungan,
                         item.Kelamin,
                         item.KotaLahir,
                         item.TglLahir,
+                        item.KdPisat,
                         item.Pisat,
+                        item.StatusKawin,
                         item.Status,
                         item.NIK,
                         item.IdBPJS,
                         item.Klinik,
+                        item.Nama_Klinik,
                     ];
                     $("#tabel_Keluarga").DataTable().row.add(row);
                 });
@@ -293,5 +535,26 @@ $(document).ready(function () {
         $("#Kd_Kawin").val(rowData[0]);
         $("#Kawin").val(rowData[1]);
         hideModalKawin();
+    });
+    $("#tabel_Keluarga tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#tabel_Keluarga").DataTable().row(this).data();
+        var date = rowData[6].split(' ')[0];
+        // Populate the input fields with the data
+        $("#Id_Keluarga").val(rowData[0]);
+        $("#Nama_Keluarga").val(rowData[1]);
+        $("#Id_Hub_Keluarga").val(rowData[2]);
+        $("#Status_Hub_Keluarga").val(rowData[3]);
+        $('input[name="opsiKelamin"][value="' + rowData[4] + '"]').prop('checked', true);
+        $("#Kota_Lahir").val(rowData[5]);
+        $("#TglLahir").val(date);
+        $("#Id_Pisat_Kel").val(rowData[7]);
+        $("#Nama_Pisat_Kel").val(rowData[8]);
+        $("#Id_Status_Kawin_Kel").val(rowData[9]);
+        $("#Status_Kawin_Kel").val(rowData[10]);
+        $("#NIK_Kel").val(rowData[11]);
+        $("#BPJS_Kel").val(rowData[12]);
+        $("#Id_Klinik_Kel").val(rowData[13]);
+        $("#Nama_Klinik_Kel").val(rowData[14]);
     });
 });

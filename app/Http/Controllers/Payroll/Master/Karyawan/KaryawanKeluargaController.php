@@ -17,7 +17,7 @@ class KaryawanKeluargaController extends Controller
         $dataKawin = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_PISAT_STATUS ?', [2]);
         $dataHubungan = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_PISAT_STATUS ?', [3]);
         $dataKlinik = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_KLINIK ');
-        return view('Payroll.Master.Karyawan.karyawanKeluarga', compact('data', 'dataPISAT', 'dataKawin', 'dataHubungan','dataKlinik'));
+        return view('Payroll.Master.Karyawan.karyawanKeluarga', compact('data', 'dataPISAT', 'dataKawin', 'dataHubungan', 'dataKlinik'));
     }
 
     public function getDivisi($Kode)
@@ -47,6 +47,57 @@ class KaryawanKeluargaController extends Controller
             $data['tgg']
         ]);
         return redirect()->route('karyawanKeluarga.index')->with('success', 'Data Updated successfully!');
+    }
+    public function tambahKeluarga(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @kdPeg = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
+            1,
+            $data['kdPeg'],
+            $data['idNik'],
+            $data['nmKel'],
+            $data['statKel'],
+            $data['tglLahir'],
+            $data['idPisat'],
+            $data['kotaLahir'],
+            $data['kelamin'],
+            $data['statKawin'],
+            $data['idbpjs'],
+            $data['idklinik'],
+        ]);
+        return redirect()->route('karyawanKeluarga.index')->with('alert', 'Data berhasil ditambahkan!');
+    }
+    public function updateKeluarga(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
+            2,
+            $data['idKel'],
+            $data['idNik'],
+            $data['nmKel'],
+            $data['statKel'],
+            $data['tglLahir'],
+            $data['idPisat'],
+            $data['kotaLahir'],
+            $data['kelamin'],
+            $data['statKawin'],
+            $data['idbpjs'],
+            $data['idklinik'],
+        ]);
+        return redirect()->route('karyawanKeluarga.index')->with('success', 'Data berhasil diupdate!');
+    }
+    public function hapusKeluarga(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?', [
+            3,
+            $data['idKel'],
+
+        ]);
+        return redirect()->route('karyawanKeluarga.index')->with('alert', 'Data berhasil dihapus!');
     }
 
     public function getPegawaiKeluarga($Id_Div)

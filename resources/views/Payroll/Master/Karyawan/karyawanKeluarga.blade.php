@@ -7,6 +7,13 @@
             ],
         });
     </script>
+     <script>
+        var msg = '{{Session::get('alert')}}';
+        var exist = '{{Session::has('alert')}}';
+        if(exist){
+          alert(msg);
+        }
+      </script>
     <script type="text/javascript" src="{{ asset('js/Master/keluarga.js') }}"></script>
 
     <div class="container-fluid">
@@ -319,14 +326,18 @@
                                             <tr>
                                                 <th scope="col">IdKeluarga</th>
                                                 <th scope="col">Nama</th>
+                                                <th scope="col">IdHubungan</th>
                                                 <th scope="col">Hubungan</th>
                                                 <th scope="col">JnsKelamin</th>
                                                 <th scope="col">KotaLahir</th>
                                                 <th scope="col">TglLahir</th>
-                                                <th scope="col">PISAT</th>
+                                                <th scope="col">KdPisat</th>
+                                                <th scope="col">Pisat</th>
+                                                <th scope="col">IdKawin</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">NIK</th>
                                                 <th scope="col">Id BPJS</th>
+                                                <th scope="col">IdKlinik</th>
                                                 <th scope="col">Klinik</th>
 
                                             </tr>
@@ -348,7 +359,7 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input class="form-control" type="text" id="Id_Keluarga" readonly
                                                 style="resize: none; height: 40px; max-width: 100px;">
-                                            <input class="form-control" type="text" id="Nama_Keluarga" readonly
+                                            <input class="form-control" type="text" id="Nama_Keluarga"
                                                 style="resize: none; height: 40px; max-width: 450px;">
 
                                             {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
@@ -369,17 +380,17 @@
                                             <span class="aligned-text">Hubungan:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                            <input class="form-control" type="text" id="Id_Hub_Keluarga" readonly
                                                 style="resize: none; height: 40px; max-width: 50px;">
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="Status_Hub_Keluarga" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
                                                 data-toggle="modal" data-target="#modalHubungan">...</button>
                                             <span class="aligned-text" style="margin-left:30px;">&nbsp;Kelamin:</span>
-                                            <input type="radio" id="kontrak1" name="opsiKontrak" value="Harian"
-                                                checked style="vertical-align: middle;">&nbsp;Perempuan (P)&nbsp;
-                                            <input type="radio" id="kontrak1" name="opsiKontrak" value="Staff"
-                                                checked style="vertical-align: middle;">&nbsp;Laki-laki (L)
+                                            <input type="radio" id="opsiKelamin1" name="opsiKelamin" value="P"
+                                                 style="vertical-align: middle;">&nbsp;Perempuan (P)&nbsp;
+                                            <input type="radio" id="opsiKelamin2" name="opsiKelamin" value="L"
+                                                 style="vertical-align: middle;">&nbsp;Laki-laki (L)
                                             <div class="modal fade" id="modalHubungan" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">
@@ -435,10 +446,10 @@
                                             <span class="aligned-text">Tanggal, Kota Lahir:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
+                                            <input class="form-control" type="date" id="TglLahir" name="TglLahir"
+                                                value="{{ old('TglLahir', now()->format('Y-m-d')) }}"
                                                 style="width: 150px;" required>
-                                            <input class="form-control" type="text" id="Kota_Lahir" readonly
+                                            <input class="form-control" type="text" id="Kota_Lahir"
                                                 style="resize: none; height: 40px; max-width: 400px;">
                                         </div>
                                     </div>
@@ -447,9 +458,9 @@
                                             <span class="aligned-text">PISAT:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                            <input class="form-control" type="text" id="Id_Pisat_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 50px;">
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="Nama_Pisat_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
                                                 data-toggle="modal" data-target="#modalPisat2">...</button>
@@ -497,9 +508,9 @@
                                             <span class="aligned-text">Status Kawin:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" id="Id_Div" readonly
+                                            <input class="form-control" type="text" id="Id_Status_Kawin_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 50px;">
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="Status_Kawin_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
                                                 data-toggle="modal" data-target="#modalKawin2">...</button>
@@ -548,7 +559,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="NIK_Kel"
                                                 style="resize: none; height: 40px; max-width: 550px;">
 
                                         </div>
@@ -563,7 +574,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="BPJS_Kel"
                                                 style="resize: none; height: 40px; max-width: 550px;">
 
                                         </div>
@@ -574,9 +585,9 @@
                                             <span class="aligned-text">Klinik:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" id="Id_Klinik" readonly
+                                            <input class="form-control" type="text" id="Id_Klinik_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 100px;">
-                                            <input class="form-control" type="text" id="Nama_Div" readonly
+                                            <input class="form-control" type="text" id="Nama_Klinik_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 405px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
                                                 data-toggle="modal" data-target="#modalKlinik">...</button>
@@ -588,7 +599,7 @@
 
                                                             <div class="row" style=";">
                                                                 <div class="table-responsive" style="margin:30px;">
-                                                                    <table id="tabel_Hubungan"
+                                                                    <table id="tabel_Klinik"
                                                                         class="table table-bordered">
                                                                         <thead class="thead-dark">
                                                                             <tr>
@@ -623,7 +634,7 @@
 
                                 <div class="card-body" style="flex: 0 0 20%; max-width: 20%;">
                                     <div class="row" style="margin-left: 50px;">
-                                        <button type="button" class="btn" id="isiButton"
+                                        <button type="button" class="btn" id="clearButtonKel"
                                             style="width: 200px;">CLEAR</button>
                                         <div id="form-container"></div>
 
@@ -645,17 +656,25 @@
 
                                     </div>
                                     <div class="row" style="margin-left: 50px; margin-top: 20px;">
-                                        <button type="button" class="btn" id="koreksiButton"
+                                        <button type="button" class="btn" id="tambahButtonKel"
                                             style="width: 200px;">TAMBAH</button>
+                                            <button type="button" class="btn" id="simpanTambahKel"
+                                            style="width: 200px;" hidden>SIMPAN</button>
+                                            <button type="button" class="btn" id="simpanKoreksiKel"
+                                            style="width: 200px;" hidden>SIMPAN</button>
 
                                     </div>
                                     <div class="row" style="margin-left: 50px; margin-top: 20px;">
-                                        <button type="button" class="btn" id="koreksiButton"
+                                        <button type="button" class="btn" id="koreksiButtonKel"
                                             style="width: 200px;">KOREKSI</button>
+                                            <button type="button" class="btn" id="batalTambahKel"
+                                            style="width: 200px;" hidden>BATAL</button>
+                                            <button type="button" class="btn" id="batalKoreksiKel"
+                                            style="width: 200px;" hidden>BATAL</button>
 
                                     </div>
                                     <div class="row" style="margin-left: 50px; margin-top: 20px;">
-                                        <button type="button" class="btn" id="koreksiButton"
+                                        <button type="button" class="btn" id="hapusButtonKel"
                                             style="width: 200px;">HAPUS</button>
 
                                     </div>
@@ -690,23 +709,7 @@
 
 
 
-                    <div class="row" style="padding-top: 20px; margin:20px;">
-                        <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn btn-primary"
-                                style="margin-left: 10px;width:100px;">Isi</button>
-                            <button type="button" class="btn btn-secondary"
-                                style="margin-left: 10px;width:100px;">Koreksi</button>
-                            <button type="button" class="btn btn-danger"
-                                style="margin-left: 10px;width:100px;">Hapus</button>
-                            <button type="button" class="btn btn-dark"
-                                style="margin-left: 10px;width:100px;">Keluar</button>
 
-                        </div>
-                        <div class="col-6" style="text-align: right; ">
-
-
-                        </div>
-                    </div>
                 </div>
 
 
