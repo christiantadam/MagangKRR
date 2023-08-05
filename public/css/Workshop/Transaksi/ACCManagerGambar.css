@@ -2,3 +2,15 @@
     color: brown !important;
     /* background-color: black !important; */
 }
+.blue-color td {
+    color: blue !important;
+}
+.gray-color td {
+    color: gray;
+}
+.red-color td {
+    color: red;
+}
+.green-color td {
+    color: green;
+}

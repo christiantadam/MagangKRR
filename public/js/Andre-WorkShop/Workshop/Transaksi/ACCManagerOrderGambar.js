@@ -16,14 +16,17 @@ let tgl_teknik = document.getElementById("tgl_teknik");
 let ket_teknik = document.getElementById("ket_teknik");
 let acc = document.getElementById('acc');
 let iduser = document.getElementById('iduser');
-
 iduser.value = user;
+let semuacentang = document.getElementById('semuacentang');
+let arraycheckbox = [];
+let batal_acc = document.getElementById('batal_acc');
+let radiobox = document.getElementById('radiobox')
 //button
 let refresh = document.getElementById("refresh");
 
 //buat if check
 let cek = false;
-let checkedcount = 0;
+
 
 //form
 let methodForm = document.getElementById('methodForm');
@@ -41,8 +44,14 @@ table_data.on("draw", function () {
         let data = this.data();
         if (data.Tgl_TdStjMg !== null) {
             $(this.node()).addClass("acs-empty-cell");
-        } else {
-            $(this.node()).removeClass("acs-empty-cell");
+        } else if(data.User_Apv_1 !== null && data.User_Apv_2 == "N"){
+            $(this.node()).addClass("blue-color");
+        }else if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
+            $(this.node()).addClass("gray-color");
+        }else if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+            $(this.node()).addClass("red-color");
+        }else if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
+            $(this.node()).addClass("green-color");
         }
     });
 });
@@ -172,36 +181,55 @@ function klikproses() {
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
             // Lakukan sesuatu berdasarkan status 'checked'
-            if (isChecked) {
-                //console.log("sudah di check");
-                if (divisi.value == "KRR") {
-                    if (user != "tjahyo") {
+            if (acc.checked==true &&isChecked && (closestTd.hasClass("acs-empty-cell")||!closestTd.hasClass("acs-empty-cell"))) {
+                arraycheckbox.push(value);
+            }
+            else if (batal_acc.checked==true &&isChecked && (closestTd.hasClass("blue-color")||closestTd.hasClass("gray-color"))) {
+                arraycheckbox.push(value);
+            }
 
-                    }
-                    else{
+        });
+        console.log(arraycheckbox.length);
+        if (arraycheckbox.length > 0) {
+            //console.log("sudah di check");
+            if (divisi.value == "KRR") {
+                if (user != "tjahyo") {
 
-                    }
                 }
                 else{
-                    //console.log("setelah");
-                    console.log(closestTd.hasClass("acs-empty-cell"));
-                    if (acc.checked == true && closestTd.hasClass("acs-empty-cell")) {
-                        console.log("berhasil");
-                        methodForm.value = "PUT";
-                        formAccManager.action = "/MaintenanceOrderGambar/" + iduser,value + no_order.value;
-                        formAccManager.submit();
-                    }
+
                 }
-                checkedcount += 1 ;
-                // console.log(isChecked);
-                // console.log(`Checkbox dengan nilai ${value} tercentang.`);
             }
-        });
-        //console.log(checkedcount);
-        if (checkedcount == 0) {
+            else{
+                //console.log("setelah");
+                //console.log(closestTd.hasClass("acs-empty-cell"));
+                if (acc.checked == true) {
+                    //console.log("berhasil");
+                    var arrayString = arraycheckbox.join(',');
+                    //console.log(arrayString);
+                    radiobox.value = "acc"
+                    semuacentang.value = arrayString;
+                    methodForm.value = "PUT";
+                    formAccManager.action = "/ACCManagerGambar/" + no_order.value;
+                    formAccManager.submit();
+                }
+                else if (batal_acc.checked == true) {
+                      //console.log("berhasil");
+                      var arrayString = arraycheckbox.join(',');
+                      //console.log(arrayString);
+                      radiobox.value = "batal_acc"
+                      semuacentang.value = arrayString;
+                      methodForm.value = "PUT";
+                      formAccManager.action = "/ACCManagerGambar/" + no_order.value;
+                      formAccManager.submit();
+                }
+            }
+            // console.log(isChecked);
+            // console.log(`Checkbox dengan nilai ${value} tercentang.`);
+        }
+        if (arraycheckbox.length == 0) {
             alert("Pilih Nomer Order Yang Akan DiPROSES.");
         }
-        checkedcount = 0;
     }
 }
 

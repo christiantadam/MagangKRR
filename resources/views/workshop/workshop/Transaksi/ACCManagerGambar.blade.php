@@ -1,6 +1,15 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
   <link href="{{ asset('css/Workshop/Transaksi/ACCManagerGambar.css') }}" rel="stylesheet">
+  @if (Session::has('success'))
+    <div class="alert alert-success">
+      {{ Session::get('success') }}
+    </div>
+  @elseif (Session::has('error'))
+    <div class="alert alert-danger">
+      {{ Session::get('error') }}
+    </div>
+  @endif
   <div class="card-header">
     ACC Manager -- Order Gambar
   </div>
@@ -83,9 +92,9 @@
             </div>
           </div>
         </div>
-        <form action="" method="post" id="formAccManager" action="{{url('ACCManagerGambar')}}">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" id="methodForm">
+        <form action="" method="post" id="formAccManager" action="{{ url('ACCManagerGambar') }}">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodForm">
 
           <div class="row mt-3">
             <div class="col-lg-5">
@@ -208,7 +217,9 @@
             </div>
 
             <div class="col-lg-4 content-center">
-                <input type="hidden" name="iduser" id="iduser">
+              <input type="hidden" name="iduser" id="iduser">
+              <input type="hidden" name="semuacentang" id="semuacentang">
+              <input type="hidden" name="radiobox" id="radiobox">
               <button type="button" class="btn btn-secondary custom-btn"><u>K</u>ELUAR</button>
             </div>
           </div>
