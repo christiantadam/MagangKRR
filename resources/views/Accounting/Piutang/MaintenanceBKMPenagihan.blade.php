@@ -88,15 +88,15 @@
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 180%; table-layout: fixed;"id="tabelDetailPelunasan">
+                                                <table style="width: 280%; table-layout: fixed;"id="tabelDetailPelunasan">
                                                     <colgroup>
-                                                    <col style="width: 20%;">
-                                                    <col style="width: 20%;">
                                                     <col style="width: 40%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 40%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -289,6 +289,141 @@
                                                         </div>
                                                         <div class="col-md-3">
                                                             <input type="text" id="noBukti" namee="noBukti" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary">
+                                                        </div>
+                                                        <div class="col-3">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!--MODAL MAINTENANCE DETAIL PELUNASAN-->
+                                <div class="modal fade" id="modalDetailPelunasan" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="pilihBankModal">Maintenance Pilih Bank BKM</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form id="formDetailPelunasan" method="POST" action="{{ url('DetailPelunasan') }}">
+                                                <div class="modal-body">
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="idPenagihan" style="margin-right: 10px;">Id. Penagihan</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="idPelunasan" style="margin-right: 10px;">Id. Pelunasan</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="idPelunasan" name="idPelunasan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="namaCustomer" style="margin-right: 10px;">Nama Customer</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="namaCustomer" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="nilaiPelunasan" style="margin-right: 10px;">Nilai Pelunasan</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="nilaiPelunasan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="pelunasanRupiah" style="margin-right: 10px;">Pelunasan Rupiah</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="pelunasanRupiah" name="mataUang" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary">
+                                                        </div>
+                                                        <div class="col-3">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!--MODAL MAINTENANCE KURANG/LEBIH BKM-->
+                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="pilihBankModal">Maintenance Pilih Bank BKM</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form id="formKurangLebih" method="POST" action="{{ url('DetailPelunasan') }}">
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="jumlahUang" name="jumlahUang" class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="keterangan" style="margin-right: 10px;">Keterangan</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="keterangan" name="keterangan" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="row">

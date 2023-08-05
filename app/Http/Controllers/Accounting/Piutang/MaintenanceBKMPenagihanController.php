@@ -35,6 +35,11 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($bank);
     }
 
+    function getKodePerkiraan()
+    {
+        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);
+        return response()->json($bank);
+    }
 
     //Show the form for creating a new resource.
     public function create()
