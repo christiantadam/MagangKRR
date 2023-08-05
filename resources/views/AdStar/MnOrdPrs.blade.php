@@ -1,5 +1,6 @@
 @extends('layouts.appAdStar')
 @section('content')
+<link href="{{ asset('css/AdStar/MnOrdPrs.css') }}" rel="stylesheet">
 
 <h2>Maintenance Order Press</h2>
 

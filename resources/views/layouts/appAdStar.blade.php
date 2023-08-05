@@ -52,7 +52,7 @@
                 background-image: url('images/walpaper-2.png');
             }
 
-            h2 {
+            /* h2 {
                 text-align: center;
             }
 
@@ -184,7 +184,7 @@
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
-            }
+            } */
 
         </style>
 </head>

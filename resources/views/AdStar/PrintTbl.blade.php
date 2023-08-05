@@ -1,5 +1,6 @@
 @extends('layouts.appAdStar')
 @section('content')
+<link href="{{ asset('css/AdStar/PrintTbl.css') }}" rel="stylesheet">
 
 <h2>Form Print Tabel </h2>
 

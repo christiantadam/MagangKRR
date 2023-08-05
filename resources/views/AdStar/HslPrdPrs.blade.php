@@ -2,6 +2,8 @@
 @extends('layouts.appAdStar')
 @section('content')
 
+<link href="{{ asset('css/AdStar/HslPrdPrs.css') }}" rel="stylesheet">
+
 <h2>Maint Hasil Produksi</h2>
 
 <div class="body">

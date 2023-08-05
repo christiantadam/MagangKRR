@@ -1,6 +1,8 @@
 @extends('layouts.appAdStar')
 @section('content')
 
+<link href="{{ asset('css/AdStar/CpTbl.css') }}" rel="stylesheet">
+
 <style>
     /* Gaya untuk modal */
     .modal {
