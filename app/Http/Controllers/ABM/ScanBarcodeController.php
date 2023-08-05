@@ -12,8 +12,12 @@ class ScanBarcodeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('ScanBarcode', compact('data'));
+        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek ?, ?, ?, ?', ["p", "p", NULL, "p"]);
+
+
+        // dd($dataObjek);
+        return view('ScanBarcode.ScanBarcode    ', compact('dataDivisi', 'dataObjek'));
     }
 
     //Show the form for creating a new resource.

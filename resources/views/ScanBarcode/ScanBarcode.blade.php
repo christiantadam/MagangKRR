@@ -42,7 +42,7 @@
                     <div class="form-wrapper mt-4">
                         <div class="form-container">
                             <div class="card" style="width: 1500px; margin-left:-300px">
-                                <div class="card-header">Pemberi Barang</div>
+                                <div class="card-header">Scan Barcode</div>
                                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                                     <div class="form berat_woven">
                                         <form action="#" method="post" role="form">
@@ -72,7 +72,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-
+                                                                    @foreach ($dataDivisi as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdDivisi }}</td>
+                                                                            <td>{{ $data->NamaDivisi }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -110,12 +115,17 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-
+                                                                    @foreach ($dataObjek as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdObjek }}</td>
+                                                                            <td>{{ $data->NamaObjek }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
                                                                 <button type="button"
-                                                                    onclick="closeModal()">Process</button>
+                                                                    onclick="closeModal1()">Process</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -143,15 +153,16 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="row mt-3 mb-3">
+                                            <div class="row mt-3 ">
                                                 <div class="col- row justify-content-md-center">
-                                                    <div class="text-center col-md-auto"><button type="submit">Scan
-                                                            Barcode</button></div>
+                                                    <a href="{{ url('ABM/Scan') }}">
+                                                        <button type="button" style="width: 150px">Scan Barcode</button>
+                                                    </a>
                                                     <div class="text-center col-md-auto"><button
-                                                            type="submit">Refresh</button></div>
+                                                            type="button" style="width: 150px; margin-left: 15px">Refresh</button></div>
                                                     <div class="text-center col-md-auto"><button
-                                                            type="submit">Keluar</button></div>
-                                                    <input class="form-control col-md-2 ml-5" name="type" rows="blank">
+                                                            type="button" style="width: 150px">Keluar</button></div>
+                                                    <input class="form-group col-md-2 ml-5" name="type" rows="blank">
                                                 </div>
                                             </div>
                                     </div>
@@ -173,6 +184,32 @@
                         e.stopPropagation();
                         e.preventDefault();
                     });
+                });
+
+                $('#TableDivisi tbody').on('click', 'tr', function() {
+                    // Get the data from the clicked row
+
+                    var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+                    // Populate the input fields with the data
+                    $('#id_Divisi').val(rowData[0]);
+                    $('#Divisi').val(rowData[1]);
+
+                    // Hide the modal immediately after populating the data
+                    closeModal();
+                });
+
+                $('#TableObjek tbody').on('click', 'tr', function() {
+                    // Get the data from the clicked row
+
+                    var rowData = $('#TableObjek').DataTable().row(this).data();
+
+                    // Populate the input fields with the data
+                    $('#id_Objek').val(rowData[0]);
+                    $('#Objek').val(rowData[1]);
+
+                    // Hide the modal immediately after populating the data
+                    closeModal1();
                 });
 
                 var ButtonDivisi = document.getElementById('ButtonDivisi')
@@ -198,12 +235,12 @@
                 }
 
                 function openModal1() {
-                    var modal = document.getElementById('myModal');
+                    var modal = document.getElementById('myModal1');
                     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
                 }
 
                 function closeModal1() {
-                    var modal = document.getElementById('myModal');
+                    var modal = document.getElementById('myModal1');
                     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
                 }
 

@@ -72,7 +72,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-
+                                                                    @foreach ($dataDivisi as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdDivisi }}</td>
+                                                                            <td>{{ $data->NamaDivisi }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -110,7 +115,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-
+                                                                    @foreach ($dataObjek as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdObjek }}</td>
+                                                                            <td>{{ $data->NamaObjek }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -124,8 +134,6 @@
 
                                             <div class="row mt-3 mb-3">
                                                 <div class="col- row justify-content-md-center">
-                                                    <div class="text-center col-md-auto"><button type="submit">Scan
-                                                            Barcode</button></div>
                                                     <div class="text-center col-md-auto"><button
                                                             type="submit">Refresh</button></div>
                                                     <div class="text-center col-md-auto"><button
@@ -208,10 +216,45 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto mb-3"><button type="button">Lihat
-                                            Barcode</button></div>
+                            <div class="row mb-3" style="margin-left: 400px">
+                                <div class="text-center col-md-auto">
+                                    <button type="button" onclick="openModal2()" id="ButtonShift"
+                                        style="width: 180px;">Pilih Shift</button>
+                                </div>
+                                <div class="modal" id="myModal2">
+                                    <div class="modal-content" style="width: 1200px">
+                                        <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                        <h2>Lihat Barcode</h2>
+                                        <table id="TableBarcode">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id Transaksi</th>
+                                                    <th>Kelompok Utama </th>
+                                                    <th>Kelompok </th>
+                                                    <th>Sub Kelompok</th>
+                                                    <th>Nama Type</th>
+                                                    <th>Alasan Mutasi</th>
+                                                    <th>User</th>
+                                                    <th>Primer</th>
+                                                    <th>Sekunder</th>
+                                                    <th>Tritier</th>
+                                                    <th>Tanggal Mohon</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <!-- Add more rows as needed -->
+                                            </tbody>
+                                        </table>
+                                        <div class="text-center col-md-auto mt-3">
+                                            <button style="width: 100px;" type="button"
+                                                onclick="closeModal2()">Ok</button>
+                                        </div>
+                                        <div class="form-group col-md-auto mt-3">
+                                            <input type="text" class="form-control text-center" name="Objek"
+                                                id="Objek" style="width: 300px; margin-left: 415px">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -361,62 +404,106 @@
                 });
             });
 
+            $('#TableDivisi tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_Divisi').val(rowData[0]);
+                $('#Divisi').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal();
+            });
+
+            $('#TableObjek tbody').on('click', 'tr', function() {
+                // Get the data from the clicked row
+
+                var rowData = $('#TableObjek').DataTable().row(this).data();
+
+                // Populate the input fields with the data
+                $('#id_Objek').val(rowData[0]);
+                $('#Objek').val(rowData[1]);
+
+                // Hide the modal immediately after populating the data
+                closeModal1();
+            });
+
             var ButtonDivisi = document.getElementById('ButtonDivisi')
 
-                ButtonDivisi.addEventListener("click", function(event) {
-                    event.preventDefault();
+            ButtonDivisi.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+            var ButtonObjek = document.getElementById('ButtonObjek')
+
+            ButtonObjek.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+            function openModal() {
+                var modal = document.getElementById('myModal');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('myModal');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal2() {
+                var modal = document.getElementById('myModal2');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal2() {
+                var modal = document.getElementById('myModal2');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+
+            $(document).ready(function() {
+                $('#TableDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
                 });
+            });
 
-                var ButtonObjek = document.getElementById('ButtonObjek')
-
-                ButtonObjek.addEventListener("click", function(event) {
-                    event.preventDefault();
+            $(document).ready(function() {
+                $('#TableObjek').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
                 });
+            });
 
-                function openModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-                function openModal1() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal1() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-
-                $(document).ready(function() {
-                    $('#TableDivisi').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
+            $(document).ready(function() {
+                $('#TableType').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
                 });
+            });
 
-                $(document).ready(function() {
-                    $('#TableObjek').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
+            $(document).ready(function() {
+                $('#TableBarcode').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
                 });
-
-                $(document).ready(function() {
-                    $('#TableType').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
+            });
         </script>
     </body>
 @endsection

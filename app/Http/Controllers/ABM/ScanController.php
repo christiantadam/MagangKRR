@@ -7,17 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class PilihJenisRepressController extends Controller
+class ScanController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
-        $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek ?, ?, ?, ?', ["p", "p", NULL, "p"]);
-
-
-        // dd($dataObjek);
-        return view('PilihJenisRepress', compact('dataDivisi', 'dataObjek'));
+        $data = 'HAPPY HAPPY HAPPY';
+        return view('ScanBarcode.Scan', compact('data'));
     }
 
     //Show the form for creating a new resource.

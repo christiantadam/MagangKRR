@@ -565,10 +565,13 @@
                                                 <table id="TableTypeBarang">
                                                     <thead>
                                                         <tr>
-                                                            <th>Kode Type Barang</th>
+                                                            <th>Nama Type</th>
+                                                            <th>Id Type</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <td>Test 1</td>
+                                                        <td>Test 1</td>
                                                     </tbody>
                                                 </table>
                                                 <div class="text-center col-md-auto">
@@ -587,11 +590,11 @@
                                         <input type="text" class="form-control" name="NamaBarang" id="NamaBarang"
                                             placeholder="Nama Barang" readonly>
                                         <div class="text-center col-md-auto"><button type="button"
-                                                onclick="openModal7()" id="ButtonNamaBarang">...</button>
+                                                onclick="openModal12()" id="ButtonNamaBarang">...</button>
                                         </div>
-                                        <div class="modal" id="myModal7">
+                                        <div class="modal" id="myModal12">
                                             <div class="modal-content">
-                                                <span class="close-btn" onclick="closeModal7()">&times;</span>
+                                                <span class="close-btn" onclick="closeModal12()">&times;</span>
                                                 <h2>Table Kode Nama Barang</h2>
                                                 <table id="TableNamaBarang">
                                                     <thead>
@@ -600,10 +603,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <td>Test 1</td>
                                                     </tbody>
                                                 </table>
                                                 <div class="text-center col-md-auto">
-                                                    <button type="button" onclick="closeModal7()">Process</button>
+                                                    <button type="button" onclick="closeModal12()">Process</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1098,12 +1102,6 @@
                 event.preventDefault();
             });
 
-            var ButtonTransaksi = document.getElementById('ButtonTransaksi')
-
-            ButtonTransaksi.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
             var ButtonNamaBarang = document.getElementById('ButtonNamaBarang')
 
             ButtonNamaBarang.addEventListener("click", function(event) {
@@ -1227,6 +1225,16 @@
 
             function closeModal11() {
                 var modal = document.getElementById('myModal11');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal12() {
+                var modal = document.getElementById('myModal12');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal12() {
+                var modal = document.getElementById('myModal12');
                 modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
             }
 
