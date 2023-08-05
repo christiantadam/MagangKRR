@@ -50,6 +50,62 @@ const listKonversi = [];
 //#endregion
 
 //#region Functions
+//#region Utilities
+function clearDataDetail() {
+    listOfInput.forEach((input) => {
+        input.value = "";
+    });
+}
+
+function clearDataMaster() {
+    listOfSelect.forEach((select) => {
+        select.selectedIndex = 0;
+    });
+    listOfMasterInput.forEach((input) => {
+        input.value = "";
+    });
+}
+
+function disableDetail() {
+    btnTambah.disabled = true;
+    btnKoreksiDetail.disabled = true;
+    btnHapusDetail.disabled = true;
+
+    txtPrimer.disabled = true;
+    txtSekunder.disabled = true;
+    txtTersier.disabled = true;
+}
+
+function disableMaster() {
+    listOfMasterInput.forEach((input) => {
+        input.disabled = true;
+    });
+}
+
+function toggleButton(tmb) {
+    switch (tmb) {
+        case 1:
+            slcKomposisi.disabled = true;
+            btnTambah.disabled = false;
+            btnKoreksiMaster.disabled = false;
+            btnHapusMaster.disabled = false;
+            btnProses.disabled = true;
+            btnKeluar.textContent = "Keluar";
+            break;
+        case 2:
+            btnTambah.disabled = true;
+            btnKoreksiMaster.disabled = true;
+            btnHapusMaster.disabled = true;
+            btnProses.disabled = false;
+            btnKeluar.textContent = "Batal";
+
+        default:
+            break;
+    }
+}
+//#endregion
+
+//#region Database
 function getDataKomposisi(no_komposisi) {
     fetch("/ExtruderNet/getListKomposisi/" + no_komposisi)
         .then((response) => response.json())
@@ -192,37 +248,6 @@ function getDataUkuran(nama_spek) {
     txtWarna.value = x[2];
 }
 
-function clearDataDetail() {
-    listOfInput.forEach((input) => {
-        input.value = "";
-    });
-}
-
-function clearDataMaster() {
-    listOfSelect.forEach((select) => {
-        select.selectedIndex = 0;
-    });
-    listOfMasterInput.forEach((input) => {
-        input.value = "";
-    });
-}
-
-function disableDetail() {
-    btnTambah.disabled = true;
-    btnKoreksiDetail.disabled = true;
-    btnHapusDetail.disabled = true;
-
-    txtPrimer.disabled = true;
-    txtSekunder.disabled = true;
-    txtTersier.disabled = true;
-}
-
-function disableMaster() {
-    listOfMasterInput.forEach((input) => {
-        input.disabled = true;
-    });
-}
-
 function hitungTotalBahan() {
     let qty = 0;
 
@@ -256,7 +281,7 @@ function createTmpTransaksiInventory(i, id_konv_inv) {
         uraian = "tujuan_konversi";
     }
 
-    fetch(
+    fetchStmt(
         "/ExtruderNet/insTmpTransaksi/04/" +
             uraian +
             "/" +
@@ -275,6 +300,107 @@ function createTmpTransaksiInventory(i, id_konv_inv) {
             id_konv_inv
     );
 }
+
+function insertDetail(id_konv_inv) {
+    let totalBahan = hitungTotalBahan();
+    let presentaseKu = 0;
+
+    for (let i = 0; i < listKonversi.length - 1; i++) {
+        if (
+            listKonversi[i].StatusType == "BB" ||
+            listKonversi[i].StatusType == "BP" ||
+            listKonversi[i].StatusType == "AF"
+        ) {
+            presentaseKu = presentase(
+                listKonversi[i].JumlahTritier,
+                totalBahan
+            );
+        }
+
+        fetchStmt(
+            "/ExtruderNet/insDetailKonv/" +
+                slcNomor.value +
+                "/" +
+                listKonversi[i].IdType +
+                "/" +
+                listKonversi[i].JumlahPrimer +
+                "/" +
+                listKonversi[i].JumlahSekunder +
+                "/" +
+                listKonversi[i].JumlahTritier +
+                "/" +
+                presentaseKu +
+                "/" +
+                id_konv_inv
+        );
+
+        createTmpTransaksiInventory(i, id_konv_inv);
+    }
+}
+
+function prosesIsi() {
+    let idKonvInv = "";
+    let idKonvExt = "";
+
+    fetch(
+        "/ExtruderNet/insMasterKonv/" +
+            dateInput.value +
+            "/" +
+            txtShift.value +
+            "/" +
+            timeAwal.value +
+            "/" +
+            timeAkhir.value +
+            "/" +
+            slcMesin.value +
+            "/" +
+            txtUkuran.value +
+            "/" +
+            txtDenier.value +
+            "/" +
+            txtWarna.value +
+            "/" +
+            txtLot.value +
+            "/" +
+            slcNoOrder.value +
+            "/" +
+            txtNoUrut.value +
+            "/" +
+            slcKomposisi.value +
+            "/" +
+            timeMulai.value +
+            "/" +
+            timeAkhir.value +
+            "/tmpUser"
+    )
+        .then((response) => response.json())
+        .then(() => {
+            fetch("/ExtruderNet/getNoKonversiMaster")
+                .then((response) => response.json())
+                .then((data) => {
+                    slcNomor.value = data.NoKonversi;
+
+                    fetch("/ExtruderNet/updListCounter")
+                        .then((response) => response.json())
+                        .then(() => {
+                            fetch("/ExtruderNet/getNoKonversiCounter")
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    idKonvInv = data.NoKonversi;
+                                    idKonvInv = idKonvInv.padStart(9, "0");
+                                    insertDetail(idKonvInv);
+
+                                    alert("Data berhasil tersimpan!");
+                                    // BAGIAN INI BELUM SELESAI SENIN LANJUT DISINI!!!
+                                });
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error: ", error);
+                });
+        });
+}
+//#endregion
 
 function init() {
     $("#table_konversi").DataTable({

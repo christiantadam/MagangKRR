@@ -1,5 +1,5 @@
 <!--
-    LAST: Sub getSatuan | FrmMohonKonversi.vb
+    LAST: Sub CreateTmpTransaksiInventory | FrmMohonKonversi.vb
  -->
 
 <?php
@@ -33,6 +33,7 @@ Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class, 'index']);
+
 Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
 
@@ -57,7 +58,9 @@ Route::get('/ExtruderNet/getListKomposisi/{id_komposisi}', [KonversiController::
 Route::get('/ExtruderNet/getSatuan/{id_type}', [KonversiController::class, 'getSatuan']);
 Route::get('/ExtruderNet/getSaldoBarang/{id_type}', [KonversiController::class, 'getSaldoBarang']);
 Route::get('/ExtruderNet/getDataKonversi/{id_konversi}', [KonversiController::class, 'getDataKonversi']);
+Route::get('/ExtruderNet/getNoKonversiMaster/{kode?}', [KonversiController::class, 'getNoKonversiMaster']);
 Route::get('/ExtruderNet/insTmpTransaksi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
+Route::get('/ExtruderNet/insDetailKonv/{id_konversi}/{id_type}/{jumlah_primer}/{jumlah_sekunder}/{jumlah_tritier}/{presentase?}/{id_konversi_inv}', [KonversiController::class, 'insDetailKonv']);
 #endregion
 
 #region ExtruderNet - Master

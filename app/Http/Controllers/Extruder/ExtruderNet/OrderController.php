@@ -28,8 +28,6 @@ class OrderController extends Controller
                 break;
         }
 
-        // dd($this->getListSpek("EXT0001002"));
-
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,
