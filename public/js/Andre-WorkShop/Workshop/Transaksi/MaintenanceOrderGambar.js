@@ -113,16 +113,34 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
 
-// Do this before you initialize any of your modals
-// $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+//Css ACCManagerGambar
+table_data.on("draw", function () {
+    table_data.rows().every(function () {
+        let data = this.data();
+        if (data.Tgl_TdStjMg !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("acs-empty-cell");
+        }
+         if (data.User_Apv_1 !== null && data.User_Apv_2 == "N") {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("blue-color");
 
-// const formatDate = (dateString) => {
-//     const date = new Date(dateString);
-//     const year = date.getFullYear();
-//     const month = String(date.getMonth() + 1).padStart(2, "0");
-//     const day = String(date.getDate()).padStart(2, "0");
-//     return `${year}-${month}-${day}`;
-// };
+        } if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("gray-color");
+        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("red-color");
+        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("green-color");
+        } if(data.Tgl_TdStjMg == null && data.User_Apv_1 == null && data.User_Apv_2 == null && data.Tgl_Tolak_Mng == null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("black-color");
+        }
+    });
+});
+
 //#region get All data
 function AllData(tglAwal, tglAkhir, idDivisi) {
     fetch("/getalldata/" + tglAwal + "/" + tglAkhir + "/" + idDivisi)
@@ -150,7 +168,7 @@ function AllData(tglAwal, tglAkhir, idDivisi) {
                 );
             } else {
                 console.log(datas); // Optional: Check the data in the console
-                $("#tableklik").DataTable({
+                table_data = $("#tableklik").DataTable({
                     destroy: true, // Destroy any existing DataTable before reinitializing
                     data: datas,
                     columns: [
@@ -163,6 +181,7 @@ function AllData(tglAwal, tglAkhir, idDivisi) {
                         { title: "Kd. Brg", data: "Kd_Brg" },
                     ],
                 });
+                table_data.draw();
             }
 
             // initializeDataTable(datas);
