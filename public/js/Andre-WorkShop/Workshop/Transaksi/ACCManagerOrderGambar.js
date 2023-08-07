@@ -14,24 +14,26 @@ let tgl_direktur = document.getElementById("tgl_direktur");
 let ket_direktur = document.getElementById("ket_direktur");
 let tgl_teknik = document.getElementById("tgl_teknik");
 let ket_teknik = document.getElementById("ket_teknik");
-let acc = document.getElementById('acc');
-let iduser = document.getElementById('iduser');
+let acc = document.getElementById("acc");
+let iduser = document.getElementById("iduser");
 iduser.value = user;
-let semuacentang = document.getElementById('semuacentang');
+let semuacentang = document.getElementById("semuacentang");
 let arraycheckbox = [];
-let batal_acc = document.getElementById('batal_acc');
-let radiobox = document.getElementById('radiobox')
+let batal_acc = document.getElementById("batal_acc");
+let radiobox = document.getElementById("radiobox");
+let tdk_setuju = document.getElementById("tdk_setuju");
+let Ket_batal;
+let ket = [];
+let KetTdkS = document.getElementById("KetTdkS");
 //button
 let refresh = document.getElementById("refresh");
 
 //buat if check
 let cek = false;
-
-
+let red = false;
 //form
-let methodForm = document.getElementById('methodForm');
-let formAccManager = document.getElementById('formAccManager');
-
+let methodForm = document.getElementById("methodForm");
+let formAccManager = document.getElementById("formAccManager");
 
 //#endregion
 
@@ -43,15 +45,25 @@ table_data.on("draw", function () {
     table_data.rows().every(function () {
         let data = this.data();
         if (data.Tgl_TdStjMg !== null) {
+            $(this.node()).removeClass();
             $(this.node()).addClass("acs-empty-cell");
-        } else if(data.User_Apv_1 !== null && data.User_Apv_2 == "N"){
+        }
+         if (data.User_Apv_1 !== null && data.User_Apv_2 == "N") {
+            $(this.node()).removeClass();
             $(this.node()).addClass("blue-color");
-        }else if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
+
+        } if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
+            $(this.node()).removeClass();
             $(this.node()).addClass("gray-color");
-        }else if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+            $(this.node()).removeClass();
             $(this.node()).addClass("red-color");
-        }else if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
+        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
+            $(this.node()).removeClass();
             $(this.node()).addClass("green-color");
+        } if(data.Tgl_TdStjMg == null && data.User_Apv_1 == null && data.User_Apv_2 == null && data.Tgl_Tolak_Mng == null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("black-color");
         }
     });
 });
@@ -104,6 +116,9 @@ function AllData(idDivisi) {
                 ],
             });
             table_data.draw();
+            if (datas.length == 0 ) {
+                alert("Tidak ada Order Untuk Divisi "+ divisi.value);
+            }
         });
 }
 divisi.addEventListener("change", function () {
@@ -174,60 +189,132 @@ $("#pilihsemua").on("click", function () {
 function klikproses() {
     console.log(table_data.rows().count());
     if (table_data.rows().count() != 0) {
-
         $("input[name='ManagerCheckbox']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
             let value = $(this).val();
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
             // Lakukan sesuatu berdasarkan status 'checked'
-            if (acc.checked==true &&isChecked && (closestTd.hasClass("acs-empty-cell")||!closestTd.hasClass("acs-empty-cell"))) {
-                arraycheckbox.push(value);
+            if (acc.checked == true) {
+                if (
+                    isChecked &&
+                    (closestTd.hasClass("acs-empty-cell") ||
+                        closestTd.hasClass("black-color"))
+                ) {
+                    arraycheckbox.push(value);
+                }
+            } else if (batal_acc.checked == true) {
+                if (
+                    isChecked &&
+                    (closestTd.hasClass("blue-color") ||
+                        closestTd.hasClass("gray-color"))
+                ) {
+                    arraycheckbox.push(value);
+                } else if (isChecked && closestTd.hasClass("red-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diBatalkan, sdh diACC Direktur"
+                    );
+                    red = true;
+                    return;
+                } else if (isChecked && closestTd.hasClass("green-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diBatalkan. Order ditolak oleh Div. Teknik."
+                    );
+                    red = true;
+                    return;
+                }
+            } else if (tdk_setuju.checked == true) {
+                if (
+                    isChecked &&
+                    (closestTd.hasClass("black-color") ||
+                        closestTd.hasClass("gray-color"))
+                ) {
+                    Ket_batal = prompt(
+                        "Alasan tdk disetujui Order " + value + " :"
+                    );
+                    ket.push(Ket_batal);
+                    arraycheckbox.push(value);
+                } else if (isChecked && closestTd.hasClass("red-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diproses, sdh diACC Direktur"
+                    );
+                    red = true;
+                    return;
+                } else if (isChecked && closestTd.hasClass("green-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diproses. Order ditolak oleh Div. Teknik."
+                    );
+                    red = true;
+                    return;
+                } else if (isChecked && closestTd.hasClass("blue-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diproses. Order sdh diACC, batalkan dulu ACC-nya."
+                    );
+                }
             }
-            else if (batal_acc.checked==true &&isChecked && (closestTd.hasClass("blue-color")||closestTd.hasClass("gray-color"))) {
-                arraycheckbox.push(value);
-            }
-
         });
         console.log(arraycheckbox.length);
         if (arraycheckbox.length > 0) {
             //console.log("sudah di check");
             if (divisi.value == "KRR") {
                 if (user != "tjahyo") {
-
+                    alert("Anda Tidak BerHAK memProses.");
+                    return;
                 }
                 else{
-
+                    alert("Lanjutkan ke ACC sebagai Direktur..");
+                    window.location.href = "ACCDirekturGambar";
                 }
-            }
-            else{
+            } else {
                 //console.log("setelah");
                 //console.log(closestTd.hasClass("acs-empty-cell"));
                 if (acc.checked == true) {
                     //console.log("berhasil");
-                    var arrayString = arraycheckbox.join(',');
+                    var arrayString = arraycheckbox.join(",");
                     //console.log(arrayString);
-                    radiobox.value = "acc"
+                    radiobox.value = "acc";
                     semuacentang.value = arrayString;
                     methodForm.value = "PUT";
-                    formAccManager.action = "/ACCManagerGambar/" + no_order.value;
+                    formAccManager.action =
+                        "/ACCManagerGambar/" + no_order.value;
                     formAccManager.submit();
-                }
-                else if (batal_acc.checked == true) {
-                      //console.log("berhasil");
-                      var arrayString = arraycheckbox.join(',');
-                      //console.log(arrayString);
-                      radiobox.value = "batal_acc"
-                      semuacentang.value = arrayString;
-                      methodForm.value = "PUT";
-                      formAccManager.action = "/ACCManagerGambar/" + no_order.value;
-                      formAccManager.submit();
+                } else if (batal_acc.checked == true) {
+                    //console.log("berhasil");
+                    var arrayString = arraycheckbox.join(",");
+                    //console.log(arrayString);
+                    radiobox.value = "batal_acc";
+                    semuacentang.value = arrayString;
+                    methodForm.value = "PUT";
+                    formAccManager.action =
+                        "/ACCManagerGambar/" + no_order.value;
+                    formAccManager.submit();
+                } else if (tdk_setuju.checked == true) {
+                    var arrayString = arraycheckbox.join(",");
+                    var arrayString1 = ket.join(",");
+                    //console.log(arrayString);
+                    radiobox.value = "tidak_setuju";
+                    KetTdkS.value = arrayString1;
+                    semuacentang.value = arrayString;
+                    methodForm.value = "PUT";
+                    formAccManager.action =
+                        "/ACCManagerGambar/" + no_order.value;
+                    formAccManager.submit();
                 }
             }
             // console.log(isChecked);
             // console.log(`Checkbox dengan nilai ${value} tercentang.`);
         }
-        if (arraycheckbox.length == 0) {
+        if (arraycheckbox.length == 0 && red == false) {
             alert("Pilih Nomer Order Yang Akan DiPROSES.");
         }
     }

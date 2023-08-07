@@ -220,6 +220,7 @@
               <input type="hidden" name="iduser" id="iduser">
               <input type="hidden" name="semuacentang" id="semuacentang">
               <input type="hidden" name="radiobox" id="radiobox">
+              <input type="hidden" name="KetTdkS" id="KetTdkS">
               <button type="button" class="btn btn-secondary custom-btn"><u>K</u>ELUAR</button>
             </div>
           </div>

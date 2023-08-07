@@ -48,7 +48,7 @@ class ACCManagerGambarController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
         $radiobox = $request->radiobox;
         if ($radiobox == "acc") {
             # code...
@@ -65,6 +65,18 @@ class ACCManagerGambarController extends Controller
             $idorder = explode(",", $data);
             for ($i=0; $i < count($idorder); $i++) {
                 DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_BATAL-ACC-MNG-ORDER-GBR] @noOrder = ?', [ $idorder[$i]]);
+            }
+            return redirect()->back()->with('success', 'ACC Order sdh dibatalkan.');
+        }
+        else if ($radiobox == "tidak_setuju") {
+            # code...
+            $user = $request->iduser;
+            $data = $request->semuacentang;
+            $idorder = explode(",", $data);
+            $dataket = $request->KetTdkS;
+            $ket = explode(",", $dataket);
+            for ($i=0; $i < count($idorder); $i++) {
+                DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_TDKSTJ-MNG-ORDER-GBR] @user = ?, @noOrder = ?, @ket = ?', [$user ,$idorder[$i],$ket[$i]]);
             }
             return redirect()->back()->with('success', 'ACC Order sdh dibatalkan.');
         }
