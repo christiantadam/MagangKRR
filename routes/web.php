@@ -23,6 +23,7 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 
 //route adstar
 Route::get('AdStar', 'App\Http\Controllers\AdStarController\AdStar@index');
+Route::get('AdStarHome', 'App\Http\Controllers\AdStarController\AdStarHome@index');
 Route::get('CpTbl', 'App\Http\Controllers\AdStarController\CpTbl@index');
 Route::get('HslPrdPrs', 'App\Http\Controllers\AdStarController\HslPrdPrs@index');
 Route::get('MnOrdPrs', 'App\Http\Controllers\AdStarController\MnOrdPrs@index');
@@ -33,6 +34,7 @@ Route::get('OpnTop', 'App\Http\Controllers\AdStarController\OpnTop@index');
 Route::get('ClsTop', 'App\Http\Controllers\AdStarController\ClsTop@index');
 
 //route barcode
+Route::get('Barcode', 'App\Http\Controllers\BarcodeAdStarController\Barcode@index');
 Route::get('Schedule', 'App\Http\Controllers\BarcodeAdStarController\Schedule@index');
 Route::get('BtBrcd', 'App\Http\Controllers\BarcodeAdStarController\BtBrcd@index');
 Route::get('Repress', 'App\Http\Controllers\BarcodeAdStarController\Repress@index');

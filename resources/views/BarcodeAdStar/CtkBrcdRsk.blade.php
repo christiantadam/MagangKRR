@@ -1,5 +1,5 @@
 
-@extends('layouts.appAdStar')
+@extends('layouts.appBarcode')
 @section('content')
 
 <h2>Cetak Barcode Rusak</h2>

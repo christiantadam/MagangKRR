@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class AdStar extends Controller
+class AdStarHome extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class AdStar extends Controller
             ->select('*')
             ->get();
         // dd($users);
-        return view('AdStar'); //
+        return view('AdStar.AdStarHome'); //
     }
 
     /**

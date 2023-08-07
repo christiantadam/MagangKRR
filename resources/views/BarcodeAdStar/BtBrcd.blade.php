@@ -1,4 +1,4 @@
-@extends('layouts.appAdStar')
+@extends('layouts.appBarcode')
 @section('content')
 
 <h2>Permohonan Barcode</h2>

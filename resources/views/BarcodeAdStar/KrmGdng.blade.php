@@ -1,4 +1,4 @@
-@extends('layouts.appAdStar')
+@extends('layouts.appBarcode')
 @section('content')
 
 <h2>Scan Barcode Sebelum Dikirim Ke Gudang</h2>

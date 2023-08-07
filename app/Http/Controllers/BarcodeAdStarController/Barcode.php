@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\AdStarController;
+namespace App\Http\Controllers\BarcodeAdStarController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class AdStar extends Controller
+class Barcode extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class AdStar extends Controller
             ->select('*')
             ->get();
         // dd($users);
-        return view('AdStar'); //
+        return view('BarcodeAdStar.BarcodeHome'); //
     }
 
     /**

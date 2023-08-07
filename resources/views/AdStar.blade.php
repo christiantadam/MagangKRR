@@ -9,7 +9,7 @@
                             <h2 class="acs-txt-card">AD STAR</h2>
                             <img src="{{ asset('/images/AdStar.png') }}" alt="" class="acs-img-card">
                         </div>
-                        <div class="acs-card" onclick="OpenNewTab('{{ url('JmbBag') }}');">
+                        <div class="acs-card" onclick="OpenNewTab('{{ url('Barcode') }}');">
                             <h2 class="acs-txt-card">JumboBag</h2>
                             <img src="{{ asset('/images/AdStar.png') }}" alt="" class="acs-img-card">
                         </div>

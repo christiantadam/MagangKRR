@@ -204,48 +204,58 @@
                             <div class="dropdown">
                                 <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Order & Hasil
+                                    Barcode
                                 </a>
                                 <ul class="dropdown-menu" style="cursor: default">
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('UpKdBrng') }}');">Update Kd Barang</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Schedule') }}');">Schedule</a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('MnOrdPrs') }}');">Main Order Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('BtBrcd') }}');">Buat Barcode</a>
 
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('StpOrdPrs') }}');">Stop Order Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('Repress') }}');">Repress </a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('HslPrdPrs') }}');">Hasil Prod Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');">Cetak Barcode Rusak </a>
                                     </li>
 
-                                </ul>
-                            </div>
-
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Tabel Hitungan
-                                </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-
                                     <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('OpnTop') }}');">Open Top</a>
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('DftPlt') }}');">Daftar Palet </a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('ClsTop') }}');">Close Top</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HngsBrcd') }}');">Hanguskan Barcode </a>
                                     </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KrmGdng') }}');"> Kirim Gudang </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('BtlKrm') }}');">Batal Kirim </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KnvGdng') }}');">Konversi Gudang JBB </a>
+                                    </li>
+
+                                    <li><a class="test"
+                                        style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('HslBrcd') }}');">Hasil Barcode </a>
+                                </li>
 
                                 </ul>
                             </div>

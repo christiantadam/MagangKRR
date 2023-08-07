@@ -1,4 +1,4 @@
-@extends('layouts.appAdStar')
+@extends('layouts.appBarcode')
 @section('content')
 
 <h2>Form Batal Kirim Gudang</h2>
