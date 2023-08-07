@@ -61,6 +61,10 @@ Route::get('/ExtruderNet/getDataKonversi/{id_konversi}', [KonversiController::cl
 Route::get('/ExtruderNet/getNoKonversiMaster/{kode?}', [KonversiController::class, 'getNoKonversiMaster']);
 Route::get('/ExtruderNet/insTmpTransaksi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
 Route::get('/ExtruderNet/insDetailKonv/{id_konversi}/{id_type}/{jumlah_primer}/{jumlah_sekunder}/{jumlah_tritier}/{presentase?}/{id_konversi_inv}', [KonversiController::class, 'insDetailKonv']);
+Route::get('/ExtruderNet/getIdKonversiInv/{id_konversi}', [KonversiController::class, 'getIdKonversiInv']);
+Route::get('/ExtruderNet/delDetailKonversi/{id_konversi}/{id_konv_inv}', [KonversiController::class, 'delDetailKonversi']);
+Route::get('/ExtruderNet/updMasterKonversi/{tgl}/{shift}/{awal}/{akhir}/{ukuran}/{denier}/{warna}/{lot_number}/{jam1}/{jam2}/{id_konv}', [KonversiController::class, 'updMasterKonversi']);
+Route::get('/ExtruderNet/delKonversi/{id_konversi}', [KonversiController::class, 'delKonversi']);
 #endregion
 
 #region ExtruderNet - Master

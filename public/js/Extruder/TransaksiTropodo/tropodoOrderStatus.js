@@ -39,7 +39,7 @@ slcOrder.addEventListener("change", function () {
         fetch("/ExtruderNet/getListOrderBtl/" + slcOrder.value)
             .then((response) => response.json())
             .then((data) => {
-                listOrder.splice(0);
+                listOrder.length = 0;
                 var tglKu = "";
                 for (let i = 0; i < data.length; i++) {
                     tglKu = data[i].TanggalOrder.split(" ")[0].split("-");

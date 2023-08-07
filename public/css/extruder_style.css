@@ -34,6 +34,11 @@ button:not(.btn):not(:disabled):hover {
     display: none;
 }
 
+.unclickable {
+    pointer-events: none;
+    background-color: var(--bs-secondary-bg);
+}
+
 /*--------------------------------------------------------------
 # General (FIXED)
 --------------------------------------------------------------*/

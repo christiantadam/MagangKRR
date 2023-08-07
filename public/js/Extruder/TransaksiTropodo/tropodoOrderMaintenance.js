@@ -27,7 +27,7 @@ const listOrder = [];
 btnBaru.addEventListener("click", function () {
     clearTable_DataTable("table_order");
     txtIdentifikasi.value = "";
-    listOrder.splice(0);
+    listOrder.length = 0;
     clearDataDetail();
     toggleButtons(2);
     txtIdentifikasi.focus();
@@ -152,7 +152,7 @@ btnKeluar.addEventListener("click", function () {
         window.location.href = "/Extruder/ExtruderNet";
     } else {
         toggleButtons(1);
-        listOrder.splice(0);
+        listOrder.length = 0;
         clearTable_DataTable("table_order");
         clearDataDetail();
         disableDetail();

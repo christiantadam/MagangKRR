@@ -48,7 +48,7 @@ function showOrder() {
     fetch("/ExtruderNet/getOrderBlmAcc/EXT")
         .then((response) => response.json())
         .then((data) => {
-            listOrder.splice(0);
+            listOrder.length = 0;
             const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
             for (let i = 0; i < data.length; i++) {
                 listOrder.push({
@@ -94,7 +94,7 @@ function rowClicked(data) {
     fetch("/ExtruderNet/getListSpek/" + data.IDOrder)
         .then((response) => response.json())
         .then((dataFetch) => {
-            listDetailOrder.splice(0);
+            listDetailOrder.length = 0;
             for (let i = 0; i < dataFetch.length; i++) {
                 listDetailOrder.push({
                     TypeBenang: dataFetch[i].TypeBenang,
@@ -121,12 +121,39 @@ function rowClicked(data) {
                     <td style="display: none"></td>
                     <td style="display: none"></td></tr>`;
             }
+
+            window.scrollTo(0, document.body.scrollHeight);
         });
 }
 
 function init() {
-    $("#table_order").DataTable({ responsive: true, paging: false });
-    $("#table_detail_order").DataTable({ responsive: true, paging: false });
+    $("#table_order").DataTable({
+        responsive: true,
+        paging: false,
+        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+        language: {
+            searchPlaceholder: " Tabel order...",
+            search: "",
+        },
+    });
+
+    $("#table_detail_order").DataTable({
+        responsive: true,
+        paging: false,
+        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+        language: {
+            searchPlaceholder: " Tabel konversi...",
+            search: "",
+        },
+
+        initComplete: () => {
+            var searchInput = $('input[type="search"]').addClass(
+                "form-control"
+            );
+            searchInput.wrap('<div class="input-group"></div>');
+            searchInput.before('<span class="input-group-text">Cari:</span>');
+        },
+    });
     showOrder();
 }
 //#endregion

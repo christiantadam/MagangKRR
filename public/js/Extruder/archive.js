@@ -12,3 +12,18 @@ function getSatuan(id_type, i) {
             addSpecificData("table_konversi", 7, i, listSatuan[2]);
         });
 }
+
+function addSpecificData(tableId, x, y, data) {
+    const table = document.getElementById(tableId);
+    const targetRow = table.rows[y];
+
+    if (targetRow) {
+        if (x >= 0 && x < targetRow.cells.length) {
+            targetRow.cells[x].innerText = data;
+        } else {
+            console.error("Invalid column index:", x);
+        }
+    } else {
+        console.error("Invalid row index:", y);
+    }
+}

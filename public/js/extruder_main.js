@@ -80,6 +80,12 @@ function addTable_DataTable(
         scrollY: tableHeight,
         data: listData,
         columns: Object.keys(listData[0]).map((key) => ({ data: key })),
+        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+        language: {
+            searchPlaceholder: " Tabel konversi...",
+            search: "",
+        },
+
         rowCallback: function (row, data, index) {
             if (rowFun != null) {
                 row.style.cursor = "pointer";
@@ -90,6 +96,8 @@ function addTable_DataTable(
             }
         },
     });
+
+    addSearchBar_DataTable(tableId);
 }
 
 function clearTable_DataTable(tableId) {
@@ -125,19 +133,14 @@ function searchTable_DataTable(tableId, searchStr) {
     return foundRows > 0;
 }
 
-function addSpecificData(tableId, x, y, data) {
-    const table = document.getElementById(tableId);
-    const targetRow = table.rows[y];
+function addSearchBar_DataTable(tableId) {
+    var searchInput = $(`#${tableId}_filter input[type="search"]`).addClass(
+        "form-control"
+    );
+    searchInput.wrap('<div class="input-group"></div>');
+    searchInput.before('<span class="input-group-text">Cari:</span>');
 
-    if (targetRow) {
-        if (x >= 0 && x < targetRow.cells.length) {
-            targetRow.cells[x].innerText = data;
-        } else {
-            console.error("Invalid column index:", x);
-        }
-    } else {
-        console.error("Invalid row index:", y);
-    }
+    console.log("Halo dunia!");
 }
 //#endregion
 

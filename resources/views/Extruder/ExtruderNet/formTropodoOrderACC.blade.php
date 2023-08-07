@@ -1,7 +1,8 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_order_acc" class="form" data-aos="fade-up">
-        <table id="table_order" class="hover cell-border mt-3">
+        {{-- BELUM SELESAI ATUR MARGIN KAWAN!!! --}}
+        <table id="table_order" class="hover cell-border">
             <thead>
                 <tr>
                     <th scope="col">Identifikasi Order</th>
@@ -18,7 +19,7 @@
             </tbody>
         </table>
 
-        <table id="table_detail_order" class="hover cell-border mt-5">
+        <table id="table_detail_order" class="hover cell-border">
             <colgroup>
                 <col style="width: 300px;">
                 <col style="width: 125px;">

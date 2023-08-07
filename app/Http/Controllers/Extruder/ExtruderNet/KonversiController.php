@@ -14,8 +14,10 @@ class KonversiController extends Controller
         $form_data = [];
 
         switch ($form_name) {
-            case 'nama form disini':
-                $form_data = [];
+            case 'formTropodoKonversiMohon':
+                $form_data = [
+                    'listKonversi' => $this->getListKonversi('EXT'),
+                ];
                 break;
 
             default:
@@ -28,7 +30,7 @@ class KonversiController extends Controller
             'formData' => $form_data,
         ];
 
-        dd($this->getListKomposisi('idKom02'));
+        // dd($this->getSatuan('1'));
 
         return view($view_name, $view_data);
     }
@@ -77,7 +79,8 @@ class KonversiController extends Controller
         );
 
         // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - MasterKonversiEXT, MasterKomposisi, OrderMasterEXT, MasterMesin, OrderDetailEXT
+        // TABLE Extruder - MasterKonversiEXT
+        // FK TABLE - MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder), OrderDetailEXT(IdOrder), MasterMesin(IdMesin)
     }
 
     public function getDetailKonversi($id_konversi)
@@ -130,6 +133,18 @@ class KonversiController extends Controller
         // *Query SELECT pada SP_5298_EXT_LIST_COUNTER
     }
 
+    public function getListKonversi($id_divisi, $kode = null, $datetime = null)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_KONVERSI @Kode = ?, @iddivisi = ?, @Tanggal = ?',
+            [$kode, $id_divisi, $datetime]
+        );
+
+        // PARAMETER @Kode int=null, @iddivisi char(3), @Tanggal datetime=null
+        // TABLE Extruder - MasterKonversiEXT
+        // FK TABLE Extruder - MasterKomposisi(IdKomposisi), MasterMesin(IdMesin) OrderMasterEXT(IdOrder), OrderDetailEXT(IdOrder)
+    }
+
     public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
     {
         $sp_str = '';
@@ -179,6 +194,49 @@ class KonversiController extends Controller
         return DB::connection('ConnExtruder')->statement('exec SP_5298_EXT_LIST_COUNTER', []);
         // TABLE Inventory - Counter
         // *fungsi terkait - getNoKonversiCounter()
+    }
+
+    public function getIdKonversiInv($id_konversi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_IDKONVERSI_INV @idkonversi = ?',
+            [$id_konversi]
+        );
+        // PARAMETER @idkonversi varchar(14)
+        // TABLE Extruder - DetailKonversiEXT
+        // FK TABLE Extruder - MasterKonversiEXT
+    }
+
+    public function delDetailKonversi($id_konversi, $id_konv_inv)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_DELETE_DETAIL_KONVERSI @idkonversi = ?, @idkonvInv = ?',
+            [$id_konversi, $id_konv_inv]
+        );
+        // PARAMETER @idkonversi varchar(14), @idkonvInv varchar(9)
+        // TABLE Extruder - DetailKonversiEXT
+        // FK TABLE Extruder - MasterKonversiEXT
+    }
+
+    public function updMasterKonversi($tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_UPDATE_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @jam1 = ?, @jam2 = ?, @idkonv = ?',
+            [$tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv]
+        );
+        // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
+        // TABLE Extruder - MasterKonversiEXT
+        // FK TABLE Extruder - MasterJadwalProduksi(IdJadwalProduksi), MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder)
+    }
+
+    public function delKonversi($id_konversi)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_DELETE_KONVERSI @idkonversi = ?',
+            [$id_konversi]
+        );
+        // PARAMETER @idkonversi varchar(14)
+        // TABLE Extruder - DetailKonversiEXT
     }
     #endregion
 }
