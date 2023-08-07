@@ -37,8 +37,8 @@ class MaintenanceBKMPenagihanController extends Controller
 
     function getKodePerkiraan()
     {
-        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);
-        return response()->json($bank);
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);
+        return response()->json($kode);
     }
 
     //Show the form for creating a new resource.
@@ -68,12 +68,26 @@ class MaintenanceBKMPenagihanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        dd($request->all());
-        $idBank = $request->idBank;
+        //dd($request->all());
+        $proses =  $request->proses;
+        if ($proses == "detPelunasan") {
 
-        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_LIST_BANK_1]
-        @idBank = ?', [$idBank]);
-        return redirect()->back()->with('success', 'Data sudah diKOREKSI');
+            $idBank = $request->idBank;
+
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_LIST_BANK_1]
+            @idBank = ?', [$idBank]);
+            return redirect()->back()->with('success', 'Data sudah diKOREKSI');
+
+        } else if ($proses == "detkuranglebih") {
+            $idDetail = $request->idDetail;
+            $kode = $request->kode;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_PELUNASAN] @iddetail = ?, @kode = ?', [
+                $idDetail, $kode]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
+
+
+
     }
 
     //Remove the specified resource from storage.

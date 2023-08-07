@@ -84,7 +84,7 @@
                                     <div class="card" style="width: 40%;">
                                         <div class="card-body">
                                             <div class="col-md-12">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                                <input type="radio" name="radiogrupDetail" value="1" id="radio_1">
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
@@ -130,7 +130,7 @@
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-12">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_2">
+                                                <input type="radio" name="radiogrupDetail" value="2" id="radio_2">
                                                 <label for="radio_2">Detail Biaya</label>
                                             </div>
                                             <div style="overflow-x: auto;">
@@ -166,7 +166,7 @@
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-12">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_3">
+                                                <input type="radio" name="radiogrupDetail" value="3" id="radio_3">
                                                 <label for="radio_3">Detail Kurang/Lebih</label>
                                             </div>
                                             <div style="overflow-x: auto;">
@@ -201,7 +201,7 @@
                                 <br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-5">
-                                            <input type="submit" id="btnKoreksiDetail" name="koreksidetail" value="Koreksi Detail" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKoreksiDetail" name="koreksidetail" value="Koreksi Detail" class="btn btn-primary d-flex ml-auto" onclick="validateTabel()">
                                         </div>
                                         <div class="col-3">
                                             <input type="submit" id="btnTampilBKM" name="tampilbkm" value="Tampil BKM" class="btn btn-primary d-flex ml-auto">
@@ -308,7 +308,7 @@
                                 </div>
 
                                 <!--MODAL MAINTENANCE DETAIL PELUNASAN-->
-                                <div class="modal fade" id="modalDetailPelunasan" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
+                                <div class="modal fade" id="modalDetailPelunasan" tabindex="-1" role="dialog" aria-labelledby="modalDetailPelunasan" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -317,7 +317,9 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form id="formDetailPelunasan" method="POST" action="{{ url('DetailPelunasan') }}">
+                                            <form method="POST" action="{{ url('DetailPelunasan') }}" id="formDetailPelunasan">
+                                                {{csrf_field()}}
+                                                <input type="hidden" name="_method" id="methoddetail">
                                                 <div class="modal-body">
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
@@ -327,10 +329,10 @@
                                                             <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <label for="idPelunasan" style="margin-right: 10px;">Id. Pelunasan</label>
+                                                            <label for="idPelunasanDetail" style="margin-right: 10px;">Id. Pelunasan</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" id="idPelunasan" name="idPelunasan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="idPelunasanDetail" name="idPelunasanDetail" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -346,7 +348,7 @@
                                                             <label for="nilaiPelunasan" style="margin-right: 10px;">Nilai Pelunasan</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="nilaiPelunasan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="nilaiPelunasanDetail" name="nilaiPelunasan" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -372,7 +374,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-5">
-                                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary">
+                                                            <input type="submit" id="btnProsesDetail" name="btnProsesDetail" value="Proses" class="btn btn-primary">
                                                         </div>
                                                         <div class="col-3">
                                                         </div>
@@ -380,6 +382,7 @@
                                                             <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" name="detpelunasan" id="detpelunasan">
                                                 </div>
                                             </div>
                                         </div>
@@ -387,7 +390,7 @@
                                 </div>
 
                                 <!--MODAL MAINTENANCE KURANG/LEBIH BKM-->
-                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
+                                <div class="modal fade" id="modalDetailKurangLebih" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -396,7 +399,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form id="formKurangLebih" method="POST" action="{{ url('DetailPelunasan') }}">
+                                            <form id="modalDetailKurangLebih" method="POST" action="{{ url('DetailPelunasan') }}">
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
                                                             <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
@@ -428,7 +431,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-5">
-                                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary">
+                                                            <input type="submit" id="btnProsesKurangLebih" name="btnProsesKurangLebih" value="Proses" class="btn btn-primary">
                                                         </div>
                                                         <div class="col-3">
                                                         </div>
@@ -436,6 +439,7 @@
                                                             <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" name="detkuranglebih" id="detkuranglebih">
                                                 </div>
                                             </div>
                                         </div>
