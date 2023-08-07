@@ -25,17 +25,21 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 Route::get('Payroll', 'App\Http\Controllers\Payroll\HomeController@index');
 
 // Payroll Master
-Route::get('ProgramPayroll/Master/Karyawan/Harian', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
+// Route::get('ProgramPayroll/Master/Karyawan/Harian', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController@index');
+Route::resource('KaryawanHarian', App\Http\Controllers\Payroll\Master\Karyawan\KaryawanHarianController::class);
+// Route::get('ProgramPayroll/Master/Karyawan/Keluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@index')->name('karyawanKeluarga.index');
+// Route::get('getDivisi/{Kode}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDivisi');
+// Route::get('getPegawaiKeluarga/{Id_Div}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getPegawaiKeluarga');
+// Route::get('getDataKeluarga/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataKeluarga');
+// Route::get('getDataPegawai/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataPegawai');
 
-Route::get('ProgramPayroll/Master/Karyawan/Keluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@index')->name('karyawanKeluarga.index');
-Route::get('getDivisi/{Kode}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDivisi');
-Route::get('getPegawaiKeluarga/{Id_Div}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getPegawaiKeluarga');
-Route::get('getDataKeluarga/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataKeluarga');
-Route::get('getDataPegawai/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataPegawai');
-Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
-Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
-Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
-Route::post('ProgramPayroll/Master/Karyawan/hapusKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@hapusKeluarga');
+Route::resource('KaryawanKeluarga', App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController::class);
+
+// Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
+// Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
+// Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
+// Route::post('ProgramPayroll/Master/Karyawan/hapusKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@hapusKeluarga');
+
 
 Route::get('ProgramPayroll/Master/Divisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@index')->name('divisi.index');
 //Divisi

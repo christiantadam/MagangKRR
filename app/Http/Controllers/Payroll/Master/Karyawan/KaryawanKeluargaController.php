@@ -126,13 +126,56 @@ class KaryawanKeluargaController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @kdPeg = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
+            1,
+            $data['kdPeg'],
+            $data['idNik'],
+            $data['nmKel'],
+            $data['statKel'],
+            $data['tglLahir'],
+            $data['idPisat'],
+            $data['kotaLahir'],
+            $data['kelamin'],
+            $data['statKawin'],
+            $data['idbpjs'],
+            $data['idklinik'],
+        ]);
+        return redirect()->route('karyawanKeluarga.index')->with('alert', 'Data berhasil ditambahkan!');
     }
 
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getDivisi") {
+            $dataDivisi = [];
+            if ($crExplode[0] == 1) {
+                $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_HARIAN ?', [1]);
+            } elseif ($crExplode[0] == 2) {
+                $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_STAFF ?', [1]);
+            }
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
+        } else if ($crExplode[1] == "getDataPegawai") {
+
+            //getDataPegawai
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_MAINT_PEKERJA @kdpeg = ?, @modul = ?', [$crExplode[0], 2]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        } else if ($crExplode[1] == "getDataKeluarga") {
+            //getDataKeluarga
+            $dataKeluarga = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_MAINT_KELUARGA @kdPeg = ?, @modul = ?', [$crExplode[0], 4]);
+            return response()->json($dataKeluarga);
+        } else if ($crExplode[1] == "getPegawaiKeluarga") {
+            // getPegawaiKeluarga
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -144,12 +187,48 @@ class KaryawanKeluargaController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+
+        $data = $request->all();
+
+        //UpdatePekerja
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_PEKERJA @modul = ?, @kdpeg = ?, @nokk = ?, @PISAT = ?, @status= ?, @tgg = ?', [
+            1,
+            $data['kd_peg'],
+            $data['nokk'],
+            $data['PISAT'],
+            $data['status'],
+            $data['tgg']
+        ]);
+        return redirect()->route('KaryawanKeluarga.index')->with('success', 'Data Updated successfully!');
+
+
+        //updateKeluarga
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
+            2,
+            $data['idKel'],
+            $data['idNik'],
+            $data['nmKel'],
+            $data['statKel'],
+            $data['tglLahir'],
+            $data['idPisat'],
+            $data['kotaLahir'],
+            $data['kelamin'],
+            $data['statKawin'],
+            $data['idbpjs'],
+            $data['idklinik'],
+        ]);
+        return redirect()->route('KaryawanKeluarga.index')->with('success', 'Data berhasil diupdate!');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd('Masuk Destroy', $data);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?', [
+            3,
+            $data['idKel'],
+        ]);
+        return redirect()->route('KaryawanKeluarga.index')->with('alert', 'Data berhasil dihapus!');
     }
 }

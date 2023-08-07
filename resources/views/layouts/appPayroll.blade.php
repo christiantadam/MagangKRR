@@ -65,10 +65,10 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Master/Karyawan/Harian') }}">Harian</a>
+                                                    tabindex="-1" href="{{ url('KaryawanHarian') }}">Harian</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Master/Karyawan/Keluarga') }}">Keluarga</a>
+                                                    tabindex="-1" href="{{ url('KaryawanKeluarga') }}">Keluarga</a>
                                             </li>
 
                                         </ul>

@@ -9825,4 +9825,17 @@ button[type="submit"] {
     position: relative;
     background-color: white;
 }
+.UPAH {
+    border: solid 1px black;
+    margin-bottom: auto;
+    margin: 15px;
+}
+
+.UPAH::before {
+    content: "Komponen Upah PerHari";
+    top: -12px;
+    margin-left: 15px;
+    position: relative;
+    background-color: white;
+}
 

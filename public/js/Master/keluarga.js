@@ -74,7 +74,6 @@ $(document).ready(function () {
         tambahButtonKel.hidden = true;
         simpanKoreksiKel.hidden = false;
         batalKoreksiKel.hidden = false;
-
     });
     batalKoreksiKel.addEventListener("click", function (event) {
         tambahButtonKel.hidden = false;
@@ -95,14 +94,13 @@ $(document).ready(function () {
         $("#Kd_Kawin").val("");
         $("#Kawin").val("");
         $("#tabel_Keluarga").DataTable().clear().draw();
-
     });
     clearButtonKel.addEventListener("click", function () {
         $("#Id_Keluarga").val("");
         $("#Nama_Keluarga").val("");
         $("#Id_Hub_Keluarga").val("");
         $("#Status_Hub_Keluarga").val("");
-        $('input[name="opsiKelamin"]').prop('checked', false);
+        $('input[name="opsiKelamin"]').prop("checked", false);
         $("#Kota_Lahir").val("");
         $("#TglLahir").val("");
         $("#Id_Pisat_Kel").val("");
@@ -113,7 +111,6 @@ $(document).ready(function () {
         $("#BPJS_Kel").val("");
         $("#Id_Klinik_Kel").val("");
         $("#Nama_Klinik_Kel").val("");
-
     });
 
     simpanButtonPekerja.addEventListener("click", function (event) {
@@ -126,7 +123,7 @@ $(document).ready(function () {
         const checkbox = document.getElementById("checkBPJS");
         if (checkbox.checked) {
             tgg = 1;
-        } else  {
+        } else {
             tgg = 0;
         }
         const data = {
@@ -135,13 +132,12 @@ $(document).ready(function () {
             PISAT: Kd_PISAT,
             status: Kd_Kawin,
             tgg: tgg,
-
         };
         console.log(data);
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "updatePekerja");
+        form.setAttribute("action", "KaryawanKeluarga/{idPeg}");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -152,6 +148,20 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "PUT"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
+
+        // Create input with "Update Keluarga" Value
+        const ifUpdate = document.createElement("input");
+        ifUpdate.setAttribute("type", "hidden");
+        ifUpdate.setAttribute("name", "_ifUpdate");
+        ifUpdate.value = "Update Pekerja"; // Set the value of the input field to the corresponding data
+        form.appendChild(ifUpdate);
 
         formContainer.appendChild(form);
 
@@ -188,7 +198,7 @@ $(document).ready(function () {
         } else if (selectedValue === "Staff") {
             kode = 2;
         }
-        fetch("/getDivisi/" + kode)
+        fetch("/KaryawanKeluarga/" + kode + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -197,6 +207,7 @@ $(document).ready(function () {
             })
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
 
                 // Clear the existing table rows
                 $("#tabel_Divisi").DataTable().clear().draw();
@@ -218,7 +229,7 @@ $(document).ready(function () {
     karyawanButton.addEventListener("click", function () {
         var kode = document.getElementById("Id_Div").value;
         console.log(kode);
-        fetch("/getPegawaiKeluarga/" + kode)
+        fetch("/KaryawanKeluarga/" + kode +".getPegawaiKeluarga")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -254,7 +265,9 @@ $(document).ready(function () {
         const tglLahir = document.getElementById("TglLahir").value;
         const idPisat = document.getElementById("Id_Pisat_Kel").value;
         const kotaLahir = document.getElementById("Kota_Lahir").value;
-        const checkedKelamin = document.querySelector('input[name="opsiKelamin"]:checked');
+        const checkedKelamin = document.querySelector(
+            'input[name="opsiKelamin"]:checked'
+        );
         const statKawin = document.getElementById("Id_Status_Kawin_Kel").value;
         const idbpjs = document.getElementById("BPJS_Kel").value;
         const idklinik = document.getElementById("Id_Klinik_Kel").value;
@@ -270,13 +283,12 @@ $(document).ready(function () {
             statKawin: statKawin,
             idbpjs: idbpjs,
             idklinik: idklinik,
-
         };
         console.log(data);
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "tambahKeluarga");
+        form.setAttribute("action", "KaryawanKeluarga");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -322,7 +334,9 @@ $(document).ready(function () {
         const tglLahir = document.getElementById("TglLahir").value;
         const idPisat = document.getElementById("Id_Pisat_Kel").value;
         const kotaLahir = document.getElementById("Kota_Lahir").value;
-        const checkedKelamin = document.querySelector('input[name="opsiKelamin"]:checked');
+        const checkedKelamin = document.querySelector(
+            'input[name="opsiKelamin"]:checked'
+        );
         const statKawin = document.getElementById("Id_Status_Kawin_Kel").value;
         const idbpjs = document.getElementById("BPJS_Kel").value;
         const idklinik = document.getElementById("Id_Klinik_Kel").value;
@@ -338,14 +352,13 @@ $(document).ready(function () {
             statKawin: statKawin,
             idbpjs: idbpjs,
             idklinik: idklinik,
-
         };
         console.log(data);
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "updateKeluarga");
-        form.setAttribute("method", "POST");
+        form.setAttribute("action", "KaryawanKeluarga");
+        // form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
         for (const key in data) {
@@ -355,6 +368,19 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "PUT"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
+
+        // Create input with "Update Keluarga" Value
+        const ifUpdate = document.createElement("input");
+        ifUpdate.setAttribute("type", "hidden");
+        ifUpdate.setAttribute("name", "_ifUpdate");
+        ifUpdate.value = "Update Keluarga"; // Set the value of the input field to the corresponding data
+        form.appendChild(ifUpdate);
 
         formContainer.appendChild(form);
 
@@ -383,15 +409,15 @@ $(document).ready(function () {
     });
     hapusButtonKel.addEventListener("click", function (event) {
         event.preventDefault();
-        const idKel = document.getElementById("Id_Keluarga").value;
+        const id = document.getElementById("Id_Keluarga").value;
 
         const data = {
-            idKel: idKel,
+            idKel: id,
         };
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "hapusKeluarga");
+        form.setAttribute("action", "KaryawanKeluarga/{id}" );
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -402,6 +428,13 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "DELETE"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
 
         formContainer.appendChild(form);
 
@@ -444,7 +477,8 @@ $(document).ready(function () {
 
         // Populate the input fields with the data
         $("#Id_Peg").val(rowData[0]);
-        fetch("/getDataPegawai/" + rowData[0])
+        $("#Nama_Peg").val(rowData[1]);
+        fetch("/KaryawanKeluarga/" + rowData[0] +".getDataPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -477,7 +511,7 @@ $(document).ready(function () {
             .catch((error) => {
                 console.error("Error:", error);
             });
-        fetch("/getDataKeluarga/" + rowData[0])
+        fetch("/KaryawanKeluarga/" + rowData[0] + ".getDataKeluarga")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -539,13 +573,16 @@ $(document).ready(function () {
     $("#tabel_Keluarga tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#tabel_Keluarga").DataTable().row(this).data();
-        var date = rowData[6].split(' ')[0];
+        var date = rowData[6].split(" ")[0];
         // Populate the input fields with the data
         $("#Id_Keluarga").val(rowData[0]);
         $("#Nama_Keluarga").val(rowData[1]);
         $("#Id_Hub_Keluarga").val(rowData[2]);
         $("#Status_Hub_Keluarga").val(rowData[3]);
-        $('input[name="opsiKelamin"][value="' + rowData[4] + '"]').prop('checked', true);
+        $('input[name="opsiKelamin"][value="' + rowData[4] + '"]').prop(
+            "checked",
+            true
+        );
         $("#Kota_Lahir").val(rowData[5]);
         $("#TglLahir").val(date);
         $("#Id_Pisat_Kel").val(rowData[7]);
