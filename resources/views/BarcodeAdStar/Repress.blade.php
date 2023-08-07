@@ -1,6 +1,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
+<link href="{{ asset('css/Barcode/Repress.css') }}" rel="stylesheet">
 <h2>Repress</h2>
 
 <div class="form-wrapper mt-4">

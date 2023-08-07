@@ -50,21 +50,12 @@ h2 {
     cursor: pointer;
 }
 
-.acs-div-gambar-input{
-    width: 100%;
-}
-
-.acs-gambar{
-    z-index: -1;
-}
-
-.W_input{
-    position: relative;
-}
-
 /* Style untuk input besar */
 .input-large {
-    width: 1000px;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 /* Style untuk input sedang */

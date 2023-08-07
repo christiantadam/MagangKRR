@@ -201,7 +201,7 @@
                     <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto RDZNavContenCenter">
 
-                            <div class="dropdown">
+                            {{-- <div class="dropdown">
                                 <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Barcode
@@ -258,18 +258,66 @@
                                 </li>
 
                                 </ul>
-                            </div>
+                            </div> --}}
 
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('CpTbl') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('Schedule') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Copy Tabel
+                                    Schedule
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('PrintTbl') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('BtBrcd') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Print
+                                    Buat Barcode
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('Repress') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Repress
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Cetak Barcode Rusak
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('DftPlt') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Daftar Palet
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('HngsBrcd') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Hanguskan Barcode
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('KrmGdng') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Kirim Gudang
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('BtlKrm') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Batal Kirim
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('KnvGdng') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Konversi Gudang JBB
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('HslBrcd') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Hasil Barcode
                                 </a>
                             </div>
                         </ul>

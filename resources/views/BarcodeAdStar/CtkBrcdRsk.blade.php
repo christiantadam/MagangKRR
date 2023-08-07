@@ -2,6 +2,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
+<link href="{{ asset('css/Barcode/CtkBrcdRsk.css') }}" rel="stylesheet">
 <h2>Cetak Barcode Rusak</h2>
 
 <div class="form-wrapper mt-4">

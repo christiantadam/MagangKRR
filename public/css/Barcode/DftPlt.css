@@ -50,33 +50,6 @@ h2 {
     cursor: pointer;
 }
 
-.acs-div-gambar-input{
-    width: 100%;
-}
-
-.acs-gambar{
-    z-index: -1;
-}
-
-.W_input{
-    position: relative;
-}
-
-/* Style untuk input besar */
-.input-large {
-    width: 1000px;
-}
-
-/* Style untuk input sedang */
-.input-medium {
-    width: 500px;
-}
-
-/* Style untuk input kecil (textarea) */
-.input-small {
-    width: 50px;
-}
-
 .button-container {
     display: flex;
     max-width: 600px;

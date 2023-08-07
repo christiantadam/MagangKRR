@@ -1,7 +1,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
-
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Schedule</h2>
 
 <div class="body">
@@ -14,7 +14,7 @@
                         <span class="aligned-text">Divisi:</span>
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="Divisi" id="Divsi" placeholder="Divisi" required>
+                        <input type="text" class="form-control" name="Divisi" id="Divsi" placeholder="Divisi" required class="input-medium">
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
                         <span class="aligned-text">Kelut:</span>
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="Kelut" id="Kelut" placeholder="Kelut" required>
+                        <input type="text" class="form-control" name="Kelut" id="Kelut" placeholder="Kelut" required class="input-medium">
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <span class="aligned-text">Kelompok:</span>
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="Kelompok" id="Kelompok" placeholder="Kelompok" required>
+                        <input type="text" class="form-control" name="Kelompok" id="Kelompok" placeholder="Kelompok" required class="input-medium">
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <span class="aligned-text">Sub Kelompok:</span>
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="Sub_kelompok" id="Sub_kelompok" placeholder="Sub Kelompok" required>
+                        <input type="text" class="form-control" name="Sub_kelompok" id="Sub_kelompok" placeholder="Sub Kelompok" required class="input-medium">
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <span class="aligned-text">Type:</span>
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                        <input type="text" class="form-control" name="Type" id="Type" placeholder="Type" required>
+                        <input type="text" class="form-control" name="Type" id="Type" placeholder="Type" required class="input-medium">
                     </div>
                 </div>
 

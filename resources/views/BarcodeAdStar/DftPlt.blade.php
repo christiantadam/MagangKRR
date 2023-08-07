@@ -1,6 +1,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
+<link href="{{ asset('css/Barcode/DftPlt.css') }}" rel="stylesheet">
 <h2>Form Daftar Palet</h2>
 
 <div class="form-wrapper mt-4">

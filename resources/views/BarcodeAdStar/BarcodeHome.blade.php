@@ -1,6 +1,6 @@
 @extends('layouts.appBarcode')
 @section('content')
 
-<link href="{{ asset('css/AdStar/AdStar.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/BarcodeHome.css') }}" rel="stylesheet">
 
 @endsection

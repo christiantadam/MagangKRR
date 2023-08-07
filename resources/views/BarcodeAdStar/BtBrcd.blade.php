@@ -1,6 +1,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
+<link href="{{ asset('css/Barcode/BtBrcd.css') }}" rel="stylesheet">
 <h2>Permohonan Barcode</h2>
 
 <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">

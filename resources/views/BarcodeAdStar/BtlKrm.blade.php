@@ -1,6 +1,7 @@
 @extends('layouts.appBarcode')
 @section('content')
 
+<link href="{{ asset('css/Barcode/BtlKrm.css') }}" rel="stylesheet">
 <h2>Form Batal Kirim Gudang</h2>
 
 <div class="form-wrapper mt-4">

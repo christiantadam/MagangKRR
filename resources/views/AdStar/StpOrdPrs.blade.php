@@ -9,24 +9,24 @@
         {{-- <h3 class="card-title">Sales</h3> --}}
         <div class="input-container">
             <label>No. Order Kerja:</label>
-            <input type="text" name="noOrderKerja" placeholder="No. Order Kerja">
+            <input type="text" name="noOrderKerja" placeholder="No. Order Kerja" class="input-medium">
             <button class="btn btn-primary" type="button">...</button>
-            <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja">
+            <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja" class="input-large">
         </div>
         <div class="input-container">
             <label>No Pesanan:</label>
-            <input type="text" name="noPesanan" placeholder="No Pesanan">
+            <input type="text" name="noPesanan" placeholder="No Pesanan" class="input-medium">
             <label>Surat Pesanan:</label>
-            <input type="text" name="suratPesanan" placeholder="Surat Pesanan">
+            <input type="text" name="suratPesanan" placeholder="Surat Pesanan" class="input-medium">
         </div>
         <div class="input-container">
             <label>Qty Order:</label>
-            <input type="text" name="qtyOrder" placeholder="Qty Order">
+            <input type="text" name="qtyOrder" placeholder="Qty Order" class="input-medium">
             <label>Lbr</label>
         </div>
         <div class="input-container">
             <label>Hasil Order:</label>
-            <input type="text" name="hasilOrder" placeholder="Hasil Order">
+            <input type="text" name="hasilOrder" placeholder="Hasil Order" class="input-medium">
             <label>Lbr</label>
         </div>
         <div class="input-container">
