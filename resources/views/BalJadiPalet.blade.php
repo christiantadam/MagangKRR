@@ -198,7 +198,7 @@
                                 </div>
                         </div>
 
-                        <div class="card mt-3" style="width: 78%; margin-left:327px">
+                        <div class="card mt-3" style="width: 77.5%; margin-left:327px; margin-right: 100px">
                             <div class="card-header">Total</div>
                             <div class="row mt-3">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -236,7 +236,7 @@
                         </div>
 
 
-                        <div class="card mt-3" style="width: 78%; margin-left:327px">
+                        <div class="card mt-3" style="width: 77.5%; margin-left:327px">
                             <div class="card-header">Input Data Barang</div>
                             <div class="row mt-3">
                                 <div class="form-group col-md-2 d-flex justify-content-end">

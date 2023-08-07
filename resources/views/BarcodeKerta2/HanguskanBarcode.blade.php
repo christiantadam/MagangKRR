@@ -3,8 +3,6 @@
 
     <body onload="Greeting()">
         <div id="app">
-
-
             <div class="form-wrapper mt-4">
                 <div class="form-container">
                     <div class="card">
@@ -17,13 +15,36 @@
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
                                         <div class="form-group col-md-2 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divsi"
-                                                placeholder="Divisi" readonly>
+                                            <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
+                                                placeholder="ID Divisi" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divsi"
+                                            <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                                            <div class="text-center col-md-auto"><button type="submit"
+                                                    onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                    <h2>Table Divisi</h2>
+                                                    <p>Id Divisi & Divisi</p>
+                                                    <table id="TableDivisi">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID Divisi</th>
+                                                                <th>Divisi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <!-- Add more rows as needed -->
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -74,11 +95,45 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 mb-3">
+                        <div class="row mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="submit">Cari</button></div>
-                                <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="submit">Tutup</button></div>
+                                <div style="margin-top: -8px ">
+                                    <div class="text-center col-md-auto mt-3">
+                                        <button type="submit" onclick="openModal1()" id="ButtonJumlahBarang"
+                                            style="width:100px; margin-top: -500px">Cari</button>
+                                    </div>
+                                    <div class="modal" id="myModal1">
+                                        <div class="modal-content">
+                                            <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                            <div class="card col-md-auto"
+                                                style="margin-left:50px; margin-right:50px; margin-top:50px; margin-bottom:50px;">
+                                                <div class="row form-group">
+                                                    <div class="col-md-3 d-flex justify-content-end">
+                                                        <span class="aligned-text mt-3">Masukkan kode barcode:</span>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <div class="form-group col-md-9 mt-md-0">
+                                                            <input type="text" class="form-control"
+                                                                name="Barcode" id="Barcode" style="width: 1080px; margin-left: 13px"
+                                                                placeholder="Barcode">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center col-md-auto"
+                                                        style="margin-top: 15px; margin-left:350px">
+                                                        <button type="button"
+                                                            onclick="closeModal1()">Ok</button>
+                                                    </div>
+                                                    <div class="text-center col-md-auto" style="margin-top: 15px;"
+                                                        onclick="closeModal1()">
+                                                        <button type="button">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Proses</button></div>
+                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Tutup</button></div>
                             </div>
                         </div>
                         </form>
@@ -91,6 +146,46 @@
         </main>
         </div>
         <script>
+            var ButtonDivisi = document.getElementById('ButtonDivisi')
+
+            ButtonDivisi.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+            var ButtonJumlahBarang = document.getElementById('ButtonJumlahBarang')
+
+            ButtonJumlahBarang.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+            function openModal() {
+                var modal = document.getElementById('myModal');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('myModal');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            $(document).ready(function() {
+                $('#TableDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
             $(document).ready(function() {
                 $('.dropdown-submenu a.test').on("click", function(e) {
                     $(this).next('ul').toggle();

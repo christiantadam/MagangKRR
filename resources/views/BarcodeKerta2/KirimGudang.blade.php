@@ -5,7 +5,7 @@
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
-                    <div class="card">
+                    <div class="card" style="width: 1200px; margin-left: -90px">
                         <div class="card-header">Scan Barcode Sebelum Dikirim Ke Gudang</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
@@ -15,13 +15,36 @@
                                             <span class="aligned-text">Divisi:</span>
                                         </div>
                                         <div class="form-group col-md-2 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divsi"
-                                                placeholder="Divisi" readonly>
+                                            <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
+                                                placeholder="ID Divisi" readonly>
                                         </div>
                                         <div class="form-group col-md-6 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divsi"
+                                            <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                                            <div class="text-center col-md-auto"><button type="submit"
+                                                    onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                            <div class="modal" id="myModal">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                    <h2>Table Divisi</h2>
+                                                    <p>Id Divisi & Divisi</p>
+                                                    <table id="TableDivisi">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID Divisi</th>
+                                                                <th>Divisi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <!-- Add more rows as needed -->
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -37,16 +60,38 @@
 
                                     <div class="row">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
-                                            <span class="aligned-text">No SP:</span>
+                                            <span class="aligned-text">Divisi:</span>
                                         </div>
-                                        <div class="form-group col-md-6 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="No_sp" id="No_sp"
-                                                placeholder="No SP">
-                                            <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                                        <div class="form-group col-md-4 mt-3 mt-md-0">
+                                            <input type="text" class="form-control" name="NoSP" id="NoSP"
+                                                placeholder="No. SP" readonly>
+                                                <div class="text-center col-md-auto"><button type="submit"
+                                                    onclick="openModal2()" id="ButtonSP">...</button></div>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="No_sp" id="No_sp"
-                                                placeholder="No SP">
+                                            <input type="text" class="form-control" name="KodeBarang" id="KodeBarang"
+                                                placeholder="Kode Barang" readonly>
+                                            <div class="modal" id="myModal2">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                    <h2>Table SP</h2>
+                                                    <table id="TableSP">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No. SP</th>
+                                                                <th>Kode Barang</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <!-- Add more rows as needed -->
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal2()">Process</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -99,12 +144,12 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 mb-3">
+                        <div class="row mt-3 mb-4" style="margin-left: 100px">
                             <div class="text-center col-md-auto" style="margin-left: 300px"><button type="button"
-                                    onclick="openModal()" id="ButtonProcess">Process</button></div>
-                            <div class="modal" id="myModal">
+                                    onclick="openModal1()" id="ButtonProcess">Process</button></div>
+                            <div class="modal" id="myModal1">
                                 <div class="modal-content">
-                                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
                                     <h2>Table Divisi</h2>
                                     <p>Id Divisi & Divisi</p>
                                     <table id="TableProcess">
@@ -123,7 +168,7 @@
                                     </table>
                                     <div class="text-center col-md-auto mt-3">
                                         <button type="button">Ok</button>
-                                        <button type="button" onclick="closeModal()">Batal</button>
+                                        <button type="button" onclick="closeModal1()">Batal</button>
                                     </div>
                                 </div>
                             </div>
@@ -154,8 +199,19 @@
                 });
             });
 
+            var ButtonDivisi = document.getElementById('ButtonDivisi')
+
+            ButtonDivisi.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
             var ButtonProcess = document.getElementById('ButtonProcess')
             ButtonProcess.addEventListener("click", function(event) {
+                event.preventDefault();
+            });
+
+            var ButtonSP = document.getElementById('ButtonSP')
+            ButtonSP.addEventListener("click", function(event) {
                 event.preventDefault();
             });
 
@@ -166,6 +222,26 @@
 
             function closeModal() {
                 var modal = document.getElementById('myModal');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal1() {
+                var modal = document.getElementById('myModal1');
+                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+            }
+
+            function openModal2() {
+                var modal = document.getElementById('myModal2');
+                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+            }
+
+            function closeModal2() {
+                var modal = document.getElementById('myModal2');
                 modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
             }
 
@@ -187,6 +263,22 @@
 
             $(document).ready(function() {
                 $('#TableProcess').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TableDivisi').DataTable({
+                    order: [
+                        [0, 'desc']
+                    ],
+                });
+            });
+
+            $(document).ready(function() {
+                $('#TableSP').DataTable({
                     order: [
                         [0, 'desc']
                     ],

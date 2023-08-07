@@ -126,14 +126,14 @@
                                                 <input class="form-control" type="text" name="divisi" rows="divisi"
                                                     placeholder="Divisi">
                                             </div>
-                                            <div class="form-group col-md-5 mt-3 mt-md-0">
+                                            <div style="width: 450px; margin-left: 15px">
                                                 <input class="form-control" type="text" name="text" rows="text"
                                                     style="margin-right:10px">
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="form-group col-md-5 mt-3 mt-md-0" style="margin-left:733px ">
+                                            <div style="margin-left:733px; width: 450px ">
                                                 <input class="form-control " type="text" name="text" rows="text"
                                                     style="margin-right:10px">
                                             </div>

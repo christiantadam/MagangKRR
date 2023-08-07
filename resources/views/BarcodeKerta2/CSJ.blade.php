@@ -38,13 +38,13 @@
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
-                    <div class="card">
+                    <div class="card" style="width: 1200px; margin-left: -90px">
                         <div class="card-header">Cek Surat Jalan</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">No. Surat Jalan:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
@@ -53,13 +53,10 @@
                                             <div class="text-center col-md-auto"><button type="submit" id="SJ"
                                                     onclick="openModal()">SJ Baru</button>
                                             </div>
-
-
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal()">&times;</span>
                                                     <div class="card">
-
                                                         <div class="row">
                                                             <div class=" col-md-3 d-flex justify-content-end">
                                                                 <span class="aligned-text mt-4 mb-3">Surat Jalan
@@ -90,17 +87,17 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Tanggal:</span>
                                         </div>
-                                        <div class="form-group col-md-2 mt-3 mt-md-0">
+                                        <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="date" class="form-control" name="tgl" id="tgl"
                                                 placeholder="Tanggal">
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Truk No. Pol:</span>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
@@ -147,10 +144,10 @@
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit">Cek Surat Jalan</button>
+                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Cek Surat Jalan</button>
                                     </div>
-                                    <div class="text-center col-md-auto"><button type="submit">Batal Cetak</button></div>
-                                    <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Batal Cetak</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Keluar</button></div>
                                 </div>
                             </div>
                             </form>

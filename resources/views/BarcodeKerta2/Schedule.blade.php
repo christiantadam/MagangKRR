@@ -3,6 +3,15 @@
 
     <body onload="Greeting()">
 
+        <style>
+            .selected-row {
+                background-color: #3490dc;
+                /* Blue highlight color */
+                color: white;
+                /* White text color for better visibility */
+            }
+        </style>
+
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
@@ -226,7 +235,6 @@
                                             style="margin-left:53.3%"><button type="button">Tambah</button></div>
                                     </div>
 
-
                                     <div class="card">
                                         <div class="card-header">Table Type</div>
                                         <table id="TypeTable">
@@ -248,11 +256,15 @@
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit">Pilih
-                                            Semua</button></div>
-                                    <div class="text-center col-md-auto"><button type="submit">Hapus</button>
+                                    <div class="text-center col-md-auto">
+                                        <button type="submit" id="SelectAllButton" style="width: 120px">Pilih
+                                            Semua</button>
                                     </div>
-                                    <div class="text-center col-md-auto"><button type="submit">Keluar</button>
+                                    <div class="text-center col-md-auto">
+                                        <button type="submit" id="DeleteButton" style="width: 120px">Hapus</button>
+                                    </div>
+                                    <div class="text-center col-md-auto"><button type="submit"
+                                            style="width: 120px">Keluar</button>
                                     </div>
                                 </div>
                             </div>
@@ -278,6 +290,65 @@
         <!-- ... Rest of the code ... -->
 
         <script>
+            $(document).ready(function() {
+                // ... your existing DataTable initialization code ...
+
+                // Add an event listener to the "Hapus" button
+                $('#DeleteButton').on('click', function() {
+                    var table = $('#TypeTable').DataTable();
+                    var selectedRows = table.rows('.selected');
+
+                    // Remove selected rows from the DataTable
+                    selectedRows.remove().draw();
+                    event.preventDefault();
+                });
+
+                // ... your other existing JavaScript code ...
+            });
+
+            $(document).ready(function() {
+                // ... Your existing DataTable initialization code ...
+
+                // Add an event listener to the "Pilih Semua" button
+                $('#SelectAllButton').on('click', function() {
+                    var table = $('#TypeTable').DataTable();
+                    table.rows().select();
+                    event.preventDefault();
+                });
+
+                // ... Your other existing JavaScript code ...
+            });
+
+            $(document).ready(function() {
+                $('#TypeTable tbody').on('click', 'tr', function() {
+                    // Check if the clicked row is already selected
+                    if ($(this).hasClass('selected')) {
+                        // If it's already selected, remove the 'selected' class
+                        $(this).removeClass('selected');
+
+                        // Hide the modal (if needed)
+                        closeModal4();
+                    } else {
+                        // Remove 'selected' class from all rows
+                        $('#TypeTable tbody tr').removeClass('selected');
+
+                        // Add 'selected' class to the clicked row
+                        $(this).addClass('selected');
+
+                        var rowData = $('#TableType').DataTable().row(this).data();
+
+                        // Populate the input fields with the data
+                        $('#id_Type').val(rowData[0]);
+                        $('#Type').val(rowData[1]);
+
+                        // Hide the modal (if needed)
+                        closeModal4();
+                    }
+                });
+
+                // ... your other DataTable initialization code ...
+            });
+
             function addDataToTable() {
                 // Extract data from input fields
                 var divisi = document.getElementById('Divisi').value;

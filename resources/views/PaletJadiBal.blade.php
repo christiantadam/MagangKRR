@@ -301,7 +301,7 @@
                                 </div>
 
 
-                                <div class="card mt-3" style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
+                                <div class="card mt-3" style="width: 82.7%; margin-left:253px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
