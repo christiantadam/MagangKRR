@@ -1,9 +1,11 @@
 @extends('layouts.appAdStar')
 @section('content')
-    <h2>Maint Kode Barang</h2>
+    <div class="container"><h2>Maint Kode Barang</h2></div>
     <link href="{{ asset('css/AdStar/UpKdBrng.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-    <div class="card">
+    <div class="container">
         <div class="table-responsive">
             <table id="tabel_Barang" class="table table-bordered">
                 <thead class="thead-dark">
@@ -24,46 +26,74 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="input-container">
+    <div class="container">
+        <div class="container">
             <label for="nama-barang">Nama Barang:</label>
             <input type="text" id="nama-barang" required class="input-small">
             <input type="text" id="input1" class="input-medium">
         </div>
 
-        <div class="input-container">
+        <div class="container">
             <label for="kd-barang">Kode Barang:</label>
             <input type="text" id="kd-barang" required class="input-small">
             <input type="text" id="input2" class="input-medium">
+            {{-- <table id="tabel_Barang2" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Kode Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataUpKdBrng as $data)
+                        <tr data-idbrng="{{ $data->id }}" data-nama="{{ $data->Nama_brg }}" data-kode="{{ $data->kd_brg }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->kd_brg }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table> --}}
+                    <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                List Data
+            </button>
         </div>
 
-        <div class="input-container">
-            <button type="button" onclick="openModal()">List Data</button>
-            <div class="overlay" id="overlay">
-                <div class="modal" id="myModal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <div class="table-responsive">
-                            <table id="TableDivisi" class="table table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Nama Divisi</th>
-                                        <th>Id Divisi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Populate TableDivisi with appropriate data -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table id="tabel_Barang2" class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Kode Barang</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($dataUpKdBrng as $data)
+                                <tr data-idbrng="{{ $data->id }}" data-nama="{{ $data->Nama_brg }}" data-kode="{{ $data->kd_brg }}">
+                                    <td>{{ $data->Nama_brg }}</td>
+                                    <td>{{ $data->kd_brg }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 
-    <div class="button-container">
-        <button class="update" onclick="updateData()">Update</button>
+    <div class="container">
+        <button class="btn btn-secondary" onclick="updateData()">Update</button>
     </div>
 
     <div class="scrollable-container">
@@ -71,7 +101,7 @@
     </div>
 
     <script>
-        // Click event handler for table rows
+        // // Click event handler for table rows
         $('#tabel_Barang tbody').on('click', 'tr', function() {
             // Get the data from the clicked row
             var nama = $(this).data('nama');
@@ -81,27 +111,38 @@
             // Populate the form fields with the data
             $('#nama-barang').val(idbrng);
             $('#input1').val(nama);
+        });
+
+            // // Click event handler for table rows
+            $('#tabel_Barang2 tbody').on('click', 'tr', function() {
+            // Get the data from the clicked row
+            var nama = $(this).data('nama');
+            var kode = $(this).data('kode');
+            var idbrng = $(this).data('idbrng');
+
+            // Populate the form fields with the data
+            $('#kd-barang').val(idbrng);
             $('#input2').val(kode);
         });
 
-        // Sample data for demonstration purposes
-        const tableData = [
-            { id: 1, name: "John Doe" },
-            { id: 2, name: "Jane Smith" },
-            { id: 3, name: "Alice Johnson" },
-            // Add more data here
-        ];
+        // // Sample data for demonstration purposes
+        // const tableData = [
+        //     { id: 1, name: "John Doe" },
+        //     { id: 2, name: "Jane Smith" },
+        //     { id: 3, name: "Alice Johnson" },
+        //     // Add more data here
+        // ];
 
-        function openModal() {
-            document.getElementById('myModal').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-            populateTable(tableData);
-        }
+        // function openModal() {
+        //     document.getElementById('myModal').style.display = 'block';
+        //     document.getElementById('overlay').style.display = 'block';
+        //     populateTable(tableData);
+        // }
 
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
+        // function closeModal() {
+        //     document.getElementById('myModal').style.display = 'none';
+        //     document.getElementById('overlay').style.display = 'none';
+        // }
 
         function populateTable(data) {
             const tableBody = document.querySelector('#TableDivisi tbody');
@@ -153,5 +194,6 @@
             console.log('Updating data...');
             console.log(`ID: ${idbrng}, Nama: ${nama}, Kode: ${kode}`);
         }
+
     </script>
 @endsection

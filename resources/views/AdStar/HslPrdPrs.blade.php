@@ -3,72 +3,178 @@
 @section('content')
 
 <link href="{{ asset('css/AdStar/HslPrdPrs.css') }}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-<h2>Maint Hasil Produksi</h2>
+<div class="container">
+    <h2>Maint Hasil Produksi</h2>
+</div>
 
-<div class="body">
-    <div class="card">
+
         {{-- <h3 class="card-title">Sales</h3> --}}
-        <div class="input-container">
-            <label for="tgl-produksi">Tanggal Produksi:</label>
-            <input type="date" id="tgl-produksi" required>
+        <div class="container">
+            <div class="card">
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Tanggal Produksi:</div>
+                    <div class="col-lg-2">
+                        <input type="date" id="tanggal" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">No. Transaksi:</div>
+                    <div class="col-lg-3">
+                        <div class="input-group mb-3">
+                        <input type="text" id="no-transaksi" class="form-control" required>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notransaksi">
+                            List Data
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
+                    <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="" aria-label="">
+                            <button type="button" class="btn btn-primary">...</button>
+                            <input type="text" class="form-control" placeholder="" aria-label="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Mesin Produksi:</div>
+                    <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="" aria-label="">
+                            <input type="text" class="form-control" placeholder="" aria-label="">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                ...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Grup Pelaksana:</div>
+                    <div class="col-lg-2">
+                        <select id="grup-pelaksana-dropdown" required>
+                            <option value="1">grup 1</option>
+                            <option value="2">grup 2</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Jam Mulai:</div>
+                    <div class="col-lg-2">
+                        <input type="time" id="jammulai" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Jam Akhir:</div>
+                    <div class="col-lg-2">
+                        <input type="time" id="jamakhir" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Jumlah Ball:</div>
+                    <div class="col-lg-2">
+                        <input type="number" id="jml-ball" class="input-small" required min="0">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Jumlah lembar:</div>
+                    <div class="col-lg-2">
+                        <input type="number" id="jml-lembar" class="input-small" required min="0">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-2 aligned-text">Jumlah Kg:</div>
+                    <div class="col-lg-2">
+                        <input type="number" id="jml-kg" class="input-small" required min="0">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="input-container">
-            <label for="no-transaksi">No. Transaksi:</label>
-            <input type="text" id="no-transaksi" required>
-            <button type="button">List Data</button>
-        </div>
-        <div class="input-container">
-            <label>No. Order Kerja:</label>
-            <input type="text" name="noOrderKerja" placeholder="No. Order Kerja">
-            <button type="button">...</button>
-            <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja">
-        </div>
-        <div class="input-container">
-            <label>Mesin Produksi:</label>
-            <input type="text" name="mesinProduksi" placeholder="Mesin Produksi">
-            <input type="text" name="kotaMesinProduksi" placeholder="Mesin Produksi">
-            <button type="button">...</button>
-        </div>
-        <div class="input-container">
-            <label for="grup-pelaksana-dropdown">grup pelaksana:</label>
-            <select id="grup-pelaksana-dropdown" required>
-                <option value="1">grup 1</option>
-                <option value="2">grup 2</option>
-                <!-- Add more options as needed -->
-            </select>
-        </div>
-        <div class="input-container">
-            <label>Jam Mulai:</label>
-            <input type="time" name="jamMulai">
-        </div>
-        <div class="input-container">
-            <label>Jam Akhir:</label>
-            <input type="time" name="jamAkhir">
-        </div>
-        <div class="input-container">
-            <label for="jml-ball">Jumlah Ball:</label>
-            <input type="number" id="jml-ball" required>
-        </div>
-        <div class="input-container">
-            <label for="jml-lembar">Jumlah Lembar:</label>
-            <input type="number" id="jml-lembar" required>
-        </div>
-        <div class="input-container">
-            <label for="jml-kg">Jumlah Kg:</label>
-            <input type="number" id="jml-kg" required>
-        </div>
-    </div>
 
-    <div class="button-container">
-        <button class="add">Add</button>
-        <button class="update">Update</button>
-        <button class="del">Delete</button>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-primary">Add</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-success">Update</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
     </div>
 
     <div class="scrollable-container">
         <!-- Add content here -->
     </div>
-</div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tabel_Barang2" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nama Mesin</th>
+                            <th>KD Mesin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($dataMesin as $data)
+                            <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
+                                <td>{{ $data->NamaMesin }}</td>
+                                <td>{{ $data->IdMesin }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="notransaksi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="notransasksiLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="notransaksiLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tabel_notransaksi" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Grup/Mesin/Order</th>
+                            <th>Nama Mesin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($dataTransaksi as $data)
+                            <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
+                                <td>{{ $data->NamaMesin }}</td>
+                                <td>{{ $data->IdMesin }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
 @endsection

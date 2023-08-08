@@ -42,7 +42,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         <style>
-            .body {
+            /* .body {
 
                 font-family: Arial, sans-serif;
                 max-width: px;
@@ -50,7 +50,7 @@
                 padding: 20px;
                 height: 100VH;
                 background-image: url('images/walpaper-2.png');
-            }
+            } */
 
             /* h2 {
                 text-align: center;
