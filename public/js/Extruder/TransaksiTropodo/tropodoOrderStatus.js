@@ -36,7 +36,7 @@ slcOrder.addEventListener("change", function () {
             </tr>
         `;
 
-        fetch("/ExtruderNet/getListOrderBtl/" + slcOrder.value)
+        fetch("/Order/getListOrderBtl/" + slcOrder.value)
             .then((response) => response.json())
             .then((data) => {
                 listOrder.length = 0;
@@ -84,7 +84,7 @@ btnProses.addEventListener("click", function () {
         txtKeterangan.focus();
     } else {
         fetchStmt(
-            "/ExtruderNet/updStatusOrder/" +
+            "/Order/updStatusOrder/" +
                 slcOrder.value +
                 "/" +
                 slcStatus.value +

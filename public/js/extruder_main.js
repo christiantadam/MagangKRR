@@ -59,10 +59,11 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
 }
 //#endregion
 
-//#region Table Functions
+//#region Table DataTable
 function addTable_DataTable(
     tableId,
     listData,
+    colWidths,
     rowFun = null,
     tableHeight = "250px"
 ) {
@@ -78,11 +79,16 @@ function addTable_DataTable(
         responsive: true,
         paging: false,
         scrollY: tableHeight,
+        scrollX: "1000000px",
         data: listData,
-        columns: Object.keys(listData[0]).map((key) => ({ data: key })),
+        columns: Object.keys(listData[0]).map((key, index) => ({
+            data: key,
+            width: colWidths[index].width || "auto",
+        })),
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
-            searchPlaceholder: " Tabel konversi...",
+            searchPlaceholder:
+                " Tabel " + tableId.replace("table_", "") + "...",
             search: "",
         },
 
@@ -100,26 +106,26 @@ function addTable_DataTable(
     addSearchBar_DataTable(tableId);
 }
 
-function clearTable_DataTable(tableId) {
+function clearTable_DataTable(tableId, tableWidth, msg = null) {
     $("#" + tableId)
         .DataTable()
         .clear()
         .draw();
 
     const tbodyKu = document.querySelector("#" + tableId + " tbody");
-    tbodyKu.innerHTML = `
-        <tr>
-            <td colspan="7" class="text-center">
-                <h1 class="mt-3">Tabel masih kosong...</h1>
-            </td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-        </tr>
-    `;
+
+    var headingStr = `<h1 class="mt-3">Tabel masih kosong...</h1>`;
+    if (msg != null) {
+        headingStr = `<h1 class="mt-3">${msg}</h1>`;
+    }
+
+    var tableStr = `<tr><td colspan="${tableWidth}" class="text-center">${headingStr}</td>`;
+    for (let i = 0; i < tableWidth; i++) {
+        tableStr += `<td style="display: none"></td>`;
+    }
+    tableStr += `</tr>`;
+
+    tbodyKu.innerHTML = tableStr;
 }
 
 function searchTable_DataTable(tableId, searchStr) {
@@ -140,7 +146,57 @@ function addSearchBar_DataTable(tableId) {
     searchInput.wrap('<div class="input-group"></div>');
     searchInput.before('<span class="input-group-text">Cari:</span>');
 
-    console.log("Halo dunia!");
+    // console.log("Halo dunia!");
+}
+//#endregion
+
+//#region Select Options
+function addOptions(selectId, optionData, keyMapping) {
+    const selectEle = document.getElementById(selectId);
+    optionData = JSON.parse(optionData);
+
+    for (let i = 0; i < optionData.length; i++) {
+        const newOption = document.createElement("option");
+
+        if (keyMapping.valueKey && keyMapping.textKey) {
+            newOption.value = optionData[i][keyMapping.valueKey];
+            newOption.text = optionData[i][keyMapping.textKey];
+            selectEle.appendChild(newOption);
+        }
+    }
+}
+
+function addOptionIfNotExists(selectEle, value, text, autoSelect = true) {
+    const options = selectEle.options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === value) {
+            if (autoSelect) options[i].selected = true;
+            return;
+        }
+    }
+
+    const newOption = new Option(text, value);
+    if (autoSelect) newOption.selected = true;
+    selectEle.appendChild(newOption);
+}
+
+function clearOptions(selectId, onlySelection) {
+    const selectEle = document.getElementById(selectId);
+    selectEle.selectedIndex = 0;
+
+    if (!onlySelection) {
+        selectEle.innerHTML = `
+            <option selected disabled>
+                -- Pilih ${snakeCaseToTitleCase(
+                    selectId.replace("select_", "")
+                )} --
+            </option>
+
+            <option value="loading" style="display: none" disabled>
+                Loading...
+            </option>
+        `;
+    }
 }
 //#endregion
 
@@ -156,8 +212,15 @@ function fetchStmt(urlString) {
         });
 }
 
-function toSnakeCase(inputString) {
-    return inputString.toLowerCase().replace(/\s+/g, "_");
+function snakeCaseToTitleCase(input) {
+    return input
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+}
+
+function toSnakeCase(inputStr) {
+    return inputStr.toLowerCase().replace(/\s+/g, "_");
 }
 
 function getCurrentDate() {
@@ -166,4 +229,12 @@ function getCurrentDate() {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
     dateInput.value = `${year}-${month}-${day}`;
+}
+
+function dateTimeToDate(inputStr) {
+    return inputStr.substr(0, 10);
+}
+
+function dateTimetoTime(inputStr) {
+    return inputStr.split(" ")[1].substr(0, 8);
 }

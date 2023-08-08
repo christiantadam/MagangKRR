@@ -17,6 +17,8 @@ class KonversiController extends Controller
             case 'formTropodoKonversiMohon':
                 $form_data = [
                     'listKonversi' => $this->getListKonversi('EXT'),
+                    'listMesin' => $this->getListMesin(1),
+                    'listNoOrder' => $this->getOrdAccBlmSelesai('EXT'),
                 ];
                 break;
 
@@ -30,13 +32,13 @@ class KonversiController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getSatuan('1'));
+        // dd($this->getListKomposisi(1, 'mes01'));
 
         return view($view_name, $view_data);
     }
 
     #region Konversi - Permohonan
-    public function getListKomposisi($id_komposisi)
+    public function getListKomposisiBahan($id_komposisi)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @idkomposisi = ?',
@@ -91,7 +93,8 @@ class KonversiController extends Controller
         );
 
         // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - DetailKonversiEXT, MasterKonversiEXT, KomposisiBahan, MasterKomposisi
+        // TABLE Extruder - DetailKonversiEXT
+        // FK TABLE Extruder - MasterKonversiEXT(IdKonversi), KomposisiBahan(IdType), MasterKomposisi(IdKomposisi)
     }
 
     public function getNoKonversiMaster($kode = null)
@@ -145,6 +148,63 @@ class KonversiController extends Controller
         // FK TABLE Extruder - MasterKomposisi(IdKomposisi), MasterMesin(IdMesin) OrderMasterEXT(IdOrder), OrderDetailEXT(IdOrder)
     }
 
+    public function getIdKonversiInv($id_konversi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_IDKONVERSI_INV @idkonversi = ?',
+            [$id_konversi]
+        );
+
+        // PARAMETER @idkonversi varchar(14)
+        // TABLE Extruder - DetailKonversiEXT
+        // FK TABLE Extruder - MasterKonversiEXT
+    }
+
+    public function getListMesin($kode)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_MESIN @kode = ?',
+            [$kode]
+        );
+
+        // PARAMETER @kode integer
+        // TABLE Extruder - MasterMesin
+    }
+
+    public function getOrdAccBlmSelesai($divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_ORDER_ACC_BLM_SELESAI @divisi = ?',
+            [$divisi]
+        );
+
+        // PARAMETER @Divisi char(3)
+        // TABLE Extruder - OrderMasterEXT
+        // FK TABLE Extruder - OrderDetailEXT(IdOrder)
+    }
+
+    public function getListKomposisi($kode, $id_mesin)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_KOMPOSISI @kode = ?, @idmesin = ?',
+            [$kode, $id_mesin]
+        );
+
+        // PARAMETER @Kode char(1), @idmesin varchar(5)
+        // TABLE Extruder - MasterKomposisi
+    }
+
+    public function getListSpek($id_order)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_SPEK_ORDER @idorder = ?',
+            [$id_order]
+        );
+
+        // PARAMETER @idorder varchar(10)
+        // TABLE Extruder - OrderDetailEXT
+    }
+
     public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
     {
         $sp_str = '';
@@ -196,15 +256,15 @@ class KonversiController extends Controller
         // *fungsi terkait - getNoKonversiCounter()
     }
 
-    public function getIdKonversiInv($id_konversi)
+    public function updMasterKonversi($tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv)
     {
-        return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_IDKONVERSI_INV @idkonversi = ?',
-            [$id_konversi]
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_UPDATE_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @jam1 = ?, @jam2 = ?, @idkonv = ?',
+            [$tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv]
         );
-        // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - DetailKonversiEXT
-        // FK TABLE Extruder - MasterKonversiEXT
+        // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
+        // TABLE Extruder - MasterKonversiEXT
+        // FK TABLE Extruder - MasterJadwalProduksi(IdJadwalProduksi), MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder)
     }
 
     public function delDetailKonversi($id_konversi, $id_konv_inv)
@@ -216,17 +276,6 @@ class KonversiController extends Controller
         // PARAMETER @idkonversi varchar(14), @idkonvInv varchar(9)
         // TABLE Extruder - DetailKonversiEXT
         // FK TABLE Extruder - MasterKonversiEXT
-    }
-
-    public function updMasterKonversi($tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv)
-    {
-        return DB::connection('ConnExtruder')->statement(
-            'exec SP_5409_EXT_UPDATE_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @jam1 = ?, @jam2 = ?, @idkonv = ?',
-            [$tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv]
-        );
-        // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
-        // TABLE Extruder - MasterKonversiEXT
-        // FK TABLE Extruder - MasterJadwalProduksi(IdJadwalProduksi), MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder)
     }
 
     public function delKonversi($id_konversi)

@@ -18,7 +18,7 @@ btnProses.addEventListener("click", function () {
     });
 
     checkedOrder.forEach((order) => {
-        fetchStmt("/ExtruderNet/updAccOrder/" + order + "/tmpUser");
+        fetchStmt("/Order/updAccOrder/" + order + "/tmpUser");
     });
 
     alert("Data berhasil tersimpan!");
@@ -45,7 +45,7 @@ btnKeluar.addEventListener("keydown", function (event) {
 
 //#region Functions
 function showOrder() {
-    fetch("/ExtruderNet/getOrderBlmAcc/EXT")
+    fetch("/Order/getOrderBlmAcc/EXT")
         .then((response) => response.json())
         .then((data) => {
             listOrder.length = 0;
@@ -91,7 +91,7 @@ function rowClicked(data) {
         </tr>
     `;
 
-    fetch("/ExtruderNet/getListSpek/" + data.IDOrder)
+    fetch("/Order/getListSpek/" + data.IDOrder)
         .then((response) => response.json())
         .then((dataFetch) => {
             listDetailOrder.length = 0;

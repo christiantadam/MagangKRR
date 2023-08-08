@@ -17,9 +17,12 @@
         <div class="row mt-3 master">
             <div class="col-lg-4">
                 <label for="no_order">No. Order:</label>
-                <select id="select_order" class="form-select" disabled>
+                <select id="select_nomor_order" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor Order --</option>
                     <option value="loading" style="display: none" disabled>Loading...</option>
+                    @foreach ($formData['listNoOrder'] as $d)
+                        <option value="{{ $d->IDOrder }}">{{ $d->IDOrder . ' | ' . $d->Identifikasi }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -27,7 +30,7 @@
 
             <div class="col-lg-2">
                 <label for="lot">Lot:</label>
-                <input type="text" id="lot" class="form-control" disabled>
+                <input type="text" id="lot" class="form-control" placeholder="0" disabled>
             </div>
 
             <div class="col-lg-1"></div>
@@ -73,6 +76,9 @@
                 <select id="select_mesin" class="form-select" disabled>
                     <option selected disabled>-- Pilih Mesin --</option>
                     <option value="loading" style="display: none" disabled>Loading...</option>
+                    @foreach ($formData['listMesin'] as $d)
+                        <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -139,11 +145,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            @php $col_length = 10; @endphp
-                            <td colspan="{{ $col_length }}" class="text-center">
+                            @php $tableWidth = 10; @endphp
+                            <td colspan="{{ $tableWidth }}" class="text-center">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
-                            @for ($i = 0; $i < $col_length - 1; $i++)
+                            @for ($i = 0; $i < $tableWidth - 1; $i++)
                                 <td class="hidden"></td>
                             @endfor
                         </tr>
@@ -164,11 +170,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $col_length = 4; @endphp
-                                    <td colspan="{{ $col_length }}">
+                                    @php $tableWidth = 4; @endphp
+                                    <td colspan="{{ $tableWidth }}">
                                         <h1 class="mt-3" style="margin-left: 100px">Tabel masih kosong...</h1>
                                     </td>
-                                    @for ($i = 0; $i < $col_length - 1; $i++)
+                                    @for ($i = 0; $i < $tableWidth - 1; $i++)
                                         <td class="hidden"></td>
                                     @endfor
                                 </tbody>

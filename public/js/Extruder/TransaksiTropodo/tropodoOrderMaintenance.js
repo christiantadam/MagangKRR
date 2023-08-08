@@ -162,7 +162,7 @@ btnKeluar.addEventListener("click", function () {
 txtNoOrder.addEventListener("change", function () {
     for (let i = 0; i < listOrder.length; i++) {
         fetchStmt(
-            "/ExtruderNet/insOrderDetail/" +
+            "/Order/insOrderDetail/" +
                 txtNoOrder.value +
                 "/" +
                 toSnakeCase(listOrder[i].namaType) +
@@ -176,7 +176,7 @@ txtNoOrder.addEventListener("change", function () {
         );
     }
 
-    fetchStmt("/ExtruderNet/updCounterOrder/EXT");
+    fetchStmt("/Order/updCounterOrder/EXT");
 
     alert("Data berhasil disimpan!");
     toggleButtons(1);
@@ -191,14 +191,14 @@ btnProses.addEventListener("click", function () {
         alert("Data order masih kosong!");
     } else {
         fetchStmt(
-            "/ExtruderNet/insOrderBenang/" +
+            "/Order/insOrderBenang/" +
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
                 "/tmpUser"
         );
 
-        fetch("/ExtruderNet/getNoOrder")
+        fetch("/Order/getNoOrder")
             .then((response) => response.json())
             .then((data) => {
                 txtNoOrder.value = data.NoOrder;
