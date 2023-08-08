@@ -2,12 +2,16 @@ let tahun = document.getElementById('tahun');
 let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
 let tabelDetailPelunasan = document.getElementById('tabelDetailPelunasan');
+let tabelDetailKurangLebih = document.getElementById('tabelDetailKurangLebih');
+let detpelunasan = document.getElementById('detpelunasan').value;   
+
 let pilihBank = document.getElementById('pilihBank');
 let selectedRows = [];
 let selectedRowsDetail = [];
-let selectedIdPelunasan;
+let selectedIdPelunasan, selectedIdDetail;
 let dataTable;
 let dataTable2;
+let dataTable3;
 
 let idPelunasan = document.getElementById('idPelunasan');
 let tanggalInput = document.getElementById('tanggalInput');
@@ -17,6 +21,12 @@ let namaBankSelect = document.getElementById('namaBankSelect');
 let mataUang = document.getElementById('mataUang');
 let noBukti = document.getElementById('noBukti');
 
+
+let jumlahUang = document.getElementById('jumlahUang');
+let idKodePerkiraanKrgLbh = document.getElementById('idKodePerkiraanKrgLbh');
+let kodePerkiraanKrgLbhSelect = document.getElementById('kodePerkiraanKrgLbhSelect');
+let keterangan = document.getElementById('keterangan');
+
 let kodePerkiraanSelect = document.getElementById("kodePerkiraanSelect");
 
 let btnOK = document.getElementById("btnOK");
@@ -25,9 +35,18 @@ let btnProses = document.getElementById("btnProses");
 let btnTutup = document.getElementById("btnTutup");
 let btnTutupModal = document.getElementById("btnTutupModal");
 let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
+let btnProsesKurangLebih = document.getElementById("btnProsesKurangLebih");
+//let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 
 let modalkoreksi = document.getElementById("formkoreksi");
 let methodform = document.getElementById("methodkoreksi");
+
+let formDetailPelunasan = document.getElementById("formDetailPelunasan");
+let methoddetail = document.getElementById("methoddetail");
+
+let formDetailKurangLebih = document.getElementById("formDetailKurangLebih");
+let methodkuranglebih = document.getElementById("methodkuranglebih");
+
 
 btnTutupModal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -61,19 +80,6 @@ btnOK.addEventListener('click', function (event) {
                 });
             });
 })
-
-namaBankSelect.addEventListener("change", function (event) {
-    event.preventDefault();
-    // console.log(idBank.value);
-    const selectedOption = namaBankSelect.options[namaBankSelect.selectedIndex];
-    if (selectedOption) {
-        const idBankInput = document.getElementById('idBank');
-        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
-        const idBank = selectedValue.split(" | ")[0];
-        idBankInput.value = idBank;
-    }
-});
-
 
 btnPilihBank.addEventListener('click', function (event) {
     event.preventDefault();
@@ -115,6 +121,7 @@ btnPilihBank.addEventListener('click', function (event) {
                 //No_Bukti: cells[8].innerText
             };
             selectedRows.push(rowData);
+
             fetch("/tabeldetailpelunasan/" + cells[1].innerText)
                 .then((response) => response.json())
                 .then((options) => {
@@ -131,38 +138,39 @@ btnPilihBank.addEventListener('click', function (event) {
                             { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah" },
                             { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                             { title: "Customer", data: "NamaCust" },
-                            { title: "Id. Detail", data: "ID_Pelunasan" },
+                            { title: "Id. Detail", data: "ID_Detail_Pelunasan" },
                             { title: "Tgl Penagihan", data: "Tgl_Penagihan" },
                         ],
                     });
                     // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
                     dataTable2.clear().rows.add(options).draw();
                 });
+
+            fetch("/tabelkuranglebih/" + cells[1].innerText)
+                .then((response) => response.json())
+                .then((options) => {
+                    //console.log(cells[1].innerText);
+                    dataTable3 = $("#tabelDetailKurangLebih").DataTable({
+                        data: options,
+                        columns: [
+                            {
+                                title: "Keterangan", data: "Keterangan",
+                                render: function (data) {
+                                    return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                                },
+                            },
+                            { title: "Jumlah Biaya", data: "KurangLebih" },
+                            { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+                            { title: "Id. Detail", data: "ID_Detail_Pelunasan" }
+                        ],
+                    });
+                    // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
+                    dataTable3.clear().rows.add(options).draw();
+                });
         }
     }
     console.log(selectedRows);
 })
-
-$("#tabelDataPelunasan tbody").off("click", "tr");
-    $("#tabelDataPelunasan tbody").off("change", "input[type='checkbox']");
-    // Tangkap event saat checkbox di tabelDataPelunasan dicentang atau dibatalkan pemilihannya
-    $("#tabelDataPelunasan tbody").on("change", "input[type='checkbox']", function () {
-        const checkbox = $(this);
-        const isChecked = checkbox.prop("checked");
-
-        // Handle checkbox click event
-        const row = checkbox.closest("tr");
-        const cells = row.find("td");
-        const rowData = {
-            Tgl_Pelunasan: cells.eq(0).text(),
-            Id_Pelunasan: cells.eq(1).text(),
-            Id_bank: cells.eq(2).text(),
-            Jenis_Pembayaran: cells.eq(3).text(),
-            Nama_MataUang: cells.eq(4).text(),
-            Nilai_Pelunasan: cells.eq(5).text(),
-            No_Bukti: cells.eq(6).text(),
-        };
-    });
 
 $("#btnPilihBank").on("click", function (event) {
     event.preventDefault();
@@ -171,7 +179,7 @@ $("#btnPilihBank").on("click", function (event) {
     const tglPelunasan = $("#tglPelunasan");
     const idPelunasan = $("#idPelunasan");
     //const tanggalInput = $("#tanggalInput");
-    //const tanggalTagih = $("#tanggalTagih");
+    const tanggalTagih = $("#tanggalTagih");
     const jenisBayar = $("#jenisBayar");
     const idBank = $("#idBank");
     const mataUang = $("#mataUang");
@@ -184,13 +192,33 @@ $("#btnPilihBank").on("click", function (event) {
     tglPelunasan.val(selectedData.Tgl_Pelunasan);
     idPelunasan.val(selectedData.Id_Pelunasan);
     //tanggalInput.val(selectedData.Tgl_Pelunasan);
-    //tanggalTagih.val(selectedData.Tgl_Tagih);
+    tanggalTagih.val(selectedData.Tgl_Penagihan);
     jenisBayar.val(selectedData.Jenis_Pembayaran);
     idBank.val(selectedData.Id_bank);
     mataUang.val(selectedData.Nama_MataUang);
     nilaiPelunasan.val(selectedData.Nilai_Pelunasan);
     noBukti.val(selectedData.No_Bukti);
 })
+
+namaBankSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    // console.log(idBank.value);
+    const selectedOption = namaBankSelect.options[namaBankSelect.selectedIndex];
+    if (selectedOption) {
+        const idBankInput = document.getElementById('idBank');
+        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
+        const idBank = selectedValue.split(" | ")[0];
+        idBankInput.value = idBank;
+    }
+});
+
+$("#tabelDataPelunasan tbody").off("click", "input[type='checkbox'");
+$("#tabelDataPelunasan tbody").off("change", "input[type='checkbox']");
+$("#tabelDataPelunasan tbody").on("change", "input[type='checkbox']", function () {
+});
+$("#tabelDataPelunasan tbody").on("click", "input[type='checkbox']", function () {
+});
+
 
 $("#btnProses").on("click", function (event) {
     event.preventDefault();
@@ -222,9 +250,30 @@ $("#btnProses").on("click", function (event) {
     $('#pilihBank').modal('hide');
 })
 
-$("#btnProsesKurangLebih").on("click", function (event) {
+kodePerkiraanSelect.addEventListener("change", function (event) {
     event.preventDefault();
+    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
+    if (selectedOption) {
+        const idKodeInput = document.getElementById('idKodePerkiraan');
+        const selectedValue = selectedOption.value;
+        const idKode = selectedValue.split(" | ")[0];
+        idKodeInput.value = idKode;
+    }
+});
 
+kodePerkiraanKrgLbhSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanKrgLbhSelect.options[kodePerkiraanKrgLbhSelect.selectedIndex];
+    if (selectedOption) {
+        const idKodeInput = document.getElementById('idKodePerkiraanKrgLbh');
+        const selectedValue = selectedOption.value;
+        const idKode = selectedValue.split(" | ")[0];
+        idKodeInput.value = idKode;
+    }
+});
+
+$("#btnProsesDetail").on("click", function (event) {
+    event.preventDefault();
     const idKodePerkiraan = $("#idKodePerkiraan").val();
     const selectedRowsIndices = [];
     $("#tabelDetailPelunasan tbody input[type='checkbox']:checked").each(function () {
@@ -236,19 +285,33 @@ $("#btnProsesKurangLebih").on("click", function (event) {
     updateKpColumn(idKodePerkiraan, selectedRowsIndices);
 
     methoddetail.value="PUT";
-    formDetailPelunasan.action = "/DetailPelunasan/" + idKodePerkiraan.value;
+    formDetailPelunasan.action = "/MaintenanceBKMPenagihan/" + iddetail.value;
     formDetailPelunasan.submit();
 
     $('#modalDetailPelunasan').modal('hide');
-
-
 })
 
+$("#btnProsesKurangLebih").on("click", function (event) {
+    event.preventDefault();
+    const idKodePerkiraanKrgLbh = $("#idKodePerkiraanKrgLbh").val();
+    const selectedRowsIndices = [];
+    $("#tabelDetailKurangLebih tbody input[type='checkbox']:checked").each(function () {
+        const row = $(this).closest("tr");
+        const rowIndex = dataTable2.row(row).index();
+        selectedRowsIndices.push(rowIndex);
+    });
+
+    updateKpColumn(idKodePerkiraanKrgLbh, selectedRowsIndices);
+
+    methodkuranglebih.value="PUT";
+    formDetailKurangLebih.action = "/MaintenanceBKMPenagihan/" + idPelunasan.value;
+    formDetailKurangLebih.submit();
+
+    $('#modalDetailPelunasan').modal('hide');
+})
 
 btnKoreksiDetail.addEventListener('click', function (event) {
     event.preventDefault();
-     // Menyimpan data dari baris yang dicentang
-
 })
 
 function clickOK() {
@@ -343,7 +406,7 @@ function validateTabel() {
         } else if (selectedValue === "2") {
 
         } else if(selectedValue === '3') {
-
+            DetailKurangLebih();
         }
     } else {
         alert("Pilih Detail Yang Akan DiKoreksi!");
@@ -363,14 +426,14 @@ function DetailPelunasan() {
                 Pelunasan_Rupiah: cells[2].innerText,
                 Kode_Perkiraan: cells[3].innerText,
                 NamaCust: cells[4].innerText,
-                ID_Pelunasan: cells[5].innerText,
+                ID_Detail_Pelunasan: cells[5].innerText,
                 Tgl_Penagihan: cells[6].innerText,
             };
             selectedRowsDetail.push(rowData);
         }
     }
     const idPenagihan = $("#idPenagihan");
-    const idPelunasanDetail = $("#idPelunasanDetail")
+    const iddetail = $("#iddetail")
     const nilaiPelunasanDetail = $("#nilaiPelunasanDetail");
     const pelunasanRupiah = $("#pelunasanRupiah");
     const kodePerkiraan = $("#kodePerkiraan");
@@ -380,7 +443,7 @@ function DetailPelunasan() {
 
     // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
     idPenagihan.val(selectedData.ID_Penagihan);
-    idPelunasanDetail.val(selectedData.ID_Pelunasan);
+    iddetail.val(selectedData.ID_Detail_Pelunasan);
     nilaiPelunasanDetail.val(selectedData.Nilai_Pelunasan);
     pelunasanRupiah.val(selectedData.Pelunasan_Rupiah);
     namaCustomer.val(selectedData.NamaCust);
@@ -410,17 +473,55 @@ function DetailPelunasan() {
         });
 }
 
-kodePerkiraanSelect.addEventListener("change", function (event) {
-    event.preventDefault();
-    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
-    if (selectedOption) {
-        const idKodeInput = document.getElementById('idKodePerkiraan');
-        const selectedValue = selectedOption.value;
-        const idKode = selectedValue.split(" | ")[0];
-        idKodeInput.value = idKode;
+function DetailKurangLebih() {
+    let rows = tabelDetailKurangLebih.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        let checkbox = cells[0].getElementsByTagName("input")[0];
+        if (checkbox.checked) {
+            let rowData = {
+                Keterangan: cells[0].innerText,
+                KurangLebih: cells[1].innerText,
+                Kode_Perkiraan: cells[2].innerText,
+                ID_Detail_Pelunasan: cells[3].innerText,
+            };
+            selectedRowsDetail.push(rowData);
+        }
     }
-});
+    const keterangan = $("#keterangan");
+    const kurangLebih = $("#jumlahUang")
+    const kodePerkiraan = $("#kodePerkiraan");
+    const idDetailPelunasan = $("#idDetailPelunasan");
 
+    const selectedData = selectedRowsDetail[0];
 
+    // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
+    keterangan.val(selectedData.Keterangan);
+    kurangLebih.val(selectedData.KurangLebih);
+    idDetailPelunasan.val(selectedData.ID_Detail_Pelunasan);
+    kodePerkiraan.val(selectedData.Kode_Perkiraan);
 
+    const modal = $("#modalDetailKurangLebih");
+    modal.modal('show');
+    //untuk ambil list kode perkiraan
+    fetch("/detailkodeperkiraan/" + 1)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            kodePerkiraanKrgLbhSelect.innerHTML="";
+
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Kode Perkiraan";
+            kodePerkiraanKrgLbhSelect.appendChild(defaultOption);
+
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.NoKodePerkiraan;
+                option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+                kodePerkiraanKrgLbhSelect.appendChild(option);
+            });
+        });
+}
 

@@ -170,12 +170,12 @@
                                                 <label for="radio_3">Detail Kurang/Lebih</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 120%; table-layout: fixed;">
+                                                <table style="width: 240%; table-layout: fixed;" id="tabelDetailKurangLebih">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 60%;">
+                                                    <col style="width: 60%;">
+                                                    <col style="width: 60%;">
+                                                    <col style="width: 60%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -237,7 +237,7 @@
                                                             <label for="tanggalInput" style="margin-right: 10px;">Tanggal Input</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="tanggalInput" class="form-control" style="width: 100%">
+                                                            <input type="date" id="tanggalInput" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label for="tanggalTagih" style="margin-right: 10px;">Tanggal Tagih</label>
@@ -301,6 +301,7 @@
                                                             <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" name="datpelunasan" id="detpelunasan" value="datpelunasan">
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +318,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form method="POST" action="{{ url('DetailPelunasan') }}" id="formDetailPelunasan">
+                                            <form method="POST" action="{{ url('MaintenanceBKMPenagihan') }}" id="formDetailPelunasan">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="_method" id="methoddetail">
                                                 <div class="modal-body">
@@ -329,10 +330,10 @@
                                                             <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <label for="idPelunasanDetail" style="margin-right: 10px;">Id. Pelunasan</label>
+                                                            <label for="iddetail" style="margin-right: 10px;">Id. Pelunasan</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" id="idPelunasanDetail" name="idPelunasanDetail" class="form-control" style="width: 100%">
+                                                            <input type="text" id="iddetail" name="iddetail" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -340,7 +341,7 @@
                                                             <label for="namaCustomer" style="margin-right: 10px;">Nama Customer</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="namaCustomer" class="form-control" style="width: 100%">
+                                                            <input type="text" id="namaCustomer" name="namaCustomer" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -348,7 +349,7 @@
                                                             <label for="nilaiPelunasan" style="margin-right: 10px;">Nilai Pelunasan</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="nilaiPelunasanDetail" name="nilaiPelunasan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="nilaiPelunasanDetail" name="nilaiPelunasanDetail" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -356,7 +357,7 @@
                                                             <label for="pelunasanRupiah" style="margin-right: 10px;">Pelunasan Rupiah</label>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <input type="text" id="pelunasanRupiah" name="mataUang" class="form-control" style="width: 100%">
+                                                            <input type="text" id="pelunasanRupiah" name="pelunasanRupiah" class="form-control" style="width: 100%">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
@@ -382,7 +383,7 @@
                                                             <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" name="detpelunasan" id="detpelunasan">
+                                                    <input type="hidden" name="detpelunasan" id="detpelunasan" value="detpelunasan">
                                                 </div>
                                             </div>
                                         </div>
@@ -394,12 +395,14 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="pilihBankModal">Maintenance Pilih Bank BKM</h5>
+                                                <h5 class="modal-title" id="pilihBankModal">Maintenance Kurang/Lebih BKM</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form id="modalDetailKurangLebih" method="POST" action="{{ url('DetailPelunasan') }}">
+                                            <form id="formDetailKurangLebih" method="POST" action="{{ url('MaintenanceBKMPenagihan') }}">
+                                                {{csrf_field()}}
+                                                <input type="hidden" name="_method" id="methodkuranglebih">
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
                                                             <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
@@ -413,10 +416,10 @@
                                                             <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
+                                                            <input type="text" id="idKodePerkiraanKrgLbh" name="idKodePerkiraanKrgLbh" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-7">
-                                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
+                                                            <select name="kodePerkiraanKrgLbhSelect" id="kodePerkiraanKrgLbhSelect" class="form-control">
 
                                                             </select>
                                                         </div>
@@ -439,7 +442,7 @@
                                                             <input type="submit" id="btnTutupModal" name="btnTutupModal" value="Tutup" class="btn btn-primary">
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" name="detkuranglebih" id="detkuranglebih">
+                                                    <input type="hidden" name="detkuranglebih" id="detpelunasan" value="detkuranglebih">
                                                 </div>
                                             </div>
                                         </div>

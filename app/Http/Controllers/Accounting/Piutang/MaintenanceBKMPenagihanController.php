@@ -15,7 +15,7 @@ class MaintenanceBKMPenagihanController extends Controller
         return view('Accounting.Piutang.MaintenanceBKMPenagihan', compact('data'));
     }
 
-    public function getTabelPenagihan($bulan, $tahun)
+    public function getTabelPelunasan($bulan, $tahun)
     {
         //dd($bulan, $tahun);
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_PELUNASAN_TAGIHAN] @bln = ?, @thn = ?', [$bulan, $tahun]);
@@ -26,6 +26,12 @@ class MaintenanceBKMPenagihanController extends Controller
     {
         //dd($bulan, $tahun);
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_DETAIL_PELUNASAN] @idPelunasan = ?', [$idPelunasan]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelKurangLebih($idPelunasan)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_DETAIL_KRGLBH] @idPelunasan = ?', [$idPelunasan]);
         return response()->json($tabel);
     }
 
@@ -68,26 +74,29 @@ class MaintenanceBKMPenagihanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //dd($request->all());
-        $proses =  $request->proses;
-        if ($proses == "detPelunasan") {
-
+        $proses =  $request->all();
+        // dd($proses);
+        if ($proses['detpelunasan'] == "datpelunasan") {
             $idBank = $request->idBank;
-
             DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_LIST_BANK_1]
             @idBank = ?', [$idBank]);
             return redirect()->back()->with('success', 'Data sudah diKOREKSI');
 
-        } else if ($proses == "detkuranglebih") {
-            $idDetail = $request->idDetail;
-            $kode = $request->kode;
+        } else if ($proses['detpelunasan'] == "detpelunasan") {
+            //dd("masuk else if");
+            $idDetail = $request->iddetail;
+            $kode = $request->idKodePerkiraan;
             DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_PELUNASAN] @iddetail = ?, @kode = ?', [
                 $idDetail, $kode]);
             return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+
+        } else if ($proses['detpelunasan'] == "detkuranglebih") {
+            dd("masuk detkuranglebih");
+            $idPelunasan = $request->idPelunasan;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_PELUNASAN] @iddetail = ?', [
+                $idPelunasan]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
         }
-
-
-
     }
 
     //Remove the specified resource from storage.
