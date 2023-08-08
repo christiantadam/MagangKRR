@@ -85,7 +85,7 @@
                                 </li>
                                 <li><a href="{{ url('ACCManagerGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>
-                                <li><a href="/ACCDirekturGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
+                                <li><a href="{{ url('ACCDirekturGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
                                 </li>
                                 <li><a href="/PenerimaOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Penerima Order Gambar</a>
                                 </li>

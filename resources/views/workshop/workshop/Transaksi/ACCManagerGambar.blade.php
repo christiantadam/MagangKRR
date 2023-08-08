@@ -92,7 +92,7 @@
             </div>
           </div>
         </div>
-        <form action="" method="post" id="formAccManager" action="{{ url('ACCManagerGambar') }}">
+        <form  method="post" id="formAccManager" action="{{ url('ACCManagerGambar') }}">
           {{ csrf_field() }}
           <input type="hidden" name="_method" id="methodForm">
 

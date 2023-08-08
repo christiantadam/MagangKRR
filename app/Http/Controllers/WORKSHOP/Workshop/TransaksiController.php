@@ -12,10 +12,6 @@ class TransaksiController extends Controller
         return view();
     }
 
-    public function ACCDirekturGambar()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.ACCDirekturGambar');
-    }
 
     public function PenerimaOrderGambar()
     {

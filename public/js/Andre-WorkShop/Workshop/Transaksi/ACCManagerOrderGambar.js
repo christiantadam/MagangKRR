@@ -44,6 +44,7 @@ userinput.value = user;
 table_data.on("draw", function () {
     table_data.rows().every(function () {
         let data = this.data();
+        console.log(data.Tgl_TdStjMg == null, data.User_Apv_1 == null,data.User_Apv_2 == null,data.Tgl_Tolak_Mng == null);
         if (data.Tgl_TdStjMg !== null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("acs-empty-cell");
@@ -61,7 +62,8 @@ table_data.on("draw", function () {
         }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("green-color");
-        } if(data.Tgl_TdStjMg == null && data.User_Apv_1 == null && data.User_Apv_2 == null && data.Tgl_Tolak_Mng == null) {
+
+        } if(data.Tgl_TdStjMg == null && data.User_Apv_1 == null && data.Tgl_Tolak_Mng == null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("black-color");
         }
@@ -187,13 +189,14 @@ $("#pilihsemua").on("click", function () {
 
 //#region button proses
 function klikproses() {
-    console.log(table_data.rows().count());
+    //console.log(table_data.rows().count());
     if (table_data.rows().count() != 0) {
         $("input[name='ManagerCheckbox']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
             let value = $(this).val();
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
+
             // Lakukan sesuatu berdasarkan status 'checked'
             if (acc.checked == true) {
                 if (

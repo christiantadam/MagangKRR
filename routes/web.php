@@ -110,8 +110,11 @@ Route::get('GetBarang/{KdBrg}/{IdDiv}', 'App\Http\Controllers\WORKSHOP\Workshop\
 Route::resource('ACCManagerGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCManagerGambarController::class);
 Route::get('getalldatamanager/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCManagerGambarController@GetDataAll');
 
+Route::resource('ACCDirekturGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturGambarController::class);
+Route::get('getalldataDirektur/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturGambarController@GetAllData');
 
-Route::get('ACCDirekturGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturGambar');
+
+
 Route::get('PenerimaOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderGambar');
 Route::get('ProsesPembeliGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ProsesPembeliGambar');
 Route::get('StatusOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderGambar');
