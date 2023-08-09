@@ -17,7 +17,7 @@ let KetTdkS = document.getElementById("KetTdkS");
 let arraycheckbox = [];
 let red = false;
 let semuacentang = document.getElementById("semuacentang");
-
+let divisicek ;
 let idorder = document.getElementById('idorder');
 
 let methodForm = document.getElementById("methodForm");
@@ -160,7 +160,7 @@ refresh.addEventListener("click", function (event) {
 $("#pilihsemua").on("click", function () {
     // Get all the checkboxes within the DataTable
     const checkboxes = $(
-        "input[name='ManagerCheckbox']",
+        "input[name='DirekturCheckbox']",
         table_data.rows().nodes()
     );
     if (cek == false) {
@@ -177,6 +177,14 @@ $("#pilihsemua").on("click", function () {
 
 //#region button proses
 
+$("#tableDirektur tbody").on("click", "tr", function () {
+    var data = table_data.row(this).data(); // Mendapatkan data dari baris yang diklik
+    divisicek = data.NamaDivisi; // Mengambil data dari kolom "Divisi"
+
+    // Lakukan apa pun yang Anda ingin lakukan dengan data divisi
+    console.log("Divisi:", divisicek);
+});
+
 function klikproses() {
     if (table_data.rows().count() != 0) {
         $("input[name='DirekturCheckbox']").each(function () {
@@ -184,6 +192,7 @@ function klikproses() {
             let value = $(this).val();
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
+
 
             // Lakukan sesuatu berdasarkan status 'checked'
             if (acc.checked == true) {
@@ -199,7 +208,14 @@ function klikproses() {
                     isChecked &&
                     closestTd.hasClass("red-color")
                 ) {
-                    arraycheckbox.push(value);
+                    if (divisicek == "KENCANA") {
+                        alert("Lanjutkan ke Batal ACC sebagai Manager..");
+                        window.location.href = "ACCManagerGambar";
+                    }
+                    else{
+                        arraycheckbox.push(value);
+                    }
+
                 }
                 else if (isChecked && closestTd.hasClass("green-color")) {
                     alert(
@@ -275,3 +291,4 @@ function klikproses() {
 }
 
 //#endregion
+
