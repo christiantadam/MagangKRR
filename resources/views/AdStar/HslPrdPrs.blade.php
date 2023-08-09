@@ -35,7 +35,9 @@
                     <div class="col-lg-4">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="" aria-label="">
-                            <button type="button" class="btn btn-primary">...</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                                ...
+                            </button>
                             <input type="text" class="form-control" placeholder="" aria-label="">
                         </div>
                     </div>
@@ -56,8 +58,10 @@
                     <div class="col-lg-2 aligned-text">Grup Pelaksana:</div>
                     <div class="col-lg-2">
                         <select id="grup-pelaksana-dropdown" required>
-                            <option value="1">grup 1</option>
-                            <option value="2">grup 2</option>
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                            <option value="4">D</option>
                             <!-- Add more options as needed -->
                         </select>
                     </div>
@@ -158,14 +162,14 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Grup/Mesin/Order</th>
-                            <th>Nama Mesin</th>
+                            <th>No Trans</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($dataTransaksi as $data)
-                            <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
-                                <td>{{ $data->NamaMesin }}</td>
-                                <td>{{ $data->IdMesin }}</td>
+                            <tr data-grupmesinorder="{{ $data->GrupMesinOrder }}" data-notrans="{{ $data->IDLog }}">
+                                <td>{{ $data->GrupMesinOrder }}</td>
+                                <td>{{ $data->IDLog }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -177,4 +181,37 @@
         </div>
         </div>
     </div>
+
+    <div class="modal fade" id="noorderkerja" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="noorderkerja" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="noorderkerja">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tabel_notransaksi" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nama Brg</th>
+                            <th>No Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($dataTransaksi as $data)
+                            <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
+                                <td>{{ $data->NamaMesin }}</td>
+                                <td>{{ $data->IdMesin }}</td>
+                            </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
 @endsection
