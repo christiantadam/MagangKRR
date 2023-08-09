@@ -127,7 +127,7 @@ class KaryawanKeluargaController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data);
+        // dd($data , " Masuk store bosq");
         DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @kdPeg = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
             1,
             $data['kdPeg'],
@@ -142,7 +142,7 @@ class KaryawanKeluargaController extends Controller
             $data['idbpjs'],
             $data['idklinik'],
         ]);
-        return redirect()->route('karyawanKeluarga.index')->with('alert', 'Data berhasil ditambahkan!');
+        return redirect()->route('KaryawanKeluarga.index')->with('alert', 'Data berhasil ditambahkan!');
     }
 
     //Display the specified resource.
@@ -189,35 +189,38 @@ class KaryawanKeluargaController extends Controller
     {
 
         $data = $request->all();
-
-        //UpdatePekerja
-        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_PEKERJA @modul = ?, @kdpeg = ?, @nokk = ?, @PISAT = ?, @status= ?, @tgg = ?', [
-            1,
-            $data['kd_peg'],
-            $data['nokk'],
-            $data['PISAT'],
-            $data['status'],
-            $data['tgg']
-        ]);
-        return redirect()->route('KaryawanKeluarga.index')->with('success', 'Data Updated successfully!');
-
-
-        //updateKeluarga
-        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
-            2,
-            $data['idKel'],
-            $data['idNik'],
-            $data['nmKel'],
-            $data['statKel'],
-            $data['tglLahir'],
-            $data['idPisat'],
-            $data['kotaLahir'],
-            $data['kelamin'],
-            $data['statKawin'],
-            $data['idbpjs'],
-            $data['idklinik'],
-        ]);
-        return redirect()->route('KaryawanKeluarga.index')->with('success', 'Data berhasil diupdate!');
+        // dd($data);
+        // kodeUpd: "simpanPegawai",
+        if ($data['kodeUpd'] == "simpanPegawai") {
+            //UpdatePekerja
+            DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_PEKERJA @modul = ?, @kdpeg = ?, @nokk = ?, @PISAT = ?, @status= ?, @tgg = ?', [
+                1,
+                $data['kd_peg'],
+                $data['nokk'],
+                $data['PISAT'],
+                $data['status'],
+                $data['tgg']
+            ]);
+            return redirect()->route('KaryawanKeluarga.index')->with('alert', 'Data Pegawai Updated successfully!');
+        } else if ($data['kodeUpd'] == "simpanKeluarga") {
+            // dd($data);
+            ///updateKeluarga
+            DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_MAINT_KELUARGA @modul = ?, @idKel = ?, @idNik = ?, @nmKel = ?, @statKel= ?, @tglLahir = ?, @idPisat = ?, @kotaLahir = ?, @kelamin = ?, @statKawin = ?, @idbpjs = ?, @idklinik = ?', [
+                2,
+                $data['idKel'],
+                $data['idNik'],
+                $data['nmKel'],
+                $data['statKel'],
+                $data['tglLahir'],
+                $data['idPisat'],
+                $data['kotaLahir'],
+                $data['kelamin'],
+                $data['statKawin'],
+                $data['idbpjs'],
+                $data['idklinik'],
+            ]);
+            return redirect()->route('KaryawanKeluarga.index')->with('alert', 'Data keluarga berhasil diupdate!');
+        }
     }
 
     //Remove the specified resource from storage.

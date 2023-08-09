@@ -127,6 +127,7 @@ $(document).ready(function () {
             tgg = 0;
         }
         const data = {
+            kodeUpd: "simpanPegawai",
             kd_peg: idPeg,
             nokk: NoKK,
             PISAT: Kd_PISAT,
@@ -325,6 +326,58 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
     });
+
+    // simpanTambahKel.addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content"); // Ambil CSRF token dari meta tag
+    //     const idPeg = document.getElementById("Id_Peg").value;
+    //     const idNik = document.getElementById("NIK_Kel").value;
+    //     const nmKel = document.getElementById("Nama_Keluarga").value;
+    //     const statKel = document.getElementById("Id_Hub_Keluarga").value;
+    //     const tglLahir = document.getElementById("TglLahir").value;
+    //     const idPisat = document.getElementById("Id_Pisat_Kel").value;
+    //     const kotaLahir = document.getElementById("Kota_Lahir").value;
+    //     const checkedKelamin = document.querySelector(
+    //         'input[name="opsiKelamin"]:checked'
+    //     );
+    //     const statKawin = document.getElementById("Id_Status_Kawin_Kel").value;
+    //     const idbpjs = document.getElementById("BPJS_Kel").value;
+    //     const idklinik = document.getElementById("Id_Klinik_Kel").value;
+
+    //     const data = {
+    //         kdPeg: idPeg,
+    //         idNik: idNik,
+    //         nmKel: nmKel,
+    //         statKel: statKel,
+    //         tglLahir: tglLahir,
+    //         idPisat: idPisat,
+    //         kotaLahir: kotaLahir,
+    //         kelamin: checkedKelamin.value,
+    //         statKawin: statKawin,
+    //         idbpjs: idbpjs,
+    //         idklinik: idklinik,
+    //     };
+    //     console.log(data);
+
+    //     // Send data using XMLHttpRequest
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.open("POST", "{{ route('KaryawanKeluarga.store') }}");
+    //     xhr.setRequestHeader("Content-Type", "application/json");
+    //     xhr.setRequestHeader("X-CSRF-Token", csrfToken);
+
+    //     xhr.onload = function () {
+    //         if (xhr.status === 200) {
+    //             console.log("Form submitted successfully!");
+    //             // Assuming your datatable has an API to refresh, use it here
+    //             // For example, if you're using DataTables:
+    //             // yourDatatable.api().ajax.reload();
+    //         } else {
+    //             console.error("Form submission error:", xhr.responseText);
+    //         }
+    //     };
+
+    //     xhr.send(JSON.stringify(data));
+    // });
     simpanKoreksiKel.addEventListener("click", function (event) {
         event.preventDefault();
         const idKel = document.getElementById("Id_Keluarga").value;
@@ -341,6 +394,7 @@ $(document).ready(function () {
         const idbpjs = document.getElementById("BPJS_Kel").value;
         const idklinik = document.getElementById("Id_Klinik_Kel").value;
         const data = {
+            kodeUpd: "simpanKeluarga",
             idKel: idKel,
             idNik: idNik,
             nmKel: nmKel,
@@ -357,8 +411,8 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "KaryawanKeluarga");
-        // form.setAttribute("method", "POST");
+        form.setAttribute("action", "KaryawanKeluarga/{idKel}");
+        form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
         for (const key in data) {

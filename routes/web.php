@@ -34,7 +34,7 @@ Route::resource('KaryawanHarian', App\Http\Controllers\Payroll\Master\Karyawan\K
 // Route::get('getDataPegawai/{Id_Peg}', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@getDataPegawai');
 
 Route::resource('KaryawanKeluarga', App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController::class);
-
+Route::resource('MasterNomer', App\Http\Controllers\Payroll\Master\Nomer\NomerController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');

@@ -302,7 +302,7 @@
                                         <input type="text" class="form-control" name="tempat" id="tempatLahir"
                                             placeholder="" required>
                                         <input class="form-control" type="date" id="TglLahir" name="TglLahir"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}" style="width: 150px;"
+                                             style="width: 150px;"
                                             required>
                                     </div>
                                 </div>
@@ -342,11 +342,11 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}" style="width: 150px;"
+                                             style="width: 150px;"
                                             required>
                                         <span class="aligned-text" style="margin-left: 13px;">Tgl Masuk Awal:</span>
                                         <input class="form-control" type="date" id="TglMasukAwal" name="TglMasukAwal"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}"
+
                                             style="width: 150px;margin-left:20px;" required>
                                     </div>
                                 </div>
@@ -356,7 +356,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAwalKontrak" name="TglLahir"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}" style=""
+                                             style=""
                                             required>
 
                                     </div>
@@ -456,7 +456,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasukKop" name="Koperasi"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}" style=""
+                                             style=""
                                             required>
 
                                     </div>
@@ -467,7 +467,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAkhirKontrak" name="Kontrak"
-                                            value="{{ old('TglLahir', now()->format('Y-m-d')) }}" style=""
+                                            style=""
                                             required>
 
                                     </div>
@@ -533,13 +533,18 @@
                             </div>
                         </div>
                     </div>
+                    <div id="form-container"></div>
                     <div style="text-align: left; margin: 20px;">
 
 
-                        <button type="button" class="btn " style="width:75px;">Isi</button>
-                        <button type="button" class="btn " style="width:75px;">Koreksi</button>
-                        <button type="button" class="btn " style="width:75px;">Hapus</button>
-                        <button type="button" class="btn " style="width:75px;">Keluar</button>
+                        <button type="button" class="btn " style="width:75px;" id="isiButton">Isi</button>
+                        <button type="button" class="btn " style="width:75px;" id="SimpanIsiButton" hidden>SIMPAN</button>
+                        <button type="button" class="btn " style="width:75px;" id="SimpanKoreksiButton" hidden>SIMPAN</button>
+                        <button type="button" class="btn " style="width:75px;" id="KoreksiButton">Koreksi</button>
+                        <button type="button" class="btn " style="width:75px;" id="BatalIsiButton" hidden>BATAL</button>
+                        <button type="button" class="btn " style="width:75px;" id="BatalKoreksiButton" hidden>BATAL</button>
+                        <button type="button" class="btn " style="width:75px;" id="HapusButton">Hapus</button>
+                        <button type="button" class="btn " style="width:75px;" id="keluarButton">Keluar</button>
                     </div>
                 </div>
                 <br>

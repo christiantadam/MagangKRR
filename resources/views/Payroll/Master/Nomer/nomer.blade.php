@@ -9,7 +9,7 @@
                     <div class="card-header">PEKERJA</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px">
                         <div class="row" style="margin-left:;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                            <div class="form-group col-md-1 d-flex justify-content-end">
                                 <span class="aligned-text">Divisi:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
@@ -25,9 +25,11 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    data-toggle="modal" data-target="#modalKdPeg">...</button>
+                                    onclick="showModalDivisi()">...</button>
+                                <button type="button" class="btn" style="margin-left: 30px; " id="listDataButton"
+                                    >List Data</button>
 
-                                <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
+                                <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
                                         <div class="modal-content" style="">
@@ -44,13 +46,13 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {{-- @foreach ($dataDivisi as $data)
+                                                                @foreach ($dataDivisi as $data)
                                                                     <tr>
 
                                                                         <td>{{ $data->Id_Div }}</td>
                                                                         <td>{{ $data->Nama_Div }}</td>
                                                                     </tr>
-                                                                @endforeach --}}
+                                                                @endforeach
                                                                 {{-- @foreach ($peringatan as $item)
                                                                     <tr>
                                                                         <td><input type="checkbox" style="margin-right:5px;"
@@ -80,8 +82,8 @@
                         </div>
                         <br>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table id="table_ListPegawai" class="table table-bordered">
+                                <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Kode</th>
                                         <th scope="col">JNSPEG</th>
@@ -90,6 +92,7 @@
                                         <th scope="col">Alamat</th>
                                         <th scope="col">Kota</th>
                                         <th scope="col">TGL MASUK AWAL</th>
+                                        <th scope="col">TGL MASUK</th>
                                         <th scope="col">KARTU</th>
                                         <th scope="col">INDUK</th>
                                         <th scope="col">RBH</th>
@@ -101,6 +104,7 @@
                                         <th scope="col">No. BPJS</th>
                                         <th scope="col">Penanggung</th>
                                         <th scope="col">NM_IBU_KANDUNG</th>
+                                        <th scope="col">IdKlinik</th>
                                         <th scope="col">Klinik</th>
                                         <th scope="col">JABATAN</th>
                                         <th scope="col">NO PENSIUN</th>
@@ -114,22 +118,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr>
 
-                                        {{-- <td>
-                                            <a href="" title="Edit Employee">
-                                                <button class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                </button>
-                                            </a>
-                                            <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                </button>
-                                            </form>
-                                        </td> --}}
-
-                                    </tr>
                                     {{-- @foreach ($employees as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
@@ -375,11 +364,11 @@
                                                 <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                             @endforeach
                                         </select> --}}
-                                        <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                            data-toggle="modal" data-target="#modalKlinik">...</button>
+                                        <button type="button" class="btn" style="margin-left: 10px; "
+                                            id="divisiButton" data-toggle="modal" data-target="#modalKlinik">...</button>
 
-                                        <div class="modal fade" id="modalKlinik" role="dialog" arialabelledby="modalLabel"
-                                            area-hidden="true" style="">
+                                        <div class="modal fade" id="modalKlinik" role="dialog"
+                                            arialabelledby="modalLabel" area-hidden="true" style="">
                                             <div class="modal-dialog " role="document">
                                                 <div class="modal-content" style="">
                                                     <div class="modal-header" style="justify-content: center;">
@@ -426,87 +415,87 @@
                                                 </div>
                                             </div>
                                         </div>
-                                </div>
-                                <br>
-                                <div style="flex: 1; margin-right: 10px;">
-                                    <label style="display: inline-block; margin-right: 5px;">No Pensiun</label>
-                                    <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
                                     </div>
-                                </div>
-                                <br>
-                                <div style="flex: 1; margin-right: 10px;">
-                                    <label style="display: inline-block; margin-right: 5px;">Email</label>
-                                    <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
-                                    </div>
-                                </div>
-                                <br>
-                                <div style="flex: 1; margin-right: 10px;">
-                                    <label style="display: inline-block; margin-right: 5px;">No Telepon</label>
-                                    <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
-                                    </div>
-                                </div>
-                                <br>
-                                <div style="flex: 1; margin-right: 10px;">
-                                    <label style="display: inline-block; margin-right: 5px;">Vaksin Covid 19</label>
-                                    <div style="display: flex; flex-wrap: nowrap;">
-                                        <div style="padding: 10px">
-                                            <input type="radio" id="staff" name="pekerja" value="staff"
-                                                style="vertical-align: middle;">
-                                            <label for="staff"
-                                                style="display: inline-block; margin-right: 5px;">Belum</label>
+                                    <br>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label style="display: inline-block; margin-right: 5px;">No Pensiun</label>
+                                        <div style="display: flex; flex-wrap: nowrap;">
+                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
                                         </div>
-
-                                        <div style="padding: 10px">
-                                            <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
-                                                style="vertical-align: middle;">
-                                            <label for="bukanStaff"
-                                                style="display: inline-block; margin-right: 5px;">Tahap 1</label>
-                                        </div>
-
-                                        <div style="padding: 10px">
-                                            <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
-                                                style="vertical-align: middle;">
-                                            <label for="bukanStaff"
-                                                style="display: inline-block; margin-right: 5px;">Tahap 2</label>
-                                        </div>
-
                                     </div>
+                                    <br>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label style="display: inline-block; margin-right: 5px;">Email</label>
+                                        <div style="display: flex; flex-wrap: nowrap;">
+                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label style="display: inline-block; margin-right: 5px;">No Telepon</label>
+                                        <div style="display: flex; flex-wrap: nowrap;">
+                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label style="display: inline-block; margin-right: 5px;">Vaksin Covid 19</label>
+                                        <div style="display: flex; flex-wrap: nowrap;">
+                                            <div style="padding: 10px">
+                                                <input type="radio" id="staff" name="pekerja" value="staff"
+                                                    style="vertical-align: middle;">
+                                                <label for="staff"
+                                                    style="display: inline-block; margin-right: 5px;">Belum</label>
+                                            </div>
+
+                                            <div style="padding: 10px">
+                                                <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
+                                                    style="vertical-align: middle;">
+                                                <label for="bukanStaff"
+                                                    style="display: inline-block; margin-right: 5px;">Tahap 1</label>
+                                            </div>
+
+                                            <div style="padding: 10px">
+                                                <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
+                                                    style="vertical-align: middle;">
+                                                <label for="bukanStaff"
+                                                    style="display: inline-block; margin-right: 5px;">Tahap 2</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right; margin-top: 20px;">
+                                        <button type="button" class="btn btn-primary">Tambah</button>
+                                        <button type="button" class="btn btn-dark">Keluar</button>
+                                    </div>
+
+
+
                                 </div>
-                                <div style="text-align: right; margin-top: 20px;">
-                                    <button type="button" class="btn btn-primary">Tambah</button>
-                                    <button type="button" class="btn btn-dark">Keluar</button>
-                                </div>
-
-
-
                             </div>
                         </div>
+
+
+
+
+
+
+
+                        <br>
+
+
+
+
+
+
+
                     </div>
-
-
-
-
-
-
-
-                    <br>
-
-
-
-
-
-
-
                 </div>
+
             </div>
+            <br>
 
         </div>
-        <br>
-
-    </div>
     </div>
     </div>
 @endsection
