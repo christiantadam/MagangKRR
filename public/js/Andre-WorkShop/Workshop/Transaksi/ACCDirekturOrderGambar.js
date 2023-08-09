@@ -123,7 +123,13 @@ function AllData(tglAwal, tglAkhir) {
                         { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
                         { title: "Nama Barang", data: "Nama_Brg" }, // Sesuaikan 'country' dengan properti kolom di data
                         { title: "Kd. Brg", data: "Kd_Brg" },
-                        { title: "Jumlah", data: "Nama_satuan" },
+                        {
+                            title: "Jumlah",
+                            data: "Nama_satuan",
+                            render: function (data) {
+                                return `1 ${data}`;
+                            }
+                        },
                         { title: "Status Order", data: "Status" },
                         { title: "Divisi", data: "NamaDivisi" },
                         { title: "Mesin", data: "Mesin" },

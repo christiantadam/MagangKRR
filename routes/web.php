@@ -113,9 +113,11 @@ Route::get('getalldatamanager/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop
 Route::resource('ACCDirekturGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturGambarController::class);
 Route::get('getalldataDirektur/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturGambarController@GetAllData');
 
+Route::resource('PenerimaOrderGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderGambarController::class);
+Route::get('getalldataPenerimaGambar/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderGambarController@GetAllData');
+Route::get('cekuser/{user}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderGambarController@cekuser');
 
 
-Route::get('PenerimaOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderGambar');
 Route::get('ProsesPembeliGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ProsesPembeliGambar');
 Route::get('StatusOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderGambar');
 Route::get('MaintenanceNomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceNomorGambar');
