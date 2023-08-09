@@ -110,7 +110,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta/Schedule') }}">Schedule </a>
+                                        tabindex="-1" href="{{ url('Schedule') }}">Schedule </a>
                                 </li>
                                 <li>
                                     <a class="test"
