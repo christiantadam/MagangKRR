@@ -17,8 +17,8 @@ let KetTdkS = document.getElementById("KetTdkS");
 let arraycheckbox = [];
 let red = false;
 let semuacentang = document.getElementById("semuacentang");
-let divisicek ;
-let idorder = document.getElementById('idorder');
+let divisicek;
+let idorder = document.getElementById("idorder");
 
 let methodForm = document.getElementById("methodForm");
 let formAccDirektur = document.getElementById("formAccDirektur");
@@ -193,7 +193,6 @@ function klikproses() {
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
 
-
             // Lakukan sesuatu berdasarkan status 'checked'
             if (acc.checked == true) {
                 if (
@@ -204,20 +203,9 @@ function klikproses() {
                     arraycheckbox.push(value);
                 }
             } else if (batal_acc.checked == true) {
-                if (
-                    isChecked &&
-                    closestTd.hasClass("red-color")
-                ) {
-                    if (divisicek == "KENCANA") {
-                        alert("Lanjutkan ke Batal ACC sebagai Manager..");
-                        window.location.href = "ACCManagerGambar";
-                    }
-                    else{
-                        arraycheckbox.push(value);
-                    }
-
-                }
-                else if (isChecked && closestTd.hasClass("green-color")) {
+                if (isChecked && closestTd.hasClass("red-color")) {
+                    arraycheckbox.push(value);
+                } else if (isChecked && closestTd.hasClass("green-color")) {
                     alert(
                         "Nomer Order " +
                             value +
@@ -227,10 +215,7 @@ function klikproses() {
                     return;
                 }
             } else if (tdk_setuju.checked == true) {
-                if (
-                    isChecked &&
-                    closestTd.hasClass("black-color")
-                ) {
+                if (isChecked && closestTd.hasClass("black-color")) {
                     Ket_batal = prompt(
                         "Alasan tdk disetujui Order " + value + " :"
                     );
@@ -262,19 +247,25 @@ function klikproses() {
             radiobox.value = "acc";
             semuacentang.value = arrayString;
             methodForm.value = "PUT";
-            formAccDirektur.action =
-                "/ACCDirekturGambar/" + semuacentang.value;
+            formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
             formAccDirektur.submit();
         } else if (batal_acc.checked == true) {
+            if (divisicek == "KENCANA") {
+                alert("Lanjutkan ke Batal ACC sebagai Manager..");
+                window.location.href = "ACCManagerGambar";
+                return;
+            }
+            else{
+                var arrayString = arraycheckbox.join(",");
+                //console.log(arrayString);
+                radiobox.value = "batal_acc";
+                semuacentang.value = arrayString;
+                methodForm.value = "PUT";
+                formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
+                formAccDirektur.submit();
+            }
             //console.log("berhasil");
-            var arrayString = arraycheckbox.join(",");
-            //console.log(arrayString);
-            radiobox.value = "batal_acc";
-            semuacentang.value = arrayString;
-            methodForm.value = "PUT";
-            formAccDirektur.action =
-                "/ACCDirekturGambar/" + semuacentang.value;
-            formAccDirektur.submit();
+
         } else if (tdk_setuju.checked == true) {
             var arrayString = arraycheckbox.join(",");
             var arrayString1 = ket.join(",");
@@ -283,12 +274,10 @@ function klikproses() {
             KetTdkS.value = arrayString1;
             semuacentang.value = arrayString;
             methodForm.value = "PUT";
-            formAccDirektur.action =
-                "/ACCDirekturGambar/" + semuacentang.value;
+            formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
             formAccDirektur.submit();
         }
     }
 }
 
 //#endregion
-
