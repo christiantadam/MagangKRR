@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/ScanBarcode.js') }}"></script>
 
     <body onload="Greeting()">
         <style>
@@ -57,7 +58,7 @@
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                         placeholder="Divisi" readonly>
-                                                    <div class="text-center col-md-auto"><button type="submit"
+                                                    <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal()" id="ButtonDivisi">...</button></div>
                                                     <div class="modal" id="myModal">
                                                         <div class="modal-content">
@@ -100,7 +101,7 @@
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Objek" id="Objek"
                                                         placeholder="Objek" readonly>
-                                                    <div class="text-center col-md-auto"><button type="submit"
+                                                    <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal1()" id="ButtonObjek">...</button></div>
                                                     <div class="modal" id="myModal1">
                                                         <div class="modal-content">
@@ -158,10 +159,10 @@
                                                     <a href="{{ url('ABM/Scan') }}">
                                                         <button type="button" style="width: 150px">Scan Barcode</button>
                                                     </a>
-                                                    <div class="text-center col-md-auto"><button
-                                                            type="button" style="width: 150px; margin-left: 15px">Refresh</button></div>
-                                                    <div class="text-center col-md-auto"><button
-                                                            type="button" style="width: 150px">Keluar</button></div>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px; margin-left: 15px">Refresh</button></div>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px">Keluar</button></div>
                                                     <input class="form-group col-md-2 ml-5" name="type" rows="blank">
                                                 </div>
                                             </div>
@@ -177,97 +178,5 @@
                     @yield('content')
                 </main>
             </div>
-            <script>
-                $(document).ready(function() {
-                    $('.dropdown-submenu a.test').on("click", function(e) {
-                        $(this).next('ul').toggle();
-                        e.stopPropagation();
-                        e.preventDefault();
-                    });
-                });
-
-                $('#TableDivisi tbody').on('click', 'tr', function() {
-                    // Get the data from the clicked row
-
-                    var rowData = $('#TableDivisi').DataTable().row(this).data();
-
-                    // Populate the input fields with the data
-                    $('#id_Divisi').val(rowData[0]);
-                    $('#Divisi').val(rowData[1]);
-
-                    // Hide the modal immediately after populating the data
-                    closeModal();
-                });
-
-                $('#TableObjek tbody').on('click', 'tr', function() {
-                    // Get the data from the clicked row
-
-                    var rowData = $('#TableObjek').DataTable().row(this).data();
-
-                    // Populate the input fields with the data
-                    $('#id_Objek').val(rowData[0]);
-                    $('#Objek').val(rowData[1]);
-
-                    // Hide the modal immediately after populating the data
-                    closeModal1();
-                });
-
-                var ButtonDivisi = document.getElementById('ButtonDivisi')
-
-                ButtonDivisi.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                var ButtonObjek = document.getElementById('ButtonObjek')
-
-                ButtonObjek.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                function openModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-                function openModal1() {
-                    var modal = document.getElementById('myModal1');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal1() {
-                    var modal = document.getElementById('myModal1');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-
-                $(document).ready(function() {
-                    $('#TableDivisi').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableObjek').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableType').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-            </script>
     </body>
 @endsection

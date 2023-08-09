@@ -1,10 +1,12 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BalJadiPalet.js') }}"></script>
+
 
     <body onload="Greeting()">
         <div class="form-wrapper mt-4">
             <div style="width: 80%;">
-                <div class="card">
+                <div class="card" style="margin-right: 30px">
                     <div class="card-header">Press Ulang</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form berat_woven">
@@ -55,12 +57,12 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal1()" id="ButtonDivisi"
-                                                    style="width:180px;" disabled>Divisi</button>
+                                                <button type="button" onclick="openModal()" id="ButtonDivisi"
+                                                    style="width:180px;">Divisi</button>
                                             </div>
-                                            <div class="modal" id="myModal1">
+                                            <div class="modal" id="myModal">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal()">&times;</span>
                                                     <h2>Table Divisi</h2>
                                                     <p>Id Divisi & Divisi</p>
                                                     <table id="TableDivisi">
@@ -79,7 +81,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="enableButtonType()">Process</button>
+                                                        <button type="button" onclick="closeModal()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,12 +89,12 @@
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px;" disabled>Pilih Type</button>
+                                                <button type="button" onclick="openModal1()" id="ButtonType"
+                                                    style="width:180px;">Pilih Type</button>
                                             </div>
-                                            <div class="modal" id="myModal2">
+                                            <div class="modal" id="myModal1">
                                                 <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
                                                     <h2>Table Type</h2>
                                                     <p>Id Type & Type</p>
                                                     <table id="TableType">
@@ -110,7 +112,7 @@
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
                                                         <button type="button"
-                                                            onclick="enableButtonJumlahBarang()">Process</button>
+                                                            onclick="closeModal1()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,10 +132,31 @@
                                             </div>
                                         </div>
 
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Acc
-                                                    Barcode</button></div>
+                                        <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
+                                            <div class="text-center col-md-auto mt-3">
+                                                <button type="button" onclick="openModal2()" id="ButtonType"
+                                                    style="width:180px;">Acc Barcode</button>
+                                            </div>
+                                            <div class="modal" id="myModal2">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                    <h2>Acc Barcde</h2>
+                                                    <p>Masukan Barcode</p>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-2 d-flex justify-content-end">
+                                                            <span class="aligned-text">Barcode:</span>
+                                                        </div>
+                                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                                            <input type="text" class="form-control" name="Barang" id="Barang"
+                                                                placeholder="Barang">
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center col-md-auto mt-3">
+                                                        <button type="button"
+                                                            onclick="closeModal2()">Process</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
@@ -316,29 +339,9 @@
                     </form>
                 </div>
             </div>
-        </div>
-        </div>
-        </div>
         <main class="py-4">
             @yield('content')
         </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType1').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 @endsection

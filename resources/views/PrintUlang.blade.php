@@ -1,12 +1,13 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PrintUlang.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
                     <div class="card">
-                        <div class="card-header">Schedule</div>
+                        <div class="card-header">Print Ulang</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
@@ -15,12 +16,10 @@
                                             <span class="aligned-text">Pilih Shift:</span>
                                         </div>
                                         <div class="form-group ml-3">
-                                            <select id="shift">
+                                            <select id="shift" style="width: 100px">
                                                 <option value="1">Satu</option>
                                                 <option value="2">Dua</option>
                                                 <option value="3">Tiga</option>
-                                                <option value="4">Empat</option>
-                                                <option value="5">Lima</option>
                                             </select>
                                         </div>
                                     </div>
@@ -90,13 +89,13 @@
 
                                     <div class="row mt-3">
                                         <div class="col- row justify-content-md-center">
-                                            <div class="text-center col-md-auto"><button type="submit">Timbang</button>
+                                            <div class="text-center col-md-auto"><button type="button">Timbang</button>
                                             </div>
-                                            <div class="text-center col-md-auto"><button type="submit">Print Ulang</button>
+                                            <div class="text-center col-md-auto"><button type="button">Print Ulang</button>
                                             </div>
-                                            <div class="text-center col-md-auto"><button type="submit">Scan
+                                            <div class="text-center col-md-auto"><button type="button">Scan
                                                     Barcode</button></div>
-                                            <div class="text-center col-md-auto"><button type="submit">Keluar</button>
+                                            <div class="text-center col-md-auto"><button type="button">Keluar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -109,139 +108,5 @@
                     @yield('content')
                 </main>
             </div>
-            <script>
-                $(document).ready(function() {
-                    $('.dropdown-submenu a.test').on("click", function(e) {
-                        $(this).next('ul').toggle();
-                        e.stopPropagation();
-                        e.preventDefault();
-                    });
-                });
-            </script>
-
-            <script>
-                var ButtonDivisi = document.getElementById('ButtonDivisi')
-
-                ButtonDivisi.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                var ButtonKelut = document.getElementById('ButtonKelut')
-
-                ButtonKelut.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                var ButtonKelompok = document.getElementById('ButtonKelompok')
-
-                ButtonKelompok.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                var ButtonSubKelompok = document.getElementById('ButtonSubKelompok')
-
-                ButtonSubKelompok.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                var ButtonType = document.getElementById('ButtonType')
-
-                ButtonType.addEventListener("click", function(event) {
-                    event.preventDefault();
-                });
-
-                function openModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal() {
-                    var modal = document.getElementById('myModal');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-                function openModal1() {
-                    var modal = document.getElementById('myModal1');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal1() {
-                    var modal = document.getElementById('myModal1');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-
-                function openModal2() {
-                    var modal = document.getElementById('myModal2');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal2() {
-                    var modal = document.getElementById('myModal2');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-
-                function openModal3() {
-                    var modal = document.getElementById('myModal3');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal3() {
-                    var modal = document.getElementById('myModal3');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-
-                function openModal4() {
-                    var modal = document.getElementById('myModal4');
-                    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-                }
-
-                function closeModal4() {
-                    var modal = document.getElementById('myModal4');
-                    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-                }
-
-                $(document).ready(function() {
-                    $('#TableType').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableSubKelompok').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableKelompok').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableKelut').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-
-                $(document).ready(function() {
-                    $('#TableDivisi').DataTable({
-                        order: [
-                            [0, 'desc']
-                        ],
-                    });
-                });
-            </script>
     </body>
 @endsection

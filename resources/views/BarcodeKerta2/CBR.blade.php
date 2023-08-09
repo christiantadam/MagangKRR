@@ -1,9 +1,9 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/CBR.js') }}"></script>
+
 <body onload="Greeting()">
     <div id="app">
-
-
         <div class="form-wrapper mt-4">
             <div class="form-container">
                 <div class="card">
@@ -38,15 +38,6 @@
                 @yield('content')
             </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-        </script>
 </body>
 
 @endsection

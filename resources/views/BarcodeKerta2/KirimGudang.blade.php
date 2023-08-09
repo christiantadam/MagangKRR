@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/KirimGudang.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
@@ -21,7 +22,7 @@
                                         <div class="form-group col-md-6 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal()" id="ButtonDivisi">...</button></div>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
@@ -65,7 +66,7 @@
                                         <div class="form-group col-md-4 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="NoSP" id="NoSP"
                                                 placeholder="No. SP" readonly>
-                                                <div class="text-center col-md-auto"><button type="submit"
+                                                <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal2()" id="ButtonSP">...</button></div>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
@@ -175,7 +176,7 @@
 
                             <div class="text-center col-md-auto" style="margin-left: -15px"><button type="button">Belum
                                     Dikirim</button></div>
-                            <a href="{{ url('ABM/BarcodeKerta/CSJ') }}">
+                            <a href="{{ url('CSJ') }}">
                                 <button type="button">Cek S.Jalan</button>
                             </a>
                             <div class="text-center col-md-auto"><button type="button">Keluar</button></div>
@@ -190,100 +191,5 @@
             @yield('content')
         </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            var ButtonDivisi = document.getElementById('ButtonDivisi')
-
-            ButtonDivisi.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonProcess = document.getElementById('ButtonProcess')
-            ButtonProcess.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonSP = document.getElementById('ButtonSP')
-            ButtonSP.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            function openModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            $(document).ready(function() {
-                $('#RekapKirim').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#DaftarKirim').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableProcess').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableDivisi').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableSP').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 @endsection

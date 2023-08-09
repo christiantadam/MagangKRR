@@ -1,5 +1,7 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/HanguskanBarcode.js') }}"></script>
+
 
     <body onload="Greeting()">
         <div id="app">
@@ -132,8 +134,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Tutup</button></div>
+                                <div class="text-center col-md-auto"><button type="button" style="width: 100px">Proses</button></div>
+                                <div class="text-center col-md-auto"><button type="button" style="width: 100px">Tutup</button></div>
                             </div>
                         </div>
                         </form>
@@ -145,72 +147,6 @@
             @yield('content')
         </main>
         </div>
-        <script>
-            var ButtonDivisi = document.getElementById('ButtonDivisi')
-
-            ButtonDivisi.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonJumlahBarang = document.getElementById('ButtonJumlahBarang')
-
-            ButtonJumlahBarang.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            function openModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            $(document).ready(function() {
-                $('#TableDivisi').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType1').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
-
     </html>
 @endsection

@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/CSJ.js') }}"></script>
 
     <body onload="Greeting()">
         <style>
@@ -50,7 +51,7 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Surat_jalan" id="Surat_jalan"
                                                 placeholder="Surat Jalan">
-                                            <div class="text-center col-md-auto"><button type="submit" id="SJ"
+                                            <div class="text-center col-md-auto"><button type="button" id="SJ"
                                                     onclick="openModal()">SJ Baru</button>
                                             </div>
                                             <div class="modal" id="myModal">
@@ -82,7 +83,7 @@
 
                                                 </div>
                                             </div>
-                                            <div class="text-center col-md-auto"><button type="submit">Open</button></div>
+                                            <div class="text-center col-md-auto"><button type="button">Open</button></div>
                                         </div>
                                     </div>
 
@@ -132,7 +133,6 @@
                                         </table>
                                     </div>
                             </div>
-
                             <div class="mt-3 text-center">
                                 <h5>Lembar 1 untuk : Penerima Barang <br>
                                     Lembar 2 untuk : Adm. Pembelian <br>
@@ -141,13 +141,12 @@
                                 </h5>
                             </div>
 
-
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Cek Surat Jalan</button>
+                                    <div class="text-center col-md-auto"><button type="button" style="width: 150px">Cek Surat Jalan</button>
                                     </div>
-                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Batal Cetak</button></div>
-                                    <div class="text-center col-md-auto"><button type="submit" style="width: 150px">Keluar</button></div>
+                                    <div class="text-center col-md-auto"><button type="button" style="width: 150px">Batal Cetak</button></div>
+                                    <div class="text-center col-md-auto"><button type="button" style="width: 150px">Keluar</button></div>
                                 </div>
                             </div>
                             </form>
@@ -159,37 +158,5 @@
                 @yield('content')
             </main>
         </div>
-        <script>
-            var SJ = document.getElementById('SJ')
-            SJ.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            function openModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TypeTable').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 @endsection

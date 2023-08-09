@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/Scan.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
@@ -67,8 +68,8 @@
 
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="submit" style="width: 100px">Keluar</button></div>
+                                <div class="text-center col-md-auto"><button type="button" style="width: 100px">Proses</button></div>
+                                <div class="text-center col-md-auto"><button type="button" class="btn-danger" style="width: 100px">Keluar</button></div>
                                 <div class="form-group col-md-3 mt-3 mt-md-0">
                                     <input type="text" class="form-control ml-5" name="test" id="test">
                                 </div>
@@ -83,31 +84,6 @@
             @yield('content')
         </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType1').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 
     </html>

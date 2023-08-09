@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/TotalBarcode.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
@@ -34,7 +35,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group text-center col-md-auto"><button
-                                                type="submit" style="margin-left: 115px">Proses</button></div>
+                                                type="button" style="margin-left: 115px">Proses</button></div>
                                     </div>
 
                                     <div class="card mt-auto">
@@ -66,8 +67,8 @@
                                                 placeholder="Total">
                                         </div>
                                     </div>
-                                    <div class="text-center col-md-auto"><button type="submit" class="btn-danger"
-                                            style="margin-left: 538px">Keluar</button></div>
+                                    <div class="text-center col-md-auto"><button type="button" class="btn-danger"
+                                            style="margin-left: 500px; width: 100px">Keluar</button></div>
                                 </div>
                             </div>
                             </form>
@@ -79,22 +80,5 @@
                 @yield('content')
             </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 @endsection

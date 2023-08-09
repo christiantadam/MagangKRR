@@ -1,5 +1,7 @@
 @extends('layouts.appABM')
 @section('content')
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/Konversi.js') }}"></script>
+
 
     <body onload="Greeting()">
         <div class="form-wrapper mt-4">
@@ -63,8 +65,13 @@
                                             </div>
                                         </div>
 
-
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width:180px;">Scan Barcode</button>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal1()" id="ButtonDivisi"
                                                     style="width:180px;" disabled>Divisi</button>
@@ -90,13 +97,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px;" disabled>Nama Type</button>
+                                                    style="width:180px;">Pilih Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -107,12 +114,10 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Nama Type</th>
+                                                                <th>Id Type</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Test</td>
-                                                            </tr>
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -124,7 +129,7 @@
                                             </div>
                                         </div>
 
-                                        <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
+                                        {{-- <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal3()" id="ButtonJumlahBarang"
                                                     style="width:180px;" disabled>Isi Jumlah Barang</button>
@@ -161,7 +166,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
@@ -172,7 +177,7 @@
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
                                                     style="width:180px;">Print
-                                                    Barcode</button>
+                                                    Barcode Konversi</button>
                                             </div>
                                         </div>
 
@@ -247,52 +252,31 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-2 d-flex justify-content-end">
-                                                <span class="aligned-text">Type :</span>
+                                                <span class="aligned-text">Type Asal:</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="Type" id="Type" rows="Type" placeholder="Type" readonly></textarea>
+                                                <textarea class="form-control" name="asal" rows="asal" placeholder="Asal" readonly></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-2 d-flex justify-content-end">
+                                                <span class="aligned-text">Type Tujuan:</span>
+                                            </div>
+                                            <div class="form-group col-md-5 mt-3 mt-md-0">
+                                                <textarea class="form-control" name="tujuan" rows="tujuan" placeholder="Tujuan" readonly></textarea>
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-wrap:wrap; margin:10px;">
-                                            <div style="flex: 0 0 50%; max-width: 50%; margin-left:94px">
+                                            <div style="flex: 0 0 50%; max-width: 50%; margin-left:94px; margin-top: -10px">
                                                 <div class="row">
                                                     <div class="form-group col-md-2 d-flex justify-content-end">
-                                                        <span class="aligned-text">Jenis:</span>
+                                                        <span class="aligned-text">Divisi:</span>
                                                     </div>
                                                     <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                        <input class="form-control" type="text" name="Jenis"
-                                                            rows="Jenis" placeholder="Jenis" readonly>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
-                                                        <span class="aligned-text">Satuan:</span>
-                                                    </div>
-                                                    <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                        <input class="form-control" type="text" name="Satuan"
-                                                            rows="Satuan" placeholder="Satuan" readonly>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
-                                                        <span class="aligned-text">Lembar:</span>
-                                                    </div>
-                                                    <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                        <input class="form-control" type="text" name="Lembar"
-                                                            id="LembarOutput" rows="Lembar" placeholder="Lembar"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div style="margin-top:-20px; margin-left:-198px">
-                                                    <div class="d-flex flex-column align-items-center">
-                                                        <label for="text" class="aligned-text">Jumlah
-                                                            Barcode:</label>
-                                                        <textarea class="form-control" type="text" name="text" rows="5" style="margin-right: 10px;" readonly></textarea>
+                                                        <input class="form-control" type="text" name="Divisi"
+                                                            rows="Divisi" placeholder="Divisi" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -301,7 +285,8 @@
                                 </div>
 
 
-                                <div class="card mt-3" style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
+                                <div class="card mt-3"
+                                    style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -321,9 +306,11 @@
                                             <span class="aligned-text">Sekunder:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="sekunder" id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
+                                            <input class="form-control" type="text" name="sekunder"
+                                                id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
                                             <div class="text-center col-md-auto">
-                                                <button type="button" style="width: 100px" onclick="openModal3()">LBR</button>
+                                                <button type="button" style="width: 100px"
+                                                    onclick="openModal3()">LBR</button>
                                             </div>
                                         </div>
                                     </div>
@@ -351,193 +338,5 @@
             @yield('content')
         </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $('#TableDivisi tbody').on('click', 'tr', function() {
-                // Get the data from the clicked row
-
-                var rowData = $('#TableDivisi').DataTable().row(this).data();
-
-                // Populate the input fields with the data
-                $('#IdDivisi').val(rowData[0]);
-                $('#Divisi').val(rowData[1]);
-
-                // Hide the modal immediately after populating the data
-                closeModal();
-            });
-
-            var ButtonShift = document.getElementById('ButtonShift')
-            ButtonShift.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonDivisi = document.getElementById('ButtonDivisi')
-            ButtonDivisi.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonType = document.getElementById('ButtonType')
-            ButtonType.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            var ButtonJumlahBarang = document.getElementById('ButtonJumlahBarang')
-            ButtonJumlahBarang.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            function openModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal3() {
-                var modal = document.getElementById('myModal3');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal3() {
-                var modal = document.getElementById('myModal3');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal4() {
-                var modal = document.getElementById('myModal4');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal4() {
-                var modal = document.getElementById('myModal4');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            $(document).ready(function() {
-                $('#TableDivisi').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TableType').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-
-            // Get the input elements
-            const tanggalInput = document.getElementById("tanggalInput");
-            const tanggalOutput = document.getElementById("tanggalOutput");
-
-            // Add an event listener to the first input field to update the second input field
-            tanggalInput.addEventListener("input", function() {
-                // Get the selected date value from the first input field
-                const selectedDate = tanggalInput.value;
-
-                // Update the value of the second input field with the selected date
-                tanggalOutput.value = selectedDate;
-            });
-
-            function enableButtonJumlahBarang() {
-                document.getElementById("ButtonJumlahBarang").disabled = false;
-                closeModal2()
-            }
-
-
-            // Function to enable the "Type" button and disable the "Process" button
-            function enableButtonType() {
-                const buttonType = document.getElementById("ButtonType");
-                buttonType.removeAttribute("disabled");
-
-                // Get the selected value from the "TableType" table
-                const selectedType = document.querySelector("#TableType tbody tr td").textContent;
-
-                // Set the selected value to the input field
-                document.getElementById("Type").value = selectedType;
-
-                // Close the modal after the "Process" button is clicked
-                closeModal1();
-
-                closeModal2();
-            }
-
-            function setSekunderValue() {
-                const sekunderValue = document.getElementById("Sekunder").value;
-                document.getElementById("SekunderOutput").value = sekunderValue;
-                document.getElementById("LembarOutput").value = sekunderValue;
-                closeModal3();
-            }
-
-            // Add event listener to the "Ok" button to set the sekunder value and close the modal
-            document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
-                setSekunderValue);
-
-            // Rest of your JavaScript code for handling modals and other functionality can be placed here
-            // Make sure you have already defined the functions: openModal3, closeModal3, etc.
-
-
-
-            // Function to enable the "Divisi" button after selecting the shift
-            function enableButtonDivisi() {
-                const buttonDivisi = document.getElementById("ButtonDivisi");
-                buttonDivisi.removeAttribute("disabled");
-            }
-
-            // Rest of your JavaScript code for handling modals and other functionality can be placed here
-            // Make sure you have already defined the functions: openModal1, closeModal1, openModal2, closeModal2, etc.
-
-
-            // Function to set the selected shift value and close the modal
-            function setShiftValue() {
-                // Get the selected shift value from the modal input
-                const selectedShift = document.getElementById("Shift").value;
-
-                // Set the selected shift value to the read-only input with the ID "shift"
-                document.getElementById("shift").value = selectedShift;
-
-                // Enable the "Divisi" button
-                enableButtonDivisi();
-
-                // Close the modal
-                closeModal();
-            }
-
-            // Rest of your JavaScript code for handling modals and other functionality can be placed here
-            // Make sure you have already defined the functions: openModal, closeModal, etc.
-        </script>
     </body>
 @endsection
