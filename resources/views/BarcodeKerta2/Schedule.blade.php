@@ -1,6 +1,24 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/Schedule.js') }}"></script>
+    <script>
+        // Mendapatkan nilai parameter 'status' dari URL
+        var status = new URLSearchParams(window.location.search).get('status');
+
+        if (status === "0") {
+            alert("Data berhasil ditambahkan");
+        } else if (status === "1") {
+            alert("Data sudah ada");
+        }
+    </script>
+    <script>
+        var msg = '{{ Session::get('alert') }}';
+        var exist = '{{ Session::has('alert') }}';
+        if (exist) {
+            alert(msg);
+        }
+    </script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/Schedule.js') }}"></script>
+
     <body onload="Greeting()">
 
         <style>
@@ -20,6 +38,7 @@
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
+                                    <div id="form-container"></div>
                                     <div class="row">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">Divisi:</span>
@@ -86,17 +105,17 @@
                                                     <table id="TableKelut">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID Ketua Kelompok</th>
-                                                                <th>Ketua Kelompok</th>
+                                                                <th>ID Kelompok Utama</th>
+                                                                <th>Nama Kelompok Utama</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataKelut as $data)
+                                                            {{-- @foreach ($dataKelut as $data)
                                                                 <tr>
                                                                     <td>{{ $data->IdKelompokUtama }}</td>
                                                                     <td>{{ $data->NamaKelompokUtama }}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -133,12 +152,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataKelompok as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->idkelompok }}</td>
-                                                                    <td>{{ $data->namakelompok }}</td>
-                                                                </tr>
-                                                            @endforeach
+
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -175,12 +189,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataSubKelompok as $data)
+                                                            {{-- @foreach ($dataSubKelompok as $data)
                                                                 <tr>
                                                                     <td>{{ $data->IdSubkelompok }}</td>
                                                                     <td>{{ $data->NamaSubKelompok }}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -231,8 +245,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-center col-md-10 mb-3" id="TambahButton"
-                                            style="margin-left:53.3%"><button type="button">Tambah</button></div>
+                                        <div class="text-center col-md-10 mb-3"
+                                            style="margin-left:53.3%"><button type="button" class="btn " style="width:75px;" id="tambahButton">Tambah</button></div>
                                     </div>
 
                                     <div class="card">
@@ -240,10 +254,6 @@
                                         <table id="TypeTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Divisi </th>
-                                                    <th>Kelut </th>
-                                                    <th>Kelompok </th>
-                                                    <th>Sub Kelompok </th>
                                                     <th>Type </th>
                                                 </tr>
                                             </thead>
