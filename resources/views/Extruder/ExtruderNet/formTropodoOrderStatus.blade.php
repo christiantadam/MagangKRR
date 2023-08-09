@@ -69,10 +69,10 @@
             <table id="table_order" class="hover cell-border">
                 <thead>
                     <tr>
-                        <th scope="col">Tanggal Order</th>
-                        <th scope="col">Spek</th>
-                        <th scope="col">Jumlah Order</th>
-                        <th scope="col">Jumlah Konversi</th>
+                        <th>Tanggal Order</th>
+                        <th>Spek</th>
+                        <th>Jumlah Order</th>
+                        <th>Jumlah Konversi</th>
                     </tr>
                 </thead>
                 <tbody>

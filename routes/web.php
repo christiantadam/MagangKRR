@@ -1,6 +1,4 @@
-<!--
-    LAST: Sub txtLot_KeyPress | FrmMohonKonversi.vb
- -->
+<!-- LAST: Sub txtLot_KeyPress | FrmMohonKonversi.vb -->
 
 <?php
 
@@ -53,7 +51,7 @@ Route::get('/Order/getListOrderBtl/{id_order}', [OrderController::class, 'getLis
 Route::get('/Order/updStatusOrder/{id_order}/{status}/{ket}', [OrderController::class, 'updStatusOrder']);
 #endregion
 
-#region ExtrudeerNet - Bagian Konversi
+#region ExtrudeerNet - Form Konversi Mohon
 Route::get('/Konversi/getListKomposisiBahan/{id_komposisi}', [KonversiController::class, 'getListKomposisiBahan']);
 Route::get('/Konversi/getDetailKonversi/{id_konversi}', [KonversiController::class, 'getDetailKonversi']);
 Route::get('/Konversi/getSatuan/{id_type}', [KonversiController::class, 'getSatuan']);

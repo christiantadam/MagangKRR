@@ -34,6 +34,8 @@ class OrderController extends Controller
             'formData' => $form_data,
         ];
 
+        // dd($this->getOrderBlmAcc('EXT'));
+
         return view($view_name, $view_data);
     }
 

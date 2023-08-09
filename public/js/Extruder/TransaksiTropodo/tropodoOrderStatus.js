@@ -15,6 +15,14 @@ const slcStatus = document.getElementById("select_status");
 const listOfInput = document.querySelectorAll(".card .form-control");
 
 const listOrder = [];
+
+const tableOrderWidth = 4;
+const tableOrderCol = [
+    { width: "225px" },
+    { width: "500px" },
+    { width: "225px" },
+    { width: "225px" },
+];
 //#endregion
 
 //#region Events
@@ -24,17 +32,7 @@ slcOrder.addEventListener("change", function () {
             input.value = "";
         });
 
-        const tableTypeRow = document.querySelector("#table_order tbody");
-        tableTypeRow.innerHTML = `
-            <tr>
-                <td colspan="4" class="text-center">
-                    <h1 class="mt-3">Memuat data...</h1>
-                </td>
-                <td style="display: none"></td>
-                <td style="display: none"></td>
-                <td style="display: none"></td>
-            </tr>
-        `;
+        clearTable_DataTable("table_order", tableOrderWidth, "Memuat data...");
 
         fetch("/Order/getListOrderBtl/" + slcOrder.value)
             .then((response) => response.json())
@@ -51,7 +49,12 @@ slcOrder.addEventListener("change", function () {
                     });
                 }
 
-                addTable_DataTable("table_order", listOrder, rowClicked);
+                addTable_DataTable(
+                    "table_order",
+                    listOrder,
+                    tableOrderCol,
+                    rowClicked
+                );
                 window.scrollTo(0, document.body.scrollHeight);
             })
             .catch((error) => {
@@ -133,7 +136,25 @@ function rowClicked(data) {
 }
 
 function init() {
-    $("#table_order").DataTable({ responsive: true, paging: false });
+    $("#table_order").DataTable({
+        responsive: true,
+        paging: false,
+        scrollX: "1000000px",
+        columns: tableOrderCol,
+        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+        language: {
+            searchPlaceholder: " Tabel order...",
+            search: "",
+        },
+
+        initComplete: function () {
+            var searchInput = $('input[type="search"]').addClass(
+                "form-control"
+            );
+            searchInput.wrap('<div class="input-group"></div>');
+            searchInput.before('<span class="input-group-text">Cari:</span>');
+        },
+    });
     slcOrder.focus();
 }
 //#endregion

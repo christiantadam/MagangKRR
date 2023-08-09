@@ -6,6 +6,19 @@ const listOrder = [];
 const listDetailOrder = [];
 
 var checkboxes = null;
+
+const tableOrderWidth = 2;
+
+const tableDetailWidth = 7;
+const tableDetailCol = [
+    { width: "300px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+];
 //#endregion
 
 //#region Events
@@ -22,7 +35,7 @@ btnProses.addEventListener("click", function () {
     });
 
     alert("Data berhasil tersimpan!");
-    clearTable("table_detail_order");
+    clearTable("table_detail_order", tableDetailWidth);
     showOrder();
 });
 
@@ -52,20 +65,17 @@ function showOrder() {
             const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
             for (let i = 0; i < data.length; i++) {
                 listOrder.push({
-                    Identifikasi:
-                        strCheckBox +
-                        data[i].IDOrder +
-                        `"> ` +
-                        data[i].Identifikasi,
+                    Identifikasi: `${strCheckBox}${data[i].IDOrder}"> ${data[i].Identifikasi}`,
                     IDOrder: data[i].IDOrder,
                 });
             }
 
-            addTable_DataTable("table_order", listOrder, rowClicked);
+            addTable_DataTable("table_order", listOrder, null, rowClicked);
 
             checkboxes = document.querySelectorAll("input[type='checkbox']");
             checkboxes.forEach((checkbox) => {
                 checkbox.addEventListener("click", function (event) {
+                    // *untuk menghentikan click event pada row saat checkbox diklik
                     event.stopPropagation();
                 });
             });
@@ -76,20 +86,11 @@ function showOrder() {
 }
 
 function rowClicked(data) {
-    const tbodyType = document.querySelector("#table_detail_order tbody");
-    tbodyType.innerHTML = `
-        <tr>
-            <td colspan="7" class="text-center">
-                <h1 class="mt-3">Memuat data...</h1>
-            </td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-            <td style="display: none"></td>
-        </tr>
-    `;
+    clearTable_DataTable(
+        "table_detail_order",
+        tableDetailWidth,
+        "Memuat data..."
+    );
 
     fetch("/Order/getListSpek/" + data.IDOrder)
         .then((response) => response.json())
@@ -107,19 +108,18 @@ function rowClicked(data) {
                 });
             }
 
-            addTable_DataTable("table_detail_order", listDetailOrder);
+            addTable_DataTable(
+                "table_detail_order",
+                listDetailOrder,
+                tableDetailCol
+            );
 
             if (dataFetch.length <= 0) {
-                tbodyType.innerHTML =
-                    `<tr><td colspan="7"><h3 class="mt-3">Data untuk <b>Order ` +
-                    data.IDOrder +
-                    `</b> tidak ditemukan.</h3></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td></tr>`;
+                clearTable_DataTable(
+                    "table_detail_order",
+                    tableDetailWidth,
+                    `Data untuk <b>Order ${data.IDOrder}</b> tidak ditemukan.</h3>`
+                );
             }
 
             window.scrollTo(0, document.body.scrollHeight);
@@ -130,6 +130,7 @@ function init() {
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
+        scrollX: "",
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
             searchPlaceholder: " Tabel order...",
@@ -140,9 +141,11 @@ function init() {
     $("#table_detail_order").DataTable({
         responsive: true,
         paging: false,
+        scrollX: "1000000px",
+        columns: tableDetailCol,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
-            searchPlaceholder: " Tabel konversi...",
+            searchPlaceholder: " Tabel detail...",
             search: "",
         },
 

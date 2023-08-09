@@ -32,7 +32,7 @@ class KonversiController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getListKomposisi(1, 'mes01'));
+        // dd($this->getListKomposisiBahan('KONV0001'));
 
         return view($view_name, $view_data);
     }

@@ -1,5 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="input_hidden">
+
     <div id="tropodo_konversi_mohon" class="form" data-aos="fade-up">
         <div class="form-group row mt-3">
             <div class="col-lg-2"><span class="aligned-text">Nomor: </span></div>
@@ -37,7 +39,7 @@
 
             <div class="col-lg-4">
                 <label for="tanggal">Tanggal:</label>
-                <input type="date" id="tanggal" class="form-control unclickable">
+                <input type="date" id="tanggal" class="form-control unclickable input_waktu">
             </div>
         </div>
 
@@ -63,9 +65,9 @@
                 <label for="shift">Shift:</label>
                 <div class="input-group">
                     <input type="text" id="shift" class="form-control" style="max-width: 50px;" disabled>
-                    <input type="time" id="shift_awal" class="form-control unclickable">
+                    <input type="time" id="shift_awal" class="form-control unclickable input_waktu">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" id="shift_akhir" class="form-control unclickable">
+                    <input type="time" id="shift_akhir" class="form-control unclickable input_waktu">
                 </div>
             </div>
         </div>
@@ -93,7 +95,7 @@
 
             <div class="col-lg-2">
                 <label for="waktu_mulai">Mulai:</label>
-                <input type="time" id="waktu_mulai" class="form-control unclickable">
+                <input type="time" id="waktu_mulai" class="form-control unclickable input_waktu">
             </div>
         </div>
 
@@ -117,7 +119,7 @@
 
             <div class="col-lg-2">
                 <label for="waktu_selesai">Selesai:</label>
-                <input type="time" id="waktu_selesai" class="form-control unclickable">
+                <input type="time" id="waktu_selesai" class="form-control unclickable input_waktu">
             </div>
 
             <div class="col-lg-2">
@@ -128,7 +130,7 @@
 
         <div class="card mt-5">
             <div class="card-body">
-                <table id="table_konversi" class="hover cell-border mt-3">
+                <table id="table_konversi" class="hover cell-border">
                     <thead>
                         <tr>
                             <th>Nama Type</th>
@@ -187,9 +189,9 @@
                             <div class="col-lg-12">
                                 <label for="item_produksi">Item Produksi:</label>
                                 <div class="input-group">
-                                    <input type="text" id="item_produksi1" class="form-control" disabled>
-                                    <input type="text" id="item_produksi2" class="form-control"
-                                        style="width: 12.5vw;" disabled>
+                                    <input type="text" id="id_produksi" class="form-control" disabled>
+                                    <input type="text" id="nama_produksi" class="form-control" style="width: 12.5vw;"
+                                        disabled>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +204,10 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="primer">Primer:</label>
-                                <input type="number" id="primer" class="form-control" placeholder="0" disabled>
+                                <div class="input-group">
+                                    <input type="number" id="primer" class="form-control" placeholder="0" disabled>
+                                    <span id="sat_primer" class="input-group-text"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -214,7 +219,10 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="sekunder">Sekunder:</label>
-                                <input type="number" id="sekunder" class="form-control" placeholder="0" disabled>
+                                <div class="input-group">
+                                    <input type="number" id="sekunder" class="form-control" placeholder="0" disabled>
+                                    <span id="sat_sekunder" class="input-group-text"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -226,7 +234,10 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
                                 <label for="tritier">Tritier:</label>
-                                <input type="number" id="tritier" class="form-control" placeholder="0" disabled>
+                                <div class="input-group">
+                                    <input type="number" id="tritier" class="form-control" placeholder="0" disabled>
+                                    <span id="sat_tritier" class="input-group-text"></span>
+                                </div>
                             </div>
                         </div>
 

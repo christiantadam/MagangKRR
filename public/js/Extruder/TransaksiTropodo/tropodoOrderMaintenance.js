@@ -21,11 +21,22 @@ const slcType = document.getElementById("select_benang");
 const listOfDetail = document.querySelectorAll(".card .detail_order");
 
 const listOrder = [];
+
+const tableOrderWidth = 7;
+const tableOrderCol = [
+    { width: "300px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+    { width: "125px" },
+];
 //#endregion
 
 //#region Events
 btnBaru.addEventListener("click", function () {
-    clearTable_DataTable("table_order");
+    clearTable_DataTable("table_order", tableOrderWidth);
     txtIdentifikasi.value = "";
     listOrder.length = 0;
     clearDataDetail();
@@ -130,7 +141,7 @@ btnDetail.addEventListener("click", function () {
         };
 
         listOrder.push(dataDetail);
-        addTable_DataTable("table_order", listOrder);
+        addTable_DataTable("table_order", listOrder, tableOrderCol);
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
         showModal(
@@ -153,7 +164,7 @@ btnKeluar.addEventListener("click", function () {
     } else {
         toggleButtons(1);
         listOrder.length = 0;
-        clearTable_DataTable("table_order");
+        clearTable_DataTable("table_order", tableOrderWidth);
         clearDataDetail();
         disableDetail();
     }
@@ -273,7 +284,25 @@ function disableDetail() {
 }
 
 function init() {
-    $("#table_order").DataTable({ responsive: true, paging: false });
+    $("#table_order").DataTable({
+        responsive: true,
+        paging: false,
+        scrollX: "1000000px",
+        columns: tableOrderCol,
+        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+        language: {
+            searchPlaceholder: " Tabel order...",
+            search: "",
+        },
+
+        initComplete: function () {
+            var searchInput = $('input[type="search"]').addClass(
+                "form-control"
+            );
+            searchInput.wrap('<div class="input-group"></div>');
+            searchInput.before('<span class="input-group-text">Cari:</span>');
+        },
+    });
     toggleButtons(1);
     btnBaru.focus();
     getCurrentDate();

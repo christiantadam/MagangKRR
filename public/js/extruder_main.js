@@ -63,8 +63,9 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
 function addTable_DataTable(
     tableId,
     listData,
-    colWidths,
+    colWidths = null,
     rowFun = null,
+    isDblClicked = false,
     tableHeight = "250px"
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
@@ -75,16 +76,25 @@ function addTable_DataTable(
 
     $("#" + tableId + " tbody").empty();
 
+    let colObject = "";
+    if (colWidths != null) {
+        colObject = Object.keys(listData[0]).map((key, index) => ({
+            data: key,
+            width: colWidths[index].width || "auto",
+        }));
+    } else {
+        colObject = Object.keys(listData[0]).map((key, index) => ({
+            data: key,
+        }));
+    }
+
     $("#" + tableId).DataTable({
         responsive: true,
         paging: false,
         scrollY: tableHeight,
-        scrollX: "1000000px",
+        scrollX: colWidths != null ? "1000000px" : "",
         data: listData,
-        columns: Object.keys(listData[0]).map((key, index) => ({
-            data: key,
-            width: colWidths[index].width || "auto",
-        })),
+        columns: colObject,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
             searchPlaceholder:
@@ -96,9 +106,15 @@ function addTable_DataTable(
             if (rowFun != null) {
                 row.style.cursor = "pointer";
 
-                row.addEventListener("click", function () {
-                    rowFun(data, index);
-                });
+                if (!isDblClicked) {
+                    row.addEventListener("click", function () {
+                        rowFun(data, index);
+                    });
+                } else {
+                    row.addEventListener("dblclick", function () {
+                        rowFun(data, index);
+                    });
+                }
             }
         },
     });

@@ -22,16 +22,7 @@
             </div>
         </div>
 
-        <table id="table_order" class="hover cell-border mt-3">
-            <colgroup>
-                <col style="width: 300px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-            </colgroup>
+        <table id="table_order" class="hover cell-border">
             <thead>
                 <tr>
                     <th>Nama Type</th>
@@ -45,15 +36,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="7" class="text-center">
-                        <h1 class="mt-3">Tabel masih kosong...</h1>
+                    @php $tableWidth = 7; @endphp
+                    <td colspan="{{ $tableWidth }}">
+                        <h1 class="mt-3 text-center">Tabel masih kosong...</h1>
                     </td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
+                    @for ($i = 0; $i < $tableWidth - 1; $i++)
+                        <td class="hidden"></td>
+                    @endfor
                 </tr>
             </tbody>
         </table>

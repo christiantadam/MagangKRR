@@ -1,12 +1,11 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_order_acc" class="form" data-aos="fade-up">
-        {{-- BELUM SELESAI ATUR MARGIN KAWAN!!! --}}
         <table id="table_order" class="hover cell-border">
             <thead>
                 <tr>
-                    <th scope="col">Identifikasi Order</th>
-                    <th scope="col">Id Order</th>
+                    <th>Identifikasi Order</th>
+                    <th>Id Order</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,16 +18,9 @@
             </tbody>
         </table>
 
+        <div class="mt-5"></div>
+
         <table id="table_detail_order" class="hover cell-border">
-            <colgroup>
-                <col style="width: 300px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-                <col style="width: 125px;">
-            </colgroup>
             <thead>
                 <tr>
                     <th>Nama Type</th>
@@ -42,15 +34,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="7" class="text-center">
+                    @php $tableWidth = 7; @endphp
+                    <td colspan="{{ $tableWidth }}" class="text-center">
                         <h1 class="mt-3">Tabel masih kosong...</h1>
                     </td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
+                    @for ($i = 0; $i < $tableWidth - 1; $i++)
+                        <td class="hidden"></td>
+                    @endfor
                 </tr>
             </tbody>
         </table>
