@@ -156,7 +156,10 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label>Kd Pegawai</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <input class="form-control" type="text" id="KdPeg" readonly
+                                            style="resize: none; height: 40px; max-width: 100px;">
+                                        <input class="form-control ml-3" type="text" id="NamaPeg" readonly
+                                            style="resize: none; height: 40px; max-width: 900px;">
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +168,8 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label>Alamat</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="Alamat" name="" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="Kota" name="" style="resize: none;height: 40px;max-width:120px;" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +191,7 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="margin-right: 10px;">Tgl Masuk</label>
                                         <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                            <input class="form-control" type="date" id="TglMasuk" name="TglLapor"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
 
 
@@ -197,7 +201,7 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="margin-right: 10px;">Tgl Masuk Awal</label>
                                         <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                                            <input class="form-control" type="date" id="TglMasukAwal" name="TglLapor"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
 
 
@@ -213,7 +217,7 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">Jabatan</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="Jabatan" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
@@ -233,13 +237,13 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No. Induk</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorInduk" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">Kartu Makan</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="Kartu" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -249,13 +253,13 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">NIK</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NIK" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">NPWP</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NPWP" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
 
@@ -267,13 +271,13 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No. Rek</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorRekening" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No. Rek BCA</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorRekeningBCA" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
 
@@ -285,14 +289,14 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No. Koperasi</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorKoperasi" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="margin-right: 10px;">Tgl Koperasi</label>
                                         <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                            <input class="form-control" type="date" id="TglKoperasi" name="TglKoperasi"
+                                                required>
 
                                         </div>
                                     </div>
@@ -317,14 +321,14 @@
                                 <div style="flex: 1; margin-right: 10px;">
                                     <label style="display: inline-block; margin-right: 5px;">No. RBH</label>
                                     <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                        <textarea class="form-control" id="NomorRBH" name="" style="resize: none;height: 40px;" required></textarea>
                                     </div>
                                 </div>
                                 <br>
                                 <div style="flex: 1; margin-right: 10px;">
                                     <label style="display: inline-block; margin-right: 5px;">No. Astek</label>
                                     <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                        <textarea class="form-control" id="NomorAstek" name="" style="resize: none;height: 40px;" required></textarea>
                                     </div>
                                 </div>
                                 <br>
@@ -332,11 +336,11 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No. BPJS</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorBPJS" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <div style="flex: 1; margin-right: 10px; margin-top: 40px;">
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="checkBPJS">
                                         <label for="staff">Penanggung BPJS</label>
                                     </div>
                                 </div>
@@ -344,7 +348,7 @@
                                 <div style="flex: 1; margin-right: 10px;">
                                     <label style="display: inline-block; margin-right: 5px;">Nama Ibu Kandung</label>
                                     <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                        <textarea class="form-control" id="NamaIbu" name="" style="resize: none;height: 40px;" required></textarea>
                                     </div>
                                 </div>
                                 <br>
@@ -353,9 +357,9 @@
                                 <div style="flex: 1; margin-right: 10px;">
                                     <label>Klinik</label>
                                     <div class="form-group  mt-3 mt-md-0">
-                                        <input class="form-control" type="text" id="Kode_Klinik" readonly
+                                        <input class="form-control" type="text" id="IdKlinik" readonly
                                             style="resize: none; height: 40px; max-width: 100px;">
-                                        <input class="form-control ml-3" type="text" id="Nama_Klinik" readonly
+                                        <input class="form-control ml-3" type="text" id="NamaKlinik" readonly
                                             style="resize: none; height: 40px; max-width: 900px;">
                                         {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                             style="resize: none; height: 40px; max-width: 250px;">
@@ -420,21 +424,21 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No Pensiun</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorPensiun" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">Email</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="email" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="display: inline-block; margin-right: 5px;">No Telepon</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
-                                            <textarea class="form-control" id="NIK" name="NIK" style="resize: none;height: 40px;" required></textarea>
+                                            <textarea class="form-control" id="NomorTelepon" name="" style="resize: none;height: 40px;" required></textarea>
                                         </div>
                                     </div>
                                     <br>
@@ -442,21 +446,21 @@
                                         <label style="display: inline-block; margin-right: 5px;">Vaksin Covid 19</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
                                             <div style="padding: 10px">
-                                                <input type="radio" id="staff" name="pekerja" value="staff"
+                                                <input type="radio" id="vaksin1" name="vaksin" value="0"
                                                     style="vertical-align: middle;">
                                                 <label for="staff"
                                                     style="display: inline-block; margin-right: 5px;">Belum</label>
                                             </div>
 
                                             <div style="padding: 10px">
-                                                <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
+                                                <input type="radio" id="vaksin2" name="vaksin" value="1"
                                                     style="vertical-align: middle;">
                                                 <label for="bukanStaff"
                                                     style="display: inline-block; margin-right: 5px;">Tahap 1</label>
                                             </div>
 
                                             <div style="padding: 10px">
-                                                <input type="radio" id="bukanStaff" name="pekerja" value="bukanStaff"
+                                                <input type="radio" id="vaksin3" name="vaksin" value="2"
                                                     style="vertical-align: middle;">
                                                 <label for="bukanStaff"
                                                     style="display: inline-block; margin-right: 5px;">Tahap 2</label>
