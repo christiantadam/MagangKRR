@@ -16,8 +16,8 @@
 
   <div class="card-body">
     <form action="{{ url('PenerimaOrderGambar') }}" method="post" id="formPemerimaGambar">
-        {{ csrf_field() }}
-        <input type="hidden" name="_method" id="methodForm">
+      {{ csrf_field() }}
+      <input type="hidden" name="_method" id="methodForm">
       <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo">
 
       <div class="row">
@@ -158,13 +158,47 @@
             <input type="hidden" name="radiobox" id="radiobox">
             <input type="hidden" name="KetTdkS" id="KetTdkS">
             <input type="hidden" name="iduser" id="iduser">
-            <button type="button" class="btn btn-primary" style="width: 7.5em;" onclick="klikproses()"><b>PROSES</b></button>
-            <button type="button" class="btn btn-warning">KOREKSI</button>
+            <button type="button" class="btn btn-primary" style="width: 7.5em;"
+              onclick="klikproses()"><b>PROSES</b></button>
+            <button type="button" class="btn btn-warning" data-toggle="modal"
+              data-target=".koreksi-modal-lg">KOREKSI</button>
 
           </div>
         </div>
       </div>
     </form>
+  </div>
+
+  <div class="modal fade koreksi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="col-7" style="text-align-last:right;">
+            <h3 cl ass="modal-title" id="exampleModalLabel" style="font-weight:bold">Workshop</h3>
+          </div>
+          <div class="col-5">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-6">
+
+                </div>
+                <div class="col-6">
+                  <h1>dwadwd</h1>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/PenerimaOrderGambar.js') }}"></script>
 @endsection

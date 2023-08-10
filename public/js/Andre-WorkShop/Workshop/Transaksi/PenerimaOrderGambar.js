@@ -11,7 +11,7 @@ let KetTdkS = document.getElementById("KetTdkS");
 let arraycheckbox = [];
 let red = false;
 let semuacentang = document.getElementById("semuacentang");
-let panjangdata;
+var panjangdata;
 let acc_order = document.getElementById("acc_order");
 let batal_acc = document.getElementById("batal_acc");
 let order_tolak = document.getElementById("order_tolak");
@@ -22,7 +22,7 @@ let order_batal = document.getElementById("order_batal");
 let methodForm = document.getElementById("methodForm");
 let formPemerimaGambar = document.getElementById("formPemerimaGambar");
 
-let user = 4383;
+let user = 4384;
 let iduser = document.getElementById("iduser");
 iduser.value = user;
 
@@ -205,9 +205,9 @@ function klikproses() {
         fetch("/cekuser/" + iduser.value)
             .then((response) => response.json())
             .then((datas) => {
-                panjangdata = datas.length;
+                panjangdata = datas[0].ada;
             });
-        if (panjangdata === 0) {
+            if (panjangdata == 0) {
             alert("Login " + user + " Tidak berHak utk memproses.");
             return;
         }
@@ -282,5 +282,16 @@ function klikproses() {
 
     }
 }
+
+//#endregion
+
+//#region modal koreksi
+
+
+//#endregion
+
+
+//#region butn koreksi
+
 
 //#endregion
