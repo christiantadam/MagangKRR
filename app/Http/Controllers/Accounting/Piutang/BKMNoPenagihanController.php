@@ -27,7 +27,30 @@ class BKMNoPenagihanController extends Controller
         return response()->json($data);
     }
 
+    function getDataBank()
+    {
+        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
+        return response()->json($bank);
+    }
 
+    function getJenisPembayaran()
+    {
+        $jenis =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_JENIS_DOK]');
+        return response()->json($jenis);
+    }
+
+    function getKodePerkiraan()
+    {
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);
+        return response()->json($kode);
+    }
+
+    function getJenisBank($idBank)
+    {
+        //dd("mau");
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK_1] @idBank = ?', [$idBank]);
+        return response()->json($kode);
+    }
 
     //Show the form for creating a new resource.
     public function create()

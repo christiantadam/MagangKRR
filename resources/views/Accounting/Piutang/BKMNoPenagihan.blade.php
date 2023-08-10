@@ -24,7 +24,17 @@
                                         <div class="col-md-2">
                                             <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                         </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
                                         <div class="col-md-2">
+                                            <label for="tanggalInput">Tanggal Input</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
+                                        </div>
+                                        <div class="col-md-2" style="color: blue">
                                             Wajib di-ENTER
                                         </div>
                                         <div class="col-md-2">
@@ -44,16 +54,6 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="tanggalInput">Tanggal Input</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
                                             <label for="namaCustomerSelect">Nama Customer</label>
                                         </div>
                                         <div class="col-md-5">
@@ -61,6 +61,9 @@
 
                                             </select>
                                         </div>
+                                        {{-- sudah jadi --}}
+                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div>
@@ -97,34 +100,41 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="jenisPembayaranSelect">Jenis Pembayaran</label>
+                                            <label for="namaBankSelect">Bank</label>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input type="text" id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control" style="width: 100%">
-                                        </div>
-                                        <div class="col-md-1">
-                                            <select name="jenis_select" class="form-control">
-                                                {{-- <option value="option1">Jenis1</option>
-                                                <option value="option2">Jenis2</option>
-                                                <option value="option3">Jenis3</option> --}}
+                                        <div class="col-md-3">
+                                            <select name="namaBankSelect" id="namaBankSelect" class="form-control">
+
                                             </select>
                                         </div>
+                                        {{-- sudah jadi --}}
+                                        <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                        <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="jenisPembayaranSelect">Jenis Pembayaran</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control">
+                                            </select>
+                                        </div>
+                                        <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
                                         <button id="tambahBiaya" name="tambahBiaya">Tambah Biaya</button>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="kodePerkiraan">Kode Perkiraan</label>
+                                            <label for="kodePerkiraanSelect">Kode Perkiraan</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
+                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-3">
-                                            <select name="kode_select" class="form-control">
-                                                <option value="option1">Kd1</option>
-                                                <option value="option2">Kd2</option>
-                                                <option value="option3">Kd3</option>
+                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
                                             </select>
                                         </div>
                                     </div>
