@@ -49,7 +49,7 @@ Route::post('ProgramPayroll/Master/deleteDivisi', 'App\Http\Controllers\Payroll\
 
 Route::get('ProgramPayroll/Master/SettingDivisi/Harian', 'App\Http\Controllers\Payroll\Master\SettingDivisi\HarianController@index');
 Route::get('ProgramPayroll/Master/SettingDivisi/Staff', 'App\Http\Controllers\Payroll\Master\SettingDivisi\StaffController@index');
-Route::get('ProgramPayroll/Master/Nomer', 'App\Http\Controllers\Payroll\Master\Nomer\NomerController@index');
+// Route::get('ProgramPayroll/Master/Nomer', 'App\Http\Controllers\Payroll\Master\Nomer\NomerController@index');
 Route::get('ProgramPayroll/Master/Kartu', 'App\Http\Controllers\Payroll\Master\Kartu\KartuController@index');
 Route::get('ProgramPayroll/Master/SettingShift', 'App\Http\Controllers\Payroll\Master\SettingShift\SettingShiftController@index');
 Route::get('ProgramPayroll/Master/Klinik', 'App\Http\Controllers\Payroll\Master\Klinik\KlinikController@index');

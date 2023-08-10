@@ -1,12 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <script>
-        var msg = '{{ Session::get('alert') }}';
-        var exist = '{{ Session::has('alert') }}';
-        if (exist) {
-            alert(msg);
-        }
-    </script>
+
     <script type="text/javascript" src="{{ asset('js/Master/karyawanHarian.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">

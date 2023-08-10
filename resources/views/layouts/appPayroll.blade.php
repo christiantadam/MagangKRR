@@ -15,7 +15,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' type='text/javascript'></script>
-
+    <script>
+        var msg = '{{ Session::get('alert') }}';
+        var exist = '{{ Session::has('alert') }}';
+        if (exist) {
+            alert(msg);
+        }
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> -->
     <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
@@ -92,7 +98,7 @@
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Master/Nomer') }}">Nomer</a>
+                                            tabindex="-1" href="{{ url('MasterNomer') }}">Nomer</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Master/Kartu') }}">Kartu</a>

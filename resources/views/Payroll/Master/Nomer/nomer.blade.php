@@ -1,6 +1,7 @@
 @extends('layouts.appPayroll')
 @section('content')
     <script type="text/javascript" src="{{ asset('js/Master/nomer.js') }}"></script>
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -26,8 +27,8 @@
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
                                     onclick="showModalDivisi()">...</button>
-                                <button type="button" class="btn" style="margin-left: 30px; " id="listDataButton"
-                                    >List Data</button>
+                                <button type="button" class="btn" style="margin-left: 30px; " id="listDataButton">List
+                                    Data</button>
 
                                 <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -157,9 +158,11 @@
                                         <label>Kd Pegawai</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
                                             <input class="form-control" type="text" id="KdPeg" readonly
-                                            style="resize: none; height: 40px; max-width: 100px;">
-                                        <input class="form-control ml-3" type="text" id="NamaPeg" readonly
-                                            style="resize: none; height: 40px; max-width: 900px;">
+                                                style="resize: none; height: 40px; max-width: 100px;">
+                                            <input class="form-control" type="text" id="NomorKartu" readonly
+                                                style="resize: none; height: 40px; max-width: 100px; margin-right:-16px;">
+                                            <input class="form-control ml-3" type="text" id="NamaPeg" readonly
+                                                style="resize: none; height: 40px; max-width: 900px; ">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +172,8 @@
                                         <label>Alamat</label>
                                         <div style="display: flex; flex-wrap: nowrap;">
                                             <textarea class="form-control" id="Alamat" name="" style="resize: none;height: 40px;" required></textarea>
-                                            <textarea class="form-control" id="Kota" name="" style="resize: none;height: 40px;max-width:120px;" required></textarea>
+                                            <textarea class="form-control" id="Kota" name="" style="resize: none;height: 40px;max-width:120px;"
+                                                required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -178,9 +182,9 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="margin-right: 10px;">Tempat, Tanggal Lahir</label>
                                         <div style="display: flex; align-items: center;">
-                                            <textarea class="form-control" id="NoInduk" name="NoInduk" style="resize: none; height: 40px;" required></textarea>
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                            <textarea class="form-control" id="TempatLahir" name="TempatLahir" style="resize: none; height: 40px;" required></textarea>
+                                            <input class="form-control" type="date" id="TglLahir" name="TglLahir"
+                                                required>
 
                                         </div>
                                     </div>
@@ -222,10 +226,12 @@
                                     </div>
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label>Jenis Pegawai</label>
-                                        <select class="form-control" id="Shift" name="Shift"
+                                        <select class="form-control" id="JnsPegs" name="JnsPeg"
                                             style="resize: none;height: 40px;" required>
-                                            <option value="">PISAT1</option>
-                                            <option value="">PISAT2</option>
+                                            <option value="0">0 (Staff)</option>
+                                            <option value="1">1 (Harian)</option>
+                                            <option value="2">2 (Borongan)</option>
+                                            <option value="3">3 (Harian Lepas)</option>
                                         </select>
                                     </div>
 
@@ -295,8 +301,8 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <label style="margin-right: 10px;">Tgl Koperasi</label>
                                         <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglKoperasi" name="TglKoperasi"
-                                                required>
+                                            <input class="form-control" type="date" id="TglKoperasi"
+                                                name="TglKoperasi" required>
 
                                         </div>
                                     </div>
@@ -468,9 +474,10 @@
 
                                         </div>
                                     </div>
+                                    <div id="form-container"></div>
                                     <div style="text-align: right; margin-top: 20px;">
-                                        <button type="button" class="btn btn-primary">Tambah</button>
-                                        <button type="button" class="btn btn-dark">Keluar</button>
+                                        <button type="button" class="btn " id="TambahButton">SIMPAN</button>
+                                        <button type="button" class="btn " id="KeluarButton">KELUAR</button>
                                     </div>
 
 

@@ -47,7 +47,7 @@ class NomerController extends Controller
             return response()->json($dataPegawai);
         } else if ($crExplode[1] == "getPegawai2") {
             //getDataKeluarga
-            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_GET_PEGAWAI @Kd_Pegawai = ?',[$crExplode[0]]);
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_GET_PEGAWAI @Kd_Pegawai = ?', [$crExplode[0]]);
             return response()->json($dataPeg);
         } else if ($crExplode[1] == "getPegawaiKeluarga") {
             // getPegawaiKeluarga
@@ -66,7 +66,43 @@ class NomerController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_STAFF_2 @kd_pegawai = ?, @nama = ?, @NIK = ?, @alamat = ?, @kota= ?, @tgl_masuk_awal = ?
+        , @tgl_masuk = ?, @no_kartu = ?, @no_induk = ?, @no_rbh = ?, @no_astek = ?, @no_koperasi = ?, @tglkop = ?, @no_npwp = ?, @no_rek = ?, @no_bpjs = ?, @nmibu = ?
+        , @tgg = ?, @idklinik = ?, @jnspeg = ?, @jab = ?, @nopen = ?, @email = ?, @notelp = ?, @cvaksin = ?, @kotalahir = ?, @tgl_lahir = ?, @kartumakan = ?, @rekBCA = ?', [
+            $data['kd_pegawai'],
+            $data['nama'],
+            $data['NIK'],
+            $data['alamat'],
+            $data['kota'],
+            $data['tgl_masuk_awal'],
+            $data['tgl_masuk'],
+            $data['no_kartu'],
+            $data['no_induk'],
+            $data['no_rbh'],
+            $data['no_astek'],
+            $data['no_koperasi'],
+            $data['tglkop'],
+            $data['no_npwp'],
+            $data['no_rek'],
+            $data['no_bpjs'],
+            $data['nmibu'],
+            $data['tgg'],
+            $data['idklinik'],
+            $data['jnspeg'],
+            $data['jab'],
+            $data['nopen'],
+            $data['email'],
+            $data['notelp'],
+            $data['cvaksin'],
+            $data['kotalahir'],
+            $data['tgl_lahir'],
+            $data['kartumakan'],
+            $data['rekBCA']
+
+        ]);
+        return redirect()->route('MasterNomer.index')->with('alert', 'Data Pekerja Updated successfully!');
     }
 
     //Remove the specified resource from storage.
