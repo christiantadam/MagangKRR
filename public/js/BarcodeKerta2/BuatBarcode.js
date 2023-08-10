@@ -183,3 +183,13 @@ function setShiftValue() {
 // Rest of your JavaScript code for handling modals and other functionality can be placed here
 // Make sure you have already defined the functions: openModal, closeModal, etc.
 
+function checkDateAndEnableButton() {
+    var tanggalInput = document.getElementById('tanggalInput');
+    var buttonShift = document.getElementById('ButtonShift');
+
+    if (tanggalInput.value !== '') {
+        buttonShift.removeAttribute('disabled');
+    } else {
+        buttonShift.setAttribute('disabled', 'disabled');
+    }
+}

@@ -124,12 +124,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataObjek as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->IdObjek }}</td>
-                                                                            <td>{{ $data->NamaObjek }}</td>
-                                                                        </tr>
-                                                                    @endforeach
+
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -146,8 +141,8 @@
                                                     <span class="aligned-text">Ketua Kelompok:</span>
                                                 </div>
                                                 <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="IdKelut" id="IdKelut"
-                                                        placeholder="ID Ketua Kelompok" readonly>
+                                                    <input type="text" class="form-control" name="IdKelompokUtama" id="IdKelompokUtama"
+                                                        placeholder="ID Kelompok Utama" readonly>
                                                 </div>
                                                 <div class="form-group col-md-7 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="ketua_Kelompok"
@@ -167,12 +162,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataKelut as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->IdKelompokUtama }}</td>
-                                                                            <td>{{ $data->NamaKelompokUtama }}</td>
-                                                                        </tr>
-                                                                    @endforeach
+
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -203,8 +193,8 @@
                                                         id="IdKelompok" placeholder="ID Kelompok" readonly>
                                                 </div>
                                                 <div class="form-group col-md-7 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Kelompok"
-                                                        id="Kelompok" placeholder="Kelompok" readonly>
+                                                    <input type="text" class="form-control" name="NamaKelompok"
+                                                        id="NamaKelompok" placeholder="Kelompok" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal3()" id="ButtonKelompok">...</button></div>
                                                     <div class="modal" id="myModal3">
@@ -220,12 +210,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataKelompok as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->idkelompok }}</td>
-                                                                            <td>{{ $data->namakelompok }}</td>
-                                                                        </tr>
-                                                                    @endforeach
+
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -246,8 +231,8 @@
                                                         id="IdSubKelompok" placeholder="ID Sub Kelompok" readonly>
                                                 </div>
                                                 <div class="form-group col-md-7 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="SubKelompok"
-                                                        id="SubKelompok" placeholder="Sub Kelompok" readonly>
+                                                    <input type="text" class="form-control" name="NamaSubKelompok"
+                                                        id="NamaSubKelompok" placeholder="Sub Kelompok" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal4()" id="ButtonSubKelompok">...</button>
                                                     </div>
@@ -264,12 +249,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataSubKelompok as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->IdSubkelompok }}</td>
-                                                                            <td>{{ $data->NamaSubKelompok }}</td>
-                                                                        </tr>
-                                                                    @endforeach
+
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -364,12 +344,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataObjek as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->IdObjek }}</td>
-                                                                    <td>{{ $data->NamaObjek }}</td>
-                                                                </tr>
-                                                            @endforeach
+
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -406,12 +381,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataKelut as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->IdKelompokUtama }}</td>
-                                                                    <td>{{ $data->NamaKelompokUtama }}</td>
-                                                                </tr>
-                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -463,12 +432,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataKelompok as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->idkelompok }}</td>
-                                                                    <td>{{ $data->namakelompok }}</td>
-                                                                </tr>
-                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
@@ -506,12 +469,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataSubKelompok as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->IdSubkelompok }}</td>
-                                                                    <td>{{ $data->NamaSubKelompok }}</td>
-                                                                </tr>
-                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">

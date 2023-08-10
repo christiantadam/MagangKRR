@@ -13,15 +13,10 @@ class PermohonanPenerimaBarangController extends Controller
     public function index()
     {
 
-        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
-        $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek ?, ?, ?, ?', ["p", "p", NULL, "p"]);
-        $dataKelut = DB::connection('ConnABM')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?, ?', ["p", NULL, "p"]);
-        $dataKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
-        $dataSubKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK ?, ?, ?', ["p", NULL, "p"]);
+        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
 
-
-        // dd($dataSubKelompok);
-        return view('PermohonanPenerimaBarang', compact('dataDivisi', 'dataObjek', 'dataKelut', 'dataKelompok', 'dataSubKelompok'));
+        // dd($crExplode);
+        return view('PermohonanPenerimaBarang', compact('dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -37,9 +32,37 @@ class PermohonanPenerimaBarangController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getXIdDivisi") {
+            $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataObjek);
+
+            // dd($crExplode);
+        } else if ($crExplode[1] == "getXIdObjek_KelompokUtama") {
+
+            //getDataPegawai
+            $dataKelut = DB::connection('ConnABM')->select('exec SP_1003_INV_IdObjek_KelompokUtama @XIdObjek_KelompokUtama = ?', [$crExplode[0]]);
+            // dd($dataSchedule);
+            return response()->json($dataKelut);
+        } else if ($crExplode[1] == "XIdKelompokUtama_Kelompok") {
+
+            //getDataPegawai
+            $dataKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', [$crExplode[0]]);
+            // dd($dataKelompok);
+            return response()->json($dataKelompok);
+        } else if ($crExplode[1] == "XIdKelompok_SubKelompok") {
+
+            //getDataPegawai
+            $dataSubKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompok_SubKelompok @XIdKelompok_SubKelompok = ?', [$crExplode[0]]);
+            // dd($dataSubKelompok);
+            return response()->json($dataSubKelompok);
+        }
     }
 
     // Show the form for editing the specified resource.

@@ -19,7 +19,7 @@ class ScheduleController extends Controller
         $dataSubKelompok = DB::connection('ConnABM')->select('exec SP_1003_INV_IdKelompok_SubKelompok ?, ?, ?', ["p", NULL, "p"]);
         $dataType = DB::connection('ConnABM')->select('exec SP_1003_INV_IdSubKelompok_Type ?', ["p"]);
 
-        // dd($dataType);
+        // dd($dataDivisi);
         return view('BarcodeKerta2.Schedule', compact('dataDivisi', 'dataSubKelompok', 'dataType'));
     }
 

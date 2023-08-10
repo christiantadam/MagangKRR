@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BuatBarcode.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BuatBarcode.js') }}"></script>
 
     <body onload="Greeting()">
         <style>
@@ -21,18 +21,19 @@
                                     <div style="display: flex; flex-direction: column; gap:5px; white-space:nowrap">
                                         <div class="row">
                                             <div class="form-group col-md-5 d-flex justify-content-end">
-                                                <span class="aligned-text">Tanggal:</span>
+                                                <span class="aligned-text" style="">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                                 <input type="date" class="form-control" name="tanggal" id="tanggalInput"
-                                                    placeholder="Tanggal">
+                                                    style="margin-left: 15px; width: 230px" placeholder="Tanggal"
+                                                    onchange="checkDateAndEnableButton()">
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto">
                                                 <button type="button" onclick="openModal()" id="ButtonShift"
-                                                    style="width:180px;">Pilih
+                                                    style="width:180px;" disabled>Pilih
                                                     Shift</button>
                                             </div>
                                             <div class="modal" id="myModal">
@@ -238,7 +239,7 @@
                                         <div>
                                         </div>
                                     </div>
-                                    <div class="card" style="width: 100%">
+                                    <div class="card" style="width: 100%; margin-left: -75px">
                                         <div class="card-header">Data Barang</div>
                                         <div class="row mt-3">
                                             <div class="form-group col-md-2 d-flex justify-content-end">

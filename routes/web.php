@@ -46,7 +46,8 @@ Route::resource('CSJ', App\Http\Controllers\ABM\BarcodeKerta\CSJController::clas
 Route::resource('TotalBarcode', App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController::class);
 // Route::get('/ABM/BarcodeKerta/TotalBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController@index');
 
-Route::get('/ABM/PermohonanPenerimaBarang', 'App\Http\Controllers\ABM\PermohonanPenerimaBarangController@index');
+Route::resource('/ABM/PermohonanPenerimaBarang', App\Http\Controllers\ABM\PermohonanPenerimaBarangController::class);
+// Route::get('/ABM/PermohonanPenerimaBarang', 'App\Http\Controllers\ABM\PermohonanPenerimaBarangController@index');
 Route::get('/ABM/ScanBarcode', 'App\Http\Controllers\ABM\ScanBarcodeController@index');
 Route::get('/ABM/Scan', 'App\Http\Controllers\ABM\ScanController@index');
 Route::get('/ABM/PilihJenisRepress', 'App\Http\Controllers\ABM\PilihJenisRepressController@index');
