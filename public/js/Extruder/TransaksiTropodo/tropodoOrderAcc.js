@@ -6,6 +6,7 @@ const listOrder = [];
 const listDetailOrder = [];
 
 var checkboxes = null;
+var terpilih = -1;
 
 const tableOrderWidth = 2;
 
@@ -85,51 +86,62 @@ function showOrder() {
         });
 }
 
-function rowClicked(data) {
-    clearTable_DataTable(
-        "table_detail_order",
-        tableDetailWidth,
-        "Memuat data..."
-    );
+function rowClicked(row, data, index) {
+    if (terpilih == index) {
+        row.style.background = "white";
+        terpilih = -1;
 
-    fetch("/Order/getListSpek/" + data.IDOrder)
-        .then((response) => response.json())
-        .then((dataFetch) => {
-            listDetailOrder.length = 0;
-            for (let i = 0; i < dataFetch.length; i++) {
-                listDetailOrder.push({
-                    TypeBenang: dataFetch[i].TypeBenang,
-                    JumlahPrimer: dataFetch[i].JumlahPrimer,
-                    SatuanPrimer: "NULL",
-                    JumlahSekunder: dataFetch[i].JumlahSekunder,
-                    SatuanSekunder: "NULL",
-                    JumlahTritier: dataFetch[i].JumlahTritier,
-                    SatuanTritier: "KG",
-                });
-            }
+        clearTable_DataTable("table_detail_order", tableDetailWidth);
+    } else {
+        row.style.background = "aliceblue";
+        terpilih = index;
 
-            addTable_DataTable(
-                "table_detail_order",
-                listDetailOrder,
-                tableDetailCol
-            );
+        clearTable_DataTable(
+            "table_detail_order",
+            tableDetailWidth,
+            "Memuat data..."
+        );
 
-            if (dataFetch.length <= 0) {
-                clearTable_DataTable(
+        fetch("/Order/getListSpek/" + data.IDOrder)
+            .then((response) => response.json())
+            .then((dataFetch) => {
+                listDetailOrder.length = 0;
+                for (let i = 0; i < dataFetch.length; i++) {
+                    listDetailOrder.push({
+                        TypeBenang: dataFetch[i].TypeBenang,
+                        JumlahPrimer: dataFetch[i].JumlahPrimer,
+                        SatuanPrimer: "NULL",
+                        JumlahSekunder: dataFetch[i].JumlahSekunder,
+                        SatuanSekunder: "NULL",
+                        JumlahTritier: dataFetch[i].JumlahTritier,
+                        SatuanTritier: "KG",
+                    });
+                }
+
+                addTable_DataTable(
                     "table_detail_order",
-                    tableDetailWidth,
-                    `Data untuk <b>Order ${data.IDOrder}</b> tidak ditemukan.</h3>`
+                    listDetailOrder,
+                    tableDetailCol
                 );
-            }
 
-            window.scrollTo(0, document.body.scrollHeight);
-        });
+                if (dataFetch.length <= 0) {
+                    clearTable_DataTable(
+                        "table_detail_order",
+                        tableDetailWidth,
+                        `Data untuk <b>Order ${data.IDOrder}</b> tidak ditemukan.</h3>`
+                    );
+                }
+
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+    }
 }
 
 function init() {
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
+        scrollY: "250px",
         scrollX: "",
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
@@ -141,6 +153,7 @@ function init() {
     $("#table_detail_order").DataTable({
         responsive: true,
         paging: false,
+        scrollY: "250px",
         scrollX: "1000000px",
         columns: tableDetailCol,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',

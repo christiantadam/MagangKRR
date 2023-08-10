@@ -139,6 +139,7 @@ function init() {
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
+        scrollY: "250px",
         scrollX: "1000000px",
         columns: tableOrderCol,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',

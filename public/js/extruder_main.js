@@ -46,7 +46,7 @@ $("#confirmation_modal").on("keydown", function (event) {
 
 function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
     btnConfirm.textContent = txtBtn;
-    modalConfirmBody.textContent = txtBody;
+    modalConfirmBody.innerHTML = txtBody;
 
     btnConfirm.addEventListener("click", function () {
         confirmFun();
@@ -65,7 +65,6 @@ function addTable_DataTable(
     listData,
     colWidths = null,
     rowFun = null,
-    isDblClicked = false,
     tableHeight = "250px"
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
@@ -106,15 +105,9 @@ function addTable_DataTable(
             if (rowFun != null) {
                 row.style.cursor = "pointer";
 
-                if (!isDblClicked) {
-                    row.addEventListener("click", function () {
-                        rowFun(data, index);
-                    });
-                } else {
-                    row.addEventListener("dblclick", function () {
-                        rowFun(data, index);
-                    });
-                }
+                row.addEventListener("click", function () {
+                    rowFun(row, data, index);
+                });
             }
         },
     });

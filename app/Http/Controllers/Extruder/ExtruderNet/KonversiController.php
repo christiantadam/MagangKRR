@@ -37,6 +37,21 @@ class KonversiController extends Controller
         return view($view_name, $view_data);
     }
 
+    #region Konversi - ACC
+    public function getListKonvBlmAcc($id_divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_KONV_BLM_ACC @IdDivisi = ?',
+            [$id_divisi]
+        );
+
+        // PARAMETER @IdDivisi char(3)
+        // TABLE Extruder - MasterKonversiEXT
+        // FK TABLE Extruder - OrderMasterEXT(IdOrder), MasterMesin(IdMesin), Divisi(IdDivisi), MasterKomposisi(IdKomposisi)
+        // WHERE SaatLog IS NULL, StatusHapus IS NULL
+    }
+    #endregion
+
     #region Konversi - Permohonan
     public function getListKomposisiBahan($id_komposisi)
     {
@@ -203,6 +218,17 @@ class KonversiController extends Controller
 
         // PARAMETER @idorder varchar(10)
         // TABLE Extruder - OrderDetailEXT
+    }
+
+    public function getSaldoInv($id_type)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_1003_INV_Saldo_Barang @idtype = ?',
+            [$id_type]
+        );
+
+        // PARAMETER @IdType char(20)
+        // TABLE Inventory - Satuan, Type
     }
 
     public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
