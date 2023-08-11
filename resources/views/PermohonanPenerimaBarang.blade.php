@@ -302,7 +302,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataDivisi as $data)
+                                                            @foreach ($dataDivisi2 as $data)
                                                                 <tr>
                                                                     <td>{{ $data->IdDivisi }}</td>
                                                                     <td>{{ $data->NamaDivisi }}</td>
@@ -360,7 +360,7 @@
                                             <span class="aligned-text">Ketua Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdKelut2" id="IdKelut2"
+                                            <input type="text" class="form-control" name="IdKelompokUtama2" id="IdKelompokUtama2"
                                                 placeholder="ID Ketua Kelompok" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">

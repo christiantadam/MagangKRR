@@ -52,8 +52,8 @@
                                                     <span class="aligned-text">Divisi:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="id_Divisi"
-                                                        id="id_Divisi" placeholder="ID Divisi" readonly>
+                                                    <input type="text" class="form-control" name="IdDivisi"
+                                                        id="IdDivisi" placeholder="ID Divisi" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Divisi" id="Divisi"
@@ -116,12 +116,6 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataObjek as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->IdObjek }}</td>
-                                                                            <td>{{ $data->NamaObjek }}</td>
-                                                                        </tr>
-                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">

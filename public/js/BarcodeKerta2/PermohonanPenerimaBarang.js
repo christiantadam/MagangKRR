@@ -148,7 +148,7 @@ $(document).ready(function () {
         var rowData = $('#TablePemberiKelut').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $('#IdKelut2').val(rowData[0]);
+        $('#IdKelompokUtama2').val(rowData[0]);
         $('#ketua_Kelompok2').val(rowData[1]);
 
         // Hide the modal immediately after populating the data
@@ -442,6 +442,33 @@ function closeModal7() {
 function openModal8() {
     var modal = document.getElementById('myModal8');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    var txtIdDivisi = document.getElementById('IdDivisi2');
+    console.log(txtIdDivisi.value);
+    fetch("/ABM/PermohonanPenerimaBarang/" + txtIdDivisi.value + ".getXIdDivisi")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#TablePemberiObjek").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.IdObjek, item.NamaObjek];
+                $("#TablePemberiObjek").DataTable().row.add(row);
+            });
+
+            // Redraw the table to show the changes
+            $("#TablePemberiObjek").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 function closeModal8() {
@@ -452,6 +479,32 @@ function closeModal8() {
 function openModal9() {
     var modal = document.getElementById('myModal9');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    var txtIdObjek = document.getElementById('IdObjek2');
+    fetch("/ABM/PermohonanPenerimaBarang/" + txtIdObjek.value + ".getXIdObjek_KelompokUtama")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#TablePemberiKelut").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.IdKelompokUtama, item.NamaKelompokUtama];
+                $("#TablePemberiKelut").DataTable().row.add(row);
+            });
+
+            // Redraw the table to show the changes
+            $("#TablePemberiKelut").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 function closeModal9() {
@@ -462,6 +515,31 @@ function closeModal9() {
 function openModal10() {
     var modal = document.getElementById('myModal10');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    var txtIdKelompokUtama = document.getElementById('IdKelompokUtama2');
+    fetch("/ABM/PermohonanPenerimaBarang/" + txtIdKelompokUtama.value + ".XIdKelompokUtama_Kelompok")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#TablePemberiKelompok").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.idkelompok, item.namakelompok];
+                $("#TablePemberiKelompok").DataTable().row.add(row);
+            });
+            // Redraw the table to show the changes
+            $("#TablePemberiKelompok").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 function closeModal10() {
@@ -472,6 +550,31 @@ function closeModal10() {
 function openModal11() {
     var modal = document.getElementById('myModal11');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    var txtIdKelompok = document.getElementById('IdKelompok2');
+    fetch("/ABM/PermohonanPenerimaBarang/" + txtIdKelompok.value + ".XIdKelompok_SubKelompok")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#TablePemberiSubKelompok").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.IdSubkelompok, item.NamaSubKelompok];
+                $("#TablePemberiSubKelompok").DataTable().row.add(row);
+            });
+            // Redraw the table to show the changes
+            $("#TablePemberiSubKelompok").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 function closeModal11() {

@@ -35,6 +35,19 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    $('#TableDivisi tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+
+        var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $('#IdDivisi').val(rowData[0]);
+        $('#Divisi').val(rowData[1]);
+
+        // Hide the modal immediately after populating the data
+        closeModal();
+    });
+
     var ButtonJumlahBarang = document.getElementById('ButtonJumlahBarang')
 
     ButtonJumlahBarang.addEventListener("click", function (event) {

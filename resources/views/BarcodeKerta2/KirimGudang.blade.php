@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/KirimGudang.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/KirimGudang.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
@@ -37,7 +37,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-
+                                                            @foreach ($dataDivisi as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdDivisi }}</td>
+                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -61,12 +66,12 @@
 
                                     <div class="row">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
-                                            <span class="aligned-text">Divisi:</span>
+                                            <span class="aligned-text">SP:</span>
                                         </div>
                                         <div class="form-group col-md-4 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="NoSP" id="NoSP"
                                                 placeholder="No. SP" readonly>
-                                                <div class="text-center col-md-auto"><button type="button"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal2()" id="ButtonSP">...</button></div>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">

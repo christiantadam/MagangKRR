@@ -53,8 +53,8 @@
                                                     <span class="aligned-text">Divisi:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="id_Divisi"
-                                                        id="id_Divisi" placeholder="ID Divisi" readonly>
+                                                    <input type="text" class="form-control" name="IdDivisi"
+                                                        id="IdDivisi" placeholder="ID Divisi" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="Divisi" id="Divisi"
@@ -117,12 +117,6 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($dataObjek as $data)
-                                                                        <tr>
-                                                                            <td>{{ $data->IdObjek }}</td>
-                                                                            <td>{{ $data->NamaObjek }}</td>
-                                                                        </tr>
-                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -221,7 +215,7 @@
                             <div class="row mb-3" style="margin-left: 400px">
                                 <div class="text-center col-md-auto">
                                     <button type="button" onclick="openModal2()" id="ButtonShift"
-                                        style="width: 180px;">Pilih Shift</button>
+                                        style="width: 180px;">Lihat Barcode</button>
                                 </div>
                                 <div class="modal" id="myModal2">
                                     <div class="modal-content" style="width: 1200px">

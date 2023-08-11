@@ -12,8 +12,11 @@ class KirimGudangController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeKerta2.KirimGudang', compact('data'));
+        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataDivisi2 = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
+        // SP_1273_INV_CekDataSP
+
+        return view('BarcodeKerta2.KirimGudang', compact('dataDivisi', 'dataDivisi2'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +32,7 @@ class KirimGudangController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

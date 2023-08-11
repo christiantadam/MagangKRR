@@ -14,9 +14,10 @@ class PermohonanPenerimaBarangController extends Controller
     {
 
         $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataDivisi2 = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
 
         // dd($crExplode);
-        return view('PermohonanPenerimaBarang', compact('dataDivisi'));
+        return view('PermohonanPenerimaBarang', compact('dataDivisi', 'dataDivisi2'));
     }
 
     //Show the form for creating a new resource.
@@ -38,7 +39,13 @@ class PermohonanPenerimaBarangController extends Controller
 
         //getDivisi
         if ($crExplode[1] == "getXIdDivisi") {
-            $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            if ($crExplode[0] == "JBJ"){
+                $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            }
+
+            else if ($crExplode[0] == "JBM"){
+                $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
+            }
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataObjek);

@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/HanguskanBarcode.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/HanguskanBarcode.js') }}"></script>
 
 
     <body onload="Greeting()">
@@ -38,7 +38,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-
+                                                            @foreach ($dataDivisi as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdDivisi }}</td>
+                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                </tr>
+                                                            @endforeach
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -101,8 +106,8 @@
                             <div class="col- row justify-content-md-center">
                                 <div style="margin-top: -8px ">
                                     <div class="text-center col-md-auto mt-3">
-                                        <button type="submit" onclick="openModal1()" id="ButtonJumlahBarang"
-                                            style="width:100px; margin-top: -500px">Cari</button>
+                                        <button type="button" onclick="openModal1()" id="ButtonJumlahBarang"
+                                            style="width:100px;margin-bottom: 10px">Cari</button>
                                     </div>
                                     <div class="modal" id="myModal1">
                                         <div class="modal-content">
@@ -115,15 +120,14 @@
                                                     </div>
                                                     <div class="mt-4">
                                                         <div class="form-group col-md-9 mt-md-0">
-                                                            <input type="text" class="form-control"
-                                                                name="Barcode" id="Barcode" style="width: 1080px; margin-left: 13px"
+                                                            <input type="text" class="form-control" name="Barcode"
+                                                                id="Barcode" style="width: 1080px; margin-left: 13px"
                                                                 placeholder="Barcode">
                                                         </div>
                                                     </div>
                                                     <div class="text-center col-md-auto"
                                                         style="margin-top: 15px; margin-left:350px">
-                                                        <button type="button"
-                                                            onclick="closeModal1()">Ok</button>
+                                                        <button type="button" onclick="closeModal1()">Ok</button>
                                                     </div>
                                                     <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                         onclick="closeModal1()">
@@ -134,8 +138,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center col-md-auto"><button type="button" style="width: 100px">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="button" style="width: 100px">Tutup</button></div>
+                                <div class="text-center col-md-auto"><button type="button"
+                                        style="width: 100px; margin-top: 8px">Proses</button></div>
+                                <div class="text-center col-md-auto"><button type="button"
+                                        style="width: 100px; margin-top: 8px">Tutup</button></div>
                             </div>
                         </div>
                         </form>
@@ -148,5 +154,6 @@
         </main>
         </div>
     </body>
+
     </html>
 @endsection

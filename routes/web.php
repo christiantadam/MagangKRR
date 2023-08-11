@@ -48,9 +48,12 @@ Route::resource('TotalBarcode', App\Http\Controllers\ABM\BarcodeKerta\TotalBarco
 
 Route::resource('/ABM/PermohonanPenerimaBarang', App\Http\Controllers\ABM\PermohonanPenerimaBarangController::class);
 // Route::get('/ABM/PermohonanPenerimaBarang', 'App\Http\Controllers\ABM\PermohonanPenerimaBarangController@index');
-Route::get('/ABM/ScanBarcode', 'App\Http\Controllers\ABM\ScanBarcodeController@index');
-Route::get('/ABM/Scan', 'App\Http\Controllers\ABM\ScanController@index');
-Route::get('/ABM/PilihJenisRepress', 'App\Http\Controllers\ABM\PilihJenisRepressController@index');
+Route::resource('/ABM/ScanBarcode', App\Http\Controllers\ABM\ScanBarcodeController::class);
+// Route::get('/ABM/ScanBarcode', 'App\Http\Controllers\ABM\ScanBarcodeController@index');
+Route::resource('/ABM/Scan', App\Http\Controllers\ABM\ScanController::class);
+// Route::get('/ABM/Scan', 'App\Http\Controllers\ABM\ScanController@index');
+Route::resource('/ABM/PilihJenisRepress', App\Http\Controllers\ABM\PilihJenisRepressController::class);
+// Route::get('/ABM/PilihJenisRepress', 'App\Http\Controllers\ABM\PilihJenisRepressController@index');
 
 Route::get('/ABM/BalJadiPalet', 'App\Http\Controllers\ABM\BalJadiPaletController@index');
 Route::get('/ABM/PaletJadiBal', 'App\Http\Controllers\ABM\PaletJadiBalController@index');

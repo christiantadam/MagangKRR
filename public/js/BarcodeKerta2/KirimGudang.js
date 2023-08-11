@@ -41,6 +41,19 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    $('#TableDivisi tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+
+        var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $('#IdDivisi').val(rowData[0]);
+        $('#Divisi').val(rowData[1]);
+
+        // Hide the modal immediately after populating the data
+        closeModal();
+    });
+
     var ButtonProcess = document.getElementById('ButtonProcess')
     ButtonProcess.addEventListener("click", function (event) {
         event.preventDefault();
@@ -49,6 +62,19 @@ $(document).ready(function () {
     var ButtonSP = document.getElementById('ButtonSP')
     ButtonSP.addEventListener("click", function (event) {
         event.preventDefault();
+    });
+
+    $('#TableDivisi tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+
+        var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $('#IdDivisi').val(rowData[0]);
+        $('#Divisi').val(rowData[1]);
+
+        // Hide the modal immediately after populating the data
+        closeModal();
     });
 });
 
