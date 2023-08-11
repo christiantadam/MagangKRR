@@ -45,9 +45,15 @@ class ProsesPembeliGambarController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
-        // DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_ACC-MNG-ORDER-GBR] @user = ?, @noOrder = ?', [$iduser, $idorder[$i]]);
-        return redirect()->back()->with('success', 'Order Sudah DiACC.');
+        //dd($request->all());
+        $idorder = $request->idorder;
+        $gambar = $request->gambar;
+        $idorderarray = explode(",", $idorder);
+        $arraygambar = explode(",", $gambar);
+        for ($i=0; $i < count($idorderarray); $i++) {
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-TGL-BERI-GBR] @noOd = ?, @noGbr = ?', [$idorderarray[$i], $arraygambar[$i]]);
+        }
+        return redirect()->back()->with('success', 'Data TerSIMPAN');
     }
 
 

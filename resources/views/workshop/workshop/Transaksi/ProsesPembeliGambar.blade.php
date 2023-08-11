@@ -1,5 +1,14 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+  @if (Session::has('success'))
+    <div class="alert alert-success">
+      {{ Session::get('success') }}
+    </div>
+  @elseif (Session::has('error'))
+    <div class="alert alert-danger">
+      {{ Session::get('error') }}
+    </div>
+  @endif
   <div class="card-header">
     Proses Pembeli Gambar
   </div>
@@ -48,13 +57,15 @@
 
 
     <div class="mt-3">
-      <form action="{{url('ProsesPembeliGambar')}}" method="post" id="formproses">
+      <form action="{{ url('ProsesPembeliGambar') }}" method="post" id="formproses">
         {{ csrf_field() }}
         <input type="hidden" name="_method" id="methodForm">
         <input type="hidden" name="nogam" id="nogam">
         <input type="hidden" name="idorder" id="idorder">
+        <input type="hidden" name="gambar" id="gambar">
         <div class="float-start" style="margin-left: 12.5px;">
-          <button type="button" class="btn btn-primary" style="width: 12.5em;" onclick="klikproses()"><b>PROSES</b></button>
+          <button type="button" class="btn btn-primary" style="width: 12.5em;"
+            onclick="klikproses()"><b>PROSES</b></button>
           <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
         </div>
       </form>

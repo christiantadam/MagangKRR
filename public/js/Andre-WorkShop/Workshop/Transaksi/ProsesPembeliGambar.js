@@ -4,7 +4,8 @@ let tgl_akhir = document.getElementById("tgl_akhir");
 
 let table_data = $("#tableProsesPembeli").DataTable();
 let refresh = document.getElementById("refresh");
-let user_id = 4384;
+//let user_id = 4384;
+let user_id = 2697;
 
 let nogam = document.getElementById("nogam");
 let idorder = document.getElementById("idorder");
@@ -12,7 +13,9 @@ let formproses = document.getElementById("formproses");
 let methodForm = document.getElementById("methodForm");
 var arraycheckbox = [];
 var rowIndexArray = [];
+var arrayket = [];
 
+let gambar = document.getElementById('gambar');
 //#endregion
 
 //#region set tanggal
@@ -135,7 +138,7 @@ function klikproses() {
         $("input[name='PembeliCheckbox']:checked").each(function () {
             let rowIndex = $(this).closest("tr").index();
             // console.log(rowIndex);
-            rowIndexArray.push(rowIndex);
+            let value = this.value;
             // console.log(rowIndexArray);
 
             // Do something with the row index, such as logging it
@@ -144,11 +147,20 @@ function klikproses() {
                 return;
             } else {
                 arraycheckbox.push(value);
+                rowIndexArray.push(rowIndex);
             }
         });
+        if (rowIndexArray.length > 0) {
+            for (let i = 0; i < rowIndexArray.length; i++) {
+                arrayket.push(table_data.cell(rowIndexArray[i],8).data());
+                console.log(arrayket);
+            }
+        }
         if (arraycheckbox.length > 0) {
             var arrayString = arraycheckbox.join(",");
+            var arrayketstring = arrayket.join(",");
             idorder.value = arrayString;
+            gambar.value = arrayketstring;
             methodForm.value = "PUT";
             formproses.action = "/ProsesPembeliGambar/" + idorder.value;
             formproses.submit();
