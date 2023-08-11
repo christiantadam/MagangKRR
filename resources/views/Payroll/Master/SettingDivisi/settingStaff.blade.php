@@ -28,7 +28,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="divisiButton" data-toggle="modal" data-target="#modalManager">...</button>
+                                                id="divisiButton" onclick="showModalManager()">...</button>
 
                                             <div class="modal fade" id="modalManager" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -47,13 +47,14 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            {{-- @foreach ($dataDivisi as $data)
+
+                                                                            @foreach ($dataManager as $data)
                                                                                 <tr>
 
-                                                                                    <td>{{ $data->Id_Div }}</td>
-                                                                                    <td>{{ $data->Nama_Div }}</td>
+                                                                                    <td>{{ $data->kd_Pegawai }}</td>
+                                                                                    <td>{{ $data->nama_peg }}</td>
                                                                                 </tr>
-                                                                            @endforeach --}}
+                                                                            @endforeach
                                                                             {{-- @foreach ($peringatan as $item)
                                                                                 <tr>
                                                                                     <td><input type="checkbox" style="margin-right:5px;"
@@ -89,9 +90,10 @@
                         </div>
                         <br>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
+                            <table id="table_Divisi_Staff" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Check</th>
                                         <th scope="col">divisi</th>
                                         <th scope="col">Pegawai</th>
                                         <th scope="col">Nama Pegawai</th>
@@ -99,7 +101,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr>
+
+                                    {{-- <tr> --}}
 
                                         {{-- <td>
                                             <a href="" title="Edit Employee">
@@ -114,7 +117,7 @@
                                             </form>
                                         </td> --}}
 
-                                    </tr>
+                                    {{-- </tr> --}}
                                     {{-- @foreach ($employees as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
@@ -142,8 +145,9 @@
 
                             </table>
                         </div>
+                        <div id="form-container"></div>
                         <div style="text-align: right; margin-top: 20px;">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary" id="simpanButton">Simpan</button>
                             <button type="button" class="btn btn-secondary">Keluar</button>
                         </div>
 

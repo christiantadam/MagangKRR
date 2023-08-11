@@ -89,9 +89,9 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Master/SettingDivisi/Harian') }}">Harian</a></li>
+                                                    tabindex="-1" href="{{ url('settingDivisiHarian') }}">Harian</a></li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Master/SettingDivisi/Staff') }}">Staff</a>
+                                                    tabindex="-1" href="{{ url('settingDivisiStaff') }}">Staff</a>
                                             </li>
 
                                         </ul>
@@ -101,7 +101,7 @@
                                             tabindex="-1" href="{{ url('MasterNomer') }}">Nomer</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Master/Kartu') }}">Kartu</a>
+                                            tabindex="-1" href="{{ url('MasterKartu') }}">Kartu</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Master/SettingShift') }}">Setting Shift</a>

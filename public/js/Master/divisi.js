@@ -479,6 +479,7 @@ document.addEventListener("DOMContentLoaded", function () {
         opsiStatusSelect.removeAttribute("disabled");
         opsiAturanSelect.removeAttribute("disabled");
         JmlJam.disabled = false;
+        divisiButton.disabled = false;
         grupDivisi.disabled = false;
     });
 
@@ -495,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         posisiButton.disabled = true;
         managerButton.disabled = true;
-
+        divisiButton.disabled = true;
         opsiJenisSelect.setAttribute("disabled", "disabled");
         opsiStatusSelect.setAttribute("disabled", "disabled");
         opsiAturanSelect.setAttribute("disabled", "disabled");
@@ -516,6 +517,7 @@ document.addEventListener("DOMContentLoaded", function () {
         opsiAturanSelect.removeAttribute("disabled");
         JmlJam.disabled = false;
         grupDivisi.disabled = false;
+        divisiButton.disabled = false;
         //Tampil Button simpan dan batal
         simpanKoreksiButton.classList.remove("d-none");
         batalKoreksiButton.classList.remove("d-none");
@@ -526,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function () {
         simpanKoreksiButton.classList.add("d-none");
         koreksiButton.classList.remove("d-none");
         batalKoreksiButton.classList.add("d-none");
-
+        divisiButton.disabled = true;
         Nama_Div.readOnly = true;
         posisiButton.disabled = true;
         managerButton.disabled = true;

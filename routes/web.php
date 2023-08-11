@@ -35,6 +35,9 @@ Route::resource('KaryawanHarian', App\Http\Controllers\Payroll\Master\Karyawan\K
 
 Route::resource('KaryawanKeluarga', App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController::class);
 Route::resource('MasterNomer', App\Http\Controllers\Payroll\Master\Nomer\NomerController::class);
+Route::resource('MasterKartu', App\Http\Controllers\Payroll\Master\Kartu\KartuController::class);
+Route::resource('settingDivisiHarian', App\Http\Controllers\Payroll\Master\SettingDivisi\HarianController::class);
+Route::resource('settingDivisiStaff', App\Http\Controllers\Payroll\Master\SettingDivisi\StaffController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
@@ -47,10 +50,10 @@ Route::post('ProgramPayroll/Master/insertDivisi', 'App\Http\Controllers\Payroll\
 Route::post('ProgramPayroll/Master/updateDivisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@UpdateDivisi');
 Route::post('ProgramPayroll/Master/deleteDivisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@deleteDivisi');
 
-Route::get('ProgramPayroll/Master/SettingDivisi/Harian', 'App\Http\Controllers\Payroll\Master\SettingDivisi\HarianController@index');
-Route::get('ProgramPayroll/Master/SettingDivisi/Staff', 'App\Http\Controllers\Payroll\Master\SettingDivisi\StaffController@index');
+// Route::get('ProgramPayroll/Master/SettingDivisi/Harian', 'App\Http\Controllers\Payroll\Master\SettingDivisi\HarianController@index');
+// Route::get('ProgramPayroll/Master/SettingDivisi/Staff', 'App\Http\Controllers\Payroll\Master\SettingDivisi\StaffController@index');
 // Route::get('ProgramPayroll/Master/Nomer', 'App\Http\Controllers\Payroll\Master\Nomer\NomerController@index');
-Route::get('ProgramPayroll/Master/Kartu', 'App\Http\Controllers\Payroll\Master\Kartu\KartuController@index');
+// Route::get('ProgramPayroll/Master/Kartu', 'App\Http\Controllers\Payroll\Master\Kartu\KartuController@index');
 Route::get('ProgramPayroll/Master/SettingShift', 'App\Http\Controllers\Payroll\Master\SettingShift\SettingShiftController@index');
 Route::get('ProgramPayroll/Master/Klinik', 'App\Http\Controllers\Payroll\Master\Klinik\KlinikController@index');
 

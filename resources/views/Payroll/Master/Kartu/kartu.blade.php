@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/Master/kartu.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Master/kartu.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -25,9 +25,9 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    data-toggle="modal" data-target="#modalKdPeg">...</button>
+                                    onclick="showModalDivisi()">...</button>
 
-                                <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
+                                <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
                                         <div class="modal-content" style="">
@@ -44,13 +44,13 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {{-- @foreach ($dataDivisi as $data)
+                                                                @foreach ($dataDivisi as $data)
                                                                     <tr>
 
                                                                         <td>{{ $data->Id_Div }}</td>
                                                                         <td>{{ $data->Nama_Div }}</td>
                                                                     </tr>
-                                                                @endforeach --}}
+                                                                @endforeach
                                                                 {{-- @foreach ($peringatan as $item)
                                                                     <tr>
                                                                         <td><input type="checkbox" style="margin-right:5px;"
@@ -97,8 +97,8 @@
                                             <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                         @endforeach
                                     </select> --}}
-                                    <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                        data-toggle="modal" data-target="#modalPegawai">...</button>
+                                    <button type="button" class="btn" style="margin-left: 10px; " id="pegawaiButton"
+                                    onclick="showModalPegawai()">...</button>
 
                                     <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
