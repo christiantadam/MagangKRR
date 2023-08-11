@@ -1,255 +1,218 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_konversi_acc" class="form" data-aos="fade-up">
-        <form>
-            <div class="card mt-3">
-                <div class="card-header">Daftar Konversi</div>
+        <div class="card mt-3">
+            <div class="card-header">Daftar Konversi</div>
 
-                <div class="card-body">
-                    <div class="row">
+            <div class="card-body">
+                <div class="row">
 
-                        <div class="col-lg-6">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No. Konversi</th>
-                                        <th scope="col">Spec</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>temp</td>
-                                        <td>temp</td>
-                                    </tr>
-                                    <tr>
-                                        <td>temp</td>
-                                        <td>temp</td>
-                                    </tr>
-                                    <tr>
-                                        <td>temp</td>
-                                        <td>temp</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-lg-6">
+                        <div class="mt-3"></div>
+                        <table id="table_konversi" class="hover cell-border">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No. Konversi</th>
+                                    <th scope="col">Spek</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <h1 class="mt-3">Tabel masih kosong...</h1>
+                                    </td>
+                                    <td class="hidden"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Tanggal:</span>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="date" id="tanggal" class="form-control unclickable">
+                            </div>
                         </div>
 
-                        <div class="col-lg-6">
-
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Tanggal:</span>
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control">
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Shift:</span>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="input-group">
+                                    <input type="text" id="shift" class="form-control" style="max-width: 50px;"
+                                        disabled>
+                                    <input type="time" id="shift_awal" class="form-control unclickable">
+                                    <span class="input-group-text">s/d</span>
+                                    <input type="time" id="shift_akhir" class="form-control unclickable">
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Shift:</span>
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Mesin:</span>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input type="text" id="id_mesin" class="form-control" disabled>
+                                    <input type="text" id="nama_mesin" class="form-control" style="width: 12.5vw;"
+                                        disabled>
                                 </div>
-                                <div class="col-lg-8">
-                                    <div class="input-group">
-                                        <input type="text" name="shift" id="shift" class="form-control"
-                                            style="max-width: 50px;">
-                                        <input type="time" name="shift_awal" id="shift_awal" class="form-control">
-                                        <span class="input-group-text">s/d</span>
-                                        <input type="time" name="shift_akhir" id="shift_akhir" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Ukuran:</span>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="number" id="ukuran" class="form-control" placeholder="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Denier:</span>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="number" id="denier" class="form-control" placeholder="0" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <span class="aligned-text">Warna:</span>
+                                    </div>
+
+                                    <div class="col-lg-7">
+                                        <input type="text" id="warna" class="form-control" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-lg-5">
+                                        <span class="aligned-text">Lot:</span>
+                                    </div>
+
+                                    <div class="col-lg-7">
+                                        <input type="text" id="lot" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Mesin:</span>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="input-group">
-                                        <input type="text" name="mesin1" id="mesin1" class="form-control">
-                                        <input type="text" name="mesin2" id="mesin2" class="form-control"
-                                            style="width: 12.5vw;">
-                                    </div>
+                            <div class="col-lg-5 row d-flex justify-content-center">
+                                <div class="col-lg-10">
+                                    <input type="text" id="no_urut" class="form-control" style="margin-top: 1.5em;">
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Ukuran:</span>
-                                </div>
-                                <div class="col-lg-4">
-                                    <input type="number" name="ukuran" id="ukuran" class="form-control"
-                                        placeholder="0">
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">No. Order:</span>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input type="text" id="id_order" class="form-control" disabled>
+                                    <input type="text" id="nama_order" class="form-control" style="width: 12.5vw;"
+                                        disabled>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Denier:</span>
-                                </div>
-                                <div class="col-lg-4">
-                                    <input type="number" name="denier" id="denier" class="form-control"
-                                        placeholder="0">
+                        <div class="row mt-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Komposisi:</span>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="input-group">
+                                    <input type="text" id="id_komposisi" class="form-control" disabled>
+                                    <input type="text" id="nama_komposisi" class="form-control"
+                                        style="width: 12.5vw;" disabled>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-7">
-                                    <div class="row">
-                                        <div class="col-lg-5">
-                                            <span class="aligned-text">Warna:</span>
-                                        </div>
-
-                                        <div class="col-lg-7">
-                                            <input type="text" name="warna" id="warna" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-lg-5">
-                                            <span class="aligned-text">Lot:</span>
-                                        </div>
-
-                                        <div class="col-lg-7">
-                                            <input type="text" name="lot" id="lot" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-5 row d-flex justify-content-center">
-                                    <div class="col-lg-10">
-                                        <input type="text" name="temp" id="temp" class="form-control"
-                                            style="margin-top: 1.5em;">
-                                    </div>
-                                </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Mulai:</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="time" id="waktu_mulai" class="form-control unclickable">
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">No. Order:</span>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="input-group">
-                                        <input type="text" name="no_order1" id="no_order1" class="form-control">
-                                        <input type="text" name="no_order2" id="no_order2" class="form-control"
-                                            style="width: 12.5vw;">
-                                    </div>
-                                </div>
+                            <div class="col-lg-3">
+                                <span class="aligned-text">Selesai:</span>
                             </div>
-
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Komposisi:</span>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="input-group">
-                                        <input type="text" name="komposisi1" id="komposisi1" class="form-control">
-                                        <input type="text" name="komposisi2" id="komposisi2" class="form-control"
-                                            style="width: 12.5vw;">
-                                    </div>
-                                </div>
+                            <div class="col-lg-3">
+                                <input type="time" id="waktu_selesai" class="form-control unclickable">
                             </div>
-
-                            <div class="row mt-3">
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Mulai:</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="time" name="waktu_mulai" id="waktu_mulai" class="form-control">
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <span class="aligned-text">Selesai:</span>
-                                </div>
-                                <div class="col-lg-3">
-                                    <input type="time" name="waktu_selesai" id="waktu_selesai" class="form-control">
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
+
                 </div>
             </div>
+        </div>
 
-            <div class="card mt-3">
-                <div class="card-header">Hasil Produksi</div>
+        <div class="card mt-3">
+            <div class="card-header">Hasil Produksi</div>
 
-                <div class="card-body">
-                    <table class="table table-hover mt-3" style="table-layout: fixed;">
-                        <colgroup>
-                            <col style="width: 300px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                            <col style="width: 125px;">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>Nama Type</th>
-                                <th class="text-center">Qty Primer</th>
-                                <th class="text-center">Sat Primer</th>
-                                <th class="text-center">Qty Sekunder</th>
-                                <th class="text-center">Sat Sekunder</th>
-                                <th class="text-center">Qty Tertier</th>
-                                <th class="text-center">Sat Tertier</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Data 1</td>
-                                <td class="text-center">10</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">5</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">3</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                            <tr>
-                                <td>Data 2</td>
-                                <td class="text-center">8</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">4</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">2</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                            <tr>
-                                <td>Data 3</td>
-                                <td class="text-center">15</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">6</td>
-                                <td class="text-center">kg</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">kg</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="card-body">
+                <table id="table_hasil" class="hover cell-border">
+                    <thead>
+                        <tr>
+                            <th>Nama Type</th>
+                            <th>Qty Primer</th>
+                            <th>Sat Primer</th>
+                            <th>Qty Sekunder</th>
+                            <th>Sat Sekunder</th>
+                            <th>Qty Tertier</th>
+                            <th>Sat Tertier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @php $tableWidth = 7; @endphp
+                            <td colspan="{{ $tableWidth }}" class="text-center">
+                                <h1 class="mt-3">Tabel masih kosong...</h1>
+                            </td>
+                            @for ($i = 0; $i < $tableWidth - 1; $i++)
+                                <td class="hidden"></td>
+                            @endfor
+                        </tr>
+                    </tbody>
+                </table>
 
-                    <div class="row mt-3 d-flex justify-content-center">
-                        <div class="col-lg-3" style="margin-right: 25px;">
-                            <label for="total_bahan_terpakai">Total Bahan Terpakai:</label>
-                            <input type="number" name="total_bahan_terpakai" id="total_bahan_terpakai"
-                                class="form-control" value="0">
-                        </div>
-                        <div class="col-lg-3" style="margin-right: 25px;">
-                            <label for="hasil_timbang">Hasil Timbang:</label>
-                            <input type="number" name="hasil_timbang" id="hasil_timbang" class="form-control"
-                                value="0">
-                        </div>
-                        <div class="col-lg-3">
-                            <label for="afalan">Afalan:</label>
-                            <input type="number" name="afalan" id="afalan" class="form-control" value="0">
-                        </div>
+                <div class="row mt-3 d-flex justify-content-center">
+                    <div class="col-lg-3" style="margin-right: 25px;">
+                        <label for="total_bahan_terpakai">Total Bahan Terpakai:</label>
+                        <input type="number" id="total_bahan_terpakai" class="form-control" placeholder="0">
+                    </div>
+                    <div class="col-lg-3" style="margin-right: 25px;">
+                        <label for="hasil_timbang">Hasil Timbang:</label>
+                        <input type="number" id="hasil_timbang" class="form-control" placeholder="0">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="afalan">Afalan:</label>
+                        <input type="number" id="afalan" class="form-control" placeholder="0">
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="mt-3 mb-5 float-end text-center">
-                <button type="submit" class="btn btn-outline-success">Proses</button>
-                <button type="button" class="btn btn-outline-danger">Keluar</button>
-            </div>
-        </form>
+        <div class="mt-3 mb-5 float-end text-center">
+            <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
+            <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
+        </div>
     </div>
+
+    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoKonversiACC.js') }}"></script>
 @endsection

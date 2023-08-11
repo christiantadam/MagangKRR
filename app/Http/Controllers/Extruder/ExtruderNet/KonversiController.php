@@ -32,7 +32,7 @@ class KonversiController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getListKomposisiBahan('KONV0001'));
+        // dd($this->getTransaksiKonv('KONV0003'));
 
         return view($view_name, $view_data);
     }
@@ -45,10 +45,57 @@ class KonversiController extends Controller
             [$id_divisi]
         );
 
-        // PARAMETER @IdDivisi char(3)
-        // TABLE Extruder - MasterKonversiEXT
-        // FK TABLE Extruder - OrderMasterEXT(IdOrder), MasterMesin(IdMesin), Divisi(IdDivisi), MasterKomposisi(IdKomposisi)
+        // PARAMETER - @IdDivisi char(3)
+        // TABLE - MasterKonversiEXT
+        // FK TABLE - OrderMasterEXT(IdOrder), MasterMesin(IdMesin), Divisi(IdDivisi), MasterKomposisi(IdKomposisi)
         // WHERE SaatLog IS NULL, StatusHapus IS NULL
+    }
+
+    public function getListKonvDetail($id_konversi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_KONV_DETAIL_1 @IdKonversi = ?',
+            [$id_konversi]
+        );
+
+        // PARAMETER - @IdKonversi varchar(14)
+        // TABLE - DetailKonversiEXT
+        // FK TABLE - MasterKonversiEXT(IdKonversi), MasterKomposisi(IdKomposisi)
+    }
+
+    public function getPenyesuaianTrans($kode = null, $id_type = null, $id_type_transaksi = null, $id_transaksi = null, $kode_barang = null, $id_sub_kel = null)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_CHECK_PENYESUAIAN_TRANSAKSI @kode = ?, @idtype = ?, @idtypetransaksi = ?, @Idtransaksi = ?, @KodeBarang = ?, @idSubKel = ?',
+            [$kode, $id_type, $id_type_transaksi, $id_transaksi, $kode_barang, $id_sub_kel]
+        );
+
+        // PARAMETER - @Kode char(1)=null, @idtype  varchar(20) =null, @idtypetransaksi  varchar(2) = null, @Idtransaksi int =null, @KodeBarang varchar(10) =null, @idSubKel char(6)=null
+        // TABLE - Transaksi
+    }
+
+    public function getTransaksiKonv($id_konv_ext)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5409_EXT_DISPLAY_TRANSAKSI_KONVERSI @idkonvext = ?',
+            [$id_konv_ext]
+        );
+
+        // PARAMETER - @idkonvext  varchar(14)
+        // TABLE - Inventory: Tmp_Transaksi, Type;
+        // TABLE - Extruder: DetailKonversiEXT
+        // WHERE - Status = 0, IdKonversi = IdKonversiInv dari EXT yang IdKonversi sesuai input
+    }
+
+    public function getJumlahHutang($id_type, $subkel, $shift, $tgl)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_AMBIL_JUMLAH_HUTANG @idType = ?, @subKel = ?, @shift = ?, @tgl = ?',
+            [$id_type, $subkel, $shift, $tgl]
+        );
+
+        // PARAMETER - @idType char(20), @subKel char(6), @shift char(1), @tgl varchar(10)
+        // VW_PRG_5298_EXT_LIST_HUTANG_EXP
     }
     #endregion
 

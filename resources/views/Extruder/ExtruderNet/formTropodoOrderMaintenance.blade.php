@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <button type="submit" id="btn_detail" class="btn btn-outline-info float-end"
+                        <button type="button" id="btn_detail" class="btn btn-outline-info float-end"
                             disabled>Tambah<br>Detail</button>
                     </div>
                 </div>
@@ -117,5 +117,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoOrderMaintenance.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoOrderMaintenance.js') }}"></script>
 @endsection

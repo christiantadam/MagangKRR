@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <div class="card mt-5">
+        <div class="card mt-4">
             <div class="card-body">
                 <table id="table_konversi" class="hover cell-border">
                     <thead>
@@ -158,7 +158,7 @@
                     </tbody>
                 </table>
 
-                <div class="row mt-3">
+                <div class="row mt-4">
 
                     <div class="col-lg-6">
                         <div class="mt-2">
@@ -278,5 +278,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoKonversiMohon.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoKonversiMohon.js') }}"></script>
 @endsection

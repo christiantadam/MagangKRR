@@ -18,7 +18,7 @@
             </tbody>
         </table>
 
-        <div class="mt-5"></div>
+        <div class="mt-4"></div>
 
         <table id="table_detail_order" class="hover cell-border">
             <thead>
@@ -51,5 +51,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/TransaksiTropodo/tropodoOrderACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoOrderACC.js') }}"></script>
 @endsection

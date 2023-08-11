@@ -39,6 +39,10 @@ button:not(.btn):not(:disabled):hover {
     background-color: var(--bs-secondary-bg);
 }
 
+.form-check-input {
+    cursor: pointer;
+}
+
 /*--------------------------------------------------------------
 # General (FIXED)
 --------------------------------------------------------------*/

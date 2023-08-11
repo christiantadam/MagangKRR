@@ -1,4 +1,4 @@
-<!-- LAST: Sub txtLot_KeyPress | FrmMohonKonversi.vb -->
+<!-- LAST: cekPenyesuaian() | FrmACcKonversi.vb -->
 
 <?php
 
@@ -29,6 +29,7 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
+// Route::get('/Extruder/ExtruderNet/Tropodo/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class, 'index']);
 
@@ -75,7 +76,8 @@ Route::get('/Konversi/delKonversi/{id_konversi}', [KonversiController::class, 'd
 #endregion
 
 #region ExtruderNet - Form Konversi ACC
-
+Route::get('/Konversi/getListKonvBlmAcc/{id_divisi}', [KonversiController::class, 'getListKonvBlmAcc']);
+Route::get('/Konversi/getListKonvDetail/{id_konversi}', [KonversiController::class, 'getListKonvDetail']);
 #endregion
 
 #region ExtruderNet - Master

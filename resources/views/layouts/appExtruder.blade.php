@@ -253,22 +253,22 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoBenangMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangMohon">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoBenangACC">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangACC">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoGangguanProduksi">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/formTropodoGangguanProduksi">Pencatatan
                                             Gangguan
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoDaya">Pencatatan KwaH
+                                    <li><a href="/Extruder/ExtruderNet/formTropodoDaya">Pencatatan KwaH
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoEfisiensi">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/formTropodoEfisiensi">Pencatatan
                                             Efisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Tropodo/formTropodoPerawatan">Perawatan</a>
+                                    <li><a href="/Extruder/ExtruderNet/formTropodoPerawatan">Perawatan</a>
                                 </ul>
                             </li>
                             <li class="dropdown">
