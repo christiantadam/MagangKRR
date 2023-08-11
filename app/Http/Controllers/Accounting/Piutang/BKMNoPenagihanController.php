@@ -52,6 +52,14 @@ class BKMNoPenagihanController extends Controller
         return response()->json($kode);
     }
 
+    function getUraianEnter($idBank, $jenis, $tanggal, $id)
+    {
+        //dd("mau");
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5409_ACC_COUNTER_BKM_BKK] @bank = ?, @jenis = ?, @tgl = ?, @id = ?',
+        [$idBank, $jenis, $tanggal, $id]);
+        return response()->json($kode);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
