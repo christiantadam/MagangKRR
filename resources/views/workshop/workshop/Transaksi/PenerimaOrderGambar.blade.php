@@ -160,8 +160,8 @@
             <input type="hidden" name="iduser" id="iduser">
             <button type="button" class="btn btn-primary" style="width: 7.5em;"
               onclick="klikproses()"><b>PROSES</b></button>
-            <button type="button" class="btn btn-warning" data-toggle="modal"
-              data-target=".koreksi-modal-lg">KOREKSI</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".koreksi-modal-lg"
+              onclick="koreksiklik()">KOREKSI</button>
 
           </div>
         </div>
@@ -172,7 +172,7 @@
   <div class="modal fade koreksi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 174vh;margin-left: -22vh;">
         <div class="modal-header">
           <div class="col-7" style="text-align-last:right;">
             <h3 cl ass="modal-title" id="exampleModalLabel" style="font-weight:bold">Workshop</h3>
@@ -184,18 +184,227 @@
           </div>
         </div>
         <div class="modal-body">
-            <div class="row">
-                <div class="col-6">
+          <div class="row">
+            <div class="col-6">
+              <form id="ModalProsesPembeliGambar" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="_method" id="methodFormProses">
 
+                <div class="row mt-3">
+                  <div class="col-5">
+                    <span class="custom-alignment">Tanggal Order:</span>
+                  </div>
+
+                  <div class="col-7">
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" name="tglOrder" class="form-control" id="tglOrder">
+                      </div>
+                      <div class="col">
+                        <b>
+                          <span id="lblstatus" style="color: pink"></span>
+                        </b>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <h1>dwadwd</h1>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">No. Order:</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="text" name="noOrder" class="form-control" id="noOrder">
+                  </div>
                 </div>
+                <div class="row" style="margin-left: 12.5vh;margin-top: 3vh;">
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-6"> <!-- Updated class: col-lg-4 -->
+                        <span class="custom-alignment">Kd. Barang</span>
+                      </div>
+
+                      <div class="col-6"> <!-- Updated class: col-lg-8 -->
+                        <input type="text" name="KodeBarang" class="form-control" id="KodeBarang"
+                          style="margin-left: 21px;">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-6"> <!-- Updated class: col-lg-4 -->
+                        <span class="custom-alignment">No. Gambar</span>
+                      </div>
+
+                      <div class="col-6"> <!-- Updated class: col-lg-8 -->
+                        <input type="text" name="noGambar" class="form-control" id="noGambar">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Divisi</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="text" name="Divisimodal" class="form-control" id="Divisimodal">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Nama Barang</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="text" name="NamaBarangModal" class="form-control" id="NamaBarangModal">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Keterangan Order</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="date" name="acc_manager" class="form-control" id="KeteranganModal">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Jumlah</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="text" name="JumlahModal" class="form-control" id="JumlahModal">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Drafter</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <select class="form-select" name="DrafterModal" style="width: 36vh; height: 6.6vh;"
+                      id="DrafterModal">
+                      <option disabled selected>Pilih Drafter</option>
+                      {{-- @foreach ($satuan as $s)
+                          <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
+                        @endforeach --}}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Tgl. Start</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="date" name="tgl_start" class="form-control" id="tgl_start">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Tgl. Finish</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <input type="date" name="tgl_finish" class="form-control" id="tgl_finish">
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-lg-5">
+                    <span class="custom-alignment">Operator</span>
+                  </div>
+
+                  <div class="col-lg-7">
+                    <div class="row">
+                      <div class="col">
+                        <input type="text" name="IdUser" class="form-control" id="IdUser">
+                      </div>
+                      <div class="col">
+                        <input type="text" name="NamaUser" class="form-control" id="NamaUser">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                    <input type="hidden" name="Tsts" id="Tsts">
+                    <input type="hidden" name="TuserOd" id="TuserOd">
+                  <button type="button" class="btn btn-secondary" style="float: right;margin-top:10px">Proses</button>
+                </div>
+              </form>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="col-6">
+              <p>Detail Gambar</p>
+              <div class="row mt-3">
+                <div class="col-lg-5">
+                  <span class="custom-alignment">No. Gambar</span>
+                </div>
+
+                <div class="col-lg-7">
+                  <input type="text" name="NoGambarModal" class="form-control" id="NoGambarModal">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-lg-5">
+                  <span class="custom-alignment">Nama Gambar</span>
+                </div>
+
+                <div class="col-lg-7">
+                  <input type="text" name="NamaGambarModal" class="form-control" id="NamaGambarModal">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-lg-5">
+                  <span class="custom-alignment">Approve</span>
+                </div>
+
+                <div class="col-lg-7">
+                  <input type="date" name="Approvemodal" class="form-control" id="Approvemodal">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-9" style="text-align-last: right;">
+                  <button type="button" class="btn btn-outline-success">+</button>
+                </div>
+                <div class="col-3">
+                  <button type="button" class="btn btn-outline-danger">-</button>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="table-responsive" style="text-align: -webkit-center;">
+                  <table class="table mt-3" style="width: max-content" id="tableModal">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>No. Gambar</th>
+                        <th>Nama Barang</th>
+                        <th>Approve</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-secondary"
+                  data-dismiss="modal"style="float: right">Batal</button>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>

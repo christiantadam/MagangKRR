@@ -26,6 +26,28 @@ let user = 4384;
 let iduser = document.getElementById("iduser");
 iduser.value = user;
 
+let ModalProsesPembeliGambar = document.getElementById(
+    "ModalProsesPembeliGambar"
+);
+let methodFormProses = document.getElementById("methodFormProses");
+let tglOrder = document.getElementById("tglOrder");
+let noOrder = document.getElementById("noOrder");
+let KodeBarang = document.getElementById("KodeBarang");
+let noGambar = document.getElementById("noGambar");
+let Divisimodal = document.getElementById("Divisimodal");
+let NamaBarangModal = document.getElementById("NamaBarangModal");
+let KeteranganModal = document.getElementById("KeteranganModal");
+let JumlahModal = document.getElementById("JumlahModal");
+let DrafterModal = document.getElementById("DrafterModal");
+let tgl_start = document.getElementById("tgl_start");
+let tgl_finish = document.getElementById("tgl_finish");
+let IdUser = document.getElementById("IdUser");
+let NamaUser = document.getElementById("NamaUser");
+var trselect;
+var index;
+let lblstatus = document.getElementById('lblstatus');
+let Tsts = document.getElementById('Tsts');
+let TuserOd = document.getElementById('TuserOd');
 //#endregion
 
 //#region set tanggal
@@ -207,11 +229,10 @@ function klikproses() {
             .then((datas) => {
                 panjangdata = datas[0].ada;
             });
-            if (panjangdata == 0) {
+        if (panjangdata == 0) {
             alert("Login " + user + " Tidak berHak utk memproses.");
             return;
-        }
-        else{
+        } else {
             $("input[name='penerimaCheckbox']").each(function () {
                 // Ambil nilai 'value' dan status 'checked' dari checkbox
                 let value = $(this).val();
@@ -229,7 +250,9 @@ function klikproses() {
                     }
                 } else if (order_tolak.checked == true) {
                     if (isChecked && closestTd.hasClass("black-color")) {
-                        Ket_tolak = prompt("Alasan Ditolak Order" + value + " :");
+                        Ket_tolak = prompt(
+                            "Alasan Ditolak Order" + value + " :"
+                        );
                         ket.push(Ket_tolak);
                         arraycheckbox.push(value);
                     }
@@ -278,20 +301,45 @@ function klikproses() {
                 }
             }
         }
-
-
     }
 }
 
 //#endregion
 
-//#region modal koreksi
-
-
-//#endregion
-
-
 //#region butn koreksi
-
-
+function koreksiklik() {
+    if (
+        order_kerja.checked == false &&
+        order_selesai.checked == false &&
+        order_batal.checked == false
+    ) {
+        alert(
+            "Pilih 'Order DiKerjakan' atau 'Order Selesai' atau 'Order Dibatalkan"
+        );
+    } else {
+        $("input[name='penerimaCheckbox']:checked").each(function () {
+            let rowIndex = $(this).closest("tr").index();
+            let closestTr = $(this).closest("tr");
+            // console.log(rowIndex);
+            trselect = closestTr;
+            index = rowIndex;
+            console.log(trselect);
+            // let value = this.value;
+            // console.log(rowIndexArray);
+        });
+        if (trselect.hasClass('red-color') || trselect.hasClass('blue-color') && order_kerja.checked == true) {
+            console.log(table_data.cell(index, 0).data());
+            tglOrder.value = table_data.cell(index, 1).data();
+            noOrder.value = table_data.cell(index, 0).data();
+            Divisimodal.value = table_data.cell(index,7).data();
+            NamaBarangModal.value = table_data.cell(index,3).data();
+            noGambar.value = table_data.cell(index,4).data();
+            KeteranganModal.value = table_data.cell(index,9).data();
+            JumlahModal.value = table_data.cell(index,5).data();
+            lblstatus.textContent = table_data.cell(index,6).data();
+            TuserOd.value = table_data.cell(index,11).data();
+            Tsts.value = 1;
+        }
+    }
+}
 //#endregion
