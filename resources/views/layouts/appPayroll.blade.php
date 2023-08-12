@@ -104,7 +104,7 @@
                                             tabindex="-1" href="{{ url('MasterKartu') }}">Kartu</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Master/SettingShift') }}">Setting Shift</a>
+                                            tabindex="-1" href="{{ url('settingShift') }}">Setting Shift</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Master/Klinik') }}">Klinik</a>

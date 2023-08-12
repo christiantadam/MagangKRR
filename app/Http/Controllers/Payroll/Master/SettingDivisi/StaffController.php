@@ -49,11 +49,11 @@ class StaffController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        $data = $request->all();
+        $data = array_filter($request->all(), 'is_numeric', ARRAY_FILTER_USE_KEY);
 
         $dataCount = count($data);
-
-        for ($i = 0; $i <= $dataCount; $i++) {
+        // dd($dataCount);
+        for ($i = 0; $i < $dataCount; $i++) {
             $dataItem = $data[$i];
             $explodedData = explode('.', $dataItem);
 
