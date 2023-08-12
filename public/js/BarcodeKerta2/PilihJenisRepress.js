@@ -18,6 +18,7 @@ $(document).ready(function () {
     });
 
     $('#TableType').DataTable({
+        "scrollX": true,
         order: [
             [0, 'desc']
         ],
@@ -48,8 +49,35 @@ $(document).ready(function () {
         var rowData = $('#TableObjek').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $('#id_Objek').val(rowData[0]);
-        $('#Objek').val(rowData[1]);
+        $('#IdObjek').val(rowData[0]);
+        $('#NamaObjek').val(rowData[1]);
+
+        var txtIdObjek = document.getElementById('IdObjek');
+        fetch("/ABM/PilihJenisRepress/" + txtIdObjek.value + ".txtIdObjek")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
+                // Clear the existing table rows
+                $("#TableType").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.IdTransaksi, item.NamaKelompokUtama, item.NamaKelompok, item.NamaSubKelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, item.SaatAwalTransaksi, ""];
+                    $("#TableType").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableType").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
 
         // Hide the modal immediately after populating the data
         closeModal1();

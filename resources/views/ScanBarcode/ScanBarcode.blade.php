@@ -95,11 +95,11 @@
                                                     <span class="aligned-text">Objek:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="id_Objek"
-                                                        id="id_Objek" placeholder="ID Objek" readonly>
+                                                    <input type="text" class="form-control" name="IdObjek"
+                                                        id="IdObjek" placeholder="ID Objek" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Objek" id="Objek"
+                                                    <input type="text" class="form-control" name="NamaObjek" id="NamaObjek"
                                                         placeholder="Objek" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal1()" id="ButtonObjek">...</button></div>

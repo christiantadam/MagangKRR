@@ -44,7 +44,7 @@ $(document).ready(function () {
         $('#IdDivisi').val(rowData[0]);
         $('#Divisi').val(rowData[1]);
 
-        // Hide the modal immediately after populating the data
+        // Hide the modal immediately after populating the datas
         closeModal();
     });
 

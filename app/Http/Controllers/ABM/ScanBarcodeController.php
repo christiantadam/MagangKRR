@@ -12,8 +12,8 @@ class ScanBarcodeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
-        $dataDivisi2 = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
 
         // dd($dataObjek);
         return view('ScanBarcode.ScanBarcode    ', compact('dataDivisi', 'dataDivisi2'));
@@ -38,16 +38,21 @@ class ScanBarcodeController extends Controller
 
         //getDivisi
         if ($crExplode[1] == "getXIdDivisi") {
-            if ($crExplode[0] == "JBJ"){
-                $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
-            }
-
-            else if ($crExplode[0] == "JBM"){
-                $dataObjek = DB::connection('ConnABM')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
+            if ($crExplode[0] == "JBJ") {
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            } else if ($crExplode[0] == "JBM") {
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
             }
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataObjek);
+
+            // dd($crExplode);
+        } else if ($crExplode[1] == "txtIdObjek") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HasilProsesBarcode @Kode = ?, @IdObjek = ?', [ "5" ,$crExplode[0] ]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataType);
 
             // dd($crExplode);
         }

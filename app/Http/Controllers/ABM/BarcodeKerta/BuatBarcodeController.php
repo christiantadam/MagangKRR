@@ -12,8 +12,8 @@ class BuatBarcodeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnABM')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
-        $dataType = DB::connection('ConnABM')->select('exec SP_5409_INV_IdType_Schedule ?, ?, ?, ?', ["1", "p", "p", 1]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
+        $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule ?, ?, ?, ?', ["1", "p", "p", 1]);
 
         //dd($dataType);
         return view('BarcodeKerta2.BuatBarcode', compact('dataDivisi'));
