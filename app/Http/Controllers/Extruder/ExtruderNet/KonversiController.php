@@ -32,7 +32,8 @@ class KonversiController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getTransaksiKonv('KONV0003'));
+        // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
+        dd($this->getTransaksiKonv('KONV0003'));
 
         return view($view_name, $view_data);
     }
@@ -95,7 +96,68 @@ class KonversiController extends Controller
         );
 
         // PARAMETER - @idType char(20), @subKel char(6), @shift char(1), @tgl varchar(10)
-        // VW_PRG_5298_EXT_LIST_HUTANG_EXP
+        // TABLE - Tmp_EXT
+        // FK TABLE - Transaksi(IdTransaksi = IdTransInv), Type(IdType)
+    }
+
+    public function getIdTransInv($id_type, $subkel, $tgl, $shift)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_GET_IDTRANS_INV @idType = ?, @subKel = ?, @tgl = ?, @shift = ?',
+            [$id_type, $subkel, $tgl, $shift]
+        );
+
+        // PARAMETER - @idType char(20), @subKel char(6), @tgl varchar(10), @shift char(1)
+    }
+
+    public function getOrderStatus($id_order)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5409_EXT_ORDER_STATUS @IdOrder = ?',
+            [$id_order]
+        );
+
+        // PARAMETER - @IdOrder char(10)
+    }
+
+    public function updACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $masuk_primer, $masuk_sekunder, $masuk_tritier)
+    {
+        return DB::connection('ConnInventory')->statement(
+            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = ?, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
+            [$id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $masuk_primer, $masuk_sekunder, $masuk_tritier]
+        );
+
+        // PARAMETER - @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
+    }
+
+    public function updHutang($id_type, $subkel, $id_inv, $pemberi)
+    {
+        return DB::connection('ConnInventory')->statement(
+            'exec SP_5298_EXT_PROSES_UPDATE_HUTANG @idType = ?, @subKel = ?, @idINV = ?, @Pemberi = ?',
+            [$id_type, $subkel, $id_inv, $pemberi]
+        );
+
+        // PARAMETER - @idType char(20), @subKel char(6), @idINV char(9), @Pemberi char(4)
+    }
+
+    public function updACCMasterKonv($id_konversi, $user_acc)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_ACC_MASTER_KONVERSI @idkonversi = ?, @useracc = ?',
+            [$id_konversi, $user_acc]
+        );
+
+        // PARAMETER - @idkonversi varchar(14), @useracc varchar(4)
+    }
+
+    public function updSaldoOrdDet($id_order, $no_urut_order, $primer, $sekunder, $tritier)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_UPDATE_SALDO_ORDER_DETAIL @idorder = ?, @nourutorder = ? @primer = ?, @sekunder = ?, @tritier = ?',
+            [$id_order, $no_urut_order, $primer, $sekunder, $tritier]
+        );
+
+        // PARAMETER - @idorder varchar(10), @nourutorder int, @primer numeric(9,2), @sekunder numeric(9,2), @tritier numeric(9,2)
     }
     #endregion
 

@@ -30,6 +30,8 @@ const listOfInputTxt = document.querySelectorAll("input[type='text']");
 const listKonversi = [];
 const listHasil = [];
 const listTmpTrans = [];
+const listTmpExt = [];
+const listHutangExt = [];
 
 const tableKonversiWidth = 2;
 const tableHasilWidth = 7;
@@ -308,11 +310,13 @@ function cekPenyesuaian() {
 
 function prosesInventory() {
     let sukses = true;
-    fetch(`/Konversi/getTransaksiKonv/${listKonversi[konversiPil].IdKonversi}`)
+
+    fetch(`/Konversi/getTransaksiKonv/
+        ${listKonversi[konversiPil].IdKonversi}`)
         .then((response) => response.json())
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
-                listTmpTrans.push(data[i]);
+                listTmpTrans.push(data[i]); // dset.Tables(0)
             }
 
             // Cek saldo barang
@@ -342,14 +346,184 @@ function prosesInventory() {
                 case "15:00" || "12:00":
                     shift = "S";
                     break;
-                case "19:00" || "23:00":
+                case "17:00" || "19:00" || "23:00":
                     shift = "M";
                     break;
 
                 default:
                     break;
             }
+
+            // Cek hutang EXT
+            fetch(`/Konversi/getJumlahHutang/
+                ${listTmpTrans[i].IdType}/
+                ${listTmpTrans[i].idsubkelompok_type}/
+                ${dateInput.value}/
+                ${shift}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let i = 0; i < data.length; i++) {
+                        listTmpExt.push(data[i]); // dset.Tables(1)
+                        // Total, TotalS
+                    }
+
+                    let jum_hutang = 0;
+                    let id_type,
+                        subkel = [];
+
+                    for (let i = 0; i < listTmpTrans.length; i++) {
+                        if (listTmpExt[i].TotalS == null) {
+                            listTmpExt[i].TotalS = 0;
+                        }
+
+                        if (listTmpExt[i].Total == null) {
+                            listTmpExt[i].Total = 0;
+                        }
+
+                        if (
+                            listTmpTrans[i].JumlahPemasukanSekunder ==
+                                listTmpExt[i].TotalS &&
+                            listTmpTrans[i].JumlahPemasukanTritier ==
+                                listTmpExt[i].Total &&
+                            listTmpTrans[i].JumlahPemasukanSekunder != 0 &&
+                            listTmpTrans[i].JumlahPemasukanTritier != 0
+                        ) {
+                            id_type.push(listTmpTrans[i].IdType);
+                            subkel.push(listTmpTrans[i].idsubkelompok_type);
+                            jum_hutang += 1;
+                        } else {
+                            if (
+                                listTmpExt[i].TotalS != 0 ||
+                                listTmpExt[i].Total != 0
+                            ) {
+                                alert(
+                                    "Jumlah hutang tidak sesuai dengan konversi."
+                                );
+                            } else {
+                                alert("Tidak ada hutang kawan!");
+                            }
+                        }
+                    }
+
+                    if (jum_hutang > 0) {
+                        showModal(
+                            "Lunasi",
+                            "Ada hutang benang, apakah ingin dilunaskan?",
+                            () => {
+                                for (let i = 0; i < listTmpTrans.length; i++) {
+                                    fetchStmt(
+                                        `/Konversi/updACCKonversi/
+                                            ${listTmpTrans[i].IdTransaksi}/
+                                            ${listTmpTrans[i].IdType}/
+                                            tmpUser/
+                                            ${dateInput.value}/
+                                            ${listTmpTrans[i].JumlahPengeluaranPrimer}/
+                                            ${listTmpTrans[i].JumlahPengeluaranSekunder}/
+                                            ${listTmpTrans[i].JumlahPemasukanPrimer}/
+                                            ${listTmpTrans[i].JumlahPemasukanSekunder}/
+                                            ${listTmpTrans[i].JumlahPemasukanTritier}`
+                                    );
+
+                                    for (
+                                        let j = 0;
+                                        j < jum_hutang.length;
+                                        j++
+                                    ) {
+                                        if (j != 0) {
+                                            listHutangExt.length = 0;
+                                        }
+
+                                        fetch(`/Konversi/getIdTransInv/
+                                            ${id_type[j]}/
+                                            ${subkel[j]}/
+                                            ${dateInput.value}/
+                                            ${shift}`)
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                for (
+                                                    let k = 0;
+                                                    k < data.length;
+                                                    k++
+                                                ) {
+                                                    listHutangExt.push(data[k]);
+
+                                                    fetchStmt(
+                                                        `/Konversi/updHutang/
+                                                        ${id_type[j]}/
+                                                        tmpUser/
+                                                        ${subkel[j]}/
+                                                        ${listHutangExt[k].Trans}`
+                                                    );
+                                                }
+                                            });
+                                    }
+                                }
+                            },
+                            () => {}
+                        );
+                    } else {
+                        for (let i = 0; i < listTmpTrans.length; i++) {
+                            fetchStmt(
+                                `/Konversi/updACCKonversi/
+                                    ${listTmpTrans[i].IdTransaksi}/
+                                    ${listTmpTrans[i].IdType}/
+                                    tmpUser/
+                                    ${dateInput.value}/
+                                    ${listTmpTrans[i].JumlahPengeluaranPrimer}/
+                                    ${listTmpTrans[i].JumlahPengeluaranSekunder}/
+                                    ${listTmpTrans[i].JumlahPemasukanPrimer}/
+                                    ${listTmpTrans[i].JumlahPemasukanSekunder}/
+                                    ${listTmpTrans[i].JumlahPemasukanTritier}`
+                            );
+                        }
+                    }
+                })
+                .catch((error) => console.error(error));
         });
+
+    return sukses;
+}
+
+function prosesExtruder() {
+    fetchStmt(
+        `/Konversi/updACCMasterKonv/
+        ${listKonversi[konversiPil].IdKonversi}/
+        tmpUser`
+    );
+
+    for (let i = 0; i < listHasil.length; i++) {
+        if (listHasil[i].StatusType == "HP") {
+            fetchStmt(
+                `/Konversi/updSaldoOrdDet/
+                ${txtIdOrder.value}/
+                ${txtNoUrut.value}/
+                ${listHasil[i].JumlahPrimer}/
+                ${listHasil[i].JumlahSekunder}/
+                ${listHasil[i].JumlahTritier}`
+            );
+        }
+    }
+
+    fetch(`/Konversi/getOrderStatus/${txtIdOrder.value}`)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data[0].StatusOrder == "FINISH") {
+                alert(`Order dengan nomor ${txtIdOrder.value} sudah terpenuhi.
+                Terdapat sisa stok sebesar: ${
+                    data[0].JumlahPemasukanTritier - data[0].JumlahTritier
+                }.`);
+            } else {
+                alert(`Order dengan nomor ${
+                    txtIdOrder.value
+                } sudah terpenuhi sebesar: ${
+                    data[0].JumlahProduksiTritier - data[0].JumlahTritier
+                }.
+                Sisa yang belum terpenuhi sebesar: ${
+                    data[0].JumlahTritier - data[0].JumlahProduksiTritier
+                }`);
+            }
+        })
+        .catch((error) => console.error(error));
 }
 //#endregion
 

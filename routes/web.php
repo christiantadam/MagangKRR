@@ -1,4 +1,4 @@
-<!-- LAST: cekPenyesuaian() | FrmACcKonversi.vb -->
+<!-- LAST: btnProses_Click() | FrmACCKonversi.vb -->
 
 <?php
 
@@ -78,6 +78,16 @@ Route::get('/Konversi/delKonversi/{id_konversi}', [KonversiController::class, 'd
 #region ExtruderNet - Form Konversi ACC
 Route::get('/Konversi/getListKonvBlmAcc/{id_divisi}', [KonversiController::class, 'getListKonvBlmAcc']);
 Route::get('/Konversi/getListKonvDetail/{id_konversi}', [KonversiController::class, 'getListKonvDetail']);
+Route::get('/Konversi/getPenyesuaianTrans/{kode?}/{id_type?}/{id_type_transaksi?}/{id_transaksi?}/{kode_barang?}/{id_sub_kel?}', [KonversiController::class, 'getPenyesuaianTrans']);
+Route::get('/Konversi/getTransaksiKonv/{id_konv_ext}', [KonversiController::class, 'getTransaksiKonv']);
+Route::get('/Konversi/getJumlahHutang/{id_type}/{subkel}/{shift}/{tgl}', [KonversiController::class, 'getJumlahHutang']);
+Route::get('/Konversi/getIdTransInv/{id_type}/{subkel}/{tgl}/{shift}', [KonversiController::class, 'getIdTransInv']);
+Route::get('/Konversi/getOrderStatus/{id_order}', [KonversiController::class, 'getOrderStatus']);
+
+Route::get('/Konversi/updACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updACCKonversi']);
+Route::get('/Konversi/updHutang/{id_type}/{subkel}/{id_inv}/{pemberi}', [KonversiController::class, 'updHutang']);
+Route::get('/Konversi/updACCMasterKonv/{id_konversi}/{user_acc}', [KonversiController::class, 'updACCMasterKonv']);
+Route::get('/Konversi/updSaldoOrdDet/{id_order}/{no_urut_order}/{primer}/{sekunder}/{tritier}', [KonversiController::class, 'updSaldoOrdDet']);
 #endregion
 
 #region ExtruderNet - Master

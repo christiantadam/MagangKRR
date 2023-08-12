@@ -27,3 +27,31 @@ function addSpecificData(tableId, x, y, data) {
         console.error("Invalid row index:", y);
     }
 }
+
+// http://127.0.0.1:8000/Extruder/ExtruderNet/Konversi/formTropodoKonversiACC
+// array:1 [▼ // app\Http\Controllers\Extruder\ExtruderNet\KonversiController.php:36
+//   0 => {#276 ▼
+//     +"IdTransaksi": "1"					0
+//     +"IdTypeTransaksi": "01"				1
+//     +"UraianDetailTransaksi": "Asal Konversi"		2
+//     +"IdType": "type3               "			3
+//     +"IdPenerima": null					4
+//     +"IdPemberi": null					5
+//     +"SaatAwalTransaksi": "2023-08-05 15:30:00.000"	6
+//     +"SaatAkhirTransaksi": null				7
+//     +"JumlahPemasukanPrimer": ".00"			8
+//     +"JumlahPemasukanSekunder": ".00"			9
+//     +"JumlahPemasukanTritier": ".00"			10
+//     +"JumlahPengeluaranPrimer": null			11
+//     +"JumlahPengeluaranSekunder": null			12
+//     +"JumlahPengeluaranTritier": null			13
+//     +"AsalIdSubkelompok": null				14
+//     +"TujuanIdSubkelompok": null			15
+//     +"idkonversi": "INV0003  "				16
+//     +"SaldoPrimer": "100.00"				17
+//     +"SaldoSekunder": "100.00"				18
+//     +"SaldoTritier": "100.00"				19
+//     +"namatype": "Type C"				20
+//     +"idsubkelompok_type": "sub7  "			21
+//   }
+// ]
