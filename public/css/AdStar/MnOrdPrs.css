@@ -6,6 +6,7 @@
     padding: 20px;
     height: 100VH;
     background-image: url('images/walpaper-2.png');
+    background-color: #737573;
 }
 
 h2 {
@@ -48,6 +49,33 @@ h2 {
 .input-container button {
     margin-left: 10px;
     cursor: pointer;
+}
+
+.acs-div-gambar-input{
+    width: 100%;
+}
+
+.acs-gambar{
+    z-index: -1;
+}
+
+.W_input{
+    position: relative;
+}
+
+/* Style untuk input besar */
+.input-large {
+    width: 1000px;
+}
+
+/* Style untuk input sedang */
+.input-medium {
+    width: 500px;
+}
+
+/* Style untuk input kecil (textarea) */
+.input-small {
+    width: 75px;
 }
 
 .button-container {
@@ -141,3 +169,4 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
 }
+

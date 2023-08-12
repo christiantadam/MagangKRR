@@ -136,7 +136,7 @@
                     <tbody>
                         @foreach ($dataMesin as $data)
                             <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
-                                <td>{{ $data->NamaMesin }}</td>
+                                <td>{{ $data->NamaMesin }}'+'{{ $data->IdMesin }}</td>
                                 <td>{{ $data->IdMesin }}</td>
                             </tr>
                         @endforeach
@@ -198,12 +198,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($dataTransaksi as $data)
-                            <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
-                                <td>{{ $data->NamaMesin }}</td>
-                                <td>{{ $data->IdMesin }}</td>
+                        @foreach ($dataOrder as $data)
+                            <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Orderph }}">
+                                <td>{{ $data->Nama_brg }}</td>
+                                <td>{{ $data->No_Order }}</td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -6,6 +6,7 @@
     padding: 20px;
     height: 100VH;
     background-image: url('images/walpaper-2.png');
+    background-color: #737573;
 }
 
 h2 {
@@ -74,7 +75,7 @@ h2 {
 
 /* Style untuk input kecil (textarea) */
 .input-small {
-    width: 50px;
+    width: 75px;
 }
 
 .button-container {
@@ -168,3 +169,4 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
 }
+

@@ -11,7 +11,7 @@ class UpKdBrng extends Controller
 {
     public function index()
     {
-        $dataUpKdBrng = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_KODE_BRG ?', [3],[1],NULL,[2]);
+        $dataUpKdBrng = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_KODE_BRG ?', [1],[1],NULL,[2]);
         // dd($dataUpKdBrng);
         return view('AdStar.UpKdBrng', compact('dataUpKdBrng'));//
     }

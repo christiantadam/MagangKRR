@@ -2,50 +2,76 @@
 @section('content')
 <link href="{{ asset('css/AdStar/StpOrdPrs.css') }}" rel="stylesheet">
 
+<div class="container">
 <h2>Stop Order Press</h2>
+</div>
 
-<div class="body">
+
+<div class="container">
     <div class="card">
-        {{-- <h3 class="card-title">Sales</h3> --}}
-        <div class="input-container">
-            <label>No. Order Kerja:</label>
-            <input type="text" name="noOrderKerja" placeholder="No. Order Kerja" class="input-medium">
-            <button class="btn btn-primary" type="button">...</button>
-            <input type="text" name="inputNoOrderKerja" placeholder="Input No. Order Kerja" class="input-large">
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="" aria-label="">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                                ...
+                    </button>
+                    <input type="text" class="form-control" placeholder="" aria-label="">
+                </div>
+            </div>
         </div>
-        <div class="input-container">
-            <label>No Pesanan:</label>
-            <input type="text" name="noPesanan" placeholder="No Pesanan" class="input-medium">
-            <label>Surat Pesanan:</label>
-            <input type="text" name="suratPesanan" placeholder="Surat Pesanan" class="input-medium">
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">No. Pesanan:</div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="" aria-label="">
+            </div>
+            <div class="col-lg-2 aligned-text">Surat Pesanan:</div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" placeholder="" aria-label="">
+            </div>
         </div>
-        <div class="input-container">
-            <label>Qty Order:</label>
-            <input type="text" name="qtyOrder" placeholder="Qty Order" class="input-medium">
-            <label>Lbr</label>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Qty Order:</div>
+            <div class="col-lg-2">
+                <input type="number" id="qty-ordr" class="input-small" required min="0" placeholder="lbr">
+            </div>
         </div>
-        <div class="input-container">
-            <label>Hasil Order:</label>
-            <input type="text" name="hasilOrder" placeholder="Hasil Order" class="input-medium">
-            <label>Lbr</label>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Hasil Order:</div>
+            <div class="col-lg-2">
+                <input type="number" id="hsl-ordr" class="input-small" required min="0" placeholder="lbr">
+            </div>
         </div>
-        <div class="input-container">
-            <label for="rncn-kerja">Rencana Kerja:</label>
-            <input type="date" id="rncn-kerja" required>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Rencana Kerja:</div>
+            <div class="col-lg-2">
+                <input type="date" id="rncn-kerja" class="form-control" required>
+            </div>
         </div>
-        <div class="input-container">
-            <label for="rncn-finish">Rencarna Finish:</label>
-            <input type="date" id="rncn-finish" required>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Rencana Finish:</div>
+            <div class="col-lg-2">
+                <input type="date" id="rncn-finish" class="form-control" required>
+            </div>
         </div>
-        <div class="input-container">
-            <label for="tgl-finish">Tgl Finish:</label>
-            <input type="date" id="tgl-finish" required>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Tgl Finish:</div>
+            <div class="col-lg-2">
+                <input type="date" id="tgl-finish" class="form-control" required>
+            </div>
         </div>
     </div>
 
-    <div class="button-container">
-        <button class="ord">Stop Order</button>
-        <button class="ord">Unstop Order</button>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-primary">Stop Order</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-success">Unstop Order</button>
+            </div>
+        </div>
     </div>
 
     <div class="scrollable-container">
