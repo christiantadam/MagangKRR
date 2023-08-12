@@ -11,7 +11,7 @@ class ProsesPembeliGambarController extends Controller
 
     public function index()
     {
-        return view('WORKSHOP.Workshop.Transaksi.ProsesPembeliGambar');
+        return view('WORKSHOP.Workshop.Transaksi.ProsesPemberiGambar');
     }
     public function GetAllData($tgl_awal, $tgl_akhir)
     {

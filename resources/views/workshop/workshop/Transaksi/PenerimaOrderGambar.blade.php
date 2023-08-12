@@ -120,6 +120,7 @@
               <th>Mesin</th>
               <th>Keterangan Order</th>
               <th>Peng-order</th>
+              <th>UserOd</th>
             </tr>
           </thead>
         </table>
@@ -160,7 +161,7 @@
             <input type="hidden" name="iduser" id="iduser">
             <button type="button" class="btn btn-primary" style="width: 7.5em;"
               onclick="klikproses()"><b>PROSES</b></button>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".koreksi-modal-lg"
+            <button type="button" class="btn btn-warning" id="btnkoreksi"
               onclick="koreksiklik()">KOREKSI</button>
 
           </div>
@@ -169,7 +170,7 @@
     </form>
   </div>
 
-  <div class="modal fade koreksi-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  <div class="modal fade koreksi-modal-lg" id="modalkoreksi" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content" style="width: 174vh;margin-left: -22vh;">

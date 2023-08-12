@@ -10,7 +10,7 @@
     </div>
   @endif
   <div class="card-header">
-    Proses Pembeli Gambar
+    Proses Pemberi Gambar
   </div>
 
   <div class="card-body">

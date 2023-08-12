@@ -48,6 +48,8 @@ var index;
 let lblstatus = document.getElementById('lblstatus');
 let Tsts = document.getElementById('Tsts');
 let TuserOd = document.getElementById('TuserOd');
+
+let btnkoreksi = document.getElementById('btnkoreksi');
 //#endregion
 
 //#region set tanggal
@@ -170,6 +172,7 @@ function AllData(tglAwal, tglAkhir) {
                         { title: "Mesin", data: "Mesin" },
                         { title: "Keterangan Order", data: "Ket_Order" },
                         { title: "Peng-Order", data: "NmUserOd" },
+                        { title: "UserOd", data: "User_Order"},
                     ],
                 });
                 table_data.draw();
@@ -306,6 +309,8 @@ function klikproses() {
 
 //#endregion
 
+
+
 //#region butn koreksi
 function koreksiklik() {
     if (
@@ -327,18 +332,50 @@ function koreksiklik() {
             // let value = this.value;
             // console.log(rowIndexArray);
         });
-        if (trselect.hasClass('red-color') || trselect.hasClass('blue-color') && order_kerja.checked == true) {
-            console.log(table_data.cell(index, 0).data());
-            tglOrder.value = table_data.cell(index, 1).data();
-            noOrder.value = table_data.cell(index, 0).data();
-            Divisimodal.value = table_data.cell(index,7).data();
-            NamaBarangModal.value = table_data.cell(index,3).data();
-            noGambar.value = table_data.cell(index,4).data();
-            KeteranganModal.value = table_data.cell(index,9).data();
-            JumlahModal.value = table_data.cell(index,5).data();
-            lblstatus.textContent = table_data.cell(index,6).data();
-            TuserOd.value = table_data.cell(index,11).data();
-            Tsts.value = 1;
+        console.log(index);
+        if (index==null) {
+            alert("Pilih 1 Data Untuk DiPROSES")
+        }
+        else{
+            if (order_kerja.checked == true || order_selesai.checked == true) {
+                btnkoreksi.setAttribute("data-toggle", "modal");
+                btnkoreksi.setAttribute("data-target", "#modalkoreksi");
+            }
+            else{
+                btnkoreksi.setAttribute("data-toggle", "");
+                btnkoreksi.setAttribute("data-target", "");
+            }
+            if (trselect.hasClass('red-color') || trselect.hasClass('blue-color') && order_kerja.checked == true) {
+                console.log(table_data.cell(index, 0).data());
+                tglOrder.value = table_data.cell(index, 1).data();
+                noOrder.value = table_data.cell(index, 0).data();
+                Divisimodal.value = table_data.cell(index,7).data();
+                NamaBarangModal.value = table_data.cell(index,3).data();
+                noGambar.value = table_data.cell(index,4).data();
+                KeteranganModal.value = table_data.cell(index,9).data();
+                JumlahModal.value = table_data.cell(index,5).data();
+                lblstatus.textContent = table_data.cell(index,6).data();
+                TuserOd.value = table_data.cell(index,11).data();
+                Tsts.value = 1;
+
+            }
+            if (trselect.hasClass('blue-color') && order_selesai.checked == true) {
+                tglOrder.value = table_data.cell(index, 1).data();
+                noOrder.value = table_data.cell(index, 0).data();
+                Divisimodal.value = table_data.cell(index,7).data();
+                NamaBarangModal.value = table_data.cell(index,3).data();
+                noGambar.value = table_data.cell(index,4).data();
+                KeteranganModal.value = table_data.cell(index,9).data();
+                JumlahModal.value = table_data.cell(index,5).data();
+                lblstatus.textContent = table_data.cell(index,6).data();
+                TuserOd.value = table_data.cell(index,11).data();
+                Tsts.value = 2;
+
+            }
+            if(trselect.hasClass('blue-color') && order_batal.checked==true){
+
+            }
+
         }
     }
 }

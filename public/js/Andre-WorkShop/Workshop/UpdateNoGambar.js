@@ -27,7 +27,7 @@ kd_barang.addEventListener("keypress", function (event) {
         fetch("/getdata/" + kd_barang.value)
             .then((response) => response.json())
             .then((options) => {
-                // console.log(options);
+                console.log(options);
                 // console.log(kd_barang.value);
                 nama_barang.value = options[0].NAMA_BRG;
                 no_gambar.value = options[0].NO_GAMBAR;
