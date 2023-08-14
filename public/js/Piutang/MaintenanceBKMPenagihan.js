@@ -46,7 +46,6 @@ let methodform = document.getElementById("methodkoreksi");
 
 let formDetailPelunasan = document.getElementById("formDetailPelunasan");
 let methoddetail = document.getElementById("methoddetail");
-//let idcoba;
 
 let formDetailKurangLebih = document.getElementById("formDetailKurangLebih");
 let methodkuranglebih = document.getElementById("methodkuranglebih");
@@ -56,8 +55,6 @@ let tanggalInputTampil2 = document.getElementById("tanggalInputTampil2");
 let formTampilBKM = document.getElementById("formTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let modalTampilBKM = document.getElementById("modalTampilBKM")
-
-
 
 
 btnTutupModal.addEventListener('click', function(event) {
@@ -569,7 +566,6 @@ function DetailKurangLebih() {
     kurangLebih.val(selectedData.KurangLebih);
     idcoba.val(selectedData.Id_Detail_Pelunasan);
     kodePerkiraan.val(selectedData.Kode_Perkiraan);
-    // idcoba = iddetail.val();
     console.log(idcoba);
     const modal = $("#modalDetailKurangLebih");
     modal.modal('show');

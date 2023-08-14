@@ -4,13 +4,33 @@ namespace App\Http\Controllers\Accounting\Piutang\BKMCashAdvance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CreateBKMController extends Controller
 {
-    public function CreateBKM()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BKMCashAdvance.CreateBKM', compact('data'));
+    }
+
+    public function getTabelPelunasan($bulan, $tahun)
+    {
+        //dd($bulan, $tahun);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_CASH_ADV] @bln = ?, @thn = ?', [$bulan, $tahun]);
+        return response()->json($tabel);
+    }
+
+    function getDataBank()
+    {
+        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
+        return response()->json($bank);
+    }
+
+    function getKodePerkiraan()
+    {
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);
+        return response()->json($kode);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +46,7 @@ class CreateBKMController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
@@ -34,13 +54,18 @@ class CreateBKMController extends Controller
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-        //
+
     }
 
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $idcoba = $request->idPelunasan;
+        $kode = $request ->idKodePerkiraan;
+        $keterangan = $request ->keterangan;
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
+            $idcoba, $keterangan, $kode]);
+        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.

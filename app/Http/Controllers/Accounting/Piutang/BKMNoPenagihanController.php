@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Accounting\Piutang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDO;
 
 class BKMNoPenagihanController extends Controller
 {
@@ -52,13 +53,41 @@ class BKMNoPenagihanController extends Controller
         return response()->json($kode);
     }
 
-    function getUraianEnter($idBank, $jenis, $tanggal, $id)
+    function getUraianEnter($id, $tanggal)
     {
-        //dd("mau");
-        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5409_ACC_COUNTER_BKM_BKK] @bank = ?, @jenis = ?, @tgl = ?, @id = ?',
-        [$idBank, $jenis, $tanggal, $id]);
-        return response()->json($kode);
+        $idBank = $id;
+        $tanggalInput = $tanggal;
+        $jenis = 'R';
+
+        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+            $jenis,
+            $tanggalInput,
+            $idBank,
+            null
+            // Pass by reference for output parameter
+        ]);
+
+        $tahun = substr($tanggalInput, -10, 4);
+        $x = DB::connection('ConnAccounting')->table('T_Counter_BKM')->where('Periode', '=', $tahun)->first();
+        $nomorIdBKM = '00000' . str_pad($x->Id_BKM_E_Rp, 5, '0', STR_PAD_LEFT);
+        $idBKM = $idBank . '-R' . substr($tahun, -2) . substr($nomorIdBKM, -5);
+
+        // $result = DB::connection('ConnAccounting')->select('exec [SP_5409_ACC_COUNTER_BKM_BKK] @bank = ?, @jenis = ?, @tgl = ?, @id = ?', [
+        //     $idBank,
+        //     'R',
+        //     $tanggalInput,
+        //     &$id
+        // ]);
+
+        return response()->json($idBKM);
     }
+
+    // function getIDBKM() {
+    //     // select @noUrut = Id_BKM_E_Rp
+    // 	// from T_Counter_BKM
+    // 	// where Periode = @tahun
+    //     return ($x);
+    // }
 
     //Show the form for creating a new resource.
     public function create()

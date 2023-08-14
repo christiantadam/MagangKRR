@@ -13,7 +13,7 @@
                     @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="{{ url('MaintenanceBKMPenagihan') }}" id="formkoreksi">
+                            <form method="POST" action="{{ url('BKMNoPenagihan') }}" id="formkoreksi">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" id="methodkoreksi">
                                 <div>
@@ -62,8 +62,8 @@
                                             </select>
                                         </div>
                                         {{-- sudah jadi --}}
-                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
-                                        <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
+                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                        <input type="text" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div>
@@ -108,8 +108,8 @@
                                             </select>
                                         </div>
                                         {{-- sudah jadi --}}
-                                        <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%">
-                                        <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                        <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                        <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div>
@@ -121,7 +121,7 @@
                                             <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control">
                                             </select>
                                         </div>
-                                        <input type="hidden" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
+                                        <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
                                         <button id="tambahBiaya" name="tambahBiaya">Tambah Biaya</button>
                                     </div>
                                 </div>
