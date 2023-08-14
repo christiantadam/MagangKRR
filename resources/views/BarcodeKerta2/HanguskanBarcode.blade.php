@@ -66,7 +66,7 @@
                                                     <th>SubKelompok </th>
                                                     <th>Kelompok </th>
                                                     <th>Kode Barang </th>
-                                                    <th>Noln... </th>
+                                                    <th>Nolndex </th>
                                                     <th>Jumlah Primer </th>
                                                     <th>Jumlah Sekunder </th>
                                                     <th>Jumlah Tritier </th>

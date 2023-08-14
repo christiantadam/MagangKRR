@@ -31,7 +31,15 @@ class TotalBarcodeController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "get_tgl_total_barcode") {
+            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_INV_CEK_TOTALBARCODE @tanggal = ?, @shift = ?', [$crExplode[0], "Pagi"]);
+            // dd($dataKelut);
+            // Return the options as JSON data
+            return response()->json($dataKelut);
+        }
     }
 
     // Show the form for editing the specified resource.

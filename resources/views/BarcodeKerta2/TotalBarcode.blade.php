@@ -34,7 +34,7 @@
                                                 <option value="3">Tiga</option>
                                             </select>
                                         </div>
-                                        <div class="form-group text-center col-md-auto"><button
+                                        <div class="form-group text-center col-md-auto"><button id="ButtonProcess"
                                                 type="button" style="margin-left: 115px">Proses</button></div>
                                     </div>
 
