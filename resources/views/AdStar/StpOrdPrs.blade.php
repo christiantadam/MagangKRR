@@ -1,6 +1,9 @@
 @extends('layouts.appAdStar')
 @section('content')
 <link href="{{ asset('css/AdStar/StpOrdPrs.css') }}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
 <div class="container">
 <h2>Stop Order Press</h2>
@@ -11,11 +14,11 @@
     <div class="card">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="" aria-label="">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
-                                ...
+                    <button type="button" id="btn_noorder" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                        ...
                     </button>
                     <input type="text" class="form-control" placeholder="" aria-label="">
                 </div>
@@ -78,5 +81,40 @@
         <!-- Add content here -->
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="noorderkerja" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="noorderkerja" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="noorderkerja">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama Brg</th>
+                        <th>No Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataorder as $data)
+                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->No_Order }}</td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
 
 @endsection

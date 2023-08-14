@@ -25,7 +25,7 @@
                     <div class="col-lg-3">
                         <div class="input-group mb-3">
                         <input type="text" id="no-transaksi" class="form-control" required>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notransaksi">
+                        <button id='ld-transaksi' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notransaksi">
                             List Data
                         </button>
                     </div>
@@ -166,12 +166,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dataTransaksi as $data)
+                        {{-- @foreach ($dataTransaksi as $data)
                             <tr data-grupmesinorder="{{ $data->GrupMesinOrder }}" data-notrans="{{ $data->IDLog }}">
                                 <td>{{ $data->GrupMesinOrder }}</td>
                                 <td>{{ $data->IDLog }}</td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
             </div>
@@ -199,7 +199,7 @@
                     </thead>
                     <tbody>
                         @foreach ($dataOrder as $data)
-                            <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Orderph }}">
+                            <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
                                 <td>{{ $data->Nama_brg }}</td>
                                 <td>{{ $data->No_Order }}</td>
                             </tr>
@@ -213,5 +213,8 @@
         </div>
         </div>
     </div>
+
+
+    <script src="{{ asset('js\AdStar\HslPrdPrs.js')}}"></script>
 
 @endsection

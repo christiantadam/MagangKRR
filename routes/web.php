@@ -25,7 +25,7 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 Route::get('AdStar', 'App\Http\Controllers\AdStarController\AdStar@index');
 Route::get('AdStarHome', 'App\Http\Controllers\AdStarController\AdStarHome@index');
 Route::get('CpTbl', 'App\Http\Controllers\AdStarController\CpTbl@index');
-Route::get('HslPrdPrs', 'App\Http\Controllers\AdStarController\HslPrdPrs@index');
+Route::resource('HslPrdPrs', App\Http\Controllers\AdStarController\HslPrdPrs::class);
 Route::get('MnOrdPrs', 'App\Http\Controllers\AdStarController\MnOrdPrs@index');
 Route::get('StpOrdPrs', 'App\Http\Controllers\AdStarController\StpOrdPrs@index');
 Route::get('UpKdBrng', 'App\Http\Controllers\AdStarController\UpKdBrng@index');
