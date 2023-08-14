@@ -1,11 +1,35 @@
 @extends('layouts.appPayroll')
 @section('content')
     <script type="text/javascript" src="{{ asset('js/Master/kartu.js') }}"></script>
+
+    <script>
+        function printCard() {
+            var originalContents = document.body.innerHTML;
+
+            // Mengambil isi dari kontainer yang ingin dicetak
+            var containerContents = document.querySelector('.custom-container').outerHTML;
+            containerContents += document.querySelectorAll('.custom-container')[1].outerHTML;
+
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Print</title>');
+            printWindow.document.write('<link rel="stylesheet" type="text/css" href="{{ asset('css/appPayroll.css') }}">');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(containerContents);
+            printWindow.document.write('</body></html>');
+
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.close();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
 
-                <div class="card">
+                <div class="card" hidden>
                     <div class="card-header">PEKERJA</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px">
                         <div class="row" style="margin-left:;">
@@ -98,7 +122,7 @@
                                         @endforeach
                                     </select> --}}
                                     <button type="button" class="btn" style="margin-left: 10px; " id="pegawaiButton"
-                                    onclick="showModalPegawai()">...</button>
+                                        onclick="showModalPegawai()">...</button>
 
                                     <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
@@ -155,89 +179,13 @@
 
                         </div>
                         <br>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Kode</th>
-                                        <th scope="col">JNSPEG</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">NIK</th>
-                                        <th scope="col">Alamat</th>
-                                        <th scope="col">Kota</th>
-                                        <th scope="col">TGL MASUK AWAL</th>
-                                        <th scope="col">KARTU</th>
-                                        <th scope="col">INDUK</th>
-                                        <th scope="col">RBH</th>
-                                        <th scope="col">ASTEK</th>
-                                        <th scope="col">KOPERASI</th>
-                                        <th scope="col">TGL KOPERASI</th>
-                                        <th scope="col">NPWP</th>
-                                        <th scope="col">No. Rek</th>
-                                        <th scope="col">No. BPJS</th>
-                                        <th scope="col">Penanggung</th>
-                                        <th scope="col">NM_IBU_KANDUNG</th>
-                                        <th scope="col">Klinik</th>
-                                        <th scope="col">JABATAN</th>
-                                        <th scope="col">NO PENSIUN</th>
-                                        <th scope="col">EMAIL</th>
-                                        <th scope="col">NO. TELEPON</th>
-                                        <th scope="col">VAKSIN</th>
-                                        <th scope="col">TEMPAT_LAHIR</th>
-                                        <th scope="col">TGL_LAHIR</th>
-                                        <th scope="col">KARTU_MAKAN</th>
-                                        <th scope="col">Rek.BCA</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
 
-                                        {{-- <td>
-                                            <a href="" title="Edit Employee">
-                                                <button class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                </button>
-                                            </a>
-                                            <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                </button>
-                                            </form>
-                                        </td> --}}
-
-                                    </tr>
-                                    {{-- @foreach ($employees as $data)
-                                    <tr>
-                                        <td>{{ $data->id }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->gender }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->address }}</td>
-                                        <td>
-                                            <a href="{{ route('employees.edit', $data->id) }}" title="Edit Employee">
-                                                <button class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                </button>
-                                            </a>
-                                            <form method="POST" action="{{route('employees.destroy', $data->id)}}" accept-charset="UTF-8" style="display:inline">
-                                            @csrf
-                                            @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach --}}
-                                </tbody>
-
-                            </table>
-                        </div>
                         <div style="text-align: right; margin-top: 20px;">
-                            <button type="button" class="btn btn-primary">Tampil</button>
+                            <button type="button" class="btn btn-primary" onclick="printCard()">Print</button>
                             <button type="button" class="btn btn-dark">Keluar</button>
                         </div>
                     </div>
+
 
 
 
@@ -254,6 +202,38 @@
 
 
 
+                </div>
+
+                <div class="custom-container">
+                    <div class="custom-header">PT. KERTA RAJASA RAYA</div>
+                    <div>JALAN RAYA TROPODO NO. 1</div>
+                    <div>WARU - SIDOARJO</div>
+                    <div>Telp. (031) 8669595 - 8669966</div>
+                    <div class="custom-divider"></div>
+                    <div class="custom-header">KARTU PEGAWAI</div>
+                    <div class="custom-divider"></div>
+                    <div class="custom-info">
+                        <div id="Kd_Pegawai">KODE&nbsp;&nbsp;&nbsp;&nbsp;: Kd_Pegawai</div>
+                        <div id="No_Kartu">NOMOR&nbsp;: No_Kartu</div>
+                        <div id="Nama_Div">DEPT.&nbsp;&nbsp;&nbsp;: Nama_Div</div>
+                        <div id="Nama_Peg">NAMA&nbsp;&nbsp;: Nama_Peg</div>
+                    </div>
+                </div>
+
+                <div class="custom-container">
+                    <div class="custom-divider"></div>
+                    <div class="custom-header">Perhatian</div>
+                    <div class="custom-divider"></div>
+                    <div class="custom-info">
+                        <ol>
+                            <li>KARTU INI BERLAKU SEBAGAI KARTU TANDA PENGENAL</li>
+                            <li>KARTU INI DIGUNAKAN UNTUK MENCATAT WAKTU</li>
+                            <li>DILARANG MEMAKAI KARTU ORANG LAIN</li>
+                            <li>JIKA HILANG DIKENAKAN DENDA</li>
+                            <li>JIKA MENEMUKAN KARTU INI MOHON DIKEMBALIKAN</li>
+                            <li>GUNAKAN KARTU INI SELAMA BERTUGAS</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
 
