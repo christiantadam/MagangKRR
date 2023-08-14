@@ -1,6 +1,9 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
 
+const hidInventory = document.getElementById("hidden_inv");
+const hidExtruder = document.getElementById("hidden_ext");
+
 const txtShift = document.getElementById("shift");
 const timeAwal = document.getElementById("shift_awal");
 const timeAkhir = document.getElementById("shift_akhir");
@@ -49,8 +52,49 @@ var konversiPil = -1;
 //#endregion
 
 //#region Events
+btnProses.addEventListener("click", function () {
+    prosesExtruder();
+    prosesInventory();
+
+    console.log("PROSES SEDANG BERJALAN!");
+});
+
 btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/ExtruderNet";
+});
+
+hidExtruder.addEventListener("change", function () {
+    if (this.value.split("!")[0] == "Proses Extruder Berhasil") {
+        if (hidInventory.value.split("!")[0] == "Proses Inventory Berhasil") {
+            alert("Data berhasil tersimpan!");
+
+            clearForm();
+            daftarKonversiBelumACC();
+
+            console.log("PROSES BERHASIL KAWAN!");
+        } else {
+            console.log("PROSES INVENTORY BELUM SELESAI KAWAN!");
+        }
+    } else {
+        console.log(this.value);
+    }
+});
+
+hidInventory.addEventListener("change", function () {
+    if (this.value.split("!")[0] == "Proses Inventory Berhasil") {
+        if (hidExtruder.value.split("!")[0] == "Proses Extruder Berhasil") {
+            alert("Data berhasil tersimpan!");
+
+            clearForm();
+            daftarKonversiBelumACC();
+
+            console.log("PORSES BERHASIL KAWAN!");
+        } else {
+            console.log("PROSES EXTRUDER BELUM SELESAI KAWAN!");
+        }
+    } else {
+        console.log(this.value);
+    }
 });
 //#endregion
 
@@ -309,7 +353,48 @@ function cekPenyesuaian() {
 }
 
 function prosesInventory() {
-    let sukses = true;
+    const getIdTrans = (jum_hutang) => {
+        for (let j = 0; j < jum_hutang.length; j++) {
+            if (j != 0) {
+                listHutangExt.length = 0;
+            }
+
+            fetch(`/Konversi/getIdTransInv/
+                ${id_type[j]}/
+                ${subkel[j]}/
+                ${dateInput.value}/
+                ${shift}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let k = 0; k < data.length; k++) {
+                        listHutangExt.push(data[k]);
+
+                        fetchStmt(
+                            `/Konversi/updHutang/
+                            ${id_type[j]}/
+                            tmpUser/
+                            ${subkel[j]}/
+                            ${listHutangExt[k].Trans}`,
+
+                            () => {
+                                if (listHutangExt.length - 1) {
+                                    hidInventory.value = `Proses Inventory Berhasil! Ada hutang ditemukan.`;
+                                    hidInventory.dispatchEvent(
+                                        new Event("change")
+                                    );
+                                }
+                            }
+                        );
+                    }
+                })
+                .catch((error) => {
+                    hidInventory.value = `Error pada "udpHutang" atau "getIdTransInv"`;
+                    hidInventory.dispatchEvent(new Event("change"));
+
+                    console.error("Error: ", error);
+                });
+        }
+    };
 
     fetch(`/Konversi/getTransaksiKonv/
         ${listKonversi[konversiPil].IdKonversi}`)
@@ -424,39 +509,7 @@ function prosesInventory() {
                                             ${listTmpTrans[i].JumlahPemasukanTritier}`
                                     );
 
-                                    for (
-                                        let j = 0;
-                                        j < jum_hutang.length;
-                                        j++
-                                    ) {
-                                        if (j != 0) {
-                                            listHutangExt.length = 0;
-                                        }
-
-                                        fetch(`/Konversi/getIdTransInv/
-                                            ${id_type[j]}/
-                                            ${subkel[j]}/
-                                            ${dateInput.value}/
-                                            ${shift}`)
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                for (
-                                                    let k = 0;
-                                                    k < data.length;
-                                                    k++
-                                                ) {
-                                                    listHutangExt.push(data[k]);
-
-                                                    fetchStmt(
-                                                        `/Konversi/updHutang/
-                                                        ${id_type[j]}/
-                                                        tmpUser/
-                                                        ${subkel[j]}/
-                                                        ${listHutangExt[k].Trans}`
-                                                    );
-                                                }
-                                            });
-                                    }
+                                    getIdTrans(jum_hutang);
                                 }
                             },
                             () => {}
@@ -473,57 +526,117 @@ function prosesInventory() {
                                     ${listTmpTrans[i].JumlahPengeluaranSekunder}/
                                     ${listTmpTrans[i].JumlahPemasukanPrimer}/
                                     ${listTmpTrans[i].JumlahPemasukanSekunder}/
-                                    ${listTmpTrans[i].JumlahPemasukanTritier}`
+                                    ${listTmpTrans[i].JumlahPemasukanTritier}`,
+
+                                () => {
+                                    if (i == listTmpTrans.length - 1) {
+                                        hidInventory.value = `Proses Inventory Berhasil! Tidak ada hutang ditemukan.`;
+                                        hidInventory.dispatchEvent(
+                                            new Event("change")
+                                        );
+                                    }
+                                }
                             );
                         }
                     }
                 })
-                .catch((error) => console.error(error));
+                .catch((error) => {
+                    hidInventory.value = `Error pada "getJumlahHutang"`;
+                    hidInventory.dispatchEvent(new Event("change"));
+
+                    console.error("Error: ", error);
+                });
         });
 
     return sukses;
 }
 
 function prosesExtruder() {
+    const cekSisaOrd = () => {
+        fetch(`/Konversi/getOrderStatus/${txtIdOrder.value}`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data[0].StatusOrder == "FINISH") {
+                    alert(
+                        `Order dengan nomor ${
+                            txtIdOrder.value
+                        } sudah terpenuhi. Terdapat sisa stok sebesar: ${
+                            data[0].JumlahPemasukanTritier -
+                            data[0].JumlahTritier
+                        }.`
+                    );
+                } else {
+                    alert(
+                        `Order dengan nomor ${
+                            txtIdOrder.value
+                        } sudah terpenuhi sebesar: ${
+                            data[0].JumlahProduksiTritier -
+                            data[0].JumlahTritier
+                        }. Sisa yang belum terpenuhi sebesar: ${
+                            data[0].JumlahTritier -
+                            data[0].JumlahProduksiTritier
+                        }`
+                    );
+                }
+
+                hidExtruder.value = `Proses Extruder Behasil! Lancar jaya.`;
+                hidExtruder.dispatchEvent(new Event("change"));
+            })
+            .catch((error) => {
+                hidExtruder.value = `Error pada "getOrderStatus"`;
+                hidExtruder.dispatchEvent(new Event("change"));
+
+                console.error(error);
+            });
+    };
+
+    // Update master konversi
     fetchStmt(
         `/Konversi/updACCMasterKonv/
         ${listKonversi[konversiPil].IdKonversi}/
-        tmpUser`
-    );
+        tmpUser`,
 
-    for (let i = 0; i < listHasil.length; i++) {
-        if (listHasil[i].StatusType == "HP") {
-            fetchStmt(
-                `/Konversi/updSaldoOrdDet/
-                ${txtIdOrder.value}/
-                ${txtNoUrut.value}/
-                ${listHasil[i].JumlahPrimer}/
-                ${listHasil[i].JumlahSekunder}/
-                ${listHasil[i].JumlahTritier}`
-            );
-        }
-    }
+        () => {
+            // Update order
+            for (let i = 0; i < listHasil.length; i++) {
+                if (listHasil[i].StatusType == "HP") {
+                    const post_action =
+                        i === listHasil.length - 1
+                            ? () => {
+                                  fetch(
+                                      `/Konversi/getKeteranganSaldo/
+                                      ${txtIdOrder.value}/
+                                      ${txtNoUrut.value}`
+                                  )
+                                      .then((response) => response.json())
+                                      .then((data) => {
+                                          alert(data.nmerror);
+                                          cekSisaOrd();
+                                      })
+                                      .catch((error) => {
+                                          hidExtruder.value = `Error pada "getKeteranganSaldo" atau "updACCMasterKonv"`;
+                                          hidExtruder.dispatchEvent(
+                                              new Event("change")
+                                          );
 
-    fetch(`/Konversi/getOrderStatus/${txtIdOrder.value}`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data[0].StatusOrder == "FINISH") {
-                alert(`Order dengan nomor ${txtIdOrder.value} sudah terpenuhi.
-                Terdapat sisa stok sebesar: ${
-                    data[0].JumlahPemasukanTritier - data[0].JumlahTritier
-                }.`);
-            } else {
-                alert(`Order dengan nomor ${
-                    txtIdOrder.value
-                } sudah terpenuhi sebesar: ${
-                    data[0].JumlahProduksiTritier - data[0].JumlahTritier
-                }.
-                Sisa yang belum terpenuhi sebesar: ${
-                    data[0].JumlahTritier - data[0].JumlahProduksiTritier
-                }`);
+                                          console.error(error);
+                                      });
+                              }
+                            : () => {};
+
+                    fetchStmt(
+                        `/Konversi/updSaldoOrdDet/
+                        ${txtIdOrder.value}/
+                        ${txtNoUrut.value}/
+                        ${listHasil[i].JumlahPrimer}/
+                        ${listHasil[i].JumlahSekunder}/
+                        ${listHasil[i].JumlahTritier}`,
+                        post_action
+                    );
+                }
             }
-        })
-        .catch((error) => console.error(error));
+        }
+    );
 }
 //#endregion
 

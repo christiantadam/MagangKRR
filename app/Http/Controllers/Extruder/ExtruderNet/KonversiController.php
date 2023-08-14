@@ -33,7 +33,7 @@ class KonversiController extends Controller
         ];
 
         // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
-        dd($this->getTransaksiKonv('KONV0003'));
+        // dd($this->getTransaksiKonv('KONV0003'));
 
         return view($view_name, $view_data);
     }
@@ -108,6 +108,32 @@ class KonversiController extends Controller
         );
 
         // PARAMETER - @idType char(20), @subKel char(6), @tgl varchar(10), @shift char(1)
+    }
+
+    public function getKeteranganSaldo($id_order, $no_urut_order)
+    {
+        $order_detail = OrderDetailEXT::where('idorder', $id_order)
+            ->where('nourutorder', $no_urut_order)
+            ->first();
+
+        if (!$order_detail) {
+            return response()->json(['error' => 'Order detail not found'], 404);
+        }
+
+        $order_tritier = $order_detail->jumlahtritier;
+        $konversi_tritier = $order_detail->jumlahproduksitritier;
+
+        $nerror = '';
+
+        if ($konversi_tritier >= $order_tritier) {
+            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi, terdapat sisa stok sebesar: ' . ($konversi_tritier - $order_tritier) . '.';
+        } else {
+            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi sebesar: ' . $konversi_tritier . ' dan sisa order yang belum terpenuhi: ' . ($order_tritier - $konversi_tritier) . '.';
+        }
+
+        return response()->json(['nmerror' => $nerror]);
+
+        // *Query SELECT pada SP_5298_EXT_UPDATE_SALDO_ORDER_DETAIL
     }
 
     public function getOrderStatus($id_order)

@@ -209,12 +209,16 @@ function clearOptions(selectId, onlySelection) {
 }
 //#endregion
 
-function fetchStmt(urlString) {
+function fetchStmt(urlString, postAction = null) {
     fetch(urlString)
         .then((response) => response.json())
         .then((data) => {
             if (data == 1) console.log("QUERY BERHASIL KAWAN!");
             console.log("urlString = " + urlString);
+
+            if (postAction != null) {
+                postAction();
+            }
         })
         .catch((error) => {
             console.error("Error: ", error);
@@ -237,7 +241,7 @@ function getCurrentDate() {
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
-    dateInput.value = `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
 }
 
 function dateTimeToDate(inputStr) {

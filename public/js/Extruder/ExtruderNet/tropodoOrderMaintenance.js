@@ -306,7 +306,7 @@ function init() {
     });
     toggleButtons(1);
     btnBaru.focus();
-    getCurrentDate();
+    dateInput.value = getCurrentDate();
 }
 //#endregion
 

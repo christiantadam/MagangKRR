@@ -1,80 +1,85 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_benang_mohon" class="form" data-aos="fade-up">
-    <form>
+    <div id="tropodo_benang_mohon" class="form" data-aos="fade-up">
         <div class="row mt-3">
-            <div class="col-lg-4"></div>
+            <div class="col-lg-7"></div>
 
             <div class="col-lg-3">
                 <span class="aligned-text">Tanggal Mohon:</span>
             </div>
 
-            <div class="col-lg-5">
-                <input type="date" name="tanggal_mohon" id="tanggal_mohon" class="form-control">
+            <div class="col-lg-2">
+                <input type="date" id="tanggal_mohon" class="form-control">
             </div>
         </div>
 
         <div class="row mt-3 border-bottom"></div>
 
         <div class="row mt-3">
+            <div class="col-lg-2">
+                <span class="aligned-text">Tanggal:</span>
+            </div>
             <div class="col-lg-3">
-                <label for="tanggal">Tanggal:</label>
-                <input type="date" name="tanggal" id="tanggal" class="form-control">
+                <input type="date" id="tanggal" class="form-control unclickable">
             </div>
 
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <span class="aligned-text">Mesin:</span>
+            </div>
 
-            <div class="col-lg-5">
-                <label for="mesin">Mesin:</label>
-                <div class="input-group">
-                    <input type="text" name="mesin" id="mesin" class="form-control">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+            <div class="col-lg-4">
+                <select id="select_mesin" class="form-select" disabled>
+                    <option selected disabled>-- Pilih Mesin --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-lg-4">
-                <label for="nomor">Nomor:</label>
-                <div class="input-group">
-                    <input type="text" name="nomor" id="nomor" class="form-control">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+            <div class="col-lg-2">
+                <span class="aligned-text">Nomor:</span>
             </div>
 
-            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+                <select id="select_nomor" class="form-select">
+                    <option selected disabled>-- Pilih Nomor --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
+            </div>
 
-            <div class="col-lg-7">
-                <label for="no_konversi">No. Konversi:</label>
-                <div class="input-group">
-                    <input type="text" name="no_konversi1" id="no_konversi1" class="form-control">
-                    <input type="text" name="no_konversi2" id="no_konversi2" class="form-control" style="width: 22.5vw;">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+            <div class="col-lg-2">
+                <span class="aligned-text">No. Konversi:</span>
+            </div>
+
+            <div class="col-lg-4">
+                <select id="select_nomor_konversi" class="form-select" disabled>
+                    <option selected disabled>-- Pilih Nomor Konversi --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-lg-4">
-                <label for="tanggal">Shift:</label>
+            <div class="col-lg-2">
+                <span class="aligned-text">Shift:</span>
+            </div>
+            <div class="col-lg-3">
                 <div class="input-group">
-                    <input type="text" name="shift" id="shift" class="form-control" style="max-width: 50px;">
-                    <input type="time" name="shift_awal" id="shift_awal" class="form-control">
+                    <input type="text" id="shift" class="form-control" style="max-width: 50px;" disabled>
+                    <input type="time" id="shift_awal" class="form-control">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" name="shift_akhir" id="shift_akhir" class="form-control">
+                    <input type="time" id="shift_akhir" class="form-control">
                 </div>
             </div>
 
-            <div class="col-lg-1"></div>
-
-            <div class="col-lg-7">
-                <label for="type">Type:</label>
-                <div class="input-group">
-                    <input type="text" name="type1" id="type1" class="form-control">
-                    <input type="text" name="type2" id="type2" class="form-control" style="width: 27.5vw;">
-                    <button type="button" class="btn btn-outline-secondary">...</button>
-                </div>
+            <div class="col-lg-2">
+                <span class="aligned-text">Type:</span>
+            </div>
+            <div class="col-lg-4">
+                <select id="select_type" class="form-select" disabled>
+                    <option selected disabled>-- Pilih Type --</option>
+                    <option value="loading" style="display: none" disabled>Loading...</option>
+                </select>
             </div>
         </div>
 
@@ -82,25 +87,19 @@
             <div class="card-header">Asal Konversi</div>
 
             <div class="card-body">
-                <table class="table table-hover">
+                <table id="table_asal" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th scope="col">No. Konversi</th>
-                            <th scope="col">Spec</th>
+                            <th>No. Konversi</th>
+                            <th>Spec</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
+                            <td colspan="2" class="text-center">
+                                <h1 class="mt-3">Tabel masih kosong...</h1>
+                            </td>
+                            <td class="hidden"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -111,25 +110,19 @@
             <div class="card-header">Tujuan Konversi</div>
 
             <div class="card-body">
-                <table class="table table-hover">
+                <table id="table_tujuan" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th scope="col">No. Konversi</th>
-                            <th scope="col">Spec</th>
+                            <th>No. Konversi</th>
+                            <th>Spec</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
+                            <td colspan="2" class="text-center">
+                                <h1 class="mt-3">Tabel masih kosong...</h1>
+                            </td>
+                            <td class="hidden"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -138,17 +131,17 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Isi</button>
-                <button type="submit" class="btn btn-outline-warning">Koreksi</button>
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-outline-success">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/ExtruderNet/benangMohon.js') }}"></script>
 @endsection

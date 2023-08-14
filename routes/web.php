@@ -1,9 +1,10 @@
-<!-- LAST: btnProses_Click() | FrmACCKonversi.vb -->
+<!-- LAST: btnKonversi_Click() | FrmMohonKonversiNG.vb -->
 
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extruder\ExtruderController;
+use App\Http\Controllers\Extruder\ExtruderNet\BenangController;
 use App\Http\Controllers\Extruder\ExtruderNet\KonversiController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
@@ -29,12 +30,12 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
-// Route::get('/Extruder/ExtruderNet/Tropodo/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Benang/{formName?}', [BenangController::class, 'index']);
 
 #region ExtruderNet - Bagian Order
 Route::get('/Order/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
@@ -83,11 +84,17 @@ Route::get('/Konversi/getTransaksiKonv/{id_konv_ext}', [KonversiController::clas
 Route::get('/Konversi/getJumlahHutang/{id_type}/{subkel}/{shift}/{tgl}', [KonversiController::class, 'getJumlahHutang']);
 Route::get('/Konversi/getIdTransInv/{id_type}/{subkel}/{tgl}/{shift}', [KonversiController::class, 'getIdTransInv']);
 Route::get('/Konversi/getOrderStatus/{id_order}', [KonversiController::class, 'getOrderStatus']);
+Route::get('/Konversi/getKeteranganSaldo/{id_order}/{no_urut_order}', [KonversiController::class, 'getKeteranganSaldo']);
 
 Route::get('/Konversi/updACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updACCKonversi']);
 Route::get('/Konversi/updHutang/{id_type}/{subkel}/{id_inv}/{pemberi}', [KonversiController::class, 'updHutang']);
 Route::get('/Konversi/updACCMasterKonv/{id_konversi}/{user_acc}', [KonversiController::class, 'updACCMasterKonv']);
 Route::get('/Konversi/updSaldoOrdDet/{id_order}/{no_urut_order}/{primer}/{sekunder}/{tritier}', [KonversiController::class, 'updSaldoOrdDet']);
+#endregion
+
+#region ExtruderNet - Form Benang Mohon
+Route::get('/Benang/getListDataNG/{id_konversi}/{tanggal}', [BenangController::class, 'getListDataNG']);
+Route::get('/Benang/getDetailUraianKonvNG/{id_konversi}/{tanggal}', [BenangController::class, 'getDetailUraianKonvNG']);
 #endregion
 
 #region ExtruderNet - Master

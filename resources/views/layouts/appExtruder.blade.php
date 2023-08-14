@@ -253,10 +253,10 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formTropodoBenangMohon">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formTropodoBenangACC">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formTropodoBenangACC">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>

@@ -1,3 +1,5 @@
+// Untuk form konversi acc, konversi mohon belum di-tes secara menyeluruh, mungkin nanti kalau ada waktu bisa kembali lagi untuk melakukan testing terhadap form tersebut
+
 function getSatuan(id_type, i) {
     fetch("/ExtruderNet/getSatuan/" + id_type)
         .then((response) => response.json())

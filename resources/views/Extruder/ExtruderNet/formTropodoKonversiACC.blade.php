@@ -1,6 +1,9 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_konversi_acc" class="form" data-aos="fade-up">
+        <input type="hidden" id="hidden_inv">
+        <input type="hidden" id="hidden_ext">
+
         <div class="card mt-3">
             <div class="card-header">Daftar Konversi</div>
 
@@ -109,7 +112,8 @@
 
                             <div class="col-lg-5 row d-flex justify-content-center">
                                 <div class="col-lg-10">
-                                    <input type="text" id="no_urut" class="form-control" style="margin-top: 1.5em;">
+                                    <input type="text" id="no_urut" class="form-control" style="margin-top: 1.5em;"
+                                        placeholder="Nomor urut">
                                 </div>
                             </div>
                         </div>
