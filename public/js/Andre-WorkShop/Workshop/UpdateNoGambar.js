@@ -23,6 +23,14 @@ kd_barang.addEventListener("change", function () {
 
 kd_barang.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        let kodeBarang9digit;
+        kodeBarang9digit = document.getElementById("kd_barang");
+        if (kodeBarang9digit.value.length < 9) {
+            // alert("kode barang tidak sesuai");
+            kodeBarang9digit.value = kd_barang.value.padStart(9, "0");
+            // console.log(kodeBarang9digit.value);
+        }
+        kd_barang.value = kodeBarang9digit.value;
         //console.log(kd_barang.value);
         fetch("/getdata/" + kd_barang.value)
             .then((response) => response.json())
