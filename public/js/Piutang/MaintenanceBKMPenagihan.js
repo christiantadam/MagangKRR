@@ -256,7 +256,7 @@ $("#btnProses").on("click", function (event) {
           row.data(rowData).draw();
         }
       });
-    $('#pilihBank').modal('hide');
+    $('#pilihInputTanggal').modal('hide');
 })
 
 kodePerkiraanSelect.addEventListener("change", function (event) {

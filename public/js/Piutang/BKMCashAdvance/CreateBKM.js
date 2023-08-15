@@ -3,18 +3,61 @@ let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
 let btnInputTanggalBKM = document.getElementById('btnInputTanggalBKM');
 let tanggalInput = document.getElementById('tanggalInput');
-let btnProses = document.getElementById("btnProses");
+let btnProsesss = document.getElementById("btnProsesss");
 let kodePerkiraanSelect = document.getElementById("kodePerkiraanSelect");
 let idKodePerkiraan = document.getElementById("idKodePerkiraan");
-let idPelunasan;
+let dataTable3;
+let tabelTampilBKM = document.getElementById("tabelTampilBKM");
 
 let selectedRows = [];
 
 let btnOK = document.getElementById("btnOK");
+let btnTampilBkm = document.getElementById("btnTampilBkm");
 
 let modalkoreksi = document.getElementById("formkoreksi");
 let methodform = document.getElementById("methodkoreksi");
+let modalTampilBKM = document.getElementById("modalTampilBKM")
 
+
+btnTampilBkm.addEventListener('click', function(event) {
+    event.preventDefault();
+    modalTampilBKM = $("#modalTampilBKM");
+    modalTampilBKM.modal('show');
+});
+
+btnOkTampil.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/tabeltampilbkm/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKM = $("#tabelTampilBKM").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKM" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            // tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+            //     const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+            //     const idBKMInput = document.getElementById("idBKM");
+
+            //     if ($(this).prop("checked")) {
+            //         idBKMInput.value = checkedCheckbox.Id_BKM;
+            //     } else {
+            //         idBKMInput.value = "";
+            //     }
+            // });
+        });
+});
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -23,7 +66,7 @@ btnOK.addEventListener('click', function (event) {
             .then((response) => response.json())
             .then((options) => {
                 console.log(options);
-                dataTable = $("#tabelDataPelunasan").DataTable({
+                dataTable3 = $("#tabelDataPelunasan").DataTable({
                     data: options,
                     columns: [
                         {
@@ -75,6 +118,17 @@ kodePerkiraanSelect.addEventListener("change", function (event) {
         const selectedValue = selectedOption.value;
         const idKode = selectedValue.split(" | ")[0];
         idKodeInput.value = idKode;
+    }
+});
+
+namaBankSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = namaBankSelect.options[namaBankSelect.selectedIndex];
+    if (selectedOption) {
+        const idNamaBank = document.getElementById('idBank');
+        const selectedValue = selectedOption.value;
+        const idbank = selectedValue.split(" | ")[0];
+        idNamaBank.value = idbank;
     }
 });
 
@@ -135,11 +189,11 @@ btnInputTanggalBKM.addEventListener('click', function (event) {
                 Nama_MataUang: cells[4].innerText,
                 Nilai_Pelunasan: cells[5].innerText,
                 No_Bukti: cells[6].innerText,
-                //No_Bukti: cells[8].innerText
+                TglInput: cells[7].innerText,
+                KodePerkiraan: cells[8].innerText
             };
             selectedRows.push(rowData);
         }}
-
 })
 
 $("#btnInputTanggalBKM").on("click", function (event) {
@@ -147,10 +201,9 @@ $("#btnInputTanggalBKM").on("click", function (event) {
 
     // Ambil modal dan elemen-elemennya berdasarkan ID
     const tglPelunasan = $("#tglPelunasan");
-    idPelunasan = $("#idPelunasan");
-    const tanggalTagih = $("#tanggalTagih");
+    const idPelunasan = $("#idPelunasan");
     const jenisBayar = $("#jenisBayar");
-    const idBank = $("#idBank");
+    // const idBank = $("#idBank");
     const mataUang = $("#mataUang");
     const nilaiPelunasan = $("#nilaiPelunasan");
     const noBukti = $("#noBukti");
@@ -160,10 +213,9 @@ $("#btnInputTanggalBKM").on("click", function (event) {
     // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
     tglPelunasan.val(selectedData.Tgl_Pelunasan);
     idPelunasan.val(selectedData.Id_Pelunasan);
-    //tanggalInput.val(selectedData.Tgl_Pelunasan);
-    tanggalTagih.val(selectedData.Tgl_Penagihan);
+    console.log(idPelunasan.val());
     jenisBayar.val(selectedData.Jenis_Pembayaran);
-    idBank.val(selectedData.Id_bank);
+    // idBank.val(selectedData.Id_bank);
     mataUang.val(selectedData.Nama_MataUang);
     nilaiPelunasan.val(selectedData.Nilai_Pelunasan);
     noBukti.val(selectedData.No_Bukti);
@@ -184,8 +236,9 @@ tanggalInput.addEventListener('keypress', function(event) {
     }
 });
 
-$("#btnProses").on("click", function (event) {
+$("#btnProsesss").on('click', function (event) {
     event.preventDefault();
+
     const idKodePerkiraan = $("#idKodePerkiraan").val();
     const selectedRowsIndices = [];
     $("#tabelDataPelunasan tbody input[type='checkbox']:checked").each(function () {
@@ -193,41 +246,41 @@ $("#btnProses").on("click", function (event) {
         const rowIndex = dataTable3.row(row).index();
         selectedRowsIndices.push(rowIndex);
     });
-
-    const selectedKodePerkiraan = $("#kodePerkiraanSelect option:selected").text();
-
     updateKpColumn2(idKodePerkiraan, selectedRowsIndices);
+    updateBank(idBank, selectedRowsIndices);
 
-    selectedRowsIndices.forEach((rowIdx) => {
-        const row = dataTable3.row(rowIdx);
-        if (row) {
-            const rowData = row.data();
-            rowData["Kode_Perkiraan"] = selectedKodePerkiraan; // Menggunakan nilai yang sudah didapatkan sebelumnya
-            row.data(rowData).draw();
-        }
-    });
-
-    // methodInputTanggal.value = "PUT";
-    // modalInputTanggal.action = "/CreateBKM/" + idPelunasan.value;
-    // modalInputTanggal.submit();
-
-    //$('#modalDetailKurangLebih').modal('hide');
+    $('#pilihInputTanggal').modal('hide');
 });
 
-function updateKpColumn2(idKodePerkiraan, selectedRows) {
+function updateKpColumn2(kodePerkiraanSelect, selectedRows) {
     // Loop through each selected row index and update the data for the specific column
     selectedRows.forEach((rowIdx) => {
-      // Get the DataTable row object for the selected row index
-      const row = dataTable3.row(rowIdx);
-      if (row) {
-        // Get the current data for the row
-        const rowData = row.data();
-        const selectedValue = idKodePerkiraan.split("|");
-        const idKpValue = selectedValue[0];
+        // Get the DataTable row object for the selected row index
+        const row = dataTable3.row(rowIdx);
+        if (row) {
+            // Get the current data for the row
+            const rowData = row.data();
 
-        rowData["Kode_Perkiraan"] = idKpValue;
-        row.data(rowData).draw();
-      }
+            // Update the "Kode Perkiraan" data in the rowData
+            rowData["Kode_Perkiraan"] = idKodePerkiraan.value; // Pastikan nama properti sesuai dengan properti dalam data
+            row.data(rowData).draw(); // Terapkan perubahan ke tampilan DataTable
+        }
+    });
+}
+
+function updateBank(namaBankSelect, selectedRows) {
+    // Loop through each selected row index and update the data for the specific column
+    selectedRows.forEach((rowIdx) => {
+        // Get the DataTable row object for the selected row index
+        const row = dataTable3.row(rowIdx);
+        if (row) {
+            // Get the current data for the row
+            const rowData = row.data();
+
+            // Update the "Kode Perkiraan" data in the rowData
+            rowData["Id_bank"] = idBank.value; // Pastikan nama properti sesuai dengan properti dalam data
+            row.data(rowData).draw(); // Terapkan perubahan ke tampilan DataTable
+        }
     });
 }
 
@@ -248,7 +301,3 @@ function validatePilihBank() {
         }
     }
 }
-
-
-
-

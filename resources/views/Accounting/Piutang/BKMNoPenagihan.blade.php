@@ -62,8 +62,8 @@
                                             </select>
                                         </div>
                                         {{-- sudah jadi --}}
-                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
-                                        <input type="text" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div>
@@ -108,8 +108,8 @@
                                             </select>
                                         </div>
                                         {{-- sudah jadi --}}
-                                        <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
-                                        <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div>
@@ -121,7 +121,7 @@
                                             <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control">
                                             </select>
                                         </div>
-                                        <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
                                         <button id="tambahBiaya" name="tambahBiaya">Tambah Biaya</button>
                                     </div>
                                 </div>

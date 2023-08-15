@@ -65,19 +65,6 @@ fetch("/detailcustomer/")
             option.innerText = entry.IdCust + "|" + entry.NamaCust;
             namaCustomerSelect.appendChild(option);
         });
-    })
-
-mataUangSelect.addEventListener('click', function (event) {
-    event.preventDefault();
-    const selectedOption = mataUangSelect.options[mataUangSelect.selectedIndex];
-    const selectedValue = selectedOption.textContent;
-    const selectedCurrency = selectedValue.split("|")[1];
-
-    if (selectedCurrency === "Rupiah") {
-        kursRupiah.disabled = true;
-    } else {
-        kursRupiah.disabled = false;
-    }
 });
 
 fetch("/detailmatauang/")
@@ -106,8 +93,23 @@ mataUangSelect.addEventListener("change", function (event) {
     if (selectedOption) {
         const idKodeInput = document.getElementById('idMataUang');
         const selectedValue = selectedOption.textContent;
-        const idKode = selectedValue.split("|")[1];
-        idKodeInput.value = idKode;
+        const idMU = selectedValue.split("|")[1];
+        idKodeInput.value = idMU;
+    }
+
+    const selectedValue = selectedOption.textContent;
+    const selectedCurrency = selectedValue.split("|")[1];
+    if (selectedCurrency === "Rupiah") {
+        kursRupiah.disabled = true;
+        kursRupiah.value = '1';
+    } else {
+        const confirmMessage = "Apakah Anda ingin membayar dengan Rupiah?";
+        const userConfirmed = confirm(confirmMessage);
+        if (userConfirmed) {
+            kursRupiah.disabled = false;
+        } else {
+            kursRupiah.disabled = true;
+        }
     }
 });
 
@@ -324,10 +326,7 @@ uraian.addEventListener("keypress", function (event) {
             .then((options) => {
                 console.log(options);
 
-                if (options && options.idBKM) {
-                    const idBKMValue = options.idBKM;
-                    idBKM.value = idBKMValue;
-                }
+                idBKM.value = options;
         });
 
         totalPelunasan.value = total;
@@ -356,10 +355,6 @@ $("#tabelDetailData tbody").off("click", "input[type='checkbox'");
 $("#tabelDetailData tbody").off("change", "input[type='checkbox']");
 $("#tabelDetailData tbody").on("change", "input[type='checkbox']", function () {
 });
-// $("#tabelDetailData tbody").on("click", "input[type='checkbox']", function () {
-//     DetailData();
-// });
-
 $("#tabelDetailData").on('change', '.row-checkbox', function () {
     const isChecked = $(this).is(':checked');
     const row = $(this).closest('tr');
@@ -405,10 +400,10 @@ btnKoreksi.addEventListener('click', function (event) {
             if (options[i].value === namaJenisPembayaran) {
                 // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
                 jenisPembayaranSelect.selectedIndex = i;
+                //console.log(options[i].value);
                 break;
             }
         }
-
         const options2 = kodePerkiraanSelect.options;
         for (let i = 0; i < options2.length; i++) {
             if (options2[i].value === kodePerkiraan) {
@@ -419,16 +414,18 @@ btnKoreksi.addEventListener('click', function (event) {
         }
 
         const options3 = namaCustomerSelect.options;
-        for (let i = 0; i < options3.length; i++) {
+        for (let i = 0; i < options2.length; i++) {
             if (options3[i].value === namaCustomer) {
-                // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                console.log(options3[i].value);
                 namaCustomerSelect.selectedIndex = i;
                 break;
             }
         }
 
+
+
+
     } else {
-        // Menangani jika tidak ada data yang dicentang
         alert('Tidak ada data yang dicentang.');
     }
 });

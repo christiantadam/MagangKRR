@@ -33,6 +33,12 @@ class CreateBKMController extends Controller
         return response()->json($kode);
     }
 
+    public function getTabelTampilBKM($tanggalInputTampil, $tanggalInputTampil2)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_CASHADV_1_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampil, $tanggalInputTampil2]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -60,12 +66,12 @@ class CreateBKMController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        $idcoba = $request->idPelunasan;
-        $kode = $request ->idKodePerkiraan;
-        $keterangan = $request ->keterangan;
-        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
-            $idcoba, $keterangan, $kode]);
-        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        // $idcoba = $request->idPelunasan;
+        // $kode = $request ->idKodePerkiraan;
+        // $keterangan = $request ->keterangan;
+        // DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
+        //     $idcoba, $keterangan, $kode]);
+        // return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.
