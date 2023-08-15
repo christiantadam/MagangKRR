@@ -23,8 +23,11 @@
 
                                 <div class="row">
                                     <div class="col- row justify-content-md-center">
-                                        <div class="text-center col-md-auto"><button type="submit">Print</button></div>
-                                        <div class="text-center col-md-auto"><button type="submit">Keluar</button>
+                                        <div class="text-center col-md-auto">
+                                            <button type="button" style="width: 100px" onclick="window.print()">Print</button>
+                                        </div>
+                                        <div class="text-center col-md-auto">
+                                            <button type="button" style="width: 100px">Keluar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -34,10 +37,7 @@
                     </div>
                 </div>
             </div>
-            <main class="py-4">
-                @yield('content')
-            </main>
         </div>
+    </div>
 </body>
-
 @endsection

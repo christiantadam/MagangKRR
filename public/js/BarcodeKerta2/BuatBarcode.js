@@ -64,6 +64,18 @@ $(document).ready(function () {
         // Update the value of the second input field with the selected date
         tanggalOutput.value = selectedDate;
     });
+
+    document.getElementById("printBarcodeButton").addEventListener("click", function () {
+        // Hide the button and other unnecessary elements before printing
+        document.getElementById("printBarcodeButton").style.display = "none";
+        document.getElementById("ButtonTimbang").style.display = "none"; // Hide the "Timbang" button if needed
+        window.print();
+
+        // After printing is done or if the user cancels the print dialog, show the button again
+        document.getElementById("printBarcodeButton").style.display = "block";
+        document.getElementById("ButtonTimbang").style.display = "block"; // Show the "Timbang" button again if needed
+    });
+
 });
 
 function openModal() {
@@ -192,4 +204,10 @@ function checkDateAndEnableButton() {
     } else {
         buttonShift.setAttribute('disabled', 'disabled');
     }
+}
+
+function enableButtonJumlahBarang() {
+    document.getElementById("ButtonJumlahBarang").disabled = false;
+    document.getElementById("ButtonTimbang").disabled = false; // Enable the Timbang button
+    closeModal2();
 }

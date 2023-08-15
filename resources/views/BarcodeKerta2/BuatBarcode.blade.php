@@ -180,15 +180,15 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px;">Timbang</button>
+                                            <div class="text-center col-md-auto mt-3">
+                                                <button type="button" id="ButtonTimbang" style="width:180px;"
+                                                    disabled>Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px;">Print
-                                                    Barcode</button>
+                                                    id="printBarcodeButton" style="width:180px;">Print Barcode</button>
                                             </div>
                                         </div>
 

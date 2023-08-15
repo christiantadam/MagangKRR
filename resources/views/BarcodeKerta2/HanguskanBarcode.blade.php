@@ -23,7 +23,7 @@
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal()" id="ButtonDivisi">...</button></div>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
