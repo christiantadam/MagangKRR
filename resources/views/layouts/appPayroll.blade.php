@@ -134,7 +134,7 @@
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/TambahAgenda') }}">Tambah Agenda</a>
+                                            tabindex="-1" href="{{ url('TambahAgenda') }}">Tambah Agenda</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Agenda/UbahAgenda') }}">Ubah Agenda</a>

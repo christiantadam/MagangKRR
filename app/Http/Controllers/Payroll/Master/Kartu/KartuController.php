@@ -13,6 +13,10 @@ class KartuController extends Controller
     public function index()
     {
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        // $records = DB::table('VW_PRG_1486_PAY_LOOK_PEGAWAI')
+        //     ->where('Kd_Pegawai','A12001')
+        //     ->get();
+        // dd($records);
         return view('Payroll.Master.Kartu.kartu', compact('dataDivisi'));
     }
 
@@ -36,13 +40,17 @@ class KartuController extends Controller
         //getDivisi
         if ($crExplode[1] == "getPegawai") {
             $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @id_div = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
             return response()->json($dataPegawai);
         } else if ($crExplode[1] == "getDataPegawai") {
 
             //getDataPegawai
-            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_MAINT_PEKERJA @kdpeg = ?, @modul = ?', [$crExplode[0], 2]);
+            $records = DB::table('VW_PRG_1486_PAY_LOOK_PEGAWAI')
+            ->where('Kd_Pegawai',$crExplode[0])
+            ->get();
+            // dd($records);
             // dd($dataPegawai);
-            return response()->json($dataPegawai);
+            return response()->json($records);
         } else if ($crExplode[1] == "getDataKeluarga") {
             //getDataKeluarga
             $dataKeluarga = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_MAINT_KELUARGA @kdPeg = ?, @modul = ?', [$crExplode[0], 4]);

@@ -12,28 +12,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-
-        // var idDivValue = rowData[0];
-        // submitFormWithIdDiv(idDivValue);
-        // Hide the modal immediately after populating the data
-        hideModalDivisi();
-    });
-    $("#table_Pegawai tbody").on("click", "tr", function () {
-        // Get the data from the clicked row
-        var rowData = $("#table_Pegawai").DataTable().row(this).data();
-        // Populate the input fields with the data
-        $("#Id_Pegawai").val(rowData[0]);
-        $("#Nama_Pegawai").val(rowData[1]);
-
-        // var idDivValue = rowData[0];
-        // submitFormWithIdDiv(idDivValue);
-        // Hide the modal immediately after populating the data
-        hideModalPegawai();
-    });
-    pegawaiButton.addEventListener("click", function () {
-        //Buat if yang mana yang checked di radio button maka lakukan ini
-        var kode = document.getElementById("Id_Div").value;
-        fetch("/MasterKartu/" + kode + ".getPegawai")
+        fetch("/MasterKartu/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -42,7 +21,6 @@ $(document).ready(function () {
             })
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
-                console.log(data);
 
                 // Clear the existing table rows
                 $("#table_Pegawai").DataTable().clear().draw();
@@ -59,6 +37,49 @@ $(document).ready(function () {
             .catch((error) => {
                 console.error("Error:", error);
             });
+        // var idDivValue = rowData[0];
+        // submitFormWithIdDiv(idDivValue);
+        // Hide the modal immediately after populating the data
+        hideModalDivisi();
+    });
+    $("#table_Pegawai tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#table_Pegawai").DataTable().row(this).data();
+        // Populate the input fields with the data
+        $("#Id_Pegawai").val(rowData[0]);
+        $("#Nama_Pegawai").val(rowData[1]);
+        fetch("/MasterKartu/" + rowData[0] + ".getDataPegawai")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                console.log(data);
+                data.forEach((item) => {
+                    document.getElementById(
+                        "Kd_Pegawai"
+                    ).textContent = `KODE   : ${item.Kd_Pegawai}`;
+                    document.getElementById(
+                        "No_Kartu"
+                    ).textContent = `NOMOR : ${item.No_Kartu}`;
+                    document.getElementById(
+                        "Nama_Divisi"
+                    ).textContent = `DEPT   : ${item.Nama_Div}`;
+                    document.getElementById(
+                        "Nama_Peg"
+                    ).textContent = `NAMA  : ${item.Nama_Peg}`;
+                });
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+        document.getElementById("printSection").hidden = false;
+            // var idDivValue = rowData[0];
+            // submitFormWithIdDiv(idDivValue);
+            // Hide the modal immediately after populating the data
+            hideModalPegawai();
     });
 
 });
@@ -75,4 +96,3 @@ function showModalPegawai() {
 function hideModalPegawai() {
     $("#modalPegawai").modal("hide");
 }
-

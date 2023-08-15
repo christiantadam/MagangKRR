@@ -3,33 +3,22 @@
     <script type="text/javascript" src="{{ asset('js/Master/kartu.js') }}"></script>
 
     <script>
-        function printCard() {
+        function printDiv() {
+            var divContents = document.getElementById("printSection").innerHTML;
             var originalContents = document.body.innerHTML;
-
-            // Mengambil isi dari kontainer yang ingin dicetak
-            var containerContents = document.querySelector('.custom-container').outerHTML;
-            containerContents += document.querySelectorAll('.custom-container')[1].outerHTML;
-
-            var printWindow = window.open('', '_blank');
-            printWindow.document.open();
-            printWindow.document.write('<html><head><title>Print</title>');
-            printWindow.document.write('<link rel="stylesheet" type="text/css" href="{{ asset('css/appPayroll.css') }}">');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(containerContents);
-            printWindow.document.write('</body></html>');
-
-            printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
-
+            document.body.innerHTML = divContents;
+            window.print();
             document.body.innerHTML = originalContents;
         }
+
+
     </script>
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
 
-                <div class="card" hidden>
+                <div class="card">
                     <div class="card-header">PEKERJA</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px">
                         <div class="row" style="margin-left:;">
@@ -181,7 +170,7 @@
                         <br>
 
                         <div style="text-align: right; margin-top: 20px;">
-                            <button type="button" class="btn btn-primary" onclick="printCard()">Print</button>
+                            <button type="button" class="btn btn-primary" onclick="printDiv()">Print</button>
                             <button type="button" class="btn btn-dark">Keluar</button>
                         </div>
                     </div>
@@ -203,36 +192,37 @@
 
 
                 </div>
-
-                <div class="custom-container">
-                    <div class="custom-header">PT. KERTA RAJASA RAYA</div>
-                    <div>JALAN RAYA TROPODO NO. 1</div>
-                    <div>WARU - SIDOARJO</div>
-                    <div>Telp. (031) 8669595 - 8669966</div>
-                    <div class="custom-divider"></div>
-                    <div class="custom-header">KARTU PEGAWAI</div>
-                    <div class="custom-divider"></div>
-                    <div class="custom-info">
-                        <div id="Kd_Pegawai">KODE&nbsp;&nbsp;&nbsp;&nbsp;: Kd_Pegawai</div>
-                        <div id="No_Kartu">NOMOR&nbsp;: No_Kartu</div>
-                        <div id="Nama_Div">DEPT.&nbsp;&nbsp;&nbsp;: Nama_Div</div>
-                        <div id="Nama_Peg">NAMA&nbsp;&nbsp;: Nama_Peg</div>
+                <div id="printSection" hidden>
+                    <div class="custom-container">
+                        <div class="custom-header">PT. KERTA RAJASA RAYA</div>
+                        <div>JALAN RAYA TROPODO NO. 1</div>
+                        <div>WARU - SIDOARJO</div>
+                        <div>Telp. (031) 8669595 - 8669966</div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-header">KARTU PEGAWAI</div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-info">
+                            <div class="justify-content-end" id="Kd_Pegawai" >KODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Kd_Pegawai</div>
+                            <div class="justify-content-end" id="No_Kartu">NOMOR&nbsp;: No_Kartu</div>
+                            <div class="justify-content-end" id="Nama_Divisi">DEPT.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Nama_Div</div>
+                            <div class="justify-content-end" id="Nama_Peg">NAMA&nbsp;&nbsp;: Nama_Peg</div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="custom-container">
-                    <div class="custom-divider"></div>
-                    <div class="custom-header">Perhatian</div>
-                    <div class="custom-divider"></div>
-                    <div class="custom-info">
-                        <ol>
-                            <li>KARTU INI BERLAKU SEBAGAI KARTU TANDA PENGENAL</li>
-                            <li>KARTU INI DIGUNAKAN UNTUK MENCATAT WAKTU</li>
-                            <li>DILARANG MEMAKAI KARTU ORANG LAIN</li>
-                            <li>JIKA HILANG DIKENAKAN DENDA</li>
-                            <li>JIKA MENEMUKAN KARTU INI MOHON DIKEMBALIKAN</li>
-                            <li>GUNAKAN KARTU INI SELAMA BERTUGAS</li>
-                        </ol>
+                    <div class="custom-container">
+                        <div class="custom-divider"></div>
+                        <div class="custom-header">Perhatian</div>
+                        <div class="custom-divider"></div>
+                        <div class="custom-info">
+                            <ol>
+                                <li>KARTU INI BERLAKU SEBAGAI KARTU TANDA PENGENAL</li>
+                                <li>KARTU INI DIGUNAKAN UNTUK MENCATAT WAKTU</li>
+                                <li>DILARANG MEMAKAI KARTU ORANG LAIN</li>
+                                <li>JIKA HILANG DIKENAKAN DENDA</li>
+                                <li>JIKA MENEMUKAN KARTU INI MOHON DIKEMBALIKAN</li>
+                                <li>GUNAKAN KARTU INI SELAMA BERTUGAS</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>

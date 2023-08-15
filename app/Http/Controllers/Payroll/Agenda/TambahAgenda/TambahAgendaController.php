@@ -12,8 +12,8 @@ class TambahAgendaController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Agenda.TambahAgenda.tambahAgenda', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        return view('Payroll.Agenda.TambahAgenda.tambahAgenda', compact('dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +29,16 @@ class TambahAgendaController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getPegawai
+        if ($crExplode[1] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.
