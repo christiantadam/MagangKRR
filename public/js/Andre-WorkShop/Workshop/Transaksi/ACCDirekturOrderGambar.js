@@ -264,6 +264,7 @@ function klikproses() {
             else{
                 var arrayString = arraycheckbox.join(",");
                 //console.log(arrayString);
+
                 radiobox.value = "batal_acc";
                 semuacentang.value = arrayString;
                 methodForm.value = "PUT";

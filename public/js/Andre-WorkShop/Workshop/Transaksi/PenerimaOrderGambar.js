@@ -45,11 +45,22 @@ let IdUser = document.getElementById("IdUser");
 let NamaUser = document.getElementById("NamaUser");
 var trselect;
 var index;
-let lblstatus = document.getElementById('lblstatus');
-let Tsts = document.getElementById('Tsts');
-let TuserOd = document.getElementById('TuserOd');
+let lblstatus = document.getElementById("lblstatus");
+let Tsts = document.getElementById("Tsts");
+let TuserOd = document.getElementById("TuserOd");
+let ketbatal = document.getElementById("ketbatal");
+let btnkoreksi = document.getElementById("btnkoreksi");
+let no_orderkoreksi = document.getElementById("no_order");
 
-let btnkoreksi = document.getElementById('btnkoreksi');
+IdUser.value = user;
+let tableModal = $("#tableModal").DataTable();
+let NoGambarModal = document.getElementById("NoGambarModal");
+let NamaGambarModal = document.getElementById("NamaGambarModal");
+let Approvemodal = document.getElementById("Approvemodal");
+
+let arraynomorgambar = document.getElementById('arraynomorgambar');
+let arraynamagambar1 = document.getElementById('arraynamagambar');
+let arraytglapprove = document.getElementById('arraytglapprove');
 //#endregion
 
 //#region set tanggal
@@ -172,7 +183,7 @@ function AllData(tglAwal, tglAkhir) {
                         { title: "Mesin", data: "Mesin" },
                         { title: "Keterangan Order", data: "Ket_Order" },
                         { title: "Peng-Order", data: "NmUserOd" },
-                        { title: "UserOd", data: "User_Order"},
+                        { title: "UserOd", data: "User_Order" },
                     ],
                 });
                 table_data.draw();
@@ -309,8 +320,6 @@ function klikproses() {
 
 //#endregion
 
-
-
 //#region butn koreksi
 function koreksiklik() {
     if (
@@ -322,60 +331,214 @@ function koreksiklik() {
             "Pilih 'Order DiKerjakan' atau 'Order Selesai' atau 'Order Dibatalkan"
         );
     } else {
+        let no_order;
+        var arrayindex = [];
         $("input[name='penerimaCheckbox']:checked").each(function () {
             let rowIndex = $(this).closest("tr").index();
             let closestTr = $(this).closest("tr");
             // console.log(rowIndex);
+            no_order = this.value;
             trselect = closestTr;
             index = rowIndex;
+            arrayindex.push(index);
             console.log(trselect);
             // let value = this.value;
             // console.log(rowIndexArray);
         });
         console.log(index);
-        if (index==null) {
-            alert("Pilih 1 Data Untuk DiPROSES")
-        }
-        else{
+        if (arrayindex.length === 0 || arrayindex.length > 1) {
+            alert("Pilih 1 Data Untuk DiPROSES");
+        } else {
             if (order_kerja.checked == true || order_selesai.checked == true) {
                 btnkoreksi.setAttribute("data-toggle", "modal");
                 btnkoreksi.setAttribute("data-target", "#modalkoreksi");
-            }
-            else{
+            } else {
                 btnkoreksi.setAttribute("data-toggle", "");
                 btnkoreksi.setAttribute("data-target", "");
             }
-            if (trselect.hasClass('red-color') || trselect.hasClass('blue-color') && order_kerja.checked == true) {
+            if (
+                trselect.hasClass("red-color") ||
+                (trselect.hasClass("blue-color") && order_kerja.checked == true)
+            ) {
                 console.log(table_data.cell(index, 0).data());
                 tglOrder.value = table_data.cell(index, 1).data();
                 noOrder.value = table_data.cell(index, 0).data();
-                Divisimodal.value = table_data.cell(index,7).data();
-                NamaBarangModal.value = table_data.cell(index,3).data();
-                noGambar.value = table_data.cell(index,4).data();
-                KeteranganModal.value = table_data.cell(index,9).data();
-                JumlahModal.value = table_data.cell(index,5).data();
-                lblstatus.textContent = table_data.cell(index,6).data();
-                TuserOd.value = table_data.cell(index,11).data();
+                Divisimodal.value = table_data.cell(index, 7).data();
+                NamaBarangModal.value = table_data.cell(index, 3).data();
+                noGambar.value = table_data.cell(index, 4).data();
+                KeteranganModal.value = table_data.cell(index, 9).data();
+                JumlahModal.value = table_data.cell(index, 5).data();
+                lblstatus.textContent = table_data.cell(index, 6).data();
+                TuserOd.value = table_data.cell(index, 11).data();
                 Tsts.value = 1;
-
             }
-            if (trselect.hasClass('blue-color') && order_selesai.checked == true) {
+            if (
+                trselect.hasClass("blue-color") &&
+                order_selesai.checked == true
+            ) {
                 tglOrder.value = table_data.cell(index, 1).data();
                 noOrder.value = table_data.cell(index, 0).data();
-                Divisimodal.value = table_data.cell(index,7).data();
-                NamaBarangModal.value = table_data.cell(index,3).data();
-                noGambar.value = table_data.cell(index,4).data();
-                KeteranganModal.value = table_data.cell(index,9).data();
-                JumlahModal.value = table_data.cell(index,5).data();
-                lblstatus.textContent = table_data.cell(index,6).data();
-                TuserOd.value = table_data.cell(index,11).data();
+                Divisimodal.value = table_data.cell(index, 7).data();
+                NamaBarangModal.value = table_data.cell(index, 3).data();
+                noGambar.value = table_data.cell(index, 4).data();
+                KeteranganModal.value = table_data.cell(index, 9).data();
+                JumlahModal.value = table_data.cell(index, 5).data();
+                lblstatus.textContent = table_data.cell(index, 6).data();
+                TuserOd.value = table_data.cell(index, 11).data();
                 Tsts.value = 2;
-
             }
-            if(trselect.hasClass('blue-color') && order_batal.checked==true){
-
+            if (
+                trselect.hasClass("blue-color") &&
+                order_batal.checked == true
+            ) {
+                let ada;
+                fetch("/cekuserkoreksi/" + user)
+                    .then((response) => response.json())
+                    .then((datas) => {
+                        console.log(datas[0].ada);
+                        ada = datas[0].ada;
+                    });
+                if (ada == 0) {
+                    alert("Login " + user + " Tidak berHak utk memproses.");
+                } else {
+                    Ket_batal = prompt("Alasan Dibatalkan : ");
+                    ketbatal.value = Ket_batal;
+                    no_orderkoreksi.value = no_order;
+                    methodForm.value = "PUT";
+                    radiobox.value = "order_batal";
+                    formPemerimaGambar.action =
+                        "/PenerimaOrderGambar/" + no_orderkoreksi.value;
+                    formPemerimaGambar.submit();
+                }
             }
+            if (
+                trselect.hasClass("red-color") &&
+                order_selesai.checked == true
+            ) {
+                alert("Proses Order Untuk Dikerjakan Dulu");
+            }
+            if (trselect.hasClass("red-color") && order_batal.checked == true) {
+                alert("Proses Order Untuk Dikerjakan Dulu Atau Batal ACC");
+            }
+            if (trselect.hasClass("black-color")) {
+                alert("Proses Order Untuk Diterima Dulu, baru Koreksi");
+            }
+        }
+    }
+}
+//#endregion
 
+//#region cek nomor gambar
+NoGambarModal.addEventListener("keypress", function (event) {
+    let ceknmorgmbar;
+    if (event.key === "Enter") {
+        fetch("/ceknomorGambar/" + NoGambarModal.value)
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas[0].ada);
+                ceknmorgmbar = datas[0].ada;
+                if (ceknmorgmbar > 0) {
+                    //console.log(ceknmorgmbar);
+                    alert(
+                        "Nomer Gambar Sudah DiPakai, Cek Lagi Nomer Gambarnya"
+                    );
+                }
+            });
+        //console.log(ceknmorgmbar);
+    }
+});
+//#endregion
+
+//#region button plus
+function klikplus() {
+    tableModal.row.add([NoGambarModal.value,NamaGambarModal.value,Approvemodal.value]).draw(false);
+}
+//#endregion
+
+//#region klikmin
+function klikmin() {
+    var lastRowIndex = tableModal.rows().count() - 1;
+    tableModal.row(lastRowIndex).remove().draw(false);
+}
+
+//#endregion
+
+//#region proses modal
+function prosesmodalklik() {
+    if (Tsts.value == 1) {
+        let ada;
+        fetch("/cekuserprosesmodal/" + user + "/" + 3)
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas[0].ada);
+                ada = datas[0].ada;
+            });
+        if (ada == 0) {
+            alert("Login " + user + " Tidak berHak utk memproses.");
+        } else {
+            methodFormProses.value = "PUT";
+            ModalProsesPembeliGambar.action =
+                "/PenerimaOrderGambar/" + noOrder.value;
+            ModalProsesPembeliGambar.submit();
+        }
+    }
+    if (Tsts.value == 2) {
+        let ada;
+        fetch("/cekuserprosesmodal/" + user + "/" + 2)
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas[0].ada);
+                ada = datas[0].ada;
+            });
+        if (ada == 0) {
+            alert("Login " + user + " Tidak berHak utk memproses.");
+        } else {
+            var confirm = window.confirm("Order Sudah Selesai??");
+            if (!confirm) {
+                tgl_finish.value = "";
+                var arraynogambar = [];
+                var arraynamabarang = [];
+                var arraytgl = []
+                var data = tableModal.rows().data().toArray();
+                console.log(data[0]);
+                for (let index = 0; index < data.length; index++) {
+                    arraynogambar.push(data[index][0]);
+                    arraynamabarang.push(data[index][1]);
+                    arraytgl.push(data[index][2]);
+                }
+                var arrayStringnogambar = arraynogambar.join(",");
+                var arrayStringnamabarang = arraynamabarang.join(",");
+                var arrayStringapprove = arraytgl.join(",");
+                arraynomorgambar.value = arrayStringnogambar;
+                arraynamagambar1.value = arrayStringnamabarang;
+                arraytglapprove.value  = arrayStringapprove;
+                methodFormProses.value = "PUT";
+                ModalProsesPembeliGambar.action =
+                    "/PenerimaOrderGambar/" + noOrder.value;
+                ModalProsesPembeliGambar.submit();
+            } else {
+                var arraynogambar = [];
+                var arraynamabarang = [];
+                var arraytgl = []
+                var data = tableModal.rows().data().toArray();
+                console.log(data[0]);
+                for (let index = 0; index < data.length; index++) {
+                    arraynogambar.push(data[index][0]);
+                    arraynamabarang.push(data[index][1]);
+                    arraytgl.push(data[index][2]);
+                }
+                var arrayStringnogambar = arraynogambar.join(",");
+                var arrayStringnamabarang = arraynamabarang.join(",");
+                var arrayStringapprove = arraytgl.join(",");
+                arraynomorgambar.value = arrayStringnogambar;
+                arraynamagambar1.value = arrayStringnamabarang;
+                arraytglapprove.value  = arrayStringapprove;
+
+                methodFormProses.value = "PUT";
+                ModalProsesPembeliGambar.action =
+                    "/PenerimaOrderGambar/" + noOrder.value;
+                ModalProsesPembeliGambar.submit();
+            }
         }
     }
 }

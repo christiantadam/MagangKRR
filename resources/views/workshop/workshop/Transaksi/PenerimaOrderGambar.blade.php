@@ -141,7 +141,7 @@
               <div class="col-lg-6">
                 <span>xxxxx -> Belum Diterima</span><br>
 
-                <span style="color: grey;">xxxxx -></span>
+                <span style="color: green;">xxxxx -></span>
                 <span>Ditolak</span>
               </div>
             </div>
@@ -159,6 +159,8 @@
             <input type="hidden" name="radiobox" id="radiobox">
             <input type="hidden" name="KetTdkS" id="KetTdkS">
             <input type="hidden" name="iduser" id="iduser">
+            <input type="hidden" name="ketbatal" id="ketbatal">
+            <input type="hidden" name="no_order" id="no_order">
             <button type="button" class="btn btn-primary" style="width: 7.5em;"
               onclick="klikproses()"><b>PROSES</b></button>
             <button type="button" class="btn btn-warning" id="btnkoreksi"
@@ -228,7 +230,7 @@
 
                       <div class="col-6"> <!-- Updated class: col-lg-8 -->
                         <input type="text" name="KodeBarang" class="form-control" id="KodeBarang"
-                          style="margin-left: 21px;">
+                          style="margin-left: 21px;width:93px">
                       </div>
                     </div>
                   </div>
@@ -272,7 +274,7 @@
                   </div>
 
                   <div class="col-lg-7">
-                    <input type="date" name="acc_manager" class="form-control" id="KeteranganModal">
+                    <input type="text" name="acc_manager" class="form-control" id="KeteranganModal">
                   </div>
                 </div>
 
@@ -295,9 +297,9 @@
                     <select class="form-select" name="DrafterModal" style="width: 36vh; height: 6.6vh;"
                       id="DrafterModal">
                       <option disabled selected>Pilih Drafter</option>
-                      {{-- @foreach ($satuan as $s)
-                          <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
-                        @endforeach --}}
+                      @foreach ($drafter as $d)
+                          <option value="{{ $d->IdUser }}">{{ $d->NamaPembuat }}</option>
+                        @endforeach
                     </select>
                   </div>
                 </div>
@@ -341,7 +343,10 @@
                 <div>
                     <input type="hidden" name="Tsts" id="Tsts">
                     <input type="hidden" name="TuserOd" id="TuserOd">
-                  <button type="button" class="btn btn-secondary" style="float: right;margin-top:10px">Proses</button>
+                    <input type="hidden" name="arraynomorgambar" id="arraynomorgambar">
+                    <input type="hidden" name="arraynamagambar" id="arraynamagambar">
+                    <input type="hidden" name="arraytglapprove" id="arraytglapprove">
+                  <button type="button" class="btn btn-secondary" style="float: right;margin-top:10px" onclick="prosesmodalklik()">Proses</button>
                 </div>
               </form>
             </div>
@@ -379,16 +384,16 @@
 
               <div class="row mt-3">
                 <div class="col-9" style="text-align-last: right;">
-                  <button type="button" class="btn btn-outline-success">+</button>
+                  <button type="button" class="btn btn-outline-success" onclick="klikplus()">+</button>
                 </div>
                 <div class="col-3">
-                  <button type="button" class="btn btn-outline-danger">-</button>
+                  <button type="button" class="btn btn-outline-danger" onclick="klikmin()">-</button>
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="table-responsive" style="text-align: -webkit-center;">
-                  <table class="table mt-3" style="width: max-content" id="tableModal">
+                  <table class="table mt-3" id="tableModal">
                     <thead class="table-dark">
                       <tr>
                         <th>No. Gambar</th>
