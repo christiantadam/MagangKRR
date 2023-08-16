@@ -33,16 +33,37 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data , " Masuk store bosq");
-        // Ini akan menyimpan nilai @jumlah yang dihasilkan
-       DB::connection('ConnInventory')->statement('exec SP_5409_INV_SimpanScheduleJBB @idtype = ?, @status = ?, @divisi = ?, @jumlah = ?', [
-            $data['idtype'],
+        $idtype = $data['idtype'];
+        $divisi = $data['divisi'];
+
+        // Check if the data with the same idtype already exists
+        $existingData = DB::connection('ConnInventory')->select('SELECT COUNT(*) AS count FROM scheduleJBB WHERE idtype = ? AND divisi = ?', [
+            $idtype,
+            $divisi
+        ]);
+
+        if ($existingData[0]->count > 0) {
+            return redirect()->route('Schedule.index')->with('alert', 'Data sudah ada!');
+        }
+
+        // If data doesn't exist, call the SP to insert it
+        DB::connection('ConnInventory')->statement('exec SP_5409_INV_SimpanScheduleJBB @idtype = ?, @status = ?, @divisi = ?, @jumlah = ?', [
+            $idtype,
             0,
-            $data['divisi'],
+            $divisi,
             0,
         ]);
-        // dd($jumlah);
-        return redirect()->route('Schedule.index')->with('alert', 'Data berhasil ditambahkan !');
+
+        return redirect()->route('Schedule.index')->with('alert', 'Data berhasil ditambahkan!');
+
+
+        // $data = $request->all();
+
+        // // Check if the same type already exists in the database
+        // $existingType = DB::connection('ConnInventory')->select('exec SP_Check_Existing_Type ?', [$data['Type']]);
+        // if (!empty($existingType)) {
+        //     return redirect()->route('Schedule.index')->with('alert', 'Data dengan jenis yang sama sudah ada dalam database!');
+        // }
     }
 
     //Display the specified resource.

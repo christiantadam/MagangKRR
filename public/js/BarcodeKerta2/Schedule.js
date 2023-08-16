@@ -28,14 +28,14 @@ $(document).ready(function () {
         e.preventDefault();
     });
     // Add an event listener to the "Hapus" button
-    $("#DeleteButton").on("click", function () {
-        var table = $("#TypeTable").DataTable();
-        var selectedRows = table.rows(".selected");
+    // $("#DeleteButton").on("click", function () {
+    //     var table = $("#TypeTable").DataTable();
+    //     var selectedRows = table.rows(".selected");
 
-        // Remove selected rows from the DataTable
-        selectedRows.remove().draw();
-        event.preventDefault();
-    });
+    //     // Remove selected rows from the DataTable
+    //     selectedRows.remove().draw();
+    //     event.preventDefault();
+    // });
     // Add an event listener to the "Pilih Semua" button
     $("#SelectAllButton").on("click", function () {
         var table = $("#TypeTable").DataTable();
@@ -426,3 +426,147 @@ function closeModal4() {
     var modal = document.getElementById("myModal4");
     modal.style.display = "none"; // Sembunyikan modal dengan mengubah properti "display"
 }
+
+function checkInputsFilled() {
+    var allInputsFilled = true;
+
+    // Ganti bagian berikut dengan selektor input yang sesuai
+    var inputElements = document.querySelectorAll('input[type="text"]');
+
+    inputElements.forEach(function(input) {
+        if (input.value.trim() === '') {
+            allInputsFilled = false;
+            return;
+        }
+    });
+
+    return allInputsFilled;
+}
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     var buttonDivisi = document.getElementById('ButtonDivisi');
+//     // Ganti dengan tombol-tombol lain yang ingin Anda atur
+
+//     var inputElements = document.querySelectorAll('input[type="text"]');
+//     inputElements.forEach(function(input) {
+//         input.addEventListener('input', function() {
+//             if (checkInputsFilled()) {
+//                 buttonDivisi.removeAttribute('disabled');
+//                 // Aktifkan tombol-tombol lain yang sesuai
+//             } else {
+//                 buttonDivisi.setAttribute('disabled', 'disabled');
+//                 // Nonaktifkan tombol-tombol lain yang sesuai
+//             }
+//         });
+//     });
+// });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     var inputElements = document.querySelectorAll('input[type="text"]');
+//     var buttons = [
+//         document.getElementById('ButtonDivisi'), // Tanpa tanda petik di sekitar ini
+//         document.getElementById('ButtonKelut'),
+//         document.getElementById('ButtonKelompok'),
+//         document.getElementById('ButtonSubKelompok'),
+//         document.getElementById('ButtonType')
+//     ];
+
+//     inputElements.forEach(function(input) {
+//         input.addEventListener('input', function() {
+//             var allInputsFilled = true;
+
+//             inputElements.forEach(function(input) {
+//                 if (input.value.trim() === '') {
+//                     allInputsFilled = false;
+//                     return;
+//                 }
+//             });
+
+//             buttons.forEach(function(button) {
+//                 if (allInputsFilled) {
+//                     button.removeAttribute('disabled');
+//                 } else {
+//                     button.setAttribute('disabled', 'disabled');
+//                 }
+//             });
+//         });
+//     });
+// });
+
+$("#tambahButton").on("click", function (event) {
+    event.preventDefault();
+
+    // Extract data from input fields
+    var type = document.getElementById("Type").value;
+
+    // Check if the same type already exists in the table
+    var table = $("#TypeTable").DataTable();
+    var existingType = table.rows().data().toArray().some(row => row[4] === type);
+
+    if (existingType) {
+        alert("Data dengan jenis yang sama sudah ada dalam tabel!");
+        return;
+    }
+
+    // Continue with the rest of your code to add the data
+    // ...
+});
+
+// $(document).ready(function () {
+//     // ...
+
+//     // Tambahkan event listener untuk tombol "Hapus"
+//     $(".delete-type").click(function () {
+//         var idType = $(this).data("idtype");
+//         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+//             // Kirim permintaan ke server untuk menghapus data
+//             $.ajax({
+//                 url: "/delete-type/" + idType,
+//                 type: "DELETE",
+//                 success: function (response) {
+//                     // Jika berhasil, hapus baris dari tabel
+//                     $("#TypeTable tbody").find('button[data-idtype="' + idType + '"]').closest("tr").remove();
+//                     alert("Data berhasil dihapus");
+//                 },
+//                 error: function (xhr) {
+//                     console.error(xhr.responseText);
+//                     alert("Terjadi kesalahan saat menghapus data");
+//                 },
+//             });
+//         }
+//     });
+// });
+
+$(document).ready(function () {
+    $("#DeleteButton").on("click", function () {
+        var selectedRows = $("#TypeTable").find("tr.selected-row"); // Get all selected rows
+        var idsToDelete = [];
+
+        selectedRows.each(function () {
+            var id = $(this).data("id"); // Make sure this corresponds to the correct data attribute on your rows
+            idsToDelete.push(id);
+        });
+
+        console.log("IDs to delete:", idsToDelete);
+
+        if (idsToDelete.length === 0) {
+            alert("No rows selected for deletion.");
+            return;
+        }
+
+        // Send a request to delete the selected rows
+        $.ajax({
+            url: "/delete-types", // Replace with your delete route
+            method: "POST", // You can use DELETE if you prefer
+            data: { ids: idsToDelete },
+            success: function (response) {
+                // Remove the selected rows from the table on successful deletion
+                selectedRows.remove();
+                alert("Selected rows deleted successfully.");
+            },
+            error: function (error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+});

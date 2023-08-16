@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-    <script>
+    {{-- <script>
         // Mendapatkan nilai parameter 'status' dari URL
         var status = new URLSearchParams(window.location.search).get('status');
 
@@ -9,7 +9,7 @@
         } else if (status === "1") {
             alert("Data sudah ada");
         }
-    </script>
+    </script> --}}
     <script>
         var msg = '{{ Session::get('alert') }}';
         var exist = '{{ Session::has('alert') }}';
@@ -50,7 +50,7 @@
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Divisi" id="Divisi"
                                                 placeholder="Divisi" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal()" id="ButtonDivisi">...</button></div>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
@@ -95,7 +95,7 @@
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Kelut" id="Kelut"
                                                 placeholder="Kelut" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal1()" id="ButtonKelut">...</button></div>
                                             <div class="modal" id="myModal1">
                                                 <div class="modal-content">
@@ -137,7 +137,7 @@
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Kelompok" id="Kelompok"
                                                 placeholder="Kelompok" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal2()" id="ButtonKelompok">...</button></div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -174,7 +174,7 @@
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Sub_kelompok"
                                                 id="Sub_kelompok" placeholder="Sub Kelompok" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal3()" id="ButtonSubKelompok">...</button></div>
                                             <div class="modal" id="myModal3">
                                                 <div class="modal-content">
@@ -211,12 +211,12 @@
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="id_Type" id="id_Type"
-                                                placeholder="ID Type" readonly>
+                                                placeholder="ID Type" >
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Type" id="Type"
                                                 placeholder="Type" readonly>
-                                            <div class="text-center col-md-auto"><button type="submit"
+                                            <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal4()" id="ButtonType">...</button></div>
                                             <div class="modal" id="myModal4">
                                                 <div class="modal-content">
@@ -267,13 +267,13 @@
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
                                     <div class="text-center col-md-auto">
-                                        <button type="submit" id="SelectAllButton" style="width: 120px">Pilih
+                                        <button type="button" id="SelectAllButton" style="width: 120px">Pilih
                                             Semua</button>
                                     </div>
                                     <div class="text-center col-md-auto">
-                                        <button type="submit" id="DeleteButton" style="width: 120px">Hapus</button>
+                                        <button type="button" id="DeleteButton" style="width: 120px">Hapus</button>
                                     </div>
-                                    <div class="text-center col-md-auto"><button type="submit"
+                                    <div class="text-center col-md-auto"><button type="button"
                                             style="width: 120px">Keluar</button>
                                     </div>
                                 </div>
