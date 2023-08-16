@@ -11,8 +11,8 @@
                         style="flex: 1; margin-left: 10px; display: flex; justify-content: center; align-items: center;">
                         <div style="display: flex; align-items: center;">
                             <label for="TglLapor" style="margin-right: 10px;">Tanggal</label>
-                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required style="max-width: 200px;">
+                            <input class="form-control" type="date" id="TglAgenda" name="TglAgenda" required
+                                style="max-width: 200px;">
                         </div>
                     </div>
 
@@ -116,12 +116,15 @@
                                     </div>
                                     <br>
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered" id="tabel_Karyawan">
+                                        <table class="table table-striped table-bordered" id="tabel_Agenda">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Id Karyawan</th>
-                                                    <th scope="col">Nama Karyawan</th>
-
+                                                    <th scope="col">Masuk</th>
+                                                    <th scope="col">Pulang</th>
+                                                    <th scope="col">awal_istirahat</th>
+                                                    <th scope="col">akhir_istirahat</th>
+                                                    <th scope="col">Keterangan</th>
+                                                    <th scope="col">Id_Agenda</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-group-divider">
@@ -175,8 +178,8 @@
 
                                     <br>
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered" id="tabel_Divisi">
-                                            <thead>
+                                        <table class="table table-hover" id="tabel_Divisi">
+                                            <thead class="thead-dark">
                                                 <tr>
                                                     <th scope="col">Id Divisi</th>
                                                     <th scope="col">Nama Divisi</th>
@@ -184,37 +187,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="table-group-divider">
+                                                @foreach ($dataDivisi as $data)
+                                                    <tr>
 
-                                                {{-- @foreach ($employees as $data)
-                                            <tr>
-                                                <td>{{ $data->id }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->gender }}</td>
-                                                <td>{{ $data->email }}</td>
-                                                <td>{{ $data->address }}</td>
-                                                <td>
-                                                    <a href="{{ route('employees.edit', $data->id) }}" title="Edit Employee">
-                                                        <button class="btn btn-primary btn-sm">
-                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                        </button>
-                                                    </a>
-                                                    <form method="POST" action="{{route('employees.destroy', $data->id)}}" accept-charset="UTF-8" style="display:inline">
-                                                    @csrf
-                                                    @method('delete')
-                                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            @endforeach --}}
+                                                        <td>{{ $data->Id_Div }}</td>
+                                                        <td>{{ $data->Nama_Div }}</td>
+                                                    </tr>
+                                                @endforeach
+
                                             </tbody>
 
                                         </table>
                                     </div>
                                     <div style="text-align: right; margin-top: 100px;">
-                                        <button type="button" class="btn btn-primary">Pilih Semua</button>
-                                        <button type="button" class="btn btn-info">Insert Lembur</button>
+                                        <button type="button" class="btn btn-primary" id="select-all">Pilih Semua</button>
+                                        <button type="button" class="btn btn-info" id="buttonShow">Insert Lembur</button>
                                     </div>
 
                                 </div>

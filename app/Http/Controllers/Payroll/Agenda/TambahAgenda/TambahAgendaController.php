@@ -39,6 +39,11 @@ class TambahAgendaController extends Controller
             // dd($dataPegawai);
             return response()->json($dataPegawai);
         }
+        else if ($crExplode[2] == "getAgendaPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_AGENDA_PEGAWAI @kd_pegawai = ?, @Tanggal = ?', [$crExplode[0],$crExplode[1] ]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

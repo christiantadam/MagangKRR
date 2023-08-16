@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     selectElement.addEventListener("change", function() {
         const selectedValue = selectElement.value;
-        fetch("/TambahAgenda/" + selectedValue + ".getPegawai")
+        fetch("/UbahAgenda/" + selectedValue + ".getPegawai")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -46,7 +46,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Kd_Peg").val(rowData[0]);
         const tanggal = document.getElementById("TglAgenda");
-        fetch("/TambahAgenda/" + rowData[0] +"." +tanggal.value+ ".getAgendaPegawai")
+        fetch("/UbahAgenda/" + rowData[0] +"." +tanggal.value+ ".getAgendaPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

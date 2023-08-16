@@ -12,8 +12,8 @@ class UbahAgendaController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Agenda.UbahAgenda.ubahAgenda', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        return view('Payroll.Agenda.UbahAgenda.ubahAgenda', compact('dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +29,21 @@ class UbahAgendaController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getPegawai
+        if ($crExplode[1] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
+        else if ($crExplode[2] == "getAgendaPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_AGENDA_PEGAWAI @kd_pegawai = ?, @Tanggal = ?', [$crExplode[0],$crExplode[1] ]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.
