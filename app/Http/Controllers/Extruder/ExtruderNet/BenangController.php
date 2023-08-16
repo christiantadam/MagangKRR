@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Extruder\ExtruderNet;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class BenangController extends Controller
 {
@@ -14,8 +15,11 @@ class BenangController extends Controller
         $form_data = [];
 
         switch ($form_name) {
-            case 'nama form di sini':
-                $form_data = ['nama list' => $this->fungsi()];
+            case 'formBenangMohon':
+                $current_date = Carbon::now();
+                $formatted_date = $current_date->format('Y-m-d');
+
+                $form_data = ['listNomor' => $this->getKoreksiSrtBlmAcc($formatted_date)];
                 break;
 
             default:
@@ -28,7 +32,7 @@ class BenangController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getListDataNG(1, '2023-07-26 00:00:00.000'));
+        // dd($this->getListIdKonv(3, 'KONV0001', 'type1'));
 
         return view($view_name, $view_data);
     }
@@ -44,6 +48,8 @@ class BenangController extends Controller
             [$id_konversi, $tanggal]
         );
 
+        // dd($this->getDataNG(1, 'KONV0001', 'TYPE001'));
+
         // PARAMETER - @IdKonversi int, @Tanggal datetime
         // MasterKonversiEXT - IdKonversi(MasterKonversiNG), IdKomposisi(MasterKomposisi)
         // MasterKonversiNG - IdKonversiNG(DetailKonversiNG)
@@ -56,6 +62,7 @@ class BenangController extends Controller
             'exec SP_5298_EXT_DETAILURAIAN_KONV_NG @IdKonversi = ?',
             [$id_konversi]
         );
+        // INV0003
 
         // PARAMETER - @IdKonversi char(9)
         // ===
@@ -74,6 +81,60 @@ class BenangController extends Controller
         // Kelompok - IdKelompokUtama_Kelompok(KelompokUtama.IdKelompokUtama)
         // KelompokUtama - IdObjek_KelompokUtama(Objek.IdObjek)
         // Objek - IdDivisi_Objek(Divisi.IdDivisi)
+    }
+
+    public function getKoreksiSrtBlmAcc($tanggal)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_KOREKSI_SORTIRNG_BLMACC @Tanggal = ?',
+            [$tanggal]
+        );
+
+        // PARAMETER - @Tanggal datetime
+        // MasterKonversiNG - IdKonversiNG(DetailKonversiNG), IdKonversiEXT(MasterKonversiEXT.IdKonversi)
+        // MasterKonversiEXT - IdMesin(MasterMesin)
+        // WHERE saatlog is null AND useracc is null
+    }
+
+    public function getListProdNG($no_konv) // belum cek db
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_PROD_NG @NoKonv = ?',
+            [$no_konv]
+        );
+
+        // PARAMETER - @NoKonv char(14)
+        // MasterKonversiEXT - IdKonversi(DetailKonversiEXT), IdMesin(MasterMesin)
+        // DetailKonversiEXT - IdType(KomposisiBahan)
+        // KomposisiBahan - IdKomposisi(MasterKomposisi)
+        // MasterKomposisi - IdKomposisi(MasterKonversiEXT)
+        // WHERE KomposisiBahan.StatusType = 'HP' AND KomposisiBahan.NamaType LIKE '%NG%'
+    }
+
+    public function getDataNG($kode, $no_konv, $id_type)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_CEK_DATA_NG @kode = ?, @noKonv = ?, @idType = ?',
+            [$kode, $no_konv, $id_type]
+        );
+
+        // PARAMETER - @kode int, @noKonv char(14), @idType varchar(20)
+        // DetailKonversiNG - MasterKonversiNG(IdKonversiNG)
+    }
+
+    public function getListIdKonv($kode, $id_konversi = null, $id_type = null, $id_divisi = null, $tanggal = null, $shift = null)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_IDKONV @Kode = ?, @IdDivisi = ?, @Tanggal = ?, @Shift = ?, @IdKonversi = ?, @idType = ?',
+            [$kode, $id_divisi, $tanggal, $shift, $id_konversi, $id_type]
+        );
+
+        // dd($this->getListIdKonv(3, 'KONV0001', 'type1'));
+
+        // PARAMETER - @Kode int, @IdDivisi char(3)=null, @Tanggal datetime=null, @Shift char(2)=null, @IdKonversi char(14)=null, @idType char(20)=null
+        // MesterKonversiEXT - IdKonversi(DetailKonversiEXT), IdMesin(MasterMesin), IdKomposisi(MasterKomposisi)
+        // MasterKomposisi - IdKomposisi(KomposisiBahan)
+        // DetailKonversiEXT - IdType(KomposisiBahan)
     }
     #endregion
 }

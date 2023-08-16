@@ -1,4 +1,4 @@
-<!-- LAST: btnKonversi_Click() | FrmMohonKonversiNG.vb -->
+<!-- LAST: btnProses_Click() | FrmMohonKonversiNG.vb -->
 
 <?php
 
@@ -94,7 +94,11 @@ Route::get('/Konversi/updSaldoOrdDet/{id_order}/{no_urut_order}/{primer}/{sekund
 
 #region ExtruderNet - Form Benang Mohon
 Route::get('/Benang/getListDataNG/{id_konversi}/{tanggal}', [BenangController::class, 'getListDataNG']);
-Route::get('/Benang/getDetailUraianKonvNG/{id_konversi}/{tanggal}', [BenangController::class, 'getDetailUraianKonvNG']);
+Route::get('/Benang/getDetailUraianKonvNG/{id_konversi}', [BenangController::class, 'getDetailUraianKonvNG']);
+Route::get('/Benang/getKoreksiSrtBlmAcc/{tanggal}', [BenangController::class, 'getKoreksiSrtBlmAcc']);
+Route::get('/Benang/getListProdNG/{no_konv}', [BenangController::class, 'getListProdNG']);
+Route::get('/Benang/getDataNG/{kode}/{no_konv}/{id_type}', [BenangController::class, 'getDataNG']);
+Route::get('/Benang/getListIdKonv/{kode}/{id_konversi?}/{id_type?}/{id_divisi?}/{tanggal?}/{shift?}', [BenangController::class, 'getListIdKonv']);
 #endregion
 
 #region ExtruderNet - Master

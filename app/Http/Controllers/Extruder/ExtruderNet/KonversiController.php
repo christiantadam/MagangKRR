@@ -14,7 +14,7 @@ class KonversiController extends Controller
         $form_data = [];
 
         switch ($form_name) {
-            case 'formTropodoKonversiMohon':
+            case 'formKonversiMohon':
                 $form_data = [
                     'listKonversi' => $this->getListKonversi('EXT'),
                     'listMesin' => $this->getListMesin(1),

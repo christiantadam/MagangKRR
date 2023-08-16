@@ -95,6 +95,7 @@ function rowClicked(row, data, index) {
     } else {
         row.style.background = "aliceblue";
         terpilih = index;
+        // console.log(index);
 
         clearTable_DataTable(
             "table_detail_order",

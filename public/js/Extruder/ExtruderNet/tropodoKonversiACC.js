@@ -177,7 +177,7 @@ function daftarKonversiBelumACC() {
 
                         tampilRincianKonversi(
                             konversiPil,
-                            listKonversi[i].IdKonversi
+                            listKonversi[konversiPil].IdKonversi
                         );
 
                         btnProses.disabled = false;
@@ -237,7 +237,7 @@ function tampilDetailKonversi(id_konversi) {
                 });
             }
 
-            addTable_DataTable("table_hasil", listHasil, tableHasilWidth);
+            addTable_DataTable("table_hasil", listHasil, tableHasilCol);
 
             hitungJumlahBahanHasil(); // DARI EVENT CHECKBOX KONVERSI
         });

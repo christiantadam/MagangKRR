@@ -14,13 +14,13 @@ class OrderController extends Controller
         $form_data = [];
 
         switch ($form_name) {
-            case 'formTropodoOrderMaintenance':
+            case 'formOrderMaintenance':
                 $form_data = ['listBenang' => $this->getListBenang(2)];
                 break;
-            case 'formTropodoOrderACC':
+            case 'formOrderACC':
                 $form_data = ['listOrderBlmAcc' => $this->getOrderBlmAcc('EXT')];
                 break;
-            case 'formTropodoOrderStatus':
+            case 'formOrderStatus':
                 $form_data = ['listBatalOrder' => $this->getListBatalOrd('EXT')];
                 break;
 

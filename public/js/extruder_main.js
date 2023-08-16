@@ -77,12 +77,14 @@ function addTable_DataTable(
 
     let colObject = "";
     if (colWidths != null) {
-        colObject = Object.keys(listData[0]).map((key, index) => ({
-            data: key,
-            width: colWidths[index].width || "auto",
-        }));
+        colObject = colWidths.map((colWidth, index) => {
+            return {
+                data: Object.keys(listData[0])[index],
+                width: colWidth.width || "auto",
+            };
+        });
     } else {
-        colObject = Object.keys(listData[0]).map((key, index) => ({
+        colObject = Object.keys(listData[0]).map((key) => ({
             data: key,
         }));
     }
@@ -160,7 +162,7 @@ function addSearchBar_DataTable(tableId) {
 //#endregion
 
 //#region Select Options
-function addOptions(selectId, optionData, keyMapping) {
+function addOptions(selectId, optionData, keyMapping, showId = true) {
     const selectEle = document.getElementById(selectId);
     optionData = JSON.parse(optionData);
 
@@ -169,7 +171,10 @@ function addOptions(selectId, optionData, keyMapping) {
 
         if (keyMapping.valueKey && keyMapping.textKey) {
             newOption.value = optionData[i][keyMapping.valueKey];
-            newOption.text = optionData[i][keyMapping.textKey];
+            newOption.text = showId
+                ? `${optionData[i][keyMapping.valueKey]}
+                    | ${optionData[i][keyMapping.textKey]}`
+                : optionData[i][keyMapping.textKey];
             selectEle.appendChild(newOption);
         }
     }
@@ -189,23 +194,18 @@ function addOptionIfNotExists(selectEle, value, text, autoSelect = true) {
     selectEle.appendChild(newOption);
 }
 
-function clearOptions(selectId, onlySelection) {
+function clearOptions(selectId) {
     const selectEle = document.getElementById(selectId);
+    selectEle.innerHTML = `
+        <option selected disabled>
+            -- Pilih ${snakeCaseToTitleCase(selectId.replace("select_", ""))} --
+        </option>
+
+        <option value="loading" style="display: none" disabled>
+            Loading...
+        </option>
+    `;
     selectEle.selectedIndex = 0;
-
-    if (!onlySelection) {
-        selectEle.innerHTML = `
-            <option selected disabled>
-                -- Pilih ${snakeCaseToTitleCase(
-                    selectId.replace("select_", "")
-                )} --
-            </option>
-
-            <option value="loading" style="display: none" disabled>
-                Loading...
-            </option>
-        `;
-    }
 }
 //#endregion
 

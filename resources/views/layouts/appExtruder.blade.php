@@ -78,28 +78,28 @@
                 <h1><a href="#">Master KITE</a></h1>
             @elseif($formName == 'formKiteEstimasi')
                 <h1><a href="#">Estimasi KITE</a></h1>
-            @elseif($formName == 'formTropodoOrderMaintenance')
-                <h1><a href="#">Maintenance Order Tropodo</a></h1>
-            @elseif($formName == 'formTropodoOrderACC')
-                <h1><a href="#">ACC Order Tropodo</a></h1>
-            @elseif($formName == 'formTropodoOrderStatus')
-                <h1><a href="#">Pembatalan Order Tropodo</a></h1>
-            @elseif($formName == 'formTropodoKonversiMohon')
-                <h1><a href="#">Permohonan Konversi Tropodo</a></h1>
-            @elseif($formName == 'formTropodoKonversiACC')
-                <h1><a href="#">ACC Konversi Tropodo</a></h1>
-            @elseif($formName == 'formTropodoBenangMohon')
-                <h1><a href="#">Permohonan Konversi NG Tropodo</a></h1>
-            @elseif($formName == 'formTropodoBenangACC')
-                <h1><a href="#">ACC Konversi NG Tropodo</a></h1>
-            @elseif($formName == 'formTropodoGangguanProduksi')
-                <h1><a href="#">Gangguan Produksi Tropodo</a></h1>
-            @elseif($formName == 'formTropodoDaya')
-                <h1><a href="#">Daya Produksi Tropodo</a></h1>
-            @elseif($formName == 'formTropodoEfisiensi')
-                <h1><a href="#">Efisiensi Tropodo</a></h1>
-            @elseif($formName == 'formTropodoPerawatan')
-                <h1><a href="#">Perawatan Tropodo</a></h1>
+            @elseif($formName == 'formOrderMaintenance')
+                <h1><a href="#">Maintenance Order</a></h1>
+            @elseif($formName == 'formOrderACC')
+                <h1><a href="#">ACC Order</a></h1>
+            @elseif($formName == 'formOrderStatus')
+                <h1><a href="#">Pembatalan Order</a></h1>
+            @elseif($formName == 'formKonversiMohon')
+                <h1><a href="#">Permohonan Konversi</a></h1>
+            @elseif($formName == 'formKonversiACC')
+                <h1><a href="#">ACC Konversi</a></h1>
+            @elseif($formName == 'formBenangMohon')
+                <h1><a href="#">Permohonan Konversi NG</a></h1>
+            @elseif($formName == 'formBenangACC')
+                <h1><a href="#">ACC Konversi NG</a></h1>
+            @elseif($formName == 'formCatatGangguanProduksi')
+                <h1><a href="#">Pencatatan Gangguan Produksi</a></h1>
+            @elseif($formName == 'formCatatDaya')
+                <h1><a href="#">Pencatatan Daya Produksi</a></h1>
+            @elseif($formName == 'formCatatEfisiensi')
+                <h1><a href="#">Pencatatan Efisiensi</a></h1>
+            @elseif($formName == 'formCatatPerawatan')
+                <h1><a href="#">Pencatatan Perawatan</a></h1>
             @elseif($formName == 'formMojosariOrderMaintenance')
                 <h1><a href="#">Maintenance Order Mojosari Gedung B</a></h1>
             @elseif($formName == 'formMojosariOrderACC')
@@ -228,11 +228,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderMaintenance">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderACC">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC">ACC
                                                     Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formTropodoOrderStatus">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -241,10 +241,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formTropodoKonversiMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formTropodoKonversiACC">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>
@@ -253,22 +253,22 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formTropodoBenangMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formTropodoBenangACC">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoGangguanProduksi">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/formCatatGangguan">Pencatatan
                                             Gangguan
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoDaya">Pencatatan KwaH
+                                    <li><a href="/Extruder/ExtruderNet/formCatatDaya">Pencatatan KwaH
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoEfisiensi">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/formCatatEfisiensi">Pencatatan
                                             Efisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formTropodoPerawatan">Perawatan</a>
+                                    <li><a href="/Extruder/ExtruderNet/formCatatPerawatan">Perawatan</a>
                                 </ul>
                             </li>
                             <li class="dropdown">

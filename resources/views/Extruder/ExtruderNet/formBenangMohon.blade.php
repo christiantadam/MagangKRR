@@ -30,7 +30,7 @@
             <div class="col-lg-4">
                 <select id="select_mesin" class="form-select" disabled>
                     <option selected disabled>-- Pilih Mesin --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
+                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>
@@ -43,7 +43,10 @@
             <div class="col-lg-3">
                 <select id="select_nomor" class="form-select">
                     <option selected disabled>-- Pilih Nomor --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
+                    <option value="loading" style="display: none" disabled>Memuat data...</option>
+                    @foreach ($formData['listNomor'] as $d)
+                        <option value="{{ $d->IdKonversiNG }}">{{ $d->IdKonversiNG . ' | ' . $d->MesinShift }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -54,7 +57,7 @@
             <div class="col-lg-4">
                 <select id="select_nomor_konversi" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor Konversi --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
+                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>
@@ -78,7 +81,7 @@
             <div class="col-lg-4">
                 <select id="select_type" class="form-select" disabled>
                     <option selected disabled>-- Pilih Type --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
+                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>
@@ -90,16 +93,31 @@
                 <table id="table_asal" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th>No. Konversi</th>
-                            <th>Spec</th>
+                            <th>Id Type</th>
+                            <th>Nama Type</th>
+                            <th>Jumlah Primer</th>
+                            <th>Jumlah Sekunder</th>
+                            <th>Jumlah Tritier</th>
+                            <th>Nama Objek</th>
+                            <th>Nama Kel. Utama</th>
+                            <th>Nama Kelompok</th>
+                            <th>Nama Sub-kelompok</th>
+                            <th>Id Objek</th>
+                            <th>Id Kel. Ut.</th>
+                            <th>Id Kelompok</th>
+                            <th>Id Sub-kel.</th>
+                            <th>Id Transaksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="text-center">
+                            @php $tableWidth = 14; @endphp
+                            <td colspan="{{ $tableWidth }}" class="text-center">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
-                            <td class="hidden"></td>
+                            @for ($i = 0; $i < $tableWidth - 1; $i++)
+                                <td class="hidden"></td>
+                            @endfor
                         </tr>
                     </tbody>
                 </table>
@@ -113,16 +131,30 @@
                 <table id="table_tujuan" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th>No. Konversi</th>
-                            <th>Spec</th>
+                            <th>Id Type</th>
+                            <th>Nama Type</th>
+                            <th>Jumlah Primer</th>
+                            <th>Jumlah Sekunder</th>
+                            <th>Jumlah Tritier</th>
+                            <th>Nama Objek</th>
+                            <th>Nama Kel. Utama</th>
+                            <th>Nama Kelompok</th>
+                            <th>Nama Sub-kelompok</th>
+                            <th>Id Objek</th>
+                            <th>Id Kel. Ut.</th>
+                            <th>Id Kelompok</th>
+                            <th>Id Sub-kel.</th>
+                            <th>Id Transaksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="text-center">
+                            <td colspan="{{ $tableWidth }}" class="text-center">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
-                            <td class="hidden"></td>
+                            @for ($i = 0; $i < $tableWidth - 1; $i++)
+                                <td class="hidden"></td>
+                            @endfor
                         </tr>
                     </tbody>
                 </table>
