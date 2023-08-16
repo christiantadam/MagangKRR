@@ -12,13 +12,6 @@ class TransaksiController extends Controller
         return view();
     }
 
-
-
-    public function StatusOrderGambar()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.StatusOrderGambar');
-    }
-
     public function MaintenanceNomorGambar()
     {
         return view('WORKSHOP.Workshop.Transaksi.MaintenanceNomorGambar');

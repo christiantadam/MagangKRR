@@ -125,8 +125,10 @@ Route::get('ceknomorGambar/{nogambar}', 'App\Http\Controllers\WORKSHOP\Workshop\
 Route::resource('ProsesPembeliGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ProsesPembeliGambarController::class);
 Route::get('getalldataPembeliGambar/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ProsesPembeliGambarController@GetAllData');
 
+Route::resource('StatusOrderGambar', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\StatusOrderGambarController::class);
+Route::get('getalldataStatusOrderGambar/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\StatusOrderGambarController@GetAllData');
 
-Route::get('StatusOrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderGambar');
+
 Route::get('MaintenanceNomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceNomorGambar');
 Route::get('MaintenanceOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@MaintenanceOrderKerja');
 Route::get('ACCManagerKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerKerja');

@@ -91,7 +91,7 @@
                                 </li>
                                 <li><a href="{{ url('ProsesPembeliGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Proses Pemberi Gambar</a>
                                 </li>
-                                <li><a href="/StatusOrderGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Status Order Gambar</a>
+                                <li><a href="{{ url('StatusOrderGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Status Order Gambar</a>
                                 </li>
                                 <li><a href="/MaintenanceNomorGambar" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Nomor Gambar</a>
                                 </li>
