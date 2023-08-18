@@ -103,7 +103,12 @@
         </tbody>
       </table>
     </div>
-
+    <form action="{{ url('StatusOrderGambar') }}" method="post" id="formterima">
+        {{ csrf_field() }}
+        <input type="hidden" name="_method" id="methodForm">
+        <input type="hidden" name="nomorOrderForm" id="nomorOrder">
+        <input type="hidden" name="noGambarForm" id="noGambarForm">
+    </form>
 
     <div class="mt-3">
       <div class="float-start" style="margin-left: 12.5px;">
@@ -111,9 +116,7 @@
         <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
       </div>
 
-      <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-dark custom-btn">CETAK</button>
-      </div>
+
     </div>
   </div>
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/StatusOrderGambar.js') }}"></script>

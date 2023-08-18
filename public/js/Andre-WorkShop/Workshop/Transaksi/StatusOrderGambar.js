@@ -7,6 +7,11 @@ let kddivisi = document.getElementById("kddivisi");
 
 let user = 4384;
 let refresh = document.getElementById("refresh");
+
+let formterima = document.getElementById('formterima');
+let methodForm = document.getElementById('methodForm');
+let nomorOrder = document.getElementById('nomorOrder');
+let noGambarForm = document.getElementById('noGambarForm');
 //#endregion
 
 //#region warna text
@@ -59,14 +64,6 @@ function AllData(tglAwal, tglAkhir, divisi) {
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
-            datas.forEach((data) => {
-                const tglOrder = data.Tgl_Order;
-                const tglfinish = data.Tgl_Finish;
-                const [tanggal, waktu] = tglOrder.split(" ");
-                const [tanggalfinish, waktufinish] = tglfinish.split(" ");
-                data.Tgl_Order = tanggal;
-                data.Tgl_Finish = tanggalfinish;
-            });
             if (datas.length == 0) {
                 console.log("masuk ke == 0");
 
@@ -80,6 +77,18 @@ function AllData(tglAwal, tglAkhir, divisi) {
                 );
                 table_data.clear().draw();
             } else {
+                datas.forEach((data) => {
+                    if (data.Tgl_Order !== null) {
+                        const tglOrder = data.Tgl_Order;
+                        const [tanggal, waktu] = tglOrder.split(" ");
+                        data.Tgl_Order = tanggal;
+                    }
+                    if(data.Tgl_Finish !== null){
+                        const tglfinish = data.Tgl_Finish;
+                        const [tanggalfinish, waktufinish] = tglfinish.split(" ");
+                        data.Tgl_Finish = tanggalfinish;
+                    }
+                });
                 console.log(datas); // Optional: Check the data in the console
                 table_data = $("#tablestatus").DataTable({
                     destroy: true, // Destroy any existing DataTable before reinitializing
@@ -154,22 +163,13 @@ function klikterima() {
     });
     console.log(arraynomorOD);
     if (arraynomorGambar.length !== 0 || arraynomorOD.length !== 0) {
-        $.ajax({
-            url: 'StatusOrderGambar' + "/" + arraynomorOD[0], // Ganti 'id' dengan id data yang ingin diupdate
-            type: "PUT", // Menggunakan method PUT untuk update
-            data: {
-                _token: $('meta[name="csrf-token"]').attr("content"),
-                // selectedRows: selectedRows
-                nomorOdArray: arraynomorOD,
-                nomorGambarArray: arraynomorGambar
-            },
-            success: function (response) {
-                // Tindakan setelah berhasil dikirim
-            },
-            error: function (xhr) {
-                // Tindakan jika terjadi error
-            },
-        });
+        var arrayNoOrderString = arraynomorOD.join(",");
+        var arrayNoGambarstring = arraynomorGambar.join(",");
+        nomorOrder.value = arrayNoOrderString;
+        noGambarForm.value = arrayNoGambarstring;
+        methodForm.value = "PUT";
+        formterima.action = "/StatusOrderGambar/" + nomorOrder.value;
+        formterima.submit();
     }
 
 

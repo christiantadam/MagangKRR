@@ -46,7 +46,16 @@ class StatusOrderGambarController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
+        $noorder = $request->nomorOrderForm;
+        $nogambar = $request->noGambarForm;
+        $NoOd = explode(",", $noorder);
+        $NoGambar = explode(",", $nogambar);
+
+        for ($i=0; $i < count($NoOd); $i++) {
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-TGL-RCV-GBR] @noOd = ?, @noGbr = ?', [$NoOd[$i],$NoGambar[$i]]);
+        }
+        return redirect()->back()->with('success', 'Data TerSIMPAN');
     }
 
 
