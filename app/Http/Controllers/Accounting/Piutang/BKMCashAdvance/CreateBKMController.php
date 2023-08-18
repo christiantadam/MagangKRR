@@ -39,6 +39,28 @@ class CreateBKMController extends Controller
         return response()->json($tabel);
     }
 
+    function getIDBKM($id, $tanggal)
+    {
+        $idBank = $id;
+        $tanggalInput = $tanggal;
+        $jenis = 'R';
+
+        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+            $jenis,
+            $tanggalInput,
+            $idBank,
+            null
+            // Pass by reference for output parameter
+        ]);
+
+        $tahun = substr($tanggalInput, -10, 4);
+        $x = DB::connection('ConnAccounting')->table('T_Counter_BKM')->where('Periode', '=', $tahun)->first();
+        $nomorIdBKM = '00000' . str_pad($x->Id_BKM_E_Rp, 5, '0', STR_PAD_LEFT);
+        $idBKM = $idBank . '-R' . substr($tahun, -2) . substr($nomorIdBKM, -5);
+
+        return response()->json($idBKM);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -48,7 +70,26 @@ class CreateBKMController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $idBKMNew = $request->idBKMNew;
+        $tglInputNew = $request->tglInputNew;
+        $userInput = $request->userInput;
+        $terjemahan = $request->total1;
+        $nilaiPelunasan = $request->total1;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN]
+        @idBKM = ?,
+        @tglinput = ?,
+        @userinput = ?,
+        @terjemahan = ?,
+        @nilaipelunasan = ?', [
+            $idBKMNew,
+            $tglInputNew,
+            $userInput,
+            $terjemahan,
+            $nilaiPelunasan,
+        ]);
+        return redirect()->back()->with('Success', 'Sudah berhasil disimpan!');
     }
 
     //Display the specified resource.

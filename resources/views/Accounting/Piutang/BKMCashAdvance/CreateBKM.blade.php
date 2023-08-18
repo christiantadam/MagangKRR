@@ -34,12 +34,14 @@
                                         <input type="submit" id="btnInputTanggalBKM" name="btnInputTanggalBKM" value="Input Tanggal BKM" class="btn">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnGroupBKM" name="ibtnGroupBKMsi" value="Group BKM" class="btn">
+                                        <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM" class="btn">
                                     </div>
+                                    <input type="hidden" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br><div>
-                                    Data Pelunasan
+                                    Data Pelunasans
                                     <div style="overflow-y: auto; max-height: 400px;">
                                         <table style="width: 160%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
@@ -67,16 +69,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- <tr>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                </tr> --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -91,8 +83,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" id="total1" name="total1" class="form-control" style="width: 100%">
 
-                                <!--MODAL-->
+                                <!--MODAL INPUT TANGGAL BKM-->
                                 <div class="modal fade" id="pilihInputTanggal" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -117,7 +110,6 @@
                                                             <input type="text" id="idPelunasan" name="idPelunasan"
                                                                 class="form-control" style="width: 100%">
                                                         </div>
-                                                        <input type="hidden" name="idcoba" id="idcoba" value="idcoba">
                                                     </div>
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
@@ -269,7 +261,6 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <input type="hidden" name="detpelunasan" id="detpelunasan" value="dettampilbkm">
                                             </form>
                                         </div>
                                     </div>

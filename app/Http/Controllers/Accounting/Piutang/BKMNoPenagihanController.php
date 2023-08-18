@@ -72,14 +72,13 @@ class BKMNoPenagihanController extends Controller
         $nomorIdBKM = '00000' . str_pad($x->Id_BKM_E_Rp, 5, '0', STR_PAD_LEFT);
         $idBKM = $idBank . '-R' . substr($tahun, -2) . substr($nomorIdBKM, -5);
 
-        // $result = DB::connection('ConnAccounting')->select('exec [SP_5409_ACC_COUNTER_BKM_BKK] @bank = ?, @jenis = ?, @tgl = ?, @id = ?', [
-        //     $idBank,
-        //     'R',
-        //     $tanggalInput,
-        //     &$id
-        // ]);
-
         return response()->json($idBKM);
+    }
+
+    public function getTabelTampilBKM($tanggalInputTampil, $tanggalInputTampil2)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_NOTAGIH_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampil, $tanggalInputTampil2]);
+        return response()->json($tabel);
     }
 
     // function getIDBKM() {

@@ -16,6 +16,9 @@ let idCustomer = document.getElementById('idCustomer');
 let jenisCustomer = document.getElementById('jenisCustomer');
 let totalPelunasan = document.getElementById('totalPelunasan');
 let idKodePerkiraan = document.getElementById('idKodePerkiraan');
+let tanggalInputTampil = document.getElementById("tanggalInputTampil");
+let tanggalInputTampil2 = document.getElementById("tanggalInputTampil2");
+let tabelTampilBKM;
 
 let btnProses = document.getElementById('btnProses');
 let btnBatal = document.getElementById('btnBatal');
@@ -33,6 +36,7 @@ let matauang;
 const namaJenisPembayaranData = {};
 
 let btnKoreksi = document.getElementById('btnKoreksi');
+let btnOkTampil = document.getElementById('btnOkTampil');
 let jenis;
 
 const tanggal = new Date();
@@ -119,7 +123,43 @@ btnTampilBKM.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
-});
+})
+
+btnOkTampil.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/tabeltampilbkm/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKM = $("#tabelTampilBKM").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKM" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+                const idBKMModal = document.getElementById("idBKMModal");
+                console.log(idBKMModal);
+
+                if ($(this).prop("checked")) {
+                    idBKMModal.value = checkedCheckbox.Id_BKM;
+                    console.log(idBKMModal.value);
+                } else {
+                    idBKMModal.value = "";
+                }
+            });
+        });
+})
 
 
 btnTambahBiaya.addEventListener("click", function (event) {

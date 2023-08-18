@@ -6,13 +6,19 @@ let tanggalInput = document.getElementById('tanggalInput');
 let btnProsesss = document.getElementById("btnProsesss");
 let kodePerkiraanSelect = document.getElementById("kodePerkiraanSelect");
 let idKodePerkiraan = document.getElementById("idKodePerkiraan");
-let dataTable3;
 let tabelTampilBKM = document.getElementById("tabelTampilBKM");
+let dataTable3;
+let idBankNew;
+let tglInputNew = document.getElementById("tglInputNew");
+let idBKMNew = document.getElementById("idBKMNew");
+let totalPelunasan = document.getElementById("total1");
 
 let selectedRows = [];
 
 let btnOK = document.getElementById("btnOK");
 let btnTampilBkm = document.getElementById("btnTampilBkm");
+let btnGroupBKM = document.getElementById("btnGroupBKM");
+let btnTutupModal = document.getElementById("btnTutupModal");
 
 let modalkoreksi = document.getElementById("formkoreksi");
 let methodform = document.getElementById("methodkoreksi");
@@ -24,6 +30,11 @@ btnTampilBkm.addEventListener('click', function(event) {
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
 });
+
+btnTutupModal.addEventListener('click', function(event) {
+    event.preventDefault();
+    $('#pilihInputTanggal').modal('hide')
+})
 
 btnOkTampil.addEventListener('click', function(event) {
     event.preventDefault();
@@ -46,17 +57,48 @@ btnOkTampil.addEventListener('click', function(event) {
                 ]
             });
 
-            // tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
-            //     const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
-            //     const idBKMInput = document.getElementById("idBKM");
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+                const idBKMInput = document.getElementById("idBKM");
 
-            //     if ($(this).prop("checked")) {
-            //         idBKMInput.value = checkedCheckbox.Id_BKM;
-            //     } else {
-            //         idBKMInput.value = "";
-            //     }
-            // });
+                if ($(this).prop("checked")) {
+                    idBKMInput.value = checkedCheckbox.Id_BKM;
+                } else {
+                    idBKMInput.value = "";
+                }
+            });
         });
+});
+
+btnGroupBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+    const totalColumnIndex = 5;
+    $("input[name='dataPelunasanCheckbox']:checked").each(function(){
+        const isChecked = $(this).prop("checked");
+        // const row = DataTable3.row($(this).closest("tr")).data();
+        let rowIndex = $(this).closest("tr").index();
+
+        if (isChecked) {
+            const totalCellValue = dataTable3.cell(rowIndex, totalColumnIndex).data();
+            if (dataTable3.cell(rowIndex,8).data() == null || dataTable3.cell(rowIndex,7).data() == null || dataTable3.cell(rowIndex,2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+
+            } else {
+                totalPelunasan.value += parseFloat(totalCellValue);
+                console.log(totalPelunasan.value);
+            }
+        }
+        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+        .then((response) => response.json())
+        .then((options) => {
+            // console.log(options);
+            idBKMNew.value = options;
+            console.log(idBKMNew.value);
+            console.log(tglInputNew.value);
+
+        });
+    });
+    //formkoreksi.submit();
 });
 
 btnOK.addEventListener('click', function (event) {
@@ -72,7 +114,7 @@ btnOK.addEventListener('click', function (event) {
                         {
                             title: "Tgl Pelunasan", data: "Tgl_Pelunasan",
                             render: function (data) {
-                                return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
+                                return `<input type="checkbox" name="dataPelunasanCheckbox" value="${data}" /> ${data}`;
                             },
                         },
                         { title: "Id. Pelunasan", data: "Id_Pelunasan" },
@@ -85,6 +127,15 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                     ],
                 });
+
+                if (idBank.value == "KRR1") {
+                    idBankNew = "KKM"
+                } else if (idBank.value == "KKR2") {
+                    idBankNew = "KI"
+                } else {
+                    idBankNew = idBank.value;
+
+                }
             });
 })
 
@@ -181,6 +232,16 @@ btnInputTanggalBKM.addEventListener('click', function (event) {
         let cells = rows[i].cells;
         let checkbox = cells[0].getElementsByTagName("input")[0];
         if (checkbox.checked) {
+            let tglInputFull = cells[7].innerText; // Nilai datetime lengkap dari kolom "Tgl. Input"
+            let tglInputDate = new Date(tglInputFull);
+            let tgl = tglInputDate.getDate();
+            let bulan = tglInputDate.getMonth() + 1; // Ingat, bulan dimulai dari 0
+            let tahun = tglInputDate.getFullYear();
+
+            // Format tanggal, bulan, dan tahun menjadi bentuk "YYYY-MM-DD"
+            tglInputNew.value = `${tahun}-${bulan < 10 ? '0' : ''}${bulan}-${tgl < 10 ? '0' : ''}${tgl}`;
+            // console.log(tglInputNew);
+
             let rowData = {
                 Tgl_Pelunasan: cells[0].innerText,
                 Id_Pelunasan: cells[1].innerText,
@@ -285,7 +346,7 @@ function updateBank(namaBankSelect, selectedRows) {
 }
 
 function validatePilihBank() {
-    const checkedRows = document.querySelectorAll('input[name="divisiCheckbox"]:checked');
+    const checkedRows = document.querySelectorAll('input[name="dataPelunasanCheckbox"]:checked');
     if (checkedRows.length === 0) {
         alert('Pilih 1 Data Pelunasan!');
         return;
