@@ -12,7 +12,7 @@
                         <div style="display: flex; align-items: center;">
                             <label for="TglLapor" style="margin-right: 10px;">Tanggal</label>
                             <input class="form-control" type="date" id="TglAgenda" name="TglAgenda" required
-                                style="max-width: 200px;">
+                                style="max-width: 200px;" value="2022-12-25">
                         </div>
                     </div>
 
@@ -199,9 +199,10 @@
 
                                         </table>
                                     </div>
+
                                     <div style="text-align: right; margin-top: 100px;">
-                                        <button type="button" class="btn btn-primary" id="select-all">Pilih Semua</button>
-                                        <button type="button" class="btn btn-info" id="buttonShow">Insert Lembur</button>
+                                        <button type="button" class="btn btn-primary" id="buttonDivisiSelectAll">Pilih Semua</button>
+                                        <button type="button" class="btn btn-info" id="buttonInsert">Insert Lembur</button>
                                     </div>
 
                                 </div>
@@ -211,7 +212,7 @@
 
 
                     </div>
-
+                    <div id="form-container"></div>
                     <div class="card-container"
                         style="display: flex; flex-wrap: nowrap;border: 1px solid #000000; border-radius: 3px; background-color:#FFC080;">
                         <div class="card-body" style="flex: 1; margin-right: 10px;margin-left: 10px; ">
@@ -233,14 +234,15 @@
                                 style="flex: 1; margin-right: 10px;margin-left: 10px; background-color:orange ">
                                 <div class="time-form">
                                     <div>
-                                        <label for="pulang">Masuk Lembur:</label>
-                                        <input type="time" id="masukLembur" name="masukLembur">
+                                        <label for="pulang">Awal Jam Istirahat Lembur:</label>
+
+                                        <input type="time" id="AwalIstirahat" name="AwalIstirahat">
                                     </div>
                                 </div>
                                 <div class="time-form">
                                     <div>
-                                        <label for="pulang">Pulang Lembur:</label>
-                                        <input type="time" id="pulangLembur" name="pulangLembur">
+                                        <label for="pulang">Akhir Jam Istirahat Lembur:</label>
+                                        <input type="time" id="AkhirIstirahat" name="AkhirIstirahat">
                                     </div>
                                 </div>
                             </div>
