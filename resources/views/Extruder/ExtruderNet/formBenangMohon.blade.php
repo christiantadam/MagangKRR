@@ -1,6 +1,8 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_benang_mohon" class="form" data-aos="fade-up">
+        <button id="btn_tes" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi">Rincian Konversi</button>
+
         <div class="row mt-3">
             <div class="col-lg-7"></div>
 
@@ -45,7 +47,7 @@
                     <option selected disabled>-- Pilih Nomor --</option>
                     <option value="loading" style="display: none" disabled>Memuat data...</option>
                     @foreach ($formData['listNomor'] as $d)
-                        <option value="{{ $d->IdKonversiNG }}">{{ $d->IdKonversiNG . ' | ' . $d->MesinShift }}</option>
+                        <option value="{{ $d->IdKonversiNG }}">{{ $d->MesinShift }}</option>
                     @endforeach
                 </select>
             </div>
@@ -112,7 +114,7 @@
                     <tbody>
                         <tr>
                             @php $tableWidth = 14; @endphp
-                            <td colspan="{{ $tableWidth }}" class="text-center">
+                            <td colspan="{{ $tableWidth }}" style="padding-left: 100px">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
                             @for ($i = 0; $i < $tableWidth - 1; $i++)
@@ -149,7 +151,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="{{ $tableWidth }}" class="text-center">
+                            <td colspan="{{ $tableWidth }}" style="padding-left: 100px">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
                             @for ($i = 0; $i < $tableWidth - 1; $i++)
@@ -174,6 +176,8 @@
             </div>
         </div>
     </div>
+
+    @include('Extruder.ExtruderNet.modalRincianKonversi')
 
     <script src="{{ asset('js/Extruder/ExtruderNet/benangMohon.js') }}"></script>
 @endsection

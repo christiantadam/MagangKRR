@@ -400,7 +400,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Pesan Konfirmasi</h1>
+                    <h1 class="modal-title fs-5">Pesan Konfirmasi</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div id="modal_body" class="modal-body">
@@ -414,7 +414,8 @@
                 </div>
             </div>
         </div>
-    </div><!-- End Modal -->
+    </div>
+    <!-- End Modal -->
 
     <!-- Template Main JS File -->
     <script src="{{ asset('js/extruder_main.js') }}"></script>

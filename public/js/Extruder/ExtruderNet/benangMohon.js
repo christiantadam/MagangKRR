@@ -1,3 +1,5 @@
+// Saat table asal di-double-klik akan memunculkan form rincian konversi
+
 //#region Variables
 const dateMohon = document.getElementById("tanggal_mohon");
 const dateInput = document.getElementById("tanggal");
@@ -17,16 +19,18 @@ const btnHapus = document.getElementById("btn_hapus");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
-const listOfTxt = document.querySelectorAll(".form-control");
+const listOfTxt = document.querySelectorAll(
+    ".form-control:not(input[type='date'])"
+);
 const listOfSlc = document.querySelectorAll("select");
 
 const listAsal = [];
 /* ISI LIST ASAL
     0 IdType
     1 NamaType
-    2 JumlahPrimer
-    3 JumlahSekunder
-    4 JumlahTritier
+    2 JumlahPengeluaranPrimer
+    3 JumlahPengeluaranSekunder
+    4 JumlahPengeluaranTritier
     5 NamaObjek
     6 NamaKelompokUtama
     7 NamaKelompok
@@ -35,22 +39,12 @@ const listAsal = [];
     10 IdKelompokUtama
     11 IdKelompok
     12 IdSubKelompok
+    13 IdTransaksi
 */
 
 const listTujuan = [];
 /* ISI LIST TUJUAN
-    0 IdType,
-    1 NamaType,
-    2 JumlahPengeluaranPrimer/Sekunder/Tritier,
-    3 NamaObjek,
-    4 NamaKelompokUtama,
-    5 NamaKelompok,
-    6 NamaSubKelompok,
-    7 IdObjek,
-    8 IdKelompokUtama,
-    9 IdKelompok,
-    10 IdSubKelompok,
-    11 IdTransaksi
+    Sama seperti list asal namun, JumlahPengeluaran diganti JumlahPemasukkan
 */
 
 const tableCol = [
@@ -72,10 +66,10 @@ const tableCol = [
 const tableWidth = 14;
 
 var modeProses = "";
-var pilAsal = -1;
-var pilNoKonv = -1;
-var refetchType = false;
-var refetchKonv = false;
+var pilAsal = -1; // "tabel_asal"
+var pilNoKonv = -1; // "select_nomor_konversi"
+var refetchType = false; // "select_type"
+var refetchKonv = false; // "select_konversi"
 //#endregion
 
 //#region Events
@@ -124,7 +118,7 @@ btnProses.addEventListener("click", function () {
     if (modeProses == "isi") {
         if (listAsal.length < 1 || listTujuan.length < 1) {
             alert(
-                "Data tidak dapat diproses karena tidak asal atau tujuan konversi"
+                "Data tidak dapat diproses karena tidak ada asal atau tujuan konversi."
             );
         } else {
             prosesIsi();
@@ -140,7 +134,7 @@ btnProses.addEventListener("click", function () {
                 "Koreksi",
                 "Apakah anda yakin akan mengoreksi data ini?",
                 () => {
-                    prosesKoreksi(slcNomor.value);
+                    prosesKoreksi();
                 },
                 () => {}
             );
@@ -149,7 +143,7 @@ btnProses.addEventListener("click", function () {
                 "Hapus",
                 "Apakah anda yakin akan menghapus data ini?",
                 () => {
-                    posesHapus(slcNomor.value);
+                    posesHapus();
                 },
                 () => {}
             );
@@ -158,7 +152,7 @@ btnProses.addEventListener("click", function () {
 });
 
 slcNomor.addEventListener("click", function () {
-    if (dateInput.value != getCurrentDate() || this.options.length <= 3) {
+    if (dateInput.value != getCurrentDate() || this.options.length <= 2) {
         clearOptions("select_nomor");
         const loadingOption = this.querySelector('[value="loading"]');
         loadingOption.style.display = "block";
@@ -168,7 +162,7 @@ slcNomor.addEventListener("click", function () {
             .then((response) => response.json())
             .then((data) => {
                 addOptions(
-                    "select_type",
+                    "select_nomor",
                     data,
                     {
                         valueKey: "IdKonversiNG",
@@ -187,10 +181,11 @@ slcNomor.addEventListener("click", function () {
 });
 
 slcNomor.addEventListener("change", function () {
+    lihatDataKonversiNG(this.value);
     if (modeProses == "koreksi") {
         $("html, body").animate(
             {
-                scrollTop: $("table_asal").offset().top - 125,
+                scrollTop: $("##table_asal").offset().top - 125,
             },
             100
         );
@@ -297,9 +292,9 @@ slcNoKonversi.addEventListener("click", function () {
 
 slcNoKonversi.addEventListener("change", function () {
     listAsal.length = 0;
-    clearTable_DataTable("table_asal", tableWidth);
+    clearTable_DataTable("table_asal", tableWidth, "padding=100px");
     listTujuan.length = 0;
-    clearTable_DataTable("table_tujuan", tableWidth);
+    clearTable_DataTable("table_tujuan", tableWidth, "padding=100px");
 
     if (pilNoKonv != -1) {
         this.remove(pilNoKonv);
@@ -381,9 +376,9 @@ function clearData() {
     });
 
     listAsal.length = 0;
-    clearTable_DataTable("table_asal", tableWidth);
+    clearTable_DataTable("table_asal", tableWidth, "padding=100px");
     listTujuan.length = 0;
-    clearTable_DataTable("table_tujuan", tableWidth);
+    clearTable_DataTable("table_tujuan", tableWidth, "padding=100px");
 }
 
 function disableControl() {
@@ -396,9 +391,9 @@ function disableControl() {
 
 function lihatDataKonversiNG(id_konversi) {
     listAsal.length = 0;
-    clearTable_DataTable("table_asal", tableWidth);
+    clearTable_DataTable("table_asal", tableWidth, "padding=100px");
     listTujuan.length = 0;
-    clearTable_DataTable("table_tujuan", tableWidth);
+    clearTable_DataTable("table_tujuan", tableWidth, "padding=100px");
 
     // SP_5298_EXT_LISTDATA_NG
     let id_konv_inv = "";
@@ -446,7 +441,7 @@ function displayDataBenangNG() {
 
                     $("html, body").animate(
                         {
-                            scrollTop: $("table_asal").offset().top - 125,
+                            scrollTop: $("#table_asal").offset().top - 125,
                         },
                         100
                     );
@@ -458,6 +453,155 @@ function displayDataBenangNG() {
             }
         });
 }
+
+function prosesIsi() {
+    let id_konv_inv = "";
+
+    // SP_5298_EXT_INSERT_MASTERKONV_NG
+    fetchStmt(
+        `/Benang/insMasterKonvNG/${dateMohon.value}/${slcNoKonversi.value}/tmpUser`,
+        () => {
+            fetch(`/Benang/getIdKonversiNG`)
+                .then((response) => response.json())
+                .then((data) => {
+                    addOptionIfNotExists(slcNomor, data.IdKonversiNG);
+
+                    // SP_5298_EXT_LIST_COUNTER
+                    fetch(`/Benang/getListCounter`)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            id_konv_inv = data.NoKonversi.padStart(9, "0");
+                            modeProses = "";
+
+                            insertDetail(id_konv_inv);
+                        })
+                        .catch((error) => console.error("Error: ", error));
+                })
+                .catch((error) => console.error("Error: ", error));
+        }
+    );
+}
+
+function insertDetail(id_konv_inv) {
+    // SP_5298_EXT_INSERT_DETAILKONV_NG
+    for (let i = 0; i < listAsal.length; i++) {
+        fetchStmt(
+            `/Benang/insDetailKonvNG/${slcNomor.value}/
+                ${listAsal[i].IdType}/${listAsal[i].JumlahPengeluaranPrimer}/
+                ${listAsal[i].JumlahPengeluaranSekunder}/
+                ${listAsal[i].JumlahPengeluaranTritier}/${id_konv_inv}`,
+            () => {
+                createTmpTransaksiInventory(i, id_konv_inv, 0);
+            }
+        );
+    }
+
+    for (let i = 0; i < listTujuan.length; i++) {
+        fetchStmt(
+            `/Benang/insDetailKonvNG/${slcNomor.value}/
+                ${listTujuan[i].IdType}/${listTujuan[i].JumlahPemasukanPrimer}/
+                ${listTujuan[i].JumlahPemasukanSekunder}/
+                ${listTujuan[i].JumlahPemasukanTritier}/${id_konv_inv}`,
+            () => {
+                createTmpTransaksiInventory(i, id_konv_inv, 1);
+            }
+        );
+    }
+}
+
+function createTmpTransaksiInventory(i, id_konv_inv, status) {
+    let urlString = "";
+    switch (status) {
+        case 0:
+            // SP_5298_EXT_INSERT_04_ASALTMPTRANSAKSI
+            urlString = `/Benang/insAsalTmpTrans/04/asal_konversi/
+                ${listAsal[i].IdType}/tmpUser/${dateMohon.value}/
+                ${listAsal[i].JumlahPengeluaranPrimer}/
+                ${listAsal[i].JumlahPengeluaranSekunder}/
+                ${listAsal[i].JumlahPengeluaranTritier}/
+                ${listAsal[i].IdSubKelompok}/${id_konv_inv}`;
+            break;
+        case 1:
+            // SP_5298_EXT_INSERT_04_TUJUANTMPTRANSAKSI
+            urlString = `/Benang/insTujuanTmpTrans/04/tujuan_konversi/
+                ${listTujuan[i].IdType}/tmpUser/${dateMohon.value}/
+                ${listTujuan[i].JumlahPemasukanPrimer}/
+                ${listTujuan[i].JumlahPemasukanSekunder}/
+                ${listTujuan[i].JumlahPemasukanTritier}/
+                ${listTujuan[i].IdSubKelompok}/${id_konv_inv}`;
+            break;
+
+        default:
+            break;
+    }
+
+    fetchStmt(urlString, () => {
+        clearData();
+        disableControl();
+        toggleButtons(1);
+
+        alert("Data berhasil tersimpan!");
+    });
+}
+
+function prosesKoreksi() {
+    for (let i = 0; i < listAsal.length; i++) {
+        // SP_5298_EXT_UPDATE_DETAIL_KONV_NG
+        fetchStmt(
+            `/Benang/updDetailKonvNG/${slcNomor.value}/${listAsal[i].IdType}/
+                ${listAsal[i].JumlahPengeluaranPrimer}/
+                ${listAsal[i].JumlahPengeluaranSekunder}/
+                ${listAsal[i].JumlahPengeluaranTritier}`
+        );
+
+        // SP_5298_EXT_UPDATE_TMPTRANSAKSI
+        fetchStmt(
+            `/Benang/updTmpTransaksi/${listAsal[i].IdTransaksi}/
+                asal_konversi/${listAsal[i].JumlahPengeluaranPrimer}/
+                ${listAsal[i].JumlahPengeluaranSekunder}/
+                ${listAsal[i].JumlahPengeluaranTritier}`
+        );
+    }
+
+    for (let i = 0; i < listTujuan.length; i++) {
+        fetchStmt(
+            `/Benang/updDetailKonvNG/${slcNomor.value}/${listTujuan[i].IdType}/
+                ${listTujuan[i].JumlahPengeluaranPrimer}/
+                ${listTujuan[i].JumlahPengeluaranSekunder}/
+                ${listTujuan[i].JumlahPengeluaranTritier}`
+        );
+
+        fetchStmt(
+            `/Benang/updTmpTransaksi/${listTujuan[i].IdTransaksi}/
+                tujuan_konversi/${listTujuan[i].JumlahPengeluaranPrimer}/
+                ${listTujuan[i].JumlahPengeluaranSekunder}/
+                ${listTujuan[i].JumlahPengeluaranTritier}`
+        );
+    }
+
+    clearData();
+    disableControl();
+    toggleButtons(1);
+
+    modeProses = "";
+
+    alert("Data telah berhasil dikoreksi!");
+}
+
+function prosesHapus() {
+    // SP_5409_EXT_DELETE_KONVERSI_NG
+    fetchStmt(`/Benang/delKonversiNG/${slcNomor.value}`, () => {
+        clearData();
+        disableControl();
+        toggleButtons(1);
+
+        modeProses = "";
+
+        alert("Data telah berhasil dihapus!");
+    });
+}
+
+function listAsalClicked() {}
 //#endregion
 
 function init() {
@@ -503,4 +647,6 @@ function init() {
 
 $(document).ready(function () {
     init();
+
+    document.getElementById("btn_tes").focus();
 });

@@ -126,11 +126,21 @@ function clearTable_DataTable(tableId, tableWidth, msg = null) {
     const tbodyKu = document.querySelector("#" + tableId + " tbody");
 
     var headingStr = `<h1 class="mt-3">Tabel masih kosong...</h1>`;
+    var styleStr = `class="text-center"`;
     if (msg != null) {
-        headingStr = `<h1 class="mt-3">${msg}</h1>`;
+        if (msg instanceof Array) {
+            styleStr = `style="padding-left: ${msg[0].split("=")[1]}"`;
+            headingStr = `<h1 class="mt-3">${msg[1]}</h1>`;
+        } else {
+            if (msg.includes("padding=")) {
+                styleStr = `style="padding-left: ${msg.split("=")[1]}"`;
+            } else {
+                headingStr = `<h1 class="mt-3">${msg}</h1>`;
+            }
+        }
     }
 
-    var tableStr = `<tr><td colspan="${tableWidth}" class="text-center">${headingStr}</td>`;
+    var tableStr = `<tr><td colspan="${tableWidth}" ${styleStr}>${headingStr}</td>`;
     for (let i = 0; i < tableWidth; i++) {
         tableStr += `<td style="display: none"></td>`;
     }
@@ -154,17 +164,15 @@ function addSearchBar_DataTable(tableId) {
     var searchInput = $(`#${tableId}_filter input[type="search"]`).addClass(
         "form-control"
     );
+
     searchInput.wrap('<div class="input-group"></div>');
     searchInput.before('<span class="input-group-text">Cari:</span>');
-
-    // console.log("Halo dunia!");
 }
 //#endregion
 
 //#region Select Options
 function addOptions(selectId, optionData, keyMapping, showId = true) {
     const selectEle = document.getElementById(selectId);
-    optionData = JSON.parse(optionData);
 
     for (let i = 0; i < optionData.length; i++) {
         const newOption = document.createElement("option");
@@ -172,15 +180,16 @@ function addOptions(selectId, optionData, keyMapping, showId = true) {
         if (keyMapping.valueKey && keyMapping.textKey) {
             newOption.value = optionData[i][keyMapping.valueKey];
             newOption.text = showId
-                ? `${optionData[i][keyMapping.valueKey]}
-                    | ${optionData[i][keyMapping.textKey]}`
+                ? `${optionData[i][keyMapping.valueKey]} |
+                    ${optionData[i][keyMapping.textKey]}`
                 : optionData[i][keyMapping.textKey];
+
             selectEle.appendChild(newOption);
         }
     }
 }
 
-function addOptionIfNotExists(selectEle, value, text, autoSelect = true) {
+function addOptionIfNotExists(selectEle, value, text = "", autoSelect = true) {
     const options = selectEle.options;
     for (let i = 0; i < options.length; i++) {
         if (options[i].value === value) {
@@ -202,7 +211,7 @@ function clearOptions(selectId) {
         </option>
 
         <option value="loading" style="display: none" disabled>
-            Loading...
+            Memuat data...
         </option>
     `;
     selectEle.selectedIndex = 0;
@@ -221,6 +230,9 @@ function fetchStmt(urlString, postAction = null) {
             }
         })
         .catch((error) => {
+            alert(
+                "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam."
+            );
             console.error("Error: ", error);
         });
 }

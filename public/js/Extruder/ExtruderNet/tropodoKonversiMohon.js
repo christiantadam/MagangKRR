@@ -103,7 +103,11 @@ btnKoreksiMaster.addEventListener("click", function () {
     listKonversi.length = 0;
     clearTable_DataTable("table_konversi", tableKonversiWidth);
     listKomposisi.length = 0;
-    clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+    clearTable_DataTable(
+        "table_komposisi",
+        tableKomposisiWidth,
+        "padding=100px"
+    );
 
     modeProses = "koreksi";
     toggleButton(2);
@@ -120,7 +124,11 @@ btnHapusMaster.addEventListener("click", function () {
     listKonversi.length = 0;
     clearTable_DataTable("table_konversi", tableKonversiWidth);
     listKomposisi.length = 0;
-    clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+    clearTable_DataTable(
+        "table_komposisi",
+        tableKomposisiWidth,
+        "padding=100px"
+    );
 
     slcNomor.disabled = false;
     slcNomor.focus();
@@ -141,7 +149,11 @@ btnKeluar.addEventListener("click", function () {
         modeProses = "";
 
         listKomposisi.length = 0;
-        clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+        clearTable_DataTable(
+            "table_komposisi",
+            tableKomposisiWidth,
+            "padding=100px"
+        );
     }
 });
 
@@ -407,7 +419,11 @@ slcMesin.addEventListener("change", function () {
     listKonversi.length = 0;
     clearTable_DataTable("table_konversi", tableKonversiWidth);
     listKomposisi.length = 0;
-    clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+    clearTable_DataTable(
+        "table_komposisi",
+        tableKomposisiWidth,
+        "padding=100px"
+    );
 
     if (modeProses == "baru") {
         listOfInput.forEach((input) => {
@@ -450,7 +466,11 @@ slcKomposisi.addEventListener("change", function () {
         listKonversi.length = 0;
         clearTable_DataTable("table_konversi", tableKonversiWidth);
         listKomposisi.length = 0;
-        clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+        clearTable_DataTable(
+            "table_komposisi",
+            tableKomposisiWidth,
+            "padding=100px"
+        );
 
         listOfInput.forEach((input) => {
             input.value = "";
@@ -1182,7 +1202,11 @@ function rowClickedKomposisi(row, data, index) {
                 clearDataDetail();
 
                 listKomposisi.length = 0;
-                clearTable_DataTable("table_komposisi", tableKomposisiWidth);
+                clearTable_DataTable(
+                    "table_komposisi",
+                    tableKomposisiWidth,
+                    "padding=100px"
+                );
 
                 $("html, body").animate(
                     {

@@ -104,7 +104,7 @@
                 <label for="komposisi">Komposisi:</label>
                 <select id="select_komposisi" class="form-select" disabled>
                     <option selected disabled>-- Pilih Komposisi --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
+                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
 
@@ -174,7 +174,7 @@
                                 <tbody>
                                     @php $tableWidth = 4; @endphp
                                     <td colspan="{{ $tableWidth }}">
-                                        <h1 class="mt-3" style="margin-left: 100px">Tabel masih kosong...</h1>
+                                        <h1 class="mt-3" style="padding-left: 100px">Tabel masih kosong...</h1>
                                     </td>
                                     @for ($i = 0; $i < $tableWidth - 1; $i++)
                                         <td class="hidden"></td>
