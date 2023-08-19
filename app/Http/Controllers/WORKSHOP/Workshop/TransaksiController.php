@@ -11,10 +11,6 @@ class TransaksiController extends Controller
     {
         return view();
     }
-    public function MaintenanceOrderKerja()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.MaintenanceOrderKerja');
-    }
 
     public function ACCManagerKerja()
     {

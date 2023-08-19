@@ -96,7 +96,7 @@
                                 <li><a href="{{ url('MaintenanceKodeGambar') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Nomor Gambar</a>
                                 </li>
                                 <hr style="height:2px;">
-                                <li><a href="/MaintenanceOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Kerja</a>
+                                <li><a href="{{ url('MaintenanceOrderKerja') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Maintenance Order Kerja</a>
                                 </li>
                                 <li><a href="/ACCManagerKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>
