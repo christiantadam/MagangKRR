@@ -12,7 +12,10 @@ class CBRController extends Controller
     //Display a listing of the resource.
     public function index()
     {
+
+        $dataPrintUlang = DB::connection('ConnInventory')->select('exec SP_5409_INV_DataPrintUlang @kodebarang = ?, @noindeks = ?', ["KBR1", "1"]);
         $data = 'HAPPY HAPPY HAPPY';
+        // dd($dataPrintUlang);
         return view('BarcodeKerta2.CBR', compact('data'));
     }
 

@@ -112,19 +112,12 @@
                                         <table id="TypeTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Type </th>
-                                                    <th>No Barcode </th>
-                                                    <th>Sub Kelompok </th>
-                                                    <th>Kelompok </th>
-                                                    <th>Kode Barang</th>
-                                                    <th>Noln.. </th>
-                                                    <th>Primal</th>
-                                                    <th>Sekunder</th>
-                                                    <th>Tertier</th>
-                                                    <th>Tanggal</th>
-                                                    <th>Divisi</th>
-                                                    <th>Shift</th>
-                                                    <th>-</th>
+                                                    <th>No. </th>
+                                                    <th>Nama Barang </th>
+                                                    <th>Kode Barang </th>
+                                                    <th>Ball </th>
+                                                    <th>Lembar</th>
+                                                    <th>KG </th>
                                                 </tr>
                                             </thead>
                                             <tbody>

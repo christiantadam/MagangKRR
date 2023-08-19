@@ -76,6 +76,14 @@ $(document).ready(function () {
         // Hide the modal immediately after populating the data
         closeModal();
     });
+    let No_barcode = document.getElementById("No_barcode");
+    let s = "";
+    s += String.fromCharCode(27) + "D0451,0975,0421" + String.fromCharCode(10) + String.fromCharCode(0);
+    s += String.fromCharCode(27) + "C" + String.fromCharCode(10) + String.fromCharCode(0);
+    s += String.fromCharCode(27) + "U2;0160" + String.fromCharCode(10) + String.fromCharCode(0);
+
+    No_barcode.value = s;
+    // No_barcode.value = "abc";
 });
 
 function openModal() {
