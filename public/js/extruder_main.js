@@ -171,9 +171,7 @@ function addSearchBar_DataTable(tableId) {
 //#endregion
 
 //#region Select Options
-function addOptions(selectId, optionData, keyMapping, showId = true) {
-    const selectEle = document.getElementById(selectId);
-
+function addOptions(selectEle, optionData, keyMapping, showId = true) {
     for (let i = 0; i < optionData.length; i++) {
         const newOption = document.createElement("option");
 
@@ -203,8 +201,20 @@ function addOptionIfNotExists(selectEle, value, text = "", autoSelect = true) {
     selectEle.appendChild(newOption);
 }
 
-function clearOptions(selectId) {
-    const selectEle = document.getElementById(selectId);
+function addLoadingOption(selectEle) {
+    const loadingOption = new Option("Memuat data...", "loading");
+    loadingOption.disabled = true;
+    selectEle.appendChild(loadingOption);
+
+    const errorOption = new Option("", "error_found");
+    errorOption.disabled = true;
+    selectEle.appendChild(errorOption);
+
+    return [loadingOption, errorOption];
+}
+
+function clearOptions(selectEle) {
+    var selectId = selectEle.getAttribute("id");
     selectEle.innerHTML = `
         <option selected disabled>
             -- Pilih ${snakeCaseToTitleCase(selectId.replace("select_", ""))} --
@@ -232,6 +242,33 @@ function fetchStmt(urlString, postAction = null) {
         .catch((error) => {
             alert(
                 "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam."
+            );
+            console.error("Error: ", error);
+        });
+}
+
+function fetchSelect(urlString, postAction, errorOptions = null) {
+    fetch(urlString)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.length == 0) {
+                console.log("DATA KOSONG!");
+            } else {
+                postAction(data);
+            }
+
+            console.log("urlString = " + urlString);
+            console.log("data = " + data);
+        })
+        .catch((error) => {
+            if (errorOptions != null) {
+                errorOptions[0].textContent =
+                    "Terdapat kendala saat memuat data.";
+                errorOptions[1].textContent = "Mohon segera hubungi Pak Adam.";
+            }
+
+            alert(
+                "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam."
             );
             console.error("Error: ", error);
         });

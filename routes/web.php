@@ -113,7 +113,15 @@ Route::get('/Benang/updTmpTransaksi/{id_transaksi}/{uraian_detail_transaksi?}/{j
 Route::get('/Benang/delKonversiNG/{id_konversi}', [BenangController::class, 'delKonversiNG']);
 #endregion
 
-#region ExtruderNet - Master
+#region ExtruderNet - Form Rincian Konversi
+Route::get('/Benang/getIdObjekKelUtama/{id_objek_kelompok_utama}/{type?}', [BenangController::class, 'getIdObjekKelUtama']);
+Route::get('/Benang/geIdKelUtamaKelompok/{id_kelompok_utama_kelompok}/{type?}', [BenangController::class, 'geIdKelUtamaKelompok']);
+Route::get('/Benang/getIdKelSubKelompok/{id_kelompok_sub_kelompok}', [BenangController::class, 'getIdKelSubKelompok']);
+Route::get('/Benang/getIdSubKelompokType/{id_sub_kelompok_type}', [BenangController::class, 'getIdSubKelompokType']);
+Route::get('/Benang/getSaldoBarang/{id_type}', [BenangController::class, 'getSaldoBarang']);
+#endregion
+
+#region ExtruderNet - Master (unfinished)
 Route::get('/ExtruderNet/getDataKomposisi/{no_komposisi}', [MasterController::class, 'getDataKomposisi']);
 Route::get('/ExtruderNet/getIdKomposisi/{id_divisi}/{id_komposisi?}', [MasterController::class, 'getIdKomposisi']);
 Route::get('/ExtruderNet/getKelompokUtama/{id_objek}/{type?}', [MasterController::class, 'getKelompokUtama']);

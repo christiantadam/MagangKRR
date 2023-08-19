@@ -14,34 +14,34 @@
                     <div class="card-body" style="background: ghostwhite">
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="kelompok_utama">Kelompok Utama:</label>
+                                <label for="kelut_rk">Kelompok Utama:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_kelompok_utama" class="form-control col-3"
+                                    <input type="text" id="id_kelut_rk" class="form-control col-3"
                                         style="width: 30%;">
-                                    <input type="text" id="nama_kelompok_utama" class="form-control col-7"
+                                    <input type="text" id="nama_kelut_rk" class="form-control col-7"
                                         style="width: 70%;">
                                 </div>
 
-                                <label for="kelompok_utama">Kelompok:</label>
+                                <label for="kel_rk">Kelompok:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_kelompok" class="form-control col-3"
-                                        style="width: 30%;">
-                                    <input type="text" id="nama_kelompok" class="form-control col-7"
+                                    <input type="text" id="id_kel_rk" class="form-control col-3" style="width: 30%;">
+                                    <input type="text" id="nama_kel_rk" class="form-control col-7"
                                         style="width: 70%;">
                                 </div>
 
-                                <label for="kelompok_utama">Sub-kelompok:</label>
+                                <label for="subkel_rk">Sub-kelompok:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_sub_kelompok" class="form-control col-3"
+                                    <input type="text" id="id_subkel_rk" class="form-control col-3"
                                         style="width: 30%;">
-                                    <input type="text" id="nama_sub_kelompok" class="form-control col-7"
+                                    <input type="text" id="nama_subkel_rk" class="form-control col-7"
                                         style="width: 70%;">
                                 </div>
 
-                                <label for="kelompok_utama">Type:</label>
+                                <label for="type_rk">Type:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_type" class="form-control col-3" style="width: 30%">
-                                    <input type="text" id="nama_type" class="form-control col-7" style="width: 70%">
+                                    <input type="text" id="id_type_rk" class="form-control col-3" style="width: 30%">
+                                    <input type="text" id="nama_type_rk" class="form-control col-7"
+                                        style="width: 70%">
                                 </div>
                             </div>
 
@@ -58,7 +58,7 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_primer_asal"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_primer_asal" class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
 
@@ -68,7 +68,8 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_sekunder_asal"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_sekunder_asal"
+                                                            class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
 
@@ -78,7 +79,7 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_tritier_asal"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_tritier_asal" class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,28 +126,24 @@
                     <div class="card-body" style="background: ghostwhite">
                         <div class="row">
                             <div class="col-lg-4">
-                                <label for="kelompok_utama">Kelompok Utama:</label>
-                                <select id="select_kelompok_utama_rk" class="form-select mb-3">
+                                <label for="select_kelut_rk">Kelompok Utama:</label>
+                                <select id="select_kelut_rk" class="form-select mb-3">
                                     <option disabled selected>-- Pilih Kelompok Utama --</option>
-                                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                                 </select>
 
-                                <label for="kelompok_utama">Kelompok:</label>
-                                <select id="select_kelompok_rk" class="form-select mb-3">
+                                <label for="select_kel_rk">Kelompok:</label>
+                                <select id="select_kel_rk" class="form-select mb-3">
                                     <option disabled selected>-- Pilih Kelompok --</option>
-                                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                                 </select>
 
-                                <label for="kelompok_utama">Sub-kelompok:</label>
-                                <select id="select_sub_kelompok_rk" class="form-select mb-3">
+                                <label for="select_subkel_rk">Sub-kelompok:</label>
+                                <select id="select_subkel_rk" class="form-select mb-3">
                                     <option disabled selected>-- Pilih Sub-kelompok --</option>
-                                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                                 </select>
 
-                                <label for="kelompok_utama">Type:</label>
+                                <label for="select_type_rk">Type:</label>
                                 <select id="select_type_rk" class="form-select mb-3">
                                     <option disabled selected>-- Pilih Type --</option>
-                                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                                 </select>
                             </div>
 
@@ -163,7 +160,8 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_primer_tujuan"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_primer_tujuan"
+                                                            class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
 
@@ -173,7 +171,8 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_sekunder_tujuan"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_sekunder_tujuan"
+                                                            class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
 
@@ -183,7 +182,8 @@
                                                     <div class="input-group col-7" style="width: 65%">
                                                         <input type="number" id="saldo_tritier_tujuan"
                                                             class="form-control" placeholder="0" disabled>
-                                                        <span class="input-group-text">NULL</span>
+                                                        <span id="sat_tritier_tujuan"
+                                                            class="input-group-text">NULL</span>
                                                     </div>
                                                 </div>
                                             </div>

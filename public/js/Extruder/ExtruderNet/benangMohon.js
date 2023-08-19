@@ -605,6 +605,14 @@ function listAsalClicked() {}
 //#endregion
 
 function init() {
+    if ($.fn.DataTable.isDataTable("#table_tujuan")) {
+        $("#table_tujuan").DataTable().destroy();
+    }
+
+    if ($.fn.DataTable.isDataTable("#table_asal")) {
+        $("#table_asal").DataTable().destroy();
+    }
+
     $("#table_asal").DataTable({
         responsive: true,
         paging: false,

@@ -33,7 +33,7 @@ class BenangController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd(Str::title(str_replace('_', ' ', 'halo_dunia')));
+        // dd($this->getIdObjKelUtama("032", "3"));
 
         return view($view_name, $view_data);
     }
@@ -225,6 +225,60 @@ class BenangController extends Controller
         );
 
         // PARAMETER - @idkonversi varchar(14)
+    }
+    #endregion
+
+    #region Form Rincian Konversi
+    public function getIdObjekKelUtama($id_objek_kelompok_utama, $type = null)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA @Xidobjek_kelompokutama = ?, @Type = ?',
+            [$id_objek_kelompok_utama, $type]
+        );
+
+        // dd($this->getIdObjKelUtama("032", "3"));
+
+        // PARAMETER - @Xidobjek_kelompokutama  varchar(4), @Type char(1) = null
+    }
+
+    public function geIdKelUtamaKelompok($id_kelompok_utama_kelompok, $type = null)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK @XIdKelompokUtama_Kelompok = ?, @type = ?',
+            [$id_kelompok_utama_kelompok, $type]
+        );
+
+        // PARAMETER - @XIdKelompokUtama_Kelompok    char (4), @type char(1)=null
+    }
+
+    public function getIdKelSubKelompok($id_kelompok_sub_kelompok)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?',
+            [$id_kelompok_sub_kelompok]
+        );
+
+        // PARAMETER - @XIdKelompok_SubKelompok    char (6)
+    }
+
+    public function getIdSubKelompokType($id_sub_kelompok_type)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_IDSUBKELOMPOK_TYPE @XIdSubKelompok_Type = ?',
+            [$id_sub_kelompok_type]
+        );
+
+        // PARAMTER - @XIdSubKelompok_Type     char (6)
+    }
+
+    public function getSaldoBarang($id_type)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_SALDO_BARANG @IdType = ?',
+            [$id_type]
+        );
+
+        // PARAMETER - @IdType char(20)
     }
     #endregion
 }
