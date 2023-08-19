@@ -16,7 +16,7 @@ class CreateBKMController extends Controller
 
     public function getTabelPelunasan($bulan, $tahun)
     {
-        //dd($bulan, $tahun);
+        //dd($bulan, $tahun);[SP_5298_ACC_LIST_CASH_ADV]
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_CASH_ADV] @bln = ?, @thn = ?', [$bulan, $tahun]);
         return response()->json($tabel);
     }
@@ -70,7 +70,7 @@ class CreateBKMController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         $idBKMNew = $request->idBKMNew;
         $tglInputNew = $request->tglInputNew;
         $userInput = $request->userInput;

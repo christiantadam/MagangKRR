@@ -88,28 +88,47 @@ btnGroupBKM.addEventListener('click', function(event) {
                 console.log(totalPelunasan.value);
             }
         }
+
+        // $.ajax({
+        //     url: "/CreateBKM/" + idBKMNew.value, // Replace with your actual route
+        //     type: "POST",
+        //     data: {
+        //         _token: $('meta[name="csrf-token"]'.attr('content')), // Required for Laravel CSRF protection
+        //         key1: "idBKM",
+        //         key2: "formkoreksi"
+        //     },
+        //     success: function(response) {
+        //         $("#response").html(response);
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.log(error);
+        //     }
+        // });
+
         fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
         .then((response) => response.json())
         .then((options) => {
             // console.log(options);
             idBKMNew.value = options;
+            console.log(options);
             console.log(idBKMNew.value);
             console.log(tglInputNew.value);
 
         });
     });
-    //formkoreksi.submit();
+    console.log(idBKMNew.value);
+    formkoreksi.submit();
 });
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
     clickOK();
-        fetch("/detailtabelpelunasan/" + bulan.value +"/"+ tahun.value)
+        fetch("/detailtabelpelunasan2/" + bulan.value +"/"+ tahun.value)
             .then((response) => response.json())
-            .then((options) => {
-                console.log(options);
+            .then((optionss) => {
+                console.log(optionss);
                 dataTable3 = $("#tabelDataPelunasan").DataTable({
-                    data: options,
+                    data: optionss,
                     columns: [
                         {
                             title: "Tgl Pelunasan", data: "Tgl_Pelunasan",

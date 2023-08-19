@@ -16,26 +16,27 @@
                                         <label for="bulanTahun" style="margin-right: 10px;">Bulan/Tahun</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="bulan" name="bulan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnProses" name="isi" value="OK" class="btn">
+                                        <input type="submit" id="btnOK" name="isi" value="OK" class="btn">
                                     </div>
                                 </div>
 
                                 <br><div>
                                     Data Pelunasan
                                     <div style="overflow-y: auto; max-height: 400px;">
-                                        <table style="width: 140%; table-layout: fixed;">
+                                        <table style="width: 160%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 15%;">
+                                                <col style="width: 20%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
@@ -47,28 +48,19 @@
                                                     <th>Tgl. Pelunasan</th>
                                                     <th>Id. Pelunasan</th>
                                                     <th>Id. Bank</th>
-                                                    <th>Jenis Pembayaran Pelunasan</th>
-                                                    <th>No. Mata Uang</th>
+                                                    <th>Jenis Pembayaran</th>
+                                                    <th>Mata Uang</th>
                                                     <th>Total Pelunasan</th>
+                                                    <th>No. Bukti</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 5</td>
-                                                    <td>Data 6</td>
-                                                    <td>Data 7</td>
-                                                    <td>Data 8</td>
-                                                </tr>
-                                                <!-- Tambahkan baris lainnya jika diperlukan -->
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                
+
                                 <!--CARD 1-->
                                 <br>
                                 <div class="card-container" style="display: flex;">
@@ -156,7 +148,7 @@
                                     <!--CARD 3-->
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
+                                            <div class="col-md-8">
                                                 <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
                                                 <label for="radio_1">Detail Kurang/Lebih</label>
                                             </div>
@@ -210,4 +202,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/BKMCashAdvance/UpdateDetailBKM.js') }}"></script>
 @endsection

@@ -41,7 +41,7 @@
                                 </div>
 
                                 <br><div>
-                                    Data Pelunasans
+                                    Data Pelunasan
                                     <div style="overflow-y: auto; max-height: 400px;">
                                         <table style="width: 160%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
