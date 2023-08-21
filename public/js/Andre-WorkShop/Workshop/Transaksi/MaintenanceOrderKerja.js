@@ -24,6 +24,18 @@ let tunda_teknik = document.getElementById('tunda_teknik');
 let pilih;
 let Divisi = document.getElementById('kddivisi');
 let user = 4384;
+
+
+let btnisi = document.getElementById('isi');
+let modetrans;
+
+
+let tanggalmodal = document.getElementById('tanggalmodal');
+let isiOrderKerjatitle = document.getElementById('isiOrderKerjatitle');
+let iddivisimodalOrder = document.getElementById('iddivisimodalOrder');
+let UserModal = document.getElementById('UserModal');
+let SatuanModal = document.getElementById('SatuanModal');
+let NomorSatuanModal = document.getElementById('NomorSatuanModal');
 //#endregion
 
 //#region set tanggal
@@ -172,7 +184,6 @@ function cleardata() {
 }
 //#endregion
 
-
 //#region divisi di ubah
 
 Divisi.addEventListener("change", function () {
@@ -193,3 +204,31 @@ Divisi.addEventListener("change", function () {
 });
 
 //#endregion
+
+//#region btn isi klik
+function klikisi() {
+    if (Divisi.value == "Pilih Divisi") {
+        alert("Pilih Divisi Anda");
+    }
+    else{
+        modetrans = 1;
+
+        btnisi.setAttribute("data-toggle", "modal");
+        btnisi.setAttribute("data-target", "#OrderKerja");
+        Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+        isiOrderKerjatitle.textContent =  Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+        iddivisimodalOrder.value = Divisi.value;
+        tanggalmodal.value = formattedFirstDay;
+        UserModal.value = user;
+    }
+}
+
+//#endregion
+
+//#region ubah satuan
+SatuanModal.addEventListener('change', function(){
+    NomorSatuanModal.value = SatuanModal.value;
+});
+//#endregion
+
+//#region Nomor Gambar Enter

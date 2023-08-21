@@ -235,7 +235,8 @@
           <div class="row mt-3 d-flex justify-content-center">
             <div class="col-lg-8 content-center">
               <div class="input-group">
-                <button type="button" class="btn btn-success custom-btn">ISI</button>
+                <button type="button" class="btn btn-success custom-btn" id="isi"
+                  onclick="klikisi()">ISI</button>
                 <button type="button" class="btn btn-warning custom-btn">KOREKSI</button>
                 <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
               </div>
@@ -272,6 +273,182 @@
               </div>
             </div>
           </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="OrderKerja" tabindex="-1" role="dialog" aria-labelledby="OrderKerjaLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title-container" style="flex: 1;text-align: center;">
+            <h5 class="modal-title" id="isiOrderKerjatitle">Judul Modal</h5>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="post" id="formOrderKerja" action="{{ url('MaintenanceOrderGambar') }}">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodFormOrderKerja">
+          <input type="hidden" name="iddivisiOrder" id="iddivisimodalOrder">
+          <input type="hidden" name="NomorSatuanModal" id="NomorSatuanModal">
+
+          <div class="modal-body">
+            <div class="container">
+              <div class="row" style="align-items: center;">
+                <div class="col-2">
+                  <span>Tanggal</span>
+                </div>
+                <div class="col-4">
+                  <input type="date" class="form-control form-control" id="tanggalmodal">
+                </div>
+                <div class="col-6">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="buatbarumodal"
+                      value="option1">
+                    <label class="form-check-label" for="buatbarumodal">Buat Baru</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Perbaikanmodal"
+                      value="option2">
+                    <label class="form-check-label" for="Perbaikanmodal">Perbaikan</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>Kd. Barang</span>
+                </div>
+                <div class="col-5">
+                  <input type="text" class="form-control form-control" id="Kdbarangmodal">
+                </div>
+                <div class="col-2" style="text-align: right;">
+                  <span style="color: red">input PDF</span>
+                </div>
+                <div class="col-3">
+                  <input class="form-control" type="file" id="inputpdfmodal">
+                </div>
+              </div>
+
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>No. Gambar</span>
+                </div>
+                <div class="col-2">
+                  <input type="text" class="form-control form-control" id="NomorGambarModal">
+                </div>
+                <div class="col-3">
+                  <input type="text" class="form-control form-control" id="NamaBarangModal">
+                </div>
+                <div class="col-2" style="text-align: right;">
+                  <span>Update PDF</span>
+                </div>
+                <div class="col-3">
+                  <input class="form-control" type="file" id="updatepdfmodal">
+                </div>
+              </div>
+
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>Keterangan</span>
+                </div>
+                <div class="col-7">
+                  <input type="text" class="form-control form-control" id="KeteranganModal">
+                </div>
+              </div>
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>Jumlah</span>
+                </div>
+                <div class="col-2">
+                  <input type="number" class="form-control form-control" id="JumlahModal" value="1">
+                </div>
+                <div class="col-4">
+                  <select class="form-select" name="SatuanModal" style="width: 36vh;
+                    height: 6vh;"
+                    id="SatuanModal">
+                    <option disabled selected>Pilih Satuan</option>
+                    @foreach ($satuan as $s)
+                      <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>Jumlah</span>
+                </div>
+                <div class="col-5">
+                  <select class="form-select" name="MesinModal" style="width: 36vh;
+                      height: 6vh;"
+                    id="MesinModal">
+                    <option disabled selected>Pilih Mesin</option>
+                    {{-- @foreach ($divisi as $d)
+                        <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
+                      @endforeach --}}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row" style="align-items: center; margin-top: 10px;">
+                <div class="col-2">
+                  <span>Peng-Order</span>
+                </div>
+                <div class="col-3">
+                  <input type="text" class="form-control form-control" id="UserModal" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 10px">
+              <div class="container">
+                <div class="row">
+                  <div class="col-6" style="border-style: ridge;">
+                    <span style="color: red">Saldo Di Gudang S/Part</span>
+                    <div class="row" style="align-items: center; margin-top: 10px;">
+                      <div class="col-6">
+                        <span>Saldo Primer</span>
+                      </div>
+                      <div class="col-6">
+                        <input type="text" class="form-control form-control" id="PrimerModal">
+                      </div>
+                    </div>
+                    <div class="row" style="align-items: center; margin-top: 10px;">
+                      <div class="col-6">
+                        <span>Saldo Sekunder</span>
+                      </div>
+                      <div class="col-6">
+                        <input type="text" class="form-control form-control" id="SekunderModal">
+                      </div>
+                    </div>
+                    <div class="row" style="align-items: center; margin-top: 10px; margin-bottom:10px">
+                      <div class="col-6">
+                        <span>Saldo Tritier</span>
+                      </div>
+                      <div class="col-6">
+                        <input type="text" class="form-control form-control" id="tritierModal">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-6">
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-5" style="text-align-last: right;display:flex">
+                        <button type="button" class="btn btn-primary">Proses</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
         </form>
       </div>
     </div>

@@ -89,7 +89,7 @@ let kodebarangsimpan;
 //pembeda
 let pembedaStore = document.getElementById("pembedaStore");
 //form delete
-let methodForm = document.getElementById('methodForm');
+let methodForm = document.getElementById("methodForm");
 //btn
 let isi = document.getElementById("isi");
 let koreksi = document.getElementById("koreksi");
@@ -121,20 +121,28 @@ table_data.on("draw", function () {
             $(this.node()).removeClass();
             $(this.node()).addClass("acs-empty-cell");
         }
-         if (data.User_Apv_1 !== null && data.User_Apv_2 == "N") {
+        if (data.User_Apv_1 !== null && data.User_Apv_2 == "N") {
             $(this.node()).removeClass();
             $(this.node()).addClass("blue-color");
-
-        } if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
+        }
+        if (data.Tgl_TdStjDir !== null && data.User_Apv_1 !== null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("gray-color");
-        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+        }
+        if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("red-color");
-        }  if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
+        }
+        if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng !== null) {
             $(this.node()).removeClass();
             $(this.node()).addClass("green-color");
-        } if(data.Tgl_TdStjMg == null && data.User_Apv_1 == null && data.User_Apv_2 == null && data.Tgl_Tolak_Mng == null) {
+        }
+        if (
+            data.Tgl_TdStjMg == null &&
+            data.User_Apv_1 == null &&
+            data.User_Apv_2 == null &&
+            data.Tgl_Tolak_Mng == null
+        ) {
             $(this.node()).removeClass();
             $(this.node()).addClass("black-color");
         }
@@ -521,18 +529,16 @@ KodeBarang.addEventListener("keypress", function (event) {
 hapus.addEventListener("click", function (event) {
     event.preventDefault();
     if (manager.value != "") {
-        alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC")
-    }
-    else if(user != userorder){
-        alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder)
-    }
-    else{
+        alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC");
+    } else if (user != userorder) {
+        alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder);
+    } else {
         methodForm.value = "DELETE";
         console.log("delete", no_order.value);
-        formMaintenanceOrderGambar.action = "/MaintenanceOrderGambar/" + no_order.value;
+        formMaintenanceOrderGambar.action =
+            "/MaintenanceOrderGambar/" + no_order.value;
         formMaintenanceOrderGambar.submit();
     }
-
 });
 
 prosesbaru.addEventListener("click", function () {
