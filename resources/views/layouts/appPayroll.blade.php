@@ -140,7 +140,7 @@
                                             tabindex="-1" href="{{ url('UbahAgenda') }}">Ubah Agenda</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Agenda/HariBesar') }}">Hari Libur & Besar</a>
+                                            tabindex="-1" href="{{ url('HariBesar') }}">Hari Libur & Besar</a>
                                     </li>
 
                                     <li><a class="test"

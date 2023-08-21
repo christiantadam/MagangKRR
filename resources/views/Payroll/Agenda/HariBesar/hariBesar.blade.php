@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/Agenda/hariBesar.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -12,8 +13,8 @@
                                 <div style="flex: 1; margin-right: 10px;">
                                     <label style="margin-right: 10px;">Tanggal</label>
                                     <div style="display: flex; align-items: center;">
-                                        <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                            value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                        <input class="form-control" type="date" id="TglBesar" name="TglBesar"
+                                             disabled>
 
 
                                     </div>
@@ -24,7 +25,7 @@
                             <div style="display: flex; flex-direction: column;">
                                 <label style="margin-bottom: 5px;">Keterangan </label>
                                 <div class="textbox-container">
-                                    <input type="text" class="form-control" id="ketLembur" name="ketLembur">
+                                    <input type="text" class="form-control" id="ketLibur" name="ketLibur" readonly>
                                 </div>
                             </div>
                             <br>
@@ -40,44 +41,21 @@
                                 <div class="textbox-container">
                                     <input type="text" class="form-control" id="Tahun" name="Tahun">
                                 </div>
-                                <button type="button" class="btn btn-primary" style="margin-left:10px;">OK</button>
+                                <button type="button" class="btn btn-primary" style="margin-left:10px;" id="tampilLibur" >OK</button>
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id="tabelLibur">
                                     <thead>
                                         <tr>
                                             <th scope="col">Tanggal</th>
                                             <th scope="col">Keterangan</th>
-                                            <th scope="col"></th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        <tr>
-                                            <td>2/18/2023</td>
-                                            <td>ISRA M'IRAJ</td>
-                                            <td>Tes</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2/18/2023</td>
-                                            <td>ISRA M'IRAJ</td>
-                                            <td>Tes</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2/18/2023</td>
-                                            <td>ISRA M'IRAJ</td>
-                                            <td>Tes</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2/18/2023</td>
-                                            <td>ISRA M'IRAJ</td>
-                                            <td>Tes</td>
-
-                                        </tr>
 
 
                                     </tbody>
@@ -89,15 +67,15 @@
 
                         </div>
                     </div>
+                    <div id="form-container"></div>
+                    <div style="text-align: right; margin: 10px;">
 
-                    <div style="text-align: right; margin-top: 20px;">
 
-
-                        <button type="button" class="btn btn-info">Isi</button>
-                        <button type="button" class="btn btn-warning">Koreksi</button>
-                        <button type="button" class="btn btn-danger">Hapus</button>
-                        <button type="button" class="btn btn-light">Proses</button>
-                        <button type="button" class="btn btn-dark">Keluar</button>
+                        <button type="button" class="btn btn-info" style="width: 75px" id="buttonIsi">Isi</button>
+                        <button type="button" class="btn btn-warning" style="width: 75px" id="buttonKoreksi">Koreksi</button>
+                        <button type="button" class="btn btn-danger" style="width: 75px" id="buttonHapus">Hapus</button>
+                        <button type="button" class="btn btn-light" style="width: 75px" id="buttonProses" disabled>Proses</button>
+                        <button type="button" class="btn btn-dark" style="width: 75px" id="buttonBatal" disabled>Batal</button>
                     </div>
 
 
