@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal-body">
-                <div class="card">
+                <div id="asal_konv" class="card">
                     <div class="card-header">Asal Konversi</div>
 
                     <div class="card-body" style="background: ghostwhite">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div id="tujuan_konv" class="card mt-3">
                     <div class="card-header">Tujuan Konversi</div>
 
                     <div class="card-body" style="background: ghostwhite">

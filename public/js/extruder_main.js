@@ -65,7 +65,8 @@ function addTable_DataTable(
     listData,
     colWidths = null,
     rowFun = null,
-    tableHeight = "250px"
+    tableHeight = "250px",
+    isDblClick = false
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
         $("#" + tableId)
@@ -107,9 +108,27 @@ function addTable_DataTable(
             if (rowFun != null) {
                 row.style.cursor = "pointer";
 
-                row.addEventListener("click", function () {
-                    rowFun(row, data, index);
-                });
+                if (!isDblClick) {
+                    row.addEventListener("click", function () {
+                        rowFun(row, data, index);
+                    });
+                } else {
+                    row.addEventListener("click", function () {
+                        if (row.style.background == "white") {
+                            row.style.background = "aliceblue";
+                        }
+                    });
+
+                    row.addEventListener("dblclick", function () {
+                        if (row.style.background != "lightblue") {
+                            row.style.background = "lightblue";
+                        } else {
+                            row.style.background = "white";
+                        }
+
+                        rowFun(row, data, index);
+                    });
+                }
             }
         },
     });
@@ -206,29 +225,32 @@ function addLoadingOption(selectEle) {
     loadingOption.disabled = true;
     selectEle.appendChild(loadingOption);
 
-    const errorOption = new Option("", "error_found");
-    errorOption.disabled = true;
-    selectEle.appendChild(errorOption);
-
-    return [loadingOption, errorOption];
+    return loadingOption;
 }
 
-function clearOptions(selectEle) {
-    var selectId = selectEle.getAttribute("id");
+function clearOptions(selectEle, selectLbl = "") {
+    selectHead =
+        selectLbl == ""
+            ? snakeCaseToTitleCase(
+                  selectEle.getAttribute("id").replace("select_", "")
+              )
+            : selectLbl;
+
     selectEle.innerHTML = `
         <option selected disabled>
-            -- Pilih ${snakeCaseToTitleCase(selectId.replace("select_", ""))} --
+            -- Pilih ${selectHead} --
         </option>
 
         <option value="loading" style="display: none" disabled>
             Memuat data...
         </option>
     `;
+
     selectEle.selectedIndex = 0;
 }
 //#endregion
 
-function fetchStmt(urlString, postAction = null) {
+function fetchStmt(urlString, postAction = null, catchAction = null) {
     fetch(urlString)
         .then((response) => response.json())
         .then((data) => {
@@ -240,6 +262,10 @@ function fetchStmt(urlString, postAction = null) {
             }
         })
         .catch((error) => {
+            if (catchAction != null) {
+                catchAction();
+            }
+
             alert(
                 "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam."
             );
@@ -247,29 +273,40 @@ function fetchStmt(urlString, postAction = null) {
         });
 }
 
-function fetchSelect(urlString, postAction, errorOptions = null) {
+function fetchSelect(
+    urlString,
+    postAction,
+    selectOption = null,
+    catchAction = null
+) {
     fetch(urlString)
         .then((response) => response.json())
         .then((data) => {
             if (data.length == 0) {
                 console.log("DATA KOSONG!");
-            } else {
-                postAction(data);
+
+                if (selectOption != null) {
+                    selectOption.textContent = "Data tidak ditemukan!";
+                }
             }
+            postAction(data);
 
             console.log("urlString = " + urlString);
             console.log("data = " + data);
         })
         .catch((error) => {
-            if (errorOptions != null) {
-                errorOptions[0].textContent =
-                    "Terdapat kendala saat memuat data.";
-                errorOptions[1].textContent = "Mohon segera hubungi Pak Adam.";
+            if (catchAction != null) {
+                catchAction();
             }
 
-            alert(
-                "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam."
-            );
+            if (selectOption != null) {
+                selectOption.textContent = "Terdapat kendala saat memuat data.";
+            } else {
+                alert(
+                    "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam."
+                );
+            }
+
             console.error("Error: ", error);
         });
 }

@@ -1153,9 +1153,9 @@ function rowClickedKonversi(row, data, index) {
         row.style.background = "aliceblue";
         konversiPil = index;
 
-        console.log(listKonversi);
-        console.log(index);
-        console.log(listKonversi[index]);
+        // console.log(listKonversi);
+        // console.log(index);
+        // console.log(listKonversi[index]);
 
         txtIdProduksi.value = listKonversi[index].IdType;
         txtNamaProduksi.value = data.Type;

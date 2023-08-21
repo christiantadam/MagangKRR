@@ -61,6 +61,7 @@ txtTersierAsal.addEventListener("keyup", function (event) {
             this.focus();
         } else {
             txtTersierTujuan.value = this.value;
+
             if (slcKelompokUtamaRK.disabled == false) {
                 slcKelompokUtamaRK.focus();
             } else {
@@ -95,21 +96,21 @@ txtTersierTujuan.addEventListener("keyup", function (event) {
 
 slcKelompokUtamaRK.addEventListener("mousedown", function () {
     if (this.options.length <= 2) {
-        const errorOptions = addLoadingOption(this);
+        clearOptions(this, "Kelompok Utama");
+        const errorOption = addLoadingOption(this);
 
         // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
         fetchSelect(
-            `/Benang/getIdObjekKelUtama/032/3`,
+            `/Benang/getIdObjekKelUtama/032/4`,
             (data) => {
                 addOptions(this, data, {
                     valueKey: "IdKelompokUtama",
                     textKey: "NamaKelompokUtama",
                 });
 
-                this.removeChild(errorOptions[0]);
-                this.removeChild(errorOptions[1]);
+                this.removeChild(errorOption);
             },
-            errorOptions
+            errorOption
         );
     }
 });
@@ -127,7 +128,8 @@ slcKelompokUtamaRK.addEventListener("change", function () {
 
 slcKelompokRK.addEventListener("mousedown", function () {
     if (this.options.length <= 2 || reftechKelRK) {
-        const errorOptions = addLoadingOption(this);
+        clearOptions(this, "Kelompok");
+        const errorOption = addLoadingOption(this);
 
         // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
         fetchSelect(
@@ -138,10 +140,9 @@ slcKelompokRK.addEventListener("mousedown", function () {
                     textKey: "NamaKelompok",
                 });
 
-                this.removeChild(errorOptions[0]);
-                this.removeChild(errorOptions[1]);
+                this.removeChild(errorOption);
             },
-            errorOptions
+            errorOption
         );
     }
 });
@@ -172,7 +173,8 @@ slcKelompokRK.addEventListener("change", function () {
 
 slcSubKelompokRK.addEventListener("mousedown", function () {
     if (this.options.length <= 2 || refetchSubkelRK) {
-        const errorOptions = addLoadingOption(this);
+        clearOptions(this, "Sub-kelompok");
+        const errorOption = addLoadingOption(this);
 
         // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
         fetchSelect(
@@ -183,10 +185,9 @@ slcSubKelompokRK.addEventListener("mousedown", function () {
                     textKey: "NamaSubKelompok",
                 });
 
-                this.removeChild(errorOptions[0]);
-                this.removeChild(errorOptions[1]);
+                this.removeChild(errorOption);
             },
-            errorOptions
+            errorOption
         );
     }
 });
@@ -200,7 +201,8 @@ slcSubKelompokRK.addEventListener("change", function () {
 
 slcTypeRK.addEventListener("mousedown", function () {
     if (this.options.length <= 2 || refetchTypeRK) {
-        const errorOptions = addLoadingOption(this);
+        clearOptions(this, "Type");
+        const errorOption = addLoadingOption(this);
 
         // SP_5298_EXT_IDSUBKELOMPOK_TYPE
         fetchSelect(
@@ -211,10 +213,9 @@ slcTypeRK.addEventListener("mousedown", function () {
                     textKey: "NamaType",
                 });
 
-                this.removeChild(errorOptions[0]);
-                this.removeChild(errorOptions[1]);
+                this.removeChild(errorOption);
             },
-            errorOptions
+            errorOption
         );
     }
 });
@@ -225,11 +226,17 @@ slcTypeRK.addEventListener("change", function () {
 });
 
 btnConfirmRK.addEventListener("click", function () {
-    // Cek pada FrmMohonKonversiNG.vb
+    document.getElementById("form_rk_return").value = "CONFIRM";
+    document
+        .getElementById("form_rk_return")
+        .dispatchEvent(new Event("change"));
 });
 
 btnCancelRK.addEventListener("click", function () {
-    // Cek pada FrmMohonKonversiNG.vb
+    document.getElementById("form_rk_return").value = "CANCEL";
+    document
+        .getElementById("form_rk_return")
+        .dispatchEvent(new Event("change"));
 });
 //#endregion
 

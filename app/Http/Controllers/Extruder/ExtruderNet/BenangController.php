@@ -33,7 +33,7 @@ class BenangController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getIdObjKelUtama("032", "3"));
+        // dd($this->getDetailUraianKonvNG("INV0003"));
 
         return view($view_name, $view_data);
     }

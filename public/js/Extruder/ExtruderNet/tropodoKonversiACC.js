@@ -118,9 +118,15 @@ function daftarKonversiBelumACC() {
         "Memuat data..."
     );
 
-    fetch("/Konversi/getListKonvBlmAcc/EXT")
-        .then((response) => response.json())
-        .then((data) => {
+    // SP_5298_EXT_LIST_KONV_BLM_ACC
+    fetchSelect(`/Konversi/getListKonvBlmAcc/EXT`, (data) => {
+        if (data.length == 0) {
+            clearTable_DataTable(
+                "table_konversi",
+                tableKonversiWidth,
+                "Data tidak ditemukan."
+            );
+        } else {
             for (let i = 0; i < data.length; i++) {
                 listKonversi.push({
                     IdKonversi: data[i].IdKonversi,
@@ -162,6 +168,7 @@ function daftarKonversiBelumACC() {
             const checkboxes = document.querySelectorAll(
                 'input[name="cheackbox_konversi"]'
             );
+
             checkboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
                     if (checkbox.checked) {
@@ -185,7 +192,8 @@ function daftarKonversiBelumACC() {
                     }
                 });
             });
-        });
+        }
+    });
 }
 
 function uncheckOtherCheckboxes(checkboxes, checkedCheckbox) {
@@ -219,28 +227,26 @@ function tampilRincianKonversi(i, id_konversi) {
 }
 
 function tampilDetailKonversi(id_konversi) {
-    fetch("/Konversi/getListKonvDetail/" + id_konversi)
-        .then((response) => response.json())
-        .then((data) => {
-            for (let i = 0; i < data.length; i++) {
-                listHasil.push({
-                    Type: data[i].Type,
-                    IdType: data[i].IdType, // subitem 1
-                    JumlahPrimer: data[i].JumlahPrimer, // subitem 2
-                    SatuanPrimer: data[i].SatuanPrimer, // subitem 3
-                    JumlahSekunder: data[i].JumlahSekunder, // subitem 4
-                    SatuanSekunder: data[i].SatuanSekunder, // subitem 5
-                    JumlahTritier: data[i].JumlahTritier, // subitem 6
-                    SatuanTritier: data[i].SatuanTritier, // subitem 7
-                    Presentase: data[i].Presentase, // subitem 8
-                    StatusType: data[i].StatusType, // subitem 9
-                });
-            }
+    // SP_5298_EXT_LIST_KONV_DETAIL_1
+    fetchSelect(`/Konversi/getListKonvDetail/${id_konversi}`, (data) => {
+        for (let i = 0; i < data.length; i++) {
+            listHasil.push({
+                Type: data[i].Type,
+                IdType: data[i].IdType, // subitem 1
+                JumlahPrimer: data[i].JumlahPrimer, // subitem 2
+                SatuanPrimer: data[i].SatuanPrimer, // subitem 3
+                JumlahSekunder: data[i].JumlahSekunder, // subitem 4
+                SatuanSekunder: data[i].SatuanSekunder, // subitem 5
+                JumlahTritier: data[i].JumlahTritier, // subitem 6
+                SatuanTritier: data[i].SatuanTritier, // subitem 7
+                Presentase: data[i].Presentase, // subitem 8
+                StatusType: data[i].StatusType, // subitem 9
+            });
+        }
 
-            addTable_DataTable("table_hasil", listHasil, tableHasilCol);
-
-            hitungJumlahBahanHasil(); // DARI EVENT CHECKBOX KONVERSI
-        });
+        addTable_DataTable("table_hasil", listHasil, tableHasilCol);
+        hitungJumlahBahanHasil(); // DARI EVENT CHECKBOX KONVERSI
+    });
 }
 
 function hitungJumlahBahanHasil() {
@@ -337,16 +343,20 @@ function cekPenyesuaian() {
     let penyesuaian = false;
 
     for (let i = 0; i < listHasil.length; i++) {
-        fetch(`/Konversi/getPenyesuaianTrans/null/${listHasil[i].IdType}/06`)
-            .then((response) => response.json())
-            .then((data) => {
+        // SP_5298_EXT_CHECK_PENYESUAIAN_TRANSAKSI
+        fetchSelect(
+            `/Konversi/getPenyesuaianTrans/null/${listHasil[i].IdType}/06`,
+            (data) => {
                 if (data[0].jumlah > 1) {
                     alert(
                         "Terdapat penyesuaian untuk type " + listHasil[i].Type
                     );
                     penyesuaian = true;
                 }
-            });
+            }
+        );
+
+        if (penyesuaian) break;
     }
 
     return penyesuaian;
@@ -359,23 +369,24 @@ function prosesInventory() {
                 listHutangExt.length = 0;
             }
 
-            fetch(`/Konversi/getIdTransInv/
-                ${id_type[j]}/
-                ${subkel[j]}/
-                ${dateInput.value}/
-                ${shift}`)
-                .then((response) => response.json())
-                .then((data) => {
+            // SP_5298_EXT_GET_IDTRANS_INV
+            fetchSelect(
+                `/Konversi/getIdTransInv/
+                    ${id_type[j]}/
+                    ${subkel[j]}/
+                    ${dateInput.value}/
+                    ${shift}`,
+                (data) => {
                     for (let k = 0; k < data.length; k++) {
                         listHutangExt.push(data[k]);
 
+                        // SP_5298_EXT_PROSES_UPDATE_HUTANG
                         fetchStmt(
                             `/Konversi/updHutang/
-                            ${id_type[j]}/
-                            tmpUser/
-                            ${subkel[j]}/
-                            ${listHutangExt[k].Trans}`,
-
+                                ${id_type[j]}/
+                                tmpUser/
+                                ${subkel[j]}/
+                                ${listHutangExt[k].Trans}`,
                             () => {
                                 if (listHutangExt.length - 1) {
                                     hidInventory.value = `Proses Inventory Berhasil! Ada hutang ditemukan.`;
@@ -383,23 +394,27 @@ function prosesInventory() {
                                         new Event("change")
                                     );
                                 }
+                            },
+                            () => {
+                                hidInventory.value = `Error pada "udpHutang"`;
+                                hidInventory.dispatchEvent(new Event("change"));
                             }
                         );
                     }
-                })
-                .catch((error) => {
-                    hidInventory.value = `Error pada "udpHutang" atau "getIdTransInv"`;
+                },
+                null,
+                () => {
+                    hidInventory.value = `Error pada "getIdTransInv"`;
                     hidInventory.dispatchEvent(new Event("change"));
-
-                    console.error("Error: ", error);
-                });
+                }
+            );
         }
     };
 
-    fetch(`/Konversi/getTransaksiKonv/
-        ${listKonversi[konversiPil].IdKonversi}`)
-        .then((response) => response.json())
-        .then((data) => {
+    // SP_5409_EXT_DISPLAY_TRANSAKSI_KONVERSI
+    fetchSelect(
+        `/Konversi/getTransaksiKonv/${listKonversi[konversiPil].IdKonversi}`,
+        (data) => {
             for (let i = 0; i < data.length; i++) {
                 listTmpTrans.push(data[i]); // dset.Tables(0)
             }
@@ -440,16 +455,15 @@ function prosesInventory() {
             }
 
             // Cek hutang EXT
-            fetch(`/Konversi/getJumlahHutang/
-                ${listTmpTrans[i].IdType}/
-                ${listTmpTrans[i].idsubkelompok_type}/
-                ${dateInput.value}/
-                ${shift}`)
-                .then((response) => response.json())
-                .then((data) => {
+            fetchSelect(
+                `/Konversi/getJumlahHutang/
+                    ${listTmpTrans[i].IdType}/
+                    ${listTmpTrans[i].idsubkelompok_type}/
+                    ${dateInput.value}/
+                    ${shift}`,
+                (data) => {
                     for (let i = 0; i < data.length; i++) {
-                        listTmpExt.push(data[i]); // dset.Tables(1)
-                        // Total, TotalS
+                        listTmpExt.push(data[i]); // dset.Tables(1) | Total, TotalS
                     }
 
                     let jum_hutang = 0;
@@ -492,10 +506,11 @@ function prosesInventory() {
 
                     if (jum_hutang > 0) {
                         showModal(
-                            "Lunasi",
+                            "Lunaskan",
                             "Ada hutang benang, apakah ingin dilunaskan?",
                             () => {
                                 for (let i = 0; i < listTmpTrans.length; i++) {
+                                    // SP_5298_EXT_PROSES_ACC_KONVERSI
                                     fetchStmt(
                                         `/Konversi/updACCKonversi/
                                             ${listTmpTrans[i].IdTransaksi}/
@@ -506,7 +521,14 @@ function prosesInventory() {
                                             ${listTmpTrans[i].JumlahPengeluaranSekunder}/
                                             ${listTmpTrans[i].JumlahPemasukanPrimer}/
                                             ${listTmpTrans[i].JumlahPemasukanSekunder}/
-                                            ${listTmpTrans[i].JumlahPemasukanTritier}`
+                                            ${listTmpTrans[i].JumlahPemasukanTritier}`,
+                                        null,
+                                        () => {
+                                            hidInventory.value = `Error pada "updACCKonversi"`;
+                                            hidInventory.dispatchEvent(
+                                                new Event("change")
+                                            );
+                                        }
                                     );
 
                                     getIdTrans(jum_hutang);
@@ -527,7 +549,6 @@ function prosesInventory() {
                                     ${listTmpTrans[i].JumlahPemasukanPrimer}/
                                     ${listTmpTrans[i].JumlahPemasukanSekunder}/
                                     ${listTmpTrans[i].JumlahPemasukanTritier}`,
-
                                 () => {
                                     if (i == listTmpTrans.length - 1) {
                                         hidInventory.value = `Proses Inventory Berhasil! Tidak ada hutang ditemukan.`;
@@ -535,27 +556,34 @@ function prosesInventory() {
                                             new Event("change")
                                         );
                                     }
+                                },
+                                () => {
+                                    hidInventory.value = `Error pada "updACCKonversi"`;
+                                    hidInventory.dispatchEvent(
+                                        new Event("change")
+                                    );
                                 }
                             );
                         }
                     }
-                })
-                .catch((error) => {
+                },
+                null,
+                () => {
                     hidInventory.value = `Error pada "getJumlahHutang"`;
                     hidInventory.dispatchEvent(new Event("change"));
-
-                    console.error("Error: ", error);
-                });
-        });
+                }
+            );
+        }
+    );
 
     return sukses;
 }
 
 function prosesExtruder() {
     const cekSisaOrd = () => {
-        fetch(`/Konversi/getOrderStatus/${txtIdOrder.value}`)
-            .then((response) => response.json())
-            .then((data) => {
+        fetchSelect(
+            `/Konversi/getOrderStatus/${txtIdOrder.value}`,
+            (data) => {
                 if (data[0].StatusOrder == "FINISH") {
                     alert(
                         `Order dengan nomor ${
@@ -581,20 +609,20 @@ function prosesExtruder() {
 
                 hidExtruder.value = `Proses Extruder Behasil! Lancar jaya.`;
                 hidExtruder.dispatchEvent(new Event("change"));
-            })
-            .catch((error) => {
+            },
+            null,
+            () => {
                 hidExtruder.value = `Error pada "getOrderStatus"`;
                 hidExtruder.dispatchEvent(new Event("change"));
-
-                console.error(error);
-            });
+            }
+        );
     };
 
     // Update master konversi
     fetchStmt(
         `/Konversi/updACCMasterKonv/
-        ${listKonversi[konversiPil].IdKonversi}/
-        tmpUser`,
+            ${listKonversi[konversiPil].IdKonversi}/
+            tmpUser`,
 
         () => {
             // Update order
@@ -603,38 +631,40 @@ function prosesExtruder() {
                     const post_action =
                         i === listHasil.length - 1
                             ? () => {
-                                  fetch(
+                                  fetchSelect(
                                       `/Konversi/getKeteranganSaldo/
-                                      ${txtIdOrder.value}/
-                                      ${txtNoUrut.value}`
-                                  )
-                                      .then((response) => response.json())
-                                      .then((data) => {
+                                        ${txtIdOrder.value}/
+                                        ${txtNoUrut.value}`,
+                                      () => {
                                           alert(data.nmerror);
                                           cekSisaOrd();
-                                      })
-                                      .catch((error) => {
-                                          hidExtruder.value = `Error pada "getKeteranganSaldo" atau "updACCMasterKonv"`;
+                                      },
+                                      null,
+                                      () => {
+                                          hidExtruder.value = `Error pada "getKeteranganSaldo"`;
                                           hidExtruder.dispatchEvent(
                                               new Event("change")
                                           );
-
-                                          console.error(error);
-                                      });
+                                      }
+                                  );
                               }
                             : () => {};
 
                     fetchStmt(
                         `/Konversi/updSaldoOrdDet/
-                        ${txtIdOrder.value}/
-                        ${txtNoUrut.value}/
-                        ${listHasil[i].JumlahPrimer}/
-                        ${listHasil[i].JumlahSekunder}/
-                        ${listHasil[i].JumlahTritier}`,
+                            ${txtIdOrder.value}/
+                            ${txtNoUrut.value}/
+                            ${listHasil[i].JumlahPrimer}/
+                            ${listHasil[i].JumlahSekunder}/
+                            ${listHasil[i].JumlahTritier}`,
                         post_action
                     );
                 }
             }
+        },
+        () => {
+            hidExtruder.value = `Error pada "updACCMasterKonv"`;
+            hidExtruder.dispatchEvent(new Event("change"));
         }
     );
 }

@@ -1,7 +1,8 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <div id="tropodo_benang_mohon" class="form" data-aos="fade-up">
-        <button id="btn_tes" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi">Rincian Konversi</button>
+    <div id="form_benang_mohon" class="form" data-aos="fade-up">
+        <input type="hidden" id="form_rk_return">
+        {{-- <button id="btn_tes" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi">Rincian Konversi</button> --}}
 
         <div class="row mt-3">
             <div class="col-lg-7"></div>
