@@ -22,7 +22,14 @@
                                         <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnOK" name="isi" value="OK" class="btn">
+                                        <input type="submit" id="btnOK" name="isi" value="OK" class="btn" >
+                                    </div>
+                                    <!--Kedua button dibawah tidak digunakan, karena di vb nya, diset visible = false-->
+                                    <div class="col-md-2">
+                                        <input type="submit" id="btnPilihBank" name="btnPilihBank" value="Pilih Bank" class="btn" style="display: none;">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM" class="btn" style="display: none;">
                                     </div>
                                 </div>
 
@@ -67,19 +74,20 @@
                                     <div class="card" style="width: 40%;">
                                         <div class="card-body">
                                             <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                                <input type="radio" name="radiogrupDetail" value="1" id="radio_1">
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 180%; table-layout: fixed;">
+                                                <table style="width: 230%; table-layout: fixed;" id="tabelDetailPelunasan">
                                                     <colgroup>
                                                     <col style="width: 20%;">
-                                                    <col style="width: 20%;">
+                                                    <col style="width: 30%;">
                                                     <col style="width: 40%;">
+                                                    <col style="width: 30%;">
+                                                    <col style="width: 30%;">
                                                     <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 35%;">
+                                                    <col style="width: 20%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -90,19 +98,10 @@
                                                         <th>Customer</th>
                                                         <th>Id. Detail</th>
                                                         <th>Tgl. Penagihan</th>
+                                                        <th>Id. Pelunasan</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>Data 1</td>
-                                                        <td>Data 2</td>
-                                                        <td>Data 3</td>
-                                                        <td>Data 4</td>
-                                                        <td>Data 5</td>
-                                                        <td>Data 6</td>
-                                                        <td>Data 7</td>
-                                                    </tr>
-                                                    <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -113,7 +112,7 @@
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                                <input type="radio" name="radiogrupDetail" value="2" id="radio_1">
                                                 <label for="radio_1">Detail Biaya</label>
                                             </div>
                                             <div style="overflow-x: auto;">
@@ -149,14 +148,14 @@
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-8">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                                <input type="radio" name="radiogrupDetail" value="3" id="radio_1">
                                                 <label for="radio_1">Detail Kurang/Lebih</label>
                                             </div>
                                             <div style="overflow-x: auto;">
                                                 <table style="width: 120%; table-layout: fixed;">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 30%;">
+                                                    <col style="width: 35%;">
                                                     <col style="width: 25%;">
                                                     <col style="width: 25%;">
                                                     </colgroup>
@@ -184,18 +183,117 @@
                                 <br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-5">
-                                            <input type="submit" id="btnProses" name="koreksidetail" value="Koreksi Detail" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKoreksiDetail" name="btnKoreksiDetail" value="Koreksi Detail" class="btn btn-primary d-flex ml-auto" onclick="validateTabel()">
                                         </div>
                                         <div class="col-3">
-                                            <input type="submit" id="btnProses" name="tampilbkm" value="Tampil BKM" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnTampilBKM" name="btnTampilBKM" value="Tampil BKM" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-4">
-                                            <input type="submit" id="btnProses" name="tutup" value="TUTUP" class="btn btn-primary d-flex ml-auto" disabled>
+                                            <input type="submit" id="btnTutup" name="btnTutup" value="TUTUP" class="btn btn-primary d-flex ml-auto" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--MODAL MAINTENANCE DETAIL PELUNASAN-->
+                                <div class="modal fade" id="modalDetailPelunasan" tabindex="-1" role="dialog" aria-labelledby="modalDetailPelunasan" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Maintenance Pilih Bank BKM</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form method="POST" action="{{ url('UpdateDetailBKM') }}" id="formDetailPelunasan">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" id="methoddetail">
+                                                <div class="modal-body">
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="idPenagihan" style="margin-right: 10px;">Id.
+                                                                Penagihan</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="idPenagihan" name="idPenagihan"
+                                                                class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="iddetail" style="margin-right: 10px;">Id.
+                                                                Pelunasan</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="idPelunasan" name="idPelunasan"
+                                                                class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="namaCustomer" style="margin-right: 10px;">Nama
+                                                                Customer</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="namaCustomer" name="namaCustomer"
+                                                                class="form-control" style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="nilaiPelunasan" style="margin-right: 10px;">Nilai
+                                                                Pelunasan</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="nilaiPelunasanDetail"
+                                                                name="nilaiPelunasanDetail" class="form-control"
+                                                                style="width: 100%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="pelunasanRupiah" style="margin-right: 10px;">Pelunasan
+                                                                Rupiah</label>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="text" id="pelunasanRupiah" name="pelunasanRupiah"
+                                                                class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <input type="hidden" id="IDDETAIL" name="IDDETAIL" class="form-control" style="width: 100%">
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <div class="col-md-3">
+                                                            <label for="kodePerkiraan" style="margin-right: 10px;">Kode
+                                                                Perkiraan</label>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan"
+                                                                class="form-control" style="width: 100%">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect"
+                                                                class="form-control">
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="submit" id="btnProsesDetail" name="btnProsesDetail"
+                                                                value="Proses" class="btn btn-primary">
+                                                        </div>
+                                                        <div class="col-3">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="submit" id="btnTutupModal" name="btnTutupModal"
+                                                                value="Tutup" class="btn btn-primary">
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="iddet" id="iddet" value="iddet">
+                                                    <input type="hidden" name="detpelunasan" id="detpelunasan" value="detpelunasan">
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <br>
                         </div>
                     </div>
                 </div>

@@ -1,14 +1,21 @@
 let tahun = document.getElementById('tahun');
 let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
+let tabelDetailPelunasan = document.getElementById('tabelDetailPelunasan');
 var arrIdPelunasan = [];
+let selectedRowsDetail = [];
+let dataTable2;
+let formDetailPelunasan = document.getElementById("formDetailPelunasan");
+let methoddetail = document.getElementById("methoddetail");
 
 let btnOK = document.getElementById("btnOK");
+let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
+let btnPilihBank = document.getElementById("btnPilihBank");
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
     clickOK();
-    fetch("/detailtabelpelunasan/" + bulan.value + "/" + tahun.value)
+    fetch("/tabeldatapelunasan/" + bulan.value + "/" + tahun.value)
     .then((response) => response.json())
     .then((options) => {
         console.log(options);
@@ -33,7 +40,203 @@ btnOK.addEventListener('click', function (event) {
                 });
         });
     });
-})
+});
+
+$("#tabelDataPelunasan tbody").off("click", "input[type='checkbox'");
+$("#tabelDataPelunasan tbody").off("change", "input[type='checkbox']");
+$("#tabelDataPelunasan tbody").on("change", "input[type='checkbox']", function () {
+});
+$("#tabelDataPelunasan tbody").on("click", "input[type='checkbox']", function (event) {
+    event.preventDefault();
+
+    let rows = tabelDataPelunasan.getElementsByTagName("tr");
+    selectedRows = [];
+    for (let i = 1; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        let checkbox = cells[0].getElementsByTagName("input")[0];
+        if (checkbox.checked) {
+            let rowData = {
+                Tgl_Pelunasan: cells[0].innerText,
+                Id_Pelunasan: cells[3].innerText,
+            };
+            selectedRows.push(rowData);
+
+            fetch("/tabeldetpelunasan/" + cells[3].innerText)
+                .then((response) => response.json())
+                .then((options) => {
+                    console.log();
+                    dataTable2 = $("#tabelDetailPelunasan").DataTable({
+                        data: options,
+                        columns: [
+                            {
+                                title: "Id. Penagihan", data: "ID_Penagihan",
+                                render: function (data) {
+                                    return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                                },
+                            },
+                            { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                            { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah" },
+                            { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+                            { title: "Customer", data: "NamaCust" },
+                            { title: "Id. Detail", data: "ID_Detail_Pelunasan" },
+                            { title: "Tgl Penagihan", data: "Tgl_Penagihan" },
+                            { title: "Id. Pelunasan", data: "ID_Pelunasan" }
+                        ],
+                    });
+                    // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
+                    dataTable2.clear().rows.add(options).draw();
+                });
+
+            // fetch("/tabeldetkuranglebih/" + cells[1].innerText)
+            //     .then((response) => response.json())
+            //     .then((options) => {
+            //         //console.log(cells[1].innerText);
+            //         dataTable3 = $("#tabelDetailKurangLebih").DataTable({
+            //             data: options,
+            //             columns: [
+            //                 {
+            //                     title: "Keterangan", data: "Keterangan",
+            //                     render: function (data) {
+            //                         return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+            //                     },
+            //                 },
+            //                 { title: "Jumlah Biaya", data: "KurangLebih" },
+            //                 { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+            //                 { title: "Id. Detail", data: "Id_Detail_Pelunasan" },
+            //             ],
+            //         });
+            //         // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
+            //         dataTable3.clear().rows.add(options).draw();
+            //     });
+        }
+    }
+});
+
+
+
+kodePerkiraanSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
+    if (selectedOption) {
+        const idKodeInput = document.getElementById('idKodePerkiraan');
+        const selectedValue = selectedOption.value;
+        const idKode = selectedValue.split(" | ")[0];
+        idKodeInput.value = idKode;
+    }
+});
+
+btnKoreksiDetail.addEventListener('click', function (event) {
+    event.preventDefault();
+});
+
+//Untuk ngecek radiobutton mana yang dipilih, karena akan menampilkan modal yang berbeda
+function validateTabel() {
+    let radiogrupDetail = document.getElementsByName("radiogrupDetail");
+    let isSelected = false;
+    for (let radio of radiogrupDetail) {
+        if (radio.checked) {
+            isSelected = true;
+            break;
+        }
+    }
+    if (isSelected) {
+        let selectedValue = document.querySelector('input[name="radiogrupDetail"]:checked').value;
+        if (selectedValue === "1") {
+            DetailPelunasan();
+        } else if (selectedValue === "2") {
+
+        } else if(selectedValue === "3") {
+            DetailKurangLebih();
+        }
+    } else {
+        alert("Pilih Detail Yang Akan DiKoreksi!");
+    }
+};
+
+function DetailPelunasan() {
+    let rows = tabelDetailPelunasan.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        let checkbox = cells[0].getElementsByTagName("input")[0];
+        if (checkbox.checked) {
+            let rowData = {
+                ID_Penagihan: cells[0].innerText,
+                Nilai_Pelunasan: cells[1].innerText,
+                Pelunasan_Rupiah: cells[2].innerText,
+                Kode_Perkiraan: cells[3].innerText,
+                NamaCust: cells[4].innerText,
+                ID_Detail_Pelunasan: cells[5].innerText,
+                Tgl_Penagihan: cells[6].innerText,
+                ID_Pelunasan: cells[7].innerText
+            };
+            selectedRowsDetail.push(rowData);
+            console.log(rowData);
+        }
+    }
+
+    const idPenagihan = $("#idPenagihan");
+    const idPelunasan = $("#idPelunasan");
+    const nilaiPelunasanDetail = $("#nilaiPelunasanDetail");
+    const pelunasanRupiah = $("#pelunasanRupiah");
+    const kodePerkiraan = $("#kodePerkiraan");
+    const namaCustomer = $("#namaCustomer");
+
+    const selectedData = selectedRowsDetail[0];
+
+    // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
+    idPenagihan.val(selectedData.ID_Penagihan);
+    idPelunasan.val(selectedData.ID_Pelunasan);
+    console.log(idPelunasan.val());
+    nilaiPelunasanDetail.val(selectedData.Nilai_Pelunasan);
+    pelunasanRupiah.val(selectedData.Pelunasan_Rupiah);
+    namaCustomer.val(selectedData.NamaCust);
+    kodePerkiraan.val(selectedData.Kode_Perkiraan);
+
+    const modal = $("#modalDetailPelunasan");
+    modal.modal('show');
+    //untuk ambil list kode perkiraan
+    fetch("/detailkodeperkiraan/" + 1)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            kodePerkiraanSelect.innerHTML="";
+
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Kode Perkiraan";
+            kodePerkiraanSelect.appendChild(defaultOption);
+
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.NoKodePerkiraan;
+                option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+                kodePerkiraanSelect.appendChild(option);
+            });
+        });
+}
+
+$("#btnProsesDetail").on("click", function (event) {
+    event.preventDefault();
+    const idKodePerkiraan = $("#idKodePerkiraan").val();
+    const selectedRowsIndices = [];
+    $("#tabelDetailPelunasan tbody input[type='checkbox']:checked").each(function () {
+        const row = $(this).closest("tr");
+        const rowIndex = dataTable2.row(row).index();
+        selectedRowsIndices.push(rowIndex);
+    });
+
+    updateKpColumn(idKodePerkiraan, selectedRowsIndices);
+
+    methoddetail.value="PUT";
+    console.log("formDetailPelunasan:", formDetailPelunasan);
+    console.log("methoddetail:", methoddetail);
+
+    formDetailPelunasan.action = "/UpdateDetailBKM/" + idPelunasan.value;
+    formDetailPelunasan.submit();
+
+    $('#modalDetailPelunasan').modal('hide');
+});
 
 function initializeDataTable(data) {
     dataTable = $("#tabelDataPelunasan").DataTable({
@@ -52,8 +255,25 @@ function initializeDataTable(data) {
             { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
             { title: "Mata Uang", data: "Nama_MataUang" },
             { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
-            { title: "No. Bukti", data: "No_Bukti" }
+            { title: "No. Bukti", data: "No_Bukti" },
         ],
+    });
+}
+
+function updateKpColumn(kodePerkiraanSelect, selectedRows) {
+    // Loop through each selected row index and update the data for the specific column
+    selectedRows.forEach((rowIdx) => {
+      // Get the DataTable row object for the selected row index
+      const row = dataTable2.row(rowIdx);
+      if (row) {
+        // Get the current data for the row
+        const rowData = row.data();
+        const selectedValue = kodePerkiraanSelect.split("|");
+        const idKpValue = selectedValue[0];
+
+        rowData["Kode_Perkiraan"] = idKpValue;
+        row.data(rowData).draw();
+      }
     });
 }
 

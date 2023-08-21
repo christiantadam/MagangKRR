@@ -127,7 +127,6 @@ btnPilihBank.addEventListener('click', function (event) {
                 Nama_MataUang: cells[4].innerText,
                 Nilai_Pelunasan: cells[5].innerText,
                 No_Bukti: cells[6].innerText,
-                //No_Bukti: cells[8].innerText
             };
             selectedRows.push(rowData);
 
