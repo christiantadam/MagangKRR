@@ -12,8 +12,12 @@ class HanguskanBarcode2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeRollWoven.HanguskanBarcode2', compact('data'));
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U010", NULL, NULL, NULL, NULL]);
+        $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
+        // $dataDivisi3 = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status=?, @idobjek=?', ["1", "MST"]);
+        // dd($dataDivisi3);
+
+        return view('BarcodeRollWoven.HanguskanBarcode2', compact('dataDivisi', 'dataDivisi2'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +33,17 @@ class HanguskanBarcode2Controller extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "txtIdDivisi") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', [ "1", $crExplode[0] ]);
+            // dd($dataKelut);
+            // Return the options as JSON data
+            return response()->json($dataType);
+        }
     }
 
     // Show the form for editing the specified resource.

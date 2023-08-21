@@ -12,8 +12,16 @@ class BuatBarcode2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
+
+        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?, @type = ?', ["006493", "1"]);
+        $dataSubKelompokType = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdSubKelompok_Type @XIdSubKelompok_Type = ?', ["SKLT1"]);
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeRollWoven.BuatBarcode2', compact('data'));
+
+        // SP_1003_INV_IdSubKelompok_Type
+
+        // dd($dataSubKelompokType);
+
+        return view('BarcodeRollWoven.BuatBarcode2', compact('data' , 'dataSubKelompok', 'dataSubKelompokType'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +37,7 @@ class BuatBarcode2Controller extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
