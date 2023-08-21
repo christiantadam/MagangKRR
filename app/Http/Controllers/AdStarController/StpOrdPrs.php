@@ -10,8 +10,8 @@ class StpOrdPrs extends Controller
 {
     public function index()
     {
-        //  $dataOrder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=5');
-        // dd($dataOrder);
+        // $dataorder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?', [10]);
+        //     dd($dataorder);
         return view('AdStar.StpOrdPrs');//
     }
 
@@ -33,14 +33,17 @@ class StpOrdPrs extends Controller
     {
         $crExplode = explode(".", $cr);
 
+
         //getorder
         if ($crExplode[1] == "dataorder") {
             $dataorder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?', [ $crExplode[0]]);
+
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataorder);
 
             // dd($crExplode);
+            // dd($dataorder);
         }
     }
 

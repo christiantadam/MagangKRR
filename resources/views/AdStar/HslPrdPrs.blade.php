@@ -136,7 +136,7 @@
                     <tbody>
                         @foreach ($dataMesin as $data)
                             <tr data-idmesin="{{ $data->IdMesin }}" data-namamesin="{{ $data->NamaMesin }}">
-                                <td>{{ $data->NamaMesin }}'+'{{ $data->IdMesin }}</td>
+                                <td>{{ $data->NamaMesin }}</td>
                                 <td>{{ $data->IdMesin }}</td>
                             </tr>
                         @endforeach

@@ -29,7 +29,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng">
                             ...
                         </button>
                     </div>
@@ -46,7 +46,7 @@
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_srtpsn">
                             ...
                         </button>
                     </div>
@@ -74,7 +74,7 @@
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_noordkrj">
                             ...
                         </button>
                     </div>
@@ -92,7 +92,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm">
                             ...
                         </button>
                     </div>
@@ -142,5 +142,168 @@
             <!-- Add content here -->
         </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Namacust</th>
+                        <th>IDCUST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataCust as $data)
+                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                            <td>{{ $data->NamaCust }}</td>
+                            <td>{{ $data->IDCust }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdl_nmbrng" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_nmbrng" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_nmbrng">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama Type</th>
+                        <th>Kode Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataorder as $data)
+                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->No_Order }}</td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdl_srtpsn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_srtpsn" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_srtpsn">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>IdSuratPesanan</th>
+                        <th>QTY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataorder as $data)
+                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->No_Order }}</td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdl_noordkrj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_noordkrj" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_noordkrj">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>IdSuratPesanan</th>
+                        <th>QTY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataorder as $data)
+                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->No_Order }}</td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdl_stkordsblm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_stkordsblm" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_stkordsblm">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tabel_noorder" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>IdSuratPesanan</th>
+                        <th>QTY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataorder as $data)
+                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->Nama_brg }}</td>
+                            <td>{{ $data->No_Order }}</td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script src="{{ asset('js\AdStar\MnOrdPrs.js')}}"></script>
 
 @endsection

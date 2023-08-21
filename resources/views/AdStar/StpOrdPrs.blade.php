@@ -16,11 +16,11 @@
             <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
             <div class="col-lg-4">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="" aria-label="">
+                    <input type="text" class="input-small" placeholder="" aria-label="">
                     <button type="button" id="btn_noorder" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
                         ...
                     </button>
-                    <input type="text" class="form-control" placeholder="" aria-label="">
+                    <input type="text" class="input" placeholder="" aria-label="">
                 </div>
             </div>
         </div>
@@ -115,6 +115,6 @@
     </div>
 </div>
 
-
+<script src="{{ asset('js\AdStar\StpOrdPrs.js')}}"></script>
 
 @endsection
