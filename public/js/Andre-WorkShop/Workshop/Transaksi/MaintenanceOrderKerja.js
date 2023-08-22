@@ -36,6 +36,19 @@ let iddivisimodalOrder = document.getElementById('iddivisimodalOrder');
 let UserModal = document.getElementById('UserModal');
 let SatuanModal = document.getElementById('SatuanModal');
 let NomorSatuanModal = document.getElementById('NomorSatuanModal');
+let NomorGambarModal = document.getElementById('NomorGambarModal');
+let Kdbarangmodal = document.getElementById('Kdbarangmodal');
+let NamaBarangModal = document.getElementById('NamaBarangModal');
+
+let PrimerModal = document.getElementById('PrimerModal');
+let SekunderModal = document.getElementById('SekunderModal');
+let tritierModal = document.getElementById('tritierModal');
+
+let buatbarumodal = document.getElementById('buatbarumodal');
+let Perbaikanmodal = document.getElementById('Perbaikanmodal');
+let formOrderKerja = document.getElementById('formOrderKerja');
+
+let MesinModal = document.getElementById('MesinModal');
 //#endregion
 
 //#region set tanggal
@@ -194,12 +207,14 @@ Divisi.addEventListener("change", function () {
         cleardata();
         table_data.clear().draw();
         AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
+        Mesin(Divisi.value);
     } else {
         console.log("masuk");
         pilih = 2;
         cleardata();
         // dataTable.fnClearTable();
         AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+        Mesin(Divisi.value);
     }
 });
 
@@ -231,4 +246,158 @@ SatuanModal.addEventListener('change', function(){
 });
 //#endregion
 
+//#region get select
+
+function setSelectByText(selectElement, text) {
+    for (let i = 0; i < selectElement.options.length; i++) {
+      if (selectElement.options[i].textContent === text) {
+        selectElement.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+//#endregion
+
+//#region LoadData2
+
+function LoadData2(Kdbarang) {
+    fetch("/LoadData2/" + Kdbarang)
+    .then((response) => response.json())
+    .then((datas) => {
+        console.log(datas);
+        console.log("load data 2");
+        PrimerModal.value = datas[0].SaldoPrimer + " " + datas[0].SPrimer;
+        SekunderModal.value = datas[0].SaldoSekunder + " " + datas[0].SSekunder;
+        tritierModal.value = datas[0].SaldoTritier + " " + datas[0].STritier;
+    });
+
+}
+
+//#endregion
+
+//#region LoadData1
+
+function LoadData1(NoGambar) {
+    fetch("/LoadData1/" + NoGambar)
+    .then((response) => response.json())
+    .then((datas) => {
+        //console.log(datas);
+        if (datas.length !== 0) {
+            NamaBarangModal.value = datas[0].NAMA_BRG;
+            Kdbarangmodal.value = datas[0].KD_BRG;
+            setSelectByText(SatuanModal, datas[0].Nama_satuan);
+            LoadData2(Kdbarangmodal.value);
+            NomorSatuanModal.value = SatuanModal.value;
+        }
+    });
+}
+
+//#endregion
+
 //#region Nomor Gambar Enter
+
+NomorGambarModal.addEventListener('keypress', function(event){
+    if (event.key == "Enter") {
+        if (NomorGambarModal.value !== "") {
+            LoadData1(NomorGambarModal.value);
+            console.log(SatuanModal.value);
+            NomorSatuanModal.value = SatuanModal.value;
+        }
+        else{
+            Kdbarangmodal.focus();
+        }
+    }
+});
+
+//#endregion
+
+//#region LoadData
+
+function LoadData(kdbarang) {
+    fetch("/LoadData/" + kdbarang)
+    .then((response) => response.json())
+    .then((datas) => {
+        console.log(datas);
+        if (datas.length == 0) {
+            alert("Kode Barang Tidak Ada, Atau Kode Barang Tsb Tdk Punya No. Gambar");
+        }
+        else{
+            NamaBarangModal.value = datas[0].NAMA_BRG;
+            NomorGambarModal.value = datas[0].No_Gambar;
+            setSelectByText(SatuanModal, datas[0].Nama_satuan);
+            LoadData2(Kdbarangmodal.value);
+            NomorSatuanModal.value = SatuanModal.value;
+        }
+    });
+}
+
+//#endregion
+
+//#region Kdbarang di enter
+
+Kdbarangmodal.addEventListener('keypress', function(event){
+    if (event.key == "Enter") {
+        if (Kdbarangmodal.value !== "") {
+            let kodeBarang9digit;
+            kodeBarang9digit = document.getElementById("Kdbarangmodal");
+            // console.log(kodeBarang9digit.value);
+            // alert('Kode barang dienter');
+            if (kodeBarang9digit.value.length < 9) {
+                // alert("kode barang tidak sesuai");
+                kodeBarang9digit.value = Kdbarangmodal.value.padStart(9, "0");
+                // console.log(kodeBarang9digit.value);
+            }
+            Kdbarangmodal.value = kodeBarang9digit.value;
+            LoadData(Kdbarangmodal.value);
+        }
+        else{
+            alert("Inputkan Nomer Gambar Atau Kode Barangnya");
+        }
+    }
+});
+
+//#endregion
+
+//#region mesin
+
+function Mesin(iddivisi) {
+    fetch("/Mesinmodal/" + iddivisi)
+        .then((response) => response.json())
+        .then((options) => {
+            //mesin buat form baru
+
+            MesinModal.innerHTML = "";
+            //
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih Mesin";
+            MesinModal.appendChild(defaultOption);
+            //
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.Nomer;
+                option.innerText = entry.Mesin + "--" + entry.Nomer;
+                MesinModal.appendChild(option);
+            });
+        });
+}
+//#endregion
+
+
+//#region button proses modal
+
+function prosesmodalklik() {
+    if (buatbarumodal.checked == false && Perbaikanmodal.checked == false) {
+        alert("Pilih Order Kerja Utk 'Buat Baru' Atau 'Perbaikan'");
+    }
+    else{
+        // console.log("masuk else");
+        if (modetrans == 1) {
+            formOrderKerja.submit();
+        }
+    }
+}
+
+//#endregion

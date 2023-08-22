@@ -1,5 +1,14 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@if (Session::has('success'))
+<div class="alert alert-success">
+  {{ Session::get('success') }}
+</div>
+@elseif (Session::has('error'))
+<div class="alert alert-danger">
+  {{ Session::get('error') }}
+</div>
+@endif
   <div class="card-header">
     Maintenance Order Kerja
   </div>
@@ -291,7 +300,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="" method="post" id="formOrderKerja" action="{{ url('MaintenanceOrderGambar') }}">
+        <form method="POST" id="formOrderKerja" action="{{ url('MaintenanceOrderKerja') }}">
           {{ csrf_field() }}
           <input type="hidden" name="_method" id="methodFormOrderKerja">
           <input type="hidden" name="iddivisiOrder" id="iddivisimodalOrder">
@@ -304,17 +313,17 @@
                   <span>Tanggal</span>
                 </div>
                 <div class="col-4">
-                  <input type="date" class="form-control form-control" id="tanggalmodal">
+                  <input type="date" class="form-control form-control" id="tanggalmodal" name="tanggalmodal">
                 </div>
                 <div class="col-6">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="buatbarumodal"
-                      value="option1">
+                      value="Baru">
                     <label class="form-check-label" for="buatbarumodal">Buat Baru</label>
                   </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Perbaikanmodal"
-                      value="option2">
+                      value="Perbaikan">
                     <label class="form-check-label" for="Perbaikanmodal">Perbaikan</label>
                   </div>
                 </div>
@@ -325,13 +334,13 @@
                   <span>Kd. Barang</span>
                 </div>
                 <div class="col-5">
-                  <input type="text" class="form-control form-control" id="Kdbarangmodal">
+                  <input type="text" class="form-control form-control" id="Kdbarangmodal" name="Kdbarangmodal">
                 </div>
                 <div class="col-2" style="text-align: right;">
                   <span style="color: red">input PDF</span>
                 </div>
                 <div class="col-3">
-                  <input class="form-control" type="file" id="inputpdfmodal">
+                  <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal">
                 </div>
               </div>
 
@@ -340,16 +349,16 @@
                   <span>No. Gambar</span>
                 </div>
                 <div class="col-2">
-                  <input type="text" class="form-control form-control" id="NomorGambarModal">
+                  <input type="text" class="form-control form-control" id="NomorGambarModal" name="NomorGambarModal">
                 </div>
                 <div class="col-3">
-                  <input type="text" class="form-control form-control" id="NamaBarangModal">
+                  <input type="text" class="form-control form-control" id="NamaBarangModal" name="NamaBarangModal">
                 </div>
                 <div class="col-2" style="text-align: right;">
                   <span>Update PDF</span>
                 </div>
                 <div class="col-3">
-                  <input class="form-control" type="file" id="updatepdfmodal">
+                  <input class="form-control" type="file" id="updatepdfmodal" name="updatepdfmodal">
                 </div>
               </div>
 
@@ -358,7 +367,7 @@
                   <span>Keterangan</span>
                 </div>
                 <div class="col-7">
-                  <input type="text" class="form-control form-control" id="KeteranganModal">
+                  <input type="text" class="form-control form-control" id="KeteranganModal" name="KeteranganModal">
                 </div>
               </div>
               <div class="row" style="align-items: center; margin-top: 10px;">
@@ -366,7 +375,7 @@
                   <span>Jumlah</span>
                 </div>
                 <div class="col-2">
-                  <input type="number" class="form-control form-control" id="JumlahModal" value="1">
+                  <input type="number" class="form-control form-control" id="JumlahModal" name="JumlahModal">
                 </div>
                 <div class="col-4">
                   <select class="form-select" name="SatuanModal" style="width: 36vh;
@@ -382,16 +391,13 @@
 
               <div class="row" style="align-items: center; margin-top: 10px;">
                 <div class="col-2">
-                  <span>Jumlah</span>
+                  <span>Mesin</span>
                 </div>
                 <div class="col-5">
                   <select class="form-select" name="MesinModal" style="width: 36vh;
                       height: 6vh;"
                     id="MesinModal">
-                    <option disabled selected>Pilih Mesin</option>
-                    {{-- @foreach ($divisi as $d)
-                        <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
-                      @endforeach --}}
+
                   </select>
                 </div>
               </div>
@@ -401,54 +407,55 @@
                   <span>Peng-Order</span>
                 </div>
                 <div class="col-3">
-                  <input type="text" class="form-control form-control" id="UserModal" readonly>
+                  <input type="text" class="form-control form-control" id="UserModal" name="UserModal" readonly>
                 </div>
               </div>
             </div>
-            <div class="modal-footer" style="margin-top: 10px">
-              <div class="container">
-                <div class="row">
-                  <div class="col-6" style="border-style: ridge;">
-                    <span style="color: red">Saldo Di Gudang S/Part</span>
-                    <div class="row" style="align-items: center; margin-top: 10px;">
-                      <div class="col-6">
-                        <span>Saldo Primer</span>
-                      </div>
-                      <div class="col-6">
-                        <input type="text" class="form-control form-control" id="PrimerModal">
-                      </div>
+          </div>
+          <div class="modal-footer" style="margin-top: 10px">
+            <div class="container">
+              <div class="row">
+                <div class="col-6" style="border-style: ridge;">
+                  <span style="color: red">Saldo Di Gudang S/Part</span>
+                  <div class="row" style="align-items: center; margin-top: 10px;">
+                    <div class="col-6">
+                      <span>Saldo Primer</span>
                     </div>
-                    <div class="row" style="align-items: center; margin-top: 10px;">
-                      <div class="col-6">
-                        <span>Saldo Sekunder</span>
-                      </div>
-                      <div class="col-6">
-                        <input type="text" class="form-control form-control" id="SekunderModal">
-                      </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control form-control" id="PrimerModal" name="PrimerModal">
                     </div>
-                    <div class="row" style="align-items: center; margin-top: 10px; margin-bottom:10px">
-                      <div class="col-6">
-                        <span>Saldo Tritier</span>
-                      </div>
-                      <div class="col-6">
-                        <input type="text" class="form-control form-control" id="tritierModal">
-                      </div>
-                    </div>
-
                   </div>
-                  <div class="col-6">
-                    <div class="row" style="margin-top: 10px;">
-                      <div class="col-5" style="text-align-last: right;display:flex">
-                        <button type="button" class="btn btn-primary">Proses</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                      </div>
-
+                  <div class="row" style="align-items: center; margin-top: 10px;">
+                    <div class="col-6">
+                      <span>Saldo Sekunder</span>
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control form-control" id="SekunderModal" name="SekunderModal">
+                    </div>
+                  </div>
+                  <div class="row" style="align-items: center; margin-top: 10px; margin-bottom:10px">
+                    <div class="col-6">
+                      <span>Saldo Tritier</span>
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control form-control" id="tritierModal" name="tritierModal">
                     </div>
                   </div>
 
                 </div>
+                <div class="col-6">
+                  <div class="row" style="margin-top: 10px;">
+                    <div class="col-5" style="text-align-last: right;display:flex">
+                      <button type="button" class="btn btn-primary" onclick="prosesmodalklik()">Proses</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             </div>
+          </div>
         </form>
       </div>
     </div>
