@@ -39,6 +39,86 @@ class BenangController extends Controller
     }
 
     #region Benang - ACC
+    public function getListIdKonversiNG($tanggal1, $tanggal2, $kode = null)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_IDKONVERSI_NG @Tanggal1 = ?, @Tanggal2 = ?, @kode = ?',
+            [$tanggal1, $tanggal2, $kode]
+        );
+
+        // PARAMETER - @Tanggal1 datetime, @Tanggal2 datetime, @kode char(1) = null
+    }
+
+    public function getDetailDataBenangNG($id_konversi_ng)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DETAILDATA_BENANG_N @IdKonversiNG = ?',
+            [$id_konversi_ng]
+        );
+
+        // PARAMTER - @IdKonversiNG int
+
+        // IdKonversiNG = 1, 2, 3, 4, 5
+
+        // *VW_PRG_5298_EXT_DETAILDATA_BENANG_NG
+        // - INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
+        // - INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
+        // - INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
+        // - VW_PRG_5298_EXT_KONVERSI_SORTIR
+        // => WHERE VW_PRG_5298_EXT_KONVERSI_SORTIR.SaatLog IS NULL
+
+        // **INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
+        // Divisi - Objek - KelompokUtama - Kelompok - SubKelompok
+
+        // **INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
+        // Type
+
+        // **INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
+        // Tmp_Transaksi (FK | IdType - Type, IdTypeTransaksi - TypeTransaksi)
+
+        // **VW_PRG_5298_EXT_KONVERSI_SORTIR
+        // DetailKonversiNG - IdKonversiNG(MasterKonversiNG)
+    }
+
+    public function getPenyesuaianTransaksi($kode = null, $id_type = null, $id_type_transaksi = null, $id_transaksi = null, $kode_barang = null, $id_sub_kel = null)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5298_EXT_CHECK_PENYESUAIAN_TRANSAKSI @Kode = ?, @idtype = ?, @idtypetransaksi = ?, @Idtransaksi = ?, @KodeBarang = ?, @idSubKel = ?',
+            [$kode, $id_type, $id_type_transaksi, $id_transaksi, $kode_barang, $id_sub_kel]
+        );
+
+        // PARAMETER - @Kode char(1)=null, @idtype  varchar(20) =null, @idtypetransaksi  varchar(2) = null, @Idtransaksi int =null, @KodeBarang varchar(10) =null, @idSubKel char(6)=null
+    }
+
+    public function getTransaksiKonversiNG($id_konv_ng)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_5409_EXT_DISPLAY_TRANSAKSI_KONVERSI_NG @idkonvNG = ?',
+            [$id_konv_ng]
+        );
+
+        // PARAMETER - @idkonvNG  varchar(14)
+    }
+
+    public function updProsesACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc = null, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
+    {
+        return DB::connection('ConnInventory')->statement(
+            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = ?, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
+            [$id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier]
+        );
+
+        // PARAMETER - @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
+    }
+
+    public function updACCKonversiNG($id_konversi_ng, $user_acc)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_ACC_KONVERSI_NG @IdKonversiNG = ?, @UserAcc = ?',
+            [$id_konversi_ng, $user_acc]
+        );
+
+        // PARAMETER - @IdKonversiNG int, @UserAcc char(7)
+    }
     #endregion
 
     #region Benang - Permohonan

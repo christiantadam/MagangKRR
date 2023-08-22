@@ -6,3 +6,9 @@
 
 //#region Functions
 //#endregion
+
+function init() {}
+
+$(document).ready(() => {
+    init();
+});

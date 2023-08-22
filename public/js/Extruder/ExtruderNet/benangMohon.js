@@ -372,9 +372,9 @@ slcNoKonversi.addEventListener("keydown", function (event) {
 
 slcNoKonversi.addEventListener("change", function () {
     listAsal.length = 0;
-    clearTable_DataTable("table_asal", tableWidth, "padding=100px");
+    clearTable_DataTable("table_asal", tableWidth, "padding=150px");
     listTujuan.length = 0;
-    clearTable_DataTable("table_tujuan", tableWidth, "padding=100px");
+    clearTable_DataTable("table_tujuan", tableWidth, "padding=150px");
 
     selectedOpt = {
         valueKu: this.value,

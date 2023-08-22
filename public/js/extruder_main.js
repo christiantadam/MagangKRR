@@ -187,6 +187,17 @@ function addSearchBar_DataTable(tableId) {
     searchInput.wrap('<div class="input-group"></div>');
     searchInput.before('<span class="input-group-text">Cari:</span>');
 }
+
+function addRadioToData(listData, modifiedCol, radioName) {
+    const modifiedData = listData;
+    const radioBtnStr = `<input class="form-check-input" type="radio" id="`;
+
+    modifiedData[modifiedCol] = `
+        ${radioBtnStr}${modifiedData[modifiedCol]}" name="${radioName}"> ${modifiedData[modifiedCol]}
+    `;
+
+    return modifiedData;
+}
 //#endregion
 
 //#region Select Options

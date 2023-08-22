@@ -115,7 +115,7 @@
                     <tbody>
                         <tr>
                             @php $tableWidth = 14; @endphp
-                            <td colspan="{{ $tableWidth }}" style="padding-left: 100px">
+                            <td colspan="{{ $tableWidth }}" style="padding-left: 150px">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
                             @for ($i = 0; $i < $tableWidth - 1; $i++)
@@ -152,7 +152,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="{{ $tableWidth }}" style="padding-left: 100px">
+                            <td colspan="{{ $tableWidth }}" style="padding-left: 150px">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
                             @for ($i = 0; $i < $tableWidth - 1; $i++)

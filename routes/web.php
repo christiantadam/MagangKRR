@@ -113,6 +113,16 @@ Route::get('/Benang/updTmpTransaksi/{id_transaksi}/{uraian_detail_transaksi?}/{j
 Route::get('/Benang/delKonversiNG/{id_konversi}', [BenangController::class, 'delKonversiNG']);
 #endregion
 
+#region ExtruderNet - Form Benang ACC
+Route::get('/Benang/getListIdKonversiNG/{tanggal1}/{tanggal2}/{kode?}', [BenangController::class, 'getListIdKonversiNG']);
+Route::get('/Benang/getDetailDataBenangNG/{id_konversi_ng}', [BenangController::class, 'getDetailDataBenangNG']);
+Route::get('/Benang/getPenyesuaianTransaksi/{kode?}/{id_type?}/{id_type_transaksi?}/{id_transaksi?}/{kode_barang?}/{id_sub_kel?}', [BenangController::class, 'getPenyesuaianTransaksi']);
+Route::get('/Benang/getTransaksiKonversiNG/{id_konversi_ng}', [BenangController::class, 'getTransaksiKonversiNG']);
+
+Route::get('/Benang/updProsesACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc?}/{keluar_primer}/{keluar_sekunder}/{keluar_tritier}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [BenangController::class, 'updProsesACCKonversi']);
+Route::get('/Benang/updACCKonversiNG/{id_konversi_ng}/{user_acc}', [BenangController::class, 'updACCKonversiNG']);
+#endregion
+
 #region ExtruderNet - Form Rincian Konversi
 Route::get('/Benang/getIdObjekKelUtama/{id_objek_kelompok_utama}/{type?}', [BenangController::class, 'getIdObjekKelUtama']);
 Route::get('/Benang/geIdKelUtamaKelompok/{id_kelompok_utama_kelompok}/{type?}', [BenangController::class, 'geIdKelUtamaKelompok']);
