@@ -293,9 +293,11 @@ $("#btnProsesDetail").on("click", function (event) {
     updateKpColumn(idKodePerkiraan, selectedRowsIndices);
 
     methoddetail.value="PUT";
+    console.log("formDetailPelunasan:", formDetailPelunasan);
     formDetailPelunasan.action = "/MaintenanceBKMPenagihan/" + iddetail.value;
-    formDetailPelunasan.submit();
+    console.log("formDetailPelunasan:", formDetailPelunasan);
 
+    //formDetailPelunasan.submit();
     $('#modalDetailPelunasan').modal('hide');
 });
 

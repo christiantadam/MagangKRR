@@ -63,6 +63,22 @@ btnHapus.addEventListener('click', function(event) {
 })
 
 function clickIsi() {
+    idBank.disabled = false;
+    namaBankselect.disabled = false;
+    jenisBankSelect.disabled = false;
+    statusAktif.disabled = false;
+    ketKodePerkiraan.disabled = false;
+    kodePerkiraanSelect.disabled = false;
+    noRekening.disabled = false;
+    saldoBank.disabled = false;
+    alamat.disabled = false;
+    kota.disabled = false;
+    kota.disabled = false;
+    telp.disabled = false;s
+    person.disabled = false;
+    hp.disabled = false;
+
+
     namaBankselect.style.display = "none";
     isiNamaBank.style.display = "block";
     btnIsi.disabled = true;

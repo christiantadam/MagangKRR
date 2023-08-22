@@ -41,6 +41,18 @@ class UpdateDetailBKMController extends Controller
         return response()->json($tabel);
     }
 
+    public function getTabelBiaya($idPelunasan)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_DETAIL_BIAYA] @idPelunasan = ?', [$idPelunasan]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelTampilBKM($tanggalInputTampil, $tanggalInputTampil2)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_CASHADV_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampil, $tanggalInputTampil2]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -50,50 +62,52 @@ class UpdateDetailBKMController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        dd('masuk store');
     }
 
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        dd('masuk show');
     }
 
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-        //
+        dd('masuk edit');
     }
 
     //Update the specified resource in storage.
     public function update(Request $request)
     {
         $proses =  $request->all();
-        //dd("masuk");
-        if ($proses['detpelunasan'] == "datpelunasan") {
-            $idBank = $request->idBank;
-            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_LIST_BANK_1]
-            @idBank = ?', [$idBank]);
-            return redirect()->back()->with('success', 'Data sudah diKOREKSI');
-
-        } else if ($proses['detpelunasan'] == "detpelunasan") {
-            //dd("masuk else if");
-            $idDetail = $request->iddetail;
+        if ($proses['detpelunasan'] == "detpelunasan") {
+            //dd($request->all());
+            $TDet = $request->TDet;
             $kode = $request->idKodePerkiraan;
             DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_PELUNASAN] @iddetail = ?, @kode = ?', [
-                $idDetail, $kode]);
+                $TDet, $kode]);
             return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
 
         }
-        // else if ($proses['detpelunasan'] == "detkuranglebih") {
-        //     //dd($request->all());
-        //     $idcoba = $request->idcoba;
-        //     $kode = $request ->idKodePerkiraanKrgLbh;
-        //     $keterangan = $request ->keterangan;
-        //     DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
-        //         $idcoba, $keterangan, $kode]);
-        //     return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
-        // }
+        else if ($proses['detpelunasan'] == "detkuranglebih") {
+            //dd($request->all());
+            $idcoba = $request->idcoba;
+            $kode = $request ->idKodePerkiraanKrgLbh;
+            $keterangan = $request ->keterangan;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
+                $idcoba, $keterangan, $kode]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
+        else if ($proses['detpelunasan'] == "detbiaya") {
+            //dd($request->all());
+            $idDetailBiaya = $request->idDetailBiaya;
+            $kode = $request ->idKodePerkiraanBiaya;
+            $keterangan = $request ->keteranganBiaya;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_BIAYA] @iddetail = ?, @keterangan = ?, @kode = ?', [
+                $idDetailBiaya, $keterangan, $kode]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
     }
 
     //Remove the specified resource from storage.

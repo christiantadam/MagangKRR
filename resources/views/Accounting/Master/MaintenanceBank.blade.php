@@ -19,12 +19,12 @@
                                 <!-- Form fields go here -->
                                 <div>
                                     <label for="idBank" class="col-md-2">Id. Bank</label>
-                                    <input type="text" id="idBank" name="idBank">
+                                    <input type="text" id="idBank" name="idBank" disabled>
                                 </div>
                                 <div>
                                     <div class="d-flex">
                                         <label for="namaBank" class="col-md-2">Nama Bank</label>
-                                        <select name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect">
+                                        <select name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect" disabled>
                                             <option disabled selected>-- Pilih Bank --</option>
                                             @foreach ($maintenanceBank as $mb)
                                             <option value="{{ $mb->Id_Bank }}">{{ $mb->Nama_Bank }}</option>
@@ -36,21 +36,21 @@
                                 </div>
                                 <div>
                                     <label for="jenisBankSelect" class="col-md-2">Jenis Bank </label>
-                                    <input type="radio" name="jenisBankSelect" value="I" id="jenisBankSelect">
+                                    <input type="radio" name="jenisBankSelect" value="I" id="jenisBankSelect" disabled>
                                     <label for="jenisBankSelect">Interent</label>
-                                    <input type="radio" name="jenisBankSelect" value="E" id="jenisBankSelect">
+                                    <input type="radio" name="jenisBankSelect" value="E" id="jenisBankSelect" disabled  >
                                     <label for="jenisBankSelect">Eksterent</label>
                                 </div>
                                 <div>
                                     <label for="statusAktif" class="col-md-2">Status Aktif</label>
-                                    <input type="checkbox" name="statusAktif" id="statusAktif" >
+                                    <input type="checkbox" name="statusAktif" id="statusAktif" disabled>
                                     <label for="checkbox">Aktif</label>
                                 </div>
                                 <div>
                                     <div class="d-flex">
-                                        <label for="kodePerkiraanSelect" class="col-md-2">Kode Perkiraan </label>
-                                        <input type="text" id="ketKodePerkiraan" name="ketKodePerkiraan">
-                                        <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" style="width: 100px;">
+                                        <label for="kodePerkiraanSelect" class="col-md-2" >Kode Perkiraan </label>
+                                        <input type="text" id="ketKodePerkiraan" name="ketKodePerkiraan" disabled>
+                                        <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" style="width: 100px;" disabled>
                                             <option disabled selected>-- Pilih KdPerkiraan --</option>
                                             @foreach ($maintenanceBank as $kp)
                                             <option value="{{ $kp->KodePerkiraan }}">{{ $kp->KodePerkiraan }}</option>
@@ -60,32 +60,32 @@
                                 </div>
                                 <div>
                                     <label for="noRekening" class="col-md-2">No Rekening </label>
-                                    <input type="text" name="norekening" id="noRekening">
+                                    <input type="text" name="norekening" id="noRekening" disabled>
                                 </div>
                                 <div>
                                     <label for="saldoBank" class="col-md-2">Saldo Bank </label>
-                                    <input type="text" name="saldoBank" id="saldoBank">
+                                    <input type="text" name="saldoBank" id="saldoBank" disabled>
                                 </div>
                                 <p>
                                 <div>
                                     <label for="alamat" class="col-md-2">Alamat </label>
-                                    <input type="text" name="alamat" id="alamat" style="width: 450px;">
+                                    <input type="text" name="alamat" id="alamat" style="width: 450px;" disabled>
                                 </div>
                                 <div>
                                     <label for="kota" class="col-md-2">Kota </label>
-                                    <input type="text" name="kota" id="kota">
+                                    <input type="text" name="kota" id="kota" disabled>
                                 </div>
                                 <div>
                                     <label for="telp" class="col-md-2">Telp </label>
-                                    <input type="text" name="telp" id="telp">
+                                    <input type="text" name="telp" id="telp" disabled>
                                 </div>
                                 <div>
                                     <label for="person" class="col-md-2">Person </label>
-                                    <input type="text" name="person" id="person">
+                                    <input type="text" name="person" id="person" disabled>
                                 </div>
                                 <div>
                                     <label for="hp" class="col-md-2">HP </label>
-                                    <input type="hp" name="hp" id="hp">
+                                    <input type="hp" name="hp" id="hp" disabled>
                                 </div>
 
                                 <div class="row">
