@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\ABM\BarcodeRoll;
+namespace App\Http\Controllers\ABM;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class KirimCircularController extends Controller
+class ACCPermohonanSatuDivisiController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
 
-        $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?', ["043", "6"]);
-        $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', ["0628"]);
-        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["KKL628"]);
-
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
         $data = 'HAPPY HAPPY HAPPY';
-        // dd($dataSubKelompok);
-        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut', 'dataKelompok', 'dataSubKelompok'));
+
+        // dd($dataDivisi);
+        return view('ACCPermohonanSatuDivisi', compact('data', 'dataDivisi'));
     }
 
     //Show the form for creating a new resource.

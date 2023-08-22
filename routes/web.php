@@ -77,6 +77,11 @@ Route::get('/ABM/BarcodeRollWoven/Penghanguskan', 'App\Http\Controllers\ABM\Barc
 Route::get('/ABM/BarcodeRollWoven/SettingTimbangan', 'App\Http\Controllers\ABM\BarcodeRoll\SettingTimbanganController@index');
 Route::get('/ABM/BarcodeRollWoven/MSD', 'App\Http\Controllers\ABM\BarcodeRoll\MSDController@index');
 
+Route::get('/ABM/ScanMutasiSatuDivisi', 'App\Http\Controllers\ABM\ScanMutasiSatuDivisiController@index');
+Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
+Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
+
+
 // Laporan Serah Terima
 Route::get('/ABM/LST', 'App\Http\Controllers\ABM\LSTController@index');
 

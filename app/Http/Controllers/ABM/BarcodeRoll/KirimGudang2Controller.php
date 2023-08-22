@@ -12,8 +12,11 @@ class KirimGudang2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
+
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeRollWoven.KirimGudang2', compact('data'));
+        return view('BarcodeRollWoven.KirimGudang2', compact('data', 'dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +32,7 @@ class KirimGudang2Controller extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
