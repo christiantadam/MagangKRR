@@ -26,7 +26,7 @@ Route::get('AdStar', 'App\Http\Controllers\AdStarController\AdStar@index');
 Route::get('AdStarHome', 'App\Http\Controllers\AdStarController\AdStarHome@index');
 Route::get('CpTbl', 'App\Http\Controllers\AdStarController\CpTbl@index');
 Route::resource('HslPrdPrs', App\Http\Controllers\AdStarController\HslPrdPrs::class);
-Route::get('MnOrdPrs', 'App\Http\Controllers\AdStarController\MnOrdPrs@index');
+Route::resource('MnOrdPrs', App\Http\Controllers\AdStarController\MnOrdPrs::class);
 Route::resource('StpOrdPrs', App\Http\Controllers\AdStarController\StpOrdPrs::class);
 Route::get('UpKdBrng', 'App\Http\Controllers\AdStarController\UpKdBrng@index');
 Route::get('PrintTbl', 'App\Http\Controllers\AdStarController\PrintTbl@index');

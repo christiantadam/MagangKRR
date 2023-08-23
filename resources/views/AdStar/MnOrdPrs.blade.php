@@ -15,8 +15,8 @@
                 <div class="col-lg-2 aligned-text">Customer:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
+                        <input type="text" id='idcust' class="form-control" placeholder="" aria-label="">
+                        <input type="text" id='namacust' class="form-control" placeholder="" aria-label="">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
                             ...
                         </button>
@@ -29,7 +29,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng">
+                        <button type="button" id="ld-Brng" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng">
                             ...
                         </button>
                     </div>
@@ -152,7 +152,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tabel_noorder" class="table table-bordered">
+            <table id="tbl_customer" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Namacust</th>
@@ -184,7 +184,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tabel_noorder" class="table table-bordered">
+            <table id="tbl_nmbrng" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Nama Type</th>
