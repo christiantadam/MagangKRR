@@ -92,7 +92,7 @@
                 <h1><a href="#">Permohonan Konversi NG</a></h1>
             @elseif($formName == 'formBenangACC')
                 <h1><a href="#">ACC Konversi NG</a></h1>
-            @elseif($formName == 'formCatatGangguanProduksi')
+            @elseif($formName == 'formCatatGangguan')
                 <h1><a href="#">Pencatatan Gangguan Produksi</a></h1>
             @elseif($formName == 'formCatatDaya')
                 <h1><a href="#">Pencatatan Daya Produksi</a></h1>
@@ -261,14 +261,14 @@
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/formCatatGangguan">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatGangguan">Pencatatan
                                             Gangguan
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formCatatDaya">Pencatatan KwaH
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatDaya">Pencatatan KwaH
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formCatatEfisiensi">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatEfisiensi">Pencatatan
                                             Efisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formCatatPerawatan">Perawatan</a>
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatPerawatan">Perawatan</a>
                                 </ul>
                             </li>
                             <li class="dropdown">

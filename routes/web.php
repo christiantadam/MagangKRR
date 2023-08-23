@@ -1,4 +1,12 @@
-<!-- LAST: listAsal_DoubleClick() | FrmMohonKonversiNG.vb -->
+<!-- Perbaikan fetch/select/table terakhir:
+tropodoKonversiACC.js
+- Menggunakan event listener "change" untuk berpindah dari select options
+- Handle arrow key navigation menggunakan "keydown"
+
+Selesai melakukan pengecekkan ulang:
+- orderMaintenance
+
+-->
 
 <?php
 
@@ -8,6 +16,7 @@ use App\Http\Controllers\Extruder\ExtruderNet\BenangController;
 use App\Http\Controllers\Extruder\ExtruderNet\KonversiController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
+use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +45,7 @@ Route::get('/Extruder/ExtruderNet/Master/{formName?}', [MasterController::class,
 Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Benang/{formName?}', [BenangController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::class, 'index']);
 
 #region ExtruderNet - Bagian Order
 Route::get('/Order/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
@@ -129,6 +139,10 @@ Route::get('/Benang/geIdKelUtamaKelompok/{id_kelompok_utama_kelompok}/{type?}', 
 Route::get('/Benang/getIdKelSubKelompok/{id_kelompok_sub_kelompok}', [BenangController::class, 'getIdKelSubKelompok']);
 Route::get('/Benang/getIdSubKelompokType/{id_sub_kelompok_type}', [BenangController::class, 'getIdSubKelompokType']);
 Route::get('/Benang/getSaldoBarang/{id_type}', [BenangController::class, 'getSaldoBarang']);
+#endregion
+
+#region ExtruderNet - Form Catat Gangguan
+
 #endregion
 
 #region ExtruderNet - Master (unfinished)

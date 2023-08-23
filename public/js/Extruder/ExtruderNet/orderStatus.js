@@ -23,6 +23,8 @@ const tableOrderCol = [
     { width: "225px" },
     { width: "225px" },
 ];
+
+var terpilih = -1;
 //#endregion
 
 //#region Events
@@ -34,32 +36,28 @@ slcOrder.addEventListener("change", function () {
 
         clearTable_DataTable("table_order", tableOrderWidth, "Memuat data...");
 
-        fetch("/Order/getListOrderBtl/" + slcOrder.value)
-            .then((response) => response.json())
-            .then((data) => {
-                listOrder.length = 0;
-                var tglKu = "";
-                for (let i = 0; i < data.length; i++) {
-                    tglKu = data[i].TanggalOrder.split(" ")[0].split("-");
-                    listOrder.push({
-                        TanggalOrder: `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`,
-                        TypeBenang: data[i].TypeBenang,
-                        JumlahTritier: data[i].JumlahTritier,
-                        JumlahProduksiTritier: data[i].JumlahProduksiTritier,
-                    });
-                }
+        fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
+            listOrder.length = 0;
+            var tglKu = "";
+            for (let i = 0; i < data.length; i++) {
+                tglKu = data[i].TanggalOrder.split(" ")[0].split("-");
+                listOrder.push({
+                    TanggalOrder: `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`,
+                    TypeBenang: data[i].TypeBenang,
+                    JumlahTritier: data[i].JumlahTritier,
+                    JumlahProduksiTritier: data[i].JumlahProduksiTritier,
+                });
+            }
 
-                addTable_DataTable(
-                    "table_order",
-                    listOrder,
-                    tableOrderCol,
-                    rowClicked
-                );
-                window.scrollTo(0, document.body.scrollHeight);
-            })
-            .catch((error) => {
-                console.error("Error: ", error);
-            });
+            addTable_DataTable(
+                "table_order",
+                listOrder,
+                tableOrderCol,
+                rowClicked
+            );
+
+            window.scrollTo(0, document.body.scrollHeight);
+        });
 
         slcStatus.focus();
     }
@@ -71,7 +69,7 @@ slcStatus.addEventListener("change", function () {
     }
 });
 
-txtKeterangan.addEventListener("keyup", function (event) {
+txtKeterangan.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         btnProses.disabled = false;
         btnProses.focus();
@@ -95,9 +93,20 @@ btnProses.addEventListener("click", function () {
                 toSnakeCase(txtKeterangan.value)
         );
 
-        alert("Data telah diproses!");
         btnProses.disabled = true;
         clearData();
+
+        const optionKeys = {
+            valueKey: "IdOrder",
+            textKey: "Identifikasi",
+        };
+
+        clearOptions(slcOrder);
+        fetchSelect("/Order/getListBatalOrd/EXT", (data) => {
+            addOptions(slcOrder, data, optionKeys);
+        });
+
+        alert("Data telah diproses!");
     }
 });
 
@@ -121,21 +130,36 @@ btnKeluar.addEventListener("keydown", function (event) {
 //#region Functions
 function clearData() {
     slcOrder.selectedIndex = 0;
+    slcStatus.selectedIndex = 0;
+    txtSpek.value = "";
     txtJmlhOrder.value = "";
     txtJmlhProd.value = "";
     txtKeterangan.value = "";
 }
 
-function rowClicked(data) {
-    tglKu = data.TanggalOrder.split("-");
-    dateInput.value = `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`;
+function rowClicked(row, data, index) {
+    if (terpilih == index) {
+        row.style.background = "white";
+        terpilih = -1;
+    } else {
+        clearSelection_DataTable("table_order");
+        row.style.background = "aliceblue";
+        terpilih = index;
 
-    txtSpek.value = data.TypeBenang;
-    txtJmlhOrder.value = data.JumlahTritier;
-    txtJmlhProd.value = data.JumlahProduksiTritier;
+        let tglKu = data.TanggalOrder.split("-");
+        dateInput.value = `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`;
+
+        txtSpek.value = data.TypeBenang;
+        txtJmlhOrder.value = data.JumlahTritier;
+        txtJmlhProd.value = data.JumlahProduksiTritier;
+    }
 }
 
 function init() {
+    if ($.fn.DataTable.isDataTable("#table_order")) {
+        $("#table_order").DataTable().destroy();
+    }
+
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
@@ -146,16 +170,19 @@ function init() {
         language: {
             searchPlaceholder: " Tabel order...",
             search: "",
+            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: function () {
             var searchInput = $('input[type="search"]').addClass(
                 "form-control"
             );
+
             searchInput.wrap('<div class="input-group"></div>');
             searchInput.before('<span class="input-group-text">Cari:</span>');
         },
     });
+
     slcOrder.focus();
 }
 //#endregion

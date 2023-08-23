@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Extruder\ExtruderNet;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PencatatanController extends Controller
 {
@@ -13,8 +14,8 @@ class PencatatanController extends Controller
         $form_data = [];
 
         switch ($form_name) {
-            case 'nama form di sini':
-                $form_data = ['nama list' => $this->fungsi()];
+            case 'formCatatGangguan':
+                $form_data = ['listMesin' => $this->getMesin(1)];
                 break;
 
             default:
@@ -27,12 +28,22 @@ class PencatatanController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getOrderBlmAcc('EXT'));
+        dd($form_data);
 
         return view($view_name, $view_data);
     }
 
     #region Gangguan Produksi
+    public function getMesin($kode)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_MESIN @kode = ?',
+            [$kode]
+        );
 
+        // If @kode = 1     SELECT * FROM MasterMesin WHERE IdDivisi='EXT'
+        // If @kode = 2     SELECT * FROM MasterMesin WHERE IdDivisi='MEX'
+        // If @kode = 3     SELECT * FROM MasterMesin WHERE IdDivisi='DEX'
+    }
     #endregion
 }

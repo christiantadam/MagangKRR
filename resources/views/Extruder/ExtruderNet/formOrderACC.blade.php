@@ -51,5 +51,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoOrderACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/orderACC.js') }}"></script>
 @endsection

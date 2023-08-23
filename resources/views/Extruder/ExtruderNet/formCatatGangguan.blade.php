@@ -1,94 +1,97 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_gangguan_produksi" class="form" data-aos="fade-up">
-    <form>
-        <div class="card mt-3">
+    <div id="tropodo_gangguan_produksi" class="form" data-aos="fade-up">
+        <div id="card_transaksi" class="card mt-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-4">
-                        <label for="tanggal">Tanggal:</label>
-                        <input type="date" name="tanggal" id="tanggal" class="form-control">
+                    <div class="col-lg-2">
+                        <span class="aligned-text">Tanggal:</span>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="date" id="tanggal" class="form-control">
                     </div>
 
-                    <div class="col-lg-4 row d-flex align-items-center">
-                        <div class="col-md-6 text-end">
-                            <div class="form-check">
-                                <input type="radio" name="tanggal" value="masuk" id="masuk">
-                                <label for="masuk">
-                                    Masuk
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-start">
-                            <div class="form-check">
-                                <input type="radio" name="tanggal" value="libur" id="libur">
-                                <label for="libur">
-                                    Libur
-                                </label>
-                            </div>
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-1 row d-flex align-items-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_status" id="radio_masuk">
+                            <label class="form-check-label" for="radio_masuk">
+                                Masuk
+                            </label>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
-                        <label for="no_transaksi">No. Transaksi:</label>
-                        <input type="text" name="no_transaksi" id="no_transaksi" class="form-control">
+                    <div class="col-lg-1 row d-flex align-items-center">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radio_status" id="radio_libur">
+                            <label class="form-check-label" for="radio_libur">
+                                Libur
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <span class="aligned-text">No. Transaksi:</span>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="text" id="no_transaksi" class="form-control">
                     </div>
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col-lg-7">
-                        <label for="kode_mesin">Kode Mesin:</label>
-                        <div class="input-group">
-                            <input type="text" name="kode_mesin1" id="kode_mesin1" class="form-control">
-                            <input type="text" name="kode_mesin2" id="kode_mesin2" class="form-control"
-                                style="width: 22.5vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-2">
+                        <span class="aligned-text">Kode Mesin:</span>
+                    </div>
+                    <div class="col-lg-9">
+                        <select id="select_kode_mesin" class="form-select">
+                            <option selected disabled>-- Pilih Kode Mesin --</option>
+                            @foreach ($formData['listMesin'] as $d)
+                                <option value="{{ $d->IdMesin }}">{{ $d->TypeMesin }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col-lg-10">
-                        <label for="komposisi">Komposisi:</label>
-                        <div class="input-group">
-                            <input type="text" name="komposisi1" id="komposisi1" class="form-control">
-                            <input type="text" name="komposisi2" id="komposisi2" class="form-control"
-                                style="width: 22.5vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-2">
+                        <span class="aligned-text">Komposisi:</span>
+                    </div>
+                    <div class="col-lg-9">
+                        <select id="select_komposisi" class="form-select">
+                            <option selected disabled>-- Pilih Komposisi --</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="row mt-3">
+                    <div class="col-lg-2">
+                        <span class="aligned-text">Shift:</span>
+                    </div>
                     <div class="col-lg-4">
-                        <label for="tanggal">Shift:</label>
                         <div class="input-group">
-                            <input type="text" name="shift" id="shift" class="form-control" style="max-width: 50px;">
-                            <input type="time" name="shift_awal" id="shift_awal" class="form-control">
+                            <input type="text" id="shift" class="form-control" style="max-width: 50px;">
+                            <input type="time" id="shift_awal" class="form-control">
                             <span class="input-group-text">s/d</span>
-                            <input type="time" name="shift_akhir" id="shift_akhir" class="form-control">
+                            <input type="time" id="shift_akhir" class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mt-3">
+        <div id="card_gangguan" class="card mt-3">
             <div class="card-body">
 
-                <div class="row mt-3">
-                    <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-2">
                         <span class="aligned-text">Gangguan:</span>
                     </div>
 
-                    <div class="col-lg-7">
-                        <div class="input-group">
-                            <input type="text" name="gangguan1" id="gangguan1" class="form-control">
-                            <input type="text" name="gangguan2" id="gangguan2" class="form-control"
-                                style="width: 22.5vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-9" style="margin-left: 7.5px">
+                        <select id="select_gangguan" class="form-select">
+                            <option selected disabled>-- Pilih Gangguan --</option>
+                        </select>
                     </div>
                 </div>
 
@@ -100,8 +103,8 @@
                                 <span class="aligned-text">Awal Gangguan:</span>
                             </div>
 
-                            <div class="col-lg-7">
-                                <input type="time" name="waktu_awal" id="waktu_awal" class="form-control">
+                            <div class="col-lg-6">
+                                <input type="time" id="waktu_awal" class="form-control">
                             </div>
                         </div>
 
@@ -110,8 +113,8 @@
                                 <span class="aligned-text">Akhir Gangguan:</span>
                             </div>
 
-                            <div class="col-lg-7">
-                                <input type="time" name="waktu_akhir" id="waktu_akhir" class="form-control">
+                            <div class="col-lg-6">
+                                <input type="time" id="waktu_akhir" class="form-control">
                             </div>
                         </div>
 
@@ -120,8 +123,8 @@
                                 <span class="aligned-text">Jumlah Jam:</span>
                             </div>
 
-                            <div class="col-lg-7">
-                                <input type="number" name="jmlh_jam" id="jmlh_jam" class="form-control">
+                            <div class="col-lg-6">
+                                <input type="number" id="jmlh_jam" class="form-control">
                             </div>
                         </div>
 
@@ -130,15 +133,15 @@
                                 <span class="aligned-text">Jumlah Menit:</span>
                             </div>
 
-                            <div class="col-lg-7">
-                                <input type="number" name="jmlh_menit" id="jmlh_menit" class="form-control">
+                            <div class="col-lg-6">
+                                <input type="number" id="jmlh_menit" class="form-control">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-7 mt-3">
+                    <div class="col-lg-6 mt-3">
                         <label for="keterangan">Keterangan:</label>
-                        <textarea name="keeterangan" rows="5" cols="50" class="form-control"></textarea>
+                        <textarea id="keterangan" rows="5" cols="50" class="form-control"></textarea>
                     </div>
 
                 </div>
@@ -146,41 +149,46 @@
             </div>
         </div>
 
-        <div class="card mt-3">
+        <div id="card_tabel" class="card mt-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-3">
-                        <span class="aligned-text">Data Bulan/Tahun</span>
+                    <div class="col-lg-3 d-flex align-items-center justify-content-end">
+                        <span class="aligned-text">Data Bulan/Tahun:</span>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="date" name="data_tgl" id="data_tgl" class="form-control">
-                            <button type="button" class="btn btn-outline-primary">OK</button>
+                            <input type="text" id="data_tgl" class="form-control">
+                            <button type="button" id="btn_ok" class="btn btn-outline-primary">OK</button>
                         </div>
                     </div>
                 </div>
 
-                <table class="table table-hover mt-3">
+                <table id="table_gangguan" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th scope="col">No. Konversi</th>
-                            <th scope="col">Spec</th>
+                            <th>No. Transaksi</th>
+                            <th>Tanggal</th>
+                            <th>Id Mesin</th>
+                            <th>Nama Mesin</th>
+                            <th>Id Konversi</th>
+                            <th>Id Gangguan</th>
+                            <th>Nama Gangguan</th>
+                            <th>Awal Gangguan</th>
+                            <th>Akhir Gangguan</th>
+                            <th>Jumlah Jam</th>
+                            <th>Jumlah Menit</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
-                        <tr>
-                            <td>temp</td>
-                            <td>temp</td>
-                        </tr>
+                        @php $tableWidth = 12; @endphp
+                        <td colspan="{{ $tableWidth }}" class="text-center">
+                            <h1 class="mt-3">Tabel masih kosong...</h1>
+                        </td>
+                        @for ($i = 0; $i < $tableWidth - 1; $i++)
+                            <td class="hidden"></td>
+                        @endfor
                     </tbody>
                 </table>
             </div>
@@ -188,17 +196,20 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Isi</button>
-                <button type="submit" class="btn btn-outline-warning">Koreksi</button>
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-outline-success"
+                    style="margin-right: 5px">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-outline-warning"
+                    style="margin-right: 5px">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary" style="margin-right: 5px"
+                    disabled>Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/ExtruderNet/catatGangguan.js') }}"></script>
 @endsection

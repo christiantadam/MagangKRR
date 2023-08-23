@@ -6,7 +6,6 @@
             <div class="col-lg-9">
                 <select id="select_order" class="form-select">
                     <option selected disabled>-- Pilih Nomor Order --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
                     @foreach ($formData['listBatalOrder'] as $d)
                         <option value="{{ $d->IdOrder }}">{{ $d->IdOrder . ' | ' . $d->Identifikasi }}</option>
                     @endforeach
@@ -92,5 +91,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoOrderStatus.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/orderStatus.js') }}"></script>
 @endsection

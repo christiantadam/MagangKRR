@@ -22,7 +22,6 @@ const listOfDetail = document.querySelectorAll(".card .detail_order");
 
 const listOrder = [];
 
-const tableOrderWidth = 7;
 const tableOrderCol = [
     { width: "300px" },
     { width: "125px" },
@@ -36,20 +35,23 @@ const tableOrderCol = [
 
 //#region Events
 btnBaru.addEventListener("click", function () {
-    clearTable_DataTable("table_order", tableOrderWidth);
-    txtIdentifikasi.value = "";
-    listOrder.length = 0;
+    clearTable_DataTable("table_order", tableOrderCol.length);
     clearDataDetail();
     toggleButtons(2);
+
+    txtNoOrder.value = "";
+    txtIdentifikasi.value = "";
+    listOrder.length = 0;
     txtIdentifikasi.focus();
 });
 
-txtIdentifikasi.addEventListener("keypress", function (event) {
+txtIdentifikasi.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         const inputValue = txtIdentifikasi.value.trim();
         if (inputValue === "") {
-            alert("Masukkan identifikasi order terlebih dahulu");
             txtIdentifikasi.focus();
+
+            alert("Masukkan identifikasi order terlebih dahulu");
         } else {
             slcType.disabled = false;
             slcType.focus();
@@ -59,10 +61,6 @@ txtIdentifikasi.addEventListener("keypress", function (event) {
 
 slcType.addEventListener("change", function () {
     if (this.value != "-- Pilih Type Benang --") {
-        txtPrimerQty.disabled = false;
-        txtPrimerQty.focus();
-        txtPrimerQty.value = "";
-
         const [SatPrimer, SatSekunder, SatTirtier] = this.value.split(",");
         spnPrimerSat.textContent = SatPrimer;
         spnSekunderSat.textContent = SatSekunder;
@@ -70,6 +68,9 @@ slcType.addEventListener("change", function () {
 
         txtPrimerQty.disabled = false;
         txtPrimerQty.focus();
+        txtPrimerQty.value = "";
+        txtSekunderQty.value = "";
+        txtTersierQty.value = "";
     }
 });
 
@@ -114,6 +115,10 @@ btnDetail.addEventListener("click", function () {
         listOfDetail.forEach((ele) => {
             if (ele.value == "") isDetailEmpty = true;
         });
+
+        if (slcType.selectedIndex == 0) {
+            isDetailEmpty = true;
+        }
     } else isDetailEmpty = true;
 
     if (isDetailEmpty) {
@@ -122,15 +127,18 @@ btnDetail.addEventListener("click", function () {
     }
 
     // Lakukan pencarian terhadap tabel berdasarkan Nama Type
-    if (
-        searchTable_DataTable(
-            "table_order",
+    const isTypeExist = listOrder.some((order) => {
+        return order.namaType.includes(
             slcType.options[slcType.selectedIndex].text
-        )
-    ) {
+        );
+    });
+
+    if (isTypeExist) {
+        slcType.focus();
+
         alert("Sudah ada type benang yang sama dalam order.");
     } else {
-        dataDetail = {
+        let pushedOrder = {
             namaType: slcType.options[slcType.selectedIndex].text,
             satPrimer: spnPrimerSat.textContent,
             qtyPrimer: txtPrimerQty.value,
@@ -140,7 +148,7 @@ btnDetail.addEventListener("click", function () {
             qtyTersier: txtTersierQty.value,
         };
 
-        listOrder.push(dataDetail);
+        listOrder.push(pushedOrder);
         addTable_DataTable("table_order", listOrder, tableOrderCol);
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
@@ -163,10 +171,11 @@ btnKeluar.addEventListener("click", function () {
         window.location.href = "/Extruder/ExtruderNet";
     } else {
         toggleButtons(1);
-        listOrder.length = 0;
-        clearTable_DataTable("table_order", tableOrderWidth);
+        clearTable_DataTable("table_order", tableOrderCol.length);
         clearDataDetail();
         disableDetail();
+
+        listOrder.length = 0;
     }
 });
 
@@ -192,8 +201,7 @@ txtNoOrder.addEventListener("change", function () {
     alert("Data berhasil disimpan!");
     toggleButtons(1);
     disableDetail();
-    txtNoOrder.value = "";
-    txtIdentifikasi.value = "";
+
     btnBaru.focus();
 });
 
@@ -209,15 +217,10 @@ btnProses.addEventListener("click", function () {
                 "/tmpUser"
         );
 
-        fetch("/Order/getNoOrder")
-            .then((response) => response.json())
-            .then((data) => {
-                txtNoOrder.value = data.NoOrder;
-                txtNoOrder.dispatchEvent(new Event("change"));
-            })
-            .catch((error) => {
-                console.error("Error: ", error);
-            });
+        fetchSelect("/Order/getNoOrder", (data) => {
+            txtNoOrder.value = data.NoOrder;
+            txtNoOrder.dispatchEvent(new Event("change"));
+        });
     }
 });
 
@@ -259,12 +262,14 @@ function toggleButtons(tmb) {
             btnProses.disabled = true;
             btnKeluar.textContent = "Keluar";
             break;
-
-        default:
+        case 2:
             txtIdentifikasi.disabled = false;
             btnBaru.disabled = true;
             btnProses.disabled = false;
             btnKeluar.textContent = "Batal";
+            break;
+
+        default:
             break;
     }
 }
@@ -284,6 +289,10 @@ function disableDetail() {
 }
 
 function init() {
+    if ($.fn.DataTable.isDataTable("#table_order")) {
+        $("#table_order").DataTable().destroy();
+    }
+
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
@@ -294,17 +303,21 @@ function init() {
         language: {
             searchPlaceholder: " Tabel order...",
             search: "",
+            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: function () {
             var searchInput = $('input[type="search"]').addClass(
                 "form-control"
             );
+
             searchInput.wrap('<div class="input-group"></div>');
             searchInput.before('<span class="input-group-text">Cari:</span>');
         },
     });
+
     toggleButtons(1);
+
     btnBaru.focus();
     dateInput.value = getCurrentDate();
 }

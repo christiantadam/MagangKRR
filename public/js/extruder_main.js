@@ -102,33 +102,17 @@ function addTable_DataTable(
             searchPlaceholder:
                 " Tabel " + tableId.replace("table_", "") + "...",
             search: "",
+            info: "Menampilkan _TOTAL_ data",
         },
 
         rowCallback: function (row, data, index) {
             if (rowFun != null) {
                 row.style.cursor = "pointer";
+                const eventListener = isDblClick ? "dblclick" : "click";
 
-                if (!isDblClick) {
-                    row.addEventListener("click", function () {
-                        rowFun(row, data, index);
-                    });
-                } else {
-                    row.addEventListener("click", function () {
-                        if (row.style.background == "white") {
-                            row.style.background = "aliceblue";
-                        }
-                    });
-
-                    row.addEventListener("dblclick", function () {
-                        if (row.style.background != "lightblue") {
-                            row.style.background = "lightblue";
-                        } else {
-                            row.style.background = "white";
-                        }
-
-                        rowFun(row, data, index);
-                    });
-                }
+                row.addEventListener(eventListener, function () {
+                    rowFun(row, data, index);
+                });
             }
         },
     });
@@ -168,17 +152,6 @@ function clearTable_DataTable(tableId, tableWidth, msg = null) {
     tbodyKu.innerHTML = tableStr;
 }
 
-function searchTable_DataTable(tableId, searchStr) {
-    const dataTable = $("#" + tableId).DataTable();
-    const columnIdx = 0;
-    const foundRows = dataTable
-        .column(columnIdx)
-        .search(searchStr, true, false)
-        .draw();
-
-    return foundRows > 0;
-}
-
 function addSearchBar_DataTable(tableId) {
     var searchInput = $(`#${tableId}_filter input[type="search"]`).addClass(
         "form-control"
@@ -186,6 +159,14 @@ function addSearchBar_DataTable(tableId) {
 
     searchInput.wrap('<div class="input-group"></div>');
     searchInput.before('<span class="input-group-text">Cari:</span>');
+}
+
+function clearSelection_DataTable(tableId) {
+    const dataTable = $("#" + tableId).DataTable();
+    const rows = dataTable.rows().nodes().toArray();
+    rows.forEach((row) => {
+        row.style.backgroundColor = "white";
+    });
 }
 
 function addRadioToData(listData, modifiedCol, radioName) {
@@ -251,10 +232,6 @@ function clearOptions(selectEle, selectLbl = "") {
         <option selected disabled>
             -- Pilih ${selectHead} --
         </option>
-
-        <option value="loading" style="display: none" disabled>
-            Memuat data...
-        </option>
     `;
 
     selectEle.selectedIndex = 0;
@@ -300,10 +277,12 @@ function fetchSelect(
                     selectOption.textContent = "Data tidak ditemukan!";
                 }
             }
+
             postAction(data);
 
             console.log("urlString = " + urlString);
-            console.log("data = " + data);
+            console.log("Data yang terfetch:");
+            console.log(data);
         })
         .catch((error) => {
             if (catchAction != null) {
@@ -333,12 +312,17 @@ function toSnakeCase(inputStr) {
     return inputStr.toLowerCase().replace(/\s+/g, "_");
 }
 
-function getCurrentDate() {
+function getCurrentDate(monthYearOnly = false) {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, "0");
     const day = String(currentDate.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+
+    if (monthYearOnly) {
+        return `${month}/${year}`;
+    } else {
+        return `${year}-${month}-${day}`;
+    }
 }
 
 function dateTimeToDate(inputStr) {

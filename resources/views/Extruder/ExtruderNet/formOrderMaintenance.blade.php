@@ -56,7 +56,6 @@
                     <div class="col-lg-8">
                         <select id="select_benang" class="form-select" disabled>
                             <option selected disabled>-- Pilih Type Benang --</option>
-                            <option value="loading" style="display: none" disabled>Loading...</option>
                             @foreach ($formData['listBenang'] as $d)
                                 <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
                                     {{ $d->NamaType }}</option>
@@ -117,5 +116,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoOrderMaintenance.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/orderMaintenance.js') }}"></script>
 @endsection
