@@ -53,7 +53,15 @@ class MaintenanceOrderKerjaController extends Controller
         //
     }
 
-
+    public function inputfile(Request $request) {
+        dd($request->all());
+        $kdBarang = $request->kode;
+        $pdf = $request->name;
+        DB::connection('ConnPurchase')->table('Y_FOTO')->insert([
+            'KD_BARANG' => $kdBarang,
+            'PDF' => $pdf
+        ]);
+    }
     public function store(Request $request)
     {
         //dd($request->all());

@@ -1,14 +1,14 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
-@if (Session::has('success'))
-<div class="alert alert-success">
-  {{ Session::get('success') }}
-</div>
-@elseif (Session::has('error'))
-<div class="alert alert-danger">
-  {{ Session::get('error') }}
-</div>
-@endif
+  @if (Session::has('success'))
+    <div class="alert alert-success">
+      {{ Session::get('success') }}
+    </div>
+  @elseif (Session::has('error'))
+    <div class="alert alert-danger">
+      {{ Session::get('error') }}
+    </div>
+  @endif
   <div class="card-header">
     Maintenance Order Kerja
   </div>
@@ -115,7 +115,7 @@
 
             <div class="col-lg-5">
               <div class="input-group">
-                <input type="number" name="jmlh1" class="form-control" value="1">
+                <input type="number" name="jmlh1" class="form-control" value="1" id="jmlh1">
                 <input type="text" name="jmlh2" class="form-control" style="width: 7.5vw;" id="jmlh2">
               </div>
             </div>
@@ -246,7 +246,7 @@
               <div class="input-group">
                 <button type="button" class="btn btn-success custom-btn" id="isi"
                   onclick="klikisi()">ISI</button>
-                <button type="button" class="btn btn-warning custom-btn">KOREKSI</button>
+                <button type="button" class="btn btn-warning custom-btn" onclick="koreksiklik()" id="koreksi">KOREKSI</button>
                 <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
               </div>
             </div>
@@ -340,7 +340,8 @@
                   <span style="color: red">input PDF</span>
                 </div>
                 <div class="col-3">
-                  <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal">
+                  <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal"
+                    accept=".text , .pdf">
                 </div>
               </div>
 
@@ -349,7 +350,8 @@
                   <span>No. Gambar</span>
                 </div>
                 <div class="col-2">
-                  <input type="text" class="form-control form-control" id="NomorGambarModal" name="NomorGambarModal">
+                  <input type="text" class="form-control form-control" id="NomorGambarModal"
+                    name="NomorGambarModal">
                 </div>
                 <div class="col-3">
                   <input type="text" class="form-control form-control" id="NamaBarangModal" name="NamaBarangModal">
@@ -358,7 +360,8 @@
                   <span>Update PDF</span>
                 </div>
                 <div class="col-3">
-                  <input class="form-control" type="file" id="updatepdfmodal" name="updatepdfmodal">
+                  <input class="form-control" type="file" id="updatepdfmodal" name="updatepdfmodal"
+                    accept=".text , .pdf">
                 </div>
               </div>
 
@@ -457,6 +460,9 @@
             </div>
           </div>
         </form>
+        <div id="inputpdfdiv">
+
+        </div>
       </div>
     </div>
   </div>
