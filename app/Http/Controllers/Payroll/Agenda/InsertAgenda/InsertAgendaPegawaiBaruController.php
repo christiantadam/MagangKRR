@@ -12,8 +12,9 @@ class InsertAgendaPegawaiBaruController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Agenda.InsertAgenda.insertPegawaiBaru', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ?', [1]);
+        return view('Payroll.Agenda.InsertAgenda.insertPegawaiBaru', compact('dataDivisi', 'dataShift'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +30,17 @@ class InsertAgendaPegawaiBaruController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        // dd("Masuk Show");
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

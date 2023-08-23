@@ -12,8 +12,8 @@ class KoreksiShiftController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Agenda.KoreksiShift.koreksiShift', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        return view('Payroll.Agenda.KoreksiShift.koreksiShift', compact('dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +29,7 @@ class KoreksiShiftController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
         //
     }
