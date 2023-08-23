@@ -6,39 +6,54 @@
 
     <div class="form-wrapper mt-4">
     <div class='form-container2'>
-    <div class="card">
-    <div class="card-header">Penghangusan Barcode</div>
-            <div class="form-wrapper mt-4">
+    <div class="card" style="width: 1000px">
+    <div class="card-header">Mutasi Satu Divisi </div>
+            <div class="form-wrapper mt-4 ml-4 mr-4">
             <div class="form-container">
             <div class="card">
-                        <div class="card-header">Buat Barcode</div>
+                        <div class="card-header">Process Awal</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form berat_woven">
                             <form action="#" method="post" role="form">
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Scan Barcode</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('ABM/ScanMutasiSatuDivisi')}}">
+                                                <button style="width: 120px" type="button">Scan Barcode</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Permohonan</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('ABM/MutasiSatuDivisi')}}">
+                                                <button style="width: 120px" type="button">Permohonan</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">ACC</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('ABM/AccPermohonanSatuDivisi')}}">
+                                                <button style="width: 120px" type="button">ACC</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
                 <div class="row mt-3">
                     <div class="col- row justify-content-md-center">
                         <div class="text-center col-md-auto mb-3"><button type="submit">Keluar</button></div>

@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PilihJenisRepress.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/AccPermohonanSatuDivisi.js') }}"></script>
 
 
     <body onload="Greeting()">
@@ -57,6 +57,11 @@
                                                         placeholder="Divisi" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                                    <div class="form-group col-md-3 mt-3 mt-md-0">
+                                                        <input type="date" class="form-control" name="date"
+                                                            id="date" placeholder="Tanggal"
+                                                            style="width: 400px; margin-left: 350px; margin-top: 10px">
+                                                    </div>
                                                     <div class="modal" id="myModal">
                                                         <div class="modal-content">
                                                             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -107,14 +112,14 @@
                                                             </table>
                                                             <div class="text-center col-md-auto">
                                                                 <button type="button"
-                                                                    onclick="closeModal()">Process</button>
+                                                                    onclick="closeModal1()">Process</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            {{-- <div class="card row">
                                                 <!-- Kelompok Utama & Kode Transaksi -->
                                                 <div class="col-md-6">
                                                     <div class="form-group d-flex align-items-center">
@@ -123,8 +128,8 @@
                                                             placeholder="Kelompok Utama">
                                                     </div>
                                                     <div class="form-group d-flex align-items-center">
-                                                        <span class="aligned-text pr-2">Kode&nbsp;Transaksi:</span>
-                                                        <input type="text" class="form-control" name="Transaksi" id="Transaksi"
+                                                        <span style="margin-left: 15px" class="aligned-text pr-2">Kode&nbsp;Transaksi:</span>
+                                                        <input style="width: 200px" type="text" class="form-control" name="Transaksi" id="Transaksi"
                                                             placeholder="Transaksi">
                                                     </div>
                                                 </div>
@@ -151,15 +156,61 @@
                                                     <input type="text" class="form-control" name="Barang" id="Barang"
                                                         placeholder="Nama Barang">
                                                 </div>
+                                            </div> --}}
+                                            <div class="card">
+                                                <div class="row mt-3">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Kelompok Utama:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-3 mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="Kelut"
+                                                            id="Kelut" placeholder="Kelompok Utama">
+                                                    </div>
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Sub Kelompok :</span>
+                                                    </div>
+                                                    <div class="form-group col-md-3 mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="SubKelompok"
+                                                            id="SubKelompok" placeholder="Sub Kelompok ">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Kode Transaksi:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-2 mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="Transaksi"
+                                                            id="Transaksi" placeholder="Kode Transaksi">
+                                                    </div>
+                                                    <div class="form-group col-md-3 d-flex justify-content-end">
+                                                        <span class="aligned-text">Kelompok :</span>
+                                                    </div>
+                                                    <div class="form-group col-md-3 mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="Kelompok"
+                                                            id="Kelompok" placeholder="Kelompok ">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <span class="aligned-text">Nama Barang:</span>
+                                                </div>
+                                                <div class="form-group col-md-9 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Barang"
+                                                        id="Barang" placeholder="Nama Barang">
+                                                </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-md-2 d-flex justify-content-end">
                                                     <span class="aligned-text">Jenis Mutasi:</span>
                                                 </div>
-                                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Mutasi" id="Mutasi"
-                                                        placeholder="Jenis Mutasi">
+                                                <div class="form-group col-md-4 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Mutasi"
+                                                        id="Mutasi" placeholder="Jenis Mutasi">
                                                 </div>
                                             </div>
 
@@ -167,33 +218,32 @@
                                                 <div class="form-group col-md-2 d-flex justify-content-end">
                                                     <span class="aligned-text">Jumlah Barang:</span>
                                                 </div>
-                                                <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah" id="Jumlah"
-                                                        placeholder="Jumlah Barang">
+                                                <div class="form-group col-md-2 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                </div>
+                                                <div class="form-group col-md-1 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" style="margin-left: -20px">
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah" id="Jumlah"
-                                                        placeholder="Jumlah Barang">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                </div>
+                                                <div class="form-group col-md-1 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" style="margin-left: -20px">
+                                                </div>
+                                                <div class="form-group col-md-2 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                </div>
+                                                <div class="form-group col-md-1 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Jumlah"
+                                                        id="Jumlah" style="margin-left: -20px">
                                                 </div>
                                             </div>
 
-                                            <div class="row mt-3 mb-3">
-                                                <div class="col- row justify-content-md-center">
-                                                    <div class="text-center col-md-auto"><button style="width: 100px"
-                                                            type="button">Refresh</button></div>
-                                                    <div class="text-center col-md-auto"><button class="btn-danger" style="width: 100px"
-                                                            type="button">Keluar</button></div>
-                                                    <div class="row ml-5">
-                                                        <div class="form-group col-md-2 d-flex justify-content-end">
-                                                            <span class="aligned-text">Penerima:</span>
-                                                        </div>
-                                                        <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                            <input type="text" class="form-control" name="Penerima"
-                                                                id="Penerima" placeholder="Penerima">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                     </div>
 
                                     <div class="card mt-auto">
@@ -201,239 +251,51 @@
                                         <table id="TableType">
                                             <thead>
                                                 <th>Id Transaksi</th>
-                                                <th>Kelompok Utama </th>
-                                                <th>Kelompok </th>
-                                                <th>Sub Kelompok</th>
-                                                <th>Nama Type</th>
-                                                <th>Alasan Mutasi</th>
-                                                <th>User</th>
+                                                <th>Tanggal </th>
+                                                <th>Barang </th>
+                                                <th>Alasan </th>
+                                                <th>Objek Pemberi</th>
+                                                <th>Kel. Utama</th>
+                                                <th>Kelompok</th>
+                                                <th>Sub Kel</th>
+                                                <th>Permohonan</th>
                                                 <th>Primer</th>
                                                 <th>Sekunder</th>
                                                 <th>Tritier</th>
-                                                <th>Terkirim (Sekunder)</th>
-                                                <th>Tanggal Mohon</th>
+                                                <th>Kd Barang</th>
                                             </thead>
                                             <tbody>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-wrapper mt-4" style="margin-left:95px">
-                <div class="form-container">
-                    <div class="card">
-                        <div class="card-header">Pemberi Barang</div>
-                        <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                            <div class="form berat_woven">
-                                <div class="row">
-                                    <div class="form-group col-md-2 d-flex justify-content-end">
-                                        <span class="aligned-text">Divisi:</span>
-                                    </div>
-                                    <div class="form-group col-md-9 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="Divisi" id="Divisi"
-                                            placeholder="Divisi">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-2 d-flex justify-content-end">
-                                        <span class="aligned-text">Objek:</span>
-                                    </div>
-                                    <div class="form-group col-md-9 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="Objek" id="Objek"
-                                            placeholder="Objek">
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="form-group col-md-2 d-flex justify-content-end">
-                                        <span class="aligned-text">Kelompok Utama:</span>
-                                    </div>
-                                    <div class="form-group col-md-9 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="kelut" id="kelut"
-                                            placeholder="Kelompok Utama">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3" style="margin-left: 400px">
-                                <div class="text-center col-md-auto">
-                                    <button type="button" onclick="openModal2()" id="ButtonShift"
-                                        style="width: 180px;">Lihat Barcode</button>
-                                </div>
-                                <div class="modal" id="myModal2">
-                                    <div class="modal-content" style="width: 1200px">
-                                        <span class="close-btn" onclick="closeModal2()">&times;</span>
-                                        <h2>Lihat Barcode</h2>
-                                        <table id="TableBarcode">
+                                    <div class="card mt-4 ml-4 mr-4">
+                                        <div class="card-header">Type</div>
+                                        <table id="TableTest1">
                                             <thead>
-                                                <tr>
-                                                    <th>Id Transaksi</th>
-                                                    <th>Kelompok Utama </th>
-                                                    <th>Kelompok </th>
-                                                    <th>Sub Kelompok</th>
-                                                    <th>Nama Type</th>
-                                                    <th>Alasan Mutasi</th>
-                                                    <th>User</th>
-                                                    <th>Primer</th>
-                                                    <th>Sekunder</th>
-                                                    <th>Tritier</th>
-                                                    <th>Tanggal Mohon</th>
-                                                </tr>
+                                                <th>Test</th>
                                             </thead>
                                             <tbody>
-
-                                                <!-- Add more rows as needed -->
                                             </tbody>
                                         </table>
-                                        <div class="text-center col-md-auto mt-3">
-                                            <button style="width: 100px;" type="button"
-                                                onclick="closeModal2()">Ok</button>
-                                        </div>
-                                        <div class="form-group col-md-auto mt-3">
-                                            <input type="text" class="form-control text-center" name="Objek"
-                                                id="Objek" style="width: 300px; margin-left: 415px">
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kelompok:</span>
-                                </div>
-                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok"
-                                        placeholder="Kelompok">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Sub Kelompok:</span>
-                                </div>
-                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="sub_kelompok" id="sub_kelompok"
-                                        placeholder="Sub Kelompok">
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-wrapper mt-4" style="margin-left:95px">
-            <div class="form-container">
-                <div class="card">
-                    <div class="card-header">Penerima Barang</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <div class="form berat_woven">
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kelompok Utama:</span>
-                                </div>
-                                <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="kelut" id="kelut"
-                                        placeholder="Kelompok Utama">
-                                </div>
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Tanggal:</span>
-                                </div>
-                                <input type="date" class="form-control col-md-2" name="Tanggal" id="Tanggal"
-                                    placeholder="Tanggal">
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kelompok:</span>
-                                </div>
-                                <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok"
-                                        placeholder="Kelompok">
-                                </div>
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kode Transaksi:</span>
-                                </div>
-                                <input type="text" class="form-control col-md-2" name="Transaksi" id="Transaksi"
-                                    placeholder="Transaksi">
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kelompok:</span>
-                                </div>
-                                <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok"
-                                        placeholder="Kelompok">
-                                </div>
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kode Barang:</span>
-                                </div>
-                                <input type="text" class="form-control col-md-2" name="kode_barang" id="kode_barang"
-                                    placeholder="Barang">
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Nama Barang:</span>
-                                </div>
-                                <div class="form-group col-md-10 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="nama_barang" id="nama_barang"
-                                        placeholder="Nama Barang">
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-2 d-flex" style="margin-left: 10px">
-                                <span class="aligned-text">Jumlah Barang:</span>
-                            </div>
-                            <div class="row" style="margin-left: 5px">
-                                <div class="form-group col-md-2 d-flex justify-content-end" style="margin-left: -17px">
-                                    <span class="aligned-text">Satuan Primier:</span>
-                                </div>
-                                <div class="form-group col-md-2 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Primier" id="Primier"
-                                        placeholder="Primier">
-                                </div>
-                                <div class="form-group col-md-2 d-flex justify-content-end" style="margin-left: -25px">
-                                    <span class="aligned-text">Satuan Sekunder:</span>
-                                </div>
-                                <input type="text" class="form-control col-md-2" name="Sekunder" id="Sekunder"
-                                    placeholder="Sekunder">
-                                <div class="form-group col-md-2 d-flex justify-content-end" style="margin-left: -25px">
-                                    <span class="aligned-text">Satuan Tritier:</span>
-                                </div>
-                                <input type="text" class="form-control col-md-2" name="Tritier" id="Tritier"
-                                    placeholder="Tritier">
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Alasan Mutasi:</span>
-                                </div>
-                                <div class="form-group col-md-10 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Alasan" id="Alasan"
-                                        placeholder="Alasan Mutasi">
-                                </div>
-                            </div>
-                        </div>
+            <div class="row mt-3">
+                <div class="col- row justify-content-md-center ml-3">
+                    <div class="text-center col-md-auto mb-3"><button type="button"
+                            style="width: 100px">Refresh</button>
+                    </div>
+                    <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Proses</button>
+                    </div>
+                    <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Exit</button>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col- row justify-content-md-center ml-3">
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Konversi</button></div>
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Hanguskan</button></div>
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Print Ulang</button></div>
-            </div>
-        </div>
-        </form>
+            </form>
         </div>
 
         <main class="py-4">

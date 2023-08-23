@@ -20,7 +20,7 @@
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
                                             <a href="{{url('ABM/ScanMutasiSatuDivisi')}}">
-                                                <button type="button">Scan Barcode</button>
+                                                <button style="width: 120px" type="button">Scan Barcode</button>
                                             </a>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
                                             <a href="{{url('ABM/MutasiSatuDivisi')}}">
-                                                <button type="button">Permohonan</button>
+                                                <button style="width: 120px" type="button">Permohonan</button>
                                             </a>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
                                             <a href="{{url('ABM/AccPermohonanSatuDivisi')}}">
-                                                <button type="button">ACC</button>
+                                                <button style="width: 120px" type="button">ACC</button>
                                             </a>
                                         </div>
                                     </div>

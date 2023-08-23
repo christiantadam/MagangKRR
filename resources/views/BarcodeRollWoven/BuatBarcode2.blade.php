@@ -2,6 +2,20 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BuatBarcode2.js') }}"></script>
 
+    <style>
+        /* Menyesuaikan penempatan bidang input dalam kontainer */
+        .input-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Menentukan lebar bidang input */
+        #tanggal {
+            width: 140px;
+            /* Sesuaikan nilai ini sesuai kebutuhan */
+        }
+    </style>
+
 
     <body onload="Greeting()">
         <div class="form-wrapper mt-4">
@@ -18,7 +32,7 @@
                                                 <span class="aligned-text">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0 ml-3">
-                                                <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                                <input type="date" class="form-control" id="tanggalInput"
                                                     placeholder="Tanggal">
                                             </div>
                                         </div>
@@ -49,7 +63,7 @@
                                                             <div class="text-center col-md-auto"
                                                                 style="margin-top: 15px; margin-left:200px">
                                                                 <button type="button" id="okButton"
-                                                                    onclick="closeModal()">Ok</button>
+                                                                    onclick="setShiftValue()">Ok</button>
                                                             </div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal()">
@@ -192,19 +206,19 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                style="width:180px;">Print Barcode
+                                                    style="width:180px;">Print Barcode
                                                     Konversi</button></div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                style="width:180px;">ACC Barcode</button>
+                                                    style="width:180px;">ACC Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                style="width:180px;">Print Ulang</button>
+                                                    style="width:180px;">Print Ulang</button>
                                             </div>
                                         </div>
 
@@ -223,8 +237,7 @@
                                                 <span class="aligned-text">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                <input class="form-control" type="date" name="tanggal" rows="tanggal"
-                                                    placeholder="Tanggal">
+                                                <input type="date" class="form-control" id="tanggalOutput" readonly>
                                             </div>
                                         </div>
 
@@ -233,10 +246,11 @@
                                                 <span class="aligned-text">Shift:</span>
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="shift" rows="shift"
-                                                    placeholder="Shift">
+                                                <input class="form-control" type="text" name="shift" id="shift"
+                                                    placeholder="Shift" readonly>
                                             </div>
                                         </div>
+
 
                                         <div class="row">
                                             <div class="form-group col-md-2 d-flex justify-content-end">
@@ -244,7 +258,7 @@
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                    placeholder="Barcode" readonly>
                                             </div>
                                         </div>
 
@@ -253,7 +267,7 @@
                                                 <span class="aligned-text">Type Asal:</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="asal" rows="asal" placeholder="Asal"></textarea>
+                                                <textarea class="form-control" name="asal" rows="asal" placeholder="Asal" readonly></textarea>
                                             </div>
                                         </div>
 
@@ -262,7 +276,7 @@
                                                 <span class="aligned-text">Type Tujuan:</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="tujuan" rows="tujuan" placeholder="Tujuan"></textarea>
+                                                <textarea class="form-control" name="tujuan" rows="tujuan" placeholder="Tujuan" readonly></textarea>
                                             </div>
                                         </div>
 
@@ -272,7 +286,7 @@
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="divisi" rows="divisi"
-                                                    placeholder="Divisi">
+                                                    placeholder="Divisi" readonly>
                                             </div>
                                             <div style="width: 450px; margin-left: 15px">
                                                 <input class="form-control" type="text" name="text" rows="text"
@@ -298,7 +312,8 @@
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="primer" rows="primer"
                                                 placeholder="Primer">
-                                            <div class="text-center col-md-auto"><button type="button">Ball</button>
+                                            <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">Ball</button>
                                             </div>
                                         </div>
                                     </div>
@@ -310,7 +325,8 @@
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="sekunder" rows="sekunder"
                                                 placeholder="Sekunder">
-                                            <div class="text-center col-md-auto"><button type="button">LBR</button></div>
+                                            <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">LBR</button></div>
                                         </div>
                                     </div>
 
@@ -321,7 +337,8 @@
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="tritier" rows="tritier"
                                                 placeholder="Tritier">
-                                            <div class="text-center col-md-auto"><button type="button">KG</button></div>
+                                            <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">KG</button></div>
                                         </div>
                                     </div>
                                 </div>

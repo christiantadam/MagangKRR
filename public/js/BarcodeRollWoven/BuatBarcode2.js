@@ -15,7 +15,33 @@ $(document).ready(function () {
     ButtonShift.addEventListener("click", function (event) {
         event.preventDefault();
     });
+
+    // Dapatkan elemen input tanggal pertama dan kedua
+    const tanggalInput = document.getElementById("tanggalInput");
+    const tanggalOutput = document.getElementById("tanggalOutput");
+
+    // Tambahkan event listener ke input tanggal pertama untuk mengupdate input tanggal kedua
+    tanggalInput.addEventListener("input", function () {
+        // Dapatkan nilai tanggal yang dipilih dari input tanggal pertama
+        const selectedDate = tanggalInput.value;
+
+        // Update nilai input tanggal kedua dengan tanggal yang dipilih
+        tanggalOutput.value = selectedDate;
+    });
+
 });
+
+// Function to set the selected shift value and close the modal
+function setShiftValue() {
+    // Get the selected shift value from the modal input
+    const selectedShift = document.getElementById("Shift").value;
+
+    // Set the selected shift value to the read-only input with the ID "shift"
+    document.getElementById("shift").value = selectedShift;
+
+    // Close the modal
+    closeModal();
+}
 
 function openModal() {
     var modal = document.getElementById('myModal');
