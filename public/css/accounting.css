@@ -9513,3 +9513,14 @@ label.clickable {
 label.clickable:hover {
     text-decoration: underline;
 }
+
+.card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.card.disabled {
+    opacity: 0.6; /* Mengurangi kecerahan */
+    pointer-events: none; /* Mencegah interaksi */
+}

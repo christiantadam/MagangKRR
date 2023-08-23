@@ -59,6 +59,7 @@ function clickKoreksi() {
     btnHapus.disabled = true;
     btnProses.disabled = false;
     btnBatal.style.display = "block";
+    idMataUang.disabled = false;
     idMataUang.focus();
     proses = 2;
 }

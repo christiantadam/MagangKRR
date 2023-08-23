@@ -280,7 +280,7 @@ $("#btnProsesBiaya").on("click", function (event) {
     event.preventDefault();
     const idKodePerkiraanBiaya = $("#idKodePerkiraanBiaya").val();
     const selectedRowsIndices = [];
-    $("#tabelDetailKurangLebih tbody input[type='checkbox']:checked").each(function () {
+    $("#tabelDetailBiaya tbody input[type='checkbox']:checked").each(function () {
         const row = $(this).closest("tr");
         const rowIndex = dataTable4.row(row).index();
         selectedRowsIndices.push(rowIndex);

@@ -74,7 +74,7 @@ function clickIsi() {
     alamat.disabled = false;
     kota.disabled = false;
     kota.disabled = false;
-    telp.disabled = false;s
+    telp.disabled = false;
     person.disabled = false;
     hp.disabled = false;
 

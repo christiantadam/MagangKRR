@@ -41,6 +41,13 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getTabelBiaya($idPelunasan)
+    {
+
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_DETAIL_BIAYA] @idPelunasan = ?', [$idPelunasan]);
+        return response()->json($tabel);
+    }
+
     function getDataBank()
     {
         $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
@@ -103,6 +110,15 @@ class MaintenanceBKMPenagihanController extends Controller
             $keterangan = $request ->keterangan;
             DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
                 $idcoba, $keterangan, $kode]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
+        else if ($proses['detpelunasan'] == "detbiaya") {
+            //dd($request->all());
+            $idDetailBiaya = $request->idDetailBiaya;
+            $kode = $request ->idKodePerkiraanBiaya;
+            $keterangan = $request ->keteranganBiaya;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_BIAYA] @iddetail = ?, @keterangan = ?, @kode = ?', [
+                $idDetailBiaya, $keterangan, $kode]);
             return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
         }
         // else if ($proses['detpelunasan'] == "dettampilbkm") {

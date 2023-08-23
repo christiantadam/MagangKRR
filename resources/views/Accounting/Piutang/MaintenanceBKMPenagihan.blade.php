@@ -68,19 +68,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($tabel as $item)
-                                                <tr>
-                                                    <td>{{ $item->Tgl_Pelunasan }}</td>
-                                                    <td>{{ $item->Id_Pelunasan }}</td>
-                                                    <td>{{ $item->Id_bank }}</td>
-                                                    <td>{{ $item->Jenis_Pembayaran }}</td>
-                                                    <td>{{ $item->Nama_MataUang }}</td>
-                                                    <td>{{ $item->Nilai_Pelunasan }}</td>
-                                                    <td>{{ $item->No_Bukti }}</td>
-                                                    <td>{{ $item->No_Bukti }}</td>
-                                                </tr>
-                                                @endforeach --}}
-                                                <!-- Tambahkan baris lainnya jika diperlukan -->
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -118,16 +106,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{-- <tr>
-                                                        <td>Data 1</td>
-                                                        <td>Data 2</td>
-                                                        <td>Data 3</td>
-                                                        <td>Data 4</td>
-                                                        <td>Data 5</td>
-                                                        <td>Data 6</td>
-                                                        <td>Data 7</td>
-                                                    </tr> --}}
-                                                        <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -142,12 +120,12 @@
                                                 <label for="radio_2">Detail Biaya</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 120%; table-layout: fixed;">
+                                                <table style="width: 200%; table-layout: fixed;" id="tabelDetailBiaya">
                                                     <colgroup>
-                                                        <col style="width: 25%;">
-                                                        <col style="width: 25%;">
-                                                        <col style="width: 25%;">
-                                                        <col style="width: 25%;">
+                                                        <col style="width: 50%;">
+                                                        <col style="width: 50%;">
+                                                        <col style="width: 50%;">
+                                                        <col style="width: 50%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
@@ -158,13 +136,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 4</td>
-                                                        </tr>
-                                                        <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -196,12 +167,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 4</td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -447,6 +412,79 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!--MODAL DETAIL BIAYA-->
+                        <div class="modal fade" id="modalDetailBiaya" tabindex="-1" role="dialog"
+                        aria-labelledby="pilihBankModal" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="pilihBankModal">Maintenance Biaya BKM Penagihan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ url('UpdateDetailBKM') }}" id="formDetailBiaya"
+                                    method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" id="methodbiaya">
+                                    <div class="d-flex">
+                                        <div class="col-md-3">
+                                            <label for="jumlahBiaya" style="margin-right: 10px;">Jumlah Biaya</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" id="jumlahBiaya" name="jumlahBiaya"
+                                                class="form-control" style="width: 100%">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="idDetailBiaya" style="margin-right: 10px;">Id. Detail</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" id="idDetailBiaya" name="idDetailBiaya"class="form-control" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="col-md-3">
+                                            <label for="kodePerkiraan" style="margin-right: 10px;">Kode
+                                                Perkiraan</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" id="idKodePerkiraanBiaya"
+                                                name="idKodePerkiraanBiaya" class="form-control"
+                                                style="width: 100%">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select name="kodePerkiraanBiayaSelect" id="kodePerkiraanBiayaSelect" class="form-control">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="col-md-3">
+                                            <label for="keterangan" style="margin-right: 10px;">Keterangan</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" id="keteranganBiaya" name="keteranganBiaya"
+                                                class="form-control" style="width: 100%">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <input type="submit" id="btnProsesBiaya"
+                                                name="btnProsesBiaya" value="Proses" class="btn btn-primary">
+                                        </div>
+                                        <div class="col-3">
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="submit" id="btnTutupModal" name="btnTutupModal"
+                                                value="Tutup" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="detpelunasan" id="detpelunasan" value="detbiaya">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
                         <!--MODAL MAINTENANCE KURANG/LEBIH BKM-->
                         <div class="modal fade" id="modalDetailKurangLebih" tabindex="-1" role="dialog"

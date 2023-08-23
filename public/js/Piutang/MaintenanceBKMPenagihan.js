@@ -3,16 +3,19 @@ let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
 let tabelDetailPelunasan = document.getElementById('tabelDetailPelunasan');
 let tabelDetailKurangLebih = document.getElementById('tabelDetailKurangLebih');
+let tabelDetailBiaya = document.getElementById('tabelDetailBiaya');
 let detpelunasan = document.getElementById('detpelunasan').value;
 
 let pilihBank = document.getElementById('pilihBank');
 let selectedRows = [];
 let selectedRowsDetail = [];
 let selectedRowsDetailKrgLbh = [];
+let selectedRowsDetailBiaya = [];
 let selectedIdPelunasan, selectedIdDetail;
 let dataTable;
 let dataTable2;
 let dataTable3;
+let dataTable4;
 let tabelTampilBKM;
 
 let idPelunasan = document.getElementById('idPelunasan');
@@ -49,6 +52,9 @@ let methoddetail = document.getElementById("methoddetail");
 
 let formDetailKurangLebih = document.getElementById("formDetailKurangLebih");
 let methodkuranglebih = document.getElementById("methodkuranglebih");
+
+let methodbiaya = document.getElementById("methodbiaya");
+let formDetailBiaya = document.getElementById("formDetailBiaya");
 
 let tanggalInputTampil = document.getElementById("tanggalInputTampil");
 let tanggalInputTampil2 = document.getElementById("tanggalInputTampil2");
@@ -175,6 +181,28 @@ btnPilihBank.addEventListener('click', function (event) {
                     // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
                     dataTable3.clear().rows.add(options).draw();
                 });
+
+            fetch("/tabelbiaya/" + cells[1].innerText)
+                .then((response) => response.json())
+                .then((options) => {
+                    //console.log(cells[1].innerText);
+                    dataTable4 = $("#tabelDetailBiaya").DataTable({
+                        data: options,
+                        columns: [
+                            {
+                                title: "Keterangan", data: "Keterangan",
+                                render: function (data) {
+                                    return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                                },
+                            },
+                            { title: "Jumlah Biaya", data: "Biaya" },
+                            { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+                            { title: "Id. Detail", data: "Id_Detail_Pelunasan" },
+                        ],
+                    });
+                    // Setelah fetch selesai, masukkan data detail pelunasan ke dalam tabelDetailPelunasan
+                    dataTable4.clear().rows.add(options).draw();
+                });
         }
     }
     console.log(selectedRows);
@@ -255,7 +283,7 @@ $("#btnProses").on("click", function (event) {
           row.data(rowData).draw();
         }
       });
-    $('#pilihInputTanggal').modal('hide');
+    $('#pilihBank').modal('hide');
 })
 
 kodePerkiraanSelect.addEventListener("change", function (event) {
@@ -299,6 +327,25 @@ $("#btnProsesDetail").on("click", function (event) {
 
     //formDetailPelunasan.submit();
     $('#modalDetailPelunasan').modal('hide');
+});
+
+$("#btnProsesBiaya").on("click", function (event) {
+    event.preventDefault();
+    const idKodePerkiraanBiaya = $("#idKodePerkiraanBiaya").val();
+    const selectedRowsIndices = [];
+    $("#tabelDetailBiaya tbody input[type='checkbox']:checked").each(function () {
+        const row = $(this).closest("tr");
+        const rowIndex = dataTable4.row(row).index();
+        selectedRowsIndices.push(rowIndex);
+    });
+
+    updateKpColumn3(idKodePerkiraanBiaya, selectedRowsIndices);
+
+    methodbiaya.value = "PUT";
+    formDetailBiaya.action = "/MaintenanceBKMPenagihan/" + idDetailBiaya.value;
+    formDetailBiaya.submit();
+
+    //$('#modalDetailKurangLebih').modal('hide');
 });
 
 $("#btnProsesKurangLebih").on("click", function (event) {
@@ -456,6 +503,23 @@ function updateKpColumn2(kodePerkiraanKrgLbhSelect, selectedRows) {
     });
 }
 
+function updateKpColumn3(kodePerkiraanBiayaSelect, selectedRows) {
+    // Loop through each selected row index and update the data for the specific column
+    selectedRows.forEach((rowIdx) => {
+      // Get the DataTable row object for the selected row index
+      const row = dataTable4.row(rowIdx);
+      if (row) {
+        // Get the current data for the row
+        const rowData = row.data();
+        const selectedValue = kodePerkiraanBiayaSelect.split("|");
+        const idKpValue = selectedValue[0];
+
+        rowData["Kode_Perkiraan"] = idKpValue;
+        row.data(rowData).draw();
+      }
+    });
+}
+
 //Untuk ngecek radiobutton mana yang dipilih, karena akan menampilkan modal yang berbeda
 function validateTabel() {
     let radiogrupDetail = document.getElementsByName("radiogrupDetail");
@@ -471,7 +535,7 @@ function validateTabel() {
         if (selectedValue === "1") {
             DetailPelunasan();
         } else if (selectedValue === "2") {
-
+            DetailBiaya();
         } else if(selectedValue === "3") {
             DetailKurangLebih();
         }
@@ -480,7 +544,18 @@ function validateTabel() {
     }
 };
 
-//function buat modal Detail Pelunasan
+kodePerkiraanBiayaSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanBiayaSelect.options[kodePerkiraanBiayaSelect.selectedIndex];
+    if (selectedOption) {
+        const idKodeInput = document.getElementById('idKodePerkiraanBiaya');
+        const selectedValue = selectedOption.value;
+        const idKode = selectedValue.split(" | ")[0];
+        idKodeInput.value = idKode;
+    }
+});
+
+//function buat modal Detail Biaya
 function DetailPelunasan() {
     let rows = tabelDetailPelunasan.getElementsByTagName("tr");
     for (let i = 1; i < rows.length; i++) {
@@ -538,7 +613,59 @@ function DetailPelunasan() {
                 kodePerkiraanSelect.appendChild(option);
             });
         });
-}
+};
+
+function DetailBiaya() {
+    let rows = tabelDetailBiaya.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        let checkbox = cells[0].getElementsByTagName("input")[0];
+        if (checkbox.checked) {
+            let rowData = {
+                Keterangan: cells[0].innerText,
+                Biaya: cells[1].innerText,
+                Kode_Perkiraan: cells[2].innerText,
+                Id_Detail_Pelunasan: cells[3].innerText,
+            };
+            selectedRowsDetailBiaya.push(rowData);
+        }
+    }
+    const keteranganBiaya = $("#keteranganBiaya");
+    const biaya = $("#jumlahBiaya")
+    const kodePerkiraan = $("#kodePerkiraanBiayaSelect");
+    const idDetailBiaya = $("#idDetailBiaya");
+
+    const selectedData = selectedRowsDetailBiaya[0];
+
+    // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
+    keteranganBiaya.val(selectedData.Keterangan);
+    biaya.val(selectedData.Biaya);
+    idDetailBiaya.val(selectedData.Id_Detail_Pelunasan);
+    kodePerkiraan.val(selectedData.Kode_Perkiraan);
+    console.log(idDetailBiaya);
+    const modal = $("#modalDetailBiaya");
+    modal.modal('show');
+    //untuk ambil list kode perkiraan
+    fetch("/detailkodeperkiraan/" + 1)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            kodePerkiraanBiayaSelect.innerHTML="";
+
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Kode Perkiraan";
+            kodePerkiraanBiayaSelect.appendChild(defaultOption);
+
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.NoKodePerkiraan;
+                option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+                kodePerkiraanBiayaSelect.appendChild(option);
+            });
+        });
+};
 
 function DetailKurangLebih() {
     let rows = tabelDetailKurangLebih.getElementsByTagName("tr");

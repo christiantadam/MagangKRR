@@ -17,40 +17,59 @@
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
-                                <div>
-                                    <label for="idBank" class="col-md-2">Id. Bank</label>
-                                    <input type="text" id="idBank" name="idBank" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="idBank">Id. Bank</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="d-flex">
-                                        <label for="namaBank" class="col-md-2">Nama Bank</label>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="namaBank">Nama Bank</label>
+                                    </div>
+                                    <div class="col-md-3">
                                         <select name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect" disabled>
                                             <option disabled selected>-- Pilih Bank --</option>
                                             @foreach ($maintenanceBank as $mb)
                                             <option value="{{ $mb->Id_Bank }}">{{ $mb->Nama_Bank }}</option>
                                             @endforeach
                                         </select>
-                                        {{-- <input type="hidden" name="namaBank" id="namaBank"> --}}
-                                        <input type="text" name="isiNamaBank" style="display: none;" id="isiNamaBank" >
+                                        <input type="text" name="isiNamaBank" style="display: none;" class="form-control" id="isiNamaBank" >
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="jenisBankSelect" class="col-md-2">Jenis Bank </label>
-                                    <input type="radio" name="jenisBankSelect" value="I" id="jenisBankSelect" disabled>
-                                    <label for="jenisBankSelect">Interent</label>
-                                    <input type="radio" name="jenisBankSelect" value="E" id="jenisBankSelect" disabled  >
-                                    <label for="jenisBankSelect">Eksterent</label>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="jenisBankSelect" >Jenis Bank </label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" name="jenisBankSelect" value="I" id="jenisBankSelect">
+                                        <label for="jenisBankSelect">Interent</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="radio" name="jenisBankSelect" value="E" id="jenisBankSelect">
+                                        <label for="jenisBankSelect">Eksterent</label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="statusAktif" class="col-md-2">Status Aktif</label>
-                                    <input type="checkbox" name="statusAktif" id="statusAktif" disabled>
-                                    <label for="checkbox">Aktif</label>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="statusAktif">Status Aktif</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="checkbox" name="statusAktif" id="statusAktif" disabled>
+                                        <label for="checkbox">Aktif</label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="d-flex">
-                                        <label for="kodePerkiraanSelect" class="col-md-2" >Kode Perkiraan </label>
-                                        <input type="text" id="ketKodePerkiraan" name="ketKodePerkiraan" disabled>
-                                        <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" style="width: 100px;" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="kodePerkiraanSelect">Kode Perkiraan </label>
+                                    </div>
+                                    <div class="col-md-2" style="padding-right: 20px">
+                                        <input type="text" id="ketKodePerkiraan" name="ketKodePerkiraan" class="form-control" style="width: 100%" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" disabled>
                                             <option disabled selected>-- Pilih KdPerkiraan --</option>
                                             @foreach ($maintenanceBank as $kp)
                                             <option value="{{ $kp->KodePerkiraan }}">{{ $kp->KodePerkiraan }}</option>
@@ -58,37 +77,64 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <label for="noRekening" class="col-md-2">No Rekening </label>
-                                    <input type="text" name="norekening" id="noRekening" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="noRekening">No Rekening </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="norekening" id="noRekening" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="saldoBank" class="col-md-2">Saldo Bank </label>
-                                    <input type="text" name="saldoBank" id="saldoBank" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="saldoBank">Saldo Bank </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="saldoBank" id="saldoBank" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
                                 <p>
-                                <div>
-                                    <label for="alamat" class="col-md-2">Alamat </label>
-                                    <input type="text" name="alamat" id="alamat" style="width: 450px;" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="alamat">Alamat </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="alamat" id="alamat" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="kota" class="col-md-2">Kota </label>
-                                    <input type="text" name="kota" id="kota" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="kota">Kota </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="kota" id="kota" class="form-control" style="width: 100%"disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="telp" class="col-md-2">Telp </label>
-                                    <input type="text" name="telp" id="telp" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="telp">Telp </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="telp" id="telp" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="person" class="col-md-2">Person </label>
-                                    <input type="text" name="person" id="person" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="person">Person </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="person" id="person" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="hp" class="col-md-2">HP </label>
-                                    <input type="hp" name="hp" id="hp" disabled>
+                                <div class="d-flex">
+                                    <div class="col-md-2">
+                                        <label for="hp">HP </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="hp" name="hp" id="hp" class="form-control" style="width: 100%" disabled>
+                                    </div>
                                 </div>
-
-                                <div class="row">
+                                <br><div class="d-flex">
                                     <input type="submit" name="isi" id="btnIsi" value="Isi" class="btn btn-primary" onclick="clickIsi()">
                                     <input type="submit" name="koreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary" onclick="clickKoreksi()">
                                     <input type="submit" name="hapus"  id="btnHapus" value="Hapus" class="btn btn-primary" onclick="clickHapus()">
