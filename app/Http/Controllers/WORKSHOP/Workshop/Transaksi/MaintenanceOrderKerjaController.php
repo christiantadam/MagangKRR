@@ -53,14 +53,36 @@ class MaintenanceOrderKerjaController extends Controller
         //
     }
 
-    public function inputfile(Request $request) {
-        dd($request->all());
+    public function inputfile(Request $request)
+    {
+        // dd($request->all(), $request->file('inputpdfmodal'));
+        $request->validate([
+            'inputpdfmodal' => 'required|mimes:pdf|max:2048', // Adjust the max file size as needed
+        ]);
         $kdBarang = $request->kode;
-        $pdf = $request->name;
+        $pdf = $request->file('inputpdfmodal');
+        // dd($pdf);
+        // $fs = fopen($request->file('inputpdfmodal')->path(), 'rb'); // 'rb' for binary mode
+        // $file = fread($fs, filesize($request->file('inputpdfmodal')->path()));
+        // fclose($fs); // Close the file handle
+        $binaryReader = fopen($pdf, 'rb');
+        $pdfBinary = fread($binaryReader, $pdf->getSize());
+        fclose($binaryReader);
+        // dd($pdf, $binaryReader, $pdfBinary);
         DB::connection('ConnPurchase')->table('Y_FOTO')->insert([
             'KD_BARANG' => $kdBarang,
-            'PDF' => $pdf
+            'PDF' => DB::raw('0x' . bin2hex($pdfBinary)) // Assuming PDF column is binary data type
         ]);
+    }
+    public function selectpdf($kdBarang)
+    {
+        $pdf = DB::connection('ConnPurchase')
+            ->table('Y_FOTO')
+            ->select('PDF')
+            ->where('KD_BARANG', '=', $kdBarang)
+            ->first();
+
+        return response()->json($pdf);
     }
     public function store(Request $request)
     {
@@ -100,12 +122,29 @@ class MaintenanceOrderKerjaController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+        $kdBrg = $request->Kdbarangmodal;
+        $noGbr = $request->NomorGambarModal;
+        $namaBrg = $request->NamaBarangModal;
+        $jml = $request->JumlahModal;
+        $ketOd = $request->KeteranganModal;
+        $noSat = $request->SatuanModal;
+        $noMesin = $request->MesinModal;
+        $radio = $request->inlineRadioOptions;
+        if ($radio == "Baru") {
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-ORDER-KRJ] @noOrder = ?, @kdBrg = ?, @noGbr = ?, @namaBrg = ?, @jml = ?,  @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$id, $kdBrg, $noGbr, $namaBrg, $jml, $ketOd, $noSat, $noMesin, 1]);
+        }
+        if ($radio == "Perbaikan") {
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-ORDER-KRJ] @noOrder = ?, @kdBrg = ?, @noGbr = ?, @namaBrg = ?, @jml = ?,  @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$id, $kdBrg, $noGbr, $namaBrg, $jml, $ketOd, $noSat, $noMesin, 3]);
+        }
+        return redirect()->back()->with('success', 'Data TerKOREKSI');
     }
 
 
     public function destroy($id)
     {
-        //
+        //dd($id);
+        DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_DELETE-ORDER-KRJ] @noOrder = ?', [$id]);
+        return redirect()->back()->with('success', 'Data TerHAPUS');
     }
 }

@@ -125,6 +125,7 @@ Route::get('LoadData2/{kdbarang}', 'App\Http\Controllers\WORKSHOP\Workshop\Trans
 Route::get('LoadData/{kdBarang}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderKerjaController@LoadData');
 Route::get('Mesinmodal/{idDivisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderKerjaController@mesin');
 Route::post('inputfile', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderKerjaController@inputfile');
+Route::get('selectpdf/{kdBarang}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\MaintenanceOrderKerjaController@selectpdf');
 
 Route::get('ACCManagerKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCManagerKerja');
 Route::get('ACCDirekturKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturKerja');

@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+<link href="{{ asset('css/Workshop/Transaksi/MaintenanceOrderGambar.css') }}" rel="stylesheet">
   @if (Session::has('success'))
     <div class="alert alert-success">
       {{ Session::get('success') }}
@@ -247,7 +248,7 @@
                 <button type="button" class="btn btn-success custom-btn" id="isi"
                   onclick="klikisi()">ISI</button>
                 <button type="button" class="btn btn-warning custom-btn" onclick="koreksiklik()" id="koreksi">KOREKSI</button>
-                <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
+                <button type="button" class="btn btn-danger custom-btn" onclick="hapusklik()">HAPUS</button>
               </div>
             </div>
 
@@ -341,7 +342,7 @@
                 </div>
                 <div class="col-3">
                   <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal"
-                    accept=".text , .pdf">
+                    accept=".pdf">
                 </div>
               </div>
 

@@ -57,7 +57,99 @@ let tglOrderkoreksi;
 let namabarangkoreksi;
 let mesinkoreksi;
 let statusmodal;
-let methodFormOrderKerja = document.getElementById('methodFormOrderKerja');
+let colorclass;
+let methodFormOrderKerja = document.getElementById("methodFormOrderKerja");
+let koreksi = document.getElementById("koreksi");
+let formMaintenanceOrderGambar = document.getElementById(
+    "formMaintenanceOrderGambar"
+);
+//#endregion
+
+//#region get PDF
+function getPdf(kodebarang) {
+    fetch("/selectpdf/" + kodebarang)
+    .then((response) => response.json())
+    .then((datas) => {
+        console.log(datas);
+    });
+    // fetch(`/view-selectpdf/` + kodebarang)
+    // .then(response => response.blob())
+    // .then(blob => {
+    //   const pdfUrl = URL.createObjectURL(blob);
+    //   const newTab = window.open();
+    //   newTab.location.href = pdfUrl;
+    // })
+    // .catch(error => {
+    //   console.error('Error fetching PDF:', error);
+    // });
+}
+
+//#endregion
+
+
+Divisi.focus();
+
+Divisi.addEventListener("keypress", function (event) {
+    event.preventDefault();
+    if (event.key == "Enter") {
+        const isConfirmed = confirm(`Tampilkan Semua Order??`);
+        //Mesin(Divisi.value);
+        cleardata();
+        table_data.clear().draw();
+        if (isConfirmed) {
+            pilih = 1;
+            AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
+        } else {
+            console.log("masuk");
+            pilih = 2;
+            AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+        }
+        Mesin(Divisi.value);
+        btnisi.focus();
+    }
+});
+//#region warna
+
+table_data.on("draw", function () {
+    table_data.rows().every(function () {
+        let data = this.data();
+        if (data.Tgl_TdStjMg !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("acs-empty-cell");
+        }
+        if (data.Manager !== null && data.User_Apv_2 == "N") {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("blue-color");
+        }
+        if (data.Tgl_TdStjDir !== null && data.Manager !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("gray-color");
+        }
+        if (data.User_Apv_2 == "Y" && data.Tgl_Tolak_Mng === null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("red-color");
+        }
+        if (data.Tgl_Pending !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("magenta-color");
+        }
+        if (data.Tgl_Tolak_Mng !== null) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("green-color");
+        }
+        if (
+            data.Tgl_TdStjMg == null &&
+            data.User_Apv_1 == null &&
+            // data.User_Apv_2 == null &&
+            data.Tgl_Tolak_Mng == null &&
+            data.Tgl_Pending == null
+        ) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("black-color");
+        }
+    });
+});
+
 //#endregion
 
 //#region set tanggal
@@ -206,26 +298,26 @@ function cleardata() {
 }
 //#endregion
 
-//#region divisi di ubah
+// #region divisi di ubah
 
-Divisi.addEventListener("change", function () {
-    const isConfirmed = confirm(`Tampilkan Semua Order??`);
-    //Mesin(Divisi.value);
-    if (isConfirmed) {
-        pilih = 1;
-        cleardata();
-        table_data.clear().draw();
-        AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
-        Mesin(Divisi.value);
-    } else {
-        console.log("masuk");
-        pilih = 2;
-        cleardata();
-        // dataTable.fnClearTable();
-        AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
-        Mesin(Divisi.value);
-    }
-});
+// Divisi.addEventListener("change", function () {
+//     const isConfirmed = confirm(`Tampilkan Semua Order??`);
+//     //Mesin(Divisi.value);
+//     if (isConfirmed) {
+//         pilih = 1;
+//         cleardata();
+//         table_data.clear().draw();
+//         AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
+//         Mesin(Divisi.value);
+//     } else {
+//         console.log("masuk");
+//         pilih = 2;
+//         cleardata();
+//         // dataTable.fnClearTable();
+//         AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+//         Mesin(Divisi.value);
+//     }
+// });
 
 //#endregion
 
@@ -361,6 +453,7 @@ Kdbarangmodal.addEventListener("keypress", function (event) {
             }
             Kdbarangmodal.value = kodeBarang9digit.value;
             LoadData(Kdbarangmodal.value);
+            getPdf(Kdbarangmodal.value);
         } else {
             alert("Inputkan Nomer Gambar Atau Kode Barangnya");
         }
@@ -407,7 +500,7 @@ function prosesmodalklik() {
         }
         if (modetrans == 2) {
             methodFormOrderKerja.value = "PUT";
-            formOrderKerja.action = "/MaintenanceOrderKerja/" + no_order.value ;
+            formOrderKerja.action = "/MaintenanceOrderKerja/" + no_order.value;
             formOrderKerja.submit();
         }
     }
@@ -419,11 +512,14 @@ function prosesmodalklik() {
 $("#tableOrderKerja tbody").off("click", "tr");
 $("#tableOrderKerja tbody").on("click", "tr", function () {
     let checkSelectedRows = $("#tableOrderKerja tbody tr.selected");
-
+    // console.log(checkSelectedRows);
     if (checkSelectedRows.length > 0) {
         // Remove "selected" class from previously selected rows
         checkSelectedRows.removeClass("selected");
     }
+    let classSelectedRow = $(this).attr("class");
+    colorclass = classSelectedRow;
+    console.log(classSelectedRow);
     $(this).toggleClass("selected");
     const table = $("#tableOrderKerja").DataTable();
     let selectedRows = table.rows(".selected").data().toArray();
@@ -475,61 +571,78 @@ function cleartext() {
 
 //#region koreksi
 function koreksiklik() {
-    cleartext();
-    modetrans = 2;
-    koreksi.setAttribute("data-toggle", "modal");
-    koreksi.setAttribute("data-target", "#OrderKerja");
-    Divisi.options[Divisi.selectedIndex].text.split("--")[1];
-    isiOrderKerjatitle.textContent =
+    if (colorclass == "acs-empty-cell") {
+        alert("Order Tidak Boleh Di-KOREKSI. Order hangus.");
+    }
+    if (tgl_teknik.value !== "") {
+        alert("Order Tidak Boleh Di-KOREKSI. Order ditolak.");
+    }
+    if (manager.value !== "" && acc_direktur.value !== "") {
+        alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC");
+    }
+    if (user != pengorder.value) {
+        alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder);
+    }
+    if (no_order.value !== "") {
+        cleartext();
+        modetrans = 2;
+        koreksi.setAttribute("data-toggle", "modal");
+        koreksi.setAttribute("data-target", "#OrderKerja");
         Divisi.options[Divisi.selectedIndex].text.split("--")[1];
-    iddivisimodalOrder.value = Divisi.value;
-    NamaBarangModal.value = tanggalmodal.value = tglOrderkoreksi;
-    UserModal.value = user;
-    NamaBarangModal.value = namabarangkoreksi;
-    Kdbarangmodal.value = kodebarang.value;
-    NomorGambarModal.value = Nomor_Gambar.value;
-    KeteranganModal.value = keterangan_order.value;
-    JumlahModal.value = jmlh1.value;
+        isiOrderKerjatitle.textContent =
+            Divisi.options[Divisi.selectedIndex].text.split("--")[1];
+        iddivisimodalOrder.value = Divisi.value;
+        NamaBarangModal.value = tanggalmodal.value = tglOrderkoreksi;
+        UserModal.value = user;
+        NamaBarangModal.value = namabarangkoreksi;
+        Kdbarangmodal.value = kodebarang.value;
+        NomorGambarModal.value = Nomor_Gambar.value;
+        KeteranganModal.value = keterangan_order.value;
+        JumlahModal.value = jmlh1.value;
 
-    SatuanModal.selectedIndex = 0;
-    for (let i = 0; i < SatuanModal.length; i++) {
-        // console.log(satuanJual.selectedIndex);
-        SatuanModal.selectedIndex += 1;
-        if (
-            SatuanModal.options[SatuanModal.selectedIndex].text ===
-            jmlh2.value.trim()
-        ) {
-            break;
+        SatuanModal.selectedIndex = 0;
+        for (let i = 0; i < SatuanModal.length; i++) {
+            // console.log(satuanJual.selectedIndex);
+            SatuanModal.selectedIndex += 1;
+            if (
+                SatuanModal.options[SatuanModal.selectedIndex].text ===
+                jmlh2.value.trim()
+            ) {
+                break;
+            }
         }
-    }
-    MesinModal.selectedIndex = 0;
-    //console.log(MesinModal.length);
-    for (let i = 0; i < MesinModal.length; i++) {
-        // console.log(satuanJual.selectedIndex);
-        MesinModal.selectedIndex += 1;
-        // console.log(MesinModal.option[MesinModal.selectedIndex].text.split("--"));
-        if (
-            MesinModal.options[MesinModal.selectedIndex].text.split(
-                "--"
-            )[0] === mesinkoreksi.trim()
-        ) {
-            break;
+        MesinModal.selectedIndex = 0;
+        //console.log(MesinModal.length);
+        for (let i = 0; i < MesinModal.length; i++) {
+            // console.log(satuanJual.selectedIndex);
+            MesinModal.selectedIndex += 1;
+            // console.log(MesinModal.option[MesinModal.selectedIndex].text.split("--"));
+            if (
+                MesinModal.options[MesinModal.selectedIndex].text.split(
+                    "--"
+                )[0] === mesinkoreksi.trim()
+            ) {
+                break;
+            }
         }
-    }
-    if (statusmodal == "Buat Baru") {
-        buatbarumodal.checked = true;
-        Perbaikanmodal.checked = false;
-    }
-    if (statusmodal == "Perbaikan") {
-        buatbarumodal.checked = false;
-        Perbaikanmodal.checked = true;
+        if (statusmodal == "Buat Baru") {
+            buatbarumodal.checked = true;
+            Perbaikanmodal.checked = false;
+        }
+        if (statusmodal == "Perbaikan") {
+            buatbarumodal.checked = false;
+            Perbaikanmodal.checked = true;
+        }
     }
 }
+
+//#endregion
 
 inputpdfmodal.addEventListener("change", function (event) {
     event.preventDefault();
     var form = document.createElement("form");
     form.id = "inputpdf";
+    form.enctype = "multipart/form-data"
     form.method = "post"; // Ganti dengan metode pengiriman yang sesuai
     form.action = "/inputfile";
     var csrfToken = document
@@ -542,11 +655,6 @@ inputpdfmodal.addEventListener("change", function (event) {
     csrfInput.name = "_token"; // Nama field yang diharapkan oleh Laravel
     csrfInput.value = csrfToken;
 
-    var nameInput = document.createElement("input");
-    nameInput.type = "text";
-    nameInput.name = "name";
-    nameInput.value = this.value;
-
     var kode = document.createElement("input");
     kode.type = "text";
     kode.name = "kode";
@@ -555,11 +663,33 @@ inputpdfmodal.addEventListener("change", function (event) {
     // Menyisipkan input CSRF token ke dalam form
     form.appendChild(csrfInput);
     form.appendChild(kode);
-    form.appendChild(nameInput)
+    form.appendChild(inputpdfmodal, inputpdfmodal.files);
     document.getElementById("inputpdfdiv").appendChild(form);
-
+    // console.log(inputpdfmodal.files);
     form.submit();
-
 });
+
+//#region button hapus
+
+function hapusklik() {
+    if (colorclass == "acs-empty-cell") {
+        alert("Order Tidak Boleh Di-KOREKSI. Order hangus.");
+    }
+    if (manager.value != "") {
+        alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC");
+    } else if (user != pengorder.value) {
+        alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder);
+    }
+    if (no_order.value !== "") {
+        const isConfirmed = confirm(`ingin menghapus order ` + no_order.value);
+        if (isConfirmed) {
+            methodForm.value = "DELETE";
+            // console.log("delete", no_order.value);
+            formMaintenanceOrderGambar.action =
+                "/MaintenanceOrderKerja/" + no_order.value;
+            formMaintenanceOrderGambar.submit();
+        }
+    }
+}
 
 //#endregion
