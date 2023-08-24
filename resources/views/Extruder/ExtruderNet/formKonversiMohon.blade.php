@@ -65,9 +65,9 @@
                 <label for="shift">Shift:</label>
                 <div class="input-group">
                     <input type="text" id="shift" class="form-control" style="max-width: 50px;" disabled>
-                    <input type="time" id="shift_awal" class="form-control unclickable input_waktu">
+                    <input type="time" id="shift_awal" class="form-control unclickable input_waktu" value="00:00">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" id="shift_akhir" class="form-control unclickable input_waktu">
+                    <input type="time" id="shift_akhir" class="form-control unclickable input_waktu" value="00:00">
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
 
             <div class="col-lg-2">
                 <label for="waktu_mulai">Mulai:</label>
-                <input type="time" id="waktu_mulai" class="form-control unclickable input_waktu">
+                <input type="time" id="waktu_mulai" class="form-control unclickable input_waktu" value="00:00">
             </div>
         </div>
 
@@ -119,7 +119,7 @@
 
             <div class="col-lg-2">
                 <label for="waktu_selesai">Selesai:</label>
-                <input type="time" id="waktu_selesai" class="form-control unclickable input_waktu">
+                <input type="time" id="waktu_selesai" class="form-control unclickable input_waktu" value="00:00">
             </div>
 
             <div class="col-lg-2">
@@ -148,8 +148,8 @@
                     <tbody>
                         <tr>
                             @php $tableWidth = 10; @endphp
-                            <td colspan="{{ $tableWidth }}" class="text-center">
-                                <h1 class="mt-3">Tabel masih kosong...</h1>
+                            <td colspan="{{ $tableWidth }}">
+                                <h1 class="mt-3" style="padding-left: 250px">Tabel masih kosong...</h1>
                             </td>
                             @for ($i = 0; $i < $tableWidth - 1; $i++)
                                 <td class="hidden"></td>
@@ -278,5 +278,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoKonversiMohon.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/konversiMohon.js') }}"></script>
 @endsection

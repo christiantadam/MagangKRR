@@ -218,5 +218,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/tropodoKonversiACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/konversiACC.js') }}"></script>
 @endsection

@@ -36,8 +36,6 @@ const listTmpTrans = [];
 const listTmpExt = [];
 const listHutangExt = [];
 
-const tableKonversiWidth = 2;
-const tableHasilWidth = 7;
 const tableHasilCol = [
     { width: "300px" },
     { width: "125px" },
@@ -105,27 +103,19 @@ function clearForm() {
     });
 
     listKonversi.length = 0;
-    clearTable_DataTable("table_konversi", tableKonversiWidth);
+    clearTable_DataTable("table_konversi", 2);
     listHasil.length = 0;
-    clearTable_DataTable("table_hasil", tableHasilWidth);
+    clearTable_DataTable("table_hasil", tableHasilCol.length);
 }
 
 function daftarKonversiBelumACC() {
     listKonversi.length = 0;
-    clearTable_DataTable(
-        "table_konversi",
-        tableKonversiWidth,
-        "Memuat data..."
-    );
+    clearTable_DataTable("table_konversi", 2, "Memuat data...");
 
     // SP_5298_EXT_LIST_KONV_BLM_ACC
     fetchSelect(`/Konversi/getListKonvBlmAcc/EXT`, (data) => {
         if (data.length == 0) {
-            clearTable_DataTable(
-                "table_konversi",
-                tableKonversiWidth,
-                "Data tidak ditemukan."
-            );
+            clearTable_DataTable("table_konversi", 2, "Data tidak ditemukan.");
         } else {
             for (let i = 0; i < data.length; i++) {
                 listKonversi.push({
@@ -178,7 +168,7 @@ function daftarKonversiBelumACC() {
                         listHasil.length = 0;
                         clearTable_DataTable(
                             "table_hasil",
-                            tableHasilWidth,
+                            tableHasilCol.length,
                             "Memuat data..."
                         );
 

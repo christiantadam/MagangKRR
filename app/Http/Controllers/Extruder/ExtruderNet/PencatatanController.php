@@ -28,7 +28,7 @@ class PencatatanController extends Controller
             'formData' => $form_data,
         ];
 
-        dd($form_data);
+        // dd($form_data);
 
         return view($view_name, $view_data);
     }

@@ -59,6 +59,25 @@ dateInput.addEventListener("keypress", function (event) {
         slcKodeMesin.focus();
     }
 });
+
+slcMesin.addEventListener("change", function () {
+    if (modeProses == "Koreksi" || modeProses == "Hapus") {
+        btnOk.disabled = false;
+        btnOk.focus();
+    } else if (modeProses == "Isi") {
+        slcGangguan.disabled = false;
+        slcGangguan.focus();
+    }
+
+    if (radLibur.checked) {
+        slcKomposisi.disabled = true;
+        txtShift.disabled = false;
+        txtShift.focus();
+    } else {
+        slcKomposisi.disabled = false;
+        slcKomposisi.focus();
+    }
+});
 //#endregion
 
 //#region Functions

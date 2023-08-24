@@ -270,6 +270,8 @@ function fetchSelect(
     fetch(urlString)
         .then((response) => response.json())
         .then((data) => {
+            console.log("urlString = " + urlString);
+
             if (data.length == 0) {
                 console.log("DATA KOSONG!");
 
@@ -280,7 +282,6 @@ function fetchSelect(
 
             postAction(data);
 
-            console.log("urlString = " + urlString);
             console.log("Data yang terfetch:");
             console.log(data);
         })

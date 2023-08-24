@@ -34,6 +34,8 @@ class KonversiController extends Controller
 
         // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
         // dd($this->getTransaksiKonv('KONV0003'));
+        $result = $this->getNoKonversiCounter();
+        dd($result);
 
         return view($view_name, $view_data);
     }
@@ -273,12 +275,15 @@ class KonversiController extends Controller
     public function getNoKonversiCounter()
     {
         try {
-            $a = DB::connection('ConnExtruder')->select('SELECT IdKonversi FROM counter')[0]->IdKonversi;
+            $counter = DB::connection('ConnInventory')
+                ->table('Counter')
+                ->select('IdKonversi')
+                ->first();
 
-            $XIdKonversi = '0000000000' . str_pad($a, 9, '0', STR_PAD_LEFT);
-            $XIdKonversi = 'DEX-' . substr($XIdKonversi, -10);
+            $a = $counter->IdKonversi + 1;
+            $xIdKonversi = str_pad($a, 9, '0', STR_PAD_LEFT);
 
-            return response()->json(['NoKonversi' => $XIdKonversi]);
+            return response()->json(['NoKonversi' => $xIdKonversi]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -398,11 +403,11 @@ class KonversiController extends Controller
         // FK TABLE Extruder - MasterKonversiEXT
     }
 
-    public function insMasterKonv($tgl, $shift, $awal, $akhir, $mesin, $denier, $warna, $lot_number, $id_order, $no_urut, $jam1, $jam2, $user, $kode = null)
+    public function insMasterKonv($tgl, $shift, $awal, $akhir, $mesin, $ukuran, $denier, $warna, $lot_number, $id_order, $no_urut, $id_komp, $jam1, $jam2, $user, $kode = null)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = ?, @kode = ?',
-            [$tgl, $shift, $awal, $akhir, $mesin, $denier, $warna, $lot_number, $id_order, $no_urut, $jam1, $jam2, $user, $kode]
+            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), $denier, $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, str_replace("_", ":", $jam1), str_replace("_", ":", $jam2), $user, $kode]
         );
 
         // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null
@@ -412,7 +417,7 @@ class KonversiController extends Controller
 
     public function updListCounter()
     {
-        return DB::connection('ConnExtruder')->statement('exec SP_5298_EXT_LIST_COUNTER', []);
+        return DB::connection('ConnInventory')->statement('exec SP_5298_EXT_LIST_COUNTER', []);
         // TABLE Inventory - Counter
         // *fungsi terkait - getNoKonversiCounter()
     }
