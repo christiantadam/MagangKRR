@@ -42,6 +42,13 @@ class BKMTransitorisBankController extends Controller
         return response()->json($kode);
     }
 
+    function getMataUang3($mataUangSelect)
+    {
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_MATA_UANG]
+        @kode = ?, @nama', [3], $mataUangSelect);
+        return response()->json($data);
+    }
+
     function getUraianEnter($id, $tanggal)
     {
         $idBank = $id;
@@ -62,6 +69,28 @@ class BKMTransitorisBankController extends Controller
         $idBKK = $idBank . '-P' . substr($tahun, -2) . substr($nomorIdBKK, -5);
 
         return response()->json($idBKK);
+    }
+
+    function getUraianEnterBKM($id, $tanggal)
+    {
+        $idBank = $id;
+        $tanggal = $tanggal;
+        $jenis = 'R';
+
+        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+            $jenis,
+            $tanggal,
+            $idBank,
+            null
+            // Pass by reference for output parameter
+        ]);
+
+        $tahun = substr($tanggal, -10, 4);
+        $x = DB::connection('ConnAccounting')->table('T_COUNTER_BKM')->where('Periode', '=', $tahun)->first();
+        $nomorIdBKM = '00000' . str_pad($x->Id_BKM_E_Rp, 5, '0', STR_PAD_LEFT);
+        $idBKM = $idBank . '-R' . substr($tahun, -2) . substr($nomorIdBKM, -5);
+
+        return response()->json($idBKM);
     }
 
     //Show the form for creating a new resource.

@@ -53,6 +53,11 @@ var checkboxes = document.querySelectorAll('.checkbox-item');
 checkboxes.forEach(function(checkbox) {
     checkbox.addEventListener('change', function() {
         if (this.checked) {
+            if (lastChecked !== null && lastChecked !== this) {
+                lastChecked.checked = false;
+            }
+            lastChecked = this;
+
             var idSupplier = this.getAttribute('data-id-supplier');
             var namaSupplier = this.getAttribute('data-nama-supplier');
             var idJenisSupplier = this.getAttribute('data-id-jenis-supplier');
@@ -60,6 +65,7 @@ checkboxes.forEach(function(checkbox) {
 
             fillColumns(idSupplier, namaSupplier, idJenisSupplier, namaJenisSupplier);
         } else {
+            lastChecked = null;
             // Clear kolom input jika checkbox tidak dipilih
             fillColumns('', '', '', '');
         }

@@ -40,10 +40,10 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <select name="mataUangSelect" id="mataUangSelect" class="form-control">
-                                                        {{-- <option value="MataUang 1">MU1</option>
-                                                        <option value="MataUang 2">MU2</option> --}}
+
                                                     </select>
                                                 </div>
+                                                <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
@@ -81,9 +81,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-3" style="padding-left: 70px">
-                                                    <input type="submit" id="btnProses" name="koreksidetail" value="Detail BG/CEK/Transfer/DBT" class="btn btn-primary">
+                                                    <input type="submit" id="btnDetailBG" name="btnDetailBG" value="Detail BG/CEK/Transfer/DBT" class="btn btn-primary">
                                                 </div>
                                             </div>
+                                            <input type="text" id="namaJenisPembayaran" name="namaJenisPembayaran" class="form-control" style="width: 100%">
                                             <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
@@ -145,7 +146,7 @@
                                                 <div class="col-md-2">
                                                     <input type="number" id="kurs" name="kurs" class="form-control" style="width: 100%">
                                                 </div>
-
+                                                <input type="text" id="idMataUangBKM" name="idMataUangBKM" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
@@ -178,7 +179,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-3" style="padding-left: 70px">
-                                                    <input type="submit" id="btnTambahBiayaBKM" name="btnTambahBiayaBKM" value="Tambah Biaya" class="btn btn-primary d-flex ml-auto">
+                                                    <input type="submit" id="btnTambahBiayaBKM" name="btnTambahBiayaBKM" value="Tambah Biaya" class="btn btn-primary d-flex ml-auto" disabled>
                                                 </div>
                                             </div>
                                             <input type="text" id="idJenisPembayaranBKM" name="idJenisPembayaranBKM" class="form-control" style="width: 100%">
@@ -186,10 +187,10 @@
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraanBKMSelect" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
-                                                <div class="col-md-5">
+                                                <div class="col-md-3">
                                                     <input type="number" id="idKodePerkiraanBKMSelect" name="idKodePerkiraanBKMSelect" class="form-control" style="width: 100%">
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-3">
                                                     <select id="kodePerkiraanBKMSelect" name="kodePerkiraanBKMSelect" class="form-control">
 
                                                     </select>
@@ -231,7 +232,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <input type="submit" name="koreksibiaya" value="Koreksi Biaya" class="btn btn-primary">
+                                                        <input type="submit" id="btnKoreksiBiayaBKK" name="btnKoreksiBiayaBKK" value="Koreksi Biaya" class="btn btn-primary">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="submit" name="hapusbiaya" value="Hapus Biaya" class="btn btn-primary">
@@ -243,7 +244,7 @@
                                             <div class="card-body">
                                                 <b>Detail BG/CEK/TRANSFER BKK</b>
                                                 <div style="overflow-y: auto; max-height: 250px;">
-                                                    <table style="width: 100%; table-layout: fixed;">
+                                                    <table style="width: 100%; table-layout: fixed;" id="tabelDetailBG">
                                                         <colgroup>
                                                             <col style="width: 33%;">
                                                             <col style="width: 33%;">
@@ -301,7 +302,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <input type="submit" name="koreksibiaya" value="Koreksi Biaya" class="btn btn-primary">
+                                                        <input type="submit" id="btnKoreksiBiayaBKM" name="btnKoreksiBiayaBKM" value="Koreksi Biaya" class="btn btn-primary">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="submit" name="hapusbiaya" value="Hapus Biaya" class="btn btn-primary">
@@ -335,9 +336,9 @@
                                 </div>
                             </form>
 
-                            <!--MODAL TAMBAH BIAYA-->
+                            <!--MODAL TAMBAH BIAYA BKK-->
                             <div class="modal fade" id="modalTambahBiaya" tabindex="-1" role="dialog"
-                            aria-labelledby="pilihBankModal" aria-hidden="true">
+                                aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -397,6 +398,137 @@
                                     </form>
                                 </div>
                             </div>
+
+                            <!--MODAL DETAIL BG/CEK/TRANSFER/DBT-->
+                            <div class="modal fade" id="modalDetailBG" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Maintenance Detail BG/CEK/TRANSFER/DBT LSG</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ url('BKMTransitorisBank') }}" id="formDetailBG"  method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_method" id="methodDetailBG">
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="bank" style="margin-right: 10px;">Bank</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="bank" name="bank" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="jenisPembayaran" style="margin-right: 10px;">Jenis Pembayaran</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="jenisPembayaran" name="jenisPembayaran" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="nomor" style="margin-right: 10px;">Nomor</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="nomor" name="nomor" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="jatuhTempo" style="margin-right: 10px;">Jatuh Tempo</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="date" id="jatuhTempo" name="jatuhTempo" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="statusCetak" style="margin-right: 10px;">Status Cetak [T,O,S]</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="statusCetak" name="statusCetak" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <input type="submit" id="btnProsesDetailBG" name="btnProsesDetailBG" value="Proses" class="btn btn-primary">
+                                                </div>
+                                                <div class="col-3">
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="submit" id="btnTutupModal" name="btnTutupModal"
+                                                        value="Tutup" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!--MODAL TAMBAH BIAYA BKM-->
+                            <div class="modal fade" id="modalTambahBiayaBKM" tabindex="-1" role="dialog"
+                                aria-labelledby="pilihBankModal" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="pilihBankModal">Maintenance Biaya BKM Transitoris</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ url('BKMTransitorisBank') }}" id="formTambahBiayaBKM"
+                                            method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_method" id="methodTambahBiayaBKM">
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="jumlahBiayaBKM" style="margin-right: 10px;">Jumlah Biaya</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="jumlahBiayaBKM" name="jumlahBiayaBKM" class="form-control" style="width: 100%">
+                                                </div>
+                                                {{-- <input type="hidden" name="idcoba" id="idcoba" value="idcoba"> --}}
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="kodePerkiraanBKMTSelect" style="margin-right: 10px;">Kode Perkiraan</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="idKodePerkiraanBKMT" name="idKodePerkiraanBKMT" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <select name="kodePerkiraanBKMTSelect" id="kodePerkiraanBKMTSelect" class="form-control">
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="keteranganBKM" style="margin-right: 10px;">Keterangan</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="keteranganBKM" name="keteranganBKM" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <input type="submit" id="btnProsesTambahBiayaBKM" name="btnProsesTambahBiayaBKM" value="Proses" class="btn btn-primary">
+                                                </div>
+                                                <div class="col-3">
+                                                </div>
+                                                <div class="col-4">
+                                                    <input type="submit" id="btnTutupModal" name="btnTutupModal"
+                                                        value="Tutup" class="btn btn-primary">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

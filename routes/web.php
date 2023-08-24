@@ -122,6 +122,7 @@ Route::get('getbank', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBan
 Route::get('getjenispembayaran', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getJenisPembayaran');
 Route::get('getkodeperkiraan', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getKodePerkiraan');
 Route::get('getidbkk/{idBank}/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getUraianEnter');
+Route::get('getidbkmtransitoris/{idBank}/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getUraianEnterBKM');
 #endregion
 
 Route::get('BatalBKMTransitoris', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@BatalBKMTransitoris');
