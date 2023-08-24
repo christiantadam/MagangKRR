@@ -12,11 +12,11 @@ class BuatBarcodeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["p", NULL, "p", "p", "p"]);
-        $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule ?, ?, ?, ?', ["1", "p", "p", 1]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype =?, @divisi =?', ["", "JBJ"]);
 
-        //dd($dataType);
-        return view('BarcodeKerta2.BuatBarcode', compact('dataDivisi'));
+        //  dd($dataType);
+        return view('BarcodeKerta2.BuatBarcode', compact('dataDivisi', 'dataType'));
     }
 
     //Show the form for creating a new resource.
@@ -34,7 +34,15 @@ class BuatBarcodeController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "txtIdDivisi") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', [ "", $crExplode[0] ]);
+            // dd($dataKelut);
+            // Return the options as JSON data
+            return response()->json($dataType);
+        }
     }
 
     // Show the form for editing the specified resource.

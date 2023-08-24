@@ -112,7 +112,7 @@
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px;" disabled>Nama Type</button>
+                                                    style="width:180px;">Nama Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -126,9 +126,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Test</td>
-                                                            </tr>
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -266,7 +263,8 @@
                                                 <span class="aligned-text">Type :</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="Type" id="Type" rows="Type" placeholder="Type" readonly></textarea>
+                                                <textarea class="form-control" type="text" name="Type" id="Type" rows="Type" placeholder="Type"
+                                                    readonly></textarea>
                                             </div>
                                         </div>
 
@@ -278,7 +276,7 @@
                                                     </div>
                                                     <div class="form-group col-md-5 mt-3 mt-md-0">
                                                         <input class="form-control" type="text" name="Jenis"
-                                                            rows="Jenis" placeholder="Jenis" readonly>
+                                                            rows="Jenis" placeholder="Jenis" id="Jenis" readonly>
                                                     </div>
                                                 </div>
 
@@ -288,7 +286,7 @@
                                                     </div>
                                                     <div class="form-group col-md-5 mt-3 mt-md-0">
                                                         <input class="form-control" type="text" name="Satuan"
-                                                            rows="Satuan" placeholder="Satuan" readonly>
+                                                            rows="Satuan" placeholder="Satuan" id="Satuan" readonly>
                                                     </div>
                                                 </div>
 
@@ -309,9 +307,8 @@
                                                         <label for="text" class="aligned-text">Jumlah
                                                             Barcode:</label>
                                                         <div class="textarea-container">
-                                                            <textarea class="form-control" name="text" rows="5" readonly>
+                                                            <textarea class="form-control text-center" name="text" rows="5" id="JumlahBarcode" readonly>
                                                                 </textarea>
-                                                            <div class="centered-text">0</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -330,7 +327,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="primer" rows="primer"
-                                                placeholder="1" readonly>
+                                                id="Primer" placeholder="Primer">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">Ball</button>
                                             </div>
@@ -343,7 +340,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="sekunder"
-                                                id="SekunderOutput" rows="sekunder" placeholder="Sekunder" readonly>
+                                                id="SekunderOutput" rows="sekunder" placeholder="Sekunder">
                                             <div class="text-center col-md-auto">
                                                 <button type="button" style="width: 100px"
                                                     onclick="openModal3()">LBR</button>
@@ -357,7 +354,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="tritier" rows="tritier"
-                                                placeholder="Tritier" readonly>
+                                                placeholder="Tritier">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">KG</button></div>
                                         </div>

@@ -25,11 +25,35 @@ $(document).ready(function () {
         var rowData = $('#TableDivisi').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $('#IdDivisi').val(rowData[0]);
-        $('#Divisi').val(rowData[1]);
+
+        fetch("/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
+                // Clear the existing table rows
+                $("#TableType").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.NamaType];
+                    $("#TableType").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableType").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
 
         // Hide the modal immediately after populating the data
-        closeModal();
+        closeModal1();
     });
 
     var ButtonShift = document.getElementById('ButtonShift')
@@ -76,6 +100,12 @@ $(document).ready(function () {
         document.getElementById("ButtonTimbang").style.display = "block"; // Show the "Timbang" button again if needed
     });
 
+    document.getElementById("myModal2").querySelector("button[type='button']").addEventListener("click", enableButtonType);
+
+
+    document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
+        setSekunderValue);
+
 });
 
 function openModal() {
@@ -100,7 +130,10 @@ function closeModal1() {
 
 function openModal2() {
     var modal = document.getElementById('myModal2');
-    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    modal.style.display = 'block';
+
+    // Clear the value of the "Type" input field
+    document.getElementById("Type").value = "";
 }
 
 function closeModal2() {
@@ -136,6 +169,7 @@ function enableButtonJumlahBarang() {
 
 // Function to enable the "Type" button and disable the "Process" button
 function enableButtonType() {
+    // Enable the "Type" button
     const buttonType = document.getElementById("ButtonType");
     buttonType.removeAttribute("disabled");
 
@@ -145,9 +179,7 @@ function enableButtonType() {
     // Set the selected value to the input field
     document.getElementById("Type").value = selectedType;
 
-    // Close the modal after the "Process" button is clicked
-    closeModal1();
-
+    // Close the "Table Type" modal
     closeModal2();
 }
 
@@ -159,8 +191,8 @@ function setSekunderValue() {
 }
 
 // Add event listener to the "Ok" button to set the sekunder value and close the modal
-document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
-    setSekunderValue);
+// document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
+//     setSekunderValue);
 
 // Rest of your JavaScript code for handling modals and other functionality can be placed here
 // Make sure you have already defined the functions: openModal3, closeModal3, etc.
@@ -178,12 +210,32 @@ function enableButtonDivisi() {
 
 
 // Function to set the selected shift value and close the modal
+// function setShiftValue() {
+//     // Get the selected shift value from the modal input
+//     const selectedShift = document.getElementById("Shift").value;
+
+//     // Set the selected shift value to the read-only input with the ID "shift"
+//     document.getElementById("shift").value = selectedShift;
+
+//     // Enable the "Divisi" button
+//     enableButtonDivisi();
+
+//     // Close the modal
+//     closeModal();
+// }
+
 function setShiftValue() {
     // Get the selected shift value from the modal input
     const selectedShift = document.getElementById("Shift").value;
 
     // Set the selected shift value to the read-only input with the ID "shift"
     document.getElementById("shift").value = selectedShift;
+
+    // Set default values for "Jenis" and "Satuan" input fields
+    document.getElementById("Jenis").value = "Barang Baru";
+    document.getElementById("Satuan").value = "BALL";
+    document.getElementById("Primer").value = "1";
+    document.getElementById("JumlahBarcode").value = "0";
 
     // Enable the "Divisi" button
     enableButtonDivisi();

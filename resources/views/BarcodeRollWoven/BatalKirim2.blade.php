@@ -16,9 +16,42 @@
                                     <div class="form-group col-md-2 d-flex justify-content-end">
                                         <span class="aligned-text">Objek:</span>
                                     </div>
-                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+                                    <div class="form-group col-md-3 mt-3 mt-md-0">
+                                        <input type="text" class="form-control" name="IdObjek" id="IdObjek"
+                                            placeholder="ID Objek" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6 mt-3 mt-md-0">
                                         <input type="text" class="form-control" name="Objek" id="Objek"
-                                            placeholder="Objek" required>
+                                            placeholder="Objek" readonly>
+                                        <div class="text-center col-md-auto"><button type="button"
+                                                onclick="openModal()" id="ButtonObjek">...</button></div>
+                                        <div class="modal" id="myModal">
+                                            <div class="modal-content">
+                                                <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                <h2>Table Objek</h2>
+                                                <p>Id Objek & Objek</p>
+                                                <table id="TableObjek">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID Objek</th>
+                                                            <th>Objek</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($dataObjek as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdObjek }}</td>
+                                                                    <td>{{ $data->NamaObjek }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-center col-md-auto">
+                                                    <button type="button"
+                                                        onclick="closeModal()">Process</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
