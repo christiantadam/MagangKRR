@@ -29,9 +29,22 @@ class KoreksiShiftController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        // dd("Masuk Show");
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        } else if ($crExplode[$lastIndex] == "getShiftAll") {
+
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_AGENDA @kddiv = ?, @tanggal1 = ?, @tanggal2 = ?', [$crExplode[0], $crExplode[1], $crExplode[2]]);
+            // dd($dataPegawai);
+            return response()->json($dataShift);
+        }
     }
 
     // Show the form for editing the specified resource.

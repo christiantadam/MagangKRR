@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <script type="text/javascript" src="{{ asset('js/Agenda/insertPegawaiBaru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Agenda/koreksiShift.js') }}"></script>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -102,7 +102,7 @@
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
                                     onclick="showModalPegawai()">...</button>
 
-                                <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
+                                <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
                                         <div class="modal-content" style="">
@@ -166,11 +166,11 @@
                                     <div style="flex: 1; margin-right: 10px;">
                                         <div style="display: flex; align-items: center;">
                                             <label style="margin-right: 10px; margin-left: 15px">Tanggal</label>
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                            <input class="form-control" type="date" id="tanggal1" name="tanggal1"
+                                                value="2022-12-25" required>
                                             <label style="margin-right: 10px; margin-left: 15px">S/D</label>
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                            <input class="form-control" type="date" id="tanggal2" name="tanggal2"
+                                                value="2022-12-25" required>
 
 
                                         </div>
@@ -180,7 +180,7 @@
                                 <div class="card-body">
                                     <div style="flex: 1; margin-right: 10px;">
 
-                                        <button type="button" class="btn">Lihat Data</button>
+                                        <button type="button" class="btn" id="lihatData">Lihat Data</button>
 
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
 
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-striped table-bordered" id="table_Shift">
                                     <thead>
                                         <tr>
                                             <th scope="col">Kd_Pegawai</th>
@@ -203,22 +203,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        <tr>
 
-                                            {{-- <td>
-                                                <a href="" title="Edit Employee">
-                                                    <button class="btn btn-primary btn-sm">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                    </button>
-                                                </a>
-                                                <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                    </button>
-                                                </form>
-                                            </td> --}}
-
-                                        </tr>
                                         {{-- @foreach ($employees as $data)
                                         <tr>
                                             <td>{{ $data->id }}</td>
@@ -246,6 +231,10 @@
 
                                 </table>
                             </div>
+                        </div>
+                        <div style="flex: 1; margin-right: 10px; margin-top: 5px; align-items:center;">
+                            <input type="checkbox" id="selectAll">
+                            <label for="pegawaiSelectAll">Pilih Semua</label>
                         </div>
                         <div class="body-container">
                             <div class="card-body">
@@ -290,7 +279,7 @@
 
 
                     <div style="text-align: right; margin: 25px;">
-                        <button type="button" class="btn btn-primary">Proses</button>
+                        <button type="button" class="btn btn-primary" id="saveButton">Proses</button>
                         <button type="button" class="btn btn-dark">Keluar</button>
                     </div>
                 </div>
