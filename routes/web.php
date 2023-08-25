@@ -26,6 +26,7 @@ Route::get('/ABM', function () {
 
 // Barcode Kerta 2
 Route::resource('Schedule', App\Http\Controllers\ABM\BarcodeKerta\ScheduleController::class);
+Route::post('Schedule/destroySelected', 'ABM\BarcodeKerta\ScheduleController@destroy')->name('Schedule.destroySelected');
 // Route::get('/ABM/BarcodeKerta/Schedule', 'App\Http\Controllers\ABM\BarcodeKerta\ScheduleController@index');
 Route::resource('BuatBarcode', App\Http\Controllers\ABM\BarcodeKerta\BuatBarcodeController::class);
 // Route::get('/ABM/BarcodeKerta/BuatBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\BuatBarcodeController@index');

@@ -19,7 +19,7 @@ $(document).ready(function () {
         order: [[0, "desc"]],
     });
 
-    $("#TypeTable").DataTable({
+    var table = $("#TypeTable").DataTable({
         order: [[0, "desc"]],
     });
     $(".dropdown-submenu a.test").on("click", function (e) {
@@ -57,8 +57,8 @@ $(document).ready(function () {
             // Add 'selected' class to the clicked row
             $(this).addClass("selected");
 
-            var rowData = $("#TableType").DataTable().row(this).data();
-
+            var rowData = $("#TypeTable").DataTable().row(this).data();
+            // console.log(rowData);
             // Populate the input fields with the data
             $("#id_Type").val(rowData[0]);
             $("#Type").val(rowData[1]);
@@ -67,6 +67,7 @@ $(document).ready(function () {
             closeModal4();
         }
     });
+
     $("#TableDivisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
 
@@ -104,11 +105,10 @@ $(document).ready(function () {
 
                     // Loop through the data and create table rows
                     data.forEach((item) => {
-                        var checkbox =
-                            '<input type="checkbox" class="row-checkbox">';
+                        // var checkbox =
+                        //     '<input type="checkbox" class="row-checkbox">';
                         var combinedValue =
-                            checkbox +
-                            " " +
+
                             item.namatype +
                             " / " +
                             item.idtype; // Gabungkan nilai-nila item.nametype dan item.idtype
@@ -222,7 +222,6 @@ $(document).ready(function () {
         const divisi = document.getElementById("IdDivisi").value;
 
         const data = {
-
             idtype: idtype,
             divisi: divisi,
         };
@@ -267,10 +266,84 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
     });
+
     // tambahButton.addEventListener("click", function (event) {
     //     event.preventDefault();
     //     addDataToTable();
     // });
+
+    $("#DeleteButton").click(function () {
+        var selectedRows = table.rows(".selected").data().toArray();
+        const divisi = document.getElementById("IdDivisi").value;
+        // console.log(selectedRows);
+        var idsToDelete = [];
+        selectedRows.forEach((data) => {
+            var idType = data[0].split(" / ")[1]; // Mengambil bagian di sebelah kanan dari "/"
+            console.log(idType);
+
+            idsToDelete.push(idType+"."+divisi); // Assuming ID is in the first column
+
+
+            if (idsToDelete.length === 0) {
+                alert("No rows selected for deletion.");
+                return;
+            }
+
+
+                // $.ajax({
+                //     url: "Schedule/destroySelected", // Menggunakan named route
+                //     method: "POST",
+                //     data: { ids: idsToDelete },
+                //     success: function (response) {
+                //         // Tangani respons sukses jika diperlukan
+                //         console.log("Data berhasil dihapus:", response);
+
+                //         // Refresh DataTable untuk memperbarui tampilan
+                //         $("#TypeTable").DataTable().ajax.reload();
+
+                //         alert("Baris yang dipilih berhasil dihapus.");
+                //     },
+                //     error: function (error) {
+                //         console.error("Error:", error);
+                //         alert("Terjadi kesalahan saat menghapus baris yang dipilih.");
+                //     }
+                // });
+                const formContainer = document.getElementById("form-container");
+                const form = document.createElement("form");
+                form.setAttribute("action", "Schedule/{idType}");
+                form.setAttribute("method", "POST");
+
+                // Loop through the data object and add hidden input fields to the form
+                for (const key in idsToDelete) {
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", key);
+                    input.value = idsToDelete[key]; // Set the value of the input field to the corresponding data
+                    form.appendChild(input);
+                }
+
+                const method = document.createElement("input");
+                method.setAttribute("type", "hidden");
+                method.setAttribute("name", '_method');
+                method.value = 'DELETE'; // Set the value of the input field to the corresponding data
+                form.appendChild(method);
+
+
+                // Add CSRF token input field (assuming the csrfToken is properly fetched)
+                let csrfToken = document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute("content");
+                let csrfInput = document.createElement("input");
+                csrfInput.type = "hidden";
+                csrfInput.name = "_token";
+                csrfInput.value = csrfToken;
+                form.appendChild(csrfInput);
+                formContainer.appendChild(form);
+                form.submit();
+
+        });
+    });
+
 });
 function openModal() {
     var modal = document.getElementById("myModal");
@@ -433,7 +506,7 @@ function checkInputsFilled() {
     // Ganti bagian berikut dengan selektor input yang sesuai
     var inputElements = document.querySelectorAll('input[type="text"]');
 
-    inputElements.forEach(function(input) {
+    inputElements.forEach(function (input) {
         if (input.value.trim() === '') {
             allInputsFilled = false;
             return;
@@ -513,60 +586,93 @@ $("#tambahButton").on("click", function (event) {
 });
 
 // $(document).ready(function () {
-//     // ...
+//     $("#DeleteButton").on("click", function () {
+//         var selectedRows = $("#TypeTable").DataTable().rows(".selected").data();
+//         var idsToDelete = [];
 
-//     // Tambahkan event listener untuk tombol "Hapus"
-//     $(".delete-type").click(function () {
-//         var idType = $(this).data("idtype");
-//         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-//             // Kirim permintaan ke server untuk menghapus data
+//         selectedRows.each(function (rowData) {
+//             idsToDelete.push(rowData[0]); // Assuming ID is in the first column
+//         });
+
+//         if (idsToDelete.length === 0) {
+//             alert("No rows selected for deletion.");
+//             return;
+//         }
+
+//         if (confirm("Anda yakin ingin menghapus baris yang dipilih?")) {
 //             $.ajax({
-//                 url: "/delete-type/" + idType,
-//                 type: "DELETE",
+//                 url: "{{ route('Schedule.destroySelected') }}", // Menggunakan named route
+//                 method: "POST",
+//                 data: { ids: idsToDelete },
 //                 success: function (response) {
-//                     // Jika berhasil, hapus baris dari tabel
-//                     $("#TypeTable tbody").find('button[data-idtype="' + idType + '"]').closest("tr").remove();
-//                     alert("Data berhasil dihapus");
+//                     // Tangani respons sukses jika diperlukan
+//                     console.log("Data berhasil dihapus:", response);
+
+//                     // Refresh DataTable untuk memperbarui tampilan
+//                     $("#TypeTable").DataTable().ajax.reload();
+
+//                     alert("Baris yang dipilih berhasil dihapus.");
 //                 },
-//                 error: function (xhr) {
-//                     console.error(xhr.responseText);
-//                     alert("Terjadi kesalahan saat menghapus data");
-//                 },
+//                 error: function (error) {
+//                     console.error("Error:", error);
+//                     alert("Terjadi kesalahan saat menghapus baris yang dipilih.");
+//                 }
 //             });
 //         }
 //     });
 // });
 
-$(document).ready(function () {
-    $("#DeleteButton").on("click", function () {
-        var selectedRows = $("#TypeTable").find("tr.selected-row"); // Get all selected rows
-        var idsToDelete = [];
+// hapusButton.addEventListener("click", function (event) {
+//         event.preventDefault();
+//         const idklinik = document.getElementById("Id_Klinik").value;
 
-        selectedRows.each(function () {
-            var id = $(this).data("id"); // Make sure this corresponds to the correct data attribute on your rows
-            idsToDelete.push(id);
-        });
+//         const data = {
+//             idklinik: idklinik,
+//         };
 
-        console.log("IDs to delete:", idsToDelete);
+//         const formContainer = document.getElementById("form-container");
+//         const form = document.createElement("form");
+//         form.setAttribute("action", "MasterKlinik/{idklinik}" );
+//         form.setAttribute("method", "POST");
 
-        if (idsToDelete.length === 0) {
-            alert("No rows selected for deletion.");
-            return;
-        }
+//         // Loop through the data object and add hidden input fields to the form
+//         for (const key in data) {
+//             const input = document.createElement("input");
+//             input.setAttribute("type", "hidden");
+//             input.setAttribute("name", key);
+//             input.value = data[key]; // Set the value of the input field to the corresponding data
+//             form.appendChild(input);
+//         }
 
-        // Send a request to delete the selected rows
-        $.ajax({
-            url: "/delete-types", // Replace with your delete route
-            method: "POST", // You can use DELETE if you prefer
-            data: { ids: idsToDelete },
-            success: function (response) {
-                // Remove the selected rows from the table on successful deletion
-                selectedRows.remove();
-                alert("Selected rows deleted successfully.");
-            },
-            error: function (error) {
-                console.error("Error:", error);
-            }
-        });
-    });
-});
+//         // Create method input with "PUT" Value
+//         const method = document.createElement("input");
+//         method.setAttribute("type", "hidden");
+//         method.setAttribute("name", "_method");
+//         method.value = "DELETE"; // Set the value of the input field to the corresponding data
+//         form.appendChild(method);
+
+//         formContainer.appendChild(form);
+
+//         // Add CSRF token input field (assuming the csrfToken is properly fetched)
+//         let csrfToken = document
+//             .querySelector('meta[name="csrf-token"]')
+//             .getAttribute("content");
+//         let csrfInput = document.createElement("input");
+//         csrfInput.type = "hidden";
+//         csrfInput.name = "_token";
+//         csrfInput.value = csrfToken;
+//         form.appendChild(csrfInput);
+
+//         // Wrap form submission in a Promise
+//         function submitForm() {
+//             return new Promise((resolve, reject) => {
+//                 form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+//                 form.submit();
+//             });
+//         }
+
+//         // Call the submitForm function to initiate the form submission
+//         submitForm()
+//             .then(() => console.log("Form submitted successfully!"))
+//             .catch((error) => console.error("Form submission error:", error));
+//     });

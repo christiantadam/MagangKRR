@@ -240,7 +240,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal()">Process</button>
+                                                        <button type="button" onclick="closeModal4()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,7 +250,7 @@
                                     </div>
 
                                     <div class="card">
-                                        <div class="card-header">Table Type</div>
+                                        <div class="card-header">Type Table</div>
                                         <table id="TypeTable">
                                             <thead>
                                                 <tr>

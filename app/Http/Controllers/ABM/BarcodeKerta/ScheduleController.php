@@ -26,12 +26,13 @@ class ScheduleController extends Controller
     //Show the form for creating a new resource.
     public function create()
     {
-        //
+        dd('Masuk Create');
     }
 
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
+        // dd($request->all());
         $data = $request->all();
         $idtype = $data['idtype'];
         $divisi = $data['divisi'];
@@ -69,6 +70,7 @@ class ScheduleController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
+        // dd('Masuk Show');
         $crExplode = explode(".", $cr);
 
         //getDivisi
@@ -104,18 +106,37 @@ class ScheduleController extends Controller
     // Show the form for editing the specified resource.
     public function edit($id)
     {
-        //
+        dd('Masuk Edit');
     }
 
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        dd('Masuk Update');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+        // dd($request->all());
+        $data = array_filter($request->all(), 'is_numeric', ARRAY_FILTER_USE_KEY);
+        // dd($data);
+        // Ambil nilai divisi dari permintaan
+        $divisi = $request->input('divisi');
+
+        // Loop melalui setiap ID yang ingin dihapus
+        foreach ($data as $id) {
+            $idExplode = explode(".", $id);
+            // dd($data);
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_SimpanScheduleJBB @idtype = ?, @status = ?, @divisi = ?, @jumlah = ?', [
+                $idExplode[0],
+                1,
+                $idExplode[1],
+                NULL
+            ]);
+        }
+
+        return redirect()->route('Schedule.index')->with('alert', 'Data berhasil dihapus!');
     }
 }

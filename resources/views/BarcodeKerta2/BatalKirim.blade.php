@@ -13,7 +13,7 @@
                             <th>Sub Kelompok </th>
                             <th>Kelompok </th>
                             <th>Kode Barang</th>
-                            <th>Noln.. </th>
+                            <th>NoIndex </th>
                             <th>Primal</th>
                             <th>Sekunder</th>
                             <th>Tertier</th>
