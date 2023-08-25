@@ -263,7 +263,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <input type="submit" name="koreksinobg" value="Koreksi No BG" class="btn btn-primary">
+                                                        <input type="submit" id="btnKoreksiDetailBG" name="btnKoreksiDetailBG" value="Koreksi No BG" class="btn btn-primary">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="submit" name="hapusbg" value="Hapus BG" class="btn btn-primary">
@@ -273,7 +273,7 @@
                                             <div class="card-body">
                                                 <b>Detail Biaya BKM</b>
                                                 <div style="overflow-y: auto; max-height: 250px;">
-                                                    <table style="width: 100%; table-layout: fixed;">
+                                                    <table style="width: 100%; table-layout: fixed;" id="tabelDetailBiayaBKM">
                                                         <colgroup>
                                                             <col style="width: 33%;">
                                                             <col style="width: 33%;">
@@ -287,16 +287,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Data 1</td>
-                                                                <td>Data 2</td>
-                                                                <td>Data 3</td>
-                                                            <tr>
-                                                                <td>Data 1</td>
-                                                                <td>Data 2</td>
-                                                                <td>Data 3</td>
-                                                            </tr>
-                                                            <!-- Tambahkan baris lainnya jika diperlukan -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -321,7 +311,7 @@
                                             <input type="submit" name="koreksi" value="KOREKSI" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" name="batal" value="Batal" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-md-1">
                                             <input type="submit" name="tampilbkm" value="TampilBKM" class="btn btn-primary d-flex ml-auto">
@@ -528,6 +518,140 @@
                                     </form>
                                 </div>
                             </div>
+
+                            <!--MODAL TAMPIL BKM-->
+                            <div class="modal fade" id="modalTampilBKM" tabindex="-1" role="dialog"
+                                aria-labelledby="pilihBankModal" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Cetak BKM Transitoris</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ url('BKMTransitorisBank') }}" id="formTampilBKM" method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="_method" id="methodTampilBKM">
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="tanggalInputTampilBKM" style="margin-right: 10px;">Tanggal Input</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="date" id="tanggalInputTampilBKM" name="tanggalInputTampilBKM" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-1">
+                                                S/D
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="date" id="tanggalInputTampilBKM2" name="tanggalInputTampilBKM2" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button id="btnOkTampilBKM" name="btnOkTampilBKM">OK</button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button id="btnCetakBKM" name="btnCetakBKM">CETAK</button>
+                                                </div>
+                                            </div>
+                                            <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
+                                                <table style="width: 120%; table-layout: fixed;"id="tabelTampilBKM">
+                                                    <colgroup>
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 30%;">
+                                                    </colgroup>
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <th>Tgl. Input</th>
+                                                            <th>Id. BKM</th>
+                                                            <th>Nilai Pelunasan</th>
+                                                            <th>Terjemahan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!--MODAL TAMPIL BKK-->
+                             <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog"
+                             aria-labelledby="pilihBankModal" aria-hidden="true">
+                             <div class="modal-dialog modal-lg" role="document">
+                                 <div class="modal-content">
+                                     <div class="modal-header">
+                                         <h5 class="modal-title">Cetak BKM Transitokkkkkkkkris</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                     <form action="{{ url('BKMTransitorisBank') }}" id="formTampilBKK" method="POST">
+                                         {{ csrf_field() }}
+                                         <input type="hidden" name="_method" id="methodTampilBKK">
+                                         <div class="d-flex">
+                                             <div class="col-md-3">
+                                                 <label for="tanggalInputTampil" style="margin-right: 10px;">Tanggal Input</label>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <input type="date" id="tanggalInputTampilBKK" name="tanggalInputTampilBKK" class="form-control" style="width: 100%">
+                                             </div>
+                                             <div class="col-md-1">
+                                             S/D
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <input type="date" id="tanggalInputTampilBKK2" name="tanggalInputTampilBKK2" class="form-control" style="width: 100%">
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <button id="btnOkTampilBKK" name="btnOkTampilBKK">OK</button>
+                                             </div>
+                                         </div>
+                                         <div class="d-flex">
+                                             <div class="col-md-3">
+                                                 <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
+                                             </div>
+                                             <div class="col-md-2">
+                                                 <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%">
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <button id="btnCetakBKK" name="btnCetakBKK">CETAK</button>
+                                             </div>
+                                         </div>
+                                         <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
+                                             <table style="width: 120%; table-layout: fixed;"id="tabelTampilBKK">
+                                                 <colgroup>
+                                                     <col style="width: 30%;">
+                                                     <col style="width: 30%;">
+                                                     <col style="width: 30%;">
+                                                     <col style="width: 30%;">
+                                                 </colgroup>
+                                                 <thead class="table-dark">
+                                                     <tr>
+                                                         <th>Tgl. Input</th>
+                                                         <th>Id. BKM</th>
+                                                         <th>Nilai Pelunasan</th>
+                                                         <th>Terjemahan</th>
+                                                     </tr>
+                                                 </thead>
+                                                 <tbody>
+                                                 </tbody>
+                                             </table>
+                                         </div>
+                                     </form>
+                                 </div>
+                             </div>
+                         </div>
 
                         </div>
                     </div>
