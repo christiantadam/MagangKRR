@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Extruder\ExtruderNet;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class KonversiController extends Controller
 {
@@ -34,8 +35,8 @@ class KonversiController extends Controller
 
         // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
         // dd($this->getTransaksiKonv('KONV0003'));
-        $result = $this->getNoKonversiCounter();
-        dd($result);
+        // $result = $this->getNoKonversiCounter();
+        // dd($result);
 
         return view($view_name, $view_data);
     }
@@ -196,11 +197,6 @@ class KonversiController extends Controller
             'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @idkomposisi = ?',
             [$id_komposisi]
         );
-
-        // PARAMETER @idkomposisi char(9)
-        // TABLE Extruder - MasterKomposisi
-        // FK TABLE Extruder - IdKomposisi(KomposisiBahan), Inventory - IdType(Type)
-        // WHERE Type.Nonaktif = 'Y' AND KomposisiBahan.IdKomposisi = @IdKomposisi
     }
 
     public function getSatuan($id_type)
@@ -259,7 +255,7 @@ class KonversiController extends Controller
             $counter = DB::connection('ConnExtruder')
                 ->table('CounterTrans')
                 ->where('Divisi', $divisi)
-                ->value(DB::raw('IdKonversi + 1'));
+                ->value(DB::raw('IdKonversi'));
 
             $id = '0000000000' . str_pad($counter, 9, '0', STR_PAD_LEFT);
             $id = $divisi . '-' . substr($id, -10);
@@ -374,15 +370,27 @@ class KonversiController extends Controller
     public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
     {
         $sp_str = '';
+        $primer_str = '';
+        $sekunder_str = '';
+        $tersier_str = '';
+        $subkel_str = '';
 
         if ($uraian_detail_transaksi == 'asal_konversi') {
             $sp_str = 'SP_5298_EXT_INSERT_04_ASALTMPTRANSAKSI';
+            $primer_str = '@XJumlahKeluarPrimer';
+            $sekunder_str = '@XJumlahKeluarSekunder';
+            $tersier_str = '@XJumlahKeluarTritier';
+            $subkel_str = '@XAsalSubKel';
         } else if ($uraian_detail_transaksi == 'tujuan_konversi') {
             $sp_str = 'SP_5298_EXT_INSERT_04_TUJUANTMPTRANSAKSI';
+            $primer_str = '@XJumlahMasukPrimer';
+            $sekunder_str = '@XJumlahMasukSekunder';
+            $tersier_str = '@XJumlahMasukTritier';
+            $subkel_str = '@XTujuanSubKel';
         }
 
         return DB::connection('ConnInventory')->statement(
-            'exec ' . $sp_str . ' @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XsaatAwalTransaksi = ?, @XJumlahKeluarPrimer = ?, @XJumlahKeluarSekunder = ?, @XJumlahKeluarTritier = ?, @XAsalSubKel = ?, @XIdKonversi = ?',
+            'exec ' . $sp_str . ' @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XsaatAwalTransaksi = ?, ' . $primer_str . ' = ?, ' . $sekunder_str . ' = ?, ' . $tersier_str . ' = ?, ' . $subkel_str . ' = ?, @XIdKonversi = ?',
             [$id_type_transaksi, ucwords(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi]
         );
 
@@ -407,7 +415,7 @@ class KonversiController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = ?, @kode = ?',
-            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), $denier, $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, str_replace("_", ":", $jam1), str_replace("_", ":", $jam2), $user, $kode]
+            [$tgl, $shift, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $awal), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), $denier, $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $user, $kode]
         );
 
         // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null

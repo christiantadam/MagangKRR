@@ -45,5 +45,25 @@ class PencatatanController extends Controller
         // If @kode = 2     SELECT * FROM MasterMesin WHERE IdDivisi='MEX'
         // If @kode = 3     SELECT * FROM MasterMesin WHERE IdDivisi='DEX'
     }
+
+    public function getListIdKomposisi($tanggal, $id_mesin)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_IDKOMPOSISI @tanggal = ?, @idmesin = ?',
+            [$tanggal, $id_mesin]
+        );
+
+        // PARAMETER - @tanggal datetime, @idmesin varchar(5)
+    }
+
+    public function getDisplayShift($id_konversi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DISPLAY_SHIFT @IdKonversi = ?',
+            [$id_konversi]
+        );
+
+        // PARAMETER - @IdKonversi Varchar(14)
+    }
     #endregion
 }

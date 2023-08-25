@@ -53,7 +53,31 @@ const listOfMasterInput = document.querySelectorAll(
 );
 
 const listKomposisi = [];
+/* ISI LIST KOMPOSISI
+    0 StatusType
+    1 IdType
+    2 NamaType
+    3 NamaSubKelompok
+    4 SatuanPrimer
+    5 SatuanSekunder
+    6 SatuanTritier
+    7 IdSubKelompok
+*/
+
 const listKonversi = [];
+/* ISI LIST KONVERSI
+    0 Type
+    1 IdType
+    2 JumlahPrimer
+    3 SatPrimer
+    4 JumlahSekunder
+    5 SatSekunder
+    6 JumlahTritier
+    7 SatTritier
+    8 Persentase
+    9 StatusType
+    10 IdSubKelompok
+*/
 
 const tableKomposisiPos = $("#table_komposisi").offset().top - 125;
 const tableKonversiPos = $("#table_konversi").offset().top - 125;
@@ -81,6 +105,7 @@ const tableKonversiCol = [
 var modeProses = "";
 var komposisiPil = -1;
 var konversiPil = -1;
+var slcKomposisiPil = -1;
 var refetchSpek = false;
 var refetchKomposisi = false;
 //#endregion
@@ -173,11 +198,13 @@ btnKeluar.addEventListener("click", function () {
 });
 
 btnTambah.addEventListener("click", function () {
-    listOfInput.forEach((input) => {
-        if (input.value == "") {
+    for (let i = 0; i < listOfInput.length; i++) {
+        if (listOfInput[i].value == "") {
+            input.focus();
             alert("Ada data yang belum terisi. \nMohon periksa kembali.");
+            return;
         }
-    });
+    }
 
     let found = false;
     listKonversi.forEach((data) => {
@@ -190,22 +217,32 @@ btnTambah.addEventListener("click", function () {
         alert("Sudah ada item yang sama dalam tabel konversi.");
     } else {
         listKonversi.push({
-            NamaType: txtNamaProduksi.value,
+            Type: txtNamaProduksi.value,
             IdType: txtIdProduksi.value,
-            QtyPrimer: txtPrimer.value,
+            JumlahPrimer: txtPrimer.value,
             SatPrimer: spnPrimer.textContent,
-            QtySekunder: txtSekunder.value,
+            JumlahSekunder: txtSekunder.value,
             SatSekunder: spnSekunder.textContent,
-            QtyTersier: txtTersier.value,
-            SatTersier: spnTersier.textContent,
-            Presentase: "0",
-            Jenis: listKomposisi[komposisiPil].StatusType,
-            SubKelompok: listKomposisi[komposisiPil].IdSubKelompok,
+            JumlahTritier: txtTersier.value,
+            SatTritier: spnTersier.textContent,
+            Persentase: "0",
+            StatusType: listKomposisi[komposisiPil].StatusType,
+            IdSubKelompok: listKomposisi[komposisiPil].IdSubKelompok,
         });
 
         addTable_DataTable(
             "table_konversi",
-            listKonversi,
+            listKonversi.map((item) => {
+                const newItem = Object.fromEntries(
+                    Object.entries(item).map(([key, value]) => [
+                        key,
+                        value === undefined ? "NULL" : value,
+                    ])
+                );
+                const { ["IdType"]: _, ...finalItem } = newItem;
+
+                return finalItem;
+            }),
             tableKonversiCol,
             rowClickedKonversi
         );
@@ -215,7 +252,15 @@ btnTambah.addEventListener("click", function () {
             "Ingin input item konversi lagi?",
             () => {
                 clearDataDetail();
-                slcKomposisi.focus();
+                $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
+                setTimeout(() => {
+                    $("html, body").animate(
+                        { scrollTop: tableKomposisiPos },
+                        100
+                    );
+                }, 1000);
+                clearSelection_DataTable("table_komposisi");
+                konversiPil = -1;
             },
             () => {
                 btnProses.focus();
@@ -228,6 +273,8 @@ btnKoreksiDetail.addEventListener("click", function () {
     if (konversiPil == -1) {
         alert("Pilih data yang akan dikoreksi terlebih dahulu.");
     } else {
+        console.log("cek list konversi");
+        console.log(listKonversi[konversiPil]);
         showModal(
             "Konfirmasi",
             `Apakah anda yakin akan mengoreksi jumlah item untuk data konversi <b>${listKonversi[konversiPil].Type}</b>?`,
@@ -236,15 +283,20 @@ btnKoreksiDetail.addEventListener("click", function () {
                 listKonversi[konversiPil].JumlahSekunder = txtSekunder.value;
                 listKonversi[konversiPil].JumlahTritier = txtTersier.value;
 
+                console.log(listKonversi);
+
                 addTable_DataTable(
                     "table_konversi",
                     listKonversi.map((item) => {
-                        return {
-                            StatusType: item.StatusType,
-                            NamaType: item.NamaType,
-                            NamaSubKelompok: item.NamaSubKelompok,
-                            IdSubKelompok: item.IdSubKelompok,
-                        };
+                        const newItem = Object.fromEntries(
+                            Object.entries(item).map(([key, value]) => [
+                                key,
+                                value === undefined ? "NULL" : value,
+                            ])
+                        );
+                        const { ["IdType"]: _, ...finalItem } = newItem;
+
+                        return finalItem;
                     }),
                     tableKonversiCol,
                     rowClickedKonversi
@@ -270,12 +322,15 @@ btnHapusDetail.addEventListener("click", function () {
                     addTable_DataTable(
                         "table_konversi",
                         listKonversi.map((item) => {
-                            return {
-                                StatusType: item.StatusType,
-                                NamaType: item.NamaType,
-                                NamaSubKelompok: item.NamaSubKelompok,
-                                IdSubKelompok: item.IdSubKelompok,
-                            };
+                            const newItem = Object.fromEntries(
+                                Object.entries(item).map(([key, value]) => [
+                                    key,
+                                    value === undefined ? "NULL" : value,
+                                ])
+                            );
+                            const { ["IdType"]: _, ...finalItem } = newItem;
+
+                            return finalItem;
                         }),
                         tableKonversiCol,
                         rowClickedKonversi
@@ -292,6 +347,8 @@ btnHapusDetail.addEventListener("click", function () {
 });
 
 btnProses.addEventListener("click", function () {
+    this.disabled = true;
+
     if (modeProses == "baru") {
         if (listKomposisi.length < 1) {
             alert(
@@ -383,7 +440,7 @@ slcNoOrder.addEventListener("change", function () {
 });
 
 slcSpek.addEventListener("mousedown", function () {
-    if (this.options.length <= 3 || refetchSpek) {
+    if (this.options.length <= 1 || refetchSpek) {
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
@@ -409,7 +466,7 @@ slcSpek.addEventListener("mousedown", function () {
 
 slcSpek.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        if (this.options.length <= 3 || refetchSpek) {
+        if (this.options.length <= 1 || refetchSpek) {
             clearOptions(this);
             const errorOption = addLoadingOption(this);
             const optionKeys = {
@@ -421,7 +478,7 @@ slcSpek.addEventListener("keydown", function (event) {
             fetchSelect(
                 "/Konversi/getListSpek/" + slcNoOrder.value,
                 (data) => {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
 
                     for (let i = 0; i < data.length; i++) {
@@ -479,7 +536,7 @@ slcMesin.addEventListener("change", function () {
 });
 
 slcKomposisi.addEventListener("mousedown", function () {
-    if (this.options.length <= 3 || refetchKomposisi) {
+    if (this.options.length <= 1 || refetchKomposisi) {
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
@@ -501,7 +558,7 @@ slcKomposisi.addEventListener("mousedown", function () {
 
 slcKomposisi.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        if (this.options.length <= 3 || refetchKomposisi) {
+        if (this.options.length <= 1 || refetchKomposisi) {
             clearOptions(this);
             const errorOption = addLoadingOption(this);
             const optionKeys = {
@@ -527,6 +584,8 @@ slcKomposisi.addEventListener("change", function () {
         alert(
             "Komposisi tidak dapat diubah karena telah terdapat item konversi yang ada."
         );
+
+        this.selectedIndex = slcKomposisiPil;
     } else {
         listKonversi.length = 0;
         clearTable_DataTable(
@@ -556,6 +615,8 @@ slcKomposisi.addEventListener("change", function () {
                 input.disabled = false;
             });
         }
+
+        slcKomposisiPil = this.selectedIndex;
     }
 });
 
@@ -620,17 +681,25 @@ timeSelesai.addEventListener("keypress", function (event) {
 
 txtPrimer.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        txtSekunder.disabled = false;
-        txtSekunder.value = "";
-        txtSekunder.focus();
+        if (konversiPil != -1) {
+            txtSekunder.select();
+        } else {
+            txtSekunder.disabled = false;
+            txtSekunder.value = "";
+            txtSekunder.focus();
+        }
     }
 });
 
 txtSekunder.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        txtTersier.disabled = false;
-        txtTersier.value = "";
-        txtTersier.focus();
+        if (konversiPil != -1) {
+            txtTersier.select();
+        } else {
+            txtTersier.disabled = false;
+            txtTersier.value = "";
+            txtTersier.focus();
+        }
     }
 });
 
@@ -640,13 +709,15 @@ txtTersier.addEventListener("keypress", function (event) {
             txtSekunder.value = Math.round(parseFloat(txtTersier.value) / 25);
         }
 
-        if (modeProses == "baru") {
+        if (konversiPil != -1) {
+            btnTambah.disabled = true;
+            btnKoreksiDetail.disabled = false;
+            btnHapusDetail.disabled = false;
+            btnKoreksiDetail.focus();
+        } else {
             btnTambah.disabled = false;
             btnKoreksiDetail.disabled = false;
             btnHapusDetail.disabled = false;
-            btnTambah.focus();
-        } else if (modeProses == "koreksi") {
-            btnTambah.disabled = false;
             btnTambah.focus();
         }
     }
@@ -832,7 +903,7 @@ function getDataKonversi(id_konversi) {
                                 "/Konversi/getSatuan/" +
                                 data[i].IdType
                         );
-                        console.log("Data yang terfetch: ");
+                        console.log("Isi list konversi: ");
                         console.log(data2);
 
                         if (data2.length != 0) {
@@ -875,7 +946,6 @@ function getDataKonversi(id_konversi) {
                         "</b> tidak ditemukan."
                 );
             } else {
-                console.log(resolvedData);
                 for (let i = 0; i < resolvedData.length; i++) {
                     listKonversi.push(resolvedData[i]);
                 }
@@ -985,7 +1055,7 @@ function hitungTotalBahan() {
     return qty;
 }
 
-function presentase(qty_tersier, total_bahan) {
+function persentase(qty_tersier, total_bahan) {
     return Math.round((qty_tersier / total_bahan) * 100 * 100) / 100;
 }
 
@@ -1009,7 +1079,7 @@ function createTmpTransaksiInventory(i, id_konv_inv) {
         "/Konversi/insTmpTransaksi/04/" +
             uraian +
             "/" +
-            listKonversi[i].id_type +
+            listKonversi[i].IdType.trim() +
             "/tmpUser/" +
             dateInput.value +
             "/" +
@@ -1019,7 +1089,7 @@ function createTmpTransaksiInventory(i, id_konv_inv) {
             "/" +
             listKonversi[i].JumlahTritier +
             "/" +
-            listKonversi[i].IdSubKelompok +
+            listKonversi[i].StatusType.trim() +
             "/" +
             id_konv_inv
     );
@@ -1027,15 +1097,15 @@ function createTmpTransaksiInventory(i, id_konv_inv) {
 
 function insertDetail(id_konv_inv) {
     let totalBahan = hitungTotalBahan();
-    let presentaseKu = 0;
+    let persentaseKu = 0;
 
-    for (let i = 0; i < listKonversi.length - 1; i++) {
+    for (let i = 0; i < listKonversi.length; i++) {
         if (
             listKonversi[i].StatusType == "BB" ||
             listKonversi[i].StatusType == "BP" ||
             listKonversi[i].StatusType == "AF"
         ) {
-            presentaseKu = presentase(
+            persentaseKu = persentase(
                 listKonversi[i].JumlahTritier,
                 totalBahan
             );
@@ -1046,7 +1116,7 @@ function insertDetail(id_konv_inv) {
             "/Konversi/insDetailKonv/" +
                 slcNomor.value +
                 "/" +
-                listKonversi[i].IdType +
+                listKonversi[i].IdType.trim() +
                 "/" +
                 listKonversi[i].JumlahPrimer +
                 "/" +
@@ -1054,9 +1124,12 @@ function insertDetail(id_konv_inv) {
                 "/" +
                 listKonversi[i].JumlahTritier +
                 "/" +
-                presentaseKu +
+                persentaseKu +
                 "/" +
-                id_konv_inv
+                id_konv_inv,
+            () => {
+                alert("Data berhasil tersimpan!");
+            }
         );
 
         createTmpTransaksiInventory(i, id_konv_inv);
@@ -1099,12 +1172,26 @@ function prosesIsi() {
             "/tmpUser",
         () => {
             fetchSelect("/Konversi/getNoKonversiMaster", (data1) => {
-                slcNomor.value = data1.NoKonversi;
+                console.log("cek 123");
+                console.log(
+                    slcKomposisi.options[slcKomposisi.selectedIndex].text.split(
+                        " | "
+                    )[1]
+                );
+
+                addOptionIfNotExists(
+                    slcNomor,
+                    data1.NoKonversi,
+                    data1.NoKonversi +
+                        " | " +
+                        slcKomposisi.options[
+                            slcKomposisi.selectedIndex
+                        ].text.split(" | ")[1]
+                );
 
                 // SP_5298_EXT_LIST_COUNTER
                 fetchStmt("/Konversi/updListCounter", () => {
                     fetchSelect("/Konversi/getNoKonversiCounter", (data2) => {
-                        console.log(data2);
                         idKonvInv = data2.NoKonversi;
                         idKonvInv = idKonvInv.padStart(9, "0");
                         insertDetail(idKonvInv);
@@ -1113,8 +1200,6 @@ function prosesIsi() {
                         disableDetail();
 
                         modeProses = "";
-
-                        alert("Data berhasil tersimpan!");
                     });
                 });
             });
@@ -1172,6 +1257,7 @@ function prosesKoreksi(id_konversi_ext) {
 function prosesHapus(id_konversi_ext) {
     // SP_5409_EXT_DELETE_KONVERSI
     fetchStmt("/Konversi/delKonversi/" + id_konversi_ext);
+    removeOption(slcNomor, id_konversi_ext);
 
     toggleButton(1);
     disableDetail();
@@ -1196,13 +1282,18 @@ function rowClickedKonversi(row, data, index) {
         konversiPil = -1;
 
         clearDataDetail();
+
+        btnTambah.disabled = false;
     } else {
         clearSelection_DataTable("table_konversi");
         row.style.background = "aliceblue";
         konversiPil = index;
 
+        console.log("Isi row tabel konversi yang diklik:");
+        console.log(data);
+
         txtIdProduksi.value = listKonversi[index].IdType;
-        txtNamaProduksi.value = data.Type;
+        txtNamaProduksi.value = data.NamaType;
         txtPrimer.value = data.JumlahPrimer;
         spnPrimer.textContent = data.SatPrimer;
         txtSekunder.value = data.JumlahSekunder;
@@ -1211,6 +1302,9 @@ function rowClickedKonversi(row, data, index) {
         spnTersier.textContent = data.SatTritier;
 
         getSaldoInv(listKonversi[index].IdType);
+
+        btnTambah.disabled = true;
+        txtPrimer.select();
     }
 }
 

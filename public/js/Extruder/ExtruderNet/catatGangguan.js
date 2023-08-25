@@ -51,6 +51,7 @@ const listOfInputGangguan = document.querySelectorAll(
 );
 
 var modeProses = "";
+var refetchKomposisi = false;
 //#endregion
 
 //#region Events
@@ -60,7 +61,7 @@ dateInput.addEventListener("keypress", function (event) {
     }
 });
 
-slcMesin.addEventListener("change", function () {
+slcKodeMesin.addEventListener("change", function () {
     if (modeProses == "Koreksi" || modeProses == "Hapus") {
         btnOk.disabled = false;
         btnOk.focus();
@@ -77,6 +78,69 @@ slcMesin.addEventListener("change", function () {
         slcKomposisi.disabled = false;
         slcKomposisi.focus();
     }
+
+    refetchKomposisi = true;
+});
+
+slcKomposisi.addEventListener("mousedown", function () {
+    if (this.options.length <= 1 || refetchKomposisi) {
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKonversi",
+            textKey: "NamaKomposisi",
+        };
+
+        // SP_5298_EXT_LIST_IDKOMPOSISI
+        fetchSelect(
+            "/Catat/getListIdKomposisi/" +
+                dateInput.value +
+                "/" +
+                slcMesin.value,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcKomposisi.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (this.options.length <= 1 || refetchKomposisi) {
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdKonversi",
+                textKey: "NamaKomposisi",
+            };
+
+            // SP_5298_EXT_LIST_IDKOMPOSISI
+            fetchSelect(
+                "/Catat/getListIdKomposisi/" +
+                    dateInput.value +
+                    "/" +
+                    slcMesin.value,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
+slcKomposisi.addEventListener("change", function () {
+    // SP_5298_EXT_DISPLAY_SHIFT
+    fetchSelect("/Catat/getDisplayShift/" + this.value, (data) => {
+        txtShift.value = data[0].Shift;
+        timeAwal.value = dateTimetoTime(data[0].AwalShift);
+        timeAkhir.value = dateTimetoTime(data[0].AkhirShift);
+
+        slcGangguan.focus();
+    });
 });
 //#endregion
 

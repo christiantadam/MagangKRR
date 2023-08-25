@@ -220,6 +220,16 @@ function addLoadingOption(selectEle) {
     return loadingOption;
 }
 
+function removeOption(selectEle, optValue) {
+    const optionToRemove = selectEle.querySelector(
+        'option[value="' + optValue + '"]'
+    );
+
+    if (optionToRemove) {
+        selectEle.removeChild(optionToRemove);
+    }
+}
+
 function clearOptions(selectEle, selectLbl = "") {
     selectHead =
         selectLbl == ""
@@ -242,8 +252,8 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
     fetch(urlString)
         .then((response) => response.json())
         .then((data) => {
-            if (data == 1) console.log("QUERY BERHASIL KAWAN!");
             console.log("urlString = " + urlString);
+            if (data == 1) console.log("QUERY BERHASIL KAWAN!");
 
             if (postAction != null) {
                 postAction();
@@ -255,7 +265,8 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
             }
 
             alert(
-                "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam."
+                "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam.\nERROR: " +
+                    urlString
             );
             console.error("Error: ", error);
         });
@@ -280,10 +291,10 @@ function fetchSelect(
                 }
             }
 
-            postAction(data);
-
             console.log("Data yang terfetch:");
             console.log(data);
+
+            postAction(data);
         })
         .catch((error) => {
             if (catchAction != null) {
@@ -294,7 +305,8 @@ function fetchSelect(
                 selectOption.textContent = "Terdapat kendala saat memuat data.";
             } else {
                 alert(
-                    "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam."
+                    "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam.\nERROR: " +
+                        urlString
                 );
             }
 

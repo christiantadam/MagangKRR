@@ -1,11 +1,6 @@
-<!-- Perbaikan fetch/select/table terakhir:
-tropodoKonversiACC.js
-- Menggunakan event listener "change" untuk berpindah dari select options
-- Handle arrow key navigation menggunakan "keydown"
-
-Selesai melakukan pengecekkan ulang:
-- orderMaintenance
-
+<!--
+    MIGRATION   : btnKomposisi_Click() | FrmGangguanProduksi.vb
+    DEBUGGING   : formKonversiMohon.blade.php
 -->
 
 <?php
@@ -80,7 +75,7 @@ Route::get('/Konversi/getNoKonversiCounter', [KonversiController::class, 'getNoK
 Route::get('/Konversi/getListKonversi/{id_divisi}/{kode?}/{datetime?}', [KonversiController::class, 'getListKonversi']);
 
 
-Route::get('/Konversi/insTmpTransaksi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
+Route::get('/Konversi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
 Route::get('/Konversi/insDetailKonv/{id_konversi}/{id_type}/{jumlah_primer}/{jumlah_sekunder}/{jumlah_tritier}/{presentase?}/{id_konversi_inv}', [KonversiController::class, 'insDetailKonv']);
 Route::get('/Konversi/insMasterKonv/{tgl}/{shift}/{awal}/{akhir}/{mesin}/{ukuran}/{denier}/{warna}/{lot_number}/{id_order}/{no_urut}/{id_komp}/{jam1}/{jam2}/{user}/{kode?}', [KonversiController::class, 'insMasterKonv']);
 
@@ -147,7 +142,8 @@ Route::get('/Benang/getSaldoBarang/{id_type}', [BenangController::class, 'getSal
 #endregion
 
 #region ExtruderNet - Form Catat Gangguan
-
+Route::get('/Catat/getListIdKomposisi/{tanggal}/{id_mesin}', [PencatatanController::class, 'getListIdKomposisi']);
+Route::get('/Catat/getDisplayShift/{id_konversi}', [PencatatanController::class, 'getDisplayShift']);
 #endregion
 
 #region ExtruderNet - Master (unfinished)
