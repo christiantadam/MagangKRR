@@ -71,6 +71,7 @@
                                                     <th>Jumlah Sekunder </th>
                                                     <th>Jumlah Tritier </th>
                                                     <th>Tanggal </th>
+                                                    <th>IdType </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -139,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center col-md-auto"><button type="button"
-                                        style="width: 100px; margin-top: 8px">Proses</button></div>
+                                        style="width: 100px; margin-top: 8px" id="btnProses">Proses</button></div>
                                 <div class="text-center col-md-auto"><button type="button"
                                         style="width: 100px; margin-top: 8px">Tutup</button></div>
                             </div>

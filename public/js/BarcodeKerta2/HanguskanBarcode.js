@@ -58,21 +58,17 @@ $(document).ready(function () {
                 console.log(data);
                 // Clear the existing table rows
                 $("#TableType").DataTable().clear().draw();
-                $("#TableType1").DataTable().clear().draw();
 
                 // Loop through the data and create table rows
                 data.forEach((item) => {
                     var kodebarcode = item.NoIndeks.padStart(9, '0') + '-' + item.Kode_barang.padStart(9, '0');
                     console.log(kodebarcode);
-                    var row = [item.NamaType, kodebarcode, item.NamaSubKelompok, item.NamaKelompok, item.Kode_barang, item.NoIndeks, item.Qty_Primer, item.Qty_sekunder, item.Qty, item.Tgl_mutasi];
+                    var row = [item.NamaType, kodebarcode, item.NamaSubKelompok, item.NamaKelompok, item.Kode_barang, item.NoIndeks, item.Qty_Primer, item.Qty_sekunder, item.Qty, item.Tgl_mutasi,  item.IdType];
                     $("#TableType").DataTable().row.add(row);
-                    var row = [item.NamaType, item.SaldoPrimer, item.SaldoSekunder, item.SaldoTritier, item.IdType, item.Tgl_mutasi];
-                    $("#TableType1").DataTable().row.add(row);
                 });
 
                 // Redraw the table to show the changes
                 $("#TableType").DataTable().draw();
-                $("#TableType1").DataTable().draw();
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -108,3 +104,64 @@ function closeModal1() {
     var modal = document.getElementById('myModal1');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
+
+$(document).ready(function () {
+    // ... Your existing code ...
+
+    // Add a click event handler to rows in TableType
+    $('#TableType tbody').on('click', 'tr', function () {
+        // Clear existing rows in TableType1
+        $("#TableType1").DataTable().clear().draw();
+
+        // Get the clicked row's data
+        var rowData = $("#TableType").DataTable().row(this).data();
+
+        // Extract the relevant data
+        var transferredRowData = [
+            rowData[0], // NamaType
+            rowData[6], // SaldoPrimer
+            rowData[7], // SaldoSekunder
+            rowData[8], // SaldoTritier
+            rowData[10], // IdType
+            rowData[9] // Tgl_mutasi
+        ];
+
+        // Add the extracted row data to TableType1
+        $("#TableType1").DataTable().row.add(transferredRowData).draw();
+    });
+
+    // ... Other existing code ...
+});
+
+// document.getElementById("btnProses").addEventListener("click", function() {
+//     if (confirm("Apakah anda yakin mau menghanguskan barcode ini?")) {
+//         try {
+//             const checkedItems = document.querySelectorAll(".listBarcode input[type='checkbox']:checked");
+//             checkedItems.forEach(function(item) {
+//                 const kodebarang = item.dataset.kodebarang;
+//                 const noindeks = item.dataset.noindeks;
+//                 const userid = item.dataset.userid;
+
+//                 // Lakukan sesuatu dengan kodebarang, noindeks, dan userid
+//             });
+
+//             const hangusItems = document.querySelectorAll(".listhangus tr");
+//             hangusItems.forEach(function(item) {
+//                 const idtype = item.dataset.idtype;
+//                 const jumlahkeluarprimer = item.dataset.jumlahkeluarprimer;
+//                 const jumlahkeluarsekunder = item.dataset.jumlahkeluarsekunder;
+//                 const jumlahkeluartertier = item.dataset.jumlahkeluartertier;
+//                 const tanggalproduksi = item.dataset.tanggalproduksi;
+
+//                 // Lakukan sesuatu dengan idtype, jumlahkeluarprimer, dll.
+//             });
+
+//             // Lakukan sesuatu setelah proses selesai
+//             tampil();
+//             alert("Barcode sudah dihanguskan");
+//             document.querySelector(".listhangus").innerHTML = ""; // Menghapus konten listhangus
+//         } catch (error) {
+//             alert(error.message);
+//         }
+//     }
+// });

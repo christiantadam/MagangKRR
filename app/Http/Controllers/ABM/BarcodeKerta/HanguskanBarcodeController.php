@@ -12,7 +12,7 @@ class HanguskanBarcodeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U010", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
         $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
         // $dataDivisi3 = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status=?, @idobjek=?', ["1", "MST"]);
         // dd($dataDivisi3);
@@ -55,7 +55,17 @@ class HanguskanBarcodeController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        dd($data);
+        // kodeUpd: "simpanPegawai",
+
+        DB::connection('ConnPayroll')->statement('exec SP_5409_INV_PenghangusanBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+            $data[''],
+            $data[''],
+            $data['']
+
+        ]);
+        return redirect()->route('settingShift.index')->with('alert', 'Data Pegawai Updated successfully!');
     }
 
     //Remove the specified resource from storage.
