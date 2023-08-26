@@ -146,7 +146,7 @@ function daftarKonversiBelumACC() {
                 "table_konversi",
                 listKonversi.map((item, index) => {
                     return {
-                        IdKonversi: `<input class="form-check-input" type="checkbox" value="${index}" name="cheackbox_konversi"> ${item.IdKonversi}`,
+                        IdKonversi: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_konversi"> ${item.IdKonversi}`,
                         NamaKomposisi: item.NamaKomposisi,
                     };
                 }),
@@ -156,13 +156,13 @@ function daftarKonversiBelumACC() {
             );
 
             const checkboxes = document.querySelectorAll(
-                'input[name="cheackbox_konversi"]'
+                'input[name="checkbox_konversi"]'
             );
 
             checkboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
                     if (checkbox.checked) {
-                        uncheckOtherCheckboxes(checkboxes, checkbox);
+                        clearCheckedBoxes(checkboxes, checkbox);
 
                         konversiPil = checkbox.value;
                         listHasil.length = 0;
@@ -182,14 +182,6 @@ function daftarKonversiBelumACC() {
                     }
                 });
             });
-        }
-    });
-}
-
-function uncheckOtherCheckboxes(checkboxes, checkedCheckbox) {
-    checkboxes.forEach(function (checkbox) {
-        if (checkbox !== checkedCheckbox) {
-            checkbox.checked = false;
         }
     });
 }

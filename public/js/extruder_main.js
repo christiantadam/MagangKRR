@@ -168,17 +168,6 @@ function clearSelection_DataTable(tableId) {
         row.style.backgroundColor = "white";
     });
 }
-
-function addRadioToData(listData, modifiedCol, radioName) {
-    const modifiedData = listData;
-    const radioBtnStr = `<input class="form-check-input" type="radio" id="`;
-
-    modifiedData[modifiedCol] = `
-        ${radioBtnStr}${modifiedData[modifiedCol]}" name="${radioName}"> ${modifiedData[modifiedCol]}
-    `;
-
-    return modifiedData;
-}
 //#endregion
 
 //#region Select Options
@@ -198,17 +187,22 @@ function addOptions(selectEle, optionData, keyMapping, showId = true) {
     }
 }
 
-function addOptionIfNotExists(selectEle, value, text = "", autoSelect = true) {
+function addOptionIfNotExists(
+    selectEle,
+    value,
+    text = "",
+    autoSelectTrue = true
+) {
     const options = selectEle.options;
     for (let i = 0; i < options.length; i++) {
         if (options[i].value === value) {
-            if (autoSelect) options[i].selected = true;
+            if (autoSelectTrue) options[i].selected = true;
             return;
         }
     }
 
     const newOption = new Option(text, value);
-    if (autoSelect) newOption.selected = true;
+    if (autoSelectTrue) newOption.selected = true;
     selectEle.appendChild(newOption);
 }
 
@@ -265,7 +259,7 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
             }
 
             alert(
-                "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam.\nERROR: " +
+                "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam.\nERROR: " +
                     urlString
             );
             console.error("Error: ", error);
@@ -314,6 +308,14 @@ function fetchSelect(
         });
 }
 
+function clearCheckedBoxes(checkboxes, checkedCheckbox) {
+    checkboxes.forEach(function (checkbox) {
+        if (checkbox !== checkedCheckbox) {
+            checkbox.checked = false;
+        }
+    });
+}
+
 function snakeCaseToTitleCase(input) {
     return input
         .split("_")
@@ -336,6 +338,27 @@ function getCurrentDate(monthYearOnly = false) {
     } else {
         return `${year}-${month}-${day}`;
     }
+}
+
+function getCurrentTime() {
+    const currentTime = new Date();
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    return `${hours} : ${minutes} : ${seconds}`;
+}
+
+function getTimeDiff(startTime, endTime, type) {
+    const timeDifference = startTime.getTime() - endTime.getTime();
+
+    if (type == "hour") {
+        timeDifference = timeDifference / (1000 * 60 * 60);
+    } else if (type == "minute") {
+        timeDifference = timeDifference / (1000 * 60);
+    }
+
+    return timeDifference;
 }
 
 function dateTimeToDate(inputStr) {

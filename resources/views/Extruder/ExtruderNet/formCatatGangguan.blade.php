@@ -91,6 +91,9 @@
                     <div class="col-lg-9" style="margin-left: 7.5px">
                         <select id="select_gangguan" class="form-select">
                             <option selected disabled>-- Pilih Gangguan --</option>
+                            @foreach ($formData['listGangguan'] as $d)
+                                <option value="{{ $d->NamaGangguan }}">{{ $d->IdGangguan }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -104,7 +107,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <input type="time" id="waktu_awal" class="form-control">
+                                <input type="datetime-local" id="waktu_awal" class="form-control">
                             </div>
                         </div>
 
@@ -114,7 +117,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <input type="time" id="waktu_akhir" class="form-control">
+                                <input type="datetime-local" id="waktu_akhir" class="form-control">
                             </div>
                         </div>
 
@@ -183,7 +186,7 @@
                     </thead>
                     <tbody>
                         @php $tableWidth = 12; @endphp
-                        <td colspan="{{ $tableWidth }}" class="text-center">
+                        <td colspan="{{ $tableWidth }}" style="padding-left: 250px">
                             <h1 class="mt-3">Tabel masih kosong...</h1>
                         </td>
                         @for ($i = 0; $i < $tableWidth - 1; $i++)

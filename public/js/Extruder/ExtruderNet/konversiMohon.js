@@ -194,6 +194,7 @@ btnKeluar.addEventListener("click", function () {
         );
 
         modeProses = "";
+        komposisiPil = -1;
     }
 });
 
@@ -252,6 +253,9 @@ btnTambah.addEventListener("click", function () {
             "Ingin input item konversi lagi?",
             () => {
                 clearDataDetail();
+                clearSelection_DataTable("table_komposisi");
+                konversiPil = -1;
+
                 $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
                 setTimeout(() => {
                     $("html, body").animate(
@@ -259,8 +263,6 @@ btnTambah.addEventListener("click", function () {
                         100
                     );
                 }, 1000);
-                clearSelection_DataTable("table_komposisi");
-                konversiPil = -1;
             },
             () => {
                 btnProses.focus();
@@ -282,8 +284,6 @@ btnKoreksiDetail.addEventListener("click", function () {
                 listKonversi[konversiPil].JumlahPrimer = txtPrimer.value;
                 listKonversi[konversiPil].JumlahSekunder = txtSekunder.value;
                 listKonversi[konversiPil].JumlahTritier = txtTersier.value;
-
-                console.log(listKonversi);
 
                 addTable_DataTable(
                     "table_konversi",
@@ -393,12 +393,10 @@ slcNomor.addEventListener("change", function () {
     });
 
     getDataKonversi(this.value);
-
     // *fungsi dilanjutkan pada txtHidden event "change"
-    // **if "GET DATA KONVERSI BERHASIL!"
 });
 
-txtHidden.addEventListener("change", function (event) {
+txtHidden.addEventListener("change", function () {
     if (this.value == "GET DATA KONVERSI BERHASIL!") {
         if (modeProses == "koreksi") {
             $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
@@ -1200,6 +1198,7 @@ function prosesIsi() {
                         disableDetail();
 
                         modeProses = "";
+                        komposisiPil = -1;
                     });
                 });
             });
@@ -1249,6 +1248,7 @@ function prosesKoreksi(id_konversi_ext) {
         toggleButton(1);
         disableDetail();
         modeProses = "";
+        komposisiPil = -1;
 
         alert("Data telah berhasil dikoreksi!");
     });
@@ -1272,6 +1272,7 @@ function prosesHapus(id_konversi_ext) {
     );
 
     modeProses = "";
+    komposisiPil = -1;
 
     alert("Data telah berhasil dihapus!");
 }

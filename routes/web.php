@@ -144,6 +144,17 @@ Route::get('/Benang/getSaldoBarang/{id_type}', [BenangController::class, 'getSal
 #region ExtruderNet - Form Catat Gangguan
 Route::get('/Catat/getListIdKomposisi/{tanggal}/{id_mesin}', [PencatatanController::class, 'getListIdKomposisi']);
 Route::get('/Catat/getDisplayShift/{id_konversi}', [PencatatanController::class, 'getDisplayShift']);
+Route::get('/Catat/getListMesin/{kode}', [PencatatanController::class, 'getListMesin']);
+Route::get('/Catat/getListGangguan', [PencatatanController::class, 'getListGangguan']);
+Route::get('/Catat/getListGangguanProd/{bulan}/{tahun}', [PencatatanController::class, 'getListGangguanProd']);
+Route::get('/Catat/getListShift/{id_konversi}', [PencatatanController::class, 'getListShift']);
+Route::get('/Catat/getNoTrans', [PencatatanController::class, 'getNoTrans']);
+
+Route::get('/Catat/insGangguanProd/{tanggal}/{id_mesin}/{id_gangguan}/{id_konversi?}/{shift}/{awal}/{akhir}/{awal_gangguan}/{akhir_gangguan}/{jumlah_jam}/{jumlah_menit}/{status}/{keterangan}/{jam_user}/{user}', [PencatatanController::class, 'insGangguanProd']);
+
+Route::get('/Catat/updGangguanProd/{no_trans}/{awal}/{akhir}/{jam}/{menit}/{ket}', [PencatatanController::class, 'updGangguanProd']);
+
+Route::get('/Catat/delGangguanProd/{no_trans}', [PencatatanController::class, 'delGangguanProd']);
 #endregion
 
 #region ExtruderNet - Master (unfinished)
