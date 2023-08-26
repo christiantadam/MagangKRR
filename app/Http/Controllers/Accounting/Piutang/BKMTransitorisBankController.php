@@ -93,6 +93,18 @@ class BKMTransitorisBankController extends Controller
         return response()->json($idBKM);
     }
 
+    public function getTabelTampilBKM($tanggalInputTampilBKM, $tanggalInputTampilBKM2)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_TRANSITORIS_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampilBKM, $tanggalInputTampilBKM2]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelTampilBKK($tanggalInputTampilBKK, $tanggalInputTampilBKK2)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKK_TRANSITORIS_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampilBKK, $tanggalInputTampilBKK2]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

@@ -12,7 +12,7 @@
                                 @csrf
                                 <!-- Form fields go here -->
                                 <div class="card-container" style="display: flex;">
-                                    <div class="card" style="width: 60%;">
+                                    <div style="width: 60%;">
                                         <div class="card" style>
                                             <b>BKK</b>
                                             <div class="d-flex">
@@ -80,7 +80,7 @@
 
                                                     </select>
                                                 </div>
-                                                <div class="col-3" style="padding-left: 70px">
+                                                <div class="col-3" style="padding-left: 40px">
                                                     <input type="submit" id="btnDetailBG" name="btnDetailBG" value="Detail BG/CEK/Transfer/DBT" class="btn btn-primary">
                                                 </div>
                                             </div>
@@ -308,19 +308,19 @@
                                             <input type="submit" name="proses" value="PROSES" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" name="koreksi" value="KOREKSI" class="btn btn-primary">
+                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="KOREKSI" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-1">
                                             <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" name="tampilbkm" value="TampilBKM" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnTampilBKM" name="btnTampilBKM" value="TampilBKM" class="btn btn-primary d-flex ml-auto">
                                         </div>
-                                        <div class="col-md-1">
-                                            <input type="submit" name="tampilbkk" value="TampilBKK" class="btn btn-primary d-flex ml-auto">
+                                        <div class="col-md-1" style="padding-left: 30px">
+                                            <input type="submit" id="btnTampilBKK" name="btnTampilBKK" value="TampilBKK" class="btn btn-primary d-flex ml-auto">
                                         </div>
-                                        <div class="col-md-1">
-                                            <input type="submit" name="tutup" value="TUTUP" class="btn btn-primary d-flex ml-auto">
+                                        <div class="col-md-1" style="padding-left: 40px">
+                                            <input type="submit" id="btnTutup" name="btnTutup" value="TUTUP" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>
@@ -552,10 +552,10 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
+                                                    <label for="idTampilBKM" style="margin-right: 10px;">Id. BKM</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idTampilBKM" name="idTampilBKM" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-3">
                                                     <button id="btnCetakBKM" name="btnCetakBKM">CETAK</button>
@@ -592,7 +592,7 @@
                              <div class="modal-dialog modal-lg" role="document">
                                  <div class="modal-content">
                                      <div class="modal-header">
-                                         <h5 class="modal-title">Cetak BKM Transitokkkkkkkkris</h5>
+                                         <h5 class="modal-title">Cetak BKK Transitoris</h5>
                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true">&times;</span>
                                          </button>
@@ -622,7 +622,7 @@
                                                  <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                              </div>
                                              <div class="col-md-2">
-                                                 <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%">
+                                                 <input type="text" id="idTampilBKK" name="idTampilBKK" class="form-control" style="width: 100%">
                                              </div>
                                              <div class="col-md-3">
                                                  <button id="btnCetakBKK" name="btnCetakBKK">CETAK</button>

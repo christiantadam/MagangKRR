@@ -72,6 +72,19 @@ let btnKoreksiBiayaBKM = document.getElementById('btnKoreksiBiayaBKM');
 
 //BUTTON BAWAH
 let btnBatal = document.getElementById('btnBatal');
+let btnOkTampilBKM = document.getElementById('btnOkTampilBKM');
+let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
+
+//TAMPIL BKM
+let tanggalInputTampilBKM = document.getElementById('tanggalInputTampilBKM');
+let tanggalInputTampilBKM2 = document.getElementById('tanggalInputTampilBKM2');
+let idTampilBKM = document.getElementById('idTampilBKM');
+
+//TAMPIL BKK
+let tanggalInputTampilBKK = document.getElementById('tanggalInputTampilBKK');
+let tanggalInputTampilBKK2 = document.getElementById('tanggalInputTampilBKK2');
+let idTampilBKK = document.getElementById('idTampilBKK');
+let btnCetakBKK = document.getElementById('btnCetakBKK');
 
 btnBatal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -926,5 +939,93 @@ btnProsesTambahBiayaBKM.addEventListener ("click", function (event) {
         }
 });
 
+//#region UNTUK MODAL TAMPIL BKM
+btnTampilBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+    modalTampilBKM = $("#modalTampilBKM");
+    modalTampilBKM.modal('show');
+});
+
+btnOkTampilBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/tabeltampilbkmtransitoris/" + tanggalInputTampilBKM.value + "/" + tanggalInputTampilBKM2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKM = $("#tabelTampilBKM").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKM" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+                const idTampilBKM = document.getElementById("idTampilBKM");
+
+                if ($(this).prop("checked")) {
+                    idTampilBKM.value = checkedCheckbox.Id_BKM;
+                } else {
+                    idTampilBKM.value = "";
+                }
+            });
+        });
+});
+//#endregion
+
+//#region UNTUK MODAL TAMPIL BKK
+btnTampilBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    modalTampilBKK = $("#modalTampilBKK");
+    modalTampilBKK.modal('show');
+});
+
+btnOkTampilBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/tabeltampilbkktransitoris/" + tanggalInputTampilBKK.value + "/" + tanggalInputTampilBKK2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKK = $("#tabelTampilBKK").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKK", data: "Id_BKK" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKK.on('change', 'input[name="dataCheckbox"]', function() {
+                const checkedCheckbox = tabelTampilBKK.row($(this).closest('tr')).data();
+                const idTampilBKK = document.getElementById("idTampilBKK");
+
+                if ($(this).prop("checked")) {
+                    idTampilBKK.value = checkedCheckbox.Id_BKK;
+                } else {
+                    idTampilBKK.value = "";
+                }
+            });
+        });
+});
+
+btnCetakBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    ////
+})
+//#endregion
 
 

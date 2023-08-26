@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-5 RDZMobilePaddingLR0">
+            <div class="col-md-6 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">BATAL BKM</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -14,11 +14,11 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="radio" name="radiogrup1" value="radio_1" id="kasBesar">
+                                            <input type="radio" name="radiogrup1" value="1" id="kasBesar">
                                             <label for="kasBesar">Kas Besar</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="radio" name="radiogrup1" value="radio_2" id="kasKecil">
+                                            <input type="radio" name="radiogrup1" value="2" id="kasKecil">
                                             <label for="kasKecil">Kas Kecil</label>
                                         </div>
                                     </div>
@@ -28,24 +28,19 @@
                                         <div class="col-md-3">
                                             <label for="bulanTahun">Bulan/Tahun</label>
                                         </div>
-                                        <div class="col-md-2">
-                                            <input type="number" id="bulanTahun" class="form-control" style="width: 100%">
+                                        <div class="col-md-6">
+                                            <input type="text" id="bulanTahun" name="bulanTahun" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="bkm">BKM</label>
+                                            <label for="idBKMSelect">BKM</label>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="text" name="bankSelect" class="form-control" style="width: 100%">
-                                        </div>
-                                        <div class="col-md-1">
-                                            <select name="bank_select" class="form-control">
-                                                <option value="option1">BKM1</option>
-                                                <option value="option2">BKM2</option>
-                                                <option value="option3">BKM3</option>
+                                        <div class="col-md-5">
+                                            <select id="idBKMSelect" name="idBKMSelect" class="form-control">
+
                                             </select>
                                         </div>
                                     </div>
@@ -83,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-10" style="padding-left: 15px">
@@ -102,4 +97,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/BatalBKMTransitoris.js') }}"></script>
 @endsection

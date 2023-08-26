@@ -123,9 +123,16 @@ Route::get('getjenispembayaran', 'App\Http\Controllers\Accounting\Piutang\BKMTra
 Route::get('getkodeperkiraan', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getKodePerkiraan');
 Route::get('getidbkk/{idBank}/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getUraianEnter');
 Route::get('getidbkmtransitoris/{idBank}/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getUraianEnterBKM');
+Route::get('tabeltampilbkmtransitoris/{tanggalInputTampilBKM}/{tanggalInputTampilBKM2}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getTabelTampilBKM');
+Route::get('tabeltampilbkktransitoris/{tanggalInputTampilBKK}/{tanggalInputTampilBKK2}', 'App\Http\Controllers\Accounting\Piutang\BKMTransitorisBankController@getTabelTampilBKK');
 #endregion
 
-Route::get('BatalBKMTransitoris', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@BatalBKMTransitoris');
+#region Batal BKM Transitoris
+Route::resource('BatalBKMTransitoris', App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController::class);
+Route::get('getIdBKMBatal3/', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@getIdBKM3');
+Route::get('getIdBKMBatal4/', 'App\Http\Controllers\Accounting\Piutang\BatalBKMTransitorisController@getIdBKM4');
+#endregion
+
 Route::get('BKMBKKPembulatan', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@BKMBKKPembulatan');
 Route::get('BKMDPPelunasan', 'App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController@BKMDPPelunasan');
 Route::get('BKMBKKNotaKredit', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@BKMBKKNotaKredit');

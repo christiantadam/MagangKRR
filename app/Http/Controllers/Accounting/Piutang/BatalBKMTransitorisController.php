@@ -4,13 +4,25 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BatalBKMTransitorisController extends Controller
 {
-    public function BatalBKMTransitoris()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BatalBKMTransitoris', compact('data'));
+    }
+
+    public function getIdBKM3($bulanTahun)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?, @BlnThn', [3, $bulanTahun]);
+        return response()->json($tabel);
+    }
+    public function getIdBKM4($bulanTahun)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?', [4, $bulanTahun]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +38,7 @@ class BatalBKMTransitorisController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
