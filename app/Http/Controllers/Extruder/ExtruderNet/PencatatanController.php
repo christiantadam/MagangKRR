@@ -20,6 +20,9 @@ class PencatatanController extends Controller
                     'listGangguan' => $this->getListGangguan(),
                 ];
                 break;
+            case 'formCatatDaya':
+                $form_data = ['listMesin' => $this->getListMesin(1)];
+                break;
 
             default:
                 break;
@@ -35,6 +38,78 @@ class PencatatanController extends Controller
 
         return view($view_name, $view_data);
     }
+
+    #region Daya Produksi
+    public function getFaktorKali($id_mesin)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_FAKTOR_KALI @idmesin = ?',
+            [$id_mesin]
+        );
+
+        // @idmesin  varchar(5)
+    }
+
+    public function getKwahMesinPerbulan($bulan, $tahun)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_KWAH_MESIN_PERBULAN @bulan = ?, @tahun = ?',
+            [$bulan, $tahun]
+        );
+
+        // @bulan  varchar(2), @tahun varchar(4)
+    }
+
+    public function insKwahMesin($tanggal, $id_mesin, $jam, $counter, $kali, $jam_user, $user)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_INSERT_KWAH_MESIN @tanggal = ?, @idmesin = ?, @jam = ?, @counter = ?, @kali = ?, @jamuser = ?, @user = ?',
+            [$tanggal, $id_mesin, $jam, $counter, $kali, $jam_user, $user]
+        );
+
+        // @tanggal  datetime, @idmesin  varchar(5), @jam datetime, @counter  numeric(10,2), @kali  numeric(10,2), @jamuser datetime, @user  varchar(7)
+    }
+
+    public function updKwahMesin($id_kwah_mesin, $counter)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_UPDATE_KWAH_MESIN @idkwahmesin = ?, @counter = ?',
+            [$id_kwah_mesin, $counter]
+        );
+
+        // @IdKWaHMesin numeric(9,0), @counter  numeric(10,2)
+    }
+
+    public function delKwahMesin($id_kwah)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_DELETE_KWAH_MESIN @IdKwah = ?',
+            [$id_kwah]
+        );
+
+        // @IdKwah numeric(9,0)
+    }
+
+    public function getListDataKwahMesin($bulan, $tahun)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LISTDATA_KWAH_MESIN @bulan = ?, @tahun = ?',
+            [$bulan, $tahun]
+        );
+
+        // @bulan  varchar(2), @tahun varchar(4)
+    }
+
+    public function getKwahMesin($tanggal, $id_divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_KWAH_MESIN @tanggal = ?, @iddivisi = ?',
+            [$tanggal, $id_divisi]
+        );
+
+        // @tanggal datetime, @iddivisi char(3)
+    }
+    #endregion
 
     #region Gangguan Produksi
     public function getListMesin($kode)
@@ -56,7 +131,7 @@ class PencatatanController extends Controller
             [$tanggal, $id_mesin]
         );
 
-        // PARAMETER - @tanggal datetime, @idmesin varchar(5)
+        // @tanggal datetime, @idmesin varchar(5)
     }
 
     public function getDisplayShift($id_konversi)
@@ -66,7 +141,7 @@ class PencatatanController extends Controller
             [$id_konversi]
         );
 
-        // PARAMETER - @IdKonversi Varchar(14)
+        // @IdKonversi Varchar(14)
     }
 
     public function getListGangguan()
@@ -84,7 +159,7 @@ class PencatatanController extends Controller
             [$bulan, $tahun]
         );
 
-        // PARAMETER - @Bulan Numeric(10,2), @Tahun Numeric(10,2)
+        // @Bulan Numeric(10,2), @Tahun Numeric(10,2)
     }
 
     public function getListShift($id_konversi)
@@ -94,7 +169,7 @@ class PencatatanController extends Controller
             [$id_konversi]
         );
 
-        // PARAMETER - @idkonversi char(14)
+        // @idkonversi char(14)
     }
 
     public function getNoTrans()
@@ -112,7 +187,7 @@ class PencatatanController extends Controller
             [$tanggal, $id_mesin, $id_gangguan, $id_konversi, $shift, $awal, $akhir, $awal_gangguan, $akhir_gangguan, $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user, $user]
         );
 
-        // PARAMETER - @Tanggal Datetime, @IdMesin Char(5), @IdGangguan Char(5), @IdKonversi Char(14)=null, @Shift Char(2), @Awal datetime, @Akhir datetime, @AwalGangguan datetime, @AkhirGangguan datetime, @JumlahJam numeric(9, @JumlahMenit numeric(9, @Status Char(1), @Keterangan Varchar(100), @JamUser datetime, @User Char(7)
+        // @Tanggal Datetime, @IdMesin Char(5), @IdGangguan Char(5), @IdKonversi Char(14)=null, @Shift Char(2), @Awal datetime, @Akhir datetime, @AwalGangguan datetime, @AkhirGangguan datetime, @JumlahJam numeric(9, @JumlahMenit numeric(9, @Status Char(1), @Keterangan Varchar(100), @JamUser datetime, @User Char(7)
     }
 
     public function updGangguanProd($no_trans, $awal, $akhir, $jam, $menit, $ket)
