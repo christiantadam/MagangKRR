@@ -13,7 +13,9 @@ class KoreksiShiftController extends Controller
     public function index()
     {
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
-        return view('Payroll.Agenda.KoreksiShift.koreksiShift', compact('dataDivisi'));
+        $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ?', [1]);
+        // dd($dataShift);
+        return view('Payroll.Agenda.KoreksiShift.koreksiShift', compact('dataDivisi', 'dataShift'));
     }
 
     //Show the form for creating a new resource.
@@ -56,7 +58,28 @@ class KoreksiShiftController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = array_filter($request->all(), 'is_numeric', ARRAY_FILTER_USE_KEY);
+
+        $dataCount = count($data);
+        dd($data);
+        for ($i = 0; $i < $dataCount; $i++) {
+            $dataItem = $data[$i];
+            $explodedData = explode('.', $dataItem);
+
+            if (count($explodedData) >= 3) {
+                $id_div = $explodedData[0];
+                $kd_manager = $explodedData[1];
+                $kd_pegawai = $explodedData[2];
+
+                // Eksekusi prosedur simpan dalam database
+                DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_PEG_DIV_MANAGER  @id_div = ?, @kd_manager = ?, @kd_pegawai = ?', [
+                    $id_div,
+                    $kd_manager,
+                    $kd_pegawai
+                ]);
+            }
+        }
+        return redirect()->route('settingShift.index')->with('alert', 'Data Pegawai Updated successfully!');
     }
 
     //Remove the specified resource from storage.

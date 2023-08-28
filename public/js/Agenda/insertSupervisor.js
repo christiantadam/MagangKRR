@@ -131,6 +131,7 @@ $(document).ready(function () {
     });
     $("#buttonUpdate").click(function () {
         var selectedRows = table.rows(".selected").data().toArray();
+        // console.log(selectedRows[0][0]);
         // console.log(selectedRows);
         selectedRows.forEach((data) => {
             console.log(data[0]);

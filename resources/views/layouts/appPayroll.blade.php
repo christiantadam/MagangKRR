@@ -149,7 +149,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan1') }}">Aturan 1_3</a></li>
+                                                    tabindex="-1" href="{{ url('GantiShift/Aturan1_3') }}">Aturan 1_3</a></li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan2') }}">Aturan 2</a>
                                             </li>
