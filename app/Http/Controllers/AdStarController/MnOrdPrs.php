@@ -11,9 +11,11 @@ class MnOrdPrs extends Controller
     public function index()
     {
         $dataCust = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=1');
+        $datanoordkrj = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=10');
 
 
-        return view('AdStar.MnOrdPrs', compact('dataCust'));//
+
+        return view('AdStar.MnOrdPrs', compact('dataCust','datanoordkrj'));//
     }
 
     //Display the specified resource.
@@ -40,6 +42,22 @@ class MnOrdPrs extends Controller
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataBrng);
+
+            // dd($crExplode);
+        }
+        elseif ($crExplode[1] == "dataSrtPsn") {
+            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [3, $crExplode[0]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataSrtPsn);
+
+            // dd($crExplode);
+        }
+        elseif ($crExplode[1] == "dataSrtPsn") {
+            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [3, $crExplode[0]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataSrtPsn);
 
             // dd($crExplode);
         }

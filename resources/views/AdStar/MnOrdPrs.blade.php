@@ -73,7 +73,7 @@
                 <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
+                        <input type="text" id='No_Order' class="form-control" placeholder="" aria-label="">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_noordkrj">
                             ...
                         </button>
@@ -92,7 +92,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="" aria-label="">
                         <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm">
+                        <button type="button" id='id-stkordsblm' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm">
                             ...
                         </button>
                     </div>
@@ -216,7 +216,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tabel_noorder" class="table table-bordered">
+            <table id="tbl_srtpsn" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>IdSuratPesanan</th>
@@ -248,20 +248,20 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tabel_noorder" class="table table-bordered">
+            <table id="tbl_noordkrj" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
-                        <th>IdSuratPesanan</th>
-                        <th>QTY</th>
+                        <th>Nama BRG</th>
+                        <th>No Order</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($dataorder as $data)
-                        <tr data-nmbrng="{{ $data->Nama_brg }}" data-noordr="{{ $data->No_Order }}">
-                            <td>{{ $data->Nama_brg }}</td>
+                    @foreach ($datanoordkrj as $data)
+                        <tr data-nmbrng="{{ $data->NAMA_BRG }}" data-noordr="{{ $data->No_Order }}">
+                            <td>{{ $data->NAMA_BRG }}</td>
                             <td>{{ $data->No_Order }}</td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -280,7 +280,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tabel_noorder" class="table table-bordered">
+            <table id="tbl_stkordsblm" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>IdSuratPesanan</th>

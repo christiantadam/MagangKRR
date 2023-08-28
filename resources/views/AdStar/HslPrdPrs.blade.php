@@ -17,15 +17,15 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Tanggal Produksi:</div>
                     <div class="col-lg-2">
-                        <input type="date" id="tanggal" class="form-control" required>
+                        <input type="date" id="tanggal" class="form-control" required readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">No. Transaksi:</div>
                     <div class="col-lg-3">
                         <div class="input-group mb-3">
-                        <input type="text" id="no-transaksi" class="form-control" required>
-                        <button id='ld-transaksi' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notransaksi">
+                        <input type="text" id="no-transaksi" class="form-control" required readonly>
+                        <button id='ld-transaksi' type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notransaksi" disabled>
                             List Data
                         </button>
                     </div>
@@ -34,11 +34,11 @@
                     <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
                     <div class="col-lg-4">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="" aria-label="">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <button id="button_noordkrj" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja" disabled>
                                 ...
                             </button>
-                            <input type="text" class="form-control" placeholder="" aria-label="">
+                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
                         </div>
                     </div>
                 </div>
@@ -46,9 +46,9 @@
                     <div class="col-lg-2 aligned-text">Mesin Produksi:</div>
                     <div class="col-lg-4">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="" aria-label="">
-                            <input type="text" class="form-control" placeholder="" aria-label="">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <button id="button_msnprdk" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
                                 ...
                             </button>
                         </div>
@@ -57,7 +57,7 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Grup Pelaksana:</div>
                     <div class="col-lg-2">
-                        <select id="grup-pelaksana-dropdown" required>
+                        <select id="grup-pelaksana-dropdown" required disabled>
                             <option value="1">A</option>
                             <option value="2">B</option>
                             <option value="3">C</option>
@@ -69,31 +69,31 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Jam Mulai:</div>
                     <div class="col-lg-2">
-                        <input type="time" id="jammulai" class="form-control" required>
+                        <input type="time" id="jammulai" class="form-control" required readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Jam Akhir:</div>
                     <div class="col-lg-2">
-                        <input type="time" id="jamakhir" class="form-control" required>
+                        <input type="time" id="jamakhir" class="form-control" required readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Jumlah Ball:</div>
                     <div class="col-lg-2">
-                        <input type="number" id="jml-ball" class="input-small" required min="0">
+                        <input type="number" id="jml-ball" class="input-small" required min="0" readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Jumlah lembar:</div>
                     <div class="col-lg-2">
-                        <input type="number" id="jml-lembar" class="input-small" required min="0">
+                        <input type="number" id="jml-lembar" class="input-small" required min="0" readonly>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Jumlah Kg:</div>
                     <div class="col-lg-2">
-                        <input type="number" id="jml-kg" class="input-small" required min="0">
+                        <input type="number" id="jml-kg" class="input-small" required min="0" readonly>
                     </div>
                 </div>
             </div>
@@ -102,13 +102,14 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-primary">Add</button>
+                <button id="addButton" class="btn btn-primary" style="display: block;">Add</button>
+                <button id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
             </div>
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-success">Update</button>
+                <button id="updateButton" class="btn btn-success">Update</button>
             </div>
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-danger">Delete</button>
+                <button id="deleteButton" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
@@ -214,7 +215,92 @@
         </div>
     </div>
 
+    <script>
+        const ldtransaksi = document.getElementById('ld-transaksi')
 
+
+        ldtransaksi.addEventListener("click", function () {
+            var tanggal = document.getElementById('tanggal');
+            fetch("/HslPrdPrs/" + tanggal.value + ".dataTransaksi")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
+                    console.log(data);
+                    // Clear the existing table rows
+                    $("#tabel_notransaksi").DataTable().clear().draw();
+
+                    // Loop through the data and create table rows
+                    data.forEach((item) => {
+                        var row = [item.GrupMesinOrder, item.IDLOG];
+                        $("#tabel_notransaksi").DataTable().row.add(row);
+                    });
+
+                    // Redraw the table to show the changes
+                    $("#tabel_notransaksi").DataTable().draw();
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var addButton = document.getElementById("addButton");
+        var saveButton = document.getElementById("saveButton");
+        var inputElements = document.querySelectorAll("input[readonly]");
+        var selectElement = document.getElementById("grup-pelaksana-dropdown");
+        var buttonprimary = document.getElementsByClassName("btn-primary");
+        var button_noordkrj = document.getElementById("button_noordkrj");
+        var ld_transaksi = document.getElementById("ld-transaksi");
+        var button_msnprdk = document.getElementById("button_msnprdk");
+
+
+        function toggleInputEditing(enable) {
+            inputElements.forEach(function(input) {
+                input.readOnly = !enable;
+            });
+            selectElement.disabled = !enable;
+            button_noordkrj.disabled = !enable;
+            ld_transaksi.disabled = !enable;
+            button_msnprdk.disabled = !enable;
+
+        }
+
+        // Initialize the form with inputs and buttons disabled
+        toggleInputEditing(false);
+
+        addButton.addEventListener("click", function() {
+            var isEditing = (addButton.textContent === "Add");
+            toggleInputEditing(isEditing);
+
+            if (isEditing) {
+                addButton.style.display = "none";
+                saveButton.style.display = "block"; // Display the Save button
+                updateButton.disabled = true; // Disable the Update button
+                deleteButton.disabled = true; // Disable the Delete button
+            } else {
+                addButton.style.display = "block";
+                saveButton.style.display = "none"; // Hide the Save button
+                updateButton.disabled = false; // Enable the Update button
+                deleteButton.disabled = false; // Enable the Delete button
+                // Reset form values if needed
+            }
+        });
+
+        // Add click event listener to the "Save" button
+        saveButton.addEventListener("click", function() {
+            toggleInputEditing(false);
+            addButton.style.display = "block";
+            saveButton.style.display = "none"; // Hide the Save button
+            updateButton.disabled = false; // Enable the Update button
+            deleteButton.disabled = false; // Enable the Delete button
+        });
+    });
+    </script>
     <script src="{{ asset('js\AdStar\HslPrdPrs.js')}}"></script>
 
 @endsection
