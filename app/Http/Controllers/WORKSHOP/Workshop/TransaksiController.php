@@ -12,10 +12,7 @@ class TransaksiController extends Controller
         return view();
     }
 
-    public function ACCManagerKerja()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.ACCManagerKerja');
-    }
+
 
     public function ACCDirekturKerja()
     {
