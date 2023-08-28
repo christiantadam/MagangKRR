@@ -17,11 +17,14 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#TableType').DataTable({
+    var table = $('#TableType').DataTable({
         "scrollX": true,
         order: [
             [0, 'desc']
         ],
+        select: {
+            style: "single",
+        },
     });
 
     $('#TableType1').DataTable({
@@ -63,7 +66,7 @@ $(document).ready(function () {
                 data.forEach((item) => {
                     var kodebarcode = item.NoIndeks.padStart(9, '0') + '-' + item.Kode_barang.padStart(9, '0');
                     console.log(kodebarcode);
-                    var row = [item.NamaType, kodebarcode, item.NamaSubKelompok, item.NamaKelompok, item.Kode_barang, item.NoIndeks, item.Qty_Primer, item.Qty_sekunder, item.Qty, item.Tgl_mutasi,  item.IdType];
+                    var row = [item.NamaType, kodebarcode, item.NamaSubKelompok, item.NamaKelompok, item.Kode_barang, item.NoIndeks, item.Qty_Primer, item.Qty_sekunder, item.Qty, item.Tgl_mutasi, item.IdType];
                     $("#TableType").DataTable().row.add(row);
                 });
 
@@ -84,6 +87,68 @@ $(document).ready(function () {
         event.preventDefault();
     });
 });
+
+function prosesData() {
+    var selectedRows = $("#TableType").DataTable().rows(".selected").data().toArray();
+    const data = {
+        kodebarang: selectedRows[0][4],
+        noindeks: selectedRows[0][5],
+        userid: 'U001',
+
+    };
+    console.log(data);
+    const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "HanguskanBarcode/{selectedRows[0][4]}");
+        form.setAttribute("method", "POST");
+
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "PUT"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
+
+        // Create input with "Update Keluarga" Value
+        const ifUpdate = document.createElement("input");
+        ifUpdate.setAttribute("type", "hidden");
+        ifUpdate.setAttribute("name", "_ifUpdate");
+        ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+        form.appendChild(ifUpdate);
+
+        formContainer.appendChild(form);
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
+
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
+}
 
 function openModal() {
     var modal = document.getElementById('myModal');
@@ -165,3 +230,48 @@ $(document).ready(function () {
 //         }
 //     }
 // });
+
+// function prosesData() {
+//     const hangusItems = document.querySelectorAll("#TableType1 tbody tr");
+//     const requestData = [];
+
+//     hangusItems.forEach(function(item) {
+//         const idtype = item.dataset.idtype;
+//         const tanggalproduksi = item.dataset.tanggalproduksi;
+
+//         requestData.push({
+//             idtype: idtype,
+//             tanggal: tanggalproduksi,
+//         });
+//     });
+
+//     if (requestData.length > 0) {
+//         const form = document.createElement("form");
+//         form.setAttribute("action", "/HanguskanBarcode"); // Ganti dengan URL yang sesuai
+//         form.setAttribute("method", "POST");
+//         form.style.display = "none"; // Sembunyikan form dari tampilan
+
+//         const dataInput = document.createElement("input");
+//         dataInput.setAttribute("type", "hidden");
+//         dataInput.setAttribute("name", "hangusItems");
+//         dataInput.value = JSON.stringify(requestData);
+//         form.appendChild(dataInput);
+
+//         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+//         const csrfInput = document.createElement("input");
+//         csrfInput.type = "hidden";
+//         csrfInput.name = "_token";
+//         csrfInput.value = csrfToken;
+//         form.appendChild(csrfInput);
+
+//         document.body.appendChild(form);
+
+//         form.submit(); // Kirim form secara otomatis
+//     } else {
+//         alert("Tidak ada data untuk diproses");
+//     }
+// }
+
+
+
+

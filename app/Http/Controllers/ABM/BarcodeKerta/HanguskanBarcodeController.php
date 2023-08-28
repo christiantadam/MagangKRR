@@ -39,7 +39,7 @@ class HanguskanBarcodeController extends Controller
 
         //getDivisi
         if ($crExplode[1] == "txtIdDivisi") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', [ "1", $crExplode[0] ]);
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', ["1", $crExplode[0]]);
             // dd($dataKelut);
             // Return the options as JSON data
             return response()->json($dataType);
@@ -56,21 +56,15 @@ class HanguskanBarcodeController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        dd($data);
+        // dd($data);
         // kodeUpd: "simpanPegawai",
 
-        DB::connection('ConnPayroll')->statement('exec SP_5409_INV_PenghangusanBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
-            $data[''],
-            $data[''],
-            $data['']
+        DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+            $data['kodebarang'],
+            $data['noindeks'],
+            'U001'
 
         ]);
-        return redirect()->route('settingShift.index')->with('alert', 'Data Pegawai Updated successfully!');
-    }
-
-    //Remove the specified resource from storage.
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('HanguskanBarcode.index')->with('alert', 'Data Pegawai Updated successfully!');
     }
 }

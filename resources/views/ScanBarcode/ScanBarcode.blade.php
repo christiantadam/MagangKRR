@@ -154,7 +154,7 @@
                                                         <button type="button" style="width: 150px">Scan Barcode</button>
                                                     </a>
                                                     <div class="text-center col-md-auto"><button type="button"
-                                                            style="width: 150px; margin-left: 15px">Refresh</button></div>
+                                                            style="width: 150px; margin-left: 15px" id="ButtonRefresh">Refresh</button></div>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             style="width: 150px">Keluar</button></div>
                                                     <input class="form-group col-md-2 ml-5" name="type" rows="blank">

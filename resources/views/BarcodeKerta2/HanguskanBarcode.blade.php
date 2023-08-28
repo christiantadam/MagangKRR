@@ -2,7 +2,6 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/HanguskanBarcode.js') }}"></script>
 
-
     <body onload="Greeting()">
         <div id="app">
             <div class="form-wrapper mt-4">
@@ -81,6 +80,8 @@
                                     </div>
                             </div>
 
+                            <div id="form-container"></div>
+
                             <div class="card mt-4">
                                 <div class="card-header">Type</div>
                                 <h6 class="mt-3">Daftar barcode yang akan dihanguskan</h6>
@@ -139,8 +140,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center col-md-auto"><button type="button"
-                                        style="width: 100px; margin-top: 8px" id="btnProses">Proses</button></div>
+                                <div class="text-center col-md-auto">
+                                    <button type="button" style="width: 100px; margin-top: 8px" id="btnProses"
+                                        onclick="prosesData()">Proses</button>
+                                </div>
                                 <div class="text-center col-md-auto"><button type="button"
                                         style="width: 100px; margin-top: 8px">Tutup</button></div>
                             </div>

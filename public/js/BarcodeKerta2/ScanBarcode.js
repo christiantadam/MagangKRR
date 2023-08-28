@@ -87,6 +87,11 @@ $(document).ready(function () {
     ButtonObjek.addEventListener("click", function (event) {
         event.preventDefault();
     });
+
+    // Add this below your existing JavaScript code
+    document.getElementById('ButtonRefresh').addEventListener('click', function () {
+        location.reload(); // Refresh the page
+    });
 });
 
 function openModal() {

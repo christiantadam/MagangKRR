@@ -1,6 +1,8 @@
 @extends('layouts.appABM')
 @section('content')
 
+<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BatalKirim.js') }}"></script>
+
     <body onload="Greeting()">
         <div id="app">
             <div class="card mt-auto">
@@ -20,7 +22,6 @@
                             <th>Tanggal</th>
                             <th>Divisi</th>
                             <th>Shift</th>
-                            <th>-</th>
                         </tr>
                     </thead>
 
@@ -38,23 +39,5 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            $(document).ready(function() {
-                $('#TypeTable').DataTable({
-                    order: [
-                        [0, 'desc']
-                    ],
-                });
-            });
-        </script>
     </body>
 @endsection

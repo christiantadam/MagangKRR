@@ -35,6 +35,7 @@ Route::resource('Repress', App\Http\Controllers\ABM\BarcodeKerta\RepressControll
 Route::resource('CBR', App\Http\Controllers\ABM\BarcodeKerta\CBRController::class);
 // Route::get('/ABM/BarcodeKerta/CBR', 'App\Http\Controllers\ABM\BarcodeKerta\CBRController@index');
 Route::resource('HanguskanBarcode', App\Http\Controllers\ABM\BarcodeKerta\HanguskanBarcodeController::class);
+// Route::post('HanguskanBarcode/updateStatusType', 'ABM\BarcodeKerta\HanguskanBarcodeController@updateStatusType')->name('HanguskanBarcode.updateStatusType');
 // Route::get('/ABM/BarcodeKerta/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\HanguskanBarcodeController@index');
 Route::resource('KirimGudang', App\Http\Controllers\ABM\BarcodeKerta\KirimGudangController::class);
 // Route::get('/ABM/BarcodeKerta/KirimGudang', 'App\Http\Controllers\ABM\BarcodeKerta\KirimGudangController@index');
