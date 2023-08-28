@@ -205,7 +205,7 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" >Maintenance Kurang/Lebih BKM</h5>
+                                                <h5 class="modal-title" >Cetak BKM Cash Advance</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -238,7 +238,7 @@
                                                         <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <button id="btnCETAK" name="btnCETAK">CETAK</button>
+                                                        <button id="btnCetakBKM" name="btnCetakBKM">CETAK</button>
                                                     </div>
                                                 </div>
                                                 <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">

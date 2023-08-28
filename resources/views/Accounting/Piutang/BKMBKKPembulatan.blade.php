@@ -8,21 +8,22 @@
                     <div class="card-header">BKM-BKK Pembulatan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('BKMBKKPembulatan') }}" id="formkoreksi">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="bulanTahun" style="margin-right: 10px;">Bulan/Tahun</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="bulan" name="bulan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnProses" name="isi" value="OK" class="btn">
+                                        <input type="submit" id="btnOK" name="btnOK" value="OK" class="btn">
                                     </div>
                                 </div>
 
@@ -31,16 +32,15 @@
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 40%;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                                <label for="radio_1">Detail Pelunasan</label>
+                                            <div class="col-md-12">
+                                                <label for="radio_1">Data BKM</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 100%; table-layout: fixed;">
+                                                <table style="width: 180%; table-layout: fixed;" id="tabelDataBKM">
                                                     <colgroup>
-                                                    <col style="width: 33%;">
-                                                    <col style="width: 33%;">
-                                                    <col style="width: 33%;">
+                                                    <col style="width: 60%;">
+                                                    <col style="width: 60%;">
+                                                    <col style="width: 60%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -49,12 +49,6 @@
                                                         <th>Nilai Pelunasan</th>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>Data 1</td>
-                                                        <td>Data 2</td>
-                                                        <td>Data 3</td>
-                                                    </tr>
-                                                    <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -65,17 +59,17 @@
                                     <div class="card" style="width: 60%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                                <label for="radio_1">Detail Biaya</label>
+                                                <input type="radio" name="radiogrup1" value="2" id="radio_1">
+                                                <label for="radio_1">Rincian Data</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 120%; table-layout: fixed;">
+                                                <table style="width: 180%; table-layout: fixed;" id="tabelRincianData">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 20%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 35%;">
+                                                    <col style="width: 35%;">
+                                                    <col style="width: 30%;">
+                                                    <col style="width: 40%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
@@ -158,7 +152,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!--CARD 2-->
                                     <div style="width: 40%;">
                                         <div class="card-body">
@@ -194,4 +188,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/BKMBKKPembulatan.js') }}"></script>
 @endsection

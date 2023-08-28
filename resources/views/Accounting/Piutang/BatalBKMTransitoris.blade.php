@@ -6,6 +6,11 @@
             <div class="col-md-6 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">BATAL BKM</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="">
@@ -14,11 +19,11 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="radio" name="radiogrup1" value="1" id="kasBesar">
+                                            <input type="radio" name="radiogrup1" value="besar" id="kasBesar">
                                             <label for="kasBesar">Kas Besar</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="radio" name="radiogrup1" value="2" id="kasKecil">
+                                            <input type="radio" name="radiogrup1" value="kecil" id="kasKecil">
                                             <label for="kasKecil">Kas Kecil</label>
                                         </div>
                                     </div>
@@ -53,7 +58,7 @@
                                             <label for="statusPenagihan">Status Penagihan</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" id="statusPenagihan" class="form-control" style="width: 100%">
+                                            <input type="text" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +68,7 @@
                                             <label for="mataUang">Mata Uang</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" id="mataUang" class="form-control" style="width: 100%">
+                                            <input type="text" id="mataUang" name="mataUang" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
@@ -73,19 +78,18 @@
                                             <label for="nilaiBKM">Nilai BKM</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="text" id="nilaiBKM" class="form-control" style="width: 100%">
+                                            <input type="text" id="nilaiBKM" name="nilaiBKM" class="form-control" style="width: 100%">
                                         </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-10" style="padding-left: 15px">
-                                            <input type="submit" name="proses" value="PROSES" class="btn btn-primary" disabled>
+                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary" disabled>
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" name="keluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnkeluar" name="btnkeluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>

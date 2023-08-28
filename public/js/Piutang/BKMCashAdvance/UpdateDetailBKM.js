@@ -33,6 +33,7 @@ let btnProsesDetail = document.getElementById("btnProsesDetail");
 let btnPilihBank = document.getElementById("btnPilihBank");
 let idPelunasan1 = document.getElementById('idPelunasan');
 let btnTampilBKM = document.getElementById("btnTampilBKM");
+let btnCetakBKM = document.getElementById("btnCetakBKM");
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -433,6 +434,15 @@ kodePerkiraanBiayaSelect.addEventListener("change", function (event) {
         const idKode = selectedValue.split(" | ")[0];
         idKodeInput.value = idKode;
     }
+});
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    methodTampilBKM.value="PUT";
+    formTampilBKM.action = "/UpdateDetailBKM/" + idBKM.value;
+    console.log(idBKM.value);
+    formTampilBKM.submit();
 });
 
 function DetailBiaya() {

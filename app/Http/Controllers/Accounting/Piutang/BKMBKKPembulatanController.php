@@ -4,13 +4,28 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BKMBKKPembulatanController extends Controller
 {
-    public function BKMBKKPembulatan()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BKMBKKPembulatan', compact('data'));
+    }
+
+    public function getTabelPelunasan($bulan, $tahun)
+    {
+        //dd($bulan, $tahun);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_PEMBULATAN] @kode = ?, @bln = ?, @thn = ?', [1, $bulan, $tahun]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelDetailBiaya($idBKM)
+    {
+        //dd($idBKM);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_PEMBULATAN] @kode = ?, @idBKM = ?', [2, $idBKM]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +41,7 @@ class BKMBKKPembulatanController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

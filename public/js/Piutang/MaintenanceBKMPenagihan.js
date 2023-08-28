@@ -321,7 +321,6 @@ $("#btnProsesDetail").on("click", function (event) {
     updateKpColumn(idKodePerkiraan, selectedRowsIndices);
 
     methoddetail.value="PUT";
-    console.log("formDetailPelunasan:", formDetailPelunasan);
     formDetailPelunasan.action = "/MaintenanceBKMPenagihan/" + iddetail.value;
     console.log("formDetailPelunasan:", formDetailPelunasan);
 

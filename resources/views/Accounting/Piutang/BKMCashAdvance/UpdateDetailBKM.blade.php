@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10 RDZMobilePaddingLR0">
+            <div class="col-md-12 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Update Detail BKM</div>
                     @if (Session::has('success'))
@@ -29,7 +29,7 @@
                                             style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnOK" name="isi" value="OK" class="btn">
+                                        <input type="submit" id="btnOK" name="btnOK" value="OK" class="btn">
                                     </div>
                                     <!--Kedua button dibawah tidak digunakan, karena di vb nya, diset visible = false-->
                                     <div class="col-md-2">
@@ -88,9 +88,9 @@
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 230%; table-layout: fixed;" id="tabelDetailPelunasan">
+                                                <table style="width: 240%; table-layout: fixed;" id="tabelDetailPelunasan">
                                                     <colgroup>
-                                                        <col style="width: 20%;">
+                                                        <col style="width: 30%;">
                                                         <col style="width: 30%;">
                                                         <col style="width: 40%;">
                                                         <col style="width: 30%;">
@@ -480,7 +480,7 @@
                                                     <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <button id="btnCETAK" name="btnCETAK">CETAK</button>
+                                                    <button id="btnCetakBKM" name="btnCetakBKM">CETAK</button>
                                                 </div>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">

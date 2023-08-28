@@ -16,13 +16,29 @@ class BatalBKMTransitorisController extends Controller
 
     public function getIdBKM3($bulanTahun)
     {
-        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?, @BlnThn', [3, $bulanTahun]);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?, @BlnThn = ?', [3, $bulanTahun]);
         return response()->json($tabel);
     }
     public function getIdBKM4($bulanTahun)
     {
-        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?', [4, $bulanTahun]);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_IDBKK_BTLBKK] @Kode = ?, @BlnThn = ?', [4, $bulanTahun]);
         return response()->json($tabel);
+    }
+
+    function getDataBKM($idBKM)
+    {
+        //dd("masuk");
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_BKK_BTLBKK] @BKK = ?, @kd = ?', [$idBKM, 1]);
+        return response()->json($tabel);
+
+    }
+
+    public function cekBatalBKK($idBKM)
+    {
+        //dd('Ada');
+        $penyesuaian = db::connection('ConnAccounting')->select('exec [SP_1273_ACC_CHECK_BTLBKK] @BKK = ?', [$idBKM]);
+        // dd($penyesuaian);
+        return response()->json($penyesuaian);
     }
 
     //Show the form for creating a new resource.

@@ -108,6 +108,13 @@ class UpdateDetailBKMController extends Controller
                 $idDetailBiaya, $keterangan, $kode]);
             return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
         }
+        else if ($proses['detpelunasan'] == "dettampilbkm") {
+            //dd($request->all());
+            $idBKM = $request ->idTampilBKM;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_TGLCETAK_BKM] @idBKM = ?', [
+                $idBKM]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
     }
 
     //Remove the specified resource from storage.

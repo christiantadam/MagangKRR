@@ -22,7 +22,10 @@ let btnTutupModal = document.getElementById("btnTutupModal");
 
 let modalkoreksi = document.getElementById("formkoreksi");
 let methodform = document.getElementById("methodkoreksi");
-let modalTampilBKM = document.getElementById("modalTampilBKM")
+let modalTampilBKM = document.getElementById("modalTampilBKM");
+let methodTampilBKM = document.getElementById("methodTampilBKM");
+let formTampilBKM = document.getElementById("formTampilBKM");
+let btnCetakBKM = document.getElementById('btnCetakBKM');
 
 
 btnTampilBkm.addEventListener('click', function(event) {
@@ -330,6 +333,15 @@ $("#btnProsesss").on('click', function (event) {
     updateBank(idBank, selectedRowsIndices);
 
     $('#pilihInputTanggal').modal('hide');
+});
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    methodTampilBKM.value="PUT";
+    formTampilBKM.action = "/CreateBKM/" + idBKM.value;
+    console.log(idBKM.value);
+    formTampilBKM.submit();
 });
 
 function updateKpColumn2(kodePerkiraanSelect, selectedRows) {

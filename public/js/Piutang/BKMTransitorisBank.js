@@ -79,12 +79,18 @@ let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
 let tanggalInputTampilBKM = document.getElementById('tanggalInputTampilBKM');
 let tanggalInputTampilBKM2 = document.getElementById('tanggalInputTampilBKM2');
 let idTampilBKM = document.getElementById('idTampilBKM');
+let btnCetakBKM = document.getElementById('btnCetakBKM');
+let formTampilBKM =  document.getElementById('formTampilBKM');
+let methodTampilBKM = document.getElementById('methodTampilBKM')
 
 //TAMPIL BKK
 let tanggalInputTampilBKK = document.getElementById('tanggalInputTampilBKK');
 let tanggalInputTampilBKK2 = document.getElementById('tanggalInputTampilBKK2');
 let idTampilBKK = document.getElementById('idTampilBKK');
 let btnCetakBKK = document.getElementById('btnCetakBKK');
+let tglCetakBKK = document.getElementById('tglCetakBKK');
+let formTampilBKK = document.getElementById('formTampilBKK');
+let methodTampilBKK = document.getElementById('methodTampilBKK');
 
 btnBatal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -979,6 +985,16 @@ btnOkTampilBKM.addEventListener('click', function(event) {
             });
         });
 });
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    methodTampilBKM.value="PUT";
+    formTampilBKM.action = "/BKMTransitorisBank/" + idTampilBKM.value;
+    console.log(idTampilBKM.value);
+    formTampilBKM.submit();
+
+});
 //#endregion
 
 //#region UNTUK MODAL TAMPIL BKK
@@ -1024,7 +1040,12 @@ btnOkTampilBKK.addEventListener('click', function(event) {
 
 btnCetakBKK.addEventListener('click', function(event) {
     event.preventDefault();
-    ////
+
+    methodTampilBKK.value="PUT";
+    formTampilBKK.action = "/BKMTransitorisBank/" + idTampilBKK.value;
+    console.log(idTampilBKK.value);
+    formTampilBKK.submit();
+
 })
 //#endregion
 

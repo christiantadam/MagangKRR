@@ -107,12 +107,10 @@ class CreateBKMController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        // $idcoba = $request->idPelunasan;
-        // $kode = $request ->idKodePerkiraan;
-        // $keterangan = $request ->keterangan;
-        // DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_DETAIL_KRGLBH] @iddetail = ?, @keterangan = ?, @kode = ?', [
-        //     $idcoba, $keterangan, $kode]);
-        // return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        $idBKM = $request ->idBKM;
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_TGLCETAK_BKM] @idBKM = ?', [
+            $idBKM]);
+        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.

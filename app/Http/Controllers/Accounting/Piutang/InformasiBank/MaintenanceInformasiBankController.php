@@ -26,7 +26,7 @@ class MaintenanceInformasiBankController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
@@ -46,6 +46,6 @@ class MaintenanceInformasiBankController extends Controller
     //Remove the specified resource from storage.
     public function destroy($id)
     {
-        
+
     }
 }
