@@ -314,7 +314,7 @@
                   <span>Tanggal</span>
                 </div>
                 <div class="col-4">
-                  <input type="date" class="form-control form-control" id="tanggalmodal" name="tanggalmodal">
+                  <input type="date" class="form-control form-control" id="tanggalmodal" name="tanggalmodal" readonly>
                 </div>
                 <div class="col-6">
                   <div class="form-check form-check-inline">
@@ -342,7 +342,7 @@
                 </div>
                 <div class="col-3">
                   <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal"
-                    accept=".pdf">
+                    accept=".pdf" disabled>
                 </div>
               </div>
 
@@ -355,14 +355,14 @@
                     name="NomorGambarModal">
                 </div>
                 <div class="col-3">
-                  <input type="text" class="form-control form-control" id="NamaBarangModal" name="NamaBarangModal">
+                  <input type="text" class="form-control form-control" id="NamaBarangModal" name="NamaBarangModal" readonly>
                 </div>
                 <div class="col-2" style="text-align: right;">
                   <span>Update PDF</span>
                 </div>
                 <div class="col-3">
                   <input class="form-control" type="file" id="updatepdfmodal" name="updatepdfmodal"
-                    accept=".text , .pdf">
+                    accept=".pdf" disabled>
                 </div>
               </div>
 

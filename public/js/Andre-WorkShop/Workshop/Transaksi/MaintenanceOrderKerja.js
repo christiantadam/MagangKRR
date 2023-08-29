@@ -67,30 +67,22 @@ let formMaintenanceOrderGambar = document.getElementById(
 
 //#region get PDF
 function getPdf(kodebarang) {
-    // fetch("/selectpdf/" + kodebarang)
-    // .then((response) => response.json())
-    // .then((datas) => {
-    //     console.log(datas);
-    // });
-    // fetch(`/view-selectpdf/` + kodebarang)
-    // .then(response => response.blob())
-    // .then(blob => {
-    //   const pdfUrl = URL.createObjectURL(blob);
-    //   const newTab = window.open();
-    //   newTab.location.href = pdfUrl;
-    // })
-    // .catch(error => {
-    //   console.error('Error fetching PDF:', error);
-    // });
     $.ajax({
         url: "/selectpdf/" + kodebarang,
         method: 'GET',
         responseType: 'arraybuffer', // Tipe respons yang diharapkan
         success: function(response) {
-            var blob = new Blob([response], { type: 'application/pdf' });
-            var pdfUrl = URL.createObjectURL(blob);
-            var pdfHtml = '<embed src="' + pdfUrl + '" width="100%" height="600px" type="application/pdf">';
-            $('#inputpdfdiv').html(pdfHtml);
+            console.log(response);
+            if (response.length > 0) {
+                console.log("masuk");
+                var newTabUrl = 'http://127.0.0.1:8000/selectpdf/' + kodebarang;
+                window.open(newTabUrl, '_blank');
+            }
+            else{
+                alert("Data PDF Gambar belum tersedia di database, mohon input PDF Gambar terlebih dahulu.");
+                inputpdfmodal.disabled = false;
+                updatepdfmodal.disabled = true;
+            }
         },
         error: function(xhr, status, error) {
             console.error(error);
@@ -439,6 +431,7 @@ function LoadData(kdbarang) {
                 alert(
                     "Kode Barang Tidak Ada, Atau Kode Barang Tsb Tdk Punya No. Gambar"
                 );
+                    return "tidak ada"
             } else {
                 NamaBarangModal.value = datas[0].NAMA_BRG;
                 NomorGambarModal.value = datas[0].No_Gambar;
@@ -466,8 +459,18 @@ Kdbarangmodal.addEventListener("keypress", function (event) {
                 // console.log(kodeBarang9digit.value);
             }
             Kdbarangmodal.value = kodeBarang9digit.value;
-            LoadData(Kdbarangmodal.value);
-            getPdf(Kdbarangmodal.value);
+            LoadData(Kdbarangmodal.value)
+            .then((result) => {
+                console.log(result);
+                if (result === "tidak ada") {
+                    console.log("Kode Barang Ada");
+                } else{
+                    getPdf(Kdbarangmodal.value)
+                }
+            })
+            .catch((error) => {
+                console.error("Terjadi kesalahan:", error);
+            });
         } else {
             alert("Inputkan Nomer Gambar Atau Kode Barangnya");
         }
