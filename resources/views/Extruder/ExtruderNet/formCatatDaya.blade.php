@@ -22,7 +22,7 @@
                         <select id="select_mesin" class="form-select">
                             <option selected disabled>-- Pilih Mesin --</option>
                             @foreach ($formData['listMesin'] as $d)
-                                <option value="{{ $d->IdMesin }}">{{ $d->TypeMesin }}</option>
+                                <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -111,16 +111,16 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" class="btn btn-outline-success">Isi</button>
-                <button type="button" class="btn btn-outline-warning">Koreksi</button>
-                <button type="button" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-outline-success">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
             </div>
 
             <div class="col-md-2"></div>
 
             <div class="col-md-5 text-center">
-                <button type="button" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
     </div>

@@ -104,7 +104,7 @@ Route::get('/Konversi/getIdTransInv/{id_type}/{subkel}/{tgl}/{shift}', [Konversi
 Route::get('/Konversi/getOrderStatus/{id_order}', [KonversiController::class, 'getOrderStatus']);
 Route::get('/Konversi/getKeteranganSaldo/{id_order}/{no_urut_order}', [KonversiController::class, 'getKeteranganSaldo']);
 
-Route::get('/Konversi/updACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updACCKonversi']);
+Route::get('/Konversi/updACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{keluar_sekunder}/{keluar_tritier}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updACCKonversi']);
 Route::get('/Konversi/updHutang/{id_type}/{subkel}/{id_inv}/{pemberi}', [KonversiController::class, 'updHutang']);
 Route::get('/Konversi/updACCMasterKonv/{id_konversi}/{user_acc}', [KonversiController::class, 'updACCMasterKonv']);
 Route::get('/Konversi/updSaldoOrdDet/{id_order}/{no_urut_order}/{primer}/{sekunder}/{tritier}', [KonversiController::class, 'updSaldoOrdDet']);

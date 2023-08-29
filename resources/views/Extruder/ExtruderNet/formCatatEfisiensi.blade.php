@@ -1,8 +1,6 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="tropodo_efisiensi" class="form" data-aos="fade-up">
-    <form>
+    <div id="tropodo_efisiensi" class="form" data-aos="fade-up">
         <div class="card mt-3">
             <div class="card-body">
 
@@ -12,7 +10,7 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <input type="date" name="tanggal" id="tanggal" class="form-control">
+                        <input type="date" id="tanggal" class="form-control">
                     </div>
                 </div>
 
@@ -22,11 +20,12 @@
                     </div>
 
                     <div class="col-lg-7">
-                        <div class="input-group">
-                            <input type="text" name="mesin1" id="mesin1" class="form-control">
-                            <input type="text" name="mesin2" id="mesin2" class="form-control" style="width: 22.5vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                        <select id="select_mesin" class="form-select">
+                            <option selected disabled>-- Pilih Mesin --</option>
+                            @foreach ($formData['listMesin'] as $d)
+                                <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -36,11 +35,11 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <select class="form-select">
-                            <option selected></option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select id="select_shift" class="form-select">
+                            <option selected disabled>-- Pilih Shift --</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
                         </select>
                     </div>
                 </div>
@@ -51,7 +50,7 @@
                     </div>
 
                     <div class="col-lg-2">
-                        <input type="time" name="awal" id="awal" class="form-control">
+                        <input type="time" id="awal" class="form-control">
                     </div>
                 </div>
 
@@ -61,21 +60,19 @@
                     </div>
 
                     <div class="col-lg-2">
-                        <input type="time" name="akhir" id="akhir" class="form-control">
+                        <input type="time" id="akhir" class="form-control">
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-lg-2">
-                        <span class="aligned-text">Mesin:</span>
+                        <span class="aligned-text">Kode Konversi:</span>
                     </div>
 
-                    <div class="col-lg-9">
-                        <div class="input-group">
-                            <input type="text" name="mesin1" id="mesin1" class="form-control">
-                            <input type="text" name="mesin2" id="mesin2" class="form-control" style="width: 22.5vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-7">
+                        <select id="select_kode_konversi" class="form-select">
+                            <option selected disabled>-- Pilih Kode Konversi --</option>
+                        </select>
                     </div>
                 </div>
 
@@ -91,7 +88,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="screw_revolution" id="screw_revolution" class="form-control">
+                            <input type="text" id="screw_revolution" class="form-control">
                             <span class="input-group-text">Rpm</span>
                         </div>
                     </div>
@@ -104,7 +101,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="roll_speed" id="roll_speed" class="form-control">
+                            <input type="text" id="roll_speed" class="form-control">
                             <span class="input-group-text">m/min</span>
                         </div>
                     </div>
@@ -117,7 +114,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="motor_current" id="motor_current" class="form-control">
+                            <input type="text" id="motor_current" class="form-control">
                             <span class="input-group-text">A</span>
                         </div>
                     </div>
@@ -130,7 +127,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="stretching_ratio" id="stretching_ratio" class="form-control">
+                            <input type="text" id="stretching_ratio" class="form-control">
                             <span class="input-group-text">times</span>
                         </div>
                     </div>
@@ -143,7 +140,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="slitter_width" id="slitter_width" class="form-control">
+                            <input type="text" id="slitter_width" class="form-control">
                             <span class="input-group-text">mm</span>
                         </div>
                     </div>
@@ -156,7 +153,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="relax" id="relax" class="form-control">
+                            <input type="text" id="relax" class="form-control">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
@@ -169,7 +166,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="no_yam" id="no_yam" class="form-control">
+                            <input type="text" id="no_yam" class="form-control">
                             <span class="input-group-text">Pcs</span>
                         </div>
                     </div>
@@ -182,7 +179,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="denier" id="denier" class="form-control">
+                            <input type="text" id="denier" class="form-control">
                             <span class="input-group-text">m</span>
                         </div>
                     </div>
@@ -195,7 +192,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="water_gap" id="water_gap" class="form-control">
+                            <input type="text" id="water_gap" class="form-control">
                             <span class="input-group-text">mm</span>
                         </div>
                     </div>
@@ -208,7 +205,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="roll" id="roll" class="form-control">
+                            <input type="text" id="roll" class="form-control">
                             <span class="input-group-text">m</span>
                         </div>
                     </div>
@@ -228,7 +225,5 @@
                 <button type="button" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
-
+    </div>
 @endsection

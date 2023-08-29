@@ -37,8 +37,10 @@ const listDaya = [];
     3 CounterKWaH
     4 FaktorKali
     5 UserInput
+    6 IdKwahMesin
 */
 
+var checkboxesDaya = null;
 var pilDaya = -1;
 var modeProses = "";
 //#endregion
@@ -116,6 +118,21 @@ btnOk.addEventListener("click", function () {
                     CounterKWaH: data[i].CounterKWaH,
                     UserInput: data[i].UserInput,
                 });
+
+                addTable_DataTable(
+                    "table_daya",
+                    listDaya.map((item, index) => {
+                        return {
+                            ...item,
+                            Tanggal: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_daya"> ${item.Tanggal}`,
+                        };
+                    }),
+                    tableDayaCol
+                );
+
+                checkboxesDaya = document.querySelectorAll(
+                    'input[name="checkbox_daya"]'
+                );
             }
         }
     );
@@ -128,6 +145,19 @@ btnProses.addEventListener("click", function () {
         prosesUpdate();
     } else if (modeProses == "hapus") {
         prosesDelete();
+    }
+});
+
+btnKeluar.addEventListener("click", function () {
+    if (this.textContent == "Keluar") {
+        window.location.href = "/Extruder/ExtruderNet";
+    } else {
+        toggleButtons(1);
+        clearData();
+        setEnable(false);
+        loadDataKwah();
+
+        modeProses = "";
     }
 });
 //#endregion
@@ -230,10 +260,72 @@ function prosesDelete() {
 }
 
 function loadDataKwah() {
+    // loadDataKwahMesin()
     listDaya.length = 0;
     clearTable_DataTable("table_daya", tableDayaCol.length);
 
     // SP_5298_EXT_LISTDATA_KWAH_MESIN
+    fetchSelect(
+        "/Catat/getListDataKwahMesin/" +
+            txtTanggal.value.split("/")[0] +
+            "/" +
+            txtTanggal.value.split("/")[1],
+        (data) => {
+            for (let i = 0; i < data.length; i++) {
+                listDaya.push({
+                    Tanggal: data[i].Tanggal,
+                    IdMesin: data[i].IdMesin,
+                    Jam: dateTimetoTime(data[i].Jam),
+                    CounterKWaH: data[i].CounterKWaH,
+                    FaktorKali: data[i].FaktorKali,
+                    UserInput: data[i].UserInput,
+                    IdKwahMesin: data[i].IdKwahMesin,
+                });
+            }
+        }
+    );
+}
+
+function loadDataPerDivisi() {
+    listDaya.length = 0;
+    clearTable_DataTable("table_daya", tableDayaCol.length);
+
+    // SP_5298_EXT_KWAH_MESIN
+    fetchSelect("/Catat/getKwahMesin/" + dateInput.value + "/EXT", (data) => {
+        for (let i = 0; i < data.length; i++) {
+            listDaya.push({
+                Tanggal: data[i].Tanggal,
+                IdMesin: data[i].IdMesin,
+                Jam: dateTimetoTime(data[i].Jam),
+                CounterKWaH: data[i].CounterKWaH,
+                FaktorKali: data[i].FaktorKali,
+                UserInput: data[i].UserInput,
+                IdKwahMesin: data[i].IdKwahMesin,
+            });
+        }
+    });
+}
+
+function rowClickedDaya(row, data, index) {
+    if (pilDaya == index) {
+        row.style.background = "white";
+        pilDaya = -1;
+        checkboxesDaya[index].checked = false;
+    } else {
+        clearSelection_DataTable("table_daya");
+        clearCheckedBoxes(checkboxesDaya, checkboxesDaya[index]);
+
+        row.style.background = "aliceblue";
+        pilDaya = index;
+        checkboxesDaya[index].checked = true;
+
+        dateInput.value = data.Tanggal;
+        addOptionIfNotExists(slcMesin, data.IdMesin);
+        timeJamProd.value = data.Jam;
+        txtCounter.value = data.CounterKWaH;
+        txtFaktor.value = data.FaktorKali;
+        txtId.value = data.IdKwahMesin;
+    }
 }
 //#endregion
 
@@ -267,7 +359,7 @@ function init() {
 
     toggleButtons(1);
     setEnable(false);
-    loadDataKwahMesin();
+    loadDataKwah();
     btnIsi.focus();
 }
 

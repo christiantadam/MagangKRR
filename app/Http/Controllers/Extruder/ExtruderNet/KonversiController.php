@@ -115,23 +115,25 @@ class KonversiController extends Controller
 
     public function getKeteranganSaldo($id_order, $no_urut_order)
     {
-        $order_detail = OrderDetailEXT::where('idorder', $id_order)
-            ->where('nourutorder', $no_urut_order)
-            ->first();
+        $order_detail = DB::connection('ConnExtruder')
+            ->select('SELECT * FROM OrderDetailEXT WHERE idorder = ? AND nourutorder = ?', [$id_order, $no_urut_order]);
+
 
         if (!$order_detail) {
             return response()->json(['error' => 'Order detail not found'], 404);
         }
 
-        $order_tritier = $order_detail->jumlahtritier;
-        $konversi_tritier = $order_detail->jumlahproduksitritier;
+        // dd($order_detail);
+
+        $order_tritier = $order_detail[0]->JumlahTritier;
+        $konversi_tritier = $order_detail[0]->JumlahProduksiTritier;
 
         $nerror = '';
 
         if ($konversi_tritier >= $order_tritier) {
-            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi, terdapat sisa stok sebesar: ' . ($konversi_tritier - $order_tritier) . '.';
+            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi, terdapat sisa stok sebanyak: ' . ($konversi_tritier - $order_tritier) . '.';
         } else {
-            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi sebesar: ' . $konversi_tritier . ' dan sisa order yang belum terpenuhi: ' . ($order_tritier - $konversi_tritier) . '.';
+            $nerror = 'Order dengan IdOrder: ' . $id_order . ' sudah terpenuhi sebanyak: ' . $konversi_tritier . ' dan sisa order yang belum terpenuhi: ' . ($order_tritier - $konversi_tritier) . '.';
         }
 
         return response()->json(['nmerror' => $nerror]);
@@ -149,11 +151,11 @@ class KonversiController extends Controller
         // PARAMETER - @IdOrder char(10)
     }
 
-    public function updACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $masuk_primer, $masuk_sekunder, $masuk_tritier)
+    public function updACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
     {
         return DB::connection('ConnInventory')->statement(
             'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = ?, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
-            [$id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $masuk_primer, $masuk_sekunder, $masuk_tritier]
+            [$id_transaksi, $id_type, $user_acc, $waktu_acc, str_replace("_", ".", $keluar_primer), str_replace("_", ".", $keluar_sekunder), str_replace("_", ".", $keluar_tritier), str_replace("_", ".", $masuk_primer), str_replace("_", ".", $masuk_sekunder), str_replace("_", ".", $masuk_tritier)]
         );
 
         // PARAMETER - @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
@@ -182,8 +184,8 @@ class KonversiController extends Controller
     public function updSaldoOrdDet($id_order, $no_urut_order, $primer, $sekunder, $tritier)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_UPDATE_SALDO_ORDER_DETAIL @idorder = ?, @nourutorder = ? @primer = ?, @sekunder = ?, @tritier = ?',
-            [$id_order, $no_urut_order, $primer, $sekunder, $tritier]
+            'exec SP_5298_EXT_UPDATE_SALDO_ORDER_DETAIL @idorder = ?, @nourutorder = ?, @primer = ?, @sekunder = ?, @tritier = ?',
+            [$id_order, $no_urut_order, str_replace("_", ".", $primer), str_replace("_", ".", $sekunder), str_replace("_", ".", $tritier)]
         );
 
         // PARAMETER - @idorder varchar(10), @nourutorder int, @primer numeric(9,2), @sekunder numeric(9,2), @tritier numeric(9,2)

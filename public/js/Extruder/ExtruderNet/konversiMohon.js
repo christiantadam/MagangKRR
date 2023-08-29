@@ -44,11 +44,11 @@ const spnPrimer = document.getElementById("sat_primer");
 const spnSekunder = document.getElementById("sat_sekunder");
 const spnTersier = document.getElementById("sat_tritier");
 
-const listOfInput = document.querySelectorAll(".card .form-control");
-const listOfDateTime = document.querySelectorAll(".master .input_waktu");
+const listOfDetail = document.querySelectorAll(".card .form-control");
 const listOfSelect = document.querySelectorAll(".form-select");
+const listOfTime = document.querySelectorAll('input[type="time"]');
 
-const listOfMasterInput = document.querySelectorAll(
+const listOfMaster = document.querySelectorAll(
     ".master .form-control:not(.input_waktu)"
 );
 
@@ -125,6 +125,7 @@ btnBaru.addEventListener("click", function () {
 
     modeProses = "baru";
     slcNoOrder.disabled = false;
+    dateInput.classList.remove("unclickable");
     slcNoOrder.focus();
 });
 
@@ -199,9 +200,9 @@ btnKeluar.addEventListener("click", function () {
 });
 
 btnTambah.addEventListener("click", function () {
-    for (let i = 0; i < listOfInput.length; i++) {
-        if (listOfInput[i].value == "") {
-            input.focus();
+    for (let i = 0; i < listOfDetail.length; i++) {
+        if (listOfDetail[i].value == "") {
+            listOfDetail[i].focus();
             alert("Ada data yang belum terisi. \nMohon periksa kembali.");
             return;
         }
@@ -265,7 +266,15 @@ btnTambah.addEventListener("click", function () {
                 }, 1000);
             },
             () => {
-                btnProses.focus();
+                $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
+                setTimeout(() => {
+                    $("html, body").animate(
+                        { scrollTop: tableKomposisiPos },
+                        100
+                    );
+
+                    btnProses.focus();
+                }, 1000);
             }
         );
     }
@@ -387,11 +396,7 @@ btnProses.addEventListener("click", function () {
 });
 
 slcNomor.addEventListener("change", function () {
-    listOfInput.forEach((input) => {
-        input.value = "";
-        input.disabled = false;
-    });
-
+    listOfDetail.forEach((input) => (input.value = ""));
     getDataKonversi(this.value);
     // *fungsi dilanjutkan pada txtHidden event "change"
 });
@@ -422,10 +427,7 @@ txtHidden.addEventListener("change", function () {
 });
 
 slcNoOrder.addEventListener("change", function () {
-    listOfInput.forEach((input) => {
-        input.value = "";
-    });
-
+    listOfDetail.forEach((input) => (input.value = ""));
     slcSpek.selectedIndex = 0;
     refetchSpek = true;
 
@@ -490,10 +492,7 @@ slcSpek.addEventListener("keydown", function (event) {
 });
 
 slcSpek.addEventListener("change", function () {
-    listOfInput.forEach((input) => {
-        input.value = "";
-    });
-
+    listOfDetail.forEach((input) => (input.value = ""));
     getDataUkuran(this.value);
 
     if (modeProses == "baru") {
@@ -523,11 +522,7 @@ slcMesin.addEventListener("change", function () {
     );
 
     if (modeProses == "baru") {
-        listOfInput.forEach((input) => {
-            input.value = "";
-            input.disabled = false;
-        });
-
+        listOfDetail.forEach((input) => (input.value = ""));
         slcKomposisi.disabled = false;
         slcKomposisi.focus();
     }
@@ -599,19 +594,13 @@ slcKomposisi.addEventListener("change", function () {
             "padding=100px"
         );
 
-        listOfInput.forEach((input) => {
-            input.value = "";
-        });
+        listOfDetail.forEach((input) => (input.value = ""));
 
         if (modeProses == "baru") {
             getDataKomposisi(this.value);
             txtLot.disabled = false;
             txtLot.value = "";
             txtLot.focus();
-
-            listOfInput.forEach((input) => {
-                input.disabled = false;
-            });
         }
 
         slcKomposisiPil = this.selectedIndex;
@@ -649,24 +638,28 @@ txtWarna.addEventListener("keypress", function (event) {
 txtShift.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         this.value = this.value.toUpperCase();
+        timeAwal.classList.remove("unclickable");
         timeAwal.focus();
     }
 });
 
 timeAwal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        timeAkhir.classList.remove("unclickable");
         timeAkhir.focus();
     }
 });
 
 timeAkhir.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        timeMulai.classList.remove("unclickable");
         timeMulai.focus();
     }
 });
 
 timeMulai.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        timeSelesai.classList.remove("unclickable");
         timeSelesai.focus();
     }
 });
@@ -724,22 +717,16 @@ txtTersier.addEventListener("keypress", function (event) {
 
 //#region Functions
 function clearDataDetail() {
-    listOfInput.forEach((input) => {
-        input.value = "";
-    });
-
+    listOfDetail.forEach((input) => (input.value = ""));
     spnPrimer.textContent = "";
     spnSekunder.textContent = "";
     spnTersier.textContent = "";
 }
 
 function clearDataMaster() {
-    listOfSelect.forEach((select) => {
-        select.selectedIndex = 0;
-    });
-    listOfMasterInput.forEach((input) => {
-        input.value = "";
-    });
+    listOfSelect.forEach((select) => (select.selectedIndex = 0));
+    listOfMaster.forEach((input) => (input.value = ""));
+    listOfTime.forEach((input) => (input.value = "00:00"));
 }
 
 function disableDetail() {
@@ -747,25 +734,18 @@ function disableDetail() {
     btnKoreksiDetail.disabled = true;
     btnHapusDetail.disabled = true;
 
-    txtPrimer.disabled = true;
-    txtSekunder.disabled = true;
-    txtTersier.disabled = true;
-}
+    listOfSelect.forEach((select) => (select.disabled = true));
+    listOfMaster.forEach((input) => (input.disabled = true));
+    listOfDetail.forEach((input) => (input.disabled = true));
+    listOfTime.forEach((input) => input.classList.add("unclickable"));
+    dateInput.classList.add("unclickable");
 
-function disableMaster() {
-    listOfMasterInput.forEach((input) => {
-        input.disabled = true;
-    });
-
-    listOfDateTime.forEach((input) => {
-        input.classList.add("unclickable");
-    });
+    slcNomor.disabled = false;
 }
 
 function toggleButton(tmb) {
     switch (tmb) {
         case 1:
-            slcKomposisi.disabled = true;
             btnBaru.disabled = false;
             btnKoreksiMaster.disabled = false;
             btnHapusMaster.disabled = false;
@@ -823,6 +803,21 @@ function getSaldoExt(id_type) {
         txtStokPrimer.value = data[0].SaldoPrimer;
         txtStokSekunder.value = data[0].SaldoSekunder;
         txtStokTersier.value = data[0].SaldoTritier;
+
+        if (modeProses != "") {
+            txtPrimer.disabled = false;
+            txtPrimer.select();
+
+            if (data.StatusType == "BB" || data.StatusType == "BP") {
+                if (txtStokTersier.value <= 0) {
+                    alert(
+                        txtNamaProduksi.value +
+                            " tidak dapat digunakan untuk transaksi karena stok telah habis."
+                    );
+                }
+                komposisiPil = index;
+            }
+        }
     });
 }
 
@@ -1289,12 +1284,14 @@ function rowClickedKonversi(row, data, index) {
         clearSelection_DataTable("table_konversi");
         row.style.background = "aliceblue";
         konversiPil = index;
+        komposisiPil = -1;
+        clearSelection_DataTable("table_komposisi");
 
         console.log("Isi row tabel konversi yang diklik:");
         console.log(data);
 
         txtIdProduksi.value = listKonversi[index].IdType;
-        txtNamaProduksi.value = data.NamaType;
+        txtNamaProduksi.value = data.Type;
         txtPrimer.value = data.JumlahPrimer;
         spnPrimer.textContent = data.SatPrimer;
         txtSekunder.value = data.JumlahSekunder;
@@ -1304,8 +1301,10 @@ function rowClickedKonversi(row, data, index) {
 
         getSaldoInv(listKonversi[index].IdType);
 
-        btnTambah.disabled = true;
-        txtPrimer.select();
+        if (modeProses != "") {
+            btnTambah.disabled = true;
+            txtPrimer.select();
+        }
     }
 }
 
@@ -1319,6 +1318,8 @@ function rowClickedKomposisi(row, data, index) {
         clearSelection_DataTable("table_komposisi");
         row.style.background = "aliceblue";
         komposisiPil = index;
+        konversiPil = -1;
+        clearSelection_DataTable("table_konversi");
 
         txtIdProduksi.value = listKomposisi[index].IdType;
         txtNamaProduksi.value = data.NamaType;
@@ -1328,31 +1329,6 @@ function rowClickedKomposisi(row, data, index) {
         txtJenis.value = data.StatusType;
 
         getSaldoExt(listKomposisi[index].IdType);
-
-        txtPrimer.disabled = false;
-        txtPrimer.focus();
-
-        if (data.StatusType == "BB" || data.StatusType == "BP") {
-            if (txtStokTersier.value <= 0) {
-                alert(
-                    txtNamaProduksi.value +
-                        " tidak dapat digunakan untuk transaksi karena stok telah habis."
-                );
-
-                clearDataDetail();
-
-                listKomposisi.length = 0;
-                clearTable_DataTable(
-                    "table_komposisi",
-                    tableKomposisiCol.length,
-                    "padding=100px"
-                );
-
-                $("html, body").animate({ scrollTop: tableKomposisiPos }, 100);
-            } else {
-                komposisiPil = index;
-            }
-        }
     }
 }
 //#endregion

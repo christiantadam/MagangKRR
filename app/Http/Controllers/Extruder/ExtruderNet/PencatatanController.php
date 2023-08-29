@@ -23,6 +23,9 @@ class PencatatanController extends Controller
             case 'formCatatDaya':
                 $form_data = ['listMesin' => $this->getListMesin(1)];
                 break;
+            case 'formCatatEfisiensi':
+                $form_data = ['listMesin' => $this->getListMesin(1)];
+                break;
 
             default:
                 break;
