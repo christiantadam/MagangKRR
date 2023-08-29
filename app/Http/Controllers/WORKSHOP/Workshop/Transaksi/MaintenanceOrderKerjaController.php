@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WORKSHOP\Workshop\Transaksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class MaintenanceOrderKerjaController extends Controller
 {
@@ -81,8 +82,16 @@ class MaintenanceOrderKerjaController extends Controller
             ->select('PDF')
             ->where('KD_BARANG', '=', $kdBarang)
             ->first();
+        //dd($pdf);
+        if ($pdf) {
+            $pdfContent = $pdf->PDF;
 
-        return response()->json($pdf);
+            return Response::make($pdfContent, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="document.pdf"'
+            ]);
+        }
+        // return response()->json($pdf);
     }
     public function store(Request $request)
     {

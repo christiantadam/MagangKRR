@@ -67,11 +67,11 @@ let formMaintenanceOrderGambar = document.getElementById(
 
 //#region get PDF
 function getPdf(kodebarang) {
-    fetch("/selectpdf/" + kodebarang)
-    .then((response) => response.json())
-    .then((datas) => {
-        console.log(datas);
-    });
+    // fetch("/selectpdf/" + kodebarang)
+    // .then((response) => response.json())
+    // .then((datas) => {
+    //     console.log(datas);
+    // });
     // fetch(`/view-selectpdf/` + kodebarang)
     // .then(response => response.blob())
     // .then(blob => {
@@ -82,6 +82,20 @@ function getPdf(kodebarang) {
     // .catch(error => {
     //   console.error('Error fetching PDF:', error);
     // });
+    $.ajax({
+        url: "/selectpdf/" + kodebarang,
+        method: 'GET',
+        responseType: 'arraybuffer', // Tipe respons yang diharapkan
+        success: function(response) {
+            var blob = new Blob([response], { type: 'application/pdf' });
+            var pdfUrl = URL.createObjectURL(blob);
+            var pdfHtml = '<embed src="' + pdfUrl + '" width="100%" height="600px" type="application/pdf">';
+            $('#inputpdfdiv').html(pdfHtml);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
 }
 
 //#endregion
