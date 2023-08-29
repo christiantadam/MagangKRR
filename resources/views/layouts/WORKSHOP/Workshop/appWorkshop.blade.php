@@ -100,7 +100,7 @@
                                 </li>
                                 <li><a href="{{ url('ACCManagerKerja') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Manager</a>
                                 </li>
-                                <li><a href="/ACCDirekturKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
+                                <li><a href="{{ url('ACCDirekturKerja') }}" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC Direktur</a>
                                 </li>
                                 <li><a href="/PenerimaOrderKerja" class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">Penerima Order Kerja</a>
                                 </li>
@@ -166,11 +166,7 @@
         </nav>
 
         <main class="py-4">
-            <div class="container">
-                <div class="card">
-                    @yield('content')
-                </div>
-            </div>
+            @yield('content')
         </main>
     </div>
     <script>

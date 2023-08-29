@@ -132,8 +132,11 @@ Route::get('getalldataACCManagerKerja/{divisi}', 'App\Http\Controllers\WORKSHOP\
 Route::get('LoaddataACCManagerKerja/{id}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCManagerKerjaController@Loaddata');
 Route::get('getsaldoACCManagerKerja/{kodebarang}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCManagerKerjaController@getsaldo');
 
+Route::resource('ACCDirekturKerja', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturKerjaController::class);
+Route::get('getalldataACCDirekturKerja/{tglawal}/{tglakhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturKerjaController@getalldata');
+Route::get('getsaldoACCDirekturKerja/{kode}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturKerjaController@getdatasaldo');
 
-Route::get('ACCDirekturKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@ACCDirekturKerja');
+
 Route::get('PenerimaOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@PenerimaOrderKerja'); // Last
 Route::get('CetakSuratOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@CetakSuratOrderKerja');
 Route::get('StatusOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderKerja');
