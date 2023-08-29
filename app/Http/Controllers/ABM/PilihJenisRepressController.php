@@ -53,17 +53,17 @@ class PilihJenisRepressController extends Controller
         } else if ($crExplode[1] == "getIdObjek") {
 
             //getDataPegawai
-            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HasilProsesBarcode @IdObjek = ?, @Kode = ?', [$crExplode[0]], "5");
+            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HASILPROSESBARCODE @IdObjek = ?, @Kode = ?', [$crExplode[0]], "6");
             // dd($dataSchedule);
             return response()->json($dataKelut);
 
         } else if ($crExplode[1] == "txtIdObjek") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HasilProsesBarcode @Kode = ?, @IdObjek = ?', [ "5" ,$crExplode[0] ]);
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HASILPROSESBARCODE @Kode = ?, @IdObjek = ?', [ "6" ,$crExplode[0] ]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataType);
 
-            // dd($crExplode);
+            dd($crExplode);
         }
     }
 
