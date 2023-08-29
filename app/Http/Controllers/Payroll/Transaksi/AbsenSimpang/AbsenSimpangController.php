@@ -29,9 +29,17 @@ class AbsenSimpangController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        // dd("Masuk Show");
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getDataSimpang") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_ABSEN_SALAH_SHIFT @tanggal = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

@@ -50,6 +50,8 @@ Route::resource('InsertSupervisor', App\Http\Controllers\Payroll\Agenda\InsertAg
 Route::resource('InsertPegawaiBaru', App\Http\Controllers\Payroll\Agenda\InsertAgenda\InsertAgendaPegawaiBaruController::class);
 Route::resource('KoreksiShift', App\Http\Controllers\Payroll\Agenda\KoreksiShift\KoreksiShiftController::class);
 Route::resource('GantiShift/Aturan1_3', App\Http\Controllers\Payroll\Agenda\GantiShift\GantiShift1Controller::class);
+//Transaksi
+Route::resource('AbsenSimpang', App\Http\Controllers\Payroll\Transaksi\AbsenSimpang\AbsenSimpangController::class);
 
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');

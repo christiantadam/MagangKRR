@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/Transaksi/absenSimpang.js') }}"></script>
 <div class="container-fluid">
     <div class="row justify-content-center" style="width: 1250px;">
         <div class="col-md-10 RDZMobilePaddingLR0">
@@ -11,10 +12,10 @@
                     <div style="align-items: center">
                         <div style="display: flex; align-items:center;">
                             <label style="margin-right: 10px;">Tanggal</label>
-                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
+                            <input class="form-control" type="date" id="TglSimpang" name="TglSimpang"
                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}" style="width: 150px; margin-right:20px;" required>
-                            <button id="processButton" style="width: 75x; margin-right:20px;">Tampilkan</button>
-                            <button id="processButton" style="width: 75px; margin-right:20px;">Cetak</button>
+                            <button id="tampilButton" style="width: 75x; margin-right:20px;">Tampilkan</button>
+                            <button id="cetakButton" style="width: 75px; margin-right:20px;">Cetak</button>
                             <br>
 
                         </div>
@@ -25,13 +26,13 @@
 
                     <br>
                     <div id="gridViewContainer" style="max-height: 300px; overflow-y: scroll;">
-                        <table id="gridView" style="border-collapse: collapse; width: 100%;">
+                        <table id="tabelSimpang" >
                             <thead>
                                 <tr>
-                                    <th style="border: 1px solid #ddd; padding: 8px;">Check_Box</th>
+
                                     <th style="border: 1px solid #ddd; padding: 8px;">Kd_Pegawai</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">Nama_Pegawai</th>
-                                    <th style="border: 1px solid #ddd; padding: 8px;">Ket_A</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px;">Ket_Absensi</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">Jam_Masuk</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">Jam_Keluar</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">Jml_Jam</th>
@@ -39,38 +40,10 @@
                                     <th style="border: 1px solid #ddd; padding: 8px;">Pulang</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">TotalJam</th>
                                     <th style="border: 1px solid #ddd; padding: 8px;">Ket_Masuk</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px;">IdAgenda</th>
                                     <!-- Add more column headers as needed -->
                                 </tr>
-                                <tr>
-                                    <td style="text-align: center ;"><input type="checkbox" style="margin-top: 10px;"></td>
-                                    <td>Tes</td>
-                                    <td>Tes 2</td>
-                                    <!-- Add more column headers as needed -->
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center ;"><input type="checkbox" style="margin-top: 10px;"></td>
-                                    <td>Tes</td>
-                                    <td>Tes 2</td>
-                                    <!-- Add more column headers as needed -->
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center ;"><input type="checkbox" style="margin-top: 10px;"></td>
-                                    <td>Tes</td>
-                                    <td>Tes 2</td>
-                                    <!-- Add more column headers as needed -->
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center ;"><input type="checkbox" style="margin-top: 10px;"></td>
-                                    <td>Tes</td>
-                                    <td>Tes 2</td>
-                                    <!-- Add more column headers as needed -->
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center ;"><input type="checkbox" style="margin-top: 10px;"></td>
-                                    <td>Tes</td>
-                                    <td>Tes 2</td>
-                                    <!-- Add more column headers as needed -->
-                                </tr>
+
 
                             </thead>
                             <tbody></tbody>
