@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Accounting\Piutang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PDO;
 
 class BKMNoPenagihanController extends Controller
 {

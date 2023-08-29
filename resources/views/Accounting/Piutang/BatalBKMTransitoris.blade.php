@@ -13,8 +13,9 @@
                     @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('BatalBKMTransitoris') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div>
                                     <div class="row">
@@ -80,6 +81,26 @@
                                         <div class="col-md-5">
                                             <input type="text" id="nilaiBKM" name="nilaiBKM" class="form-control" style="width: 100%">
                                         </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="alasan">Alasan</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" id="alasan" name="alasan" class="form-control" style="width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="alasan">Tgl. Batal</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" id="tanggalBatal" name="tanggalBatal" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>

@@ -5,6 +5,12 @@ let kasBesar = document.getElementById('kasBesar');
 let statusPenagihan = document.getElementById('statusPenagihan');
 let mataUang = document.getElementById('mataUang');
 let nilaiBKM = document.getElementById('nilaiBKM');
+let alasan = document.getElementById('alasan');
+let btnProses = document.getElementById('btnProses');
+let tanggalBatal = document.getElementById('tanggalBatal');
+
+let methodkoreksi = document.getElementById("methodkoreksi");
+let formkoreksi = document.getElementById("formkoreksi");
 
 
 bulanTahun.addEventListener("keypress", function (event) {
@@ -60,6 +66,7 @@ idBKMSelect.addEventListener('change', function(event) {
                 statusPenagihan.value = options[0].Status_Penagihan;
                 mataUang.value = options[0].Nama_MataUang;
                 nilaiBKM.value = options[0].Nilai_Pelunasan;
+                alasan.value = options[0].Uraian;
             });
 
             fetch("/cekBatalBKK/" + idBKMSelect.value) // Ganti URL sesuai dengan rute Anda
@@ -74,9 +81,17 @@ idBKMSelect.addEventListener('change', function(event) {
                 } else {
                     // Tidak ada data, nonaktifkan elemen UI yang sesuai
                     alert("BELUM Melunasi Kartu Hutang");
+                    btnProses.disabled = false;
                 }
             });
     }
+});
+
+btnProses.addEventListener('click', function(event) {
+    event.preventDefault();
+    methodkoreksi.value="DELETE";
+    formkoreksi.action = "/BatalBKMTransitoris/" + idBKMSelect.value;
+    formkoreksi.submit();
 })
 
 

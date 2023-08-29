@@ -59,7 +59,6 @@
                                     <div class="card" style="width: 60%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
                                             <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="2" id="radio_1">
                                                 <label for="radio_1">Rincian Data</label>
                                             </div>
                                             <div style="overflow-x: auto;">
@@ -81,13 +80,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 4</td>
-                                                            <td>Data 5</td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -104,8 +96,8 @@
                                                 <div class="col-md-3">
                                                     <label for="tanggal">Tanggal</label>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <input type="date" id="tanggal" class="form-control" style="width: 100%">
+                                                <div class="col-md-5">
+                                                    <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -128,26 +120,21 @@
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraan">Kode Perkiraan</label>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
+                                                <div class="col-md-3">
+                                                    <input type="text" id="idKodePerkiraan" name="kode_sidKodePerkiraanelect" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="text" id="kodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <select name="kode_select" class="form-control">
-                                                        <option value="option1">Kd1</option>
-                                                        <option value="option2">Kd2</option>
-                                                        <option value="option3">Kd3</option>
+                                                    <select id="kodePerkiraanSelect" name="kodePerkiraanSelect" class="form-control">
+s
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <label for="idBKK">Uraian</label>
+                                                    <label for="uraian">Uraian</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="uraian" class="form-control" style="width: 100%">
+                                                    <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                         </div>

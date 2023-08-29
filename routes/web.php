@@ -141,7 +141,12 @@ Route::get('tabeldetailbkmbkk/{bulan}/{tahun}', 'App\Http\Controllers\Accounting
 Route::get('tabeldetbiayabkmbkk/{idBKM}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getTabelDetailBiaya');
 #endregion
 
-Route::get('BKMDPPelunasan', 'App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController@BKMDPPelunasan');
+#region BKM BKK Pembulatan
+Route::resource('BKMDPPelunasan', App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController::class);
+Route::get('getcust/', 'App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController@getNamaCustomer');
+Route::get('getTabelPelunasanBKMDP/{idCustomer}', 'App\Http\Controllers\Accounting\Piutang\BKMDPPelunasanController@getTabelDataPelunasan');
+#endregion
+
 Route::get('BKMBKKNotaKredit', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@BKMBKKNotaKredit');
 Route::get('BKMLC', 'App\Http\Controllers\Accounting\Piutang\BKMLCController@BKMLC');
 Route::get('BKMPengembalianKE', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@BKMPengembalianKE');

@@ -2,6 +2,9 @@ let tahun = document.getElementById('tahun');
 let bulan = document.getElementById('bulan');
 let tabelDataBKM = document.getElementById('tabelDataBKM');
 let tabelRincianData = document.getElementById('tabelRincianData');
+let idKodePerkiraan = document.getElementById('idKodePerkiraan');
+let kodePerkiraanSelect = document.getElementById('kodePerkiraanSelect');
+let uraian = document.getElementById('uraian');
 let btnOK = document.getElementById("btnOK");
 let dataTable;
 let dataTable2;
@@ -70,6 +73,62 @@ $("#tabelDataBKM tbody").on("click", "input[type='checkbox']", function (event) 
                     dataTable2.clear().rows.add(options).draw();
                 });
         }
+    }
+});
+
+fetch("/detailkodeperkiraan/" + 1)
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        kodePerkiraanSelect.innerHTML="";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.innerText = "Kode Perkiraan";
+        kodePerkiraanSelect.appendChild(defaultOption);
+
+        options.forEach((entry) => {
+            const option = document.createElement("option");
+            option.value = entry.NoKodePerkiraan;
+            option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+            kodePerkiraanSelect.appendChild(option);
+        });
+});
+
+kodePerkiraanSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
+    if (selectedOption) {
+        const idKodeInput = document.getElementById('idKodePerkiraan');
+        const selectedValue = selectedOption.value;
+        const idKode = selectedValue.split(" | ")[0];
+        idKodeInput.value = idKode;
+    }
+});
+
+uraian.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        jenis = 'P';
+
+        if (idBKK.value === "") {
+            if (idBankBKK.value == "KRR1") {
+                idBankBKK.value = "KI";
+            }
+            else if (idBankBKK.value == "KRR2") {
+                idBankBKK.value = "KKM";
+            }
+        } else {
+            idBankBKK = idBankBKK.value;
+        }
+
+        fetch("/getidbkk/" + idBankBKK.value + "/" + tanggal.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                idBKK.value = options;
+            });
     }
 });
 
