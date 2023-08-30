@@ -587,7 +587,7 @@
                                 </div>
                             </div>
 
-                             <!--MODAL TAMPIL BKK-->
+                            <!--MODAL TAMPIL BKK-->
                             <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -627,9 +627,6 @@
                                                 <div class="col-md-2">
                                                     <button id="btnCetakBKK" name="btnCetakBKK">CETAK</button>
                                                 </div>
-                                                <div class="col-md-5">
-                                                <input type="text" id="tglCetakBKK" name="tglCetakBKK" class="form-control" style="width: 100%">
-                                            </div>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
                                                 <table style="width: 120%; table-layout: fixed;"id="tabelTampilBKK">

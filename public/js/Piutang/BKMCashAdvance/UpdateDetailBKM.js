@@ -441,7 +441,7 @@ btnCetakBKM.addEventListener('click', function(event) {
 
     methodTampilBKM.value="PUT";
     formTampilBKM.action = "/UpdateDetailBKM/" + idBKM.value;
-    console.log(idBKM.value);
+    console.log(idBKMTampil.value);
     formTampilBKM.submit();
 });
 
