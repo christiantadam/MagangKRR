@@ -31,7 +31,27 @@ class CekBarcodeController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) -1;
+
+        //getDivisi
+        if ($crExplode[$lasindex] == "getBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->select('exec SP_1273_BCD_CekBarcode @KodeBarang = ?, @NoIndeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataBarcode);
+            return response()->json($dataBarcode);
+        } else if ($crExplode[1] == "getBarcodeKeluar") {
+
+            //getDataPegawai
+            $dataBarcodeKeluar = DB::connection('ConnInventory')->select('exec SP_1273_BCD_CekBarcodeKeluar @KodeBarang = ?, @NoIndeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataSchedule);
+            return response()->json($dataBarcodeKeluar);
+        } else if ($crExplode[1] == "getBarcodeKirim") {
+
+            //getDataPegawai
+            $dataBarcodeKirim = DB::connection('ConnInventory')->select('exec SP_1273_BCD_CekKirimBarcode @KodeBarang = ?, @NoIndeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataSchedule);
+            return response()->json($dataBarcodeKirim);
+        }
     }
 
     // Show the form for editing the specified resource.

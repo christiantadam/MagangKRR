@@ -19,6 +19,7 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Masukan_nomor_barcode"
                                                 id="Masukan_nomor_barcode" placeholder="Masukan Nomor Barcode">
+                                                <h6 style="margin-left: 30px">Tekan&nbsp;Enter</h6>
                                         </div>
                                     </div>
 
