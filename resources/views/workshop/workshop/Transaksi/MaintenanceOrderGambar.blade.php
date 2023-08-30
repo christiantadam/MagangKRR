@@ -232,7 +232,7 @@
           </div>
 
           <div class="row mt-3 d-flex justify-content-center">
-            <div class="col-lg-8 content-center">
+            <div class="col-lg-12 content-center">
               <div class="input-group">
                 <button type="button" class="btn btn-success custom-btn" onclick="klikisi()"
                   id="isi">ISI</button>

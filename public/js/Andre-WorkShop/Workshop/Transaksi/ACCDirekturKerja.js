@@ -6,9 +6,21 @@ let OkACCDirekturKerja = document.getElementById("OkACCDirekturKerja");
 let refresh = document.getElementById("refresh");
 let cek = false;
 let idorder;
-let primer = document.getElementById('primer');
-let sekunder = document.getElementById('sekunder');
-let tertier = document.getElementById('tertier');
+let primer = document.getElementById("primer");
+let sekunder = document.getElementById("sekunder");
+let tertier = document.getElementById("tertier");
+let acc = document.getElementById("acc");
+let batal_acc = document.getElementById("batal_acc");
+let tdk_setuju = document.getElementById("tdk_setuju");
+let arraycheckbox = [];
+let red = false;
+let divisicek;
+let radiobox = document.getElementById("radiobox");
+let semuacentang = document.getElementById("semuacentang");
+let KetTdkS = document.getElementById("KetTdkS");
+let ket = [];
+let formAccDirektur = document.getElementById("formAccDirektur");
+let methodForm = document.getElementById("methodForm");
 //#region warna
 
 table_data.on("draw", function () {
@@ -200,10 +212,107 @@ function loaddata(kode1) {
                 primer.value = datas[0].SaldoPrimer + " " + datas[0].SPrimer;
                 sekunder.value =
                     datas[0].SaldoSekunder + " " + datas[0].SSekunder;
-                tertier.value =
-                    datas[0].SaldoTritier + " " + datas[0].STritier;
+                tertier.value = datas[0].SaldoTritier + " " + datas[0].STritier;
             }
         });
 }
 
+//#endregion
+
+// #region btn proses
+function klikproses() {
+    if (table_data.rows().count() != 0) {
+        $("input[name='DirekturCheckbox']").each(function () {
+            // Ambil nilai 'value' dan status 'checked' dari checkbox
+            let value = $(this).val();
+            let isChecked = $(this).prop("checked");
+            let closestTd = $(this).closest("tr");
+
+            // Lakukan sesuatu berdasarkan status 'checked'
+            if (acc.checked == true) {
+                if (
+                    isChecked &&
+                    (closestTd.hasClass("gray-color") ||
+                        closestTd.hasClass("black-color"))
+                ) {
+                    arraycheckbox.push(value);
+                }
+            } else if (batal_acc.checked == true) {
+                if (isChecked && closestTd.hasClass("red-color")) {
+                    arraycheckbox.push(value);
+                } else if (isChecked && closestTd.hasClass("green-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diBatalkan. Order ditolak oleh Div. Teknik."
+                    );
+                    red = true;
+                    return;
+                }
+            } else if (tdk_setuju.checked == true) {
+                if (isChecked && closestTd.hasClass("black-color")) {
+                    Ket_batal = prompt(
+                        "Alasan tdk disetujui Order " + value + " :"
+                    );
+                    ket.push(Ket_batal);
+                    arraycheckbox.push(value);
+                } else if (isChecked && closestTd.hasClass("red-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ",  tidak bisa diproses. Sdh diACC, batalkan dulu ACC-nya."
+                    );
+                    red = true;
+                    return;
+                } else if (isChecked && closestTd.hasClass("green-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diproses. Order ditolak oleh Div. Teknik."
+                    );
+                    red = true;
+                    return;
+                }
+            }
+        });
+        if (acc.checked == true) {
+            //console.log("berhasil");
+            var arrayString = arraycheckbox.join(",");
+            //console.log(arrayString);
+            radiobox.value = "acc";
+            semuacentang.value = arrayString;
+            methodForm.value = "PUT";
+            formAccDirektur.action = "/ACCDirekturKerja/" + semuacentang.value;
+            formAccDirektur.submit();
+        } else if (batal_acc.checked == true) {
+            alert(batal_acc.checked == true);
+            if (divisicek == "KENCANA") {
+                alert("Lanjutkan ke Batal ACC sebagai Manager..");
+                window.location.href = "ACCManagerGambar";
+                return;
+            } else {
+                var arrayString = arraycheckbox.join(",");
+                console.log(arrayString);
+
+                radiobox.value = "batal_acc";
+                semuacentang.value = arrayString;
+                methodForm.value = "PUT";
+                formAccDirektur.action =
+                    "/ACCDirekturKerja/" + semuacentang.value;
+                //formAccDirektur.submit();
+            }
+            //console.log("berhasil");
+        } else if (tdk_setuju.checked == true) {
+            var arrayString = arraycheckbox.join(",");
+            var arrayString1 = ket.join(",");
+            //console.log(arrayString);
+            radiobox.value = "tidak_setuju";
+            KetTdkS.value = arrayString1;
+            semuacentang.value = arrayString;
+            methodForm.value = "PUT";
+            formAccDirektur.action = "/ACCDirekturKerja/" + semuacentang.value;
+            formAccDirektur.submit();
+        }
+    }
+}
 //#endregion

@@ -47,7 +47,37 @@ class ACCDirekturKerjaController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+        $radiobox = $request->radiobox;
+        if ($radiobox == "acc") {
+            # code...
+            $data = $request->semuacentang;
+            $idorder = explode(",", $data);
+            for ($i=0; $i < count($idorder); $i++) {
+                DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_ACC-DIR-ORDER-KRJ]  @noOrder = ?', [$idorder[$i]]);
+            }
+            return redirect()->back()->with('success', 'Order Sudah DiACC.');
+        }
+        else if($radiobox == "batal_acc"){
+            $data = $request->semuacentang;
+            $idorder = explode(",", $data);
+            for ($i=0; $i < count($idorder); $i++) {
+                DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_BATAL-ACC-DIR-ORDER-KRJ] @noOrder = ?', [ $idorder[$i]]);
+            }
+            return redirect()->back()->with('success', 'ACC Order sdh dibatalkan.');
+        }
+        else if ($radiobox == "tidak_setuju") {
+            # code...
+
+            $data = $request->semuacentang;
+            $idorder = explode(",", $data);
+            $dataket = $request->KetTdkS;
+            $ket = explode(",", $dataket);
+            for ($i=0; $i < count($idorder); $i++) {
+                DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_TDKSTJ-DIR-ORDER-KRJ] @noOrder = ?, @ket = ?', [$idorder[$i],$ket[$i]]);
+            }
+            return redirect()->back()->with('success', 'Order Sudah Diproses.');
+        }
     }
 
     public function destroy($id)

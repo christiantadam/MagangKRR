@@ -22,6 +22,7 @@ let idorder = document.getElementById("idorder");
 
 let methodForm = document.getElementById("methodForm");
 let formAccDirektur = document.getElementById("formAccDirektur");
+let radiobox = document.getElementById('radiobox');
 //#endregion
 
 //#region warna isi tabel
@@ -208,6 +209,16 @@ function klikproses() {
                 ) {
                     arraycheckbox.push(value);
                 }
+                else if (isChecked && closestTd.hasClass("green-color")) {
+                    alert(
+                        "Nomer Order " +
+                            value +
+                            ", tidak bisa diproses. Order ditolak oleh Div. Teknik."
+                    );
+                    red = true;
+                    return;
+                }
+
             } else if (batal_acc.checked == true) {
                 if (isChecked && closestTd.hasClass("red-color")) {
                     arraycheckbox.push(value);
