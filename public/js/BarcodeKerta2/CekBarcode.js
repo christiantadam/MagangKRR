@@ -12,11 +12,15 @@ $(document).ready(function () {
     //     }
     // });
 
-    var txtbarcode = document.getElementById('txtbarcode')
-    var Type_Transaksi, Status, Divisi, Ditembak, Pengirim;
-    txtbarcode.addEventListener("click", function (event) {
+    var txtbarcode = document.getElementById("txtbarcode");
+    // var CekBarcode = document.getElementById('CekBarcode').value;
+    var Type_Transaksi, Status, Divisi, Ditembak, Pengirim, Ditembak;
+    var splitArray = txtbarcode.value.split("-"); // Memisahkan string berdasarkan tanda "-"
+    var NoIndeks = splitArray[0];
+    $("#CekBarcode").on("click", function () {
+        // CekBarcode.addEventListener("click", function (event) {
         console.log(txtbarcode.value);
-        fetch("/CekBarcode/" + txtbarcode.value + ".getBarcode")
+        fetch("/CekBarcode/" + txtbarcode.value + "." + NoIndeks + ".getBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -27,7 +31,7 @@ $(document).ready(function () {
                 // Handle the data retrieved from the server (data should be an object or an array)
                 console.log(data);
                 // Clear the existing table rows
-                fetch("/CekBarcode/" + txtbarcode.value + "." + indeks.value + ".getBarcodeKeluar")
+                fetch("/CekBarcode/" + txtbarcode.value + "." + NoIndeks + ".getBarcodeKeluar")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -38,23 +42,23 @@ $(document).ready(function () {
                         // Handle the data retrieved from the server (data should be an object or an array)
                         console.log(data);
                         // Clear the existing table rows
-                        if (TypeTrans === 22 && Status === "N" && Ditembak === "") {
+                        if (Type_Transaksi === 22 && Status === "N" && Ditembak === "") {
                             alert("Barcode Tidak Jadi Dibuat oleh Divisi " + Divisi);
                             document.getElementById('txtBarcode').value = "";
-                        } else if (TypeTrans === 22 && Status === "N" && Ditembak === "4") {
+                        } else if (Type_Transaksi === 22 && Status === "N" && Ditembak === "4") {
                             alert("Barcode Barang Setengah Jadi Sudah Diterima Gudang");
                             document.getElementById('txtBarcode').value = "";
-                        } else if ((TypeTrans === 22 && Status === "1" && Ditembak === "1") || (TypeTrans === 28 && Status === "1" && Ditembak === "1")) {
+                        } else if ((Type_Transaksi === 22 && Status === "1" && Ditembak === "1") || (Type_Transaksi === 28 && Status === "1" && Ditembak === "1")) {
                             alert("Barcode Belum Dikirim Oleh Divisi " + Divisi);
                             document.getElementById('txtBarcode').value = "";
-                        } else if (TypeTrans === 22 && Status === "1" && Ditembak === "4") {
+                        } else if (Type_Transaksi === 22 && Status === "1" && Ditembak === "4") {
                             alert("Barcode Barang Setengah Jadi Dikirim Ke Kerta 2");
                             document.getElementById('txtBarcode').value = "";
-                        } else if (TypeTrans === 22 && Status === "3" && Ditembak === "3") {
+                        } else if (Type_Transaksi === 22 && Status === "3" && Ditembak === "3") {
                             alert("Barcode Salah, Hubungi EDP");
                         }
 
-                        fetch("/CekBarcode/" + txtbarcode.value + "." + indeks.value + ".getBarcodeKeluar")
+                        fetch("/CekBarcode/" + txtbarcode.value + "." + NoIndeks + ".getBarcodeKirim")
                             .then((response) => {
                                 if (!response.ok) {
                                     throw new Error("Network response was not ok");
@@ -80,34 +84,34 @@ $(document).ready(function () {
                                 } else if (Ditembak === "2" && Pengirim === "") {
                                     alert("Barcode Dikirim Ke Gudang");
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans === 23 && Status === "3") {
+                                } else if (Type_Transaksi === 23 && Status === "3") {
                                     alert("Barcode Sudah Diterima Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans === 25 || TypeTrans === 27) {
+                                } else if (Type_Transaksi === 25 || Type_Transaksi === 27) {
                                     alert("Barcode Milik Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if ((TypeTrans === 26 && Status === "5") || (TypeTrans === 29 && Status === "5")) {
+                                } else if ((Type_Transaksi === 26 && Status === "5") || (Type_Transaksi === 29 && Status === "5")) {
                                     alert("Barcode Milik Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans === 5 || TypeTrans1 === 5) {
+                                } else if (Type_Transaksi === 5 || Type_Transaksi === 5) {
                                     alert("Barcode Sudah Dihanguskan Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans === 9 || TypeTrans1 === 9) {
+                                } else if (Type_Transaksi === 9 || Type_Transaksi === 9) {
                                     alert("Barcode Sudah Dijual Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans1 === 22 && Ditembak !== "4") {
+                                } else if (Type_Transaksi === 22 && Ditembak !== "4") {
                                     alert("Barcode Tidak Jadi Dibuat Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans1 === 22 && Ditembak === "4") {
+                                } else if (Type_Transaksi === 22 && Ditembak === "4") {
                                     alert("Barcode Setengah Jadi Sudah Diterima Oleh Divisi Gudang");
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans1 === 23 || TypeTrans1 === 25 || TypeTrans1 === 29) {
+                                } else if (Type_Transaksi === 23 || Type_Transaksi === 25 || Type_Transaksi === 29) {
                                     alert("Barcode Milik Divisi " + Divisi + " Sudah Tidak Dipakai Lagi");
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans1 === 26) {
+                                } else if (Type_Transaksi === 26) {
                                     alert("Barcode Sudah Dihanguskan Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
-                                } else if (TypeTrans1 === 27) {
+                                } else if (Type_Transaksi === 27) {
                                     alert("Barcode Sudah Dimutasi Satu Divisi Oleh Divisi " + Divisi);
                                     document.getElementById('txtBarcode').value = "";
                                 } else {
@@ -122,7 +126,8 @@ $(document).ready(function () {
                                     Divisi = item.IdDivisi;
                                     Ditembak = item.Ditembak;
                                     Pengirim = item.NoTempTrans;
-                                    DivTujuan = item.Divisi
+                                    DivTujuan = item.Divisi;
+                                    Ditembak = item.Ditembak;
                                 });
 
                                 // Redraw the table to show the changes
@@ -140,7 +145,8 @@ $(document).ready(function () {
                             Divisi = item.IdDivisi;
                             Ditembak = item.Ditembak;
                             Pengirim = item.NoTempTrans;
-                            DivTujuan = item.Divisi
+                            DivTujuan = item.Divisi;
+                            Ditembak = item.Ditembak;
                         });
 
                         // Redraw the table to show the changes
@@ -157,7 +163,8 @@ $(document).ready(function () {
                     Divisi = item.IdDivisi;
                     Ditembak = item.Ditembak;
                     Pengirim = item.NoTempTrans;
-                    DivTujuan = item.Divisi
+                    DivTujuan = item.Divisi;
+                    Ditembak = item.Ditembak;
                 });
 
                 // Redraw the table to show the changes

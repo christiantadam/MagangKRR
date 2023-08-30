@@ -65,6 +65,6 @@ class HanguskanBarcodeController extends Controller
             'U001'
 
         ]);
-        return redirect()->route('HanguskanBarcode.index')->with('alert', 'Data Pegawai Updated successfully!');
+        return redirect()->route('HanguskanBarcode.index')->with('alert', 'Data Updated successfully!');
     }
 }
