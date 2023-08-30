@@ -62,10 +62,6 @@ class MaintenanceOrderKerjaController extends Controller
         ]);
         $kdBarang = $request->kode;
         $pdf = $request->file('inputpdfmodal');
-        // dd($pdf);
-        // $fs = fopen($request->file('inputpdfmodal')->path(), 'rb'); // 'rb' for binary mode
-        // $file = fread($fs, filesize($request->file('inputpdfmodal')->path()));
-        // fclose($fs); // Close the file handle
         $binaryReader = fopen($pdf, 'rb');
         $pdfBinary = fread($binaryReader, $pdf->getSize());
         fclose($binaryReader);
@@ -73,6 +69,23 @@ class MaintenanceOrderKerjaController extends Controller
         DB::connection('ConnPurchase')->table('Y_FOTO')->insert([
             'KD_BARANG' => $kdBarang,
             'PDF' => DB::raw('0x' . bin2hex($pdfBinary)) // Assuming PDF column is binary data type
+        ]);
+        return response()->json(['success' => 'mantap']);
+    }
+
+    public function updatepdf(Request $request)
+    {
+        $request->validate([
+            'updatepdfmodal' => 'required|mimes:pdf|max:2048', // Adjust the max file size as needed
+        ]);
+        $kdBarang = $request->kode;
+        $pdf = $request->file('updatepdfmodal');
+        $binaryReader = fopen($pdf, 'rb');
+        $pdfBinary = fread($binaryReader, $pdf->getSize());
+        fclose($binaryReader);
+        // dd($pdf, $binaryReader, $pdfBinary);
+        DB::connection('ConnPurchase')->table('Y_FOTO')->where('KD_BARANG', $kdBarang)->update([
+            'PDF' => DB::raw('0x' . bin2hex($pdfBinary))
         ]);
     }
     public function selectpdf($kdBarang)

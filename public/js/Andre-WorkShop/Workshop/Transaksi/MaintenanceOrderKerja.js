@@ -69,29 +69,29 @@ let formMaintenanceOrderGambar = document.getElementById(
 function getPdf(kodebarang) {
     $.ajax({
         url: "/selectpdf/" + kodebarang,
-        method: 'GET',
-        responseType: 'arraybuffer', // Tipe respons yang diharapkan
-        success: function(response) {
+        method: "GET",
+        responseType: "arraybuffer", // Tipe respons yang diharapkan
+        success: function (response) {
             console.log(response);
             if (response.length > 0) {
                 console.log("masuk");
-                var newTabUrl = 'http://127.0.0.1:8000/selectpdf/' + kodebarang;
-                window.open(newTabUrl, '_blank');
-            }
-            else{
-                alert("Data PDF Gambar belum tersedia di database, mohon input PDF Gambar terlebih dahulu.");
+                var newTabUrl = "http://127.0.0.1:8000/selectpdf/" + kodebarang;
+                window.open(newTabUrl, "_blank");
+            } else {
+                alert(
+                    "Data PDF Gambar belum tersedia di database, mohon input PDF Gambar terlebih dahulu."
+                );
                 inputpdfmodal.disabled = false;
                 updatepdfmodal.disabled = true;
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
-        }
+        },
     });
 }
 
 //#endregion
-
 
 Divisi.focus();
 
@@ -431,13 +431,28 @@ function LoadData(kdbarang) {
                 alert(
                     "Kode Barang Tidak Ada, Atau Kode Barang Tsb Tdk Punya No. Gambar"
                 );
-                    return "tidak ada"
+                NamaBarangModal.value = "";
+                NomorGambarModal.value = "";
+                SatuanModal.value = "Pilih Satuan";
+                NomorSatuanModal.value = "";
+                PrimerModal.value = "";
+                SekunderModal.value = "";
+                tritierModal.value = "";
+                // return "tidak ada";
             } else {
                 NamaBarangModal.value = datas[0].NAMA_BRG;
                 NomorGambarModal.value = datas[0].No_Gambar;
+                updatepdfmodal.disabled = false;
+                inputpdfmodal.disabled = true;
                 setSelectByText(SatuanModal, datas[0].Nama_satuan);
                 LoadData2(Kdbarangmodal.value);
                 NomorSatuanModal.value = SatuanModal.value;
+                const isConfirmed = confirm(
+                    `ingin Menampilkan Gambar Order : ` + kodebarang.value
+                );
+                if (isConfirmed) {
+                    getPdf(Kdbarangmodal.value);
+                }
             }
         });
 }
@@ -459,18 +474,7 @@ Kdbarangmodal.addEventListener("keypress", function (event) {
                 // console.log(kodeBarang9digit.value);
             }
             Kdbarangmodal.value = kodeBarang9digit.value;
-            LoadData(Kdbarangmodal.value)
-            .then((result) => {
-                console.log(result);
-                if (result === "tidak ada") {
-                    console.log("Kode Barang Ada");
-                } else{
-                    getPdf(Kdbarangmodal.value)
-                }
-            })
-            .catch((error) => {
-                console.error("Terjadi kesalahan:", error);
-            });
+            LoadData(Kdbarangmodal.value);
         } else {
             alert("Inputkan Nomer Gambar Atau Kode Barangnya");
         }
@@ -536,6 +540,7 @@ $("#tableOrderKerja tbody").on("click", "tr", function () {
     }
     let classSelectedRow = $(this).attr("class");
     colorclass = classSelectedRow;
+
     console.log(classSelectedRow);
     $(this).toggleClass("selected");
     const table = $("#tableOrderKerja").DataTable();
@@ -590,15 +595,19 @@ function cleartext() {
 function koreksiklik() {
     if (colorclass == "acs-empty-cell") {
         alert("Order Tidak Boleh Di-KOREKSI. Order hangus.");
+        return;
     }
     if (tgl_teknik.value !== "") {
         alert("Order Tidak Boleh Di-KOREKSI. Order ditolak.");
+        return;
     }
-    if (manager.value !== "" && acc_direktur.value !== "") {
+    if (manager.value !== "" || acc_direktur.value !== "") {
         alert("Order Tidak Boleh Di-HAPUS. Sudah di-ACC");
+        return;
     }
     if (user != pengorder.value) {
         alert("Anda Tidak Boleh Meng-HAPUS Order Dari User " + userorder);
+        return;
     }
     if (no_order.value !== "") {
         cleartext();
@@ -655,11 +664,14 @@ function koreksiklik() {
 
 //#endregion
 
+//#region input pdf
+
 inputpdfmodal.addEventListener("change", function (event) {
     event.preventDefault();
+
     var form = document.createElement("form");
     form.id = "inputpdf";
-    form.enctype = "multipart/form-data"
+    form.enctype = "multipart/form-data";
     form.method = "post"; // Ganti dengan metode pengiriman yang sesuai
     form.action = "/inputfile";
     var csrfToken = document
@@ -673,7 +685,7 @@ inputpdfmodal.addEventListener("change", function (event) {
     csrfInput.value = csrfToken;
 
     var kode = document.createElement("input");
-    kode.type = "text";
+    kode.type = "hidden";
     kode.name = "kode";
     kode.value = Kdbarangmodal.value;
 
@@ -683,9 +695,79 @@ inputpdfmodal.addEventListener("change", function (event) {
     form.appendChild(inputpdfmodal, inputpdfmodal.files);
     document.getElementById("inputpdfdiv").appendChild(form);
     // console.log(inputpdfmodal.files);
-    form.submit();
+
+    // form.submit();
+
+    // $(form).on("submit", function (event) {
+    //     event.preventDefault();
+
+    let url = $(form).attr("action");
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: new FormData(form),
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            // alert(response.success);
+        },
+    });
+    // });
 });
 
+//#endregion
+
+//#region update pdf
+updatepdfmodal.addEventListener("change", function (event) {
+    event.preventDefault();
+    var form = document.createElement("form");
+    form.id = "updatepdf";
+    form.enctype = "multipart/form-data";
+    form.method = "post"; // Ganti dengan metode pengiriman yang sesuai
+    form.action = "/updatefile";
+    var csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+
+    // Membuat input element untuk CSRF token
+    var csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token"; // Nama field yang diharapkan oleh Laravel
+    csrfInput.value = csrfToken;
+
+    var kode = document.createElement("input");
+    kode.type = "hidden";
+    kode.name = "kode";
+    kode.value = Kdbarangmodal.value;
+
+    // Menyisipkan input CSRF token ke dalam form
+    form.appendChild(csrfInput);
+    form.appendChild(kode);
+    form.appendChild(updatepdfmodal, updatepdfmodal.files);
+    document.getElementById("updatepdfdiv").appendChild(form);
+
+    let url = $(form).attr("action");
+
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: new FormData(form),
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            // alert(response.success);
+        },
+    });
+    // console.log(inputpdfmodal.files);
+
+});
+
+//#endregion
 //#region button hapus
 
 function hapusklik() {

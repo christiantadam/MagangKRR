@@ -22,11 +22,11 @@ class HomeController extends Controller
     {
         return view('layouts.WORKSHOP.GPS.appGPS');
     }
-    public function Workshop()
+    public function HomeWorkshop()
     {
         return view('layouts.WORKSHOP.Workshop.appWorkshop');
     }
-    public function HomeWorkshop() {
-        return view('workshop.homeWorkshop');
+    public function Workshop() {
+        return view('workshop.Workshop');
     }
 }

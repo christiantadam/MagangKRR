@@ -5,7 +5,7 @@
       <div class="col-md-10 RDZMobilePaddingLR0">
         <h1 style="text-align: center">HOME</h1>
         <div class="acs-grid-container">
-          <div class="acs-card" onclick="OpenNewTab('{{ url('Workshop') }}');">
+          <div class="acs-card" onclick="OpenNewTab('{{ url('HomeWorkshop') }}');">
             <h2 class="acs-txt-card">WORKSHOP</h2>
             <img src="{{ asset('/images/Workshop.png') }}" alt="" class="acs-img-card">
           </div>

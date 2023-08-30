@@ -20,7 +20,7 @@
           <div class="col-3">
             <input type="Date" class="form-control" name="tgl" id="tgl_awal">
           </div>
-          <div class="col-1">
+          <div class="col-2">
             <p style="padding-top: 8px">s/d</p>
           </div>
           <div class="col-3">

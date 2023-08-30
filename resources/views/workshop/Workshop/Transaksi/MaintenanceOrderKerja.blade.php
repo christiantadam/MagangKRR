@@ -252,9 +252,7 @@
               </div>
             </div>
 
-            <div class="col-lg-2 content-center">
-              <button type="button" class="btn btn-secondary custom-btn">KELUAR</button>
-            </div>
+
           </div>
           <br>
           <div class="keterangan">
@@ -340,7 +338,7 @@
                 <div class="col-2" style="text-align: right;">
                   <span style="color: red">input PDF</span>
                 </div>
-                <div class="col-3">
+                <div class="col-3" id="inputpdfdiv">
                   <input class="form-control" type="file" id="inputpdfmodal" name="inputpdfmodal"
                     accept=".pdf" disabled>
                 </div>
@@ -360,7 +358,7 @@
                 <div class="col-2" style="text-align: right;">
                   <span>Update PDF</span>
                 </div>
-                <div class="col-3">
+                <div class="col-3" id="updatepdfdiv">
                   <input class="form-control" type="file" id="updatepdfmodal" name="updatepdfmodal"
                     accept=".pdf" disabled>
                 </div>
@@ -461,9 +459,6 @@
             </div>
           </div>
         </form>
-        <div id="inputpdfdiv">
-
-        </div>
       </div>
     </div>
   </div>
