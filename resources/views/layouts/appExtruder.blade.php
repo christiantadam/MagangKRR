@@ -96,8 +96,8 @@
                 <h1><a href="#">Pencatatan Gangguan Produksi</a></h1>
             @elseif($formName == 'formCatatDaya')
                 <h1><a href="#">Pencatatan Daya Produksi</a></h1>
-            @elseif($formName == 'formCatatEfisiensi')
-                <h1><a href="#">Pencatatan Efisiensi</a></h1>
+            @elseif($formName == 'formCatatEffisiensi')
+                <h1><a href="#">Pencatatan Effisiensi</a></h1>
             @elseif($formName == 'formCatatPerawatan')
                 <h1><a href="#">Pencatatan Perawatan</a></h1>
             @elseif($formName == 'formMojosariOrderMaintenance')
@@ -266,8 +266,8 @@
                                             Produksi</a>
                                     <li><a href="/Extruder/ExtruderNet/Catat/formCatatDaya">Pencatatan KwaH
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatEfisiensi">Pencatatan
-                                            Efisiensi</a>
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatEffisiensi">Pencatatan
+                                            Effisiensi</a>
                                     <li><a href="/Extruder/ExtruderNet/Catat/formCatatPerawatan">Perawatan</a>
                                 </ul>
                             </li>

@@ -263,11 +263,11 @@ function saldoType(id_type, asal) {
 }
 //#endregion
 
-function init() {
+function init_rk() {
     txtPrimerAsal.focus();
     saldoType(txtIdType.value, true);
 }
 
-$(document).ready(function () {
-    init();
-});
+// $(document).ready(function () {
+//     init_rk();
+// });

@@ -33,8 +33,6 @@ class BenangController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getDetailUraianKonvNG("INV0003"));
-
         return view($view_name, $view_data);
     }
 

@@ -65,8 +65,7 @@ function addTable_DataTable(
     listData,
     colWidths = null,
     rowFun = null,
-    tableHeight = "250px",
-    isDblClick = false
+    tableHeight = null
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
         $("#" + tableId)
@@ -93,7 +92,7 @@ function addTable_DataTable(
     $("#" + tableId).DataTable({
         responsive: true,
         paging: false,
-        scrollY: tableHeight,
+        scrollY: tableHeight != null ? tableHeight : "250px",
         scrollX: colWidths != null ? "1000000px" : "",
         data: listData,
         columns: colObject,
@@ -106,13 +105,13 @@ function addTable_DataTable(
         },
 
         rowCallback: function (row, data, index) {
-            if (rowFun != null) {
-                row.style.cursor = "pointer";
-                const eventListener = isDblClick ? "dblclick" : "click";
-
-                row.addEventListener(eventListener, function () {
-                    rowFun(row, data, index);
-                });
+            if ($(row).hasClass("odd") || $(row).hasClass("even")) {
+                if (rowFun != null) {
+                    row.style.cursor = "pointer";
+                    row.addEventListener("click", function () {
+                        rowFun(row, data, index);
+                    });
+                }
             }
         },
     });
@@ -259,7 +258,8 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
             }
 
             alert(
-                "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam.\nERROR: " +
+                "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam.\n" +
+                    "ERROR: " +
                     urlString
             );
             console.error("Error: ", error);

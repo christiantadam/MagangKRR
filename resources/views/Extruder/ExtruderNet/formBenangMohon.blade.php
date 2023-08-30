@@ -2,7 +2,7 @@
 @section('content')
     <div id="form_benang_mohon" class="form" data-aos="fade-up">
         <input type="hidden" id="form_rk_return">
-        {{-- <button id="btn_tes" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi">Rincian Konversi</button> --}}
+        <button id="btn_rk" class="hidden" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi"></button>
 
         <div class="row mt-3">
             <div class="col-lg-7"></div>
@@ -46,7 +46,6 @@
             <div class="col-lg-3">
                 <select id="select_nomor" class="form-select">
                     <option selected disabled>-- Pilih Nomor --</option>
-                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                     @foreach ($formData['listNomor'] as $d)
                         <option value="{{ $d->IdKonversiNG }}">{{ $d->MesinShift }}</option>
                     @endforeach
@@ -60,7 +59,6 @@
             <div class="col-lg-4">
                 <select id="select_nomor_konversi" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor Konversi --</option>
-                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>
@@ -84,7 +82,6 @@
             <div class="col-lg-4">
                 <select id="select_type" class="form-select" disabled>
                     <option selected disabled>-- Pilih Type --</option>
-                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>

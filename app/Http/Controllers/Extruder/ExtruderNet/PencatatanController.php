@@ -23,7 +23,7 @@ class PencatatanController extends Controller
             case 'formCatatDaya':
                 $form_data = ['listMesin' => $this->getListMesin(1)];
                 break;
-            case 'formCatatEfisiensi':
+            case 'formCatatEffisiensi':
                 $form_data = ['listMesin' => $this->getListMesin(1)];
                 break;
 
@@ -42,7 +42,79 @@ class PencatatanController extends Controller
         return view($view_name, $view_data);
     }
 
-    #region Daya Produksi
+    #region Efisiensi
+    public function getListAwalProdEff($tanggal, $no_mesin, $shift)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_AWALPROD_EFF @tanggal = ?, @NoMesin = ?, @Shift = ?',
+            [$tanggal, $no_mesin, $shift]
+        );
+
+        // @tanggal datetime, @NoMesin char (5), @Shift char(2)
+    }
+
+    public function getListEffisiensi($tanggal, $no_mesin, $shift, $awal_produksi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_EFFISIENSI @Tanggal = ?, @NoMesin = ?, @Shift = ?, @AwalProduksi = ?',
+            [$tanggal, $no_mesin, $shift, $awal_produksi]
+        );
+
+        // @Tanggal datetime, @NoMesin char(5), @Shift char(2), @AwalProduksi datetime
+    }
+
+    public function getListIdKonversi($tanggal, $no_mesin, $shift)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_IDKONVERSI @tanggal = ?, @noMesin = ?, @shift = ?',
+            [$tanggal, $no_mesin, $shift]
+        );
+
+        // @tanggal datetime, @noMesin char(5), @shift char(2)
+    }
+
+    public function getCekDataEff($tgl, $mesin, $shift, $awal, $akhir, $id_konversi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_CEK_DATA_EFF @tgl = ?, @mesin = ?, @shift = ?, @awal = ?, @akhir = ?, @idkonv = ?',
+            [$tgl, $mesin, $shift, $awal, $akhir, $id_konversi]
+        );
+
+        // @tgl datetime, @mesin char(5), @shift char(2), @awal datetime, @akhir datetime, @idkonv varchar(14)
+    }
+
+    public function insEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_INSERT_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
+            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+        );
+
+        // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
+    }
+
+    public function updEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_UPDATE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
+            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+        );
+
+        // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
+    }
+
+    public function delEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_DELETE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?',
+            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi]
+        );
+
+        // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime
+    }
+    #endregion
+
+    #region Daya
     public function getFaktorKali($id_mesin)
     {
         return DB::connection('ConnExtruder')->select(
@@ -114,7 +186,7 @@ class PencatatanController extends Controller
     }
     #endregion
 
-    #region Gangguan Produksi
+    #region Gangguan
     public function getListMesin($kode)
     {
         return DB::connection('ConnExtruder')->select(

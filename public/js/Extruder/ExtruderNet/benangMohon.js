@@ -1,5 +1,3 @@
-// Saat table asal di-double-klik akan memunculkan form rincian konversi
-
 //#region Variables
 const dateMohon = document.getElementById("tanggal_mohon");
 const dateInput = document.getElementById("tanggal");
@@ -18,19 +16,21 @@ const btnKoreksi = document.getElementById("btn_koreksi");
 const btnHapus = document.getElementById("btn_hapus");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
+const btnRK = document.getElementById("btn_rk");
 
+const listOfSlc = document.querySelectorAll("#form_benang_mohon select");
 const listOfTxt = document.querySelectorAll(
     "#form_benang_mohon .form-control:not(input[type='date'])"
 );
-const listOfSlc = document.querySelectorAll("#form_benang_mohon select");
 
 const listAsal = [];
-/* ISI LIST ASAL
+const listTujuan = [];
+/* ISI LIST
     0 IdType
     1 NamaType
-    2 JumlahPengeluaranPrimer
-    3 JumlahPengeluaranSekunder
-    4 JumlahPengeluaranTritier
+    2 JumlahPrimer
+    3 JumlahSekunder
+    4 JumlahTritier
     5 NamaObjek
     6 NamaKelompokUtama
     7 NamaKelompok
@@ -42,11 +42,9 @@ const listAsal = [];
     13 IdTransaksi
 */
 
-const listTujuan = [];
-/* ISI LIST TUJUAN
-    Sama seperti list asal namun, JumlahPengeluaran diganti JumlahPemasukkan
-*/
-
+const tableWidth = 14;
+const tableAsalPos = $("#table_asal").offset().top - 125;
+const tableTujuanPos = $("#table_tujuan").offset().top - 125;
 const tableCol = [
     { width: "200px" }, // Id Type
     { width: "200px" }, // Nama Type
@@ -63,9 +61,6 @@ const tableCol = [
     { width: "100px" }, // Id Sub-kelompok
     { width: "100px" }, // Id Transaksi
 ];
-const tableWidth = 14;
-const tableAsalPos = $("#table_asal").offset().top - 125;
-const tableTujuanPos = $("#table_tujuan").offset().top - 125;
 
 const hidRincianKonv = document.getElementById("form_rk_return");
 
@@ -84,7 +79,7 @@ btnIsi.addEventListener("click", function () {
 
     modeProses = "isi";
     slcNomor.disabled = true;
-    dateInput.disabled = false;
+    dateInput.classList.remove("unclickable");
     dateInput.value = dateMohon.value;
     dateInput.focus();
 });
@@ -131,8 +126,8 @@ btnProses.addEventListener("click", function () {
     } else {
         if (slcNomor.selectedIndex == 0) {
             alert(
-                `Belum ada data konversi yang terpilih.
-                \nMohon periksa kembali bagian "-- Pilih Nomor --"`
+                "Belum ada data konversi yang terpilih.\n" +
+                    'Mohon periksa kembali bagian "-- Pilih Nomor --"'
             );
         } else if (modeProses == "koreksi") {
             showModal(
@@ -216,8 +211,8 @@ slcType.addEventListener("mousedown", function () {
             clearOptions(this);
             const errorOption = addLoadingOption(this);
             const optionKeys = {
-                valueKey: "Type",
-                textKey: "IdType",
+                valueKey: "IdType",
+                textKey: "Type",
             };
 
             // SP_5298_EXT_LIST_PROD_NG
@@ -246,8 +241,8 @@ slcType.addEventListener("keydown", function (event) {
                 clearOptions(this);
                 const errorOption = addLoadingOption(this);
                 const optionKeys = {
-                    valueKey: "Type",
-                    textKey: "IdType",
+                    valueKey: "IdType",
+                    textKey: "Type",
                 };
 
                 // SP_5298_EXT_LIST_PROD_NG
@@ -327,7 +322,6 @@ slcNoKonversi.addEventListener("mousedown", function () {
             (data) => {
                 addOptions(this, data, optionKeys);
                 this.removeChild(errorOption);
-                console.log("Masuk");
 
                 refetchKonv = false;
             },
@@ -360,7 +354,6 @@ slcNoKonversi.addEventListener("keydown", function (event) {
                 (data) => {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                    console.log("Masuk");
 
                     refetchKonv = false;
                 },
@@ -376,21 +369,16 @@ slcNoKonversi.addEventListener("change", function () {
     listTujuan.length = 0;
     clearTable_DataTable("table_tujuan", tableWidth, "padding=150px");
 
-    selectedOpt = {
-        valueKu: this.value,
-        textKu: this.textContent.split(" | ")[1],
-    };
+    addOptionIfNotExists(
+        slcMesin,
+        "slcNoKonversi",
+        this[this.selectedIndex].textContent.replace(/\s+/g, "").split("|")[1]
+    );
 
-    addOptionIfNotExists(slcMesin, "slcNoKonversi", selectedOpt.textKu);
     addOptionIfNotExists(
         slcNoKonversi,
-        selectedOpt.valueKu,
-        selectedOpt.valueKu.substring(0, 14) +
-            " | " +
-            selectedOpt.valueKu.substring(
-                17,
-                17 + selectedOpt.valueKu.length - 16
-            )
+        this.value.split("//")[0],
+        this.value.split("//")[0] + " | " + this.value.split("//")[1]
     );
 
     pilNoKonv = this.selectedIndex;
@@ -410,8 +398,8 @@ slcNoKonversi.addEventListener("change", function () {
     slcType.focus();
 });
 
-dateInput.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
+dateInput.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
         if (modeProses == "isi") {
             txtShift.disabled = false;
             txtShift.focus();
@@ -422,8 +410,8 @@ dateInput.addEventListener("keyup", function (event) {
     }
 });
 
-txtShift.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
+txtShift.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
         this.value = this.value.toUpperCase();
         slcNoKonversi.disabled = false;
         slcNoKonversi.focus();
@@ -461,9 +449,7 @@ hidRincianKonv.addEventListener("change", function () {
                     "table_tujuan",
                     listTujuan,
                     tableCol,
-                    listTujuanDblClicked,
-                    null,
-                    true
+                    rowClickedTujuan
                 );
             } else if (modeProses == "koreksi") {
                 listAsal[pilAsal].JumlahPengeluaranPrimer = txtPrimerAsal.value;
@@ -567,12 +553,10 @@ function lihatDataKonversiNG(id_konversi) {
                             listAsal.push({
                                 IdType: data[i].IdType,
                                 NamaType: data[i].NamaType,
-                                JumlahPengeluaranPrimer:
-                                    data[i].JumlahPengeluaranPrimer,
-                                JumlahPengeluaranSekunder:
+                                JumlahPrimer: data[i].JumlahPengeluaranPrimer,
+                                JumlahSekunder:
                                     data[i].JumlahPengeluaranSekunder,
-                                JumlahPengeluaranTritier:
-                                    data[i].JumlahPengeluaranTritier,
+                                JumlahTritier: data[i].JumlahPengeluaranTritier,
                                 NamaObjek: data[i].NamaObjek,
                                 NamaKelompokUtama: data[i].NamaKelompokUtama,
                                 NamaKelompok: data[i].NamaKelompok,
@@ -588,9 +572,9 @@ function lihatDataKonversiNG(id_konversi) {
                                 "table_asal",
                                 listAsal,
                                 tableCol,
-                                listAsalDblClicked,
+                                rowClickedAsal,
                                 null,
-                                true
+                                "Izumi Sagiri"
                             );
                         } else if (
                             data[i].UraianDetailTransaksi == "Tujuan Konversi"
@@ -598,12 +582,9 @@ function lihatDataKonversiNG(id_konversi) {
                             listTujuan.push({
                                 IdType: data[i].IdType,
                                 NamaType: data[i].NamaType,
-                                JumlahPemasukanPrimer:
-                                    data[i].JumlahPemasukanPrimer,
-                                JumlahPemasukanSekunder:
-                                    data[i].JumlahPemasukanSekunder,
-                                JumlahPemasukanTritier:
-                                    data[i].JumlahPemasukanTritier,
+                                JumlahPrimer: data[i].JumlahPemasukanPrimer,
+                                JumlahSekunder: data[i].JumlahPemasukanSekunder,
+                                JumlahTritier: data[i].JumlahPemasukanTritier,
                                 NamaObjek: data[i].NamaObjek,
                                 NamaKelompokUtama: data[i].NamaKelompokUtama,
                                 NamaKelompok: data[i].NamaKelompok,
@@ -619,9 +600,7 @@ function lihatDataKonversiNG(id_konversi) {
                                 "table_tujuan",
                                 listTujuan,
                                 tableCol,
-                                listTujuanDblClicked,
-                                null,
-                                true
+                                rowClickedTujuan
                             );
                         }
                     }
@@ -638,17 +617,31 @@ function displayDataBenangNG() {
         (data) => {
             if (data.length != 0) {
                 for (let i = 0; i < data.length; i++) {
-                    listAsal.push(data[i]);
+                    listAsal.push({
+                        IdType: data[i].IdType,
+                        NamaType: data[i].NamaType,
+                        JumlahPrimer: data[i].JumlahPrimer,
+                        JumlahSekunder: data[i].JumlahSekunder,
+                        JumlahTritier: data[i].JumlahTritier,
+                        NamaObjek: data[i].NamaObjek,
+                        NamaKelompokUtama: data[i].NamaKelompokUtama,
+                        NamaKelompok: data[i].NamaKelompok,
+                        NamaSubKelompok: data[i].NamaSubKelompok,
+                        IdObjek: data[i].IdObjek,
+                        IdKelompokUtama: data[i].IdKelompokUtama,
+                        IdKelompok: data[i].IdKelompok,
+                        IdSubKelompok: data[i].IdSubKelompok,
+                        IdTransaksi: "",
+                    });
+
                     addTable_DataTable(
                         "table_asal",
                         listAsal,
                         tableCol,
-                        listAsalDblClicked,
-                        null,
-                        true
+                        rowClickedAsal
                     );
-                    $("html, body").animate({ scrollTop: tableAsalPos }, 100);
 
+                    $("html, body").animate({ scrollTop: tableAsalPos }, 100);
                     pilAsal = 0;
                 }
             } else {
@@ -781,29 +774,31 @@ function prosesHapus() {
     });
 }
 
-function listAsalDblClicked(index) {
+function rowClickedAsal(row, data, index) {
     if (pilAsal == index) {
+        row.style.background = "white";
         pilAsal = -1;
     } else {
+        clearSelection_DataTable("table_asal");
+        row.style.background = "aliceblue";
         pilAsal = index;
         pilTujuan = -1;
+        clearSelection_DataTable("table_tujuan");
 
         if (modeProses == "koreksi" || modeProses == "isi") {
-            txtIdKelompokUtama.value = listAsal[pilAsal].IdKelompokUtama;
-            txtNamaKelompokUtama.value = listAsal[pilAsal].NamaKelompokUtama;
-            txtIdKelompok.value = listAsal[pilAsal].IdKelompok;
-            txtNamaKelompok.value = listAsal[pilAsal].NamaKelompok;
-            txtIdSubKelompok.value = listAsal[pilAsal].IdSubKelompok;
-            txtNamaSubKelompok.value = listAsal[pilAsal].NamaSubKelompok;
-            txtIdType.value = listAsal[pilAsal].IdType;
-            txtNamaType.value = listAsal[pilAsal].NamaType;
+            txtIdKelompokUtama.value = data.IdKelompokUtama;
+            txtNamaKelompokUtama.value = data.NamaKelompokUtama;
+            txtIdKelompok.value = data.IdKelompok;
+            txtNamaKelompok.value = data.NamaKelompok;
+            txtIdSubKelompok.value = data.IdSubKelompok;
+            txtNamaSubKelompok.value = data.NamaSubKelompok;
+            txtIdType.value = data.IdType;
+            txtNamaType.value = data.NamaType;
 
             if (modeProses == "koreksi") {
-                txtPrimerAsal.value = listAsal[pilAsal].JumlahPengeluaranPrimer;
-                txtSekunderAsal.value =
-                    listAsal[pilAsal].JumlahPengeluaranSekunder;
-                txtTersierAsal.value =
-                    listAsal[pilAsal].JumlahPengeluaranTritier;
+                txtPrimerAsal.value = data.JumlahPengeluaranPrimer;
+                txtSekunderAsal.value = data.JumlahPengeluaranSekunder;
+                txtTersierAsal.value = data.JumlahPengeluaranTritier;
 
                 const tujuanKonvEle = document
                     .getElementById("tujuan_konv")
@@ -819,10 +814,12 @@ function listAsalDblClicked(index) {
                 });
             }
         }
+
+        btnRK.click();
     }
 }
 
-function listTujuanDblClicked(index) {
+function rowClickedTujuan(index) {
     if (pilTujuan == index) {
         pilTujuan = -1;
     } else {
@@ -886,13 +883,13 @@ function listTujuanDblClicked(index) {
 //#endregion
 
 function init() {
-    if ($.fn.DataTable.isDataTable("#table_tujuan")) {
-        $("#table_tujuan").DataTable().destroy();
-    }
+    // if ($.fn.DataTable.isDataTable("#table_tujuan")) {
+    //     $("#table_tujuan").DataTable().destroy();
+    // }
 
-    if ($.fn.DataTable.isDataTable("#table_asal")) {
-        $("#table_asal").DataTable().destroy();
-    }
+    // if ($.fn.DataTable.isDataTable("#table_asal")) {
+    //     $("#table_asal").DataTable().destroy();
+    // }
 
     $("#table_asal").DataTable({
         responsive: true,
@@ -930,12 +927,11 @@ function init() {
 
     dateMohon.value = getCurrentDate();
     dateInput.value = getCurrentDate();
-
     dateMohon.focus();
 }
 
 $(document).ready(function () {
     init();
 
-    // document.getElementById("btn_tes").focus();
+    btnIsi.focus();
 });

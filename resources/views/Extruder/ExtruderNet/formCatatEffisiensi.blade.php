@@ -1,7 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_efisiensi" class="form" data-aos="fade-up">
-        <div class="card mt-3">
+        <div id="group_box1" class="card mt-3">
             <div class="card-body">
 
                 <div class="row">
@@ -62,6 +62,12 @@
                     <div class="col-lg-2">
                         <input type="time" id="akhir" class="form-control">
                     </div>
+
+                    <div class="col-lg-2">
+                        <select id="select_waktu_produksi" class="form-select hidden">
+                            <option selected disabled>-- Pilih Waktu Produksi --</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row mt-3">
@@ -79,7 +85,7 @@
             </div>
         </div>
 
-        <div class="card mt-3">
+        <div id="group_box2" class="card mt-3">
             <div class="card-body">
                 <div class="row d-flex align-items-center">
                     <div class="col-lg-2">
@@ -205,7 +211,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="roll" class="form-control">
+                            <input type="text" id="denier_rata" class="form-control">
                             <span class="input-group-text">m</span>
                         </div>
                     </div>
@@ -215,15 +221,17 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Isi</button>
-                <button type="submit" class="btn btn-outline-warning">Koreksi</button>
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-outline-success">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/Extruder/ExtruderNet/catatEffisiensi.js') }}"></script>
 @endsection
