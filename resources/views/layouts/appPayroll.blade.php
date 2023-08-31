@@ -187,7 +187,7 @@
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/VerifikasiAbsen') }}">Verifikasi Absen</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/AbsenSimpang') }}">Absen Simpang</a>
+                                            tabindex="-1" href="{{ url('AbsenSimpang') }}">Absen Simpang</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Kontrak') }}">Perpanjangan/Pembaharuan Kontrak</a>

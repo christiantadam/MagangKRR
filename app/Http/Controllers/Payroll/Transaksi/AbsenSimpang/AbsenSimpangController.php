@@ -39,6 +39,15 @@ class AbsenSimpangController extends Controller
             $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_ABSEN_SALAH_SHIFT @tanggal = ?', [$crExplode[0]]);
             // dd($dataPegawai);
             return response()->json($dataPegawai);
+        }else if ($crExplode[$lastIndex] == "getViewSimpang") {
+
+            //getDataPegawai
+            $records = DB::table('VW_PRG_5409_PAY_ABSEN_ANEH')
+            ->where('Tanggal',$crExplode[0])
+            ->get();
+            // dd($records);
+            // dd($dataPegawai);
+            return response()->json($records);
         }
     }
 
@@ -55,8 +64,19 @@ class AbsenSimpangController extends Controller
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = array_filter($request->all(), 'is_numeric', ARRAY_FILTER_USE_KEY);
+        // dd($data);
+        foreach ($data as $item) {
+            // dd($item);
+            DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_HAPUS_ABSEN_ANEH @idagenda = ?', [
+                $item,
+            ]);
+        }
+
+        // dd('Masuk Destroy', $data);
+
+        return redirect()->route('AbsenSimpang.index')->with('alert', 'Data absen berhasil dihapus!');
     }
 }

@@ -88,7 +88,7 @@ Route::get('ProgramPayroll/Agenda/GantiShift/Aturan2', 'App\Http\Controllers\Pay
 Route::get('ProgramPayroll/Transaksi/InputCheckClock', 'App\Http\Controllers\Payroll\Transaksi\InputCheckClock\InputCheckClockController@index');
 Route::get('ProgramPayroll/Transaksi/TransferAbsen', 'App\Http\Controllers\Payroll\Transaksi\TransferAbsen\TransferAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/VerifikasiAbsen', 'App\Http\Controllers\Payroll\Transaksi\VerifikasiAbsen\VerifikasiAbsenController@index');
-Route::get('ProgramPayroll/Transaksi/AbsenSimpang', 'App\Http\Controllers\Payroll\Transaksi\AbsenSimpang\AbsenSimpangController@index');
+// Route::get('ProgramPayroll/Transaksi/AbsenSimpang', 'App\Http\Controllers\Payroll\Transaksi\AbsenSimpang\AbsenSimpangController@index');
 Route::get('ProgramPayroll/Transaksi/Kontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@index');
 Route::post('ProgramPayroll/Transaksi/updateKontrak', 'App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController@update');
 Route::get('getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');

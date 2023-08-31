@@ -156,6 +156,122 @@ $(document).ready(function () {
             // Lakukan operasi lain pada data, jika diperlukan
         });
     });
+    $("#buttonProses").click(function () {
+        var selectedRows = table.rows(".selected").data().toArray();
+        var shift = document.getElementById("Id_Shift_Baru");
+        var shiftbaru, jmljam, keterangan;
+        const tanggalValue = document.getElementById("TglAgenda").value;
+        const tanggal = new Date(tanggalValue);
+        // if (Listpegawai.Items[j].Checked === true) {
+
+        //     // End of Saturday handling
+        // }
+        // console.log(selectedRows);
+        selectedRows.forEach((data) => {
+            console.log(data[0]);
+            const dataGabung = rowData[1] + "." + kd_manager + "." + rowData[2];
+            data.push(dataGabung);
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "settingDivisiStaff/{kd_manager}");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "PUT"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
+
+            // Create input with "Update Keluarga" Value
+            const ifUpdate = document.createElement("input");
+            ifUpdate.setAttribute("type", "hidden");
+            ifUpdate.setAttribute("name", "_ifUpdate");
+            ifUpdate.value = "Update Keluarga"; // Set the value of the input field to the corresponding data
+            form.appendChild(ifUpdate);
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+            // if (tanggal.getDay() === 6) {
+            //     // Saturday
+            //     switch (parseInt(shift.value)) {
+            //         case 0:
+            //         case 1:
+            //         case 7:
+            //             shiftbaru = 14;
+            //             break;
+            //         case 2:
+            //         case 8:
+            //         case 13:
+            //             shiftbaru = 15;
+            //             break;
+            //         case 3:
+            //         case 12:
+            //             shiftbaru = 16;
+            //             break;
+            //         case 4:
+            //         case 9:
+            //             shiftbaru = 17;
+            //             break;
+            //         case 5:
+            //             shiftbaru = 18;
+            //             break;
+            //         case 6:
+            //             shiftbaru = 19;
+            //             break;
+            //     }
+            //     jmljam = 5;
+            //     keterangan = "M";
+            // } else if (tanggal.getDay() !== 0) {
+            //     // Not Sunday
+            //     shiftbaru = parseInt(shift.value);
+            //     jmljam = 7;
+            //     keterangan = "M";
+            // } else if (tanggal.getDay() === 0) {
+            //     // Sunday
+            //     shiftbaru = parseInt(shift.value);
+            //     keterangan = "B";
+            // }
+            // Lakukan operasi lain pada data, jika diperlukan
+        });
+    });
+    function divAturan(id_div) {
+        let divAturanValue = null;
+
+        return divAturanValue;
+    }
 });
 function showModalDivisi() {
     $("#modalDivisi").modal("show");

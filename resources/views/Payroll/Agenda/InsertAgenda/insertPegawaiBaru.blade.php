@@ -247,7 +247,7 @@
 
 
                     <div style="text-align: right; margin: 25px;">
-                        <button type="button" class="btn btn-primary">Proses</button>
+                        <button type="button" class="btn btn-primary" id="buttonProses">Proses</button>
                         <button type="button" class="btn btn-dark">Keluar</button>
                     </div>
                 </div>

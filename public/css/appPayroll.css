@@ -9859,9 +9859,15 @@ button[type="submit"] {
     text-align: left;
     margin-left: 20px;
 }
+.printme {
+	display: none;
+}
 @media print {
     /* Aturan CSS untuk tampilan cetak */
     .no-print {
         display: none;
     }
+    .printme  {
+		display: block;
+	}
 }
