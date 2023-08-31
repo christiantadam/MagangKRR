@@ -1,6 +1,6 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <div id="tropodo_order_acc" class="form" data-aos="fade-up">
+    <div id="order_acc" class="form" data-aos="fade-up">
         <table id="table_order" class="hover cell-border">
             <thead>
                 <tr>
@@ -8,14 +8,7 @@
                     <th>Id Order</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <h1 class="mt-3">Tabel masih kosong...</h1>
-                    </td>
-                    <td style="display: none"></td>
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div class="mt-4"></div>
@@ -28,21 +21,11 @@
                     <th>Sat Primer</th>
                     <th>Qty Sekunder</th>
                     <th>Sat Sekunder</th>
-                    <th>Qty Tertier</th>
-                    <th>Sat Tertier</th>
+                    <th>Qty Tritier</th>
+                    <th>Sat Tritier</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    @php $tableWidth = 7; @endphp
-                    <td colspan="{{ $tableWidth }}" class="text-center">
-                        <h1 class="mt-3">Tabel masih kosong...</h1>
-                    </td>
-                    @for ($i = 0; $i < $tableWidth - 1; $i++)
-                        <td class="hidden"></td>
-                    @endfor
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div class="float-end mt-3 mb-3">

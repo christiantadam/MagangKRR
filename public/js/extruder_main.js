@@ -1,9 +1,7 @@
 (function () {
     "use strict";
 
-    /**
-     * Animation on scroll
-     */
+    // Animation on scroll
     window.addEventListener("load", () => {
         AOS.init({
             duration: 1000,
@@ -47,13 +45,8 @@ $("#confirmation_modal").on("keydown", function (event) {
 function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
     btnConfirm.textContent = txtBtn;
     modalConfirmBody.innerHTML = txtBody;
-
-    btnConfirm.addEventListener("click", function () {
-        confirmFun();
-    });
-    btnCancel.addEventListener("click", function () {
-        cancelFun();
-    });
+    btnConfirm.addEventListener("click", () => confirmFun());
+    btnCancel.addEventListener("click", () => cancelFun());
 
     $("#confirmation_modal").modal("show");
 }
@@ -99,7 +92,9 @@ function addTable_DataTable(
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
             searchPlaceholder:
-                " Tabel " + tableId.replace("table_", "") + "...",
+                " Tabel " +
+                tableId.replace("table_", "").replace("_", " ") +
+                "...",
             search: "",
             info: "Menampilkan _TOTAL_ data",
         },
@@ -247,15 +242,10 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
         .then((data) => {
             console.log("urlString = " + urlString);
             if (data == 1) console.log("QUERY BERHASIL KAWAN!");
-
-            if (postAction != null) {
-                postAction();
-            }
+            if (postAction != null) postAction();
         })
         .catch((error) => {
-            if (catchAction != null) {
-                catchAction();
-            }
+            if (catchAction != null) catchAction();
 
             alert(
                 "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam.\n" +
@@ -280,9 +270,8 @@ function fetchSelect(
             if (data.length == 0) {
                 console.log("DATA KOSONG!");
 
-                if (selectOption != null) {
+                if (selectOption != null)
                     selectOption.textContent = "Data tidak ditemukan!";
-                }
             }
 
             console.log("Data yang terfetch:");
@@ -291,15 +280,14 @@ function fetchSelect(
             postAction(data);
         })
         .catch((error) => {
-            if (catchAction != null) {
-                catchAction();
-            }
+            if (catchAction != null) catchAction();
 
             if (selectOption != null) {
                 selectOption.textContent = "Terdapat kendala saat memuat data.";
             } else {
                 alert(
-                    "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam.\nERROR: " +
+                    "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam." +
+                        "\nERROR: " +
                         urlString
                 );
             }
@@ -316,8 +304,8 @@ function clearCheckedBoxes(checkboxes, checkedCheckbox) {
     });
 }
 
-function snakeCaseToTitleCase(input) {
-    return input
+function snakeCaseToTitleCase(inputStr) {
+    return inputStr
         .split("_")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
@@ -361,10 +349,10 @@ function getTimeDiff(startTime, endTime, type) {
     return timeDifference;
 }
 
-function dateTimeToDate(inputStr) {
-    return inputStr.substr(0, 10);
+function dateTimeToDate(dateTimeStr) {
+    return dateTimeStr.substr(0, 10);
 }
 
-function dateTimetoTime(inputStr) {
-    return inputStr.split(" ")[1].substr(0, 8);
+function dateTimetoTime(dateTimeStr) {
+    return dateTimeStr.split(" ")[1].substr(0, 8);
 }

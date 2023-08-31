@@ -1,10 +1,10 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <div id="tropodo_order_maintenance" class="form" data-aos="fade-up">
+    <div id="order_maintenance" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tanggal:</div>
             <div class="col-lg-2">
-                <input type="date" id="tanggal" class="form-control">
+                <input type="date" id="tanggal" class="form-control unclickable">
             </div>
         </div>
 
@@ -30,21 +30,11 @@
                     <th>Sat. Primer</th>
                     <th>Qty. Sekunder</th>
                     <th>Sat. Sekunder</th>
-                    <th>Qty. Tertier</th>
-                    <th>Sat. Tertier</th>
+                    <th>Qty. Tritier</th>
+                    <th>Sat. Tritier</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    @php $tableWidth = 7; @endphp
-                    <td colspan="{{ $tableWidth }}">
-                        <h1 class="mt-3 text-center">Tabel masih kosong...</h1>
-                    </td>
-                    @for ($i = 0; $i < $tableWidth - 1; $i++)
-                        <td class="hidden"></td>
-                    @endfor
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div class="card mt-4">
@@ -58,7 +48,8 @@
                             <option selected disabled>-- Pilih Type Benang --</option>
                             @foreach ($formData['listBenang'] as $d)
                                 <option value="{{ $d->SatPrimer . ',' . $d->SatSekunder . ',' . $d->SatTritier }}">
-                                    {{ $d->NamaType }}</option>
+                                    {{ $d->NamaType }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -68,8 +59,7 @@
                     <div class="col-lg-2"><span class="aligned-text">Primer:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">
-                            <input type="number" id="primer_qty" class="form-control detail_order" placeholder="0"
-                                disabled>
+                            <input type="number" id="primer_qty" class="form-control" placeholder="0" disabled>
                             <span id="primer_sat" class="input-group-text">NULL</span>
                         </div>
                     </div>
@@ -79,20 +69,18 @@
                     <div class="col-lg-2"><span class="aligned-text">Sekunder:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">
-                            <input type="number" id="sekunder_qty" class="form-control detail_order" placeholder="0"
-                                disabled>
+                            <input type="number" id="sekunder_qty" class="form-control" placeholder="0" disabled>
                             <span id="sekunder_sat" class="input-group-text">NULL</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-3 row">
-                    <div class="col-lg-2"><span class="aligned-text">Tersier:</span></div>
+                    <div class="col-lg-2"><span class="aligned-text">Tritier:</span></div>
                     <div class="col-lg-2">
                         <div class="input-group">
-                            <input type="number" id="tersier_qty" class="form-control detail_order" placeholder="0"
-                                disabled>
-                            <span id="tersier_sat" class="input-group-text">NULL</span>
+                            <input type="number" id="tritier_qty" class="form-control" placeholder="0" disabled>
+                            <span id="tritier_sat" class="input-group-text">NULL</span>
                         </div>
                     </div>
                     <div class="col-lg-8">

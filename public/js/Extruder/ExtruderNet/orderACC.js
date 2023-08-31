@@ -5,7 +5,6 @@ const btnKeluar = document.getElementById("btn_keluar");
 const listOrder = [];
 const listDetailOrder = [];
 
-const tableOrderWidth = 2;
 const tableDetailCol = [
     { width: "300px" },
     { width: "125px" },
@@ -24,39 +23,29 @@ var terpilih = -1;
 btnProses.addEventListener("click", function () {
     const checkedOrder = [];
     checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            checkedOrder.push(checkbox.id);
-        }
+        if (checkbox.checked) checkedOrder.push(checkbox.id);
     });
 
     checkedOrder.forEach((order) => {
-        fetchStmt("/Order/updAccOrder/" + order + "/tmpUser");
+        // SP_5298_EXT_ACC_ORDER
+        fetchStmt("/Order/updAccOrder/" + order + "/4384");
     });
 
-    alert("Order berhasil di-ACC!");
+    listDetailOrder.length = 0;
     clearTable_DataTable("table_detail_order", tableDetailCol.length);
+
+    alert("Order berhasil di-ACC!");
     showOrder();
 });
 
 btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/ExtruderNet";
 });
-
-btnProses.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowRight") {
-        btnKeluar.focus();
-    }
-});
-
-btnKeluar.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-        btnProses.focus();
-    }
-});
 //#endregion
 
 //#region Functions
 function showOrder() {
+    // SP_5298_EXT_ORDER_BLM_ACC
     fetchSelect("/Order/getOrderBlmAcc/EXT", (data) => {
         listOrder.length = 0;
         const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
@@ -95,6 +84,7 @@ function rowClicked(row, data, index) {
             "Memuat data..."
         );
 
+        // SP_5298_EXT_LIST_SPEK_ORDER_1
         fetchSelect("/Order/getListSpek/" + data.IDOrder, (dataFetch) => {
             listDetailOrder.length = 0;
             for (let i = 0; i < dataFetch.length; i++) {
@@ -129,14 +119,6 @@ function rowClicked(row, data, index) {
 }
 
 function init() {
-    if ($.fn.DataTable.isDataTable("#table_order")) {
-        $("#table_order").DataTable().destroy();
-    }
-
-    if ($.fn.DataTable.isDataTable("#table_detail_order")) {
-        $("#table_detail_order").DataTable().destroy();
-    }
-
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
@@ -146,7 +128,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel order...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
     });
 
@@ -158,9 +139,8 @@ function init() {
         columns: tableDetailCol,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
-            searchPlaceholder: " Tabel detail...",
+            searchPlaceholder: " Tabel detail order...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: () => {
@@ -173,10 +153,10 @@ function init() {
         },
     });
 
+    clearTable_DataTable("table_order", 2);
+    clearTable_DataTable("table_detail_order", tableDetailCol.length);
     showOrder();
 }
 //#endregion
 
-$(document).ready(() => {
-    init();
-});
+$(document).ready(() => init());

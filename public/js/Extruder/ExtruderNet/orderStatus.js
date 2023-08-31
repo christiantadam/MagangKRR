@@ -1,5 +1,6 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
+const listOfInput = document.querySelectorAll(".card .form-control");
 
 const txtSpek = document.getElementById("spek");
 const txtJmlhOrder = document.getElementById("jmlh_order");
@@ -12,11 +13,14 @@ const btnKeluar = document.getElementById("btn_keluar");
 const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
-const listOfInput = document.querySelectorAll(".card .form-control");
-
 const listOrder = [];
+/* ISI LIST ORDER
+    0 TanggalOrder
+    1 TypeBenang
+    2 JumlahTritier
+    3 JumlahProduksiTritier
+*/
 
-const tableOrderWidth = 4;
 const tableOrderCol = [
     { width: "225px" },
     { width: "500px" },
@@ -30,19 +34,19 @@ var terpilih = -1;
 //#region Events
 slcOrder.addEventListener("change", function () {
     if (this.value != "-- Pilih Nomor Order --") {
-        listOfInput.forEach((input) => {
-            input.value = "";
-        });
+        listOfInput.forEach((input) => (input.value = ""));
 
-        clearTable_DataTable("table_order", tableOrderWidth, "Memuat data...");
+        clearTable_DataTable(
+            "table_order",
+            tableOrderCol.length,
+            "Memuat data..."
+        );
 
         fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
             listOrder.length = 0;
-            var tglKu = "";
             for (let i = 0; i < data.length; i++) {
-                tglKu = data[i].TanggalOrder.split(" ")[0].split("-");
                 listOrder.push({
-                    TanggalOrder: `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`,
+                    TanggalOrder: dateTimeToDate(data[i].TanggalOrder),
                     TypeBenang: data[i].TypeBenang,
                     JumlahTritier: data[i].JumlahTritier,
                     JumlahProduksiTritier: data[i].JumlahProduksiTritier,
@@ -64,9 +68,7 @@ slcOrder.addEventListener("change", function () {
 });
 
 slcStatus.addEventListener("change", function () {
-    if (this.value != "-- Pilih Status --") {
-        txtKeterangan.focus();
-    }
+    if (this.value != "-- Pilih Status --") txtKeterangan.focus();
 });
 
 txtKeterangan.addEventListener("keypress", function (event) {
@@ -84,6 +86,7 @@ btnProses.addEventListener("click", function () {
         alert("Keterangan masih belum terisi!");
         txtKeterangan.focus();
     } else {
+        // SP_5298_EXT_STATUS_ORDER
         fetchStmt(
             "/Order/updStatusOrder/" +
                 slcOrder.value +
@@ -93,16 +96,20 @@ btnProses.addEventListener("click", function () {
                 toSnakeCase(txtKeterangan.value)
         );
 
+        listOrder.length = 0;
+        clearTable_DataTable("table_order", tableOrderCol.length);
+
         btnProses.disabled = true;
         clearData();
 
-        const optionKeys = {
-            valueKey: "IdOrder",
-            textKey: "Identifikasi",
-        };
-
-        clearOptions(slcOrder);
+        // SP_5298_EXT_LIST_BATAL_ORDER
         fetchSelect("/Order/getListBatalOrd/EXT", (data) => {
+            const optionKeys = {
+                valueKey: "IdOrder",
+                textKey: "Identifikasi",
+            };
+
+            clearOptions(slcOrder);
             addOptions(slcOrder, data, optionKeys);
         });
 
@@ -115,15 +122,11 @@ btnKeluar.addEventListener("click", function () {
 });
 
 btnProses.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowRight") {
-        btnKeluar.focus();
-    }
+    if (event.key === "ArrowRight") btnKeluar.focus();
 });
 
 btnKeluar.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-        btnProses.focus();
-    }
+    if (event.key === "ArrowLeft") btnProses.focus();
 });
 //#endregion
 
@@ -131,24 +134,23 @@ btnKeluar.addEventListener("keydown", function (event) {
 function clearData() {
     slcOrder.selectedIndex = 0;
     slcStatus.selectedIndex = 0;
-    txtSpek.value = "";
-    txtJmlhOrder.value = "";
-    txtJmlhProd.value = "";
-    txtKeterangan.value = "";
+    listOfInput.forEach((input) => (input.value = ""));
 }
 
 function rowClicked(row, data, index) {
     if (terpilih == index) {
         row.style.background = "white";
         terpilih = -1;
+
+        listOfInput.forEach((input) => {
+            if (input.id != "keterangan") input.value = "";
+        });
     } else {
         clearSelection_DataTable("table_order");
         row.style.background = "aliceblue";
         terpilih = index;
 
-        let tglKu = data.TanggalOrder.split("-");
-        dateInput.value = `${tglKu[2]}-${tglKu[1]}-${tglKu[0]}`;
-
+        dateInput.value = data.TanggalOrder;
         txtSpek.value = data.TypeBenang;
         txtJmlhOrder.value = data.JumlahTritier;
         txtJmlhProd.value = data.JumlahProduksiTritier;
@@ -156,10 +158,6 @@ function rowClicked(row, data, index) {
 }
 
 function init() {
-    if ($.fn.DataTable.isDataTable("#table_order")) {
-        $("#table_order").DataTable().destroy();
-    }
-
     $("#table_order").DataTable({
         responsive: true,
         paging: false,
@@ -170,7 +168,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel order...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: function () {
@@ -183,10 +180,9 @@ function init() {
         },
     });
 
+    clearTable_DataTable("table_order", tableOrderCol.length);
     slcOrder.focus();
 }
 //#endregion
 
-$(document).ready(() => {
-    init();
-});
+$(document).ready(() => init());

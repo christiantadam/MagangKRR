@@ -55,7 +55,7 @@ Route::get('/ExtruderNet/getBarang/{kode}/{kode_barang}/{id_komposisi}/{id_kelom
 Route::get('/Order/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
 Route::get('/Order/getNoOrder/{kode?}', [OrderController::class, 'getNoOrder']);
 Route::get('/Order/insOrderBenang/{tanggal}/{identifikasi?}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
-Route::get('/Order/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tersier}/{prod_primer}/{prod_sekunder}/{prod_tersier}', [OrderController::class, 'insOrderDetail']);
+Route::get('/Order/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tritier}/{prod_primer}/{prod_sekunder}/{prod_tritier}', [OrderController::class, 'insOrderDetail']);
 Route::get('/Order/updCounterOrder/{id_divisi}', [OrderController::class, 'updCounterOrder']);
 
 Route::get('/Order/getOrderBlmAcc/{divisi}', [OrderController::class, 'getOrderBlmAcc']);

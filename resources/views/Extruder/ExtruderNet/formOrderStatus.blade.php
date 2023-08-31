@@ -1,6 +1,6 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <div id="tropodo_order_status" class="form" data-aos="fade-up">
+    <div id="order_status" class="form" data-aos="fade-up">
         <div class="form-group mt-3 row">
             <div class="col-lg-2"><span class="aligned-text">No. Order:</span></div>
             <div class="col-lg-9">
@@ -73,16 +73,7 @@
                     <th>Jumlah Konversi</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td colspan="4" class="text-center">
-                        <h1 class="mt-3">Tabel masih kosong...</h1>
-                    </td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                    <td style="display: none"></td>
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div class="float-end mt-3 mb-3">

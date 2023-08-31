@@ -72,11 +72,11 @@ class OrderController extends Controller
         );
     }
 
-    public function insOrderDetail($id_order, $type_benang, $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier)
+    public function insOrderDetail($id_order, $type_benang, $jmlh_primer, $jmlh_sekunder, $jmlh_tritier, $prod_primer, $prod_sekunder, $prod_tritier)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_ORDERDETAIL_BENANG @idorder = ?, @typebenang = ?, @jumlahprimer = ?, @jumlahsekunder = ?, @jumlahtritier = ?, @jumprodprimer = ?, @jumprodsekunder = ?, @jumprodtritier = ?',
-            [$id_order, strtoupper(str_replace('_', ' ', $type_benang)), $jmlh_primer, $jmlh_sekunder, $jmlh_tersier, $prod_primer, $prod_sekunder, $prod_tersier]
+            [$id_order, strtoupper(str_replace('_', ' ', $type_benang)), $jmlh_primer, $jmlh_sekunder, $jmlh_tritier, $prod_primer, $prod_sekunder, $prod_tritier]
         );
     }
 
