@@ -48,6 +48,28 @@ class BKMDPPelunasanController extends Controller
         return response()->json($idBKM);
     }
 
+    function getUraianEnterBKK($id, $tanggal)
+    {
+        $idBank = $id;
+        $tanggal = $tanggal;
+        $jenis = 'P';
+
+        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+            $jenis,
+            $tanggal,
+            $idBank,
+            null
+            // Pass by reference for output parameter
+        ]);
+
+        $tahun = substr($tanggal, -10, 4);
+        $x = DB::connection('ConnAccounting')->table('T_COUNTER_BKK')->where('Periode', '=', $tahun)->first();
+        $nomorIdBKK = '00000' . str_pad($x->Id_BKK_E_Rp, 5, '0', STR_PAD_LEFT);
+        $idBKK = $idBank . '-P' . substr($tahun, -2) . substr($nomorIdBKK, -5);
+
+        return response()->json($idBKK);
+    }
+
     public function getTabelTampilBKM($tanggalTampilBKM, $tanggalTampilBKM2)
     {
         // dd("masuk");

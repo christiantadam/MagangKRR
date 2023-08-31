@@ -13,15 +13,17 @@
                                 <!-- Form fields go here -->
                                 <div>
                                     <b>Data Nota Kredit</b>
-                                    <div style="overflow-y: auto; max-height: 400px;">
-                                        <table style="width: 110%; table-layout: fixed;">
+                                    <div style="overflow-y: auto; max-height: 400px; overflow-x: auto">
+                                        <table style="width: 160%; table-layout: fixed;" id="tabelNotaKredit">
                                             <colgroup>
                                                 <col style="width: 25%;">
-                                                <col style="width: 10%;">
+                                                <col style="width: 25%;">
                                                 <col style="width: 15%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 10%;">
+                                                <col style="width: 15%;">
+                                                <col style="width: 15%;">
                                                 <col style="width: 20%;">
+                                                <col style="width: 15%;">
+                                                <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                             </colgroup>
                                             <thead class="table-dark">
@@ -33,19 +35,11 @@
                                                     <th>Jenis Nota Kredit</th>
                                                     <th>Jumlah Uang</th>
                                                     <th>Mata Uang</th>
+                                                    <th>Id. Mata Uang</th>
+                                                    <th>Id. Customer</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 5</td>
-                                                    <td>Data 6</td>
-                                                    <td>Data 7</td>
-                                                </tr>
-                                                <!-- Tambahkan baris lainnya jika diperlukan -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -59,76 +53,78 @@
                                                     <label for="tanggal" style="margin-right: 10px;">Tanggal</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="date" id="tanggal" class="form-control" style="width: 100%">
+                                                    <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="idBKK" style="margin-right: 10px;">Id. BKM</label>
+                                                    <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="idBKK" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
+                                                    <label for="mataUangBKMSelect" style="margin-right: 10px;">Mata Uang</label>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <input type="number" id="mataUang" name="muSelect" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <select name="muSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value="MataUang 1">MU1</option>
-                                                        <option value="MataUang 2">MU2</option>
+                                                <div class="col-md-4">
+                                                    <select id="mataUangBKMSelect" name="mataUangBKMSelect" class="form-control">
+
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="mataUang" style="margin-right: 10px;">Kurs Rupiah</label>
+                                                    <label for="kursRupiah" style="margin-right: 10px;">Kurs Rupiah</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="mataUang" name="muSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <input type="text" name="idMataUangBKM" id="idMataUangBKM" class="form-control" style="width: 100%">
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="jumlahUangBKM" style="margin-right: 10px;">Jumlah Uang</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="number" id="jumlahUangBKM" name="jumlahUangBKM" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
+                                                    <label for="namaBankBKMSelect" style="margin-right: 10px;">Bank</label>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
-                                                </div>
-                                            </div>
-                                            <div class="d-flex">
-                                                <div class="col-md-3">
-                                                    <label for="bank" style="margin-right: 10px;">Bank</label>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" id="bank" name="bankSelect" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <select name="bankSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
-                                                        <option value="Bank 1">Bank1</option>
-                                                        <option value="Bank 2">Bank2</option>
+                                                <div class="col-md-5">
+                                                    <select id="namaBankBKMSelect" name="namaBankBKMSelect" class="form-control">
+
                                                     </select>
+                                                </div>
+                                                <!--HIDDEN INPUT-->
+                                                <div class="col-md-4">
+                                                    <input type="text" id="idBankBKM" name="idBankBKM" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="jenisBankBKM" name="jenisBankBKM" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
+                                                <div class="col-md-3">
+                                                    <input type="number" id="idKodePerkiraanBKM" name="idKodePerkiraanBKM" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <select name="kodePerkiraanSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
-                                                        <option value="Kd 1">Kode1</option>
-                                                        <option value="Kd 2">Kode2</option>
+                                                    <select id="kodePerkiraanSelectBKM" name="kodePerkiraanSelectBKM" class="form-control">
+
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="uraian" style="margin-right: 10px;">Uraian</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" id="uraianBKM" name="uraianBKM" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                         </div>
@@ -138,60 +134,61 @@
                                             <b>BKK</b>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="idBKM" style="margin-right: 10px;">Id. BKK</label>
+                                                    <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="idBKM" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
+                                                    <label for="jumlahUangBKK" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jumlahUangBKK" name="jumlahUangBKK" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="bank" style="margin-right: 10px;">Bank</label>
+                                                    <label for="namaBankBKKSelect" style="margin-right: 10px;">Bank</label>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <input type="number" id="bank" name="bankSelect" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <select name="bankSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value=""></option>
-                                                        <option value="Bank 1">Bank1</option>
-                                                        <option value="Bank 2">Bank2</option>
+                                                <div class="col-md-5">
+                                                    <select id="namaBankBKKSelect" name="namaBankBKKSelect" class="form-control" disabled>
+
                                                     </select>
                                                 </div>
+                                                <input type="text" id="idBankBKK" name="idBankBKK" class="form-control" style="width: 100%">
+                                                <input type="text" id="jenisBankBKK" name="jenisBankBKK" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <input type="number" id="kodePerkiraan" name="kodePerkiraanSelect" class="form-control" style="width: 100%">
+                                                    <input type="number" id="idKodePerkiraanBKK" name="idKodePerkiraanBKK" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <select name="kodePerkiraanSelect" class="form-control" onchange="fillColumns()">
-                                                        <option value="Kode 1">Kd1</option>
-                                                        <option value="Kode 2">Kd2</option>
+                                                    <select id="kodePerkiraanBKKSelect" name="kodePerkiraanBKKSelect" class="form-control" disabled>
+
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="col-md-3">
+                                                    <label for="uraianBKK" style="margin-right: 10px;">Uraian</label>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <input type="text" id="uraianBKK" name="uraianBKK" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!--CARD 2-->
+                                    <!--CARD 3 KANAN-->
                                     <div style="width: 40%;">
                                         <div class="card-body">
                                             <div style="display: flex; justify-content: center;">
-                                                <input type="submit" name="pilihnotakredit" value="Pilih Nota Kredit" class="btn btn-primary d-flex ml-auto">
+                                                <input type="submit" id="btnPilihNotaKredit" name="btnPilihNotaKredit" value="Pilih Nota Kredit" class="btn btn-primary d-flex ml-auto">
                                             </div>
                                             <div class="row" style="display: flex; justify-content: center; margin-top: 150px">
                                                 <div style="margin-right: 10px;">
@@ -227,4 +224,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/BKMBKKNotaKredit.js') }}"></script>
 @endsection

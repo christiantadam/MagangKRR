@@ -305,7 +305,7 @@ jumlahUang.addEventListener("keypress", function (event) {
         } else {
             let total = 0;
             console.log(idMtUang);
-            if (idMataUang.value == 1 && idMtUang == 3) {
+            if (idMataUang.value == 1 && idMtUang == 2) {
                 console.log('masuk');
                 let nilaipelunasan = parseFloat(kursRupiah.value) * parseFloat(jumlahUang.value);
                 let saldorp = parseFloat(kursRupiah.value) * saldo;
@@ -315,6 +315,19 @@ jumlahUang.addEventListener("keypress", function (event) {
                 console.log(nilaipelunasan, saldorp);
 
                 if (nilaipelunasan > saldorp) {
+                    alert('Jumlah Uang TIDAK BOLEH lebih besar dari Saldo Pelunasan!');
+                    jumlahUang.focus();
+                }
+            } else if (idMataUang.value == 2 && idMtUang == 1) {
+                console.log('masuk');
+                let nilaipelunasan = parseFloat(kursRupiah.value) * parseFloat(jumlahUang.value);
+                let saldodollar = saldo / parseFloat(kursRupiah.value);
+
+                jumlahUang.value = nilaipelunasan.toFixed(2);
+
+                console.log(nilaipelunasan, saldodollar);
+
+                if (nilaipelunasan > saldodollar) {
                     alert('Jumlah Uang TIDAK BOLEH lebih besar dari Saldo Pelunasan!');
                     jumlahUang.focus();
                 }
@@ -339,7 +352,7 @@ uraian.addEventListener("keypress", function (event) {
             idBankBKK = idBankBKK.value;
         }
 
-        fetch("/getidbkk/" + idBankBKK.value + "/" + tanggal.value)
+        fetch("/getidbkmBKKDP/" + idBankBKK.value + "/" + tanggal.value)
             .then((response) => response.json())
             .then((options) => {
                 console.log(options);
@@ -654,7 +667,7 @@ btnBatal.addEventListener('click', function(event) {
 
 btnKoreksi.addEventListener('click', function(event) {
     event.preventDefault();
-    if (idBKKValue != "") {
+    if (idBKK.value != "") {
         tanggal.disabled = false;
         idBKK.disabled = false;
         mataUangSelect.disabled = false;
