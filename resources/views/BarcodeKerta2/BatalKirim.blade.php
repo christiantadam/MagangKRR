@@ -15,7 +15,7 @@
                             <th>Kelompok </th>
                             <th>Kode Barang</th>
                             <th>NoIndex </th>
-                            <th>Primal</th>
+                            <th>Primer</th>
                             <th>Sekunder</th>
                             <th>Tertier</th>
                             <th>Tanggal</th>

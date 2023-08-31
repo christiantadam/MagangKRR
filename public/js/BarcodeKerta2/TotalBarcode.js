@@ -5,10 +5,17 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#TableType').DataTable({
-        order: [
-            [0, 'desc']
-        ],
+    $(document).ready(function() {
+        var table = $('#TableType').DataTable({
+            order: [
+                [0, 'desc']
+            ],
+        }); // Initialize DataTable
+
+        var rowCount = table.rows().count();
+        $('#total').val(rowCount);
+
+        console.log("Number of rows:", rowCount);
     });
 
     var ButtonProcess = document.getElementById('ButtonProcess')

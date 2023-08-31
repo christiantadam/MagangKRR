@@ -2,7 +2,6 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/HanguskanBarcode2.js') }}"></script>
 
-
     <body onload="Greeting()">
         <div id="app">
             <div class="form-wrapper mt-4">
@@ -71,6 +70,7 @@
                                                     <th>Jumlah Sekunder </th>
                                                     <th>Jumlah Tritier </th>
                                                     <th>Tanggal </th>
+                                                    <th>IdType </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -79,6 +79,8 @@
                                         </table>
                                     </div>
                             </div>
+
+                            <div id="form-container"></div>
 
                             <div class="card mt-4">
                                 <div class="card-header">Type</div>
@@ -138,8 +140,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center col-md-auto"><button type="button"
-                                        style="width: 100px; margin-top: 8px">Proses</button></div>
+                                <div class="text-center col-md-auto">
+                                    <button type="button" style="width: 100px; margin-top: 8px" id="btnProses"
+                                        onclick="prosesData()">Proses</button>
+                                </div>
                                 <div class="text-center col-md-auto"><button type="button"
                                         style="width: 100px; margin-top: 8px">Tutup</button></div>
                             </div>

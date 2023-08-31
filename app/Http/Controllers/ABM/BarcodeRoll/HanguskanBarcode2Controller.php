@@ -12,12 +12,12 @@ class HanguskanBarcode2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U010", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
         $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
         // $dataDivisi3 = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status=?, @idobjek=?', ["1", "MST"]);
         // dd($dataDivisi3);
 
-        return view('BarcodeRollWoven.HanguskanBarcode2', compact('dataDivisi', 'dataDivisi2'));
+        return view('BarcodeKerta2.HanguskanBarcode', compact('dataDivisi', 'dataDivisi2'));
     }
 
     //Show the form for creating a new resource.
@@ -39,7 +39,7 @@ class HanguskanBarcode2Controller extends Controller
 
         //getDivisi
         if ($crExplode[1] == "txtIdDivisi") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', [ "1", $crExplode[0] ]);
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', ["1", $crExplode[0]]);
             // dd($dataKelut);
             // Return the options as JSON data
             return response()->json($dataType);
@@ -55,12 +55,16 @@ class HanguskanBarcode2Controller extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
-    }
+        $data = $request->all();
+        // dd($data);
+        // kodeUpd: "simpanPegawai",
 
-    //Remove the specified resource from storage.
-    public function destroy($id)
-    {
-        //
+        DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+            $data['kodebarang'],
+            $data['noindeks'],
+            'U001'
+
+        ]);
+        return redirect()->route('HanguskanBarcode.index')->with('alert', 'Data Updated successfully!');
     }
 }
