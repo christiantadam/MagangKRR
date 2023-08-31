@@ -133,7 +133,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">ACC Direktur</a>
                 </li>
-                <li><a href="/PenerimaOrderKerja" class="test"
+                <li><a href="{{ url('PenerimaOrderKerja') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Penerima Order Kerja</a>
                 </li>
