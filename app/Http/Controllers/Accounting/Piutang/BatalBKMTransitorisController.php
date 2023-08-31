@@ -72,15 +72,16 @@ class BatalBKMTransitorisController extends Controller
     }
 
     //Remove the specified resource from storage.
-    public function destroy($idBKM)
+    public function hapus($idBKMSelect, $alasan)
     {
+        //dd("masuk");
         DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_BATAL_BKM]
         @BKM = ?,
         @Alasan = ?,
         @User = ?', [
-            3,
-            $idBKM,
-            1
+            $idBKMSelect,
+            $alasan,
+            null
         ]);
         return redirect()->back()->with('success', 'Data sudah diHAPUS');
     }

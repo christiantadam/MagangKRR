@@ -12,6 +12,8 @@ let tanggalTampilBKM = document.getElementById('tanggalTampilBKM');
 let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
 let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
 
+let idPembayaran = document.getElementById('idPembayaran');
+
 //CARD BKK
 let tanggal = document.getElementById('tanggal');
 let idBKK = document.getElementById('idBKK');
@@ -478,7 +480,15 @@ btnProses.addEventListener('click', function(event) {
     else {
         console.log("Tidak Ada Yg diPROSES!");
     }
-    formkoreksi.submit();
+    fetch("/getIdPembayaran/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            idPembayaran.value = options.id_pembayaran;
+
+            formkoreksi.submit();
+    });
+    //formkoreksi.submit();
 })
 
 //#region untuk koversi jumlah uang

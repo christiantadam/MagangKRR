@@ -90,7 +90,7 @@ idBKMSelect.addEventListener('change', function(event) {
 btnProses.addEventListener('click', function(event) {
     event.preventDefault();
     methodkoreksi.value="DELETE";
-    formkoreksi.action = "/BatalBKMTransitoris/" + idBKMSelect.value;
+    formkoreksi.action = "/deletedata/" + idBKMSelect.value + "/" +alasan.value;
     formkoreksi.submit();
 })
 

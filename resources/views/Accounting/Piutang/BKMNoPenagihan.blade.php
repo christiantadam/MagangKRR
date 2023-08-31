@@ -165,13 +165,13 @@
                                         <div class="col-2" style="padding-left: 15px">
                                             <input type="submit" name="btnTambahData" id="btnTambahData" value="Tambah Data" class="btn btn-primary" disabled>
                                         </div>
-                                        <div class="col-7" style="padding-left: 15px">
+                                        <div class="col-6" style="padding-left: 15px">
                                             <input type="submit" name="btnProses" id="btnProses" value="PROSES" class="btn btn-primary">
                                         </div>
                                         <div class="col-1" style="padding-left: 15px">
                                             <input type="submit" name="btnBatal" id="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto">
                                         </div>
-                                        <div class="col-1" style="padding-left: 15px">
+                                        <div class="col-2" style="padding-left: 15px">
                                             <input type="submit" name="btnKoreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-1">

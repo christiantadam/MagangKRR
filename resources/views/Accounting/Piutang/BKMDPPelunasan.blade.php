@@ -85,6 +85,7 @@
                                                     <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                             </div>
+                                            <input type="text" name="idPembayaran" id="idPembayaran">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
@@ -133,7 +134,7 @@
                                                     <input type="text" id="idBankBKK" name="idBankBKK" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="jenisBankBKK" class="form-control" style="width: 100%">
+                                                    <input type="text" id="jenisBankBKK" name="jenisBankBKK" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -154,7 +155,7 @@
                                                     <label for="uraian" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="text" id="uraian" class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -385,6 +386,7 @@
                                                 </table>
                                             </div>
                                             <input type="hidden" name="cetak" id="cetak" value="cetakBKK">
+
                                         </form>
                                     </div>
                                 </div>
