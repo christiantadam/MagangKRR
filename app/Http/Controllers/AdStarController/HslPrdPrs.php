@@ -31,6 +31,18 @@ class HslPrdPrs extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            // Add validation rules for each input field
+        ]);
+
+        // Create a new record in the database using the validated data
+        $result = DB::table('SP_1486_ADSTAR_LIST_HASIL_PRODUKSI')->insert($validatedData);
+
+        if ($result) {
+            return redirect()->back()->with('success', 'Data saved successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to save data.');
+        }
     }
 
     //Display the specified resource.
@@ -42,7 +54,7 @@ class HslPrdPrs extends Controller
         if ($crExplode[1] == "dataTransaksi") {
             $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @tanggal= ?', [1, $crExplode[0]]);
             // dd($dataObjek);
-            // Return the options as JSON data
+            // Return the options as JSON data a
             return response()->json($dataTransaksi);
 
             // dd($crExplode);

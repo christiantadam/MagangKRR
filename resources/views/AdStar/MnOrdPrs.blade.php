@@ -15,8 +15,8 @@
                 <div class="col-lg-2 aligned-text">Customer:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" id='idcust' class="form-control" placeholder="" aria-label="">
-                        <input type="text" id='namacust' class="form-control" placeholder="" aria-label="">
+                        <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                        <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
                             ...
                         </button>

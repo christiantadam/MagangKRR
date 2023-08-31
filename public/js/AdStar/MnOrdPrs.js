@@ -5,7 +5,7 @@ $('#tbl_customer tbody').on('click', 'tr', function() {
     var namacust = $(this).data('namacust');
     // var idbrng = $(this).data('idbrng');
 
-    // Populate the form fields with the data
+    // Populate the form fields with the data.
     $('#idcust').val(idcust);
     $('#namacust').val(namacust);
 });
