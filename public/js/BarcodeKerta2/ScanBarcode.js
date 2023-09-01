@@ -17,11 +17,32 @@ $(document).ready(function () {
         ],
     });
 
-    $('#TableType').DataTable({
+    var counter1 = 1; // Initialize the counter for TableType1
+    var counter2 = 1; // Initialize the counter for TableType2
+
+    var tableType = $('#TableType').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+        select: {
+            style: "single",
+        },
+    });
+
+    var tableType1 = $('#TableType1').DataTable({
         order: [
             [0, 'desc']
         ],
     });
+
+    // Initialize DataTable for TableType2
+    var tableType2 = $('#TableType2').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+
 
     $('#TableDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
@@ -36,9 +57,48 @@ $(document).ready(function () {
         closeModal();
     });
 
+    // $('#TableObjek tbody').on('click', 'tr', function () {
+    //     // Get the data from the clicked row
+
+    //     var rowData = $('#TableObjek').DataTable().row(this).data();
+
+    //     // Populate the input fields with the data
+    //     $('#IdObjek').val(rowData[0]);
+    //     $('#NamaObjek').val(rowData[1]);
+
+    //     var txtIdObjek = document.getElementById('IdObjek');
+    //     fetch("/ABM/ScanBarcode/" + txtIdObjek.value + ".txtIdObjek")
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error("Network response was not ok");
+    //             }
+    //             return response.json(); // Assuming the response is in JSON format
+    //         })
+    //         .then((data) => {
+    //             // Handle the data retrieved from the server (data should be an object or an array)
+    //             console.log(data);
+    //             // Clear the existing table rows
+    //             $("#TableType").DataTable().clear().draw();
+
+    //             // Loop through the data and create table rows
+    //             data.forEach((item) => {
+    //                 var row = [item.IdTransaksi, item.NamaKelompokUtama, item.NamaKelompok, item.NamaSubKelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, item.SaatAwalTransaksi];
+    //                 $("#TableType").DataTable().row.add(row);
+    //             });
+
+    //             // Redraw the table to show the changes
+    //             $("#TableType").DataTable().draw();
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+
+    //     // Hide the modal immediately after populating the data
+    //     closeModal1();
+    // });
+
     $('#TableObjek tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
-
         var rowData = $('#TableObjek').DataTable().row(this).data();
 
         // Populate the input fields with the data
@@ -56,17 +116,35 @@ $(document).ready(function () {
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
                 console.log(data);
-                // Clear the existing table rows
+
+                // Clear the existing table rows in TableType1 and TableType2
                 $("#TableType").DataTable().clear().draw();
 
-                // Loop through the data and create table rows
+
+                // Loop through the data and create table rows in both TableType1 and TableType2
                 data.forEach((item) => {
-                    var row = [item.IdTransaksi, item.NamaKelompokUtama, item.NamaKelompok, item.NamaSubKelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, item.SaatAwalTransaksi];
+                    var row = [
+                        item.IdTransaksi,
+                        item.NamaKelompokUtama,
+                        item.NamaKelompok,
+                        item.NamaSubKelompok,
+                        item.NamaType,
+                        item.UraianDetailTransaksi,
+                        item.NamaUser,
+                        item.JumlahPengeluaranPrimer,
+                        item.JumlahPengeluaranSekunder,
+                        item.JumlahPengeluaranTritier,
+                        item.SaatAwalTransaksi
+                    ];
+
+                    // Add the row to both TableType1 and TableType2
                     $("#TableType").DataTable().row.add(row);
+
                 });
 
-                // Redraw the table to show the changes
+                // Redraw both tables to show the changes
                 $("#TableType").DataTable().draw();
+
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -74,6 +152,28 @@ $(document).ready(function () {
 
         // Hide the modal immediately after populating the data
         closeModal1();
+    });
+
+    $('#TableType tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row in TableType
+        var rowData = tableType.row(this).data();
+
+        if (rowData) { // Check if rowData is not null
+            // Extract specific columns
+            var idTransaksi = rowData[0];
+            var kodeBarang = rowData[2];
+            var namaType = rowData[4];
+            var jumlahPrimer = rowData[7];
+            var jumlahSekunder = rowData[8];
+            var jumlahTritier = rowData[9];
+
+            // Add the extracted data to TableType1 and TableType2 with incrementing "No."
+            tableType1.row.add([counter1++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+            tableType2.row.add([counter2++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+
+            // Increment the counter
+            counter++;
+        }
     });
 
     var ButtonDivisi = document.getElementById('ButtonDivisi')
@@ -140,3 +240,12 @@ function closeModal1() {
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
 
+function openModal2() {
+    var modal = document.getElementById('myModal2');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal2() {
+    var modal = document.getElementById('myModal2');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}

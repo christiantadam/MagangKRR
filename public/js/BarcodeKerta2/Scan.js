@@ -17,6 +17,7 @@ $(document).ready(function () {
         ],
     });
 
+
     // fetch("/ABM/Scan/" + txtIdObjek.value + ".txtIdObjek")
     //     .then((response) => {
     //         if (!response.ok) {
@@ -32,7 +33,7 @@ $(document).ready(function () {
 
     //         // Loop through the data and create table rows
     //         data.forEach((item) => {
-    //             var row = [item.IdTransaksi, item.NamaKelompokUtama, item.NamaKelompok, item.NamaSubKelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, item.SaatAwalTransaksi];
+    //             var row = [item.IdTransaksi, item.NamaKelompok, item.NamaType, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier];
     //             $("#TableType").DataTable().row.add(row);
     //         });
 

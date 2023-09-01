@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeKerta2/ScanBarcode.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/ScanBarcode.js') }}"></script>
 
     <body onload="Greeting()">
         <style>
@@ -27,6 +27,10 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 border-radius: 5px;
                 width: 700px;
+                max-height: 500px;
+                /* Atur tinggi maksimum modal di sini */
+                overflow: auto;
+                /* Aktifkan overflow untuk mengaktifkan scrollbar jika konten meluas */
             }
 
             .close-btn {
@@ -95,12 +99,12 @@
                                                     <span class="aligned-text">Objek:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="IdObjek"
-                                                        id="IdObjek" placeholder="ID Objek" readonly>
+                                                    <input type="text" class="form-control" name="IdObjek" id="IdObjek"
+                                                        placeholder="ID Objek" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="NamaObjek" id="NamaObjek"
-                                                        placeholder="Objek" readonly>
+                                                    <input type="text" class="form-control" name="NamaObjek"
+                                                        id="NamaObjek" placeholder="Objek" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal1()" id="ButtonObjek">...</button></div>
                                                     <div class="modal" id="myModal1">
@@ -148,16 +152,82 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="row mt-3 ">
+                                            <div class="row mt-3">
                                                 <div class="col- row justify-content-md-center">
-                                                    <a href="{{ url('ABM/Scan') }}">
-                                                        <button type="button" style="width: 150px">Scan Barcode</button>
-                                                    </a>
                                                     <div class="text-center col-md-auto"><button type="button"
-                                                            style="width: 150px; margin-left: 15px" id="ButtonRefresh">Refresh</button></div>
+                                                            style="width: 150px; margin-right: -10px" onclick="openModal2()"
+                                                            id="ButtonDivisi">Scan Barcode</button></div>
+                                                    <div class="modal" id="myModal2">
+                                                        <div class="modal-content" style="width: 1500px">
+                                                            <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                            <h2>Scan Barcode</h2>
+                                                            <p>Scan</p>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-2 d-flex justify-content-end">
+                                                                    <span class="aligned-text">Item Number / Kode
+                                                                        Barang:</span>
+                                                                </div>
+                                                                <div class="form-group col-md-7 mt-3 mt-md-0 ml-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="barcode" placeholder="Barcode">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card">
+                                                                <div class="card-header">Barcode Yang Dikirim Ke Gudang
+                                                                </div>
+                                                                <table id="TableType1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No. </th>
+                                                                            <th>Id Transaksi </th>
+                                                                            <th>Kode Barang </th>
+                                                                            <th>Nama Type </th>
+                                                                            <th>Jumlah Primier </th>
+                                                                            <th>Jumlah Sekunder </th>
+                                                                            <th>Jumlah Tritier </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+
+                                                            <div class="card mt-4">
+                                                                <div class="card-header">Barcode Yang Di Scan</div>
+                                                                <table id="TableType2">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No. </th>
+                                                                            <th>Id Transaksi </th>
+                                                                            <th>Kode Barang </th>
+                                                                            <th>Nama Type </th>
+                                                                            <th>Jumlah Primier </th>
+                                                                            <th>Jumlah Sekunder </th>
+                                                                            <th>Jumlah Tritier </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                            <div class="text-center col-md-auto mt-3">
+                                                                <button type="button"
+                                                                    onclick="closeModal2()">Process</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px; margin-left: 15px"
+                                                            id="ButtonRefresh">Refresh</button></div>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             style="width: 150px">Keluar</button></div>
-                                                    <input class="form-group col-md-2 ml-5" name="type" rows="blank">
+                                                    <input class="form-group col-md-2 ml-5" name="type"
+                                                        rows="blank">
                                                 </div>
                                             </div>
                                     </div>
