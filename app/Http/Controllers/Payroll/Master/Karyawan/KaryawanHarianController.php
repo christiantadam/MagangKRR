@@ -36,7 +36,7 @@ class KaryawanHarianController extends Controller
     {
         $data = $request->all();
         // dd($data , " Masuk store bosq");
-        $result = DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_PEGAWAI  @id_div = ? , @kd_peg = ? , @nama_peg = ? , @no_induk = ? ,
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_PEGAWAI  @id_div = ? , @kd_peg = ? , @nama_peg = ? , @no_induk = ? ,
         @no_kartu = ? , @jenis_peg = ? , @alamat = ? , @kota = ? , @tmp_lahir = ? , @tgl_lahir = ? , @jns_kelamin = ? , @agama = ? , @kawin = ? ,
         @tgl_masuk = ? , @tgl_masuk_awal = ? , @jabatan = ? , @golongan = ? , @no_astek = ? , @no_rbh = ? , @no_koperasi = ? , @tgl_agt_kop = ? , @gaji_pokok = ? ,
         @u_golongan = ? , @t_jabatan = ? , @u_jenjang = ? , @Tinggi_Badan = ? , @berat_Badan = ? , @pendidikan = ? , @Shift = ? , @pos = ? , @TglAwalKontrak = ? ,
@@ -78,8 +78,8 @@ class KaryawanHarianController extends Controller
             $data['No_rek'],
             $data['NIK'],
         ]);
-        // return redirect()->route('KaryawanHarian.index')->with('alert', 'Data berhasil ditambahkan!');
-        return $result;
+        return redirect()->route('KaryawanHarian.index')->with('alert', 'Data berhasil ditambahkan!');
+        // return $result;
     }
 
     //Display the specified resource.

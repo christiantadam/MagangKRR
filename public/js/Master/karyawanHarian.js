@@ -239,8 +239,8 @@ $(document).ready(function () {
             return value.trim() === "" ? null : value;
         }
         let csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
         const id_div = document.getElementById("Id_Div").value;
         const kd_peg = document.getElementById("Id_Peg").value;
         const nama_peg = document.getElementById("Nama_Peg").value;
@@ -373,17 +373,15 @@ $(document).ready(function () {
                 // form.submit();
             });
         }
-        if (isComplete) {
-            // Call the submitForm function to initiate the form submission
-            submitForm()
-                .then(() => console.log("Form submitted successfully!"))
-                .catch((error) =>
-                    console.error("Form submission error:", error)
-                );
-        } else {
-            // Ada input yang belum terisi, tampilkan pesan error.
-            alert("Mohon lengkapi semua input terlebih dahulu.");
-        }
+        // if (isComplete) {
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
+        // } else {
+        //     // Ada input yang belum terisi, tampilkan pesan error.
+        //     alert("Mohon lengkapi semua input terlebih dahulu.");
+        // }
         // let request = {
         //     method: "POST",
         //     headers: '_token'

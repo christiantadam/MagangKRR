@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <script type="text/javascript" src="{{ asset('js/PegawaiDivisi.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Transaksi/kontrak.js') }}"></script>
 
     <div class="container-fluid">
         <div class="row justify-content-center" style="">
@@ -29,9 +29,9 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    data-toggle="modal" data-target="#modalKdPeg">...</button>
+                                    onclick="showModalDivisi()">...</button>
 
-                                <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
+                                <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
                                         <div class="modal-content" style="">
@@ -95,8 +95,8 @@
                                     style="resize: none; height: 40px; max-width: 100px;">
                                 <input class="form-control" type="text" id="Nama_Peg_Lama" readonly
                                     style="resize: none; height: 40px; max-width: 450px;">
-                                <button type="button" class="btn" style="margin-left: 10px;" data-toggle="modal"
-                                    data-target="#modalPeg">...</button>
+                                <button type="button" class="btn" style="margin-left: 10px;" onclick="showModalPegawai()"
+                                   >...</button>
                                 <div class="modal fade" id="modalPeg" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -147,7 +147,7 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    data-toggle="modal" data-target="#modalDivisiBaru">...</button>
+                                   onclick="showModalDivisiBaru()">...</button>
 
                                 <div class="modal fade" id="modalDivisiBaru" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -218,7 +218,7 @@
                                     style="resize: none; height: 40px; max-width: 257px;">
 
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    data-toggle="modal" data-target="#modalShift">...</button>
+                                   onclick="showModalShift()">...</button>
 
                                 <div class="modal fade" id="modalShift" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">

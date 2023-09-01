@@ -20,14 +20,7 @@ class KontrakController extends Controller
 
     }
 
-    public function getPegawai($Id_Div)
-    {
 
-        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div]);
-
-        // Return the options as JSON data
-        return response()->json($dataPegawai);
-    }
     //Show the form for creating a new resource.
     public function create()
     {
@@ -41,9 +34,13 @@ class KontrakController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$crExplode[0]]);
+
+        // Return the options as JSON data
+        return response()->json($dataPegawai);
     }
 
     // Show the form for editing the specified resource.
@@ -72,7 +69,7 @@ class KontrakController extends Controller
             $data['TglMasuk']
 
         ]);
-
+        return redirect()->route('Kontrak.index')->with('alert', 'Data Kontrak Updated successfully!');
     }
 
     //Remove the specified resource from storage.

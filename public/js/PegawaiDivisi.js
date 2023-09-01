@@ -97,44 +97,44 @@ $(document).ready(function () {
         console.log(data);
         console.log(data);
 
-const formContainer = document.getElementById("form-container");
-const form = document.createElement("form");
-form.setAttribute("action", "updateKontrak");
-form.setAttribute("method", "POST");
+        const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "updateKontrak");
+        form.setAttribute("method", "POST");
 
-// Loop through the data object and add hidden input fields to the form
-for (const key in data) {
-  const input = document.createElement("input");
-  input.setAttribute("type", "hidden");
-  input.setAttribute("name", key);
-  input.value = data[key]; // Set the value of the input field to the corresponding data
-  form.appendChild(input);
-}
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
 
-formContainer.appendChild(form);
+        formContainer.appendChild(form);
 
-// Add CSRF token input field (assuming the csrfToken is properly fetched)
-let csrfToken = document
-  .querySelector('meta[name="csrf-token"]')
-  .getAttribute("content");
-let csrfInput = document.createElement("input");
-csrfInput.type = "hidden";
-csrfInput.name = "_token";
-csrfInput.value = csrfToken;
-form.appendChild(csrfInput);
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
 
-// Wrap form submission in a Promise
-function submitForm() {
-  return new Promise((resolve, reject) => {
-    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-    form.submit();
-  });
-}
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
 
-// Call the submitForm function to initiate the form submission
-submitForm()
-  .then(() => console.log("Form submitted successfully!"))
-  .catch((error) => console.error("Form submission error:", error));
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
         // const csrfToken = $('meta[name="csrf-token"]').attr("content");
         //  $.ajax({
         //     type: 'POST',
