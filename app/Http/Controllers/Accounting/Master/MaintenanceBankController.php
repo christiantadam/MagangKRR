@@ -87,7 +87,7 @@ class MaintenanceBankController extends Controller
             $Saldo,
             $kodePerkiraan
         ]);
-        return redirect()->back()->with('success', 'Mata Uang sudah diSIMPAN');
+        return redirect()->back()->with('success', 'Data sudah diSIMPAN');
     }
 
     //Display the specified resource.

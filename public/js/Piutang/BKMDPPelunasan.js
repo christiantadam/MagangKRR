@@ -42,7 +42,6 @@ let idbkm;
 let saldo;
 let IdPelunasan;
 let jenisBank;
-let idMtUang;
 let IdCust;
 let total1 = 0;
 let nilai = document.getElementById('nilai');
@@ -203,6 +202,21 @@ mataUangSelect.addEventListener("change", function (event) {
     }
 });
 //#endregion
+
+
+tanggal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+
+        var tanggalInput = new Date(tanggal.valueAsNumber);
+        var currentDate = new Date();
+        if (tanggalInput > currentDate) {
+            alert("Tanggal SALAH!");
+        } else {
+            mataUangSelect.focus();
+        }
+    }
+});
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();

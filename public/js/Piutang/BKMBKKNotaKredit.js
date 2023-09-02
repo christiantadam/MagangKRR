@@ -1,5 +1,6 @@
 let dataTable;
 let btnPilihNotaKredit = document.getElementById('btnPilihNotaKredit');
+let btnProses = document.getElementById('btnProses');
 
 let idMataUangBKM = document.getElementById('idMataUangBKM');
 let mataUangBKMSelect = document.getElementById('mataUangBKMSelect');
@@ -8,6 +9,10 @@ let idBankBKM = document.getElementById('idBankBKM');
 let kodePerkiraanSelectBKM = document.getElementById('kodePerkiraanSelectBKM');
 let idKodePerkiraanBKM = document.getElementById('idKodePerkiraanBKM');
 let uraianBKM = document.getElementById('uraianBKM');
+let jumlahUangBKM = document.getElementById('jumlahUangBKM');
+let kursRupiah = document.getElementById('kursRupiah');
+
+let idPembayaran = document.getElementById('idPembayaran');
 
 //CARD BKK
 let idBKK = document.getElementById('idBKK');
@@ -21,14 +26,34 @@ let uraianBKK = document.getElementById('uraianBKK');
 
 let NoNotaKredit;
 let NoPenagihan;
-let idMataUang;
+let idMtUang;
 let IdCust;
 let tglNota;
 let bulan;
 let tahun;
 let jmlUang;
-let nilaiUang;
+
+let total1 = 0;
+let total2;
+let nilai1 = document.getElementById('nilai1');
+let konversi = document.getElementById('konversi');
+let nilaiUang = document.getElementById('nilaiUang');
 let lastCheckedCheckbox = null;
+let rowData;
+
+tanggal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+
+        var tanggalInput = new Date(tanggal.valueAsNumber);
+        var currentDate = new Date();
+        if (tanggalInput > currentDate) {
+            alert("Tanggal SALAH!");
+        } else {
+            mataUangBKMSelect.focus();
+        }
+    }
+});
 
 fetch("/getTabelNotaKredit/")
     .then((response) => response.json())
@@ -68,30 +93,23 @@ $('#tabelNotaKredit').on('change', 'input[name="divisiCheckbox"]', function() {
     }
 });
 
-//let NoNotaKredit;
-// let NoPenagihan;
-// let idMataUang;
-// let IdCust;
-// let tglNota;
-// let bulan;
-// let tahun;
-// let jmlUang;
-// let nilaiUang;
-
 btnPilihNotaKredit.addEventListener('click', function(event) {
     event.preventDefault();
     if (lastCheckedCheckbox) {
-        const rowData = dataTable.row($(lastCheckedCheckbox).closest('tr')).data();
+        rowData = dataTable.row($(lastCheckedCheckbox).closest('tr')).data();
 
         // Assuming the order of columns is the same as you provided
         NoNotaKredit = rowData['Id_NotaKredit'];
         NoPenagihan = rowData['Id_Penagihan'];
-        idMataUang = rowData['Id_MataUang'];
+        idMtUang = rowData['Id_MataUang'];
         IdCust = rowData['Id_Customer'];
         tglNota = rowData['Tanggal'];
-        // bulan = rowData['ID_Cust'];
-        // tahun = rowData['Id_MataUang'];
         jmlUang = rowData['Nilai'];
+
+        nilaiUang.value = parseFloat(jmlUang);
+        for (var i = 0; i < rowData.length; i++) {
+        nilaiUang.value += parseFloat(rowDataArray[i]['Nilai']);
+        }
 
         const dateObject = new Date(tglNota);
 
@@ -101,6 +119,7 @@ btnPilihNotaKredit.addEventListener('click', function(event) {
 
         console.log('Bulan:', bulan);
         console.log('Tahun:', tahun);
+        console.log(nilaiUang.value);
 
         rowData['bulan'] = bulan;
         rowData['tahun'] = tahun;
@@ -114,14 +133,32 @@ btnPilihNotaKredit.addEventListener('click', function(event) {
         // idKodePerkiraanBKK.disabled = false;
         // kodePerkiraanSelectBKK.disabled = false;
         // uraian.disabled = false;
+    }
+});
 
-        // console.log('Selected Data:');
-        // console.log('Id BKM:', idbkm);
-        // console.log('Saldo:', saldo);
-        // console.log('Id Pelunasan:', IdPelunasan);
-        // console.log('Jenis Bank:', jenisBank);
-        // console.log('Id Mata Uang:', idMtUang);
-        // console.log('Id Cust:', IdCust);
+kursRupiah.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        kursRupiah.value = parseFloat(kursRupiahInput.value.replace(/[^0-9.]/g, '')).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+        if (kursRupiah.value = 0) {
+            alert('Nilai kurs Rupiah harus lebih besar dari 0!');
+        } else {
+            if (idMataUangBKM.value == 1 && idMtUang == 2) {
+                console.log('masuk');
+                let nilaipelunasan = parseFloat(kursRupiah.value) * parseFloat(jumlahUang.value);
+                let saldorp = parseFloat(kursRupiah.value) * saldo;
+
+                jumlahUang.value = nilaipelunasan.toFixed(2);
+
+                console.log(nilaipelunasan, saldorp);
+
+                if (nilaipelunasan > saldorp) {
+                    alert('Jumlah Uang TIDAK BOLEH lebih besar dari Saldo Pelunasan!');
+                    jumlahUang.focus();
+                }
+            }
+        }
     }
 });
 
@@ -158,7 +195,7 @@ mataUangBKMSelect.addEventListener("change", function (event) {
 });
 //#endregion
 
-//#region untuk ambil LIST BANK
+//#region untuk ambil LIST BANK BKM
 fetch("/getbank/")
     .then((response) => response.json())
     .then((options) => {
@@ -248,7 +285,7 @@ uraianBKM.addEventListener("keypress", function (event) {
             idBankBKM = idBankBKM.value;
         }
 
-        fetch("/getidbkmBKMNota/" + idBankBKM.value + "/" + tanggal.value)
+        fetch("/getidBKMNota/" + idBankBKM.value + "/" + tanggal.value)
             .then((response) => response.json())
             .then((options) => {
                 console.log(options);
@@ -265,3 +302,166 @@ uraianBKM.addEventListener("keypress", function (event) {
             uraianBKK.disabled = false;
     }
 });
+
+//UNTUK CARD BKK
+jumlahUangBKK.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        let jumlah = parseFloat(jumlahUangBKK.value).toFixed(2);
+        console.log(nilaiUang.value);
+        let nilai = parseFloat(nilaiUang.value);
+        // let kurs = parseFloat(kursRupiah.value);
+
+        if (jumlah === '0.00') {
+            alert('Jumlah Uang TIDAK BOLEH = 0 !');
+            jumlahUangBKK.focus();
+        } else if (jumlah != nilai) {
+            alert('Jumlah Uang TIDAK BOLEH berbeda !');
+            var formattedValue = nilai.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            jumlahUangBKK.value = formattedValue;
+            // console.log(jumlahUangBKK.value);
+        } else {
+            namaBankBKKSelect.focus();
+        }
+    }
+});
+
+//#region untuk ambil LIST BANK BKM
+fetch("/getbank/")
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        namaBankBKKSelect.innerHTML = "";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.innerText = "Bank";
+        namaBankBKKSelect.appendChild(defaultOption);
+
+        options.forEach((entry) => {
+            const option = document.createElement("option");
+            option.value = entry.Id_Bank;
+            option.innerText = entry.Id_Bank + "|" + entry.Nama_Bank;
+            namaBankBKKSelect.appendChild(option);
+        });
+
+});
+
+namaBankBKKSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    // console.log(idBank.value);
+    const selectedOption = namaBankBKKSelect.options[namaBankBKKSelect.selectedIndex];
+    if (selectedOption) {
+        //const idJenisInput = document.getElementById('idBank');
+        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
+        const idJenis = selectedValue.split("|")[0];
+        idBankBKK.value = idJenis;
+        //console.log(idBank.value);
+        fetch("/detailjenisbank/" + idBankBKK.value)
+            .then((response) => response.json())
+            .then((options) => {
+                jenisBankBKK.value = options[0].jenis;
+                console.log(options);
+            });
+    }
+});
+//#endregion
+
+//#region ambil list kode perkiraan
+fetch("/getkodeperkiraan/")
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        kodePerkiraanBKKSelect.innerHTML = "";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.innerText = "Kode Perkiraan";
+        kodePerkiraanBKKSelect.appendChild(defaultOption);
+
+        options.forEach((entry) => {
+            const option = document.createElement("option");
+            option.value = entry.NoKodePerkiraan;
+            option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+            kodePerkiraanBKKSelect.appendChild(option);
+        });
+});
+
+kodePerkiraanBKKSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanBKKSelect.options[kodePerkiraanBKKSelect.selectedIndex];
+    if (selectedOption) {
+        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
+        const idkp = selectedValue.split(" | ")[0];
+        idKodePerkiraanBKK.value = idkp;
+    }
+});
+//#endregion
+
+uraianBKK.addEventListener("keypress", function(event) {
+    if (event.key == "Enter") {
+        event.preventDefault();
+        jenis = 'P';
+        console.log("masuk");
+
+        if (idBKK.value === "") {
+            if (idBankBKK.value == "KRR1") {
+                idBankBKK.value = "KI";
+            }
+            else if (idBankBKK.value == "KRR2") {
+                idBankBKK.value = "KKM";
+            }
+        } else {
+            idBankBKK = idBankBKK.value;
+        }
+
+        fetch("/getidBKKNota/" + idBankBKK.value + "/" + tanggal.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                idBKK.value = options;
+            });
+
+            idBKK.disabled = true;
+            jumlahUangBKK.disabled = true;
+            namaBankBKKSelect.disabled = true;
+            idBankBKK.disabled = true;
+            jenisBankBKK.disabled = true;
+            idKodePerkiraanBKK.disabled = true;
+            kodePerkiraanBKKSelect.disabled = true;
+            uraianBKK.disabled = true;
+
+        btnProses.focus();
+    }
+});
+
+
+btnProses.addEventListener('click', function(event) {
+    event.preventDefault();
+    if (idBKM.value != "" || idBKM.value != "") {
+        nilai1.value = parseFloat(jumlahUangBKM.value);
+        total2 = nilai1.toString();
+        // console.log("masuk");
+        if (parseInt(idMataUang.value) == 1) {
+            konversi.value = F_Rupiah(total2); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+        } else {
+            konversi.value = F_Dollar(total2); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+        }
+    }
+    else {
+        console.log("Tidak Ada Yg diPROSES!");
+    }
+})
+
+//#region untuk koversi jumlah uang
+function F_Rupiah() {
+    var formatted = parseFloat(nilai1.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    return formatted;
+}
+function F_Dollar() {
+    var formatted = parseFloat(nilai1.value).toFixed(2);
+    return formatted;
+}
+//#endregion

@@ -83,6 +83,6 @@ class BatalBKMTransitorisController extends Controller
             $alasan,
             null
         ]);
-        return redirect()->back()->with('success', 'Data sudah diHAPUS');
+        return redirect()->back()->with('success', 'Data BKK sudah diBATALkan!!');
     }
 }

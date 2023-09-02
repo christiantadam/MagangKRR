@@ -146,7 +146,7 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
                         { title: "No. Bukti", data: "No_Bukti" },
                         { title: "Tgl. Input", data: "TglInput" },
-                        { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
+                        { title: "Kode Perkiraan", data: "KodePerkiraan" },
                     ],
                 });
 

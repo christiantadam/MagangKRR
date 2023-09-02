@@ -45,17 +45,18 @@
                                     </div>
                                 </div>
                                 <div class="card-container" style="display: flex;">
-                                    <div class="card" style="width: 60%;">
+                                    <div style="width: 60%;">
                                         <div class="card" style>
                                             <b>BKM</b>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="tanggal" style="margin-right: 10px;">Tanggal</label>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-5">
                                                     <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
+                                            <input type="text" name="idPembayaran" id="idPembayaran">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
@@ -164,10 +165,10 @@
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <input type="number" id="idKodePerkiraanBKK" name="idKodePerkiraanBKK" class="form-control" style="width: 100%" disabled>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-5">
                                                     <select id="kodePerkiraanBKKSelect" name="kodePerkiraanBKKSelect" class="form-control" disabled>
 
                                                     </select>
@@ -192,7 +193,7 @@
                                             </div>
                                             <div class="row" style="display: flex; justify-content: center; margin-top: 150px">
                                                 <div style="margin-right: 10px;">
-                                                    <button type="submit" name="proses" class="btn btn-primary">PROSES</button>
+                                                    <button type="submit" id="btnProses" name="btnProses" class="btn btn-primary">PROSES</button>
                                                 </div>
                                                 <div style="margin-right: 10px;">
                                                     <input type="submit" name="koreksi" value="Koreksi" class="btn btn-primary">
@@ -216,6 +217,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" id="nilaiUang" name="nilaiUang" class="form-control" style="width: 100%">
+                                <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                {{-- <input type="text" id="nilai" name="nilai" class="form-control" style="width: 100%"> --}}
+                                <input type="text" id="nilai1" name="nilai1" class="form-control" style="width: 100%">
                             </form>
                             <br>
                         </div>

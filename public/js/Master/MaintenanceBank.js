@@ -101,6 +101,21 @@ function clickBatal() {
 }
 
 function clickKoreksi() {
+    idBank.disabled = false;
+    namaBankselect.disabled = false;
+    jenisBankSelect.disabled = false;
+    statusAktif.disabled = false;
+    ketKodePerkiraan.disabled = false;
+    kodePerkiraanSelect.disabled = false;
+    noRekening.disabled = false;
+    saldoBank.disabled = false;
+    alamat.disabled = false;
+    kota.disabled = false;
+    kota.disabled = false;
+    telp.disabled = false;
+    person.disabled = false;
+    hp.disabled = false;
+
     btnIsi.disabled = true
     btnKoreksi.disabled = true;
     btnHapus.disabled = true;
@@ -110,6 +125,21 @@ function clickKoreksi() {
 }
 
 function clickHapus() {
+    idBank.disabled = false;
+    namaBankselect.disabled = false;
+    jenisBankSelect.disabled = false;
+    statusAktif.disabled = false;
+    ketKodePerkiraan.disabled = false;
+    kodePerkiraanSelect.disabled = false;
+    noRekening.disabled = false;
+    saldoBank.disabled = false;
+    alamat.disabled = false;
+    kota.disabled = false;
+    kota.disabled = false;
+    telp.disabled = false;
+    person.disabled = false;
+    hp.disabled = false;
+
     btnIsi.disabled = true
     btnKoreksi.disabled = true;
     btnHapus.disabled = true;

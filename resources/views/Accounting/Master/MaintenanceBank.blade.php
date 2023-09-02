@@ -30,13 +30,13 @@
                                         <label for="namaBank">Nama Bank</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <select name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect" disabled>
+                                        <select id="namaBankselect" name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect" disabled>
                                             <option disabled selected>-- Pilih Bank --</option>
                                             @foreach ($maintenanceBank as $mb)
                                             <option value="{{ $mb->Id_Bank }}">{{ $mb->Nama_Bank }}</option>
                                             @endforeach
                                         </select>
-                                        <input type="text" name="isiNamaBank" style="display: none;" class="form-control" id="isiNamaBank" >
+                                        <input type="text" id="isiNamaBank" name="isiNamaBank" style="display: none;" class="form-control" id="isiNamaBank">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -107,7 +107,7 @@
                                         <label for="kota">Kota </label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="kota" id="kota" class="form-control" style="width: 100%"disabled>
+                                        <input type="text" name="kota" id="kota" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
                                 <div class="d-flex">
