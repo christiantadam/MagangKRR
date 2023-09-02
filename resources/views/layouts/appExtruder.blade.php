@@ -407,9 +407,9 @@
                     ...
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btn_cancel" class="btn btn-secondary"
+                    <button type="button" id="btn_cancel_md" class="btn btn-secondary"
                         data-bs-dismiss="modal">Batal</button>
-                    <button type="button" id="btn_confirm" class="btn btn-primary"
+                    <button type="button" id="btn_confirm_md" class="btn btn-primary"
                         data-bs-dismiss="modal"></button>
                 </div>
             </div>

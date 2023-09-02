@@ -2,13 +2,12 @@
 @section('content')
     <input type="hidden" id="input_hidden">
 
-    <div id="tropodo_konversi_mohon" class="form" data-aos="fade-up">
+    <div id="konversi_mohon" class="form" data-aos="fade-up">
         <div class="form-group row mt-3">
             <div class="col-lg-2"><span class="aligned-text">Nomor: </span></div>
             <div class="col-lg-8">
-                <select id="select_nomor" class="form-select">
+                <select id="select_nomor" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
                     @foreach ($formData['listKonversi'] as $d)
                         <option value="{{ $d->IdKonversi }}">{{ $d->IdKonversi . ' | ' . $d->NamaKomposisi }}</option>
                     @endforeach
@@ -18,10 +17,9 @@
 
         <div class="row mt-3 master">
             <div class="col-lg-4">
-                <label for="no_order">No. Order:</label>
+                <label for="select_nomor_order">No. Order:</label>
                 <select id="select_nomor_order" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor Order --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
                     @foreach ($formData['listNoOrder'] as $d)
                         <option value="{{ $d->IDOrder }}">{{ $d->IDOrder . ' | ' . $d->Identifikasi }}</option>
                     @endforeach
@@ -39,16 +37,15 @@
 
             <div class="col-lg-4">
                 <label for="tanggal">Tanggal:</label>
-                <input type="date" id="tanggal" class="form-control unclickable input_waktu">
+                <input type="date" id="tanggal" class="form-control unclickable">
             </div>
         </div>
 
         <div class="row mt-3 master">
             <div class="col-lg-4">
-                <label for="spek">Spek:</label>
+                <label for="select_spek">Spek:</label>
                 <select id="select_spek" class="form-select" disabled>
                     <option selected disabled>-- Pilih Spek --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
                 </select>
             </div>
 
@@ -65,19 +62,18 @@
                 <label for="shift">Shift:</label>
                 <div class="input-group">
                     <input type="text" id="shift" class="form-control" style="max-width: 50px;" disabled>
-                    <input type="time" id="shift_awal" class="form-control unclickable input_waktu" value="00:00">
+                    <input type="time" id="shift_awal" class="form-control unclickable" value="00:00">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" id="shift_akhir" class="form-control unclickable input_waktu" value="00:00">
+                    <input type="time" id="shift_akhir" class="form-control unclickable" value="00:00">
                 </div>
             </div>
         </div>
 
         <div class="row mt-3 master">
             <div class="col-lg-4">
-                <label for="mesin">Mesin:</label>
+                <label for="select_mesin">Mesin:</label>
                 <select id="select_mesin" class="form-select" disabled>
                     <option selected disabled>-- Pilih Mesin --</option>
-                    <option value="loading" style="display: none" disabled>Loading...</option>
                     @foreach ($formData['listMesin'] as $d)
                         <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
                     @endforeach
@@ -95,16 +91,15 @@
 
             <div class="col-lg-2">
                 <label for="waktu_mulai">Mulai:</label>
-                <input type="time" id="waktu_mulai" class="form-control unclickable input_waktu" value="00:00">
+                <input type="time" id="waktu_mulai" class="form-control unclickable" value="00:00">
             </div>
         </div>
 
         <div class="row mt-3 master">
             <div class="col-lg-4">
-                <label for="komposisi">Komposisi:</label>
+                <label for="select_komposisi">Komposisi:</label>
                 <select id="select_komposisi" class="form-select" disabled>
                     <option selected disabled>-- Pilih Komposisi --</option>
-                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
 
@@ -119,7 +114,7 @@
 
             <div class="col-lg-2">
                 <label for="waktu_selesai">Selesai:</label>
-                <input type="time" id="waktu_selesai" class="form-control unclickable input_waktu" value="00:00">
+                <input type="time" id="waktu_selesai" class="form-control unclickable" value="00:00">
             </div>
 
             <div class="col-lg-2">
@@ -138,24 +133,14 @@
                             <th>Sat. Primer</th>
                             <th>Qty. Sekunder</th>
                             <th>Sat. Sekunder</th>
-                            <th>Qty. Tersier</th>
-                            <th>Sat. Tersier</th>
+                            <th>Qty. Tritier</th>
+                            <th>Sat. Tritier</th>
                             <th>Presentase</th>
                             <th>Jenis</th>
-                            <th>Sub-kelompok</th>
+                            <th>Id Sub-kel.</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            @php $tableWidth = 10; @endphp
-                            <td colspan="{{ $tableWidth }}">
-                                <h1 class="mt-3" style="padding-left: 250px">Tabel masih kosong...</h1>
-                            </td>
-                            @for ($i = 0; $i < $tableWidth - 1; $i++)
-                                <td class="hidden"></td>
-                            @endfor
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
 
                 <div class="row mt-4">
@@ -168,18 +153,10 @@
                                         <th>Jenis</th>
                                         <th>Nama Type</th>
                                         <th>Sub-kelompok</th>
-                                        <th>Id Subkel</th>
+                                        <th>Id Subkel.</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @php $tableWidth = 4; @endphp
-                                    <td colspan="{{ $tableWidth }}">
-                                        <h1 class="mt-3" style="padding-left: 100px">Tabel masih kosong...</h1>
-                                    </td>
-                                    @for ($i = 0; $i < $tableWidth - 1; $i++)
-                                        <td class="hidden"></td>
-                                    @endfor
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                     </div>
@@ -248,12 +225,12 @@
 
                             <div class="col-lg-9">
                                 <div class="float-end">
-                                    <button type="button" id="btn_tambah_item" class="btn btn-outline-success"
+                                    <button type="button" id="btn_baru_detail" class="btn btn-outline-success"
                                         disabled>Tambah
                                         Item</button>
-                                    <button type="button" id="btn_koreksi_dalam" class="btn btn-outline-warning"
+                                    <button type="button" id="btn_koreksi_detail" class="btn btn-outline-warning"
                                         disabled>Koreksi</button>
-                                    <button type="button" id="btn_hapus_dalam" class="btn btn-outline-danger"
+                                    <button type="button" id="btn_hapus_detail" class="btn btn-outline-danger"
                                         disabled>Hapus</button>
                                 </div>
                             </div>
@@ -266,9 +243,9 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_konversi_baru" class="btn btn-outline-success">Konversi Baru</button>
-                <button type="button" id="btn_koreksi_luar" class="btn btn-outline-warning">Koreksi</button>
-                <button type="button" id="btn_hapus_luar" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_baru_master" class="btn btn-outline-success">Konversi Baru</button>
+                <button type="button" id="btn_koreksi_master" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus_master" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
@@ -278,5 +255,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/konversiMohon.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/konversiMohon_new.js') }}"></script>
 @endsection

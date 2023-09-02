@@ -156,7 +156,7 @@ btnProses.addEventListener("click", function () {
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
-                "/tmpUser",
+                "/4384",
             () => {
                 fetchSelect("/Order/getNoOrder", (data) => {
                     txtNoOrder.value = data.NoOrder;
@@ -293,7 +293,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel order...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: function () {

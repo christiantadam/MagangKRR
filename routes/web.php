@@ -68,30 +68,7 @@ Route::get('/Order/updStatusOrder/{id_order}/{status}/{ket}', [OrderController::
 #endregion
 
 #region ExtruderNet - Form Konversi Mohon
-Route::get('/Konversi/getListKomposisiBahan/{id_komposisi}', [KonversiController::class, 'getListKomposisiBahan']);
-Route::get('/Konversi/getDetailKonversi/{id_konversi}', [KonversiController::class, 'getDetailKonversi']);
-Route::get('/Konversi/getSatuan/{id_type}', [KonversiController::class, 'getSatuan']);
-Route::get('/Konversi/getSaldoBarang/{id_type}', [KonversiController::class, 'getSaldoBarang']);
-Route::get('/Konversi/getDataKonversi/{id_konversi}', [KonversiController::class, 'getDataKonversi']);
-Route::get('/Konversi/getNoKonversiMaster/{kode?}', [KonversiController::class, 'getNoKonversiMaster']);
-Route::get('/Konversi/getIdKonversiInv/{id_konversi}', [KonversiController::class, 'getIdKonversiInv']);
-Route::get('/Konversi/getListMesin/{kode}', [KonversiController::class, 'getListMesin']);
-Route::get('/Konversi/getOrdAccBlmSelesai/{divisi}', [KonversiController::class, 'getOrdAccBlmSelesai']);
-Route::get('/Konversi/getListKomposisi/{kode}/{mesin}', [KonversiController::class, 'getListKomposisi']);
-Route::get('/Konversi/getListSpek/{id_order}', [KonversiController::class, 'getListSpek']);
-Route::get('/Konversi/getSaldoInv/{id_type}', [KonversiController::class, 'getSaldoInv']);
-Route::get('/Konversi/getNoKonversiCounter', [KonversiController::class, 'getNoKonversiCounter']);
-Route::get('/Konversi/getListKonversi/{id_divisi}/{kode?}/{datetime?}', [KonversiController::class, 'getListKonversi']);
 
-Route::get('/Konversi/insTmpTransaksi/{id_type_transaksi}/{uraian_detail_transaksi}/{id_type}/{id_pemohon}/{saat_awal_transaksi}/{jumlah_keluar_primer}/{jumlah_keluar_sekunder}/{jumlah_keluar_tritier}/{asal_sub_kel}/{id_konversi}', [KonversiController::class, 'insTmpTransaksi']);
-Route::get('/Konversi/insDetailKonv/{id_konversi}/{id_type}/{jumlah_primer}/{jumlah_sekunder}/{jumlah_tritier}/{presentase?}/{id_konversi_inv}', [KonversiController::class, 'insDetailKonv']);
-Route::get('/Konversi/insMasterKonv/{tgl}/{shift}/{awal}/{akhir}/{mesin}/{ukuran}/{denier}/{warna}/{lot_number}/{id_order}/{no_urut}/{id_komp}/{jam1}/{jam2}/{user}/{kode?}', [KonversiController::class, 'insMasterKonv']);
-
-Route::get('/Konversi/updMasterKonversi/{tgl}/{shift}/{awal}/{akhir}/{ukuran}/{denier}/{warna}/{lot_number}/{jam1}/{jam2}/{id_konv}', [KonversiController::class, 'updMasterKonversi']);
-Route::get('/Konversi/updListCounter', [KonversiController::class, 'updListCounter']);
-
-Route::get('/Konversi/delDetailKonversi/{id_konversi}/{id_konv_inv}', [KonversiController::class, 'delDetailKonversi']);
-Route::get('/Konversi/delKonversi/{id_konversi}', [KonversiController::class, 'delKonversi']);
 #endregion
 
 #region ExtruderNet - Form Konversi ACC

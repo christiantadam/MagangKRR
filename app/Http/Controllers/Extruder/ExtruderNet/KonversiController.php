@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class KonversiController extends Controller
 {
@@ -196,9 +197,11 @@ class KonversiController extends Controller
     public function getListKomposisiBahan($id_komposisi)
     {
         return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @idkomposisi = ?',
+            'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @IdKomposisi = ?',
             [$id_komposisi]
         );
+
+        // @IdKomposisi char(9)
     }
 
     public function getSatuan($id_type)
@@ -208,8 +211,7 @@ class KonversiController extends Controller
             [$id_type]
         );
 
-        // PARAMETER @idtype varchar(20)
-        // TABLE Inventory - Satuan, Type
+        // @idtype varchar(20)
     }
 
     public function getSaldoBarang($id_type)
@@ -219,8 +221,7 @@ class KonversiController extends Controller
             [$id_type]
         );
 
-        // PARAMETER @idtype char(20)
-        // TABLE Inventory - Type, Satuan
+        // @idtype char(20)
     }
 
     public function getDataKonversi($id_konversi)
@@ -230,63 +231,17 @@ class KonversiController extends Controller
             [$id_konversi]
         );
 
-        // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - MasterKonversiEXT
-        // FK TABLE - MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder), OrderDetailEXT(IdOrder), MasterMesin(IdMesin)
+        // @idkonversi varchar(14)
     }
 
-    public function getDetailKonversi($id_konversi)
+    public function getListDetailKonversi($id_konversi)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_DETAIL_KONVERSI_1 @idkonversi = ?',
             [$id_konversi]
         );
 
-        // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - DetailKonversiEXT
-        // FK TABLE Extruder - MasterKonversiEXT(IdKonversi), KomposisiBahan(IdType), MasterKomposisi(IdKomposisi)
-    }
-
-    public function getNoKonversiMaster($kode = null)
-    {
-        try {
-            $divisi = $kode != null
-                ? 'DEX'
-                : 'EXT';
-
-            $counter = DB::connection('ConnExtruder')
-                ->table('CounterTrans')
-                ->where('Divisi', $divisi)
-                ->value(DB::raw('IdKonversi'));
-
-            $id = '0000000000' . str_pad($counter, 9, '0', STR_PAD_LEFT);
-            $id = $divisi . '-' . substr($id, -10);
-
-            return response()->json(['NoKonversi' => $id]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-
-        // *Query SELECT pada SP_5298_EXT_INSERT_MASTER_KONVERSI
-    }
-
-    public function getNoKonversiCounter()
-    {
-        try {
-            $counter = DB::connection('ConnInventory')
-                ->table('Counter')
-                ->select('IdKonversi')
-                ->first();
-
-            $a = $counter->IdKonversi + 1;
-            $xIdKonversi = str_pad($a, 9, '0', STR_PAD_LEFT);
-
-            return response()->json(['NoKonversi' => $xIdKonversi]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-
-        // *Query SELECT pada SP_5298_EXT_LIST_COUNTER
+        // @idkonversi varchar(14)
     }
 
     public function getListKonversi($id_divisi, $kode = null, $datetime = null)
@@ -296,9 +251,7 @@ class KonversiController extends Controller
             [$kode, $id_divisi, $datetime]
         );
 
-        // PARAMETER @Kode int=null, @iddivisi char(3), @Tanggal datetime=null
-        // TABLE Extruder - MasterKonversiEXT
-        // FK TABLE Extruder - MasterKomposisi(IdKomposisi), MasterMesin(IdMesin) OrderMasterEXT(IdOrder), OrderDetailEXT(IdOrder)
+        // @Kode int=null, @iddivisi char(3), @Tanggal datetime=null
     }
 
     public function getIdKonversiInv($id_konversi)
@@ -308,9 +261,7 @@ class KonversiController extends Controller
             [$id_konversi]
         );
 
-        // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - DetailKonversiEXT
-        // FK TABLE Extruder - MasterKonversiEXT
+        // @idkonversi varchar(14)
     }
 
     public function getListMesin($kode)
@@ -320,31 +271,27 @@ class KonversiController extends Controller
             [$kode]
         );
 
-        // PARAMETER @kode integer
-        // TABLE Extruder - MasterMesin
+        // @kode integer
     }
 
     public function getOrdAccBlmSelesai($divisi)
     {
         return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_ORDER_ACC_BLM_SELESAI @divisi = ?',
+            'exec SP_5298_EXT_ORDER_ACC_BLM_SELESAI @Divisi = ?',
             [$divisi]
         );
 
-        // PARAMETER @Divisi char(3)
-        // TABLE Extruder - OrderMasterEXT
-        // FK TABLE Extruder - OrderDetailEXT(IdOrder)
+        // @Divisi char(3)
     }
 
     public function getListKomposisi($kode, $id_mesin)
     {
         return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_LIST_KOMPOSISI @kode = ?, @idmesin = ?',
+            'exec SP_5298_EXT_LIST_KOMPOSISI @Kode = ?, @idmesin = ?',
             [$kode, $id_mesin]
         );
 
-        // PARAMETER @Kode char(1), @idmesin varchar(5)
-        // TABLE Extruder - MasterKomposisi
+        // @Kode char(1), @idmesin varchar(5)
     }
 
     public function getListSpek($id_order)
@@ -354,19 +301,17 @@ class KonversiController extends Controller
             [$id_order]
         );
 
-        // PARAMETER @idorder varchar(10)
-        // TABLE Extruder - OrderDetailEXT
+        // @idorder varchar(10)
     }
 
     public function getSaldoInv($id_type)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_1003_INV_Saldo_Barang @idtype = ?',
+            'exec SP_1003_INV_Saldo_Barang @IdType = ?',
             [$id_type]
         );
 
-        // PARAMETER @IdType char(20)
-        // TABLE Inventory - Satuan, Type
+        // @IdType char(20)
     }
 
     public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
@@ -393,43 +338,81 @@ class KonversiController extends Controller
 
         return DB::connection('ConnInventory')->statement(
             'exec ' . $sp_str . ' @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XsaatAwalTransaksi = ?, ' . $primer_str . ' = ?, ' . $sekunder_str . ' = ?, ' . $tersier_str . ' = ?, ' . $subkel_str . ' = ?, @XIdKonversi = ?',
-            [$id_type_transaksi, ucwords(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi]
+            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi]
         );
 
-        // PARAMETER @xidtypetransaksi char(2), @xuraiandetailtransaksi varchar(50), @xidtype varchar(20), @xidpemohon char(7), @xsaatawaltransaksi datetime, @xjumlahkeluarprimer numeric(15,2), @xjumlahkeluarsekunder numeric(15,2), @xjumlahkeluartritier numeric(15,2), @xasalsubkel char(6), @xidkonversi char(9)
-        // TABLE Inventory - Tmp_Transaksi
-        // FK TABLE Inventory - Type, TypeTransaksi
+        // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XAsalsubKel  char(6), @XIdKonversi  char(9)
+
+        // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatAwalTransaksi  datetime, @XJumlahMasukPrimer  numeric(15,2), @XJumlahMasukSekunder numeric(15,2), @XJumlahMasukTritier numeric(15,2), @XTujuanSubKel  char(6), @XIdKonversi  char(9)
     }
 
-    public function insDetailKonv($id_konversi, $id_type, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $presentase = 0, $id_konversi_inv)
+    public function insDetailKonversi($id_konversi, $id_type, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $presentase = 0, $id_konversi_inv)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5409_EXT_INSERT_DETAILKONVERSI @IdKonversi = ?, @IdType = ?, @JumlahPrimer = ?, @JumlahSekunder = ?, @JumlahTritier = ?, @Persentase = ?, @idKonversiInv = ?',
             [$id_konversi, $id_type, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $presentase, $id_konversi_inv]
         );
 
-        // PARAMETER @IdKonversi varchar(14), @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @Persentase numeric(9,2)=0, @idKonversiInv varchar(9)
-        // TABLE Extruder - DetailHistoryKonversi, DetailKonversiEXT
-        // FK TABLE Extruder - MasterKonversiEXT
+        // @IdKonversi varchar(14), @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @Persentase numeric(9,2)=0, @idKonversiInv varchar(9)
     }
 
-    public function insMasterKonv($tgl, $shift, $awal, $akhir, $mesin, $ukuran, $denier, $warna, $lot_number, $id_order, $no_urut, $id_komp, $jam1, $jam2, $user, $kode = null)
+    public function insMasterKonversi($tgl, $shift, $awal, $akhir, $mesin, $ukuran, $denier, $warna, $lot_number, $id_order, $no_urut, $id_komp, $jam1, $jam2, $user, $kode = null)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = ?, @kode = ?',
             [$tgl, $shift, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $awal), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), $denier, $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $user, $kode]
         );
 
-        // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null
-        // TABLE Extruder - MasterKonversiEXT, CounterTrans
-        // *fungsi terkait - getNoKonversiMaster()
+        // @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null
+    }
+
+    public function getMasterKonversi($kode = null)
+    {
+        try {
+            $divisi = $kode != null
+                ? 'DEX'
+                : 'EXT';
+
+            $counter = DB::connection('ConnExtruder')
+                ->table('CounterTrans')
+                ->where('Divisi', $divisi)
+                ->value(DB::raw('IdKonversi'));
+
+            $id = '0000000000' . str_pad($counter, 9, '0', STR_PAD_LEFT);
+            $id = $divisi . '-' . substr($id, -10);
+
+            return response()->json(['NoKonversi' => $id]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        // *Query SELECT pada SP_5298_EXT_INSERT_MASTER_KONVERSI
     }
 
     public function updListCounter()
     {
-        return DB::connection('ConnInventory')->statement('exec SP_5298_EXT_LIST_COUNTER', []);
-        // TABLE Inventory - Counter
-        // *fungsi terkait - getNoKonversiCounter()
+        return DB::connection('ConnInventory')->statement(
+            'exec SP_5298_EXT_LIST_COUNTER',
+            []
+        );
+    }
+
+    public function getListCounter()
+    {
+        try {
+            $counter = DB::connection('ConnInventory')
+                ->table('Counter')
+                ->value(DB::raw('IdKonversi'));
+
+            $a = $counter->IdKonversi + 1;
+            $xIdKonversi = str_pad($a, 9, '0', STR_PAD_LEFT);
+
+            return response()->json(['NoKonversi' => $xIdKonversi]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        // *Query SELECT pada SP_5298_EXT_LIST_COUNTER
     }
 
     public function updMasterKonversi($tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv)
@@ -438,9 +421,8 @@ class KonversiController extends Controller
             'exec SP_5409_EXT_UPDATE_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @jam1 = ?, @jam2 = ?, @idkonv = ?',
             [$tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv]
         );
-        // PARAMETER @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
-        // TABLE Extruder - MasterKonversiEXT
-        // FK TABLE Extruder - MasterJadwalProduksi(IdJadwalProduksi), MasterKomposisi(IdKomposisi), OrderMasterEXT(IdOrder)
+
+        // @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
     }
 
     public function delDetailKonversi($id_konversi, $id_konv_inv)
@@ -449,9 +431,8 @@ class KonversiController extends Controller
             'exec SP_5409_EXT_DELETE_DETAIL_KONVERSI @idkonversi = ?, @idkonvInv = ?',
             [$id_konversi, $id_konv_inv]
         );
-        // PARAMETER @idkonversi varchar(14), @idkonvInv varchar(9)
-        // TABLE Extruder - DetailKonversiEXT
-        // FK TABLE Extruder - MasterKonversiEXT
+
+        // @idkonversi varchar(14), @idkonvInv varchar(9)
     }
 
     public function delKonversi($id_konversi)
@@ -460,8 +441,8 @@ class KonversiController extends Controller
             'exec SP_5409_EXT_DELETE_KONVERSI @idkonversi = ?',
             [$id_konversi]
         );
-        // PARAMETER @idkonversi varchar(14)
-        // TABLE Extruder - DetailKonversiEXT
+
+        // @idkonversi varchar(14)
     }
     #endregion
 }

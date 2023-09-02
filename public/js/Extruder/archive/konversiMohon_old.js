@@ -1,19 +1,19 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
+const txtHidden = document.getElementById("input_hidden");
 
 const txtShift = document.getElementById("shift");
 const timeAwal = document.getElementById("shift_awal");
 const timeAkhir = document.getElementById("shift_akhir");
-
 const timeMulai = document.getElementById("waktu_mulai");
 const timeSelesai = document.getElementById("waktu_selesai");
 
 const btnTambah = document.getElementById("btn_tambah_item");
-const btnKoreksiDetail = document.getElementById("btn_koreksi_dalam");
-const btnHapusDetail = document.getElementById("btn_hapus_dalam");
+const btnKoreksiDetail = document.getElementById("btn_koreksi_detail");
+const btnHapusDetail = document.getElementById("btn_hapus_detail");
 const btnBaru = document.getElementById("btn_konversi_baru");
-const btnKoreksiMaster = document.getElementById("btn_koreksi_luar");
-const btnHapusMaster = document.getElementById("btn_hapus_luar");
+const btnKoreksiMaster = document.getElementById("btn_koreksi_master");
+const btnHapusMaster = document.getElementById("btn_hapus_master");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
@@ -32,8 +32,6 @@ const txtTersier = document.getElementById("tritier");
 const txtJenis = document.getElementById("jenis");
 const txtNoUrut = document.getElementById("no_urut");
 
-const txtHidden = document.getElementById("input_hidden");
-
 const slcNomor = document.getElementById("select_nomor");
 const slcNoOrder = document.getElementById("select_nomor_order");
 const slcSpek = document.getElementById("select_spek");
@@ -47,7 +45,6 @@ const spnTersier = document.getElementById("sat_tritier");
 const listOfDetail = document.querySelectorAll(".card .form-control");
 const listOfSelect = document.querySelectorAll(".form-select");
 const listOfTime = document.querySelectorAll('input[type="time"]');
-
 const listOfMaster = document.querySelectorAll(
     ".master .form-control:not(.input_waktu)"
 );
@@ -255,7 +252,7 @@ btnTambah.addEventListener("click", function () {
             () => {
                 clearDataDetail();
                 clearSelection_DataTable("table_komposisi");
-                konversiPil = -1;
+                komposisiPil = -1;
 
                 $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
                 setTimeout(() => {
@@ -281,11 +278,10 @@ btnTambah.addEventListener("click", function () {
 });
 
 btnKoreksiDetail.addEventListener("click", function () {
+    console.log(listKonversi[konversiPil]);
     if (konversiPil == -1) {
         alert("Pilih data yang akan dikoreksi terlebih dahulu.");
     } else {
-        console.log("cek list konversi");
-        console.log(listKonversi[konversiPil]);
         showModal(
             "Konfirmasi",
             `Apakah anda yakin akan mengoreksi jumlah item untuk data konversi <b>${listKonversi[konversiPil].Type}</b>?`,
@@ -399,31 +395,6 @@ slcNomor.addEventListener("change", function () {
     listOfDetail.forEach((input) => (input.value = ""));
     getDataKonversi(this.value);
     // *fungsi dilanjutkan pada txtHidden event "change"
-});
-
-txtHidden.addEventListener("change", function () {
-    if (this.value == "GET DATA KONVERSI BERHASIL!") {
-        if (modeProses == "koreksi") {
-            $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
-
-            txtPrimer.disabled = false;
-            txtSekunder.disabled = false;
-            txtTersier.disabled = false;
-            btnTambah.disabled = false;
-            btnKoreksiDetail.disabled = false;
-            btnHapusDetail.disabled = false;
-
-            txtLot.disabled = false;
-            txtUkuran.disabled = false;
-            txtDenier.disabled = false;
-            txtWarna.disabled = false;
-            txtShift.disabled = false;
-
-            getDataKomposisi(slcKomposisi.value);
-        } else if (modeProses == "hapus") {
-            btnProses.focus();
-        }
-    }
 });
 
 slcNoOrder.addEventListener("change", function () {
@@ -713,6 +684,32 @@ txtTersier.addEventListener("keypress", function (event) {
         }
     }
 });
+
+txtHidden.addEventListener("change", function () {
+    if (this.value == "GET DATA KONVERSI BERHASIL!") {
+        if (modeProses == "koreksi") {
+            $("html, body").animate({ scrollTop: tableKonversiPos }, 100);
+
+            txtPrimer.disabled = false;
+            txtSekunder.disabled = false;
+            txtTersier.disabled = false;
+            btnTambah.disabled = false;
+            btnKoreksiDetail.disabled = false;
+            btnHapusDetail.disabled = false;
+
+            txtLot.disabled = false;
+            txtUkuran.disabled = false;
+            txtDenier.disabled = false;
+            txtWarna.disabled = false;
+            txtShift.disabled = false;
+
+            getDataKomposisi(slcKomposisi.value);
+        } else if (modeProses == "hapus") {
+            btnProses.focus();
+        }
+    } else if (this.value == "Koreksi Detail") {
+    }
+});
 //#endregion
 
 //#region Functions
@@ -872,7 +869,7 @@ function getDataKonversi(id_konversi) {
         addOptionIfNotExists(slcSpek, data[0].TypeBenang, data[0].TypeBenang);
     });
 
-    let notFound = false; // *untuk pengecekkan pada fetch "getSatuan()"
+    let notFound = false;
     // SP_5298_EXT_LIST_DETAIL_KONVERSI_1
     fetch("/Konversi/getDetailKonversi/" + id_konversi)
         .then((response) => response.json())
@@ -896,8 +893,6 @@ function getDataKonversi(id_konversi) {
                                 "/Konversi/getSatuan/" +
                                 data[i].IdType
                         );
-                        console.log("Isi list konversi: ");
-                        console.log(data2);
 
                         if (data2.length != 0) {
                             // TABLE KONVERSI
@@ -1273,11 +1268,13 @@ function prosesHapus(id_konversi_ext) {
 }
 
 function rowClickedKonversi(row, data, index) {
+    console.log("Index yang terpilih = " + index);
     if (konversiPil == index) {
         row.style.background = "white";
         konversiPil = -1;
 
         clearDataDetail();
+        disableDetail();
 
         btnTambah.disabled = false;
     } else {
@@ -1309,11 +1306,14 @@ function rowClickedKonversi(row, data, index) {
 }
 
 function rowClickedKomposisi(row, data, index) {
+    console.log("Index yang terpilih = " + index);
+
     if (komposisiPil == index) {
         row.style.background = "white";
         komposisiPil = -1;
 
         clearDataDetail();
+        disableDetail();
     } else {
         clearSelection_DataTable("table_komposisi");
         row.style.background = "aliceblue";

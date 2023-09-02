@@ -13,17 +13,17 @@
 })();
 
 //#region Modal jQuery
-const btnConfirm = document.getElementById("btn_confirm");
-const btnCancel = document.getElementById("btn_cancel");
+const btnConfirm = document.getElementById("btn_confirm_md");
+const btnCancel = document.getElementById("btn_cancel_md");
 const modalConfirmBody = document.getElementById("modal_body");
 
 $("#confirmation_modal").on("shown.bs.modal", function () {
-    $("#btn_confirm").focus();
+    $("#btn_confirm_md").focus();
 });
 
 $("#confirmation_modal").on("keydown", function (event) {
-    const btnConfirmJQ = $("#btn_confirm");
-    const btnCancelJQ = $("#btn_cancel");
+    const btnConfirmJQ = $("#btn_confirm_md");
+    const btnCancelJQ = $("#btn_cancel_md");
 
     if (event.key === "ArrowLeft") {
         if (document.activeElement === btnConfirmJQ[0]) {
@@ -45,8 +45,8 @@ $("#confirmation_modal").on("keydown", function (event) {
 function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
     btnConfirm.textContent = txtBtn;
     modalConfirmBody.innerHTML = txtBody;
-    btnConfirm.addEventListener("click", () => confirmFun());
-    btnCancel.addEventListener("click", () => cancelFun());
+    btnConfirm.onclick = confirmFun;
+    btnCancel.onclick = cancelFun;
 
     $("#confirmation_modal").modal("show");
 }
@@ -56,7 +56,7 @@ function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
 function addTable_DataTable(
     tableId,
     listData,
-    colWidths = null,
+    columnsWidth = null,
     rowFun = null,
     tableHeight = null
 ) {
@@ -69,8 +69,8 @@ function addTable_DataTable(
     $("#" + tableId + " tbody").empty();
 
     let colObject = "";
-    if (colWidths != null) {
-        colObject = colWidths.map((colWidth, index) => {
+    if (columnsWidth != null) {
+        colObject = columnsWidth.map((colWidth, index) => {
             return {
                 data: Object.keys(listData[0])[index],
                 width: colWidth.width || "auto",
@@ -86,7 +86,7 @@ function addTable_DataTable(
         responsive: true,
         paging: false,
         scrollY: tableHeight != null ? tableHeight : "250px",
-        scrollX: colWidths != null ? "1000000px" : "",
+        scrollX: columnsWidth != null ? "1000000px" : "",
         data: listData,
         columns: colObject,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
