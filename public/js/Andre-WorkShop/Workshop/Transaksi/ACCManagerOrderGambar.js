@@ -239,8 +239,10 @@ function klikproses() {
                     Ket_batal = prompt(
                         "Alasan tdk disetujui Order " + value + " :"
                     );
-                    ket.push(Ket_batal);
-                    arraycheckbox.push(value);
+                    if (Ket_batal !== null) {
+                        arraycheckbox.push(value);
+                        ket.push(Ket_batal);
+                    }
                 } else if (isChecked && closestTd.hasClass("red-color")) {
                     alert(
                         "Nomer Order " +

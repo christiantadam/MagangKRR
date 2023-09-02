@@ -236,8 +236,10 @@ function klikproses() {
                     Ket_batal = prompt(
                         "Alasan tdk disetujui Order " + value + " :"
                     );
-                    ket.push(Ket_batal);
-                    arraycheckbox.push(value);
+                    if (Ket_batal !== null) {
+                        arraycheckbox.push(value);
+                        ket.push(Ket_batal);
+                    }
                 } else if (isChecked && closestTd.hasClass("red-color")) {
                     alert(
                         "Nomer Order " +
@@ -257,43 +259,46 @@ function klikproses() {
                 }
             }
         });
-        if (acc.checked == true) {
-            //console.log("berhasil");
-            var arrayString = arraycheckbox.join(",");
-            //console.log(arrayString);
-            radiobox.value = "acc";
-            semuacentang.value = arrayString;
-            methodForm.value = "PUT";
-            formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
-            formAccDirektur.submit();
-        } else if (batal_acc.checked == true) {
-            if (divisicek == "KENCANA") {
-                alert("Lanjutkan ke Batal ACC sebagai Manager..");
-                window.location.href = "ACCManagerGambar";
-                return;
-            }
-            else{
+        if (arraycheckbox.length > 0) {
+            if (acc.checked == true) {
+                //console.log("berhasil");
                 var arrayString = arraycheckbox.join(",");
                 //console.log(arrayString);
+                radiobox.value = "acc";
+                semuacentang.value = arrayString;
+                methodForm.value = "PUT";
+                formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
+                formAccDirektur.submit();
+            } else if (batal_acc.checked == true) {
+                if (divisicek == "KENCANA") {
+                    alert("Lanjutkan ke Batal ACC sebagai Manager..");
+                    window.location.href = "ACCManagerGambar";
+                    return;
+                }
+                else{
+                    var arrayString = arraycheckbox.join(",");
+                    //console.log(arrayString);
 
-                radiobox.value = "batal_acc";
+                    radiobox.value = "batal_acc";
+                    semuacentang.value = arrayString;
+                    methodForm.value = "PUT";
+                    formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
+                    formAccDirektur.submit();
+                }
+                //console.log("berhasil");
+
+            } else if (tdk_setuju.checked == true) {
+
+                var arrayString = arraycheckbox.join(",");
+                var arrayString1 = ket.join(",");
+                //console.log(arrayString);
+                radiobox.value = "tidak_setuju";
+                KetTdkS.value = arrayString1;
                 semuacentang.value = arrayString;
                 methodForm.value = "PUT";
                 formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
                 formAccDirektur.submit();
             }
-            //console.log("berhasil");
-
-        } else if (tdk_setuju.checked == true) {
-            var arrayString = arraycheckbox.join(",");
-            var arrayString1 = ket.join(",");
-            //console.log(arrayString);
-            radiobox.value = "tidak_setuju";
-            KetTdkS.value = arrayString1;
-            semuacentang.value = arrayString;
-            methodForm.value = "PUT";
-            formAccDirektur.action = "/ACCDirekturGambar/" + semuacentang.value;
-            formAccDirektur.submit();
         }
     }
 }

@@ -337,7 +337,7 @@
               <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
                 <div class="input-group">
                   <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                  <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="satuanB">
+                  <select class="form-select" name="Satuan" style="width: 36vh; height: 5.9vh;" id="satuanB">
                     <option disabled selected>Pilih Satuan</option>
                     @foreach ($satuan as $s)
                       <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
@@ -470,7 +470,7 @@
                 <div class="col-lg-8"> <!-- Updated class: col-lg-8 -->
                   <div class="input-group">
                     <input type="number" name="jumlahbaru" class="form-control" value="1" id="jumlahbaru">
-                    <select class="form-select" name="Satuan" style="width: 36vh; height: 6.6vh;" id="satuanmodif">
+                    <select class="form-select" name="Satuan" style="width: 36vh; height: 5.9vh;" id="satuanmodif">
                       <option disabled selected>Pilih Satuan</option>
                       @foreach ($satuan as $s)
                         <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>

@@ -95,6 +95,8 @@ let isi = document.getElementById("isi");
 let koreksi = document.getElementById("koreksi");
 let hapus = document.getElementById("hapus");
 
+
+
 // Get the current date
 const currentDate = new Date();
 
@@ -112,7 +114,8 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 // Set the values of the input fields to the calculated dates
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
-
+TglMaintenanceGambarBaru.value = formattedCurrentDate;
+TglMaintenanceGambarmodif.value = formattedCurrentDate;
 //Css ACCManagerGambar
 table_data.on("draw", function () {
     table_data.rows().every(function () {
@@ -404,9 +407,9 @@ function klikkoreksi() {
                     pengorder.value
             );
         } else {
-            const isConfirmed = confirm(`Order Gambar Baru??`);
+            // const isConfirmed = confirm(`Order Gambar Baru??`);
             modetrans = 2;
-            if (isConfirmed) {
+            if (judulstatus.textContent == "BUAT BARU") {
                 koreksi.setAttribute("data-toggle", "modal");
                 koreksi.setAttribute("data-target", "#isibaru");
                 isibarutitle.textContent =
@@ -444,7 +447,7 @@ function klikkoreksi() {
                 }
                 // satuanB.value = jmlh2.value;
                 // mesin.value = selectmesin;
-            } else {
+            } if(judulstatus.textContent == "MODIFIKASI"){
                 koreksi.setAttribute("data-toggle", "modal");
                 koreksi.setAttribute("data-target", "#modifikasi");
                 iddivisimodalmodif.value = Divisi.value;

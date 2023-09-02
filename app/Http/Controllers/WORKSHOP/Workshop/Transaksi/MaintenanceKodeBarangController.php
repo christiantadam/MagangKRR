@@ -18,7 +18,7 @@ class MaintenanceKodeBarangController extends Controller
         return response()->json($all);
     }
     public function selectnoGambar($noOd, $kode) {
-        $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LOAD-NO-GBR]  @noOd = ?, @kode = ?', [$noOd ,$kode]);
+        $all = DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_LOAD-NO-GBR]  @noOd = ?, @kode = ?', [$noOd ,$kode]);
         return response()->json($all);
     }
 

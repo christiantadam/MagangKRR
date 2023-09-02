@@ -15,7 +15,7 @@ var arraycheckbox = [];
 var rowIndexArray = [];
 var arrayket = [];
 
-let gambar = document.getElementById('gambar');
+let gambar = document.getElementById("gambar");
 //#endregion
 
 //#region set tanggal
@@ -37,9 +37,11 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
 //#endregion
-
+// console.log(tgl_akhir.value);
+// console.log(tgl_awal.value);
 //#region tambil all order
 function AllData(tglAwal, tglAkhir) {
+    // console.log(tglAwal , tglAkhir);
     fetch("/getalldataPembeliGambar/" + tglAwal + "/" + tglAkhir)
         .then((response) => response.json())
         .then((datas) => {
@@ -62,9 +64,9 @@ function AllData(tglAwal, tglAkhir) {
 
                 alert(
                     "Belum Ada Order Yg Sudah DiTerima U/ tgl " +
-                        tglAwal.Value +
+                        tglAwal +
                         " s/d tgl " +
-                        tglAkhir.Value
+                        tglAkhir
                 );
             } else {
                 console.log(datas); // Optional: Check the data in the console
@@ -106,8 +108,10 @@ function AllData(tglAwal, tglAkhir) {
 //#region tgl2 on click
 tgl_akhir.addEventListener("keypress", function (event) {
     // Mengecek apakah tombol yang ditekan adalah tombol 'Enter'
-    if (event.key === "Enter") {
+    event.preventDefault();
+    if (event.key == "Enter") {
         // Tambahkan kode yang ingin Anda jalankan saat tombol 'Enter' ditekan di sini
+        // console.log(tgl_akhir.value);
         AllData(tgl_awal.value, tgl_akhir.value);
         //console.log('Tombol Enter ditekan!');
     }
@@ -152,7 +156,7 @@ function klikproses() {
         });
         if (rowIndexArray.length > 0) {
             for (let i = 0; i < rowIndexArray.length; i++) {
-                arrayket.push(table_data.cell(rowIndexArray[i],8).data());
+                arrayket.push(table_data.cell(rowIndexArray[i], 8).data());
                 console.log(arrayket);
             }
         }

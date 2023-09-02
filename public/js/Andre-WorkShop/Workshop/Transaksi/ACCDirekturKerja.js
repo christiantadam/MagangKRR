@@ -158,7 +158,8 @@ refresh.addEventListener("click", function (event) {
 
 //#region semua on click
 
-$("#pilihsemua").on("click", function () {
+$("#pilihsemua").on("click", function (event) {
+    event.preventDefault();
     // Get all the checkboxes within the DataTable
     const checkboxes = $(
         "input[name='DirekturCheckbox']",
@@ -285,7 +286,7 @@ function klikproses() {
             formAccDirektur.action = "/ACCDirekturKerja/" + semuacentang.value;
             formAccDirektur.submit();
         } else if (batal_acc.checked == true) {
-            alert(batal_acc.checked == true);
+            // alert(batal_acc.checked == true);
             if (divisicek == "KENCANA") {
                 alert("Lanjutkan ke Batal ACC sebagai Manager..");
                 window.location.href = "ACCManagerGambar";

@@ -11,6 +11,7 @@ class ACCDirekturGambarController extends Controller
 
     public function index()
     {
+
         //dd('masuk');
         return view('WORKSHOP.Workshop.Transaksi.ACCDirekturGambar');
     }

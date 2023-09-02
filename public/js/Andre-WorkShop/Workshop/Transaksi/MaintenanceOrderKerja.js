@@ -72,9 +72,9 @@ function getPdf(kodebarang) {
         method: "GET",
         responseType: "arraybuffer", // Tipe respons yang diharapkan
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             if (response.length > 0) {
-                console.log("masuk");
+                // console.log("masuk");
                 var newTabUrl = "http://127.0.0.1:8000/selectpdf/" + kodebarang;
                 window.open(newTabUrl, "_blank");
             } else {
@@ -106,7 +106,7 @@ Divisi.addEventListener("keypress", function (event) {
             pilih = 1;
             AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
         } else {
-            console.log("masuk");
+            // console.log("masuk");
             pilih = 2;
             AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
         }

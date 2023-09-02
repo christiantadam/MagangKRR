@@ -61,6 +61,8 @@ let Approvemodal = document.getElementById("Approvemodal");
 let arraynomorgambar = document.getElementById('arraynomorgambar');
 let arraynamagambar1 = document.getElementById('arraynamagambar');
 let arraytglapprove = document.getElementById('arraytglapprove');
+let radiobox = document.getElementById('radiobox');
+
 //#endregion
 
 //#region set tanggal
@@ -267,8 +269,11 @@ function klikproses() {
                         Ket_tolak = prompt(
                             "Alasan Ditolak Order" + value + " :"
                         );
-                        ket.push(Ket_tolak);
-                        arraycheckbox.push(value);
+                        if (Ket_tolak !== null) {
+                            ket.push(Ket_tolak);
+                            arraycheckbox.push(value);
+                        }
+
                     }
                 }
             });
@@ -349,7 +354,20 @@ function koreksiklik() {
         if (arrayindex.length === 0 || arrayindex.length > 1) {
             alert("Pilih 1 Data Untuk DiPROSES");
         } else {
-            if (order_kerja.checked == true || order_selesai.checked == true) {
+            if (trselect.hasClass("red-color") && order_batal.checked == true) {
+                alert("Proses Order Untuk Dikerjakan Dulu Atau Batal ACC");
+                return;
+            }
+            if (trselect.hasClass("black-color")) {
+                alert("Proses Order Untuk Diterima Dulu, baru Koreksi");
+                return;
+            }
+            if (trselect.hasClass("red-color") && order_selesai.checked == true) {
+                alert("Proses Order Untuk Dikerjakan Dulu");
+
+                return;
+            }
+            else if (order_kerja.checked == true || order_selesai.checked == true) {
                 btnkoreksi.setAttribute("data-toggle", "modal");
                 btnkoreksi.setAttribute("data-target", "#modalkoreksi");
             } else {
@@ -402,27 +420,20 @@ function koreksiklik() {
                     alert("Login " + user + " Tidak berHak utk memproses.");
                 } else {
                     Ket_batal = prompt("Alasan Dibatalkan : ");
-                    ketbatal.value = Ket_batal;
-                    no_orderkoreksi.value = no_order;
-                    methodForm.value = "PUT";
-                    radiobox.value = "order_batal";
-                    formPemerimaGambar.action =
-                        "/PenerimaOrderGambar/" + no_orderkoreksi.value;
-                    formPemerimaGambar.submit();
+                    if (Ket_batal !== null) {
+                        ketbatal.value = Ket_batal;
+                        no_orderkoreksi.value = no_order;
+                        methodForm.value = "PUT";
+                        radiobox.value = "order_batal";
+                        formPemerimaGambar.action =
+                            "/PenerimaOrderGambar/" + no_orderkoreksi.value;
+                        formPemerimaGambar.submit();
+                    }
+
                 }
             }
-            if (
-                trselect.hasClass("red-color") &&
-                order_selesai.checked == true
-            ) {
-                alert("Proses Order Untuk Dikerjakan Dulu");
-            }
-            if (trselect.hasClass("red-color") && order_batal.checked == true) {
-                alert("Proses Order Untuk Dikerjakan Dulu Atau Batal ACC");
-            }
-            if (trselect.hasClass("black-color")) {
-                alert("Proses Order Untuk Diterima Dulu, baru Koreksi");
-            }
+
+
         }
     }
 }
