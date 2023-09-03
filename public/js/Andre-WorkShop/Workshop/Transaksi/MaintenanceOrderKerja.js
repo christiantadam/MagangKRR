@@ -63,6 +63,8 @@ let koreksi = document.getElementById("koreksi");
 let formMaintenanceOrderGambar = document.getElementById(
     "formMaintenanceOrderGambar"
 );
+let methodForm = document.getElementById('methodForm');
+
 //#endregion
 
 //#region get PDF
@@ -546,6 +548,7 @@ $("#tableOrderKerja tbody").on("click", "tr", function () {
     const table = $("#tableOrderKerja").DataTable();
     let selectedRows = table.rows(".selected").data().toArray();
     console.log(selectedRows[0]);
+    judulstatus.textContent = selectedRows[0].Status;
     no_order.value = selectedRows[0].Id_Order;
     kodebarang.value = selectedRows[0].Kd_Brg;
     Nomor_Gambar.value = selectedRows[0].No_Gbr;
@@ -614,6 +617,12 @@ function koreksiklik() {
         modetrans = 2;
         koreksi.setAttribute("data-toggle", "modal");
         koreksi.setAttribute("data-target", "#OrderKerja");
+        if (judulstatus.textContent == "BUAT BARU") {
+            buatbarumodal.checked = true;
+        }
+        if (judulstatus.textContent == "PERBAIKAN") {
+            Perbaikanmodal.checked = true;
+        }
         Divisi.options[Divisi.selectedIndex].text.split("--")[1];
         isiOrderKerjatitle.textContent =
             Divisi.options[Divisi.selectedIndex].text.split("--")[1];
@@ -768,6 +777,7 @@ updatepdfmodal.addEventListener("change", function (event) {
 });
 
 //#endregion
+
 //#region button hapus
 
 function hapusklik() {

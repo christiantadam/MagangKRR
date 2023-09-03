@@ -313,3 +313,9 @@ function klikproses() {
 }
 
 //#endregion
+
+//#region koreksi di klik
+
+
+
+//#endregion
