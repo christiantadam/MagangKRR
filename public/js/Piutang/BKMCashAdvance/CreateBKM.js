@@ -60,7 +60,14 @@ btnOkTampil.addEventListener('click', function(event) {
                 ]
             });
 
+            let lastCheckedCheckbox = null;
+
             tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                if (lastCheckedCheckbox && lastCheckedCheckbox !== this) {
+                    lastCheckedCheckbox.checked = false;
+                }
+                lastCheckedCheckbox = this;
+
                 const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
                 const idBKMInput = document.getElementById("idBKM");
 
@@ -70,6 +77,7 @@ btnOkTampil.addEventListener('click', function(event) {
                     idBKMInput.value = "";
                 }
             });
+
         });
 });
 

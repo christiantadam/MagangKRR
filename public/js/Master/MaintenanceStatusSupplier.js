@@ -50,6 +50,7 @@ function fillColumns(idSupplier, namaSupplier, idJenisSupplier, namaJenisSupplie
 
 // Event listener untuk checkbox
 var checkboxes = document.querySelectorAll('.checkbox-item');
+var lastChecked = null;
 checkboxes.forEach(function(checkbox) {
     checkbox.addEventListener('change', function() {
         if (this.checked) {

@@ -523,7 +523,7 @@
                             <div class="modal fade" id="modalTampilBKM" tabindex="-1" role="dialog"
                                 aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="padding: 25px;">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Cetak BKM Transitoris</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -554,7 +554,7 @@
                                                 <div class="col-md-3">
                                                     <label for="idTampilBKM" style="margin-right: 10px;">Id. BKM</label>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
                                                     <input type="text" id="idTampilBKM" name="idTampilBKM" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-3">
@@ -590,7 +590,7 @@
                             <!--MODAL TAMPIL BKK-->
                             <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="padding: 25px;">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Cetak BKK Transitoris</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -621,7 +621,7 @@
                                                 <div class="col-md-3">
                                                     <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
                                                     <input type="text" id="idTampilBKK" name="idTampilBKK" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-2">

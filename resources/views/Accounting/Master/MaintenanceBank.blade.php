@@ -30,7 +30,7 @@
                                         <label for="namaBank">Nama Bank</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <select id="namaBankselect" name="namaBankselect" class="form-control" style="width: 400px;" id="namaBankselect" disabled>
+                                        <select id="namaBankselect" name="namaBankselect" class="form-control" style="width: 400px;" disabled>
                                             <option disabled selected>-- Pilih Bank --</option>
                                             @foreach ($maintenanceBank as $mb)
                                             <option value="{{ $mb->Id_Bank }}">{{ $mb->Nama_Bank }}</option>

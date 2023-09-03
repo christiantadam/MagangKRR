@@ -20,7 +20,7 @@ let tabelTampilBKM;
 
 let idPelunasan = document.getElementById('idPelunasan');
 let tanggalInput = document.getElementById('tanggalInput');
-let tanggalTagih = document.getElementById('tanggalTagih');
+let tanggalTagihan = document.getElementById('tanggalTagih');
 let jenisBayar = document.getElementById('jenisBayar');
 let namaBankSelect = document.getElementById('namaBankSelect');
 let mataUang = document.getElementById('mataUang');
@@ -118,6 +118,7 @@ btnPilihBank.addEventListener('click', function (event) {
                 namaBankSelect.appendChild(option);
             });
         });
+
      // Menyimpan data dari baris yang dicentang
     let rows = tabelDataPelunasan.getElementsByTagName("tr");
     selectedRows = [];
@@ -222,13 +223,19 @@ $("#btnPilihBank").on("click", function (event) {
     const nilaiPelunasan = $("#nilaiPelunasan");
     const noBukti = $("#noBukti");
 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const formattedDate = `${month}/${day}/${year}`;
+    tanggalTagih.val(formattedDate);
+    console.log(formattedDate);
+
     const selectedData = selectedRows[0];
 
     // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
     tglPelunasan.val(selectedData.Tgl_Pelunasan);
     idPelunasan.val(selectedData.Id_Pelunasan);
-    //tanggalInput.val(selectedData.Tgl_Pelunasan);
-    tanggalTagih.val(selectedData.Tgl_Penagihan);
     jenisBayar.val(selectedData.Jenis_Pembayaran);
     idBank.val(selectedData.Id_bank);
     mataUang.val(selectedData.Nama_MataUang);
