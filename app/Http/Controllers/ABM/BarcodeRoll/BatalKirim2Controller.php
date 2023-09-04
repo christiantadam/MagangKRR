@@ -14,10 +14,9 @@ class BatalKirim2Controller extends Controller
     {
 
         $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser =?, @XIdDivisi =?', ["U001", "ABM"]);
-        $data = 'HAPPY HAPPY HAPPY';
 
         // dd($dataObjek);
-        return view('BarcodeRollWoven.BatalKirim2', compact('data', 'dataObjek'));
+        return view('BarcodeRollWoven.BatalKirim2', compact('dataObjek'));
     }
 
     //Show the form for creating a new resource.

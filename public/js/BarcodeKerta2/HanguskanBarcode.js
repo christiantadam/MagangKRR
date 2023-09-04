@@ -64,7 +64,7 @@ $(document).ready(function () {
 
                 // Loop through the data and create table rows
                 data.forEach((item) => {
-                    var kodebarcode = item.NoIndeks.padStart(9, '0') + '-' + item.Kode_barang.padStart(9, '0');
+                    var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
                     console.log(kodebarcode);
                     var row = [item.NamaType, kodebarcode, item.NamaSubKelompok, item.NamaKelompok, item.Kode_barang, item.NoIndeks, item.Qty_Primer, item.Qty_sekunder, item.Qty, item.Tgl_mutasi, item.IdType];
                     $("#TableType").DataTable().row.add(row);

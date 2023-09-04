@@ -22,7 +22,7 @@ $(document).ready(function() {
             const IdBarcode = MasukanNomorBarcode.value;
             const card = document.getElementById("card");
             console.log(IdBarcode);
-            JsBarcode("#barcode", IdBarcode);
+            JsBarcode("#barcode", IdBarcode); //Source: https://lindell.me/JsBarcode/#download
         }
     });
 });

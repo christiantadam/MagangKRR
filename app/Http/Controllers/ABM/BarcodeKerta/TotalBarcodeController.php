@@ -32,7 +32,7 @@ class TotalBarcodeController extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
-
+        // dd($cr);
         //getDivisi
         if ($crExplode[1] == "get_tgl_total_barcode") {
             $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_INV_CEK_TOTALBARCODE @tanggal = ?, @shift = ?', [$crExplode[0], "Pagi"]);
