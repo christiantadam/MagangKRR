@@ -1,6 +1,14 @@
 let dataTable;
 let btnPilihNotaKredit = document.getElementById('btnPilihNotaKredit');
 let btnProses = document.getElementById('btnProses');
+let btnTampilBKM = document.getElementById('btnTampilBKM');
+let formkoreksi = document.getElementById('formkoreksi');
+let methodkoreksi = document.getElementById('methodkoreksi');
+let idCustomer = document.getElementById('idCustomer');
+let idPenagihan = document.getElementById('idPenagihan');
+let methodTampilBKK = document.getElementById('methodTampilBKK');
+let formTampilBKK = document.getElementById('formTampilBKK');
+let idPelunasan = document.getElementById('idPelunasan');
 
 let idMataUangBKM = document.getElementById('idMataUangBKM');
 let mataUangBKMSelect = document.getElementById('mataUangBKMSelect');
@@ -29,17 +37,35 @@ let NoPenagihan;
 let idMtUang;
 let IdCust;
 let tglNota;
-let bulan;
-let tahun;
+let bulan = document.getElementById('bulan');;
+let tahun = document.getElementById('tahun');;
 let jmlUang;
 
-let total1 = 0;
+let total1;
 let total2;
+let nilai = document.getElementById('nilai');
 let nilai1 = document.getElementById('nilai1');
 let konversi = document.getElementById('konversi');
+let konversi1 = document.getElementById('konversi1');
 let nilaiUang = document.getElementById('nilaiUang');
 let lastCheckedCheckbox = null;
 let rowData;
+
+//MODAL TAMPIL BKK
+let idBKKTampil = document.getElementById('idBKKTampil');
+let btnCetakBKK = document.getElementById('btnCetakBKK');
+let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
+let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
+let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
+let tabelTampilBKK = document.getElementById('tabelTampilBKK');
+
+//MODAL TAMPIL BKM
+let idBKMTampil = document.getElementById('idBKMTampil');
+let btnCetakBKM = document.getElementById('btnCetakBKM');
+let btnOkTampilBKM = document.getElementById('btnOkTampilBKM');
+let tanggalTampilBKM = document.getElementById('tanggalTampilBKM');
+let tanggalTampilBKM2 = document.getElementById('tanggalTampilBKM2');
+let tabelTampilBKM = document.getElementById('tabelTampilBKM');
 
 tanggal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
@@ -81,15 +107,35 @@ fetch("/getTabelNotaKredit/")
         });
     });
 
-$('#tabelNotaKredit').on('change', 'input[name="divisiCheckbox"]', function() {
-    if ($(this).prop('checked')) {
-        if (lastCheckedCheckbox && lastCheckedCheckbox !== this) {
-            $(lastCheckedCheckbox).prop('checked', false);
+document.getElementById('tabelNotaKredit').addEventListener('change', function(event) {
+    if (event.target.getAttribute('name') === 'divisiCheckbox') {
+        const checkbox = event.target;
+
+        if (checkbox.checked) {
+            if (lastCheckedCheckbox && lastCheckedCheckbox !== checkbox) {
+                lastCheckedCheckbox.checked = false;
+            }
+            lastCheckedCheckbox = checkbox;
+            // Dapatkan elemen tr yang mengandung checkbox yang diperiksa
+            const tableRow = checkbox.closest('tr');
+            // Dapatkan semua elemen <td> dalam baris tersebut
+            const tableCells = Array.from(tableRow.getElementsByTagName('td'));
+            const idCust = tableCells[8].textContent;
+            const noPenagihan = tableCells[3].textContent;
+            if (idCustomer) {
+                idCustomer.value = idCust;
+            }
+            if (idPenagihan) {
+                idPenagihan.value = noPenagihan;
+            }
+        } else {
+            if (idCustomer) {
+                idCustomer.value = '';
+            }
+            if (idPenagihan) {
+                idPenagihan.value = '';
+            }
         }
-        lastCheckedCheckbox = this;
-        const checkboxValue = $(this).val();
-        const rowData = dataTable.row($(this).closest('tr')).data();
-        console.log('Checkbox checked:', checkboxValue, rowData);
     }
 });
 
@@ -114,15 +160,15 @@ btnPilihNotaKredit.addEventListener('click', function(event) {
         const dateObject = new Date(tglNota);
 
         // Get month and year separately
-        bulan = dateObject.getMonth() + 1; // +1 karena bulan dimulai dari 0 (Januari) - 11 (Desember)
-        tahun = dateObject.getFullYear();
+        bulan.value = dateObject.getMonth() + 1; // +1 karena bulan dimulai dari 0 (Januari) - 11 (Desember)
+        tahun.value = dateObject.getFullYear();
 
-        console.log('Bulan:', bulan);
-        console.log('Tahun:', tahun);
+        console.log('Bulan:', bulan.value);
+        console.log('Tahun:', tahun.value);
         console.log(nilaiUang.value);
 
-        rowData['bulan'] = bulan;
-        rowData['tahun'] = tahun;
+        rowData['bulan'] = bulan.value;
+        rowData['tahun'] = tahun.value;
 
         // tanggal.disabled = false;
         // idBKK.disabled = false;
@@ -424,7 +470,7 @@ uraianBKK.addEventListener("keypress", function(event) {
                 idBKK.value = options;
             });
 
-            idBKK.disabled = true;
+            // idBKK.disabled = true;
             jumlahUangBKK.disabled = true;
             namaBankBKKSelect.disabled = true;
             idBankBKK.disabled = true;
@@ -437,22 +483,41 @@ uraianBKK.addEventListener("keypress", function(event) {
     }
 });
 
-
 btnProses.addEventListener('click', function(event) {
     event.preventDefault();
-    if (idBKM.value != "" || idBKM.value != "") {
+    if (idBKM.value != "" || idBKK.value != "") {
         nilai1.value = parseFloat(jumlahUangBKM.value);
         total2 = nilai1.toString();
         // console.log("masuk");
-        if (parseInt(idMataUang.value) == 1) {
+        if (parseInt(idMataUangBKM.value) == 1) {
             konversi.value = F_Rupiah(total2); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
         } else {
             konversi.value = F_Dollar(total2); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+        }
+
+        nilai.value = parseFloat(jumlahUangBKK.value);
+        total1 = nilai.toString();
+        if (parseInt(idMataUangBKM.value) == 1) {
+            konversi1.value = F_Rupiah(total1); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+        } else {
+            konversi1.value = F_Dollar(total1); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
         }
     }
     else {
         console.log("Tidak Ada Yg diPROSES!");
     }
+
+    // fetch("/getIdPelunasan/")
+    //     .then((response) => response.json())
+    //     .then((options) => {
+    //         console.log(options);
+    //         idPelunasan.value = options.Id_Pelunasan;
+    //         console.log(idPelunasan.value);
+
+    //         //formkoreksi.submit();
+    // });
+    //console.log(idBKK.value);
+    formkoreksi.submit();
 })
 
 //#region untuk koversi jumlah uang
@@ -465,3 +530,110 @@ function F_Dollar() {
     return formatted;
 }
 //#endregion
+
+btnTampilBKM.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalTampilBKM = $("#modalTampilBKM");
+    modalTampilBKM.modal('show');
+});
+
+btnOkTampilBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/getTabelTampilBKMNota/" + tanggalTampilBKM.value + "/" + tanggalTampilBKM2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKM = $("#tabelTampilBKM").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKM" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                $('input[name="dataCheckbox"]').not(this).prop('checked', false);
+
+                if ($(this).prop("checked")) {
+                    const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+                    idBKMTampil.value = checkedCheckbox.Id_BKM;
+                } else {
+                    idBKMTampil.value = "";
+                }
+            });
+        });
+});
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if ($('input[name="dataCheckbox"]:checked').length === 0) {
+        alert("Pilih 1 Id.BKM Untuk DiCetak!");
+        return;
+    }
+    methodTampilBKM.value="PUT";
+    formTampilBKM.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
+    console.log(idBKM.value);
+    formTampilBKM.submit();
+});
+
+//#region MODAL TAMPIL BKM
+btnTampilBKK.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalTampilBKK = $("#modalTampilBKK");
+    modalTampilBKK.modal('show');
+});
+
+btnOkTampilBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/getTabelTampilBKKNota/" + tanggalTampilBKK.value + "/" + tanggalTampilBKK2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKK = $("#tabelTampilBKK").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKK" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKK.on('change', 'input[name="dataCheckbox"]', function() {
+                $('input[name="dataCheckbox"]').not(this).prop('checked', false);
+
+                if ($(this).prop("checked")) {
+                    const checkedCheckbox = tabelTampilBKK.row($(this).closest('tr')).data();
+                    idBKKTampil.value = checkedCheckbox.Id_BKK;
+                } else {
+                    idBKKTampil.value = "";
+                }
+            });
+        });
+});
+
+btnCetakBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if ($('input[name="dataCheckbox"]:checked').length === 0) {
+        alert("Pilih 1 Id.BKK Untuk DiCetak!");
+        return;
+    }
+    methodTampilBKK.value="PUT";
+    formTampilBKK.action = "/BKMBKKNotaKredit/" + idBKKTampil.value;
+    console.log(idBKKTampil.value);
+    formTampilBKK.submit();
+});

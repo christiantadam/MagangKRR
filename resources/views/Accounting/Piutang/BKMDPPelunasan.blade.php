@@ -324,7 +324,7 @@
                             <!--MODAL TAMPIL BKK-->
                             <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="padding: 25px;">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Cetak BKK DP</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
