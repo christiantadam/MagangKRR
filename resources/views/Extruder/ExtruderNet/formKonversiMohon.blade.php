@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="row mt-3 master">
+        <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="select_nomor_order">No. Order:</label>
                 <select id="select_nomor_order" class="form-select" disabled>
@@ -30,7 +30,7 @@
 
             <div class="col-lg-2">
                 <label for="lot">Lot:</label>
-                <input type="text" id="lot" class="form-control" placeholder="0" disabled>
+                <input type="number" id="lot" class="form-control" placeholder="0" disabled>
             </div>
 
             <div class="col-lg-1"></div>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="row mt-3 master">
+        <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="select_spek">Spek:</label>
                 <select id="select_spek" class="form-select" disabled>
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="row mt-3 master">
+        <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="select_mesin">Mesin:</label>
                 <select id="select_mesin" class="form-select" disabled>
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <div class="row mt-3 master">
+        <div class="row mt-3">
             <div class="col-lg-4">
                 <label for="select_komposisi">Komposisi:</label>
                 <select id="select_komposisi" class="form-select" disabled>

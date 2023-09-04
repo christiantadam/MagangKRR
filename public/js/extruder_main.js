@@ -195,7 +195,7 @@ function addOptionIfNotExists(
         }
     }
 
-    const newOption = new Option(text, value);
+    const newOption = new Option(text == "" ? value : text, value);
     if (autoSelectTrue) newOption.selected = true;
     selectEle.appendChild(newOption);
 }
@@ -238,7 +238,10 @@ function clearOptions(selectEle, selectLbl = "") {
 
 function fetchStmt(urlString, postAction = null, catchAction = null) {
     fetch(urlString)
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok!");
+            return response.json();
+        })
         .then((data) => {
             console.log("urlString = " + urlString);
             if (data == 1) console.log("QUERY BERHASIL KAWAN!");
@@ -263,7 +266,10 @@ function fetchSelect(
     catchAction = null
 ) {
     fetch(urlString)
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) throw new Error("Network response was not ok!");
+            return response.json();
+        })
         .then((data) => {
             console.log("urlString = " + urlString);
 
