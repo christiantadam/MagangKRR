@@ -29,8 +29,8 @@
     <div class="container">
         <div class="container">
             <label for="nama-barang">Nama Barang:</label>
-            <input type="text" id="nama-barang" required class="input-small">
-            <input type="text" id="input1" class="input-medium">
+            <input type="text" id="input1" required class="input-small">
+            <input type="text" id="nama-barang" class="input-medium">
         </div>
 
         <div class="container">
@@ -103,3 +103,4 @@
     <script src="{{ asset('js\AdStar\UpKdBrng.js')}}"></script>
 
 @endsection
+

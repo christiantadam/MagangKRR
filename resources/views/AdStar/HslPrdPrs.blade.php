@@ -34,11 +34,11 @@
                     <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
                     <div class="col-lg-4">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <input type="text" id="namabarang" class="form-control" placeholder="" aria-label="" readonly>
                             <button id="button_noordkrj" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja" disabled>
                                 ...
                             </button>
-                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <input type="text" id="noorder" class="form-control" placeholder="" aria-label="" readonly>
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                     <div class="col-lg-2 aligned-text">Mesin Produksi:</div>
                     <div class="col-lg-4">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
-                            <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                            <input type="text" id="kdmesin" class="form-control" placeholder="" aria-label="" readonly>
+                            <input type="text" id="namamesin" class="form-control" placeholder="" aria-label="" readonly>
                             <button id="button_msnprdk" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
                                 ...
                             </button>
@@ -57,7 +57,7 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Grup Pelaksana:</div>
                     <div class="col-lg-2">
-                        <select id="grup-pelaksana-dropdown" required disabled>
+                        <select id="grup-pelaksana-dropdown" name="grup-pelaksana-dropdown" required disabled>
                             <option value="1">A</option>
                             <option value="2">B</option>
                             <option value="3">C</option>
@@ -192,7 +192,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table id="tabel_notransaksi" class="table table-bordered">
+                <table id="tabel_noorder" class="table table-bordered">
                     <thead class="thead-dark">
                         <tr>
                             <th>Nama Brg</th>
@@ -212,6 +212,7 @@
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
+            <div id="form-container"></div>
         </div>
         </div>
     </div>

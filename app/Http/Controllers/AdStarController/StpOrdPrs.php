@@ -35,15 +35,25 @@ class StpOrdPrs extends Controller
 
 
         //getorder
-        if ($crExplode[1] == "dataorder") {
-            $dataorder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?', [ $crExplode[0]]);
-
+        if ($crExplode[1] == "dataOrder") {
+            $dataOrder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?', [ $crExplode[0]]);
+            // dd($dataOrder);
             // dd($dataObjek);
             // Return the options as JSON data
-            return response()->json($dataorder);
+            return response()->json($dataOrder);
 
             // dd($crExplode);
-            // dd($dataorder);
+
+        }
+        else if ($crExplode[1] == "dataOrder2") {
+            $dataOrder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @no_order= ?', [9, $crExplode[0]]);
+            dd($dataOrder);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataOrder);
+
+            // dd($crExplode);
+
         }
     }
 
@@ -56,7 +66,16 @@ class StpOrdPrs extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_ORDER @kode = ?, @No_Order = ?, @A_Tgl_Finish = ?', [
+            $data['kode'],
+            $data['IDLOG'],
+            $data['Tanggal'],
+
+
+        ]);
+        return redirect()->route('StpOrdPrs.index')->with('alert', 'Data Produksi Updated successfully!');
     }
 
     //Remove the specified resource from storage.

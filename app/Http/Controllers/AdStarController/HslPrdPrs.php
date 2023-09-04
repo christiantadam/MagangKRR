@@ -30,19 +30,23 @@ class HslPrdPrs extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
-        $validatedData = $request->validate([
-            // Add validation rules for each input field
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tanggal'],
+            $data['No_Order'],
+            $data['IDMESIN'],
+            $data['Group'],
+            $data['AWALSHIFT'],
+            $data['AKHIRSHIFT'],
+            $data['JMLPRIMER'],
+            $data['JMLSEKUNDER'],
+            $data['JMLTRITIER'],
+            1,
         ]);
+        return redirect()->route('HslPrdPrs.index')->with('alert', 'Berhasil Tambah Data !');
 
-        // Create a new record in the database using the validated data
-        $result = DB::table('SP_1486_ADSTAR_LIST_HASIL_PRODUKSI')->insert($validatedData);
-
-        if ($result) {
-            return redirect()->back()->with('success', 'Data saved successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to save data.');
-        }
     }
 
     //Display the specified resource.
@@ -54,6 +58,13 @@ class HslPrdPrs extends Controller
         if ($crExplode[1] == "dataTransaksi") {
             $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @tanggal= ?', [1, $crExplode[0]]);
             // dd($dataObjek);
+            // Return the options as JSON data a
+            return response()->json($dataTransaksi);
+
+            // dd($crExplode);
+        }else if ($crExplode[1] == "getDataProduksi") {
+            $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @IDLOG= ?', [2, $crExplode[0]]);
+            // dd($dataTransaksi);
             // Return the options as JSON data a
             return response()->json($dataTransaksi);
 
@@ -70,9 +81,45 @@ class HslPrdPrs extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tanggal'],
+            $data['IDLOG'],
+            $data['No_Order'],
+            $data['IDMESIN'],
+            $data['Group'],
+            $data['AWALSHIFT'],
+            $data['AKHIRSHIFT'],
+            $data['JMLPRIMER'],
+            $data['JMLSEKUNDER'],
+            $data['JMLTRITIER'],
+            1,
+        ]);
+        return redirect()->route('HslPrdPrs.index')->with('alert', 'Data Produksi Updated successfully!');
     }
 
+    public function destroy(Request $request)
+    {
+        $data = $request->all();
+        // dd('Masuk Destroy', $data);
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tanggal'],
+            $data['IDLOG'],
+            $data['No_Order'],
+            $data['IDMESIN'],
+            $data['Group'],
+            $data['AWALSHIFT'],
+            $data['AKHIRSHIFT'],
+            $data['JMLPRIMER'],
+            $data['JMLSEKUNDER'],
+            $data['JMLTRITIER'],
+            1,
+        ]);
+        return redirect()->route('HslPrdPrs.index')->with('alert', 'Data Produksi  berhasil dihapus!');
+    }
     //Remove the specified resource from storage.
 //     public function destroy($id)
 //     {

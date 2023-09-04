@@ -6,8 +6,8 @@
     var idbrng = $(this).data('idbrng');
 
     // Populate the form fields with the data
-    $('#nama-barang').val(idbrng);
-    $('#input1').val(nama);
+    $('#input1').val(idbrng);
+    $('#nama-barang').val(nama);
 });
 
     // // Click event handler for table rows
@@ -91,3 +91,5 @@ function updateData() {
     console.log('Updating data...');
     console.log(`ID: ${idbrng}, Nama: ${nama}, Kode: ${kode}`);
 }
+
+

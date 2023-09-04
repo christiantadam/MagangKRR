@@ -16,52 +16,52 @@
             <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
             <div class="col-lg-4">
                 <div class="input-group mb-3">
-                    <input type="text" class="input-small" placeholder="" aria-label="">
-                    <button type="button" id="btn_noorder" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja">
+                    <input type="text" id="no_order" class="input-small" placeholder="" aria-label="" readonly>
+                    <button type="button" id="btn_noorder" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noorderkerja" disabled>
                         ...
                     </button>
-                    <input type="text" class="input" placeholder="" aria-label="">
+                    <input type="text" id="nama_brng" class="input" placeholder="" aria-label="" readonly>
                 </div>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">No. Pesanan:</div>
             <div class="col-lg-3">
-                <input type="text" class="form-control" placeholder="" aria-label="">
+                <input type="text" id="no_pesan" class="form-control" placeholder="" aria-label="" readonly>
             </div>
             <div class="col-lg-2 aligned-text">Surat Pesanan:</div>
             <div class="col-lg-3">
-                <input type="text" class="form-control" placeholder="" aria-label="">
+                <input type="text" id="srt_pesan" class="form-control" placeholder="" aria-label="" readonly>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Qty Order:</div>
             <div class="col-lg-2">
-                <input type="number" id="qty-ordr" class="input-small" required min="0" placeholder="lbr">
+                <input type="number" id="qty_ordr" class="input-small" required min="0" placeholder="lbr" readonly>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Hasil Order:</div>
             <div class="col-lg-2">
-                <input type="number" id="hsl-ordr" class="input-small" required min="0" placeholder="lbr">
+                <input type="number" id="hsl_ordr" class="input-small" required min="0" placeholder="lbr" readonly>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Rencana Kerja:</div>
             <div class="col-lg-2">
-                <input type="date" id="rncn-kerja" class="form-control" required>
+                <input type="date" id="rncn_kerja" class="form-control" required readonly>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Rencana Finish:</div>
             <div class="col-lg-2">
-                <input type="date" id="rncn-finish" class="form-control" required>
+                <input type="date" id="rncn_finish" class="form-control" required readonly>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tgl Finish:</div>
             <div class="col-lg-2">
-                <input type="date" id="tgl-finish" class="form-control" required>
+                <input type="date" id="tgl_finish" class="form-control" required>
             </div>
         </div>
     </div>
@@ -69,10 +69,12 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-primary">Stop Order</button>
+                <button id="stpButton" class="btn btn-primary" style="display: block;">Stop Order</button>
+                <button id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
             </div>
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-success">Unstop Order</button>
+                <button id="unstpButton" class="btn btn-primary" style="display: block;">Unstop Order</button>
+                <button id="cancelButton" class="btn btn-primary" style="display: none;">Cancel</button>
             </div>
         </div>
     </div>
@@ -111,6 +113,7 @@
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
+        <div id="form-container"></div>
     </div>
     </div>
 </div>
