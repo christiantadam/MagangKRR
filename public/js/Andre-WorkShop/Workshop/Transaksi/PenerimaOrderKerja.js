@@ -22,6 +22,31 @@ let methodForm = document.getElementById("methodForm");
 let KetTdkS = document.getElementById("KetTdkS");
 let openmodaltunda = false;
 let btnproses = document.getElementById("btnproses");
+let prosesmodaltunda = document.getElementById('prosesmodaltunda');
+let FormTundaModal = document.getElementById('FormTundaModal');
+let methodFormModalTunda = document.getElementById('methodFormModalTunda');
+let btnkoreksi = document.getElementById('btnkoreksi');
+let order_kerja = document.getElementById('order_kerja');
+let order_selesai = document.getElementById('order_selesai');
+let order_batal = document.getElementById('order_batal');
+var trselect;
+
+let ModalKoreksi = document.getElementById('ModalKoreksi');
+let FormKoreksiModal = document.getElementById('FormKoreksiModal');
+let tglOrder = document.getElementById('tglOrder');
+let NoOrder = document.getElementById('NoOrder');
+let NoGambar = document.getElementById('NoGambar');
+let KdBarang = document.getElementById('KdBarang');
+let Divisi = document.getElementById('Divisi');
+let NamaBarang = document.getElementById('NamaBarang');
+let KeteranganOrder = document.getElementById('KeteranganOrder');
+let JumlahOrder = document.getElementById('JumlahOrder');
+let JumlahOrderSelesai = document.getElementById('JumlahOrderSelesai');
+let TanggalStart = document.getElementById('TanggalStart');
+let TanggalFinish = document.getElementById('TanggalFinish');
+let Usermodalkoreksi = document.getElementById('Usermodalkoreksi');
+let LblNamaUser = document.getElementById('LblNamaUser');
+
 //#region set tanggal
 const currentDate = new Date();
 
@@ -300,6 +325,7 @@ function klikproses() {
                         //open modal
                         btnproses.setAttribute("data-toggle", "modal");
                         btnproses.setAttribute("data-target", "#modaltunda");
+
                     }
                 }
                 if (openmodaltunda == false) {
@@ -314,8 +340,128 @@ function klikproses() {
 
 //#endregion
 
+//#region proses modal tunda
+
+prosesmodaltunda.addEventListener('click', function(event){
+    event.preventDefault();
+    var arrayString = arraycheckbox.join(",");
+
+})
+
+//#endregion
+
 //#region koreksi di klik
 
+function koreksiklik() {
+    if (
+        order_kerja.checked == false &&
+        order_selesai.checked == false &&
+        order_batal.checked == false
+    ) {
+        alert(
+            "Pilih 'Order DiKerjakan' atau 'Order Selesai' atau 'Order Dibatalkan"
+        );
+    } else {
+        let no_order;
+        var arrayindex = [];
+        $("input[name='penerimaCheckbox']:checked").each(function () {
+            let rowIndex = $(this).closest("tr").index();
+            let closestTr = $(this).closest("tr");
+            // console.log(rowIndex);
+            no_order = this.value;
+            trselect = closestTr;
+            index = rowIndex;
+            arrayindex.push(index);
+            console.log(trselect);
+            // let value = this.value;
+            // console.log(rowIndexArray);
+        });
+        console.log(index);
+        if (arrayindex.length === 0 || arrayindex.length > 1) {
+            alert("Pilih 1 Data Untuk DiPROSES");
+        } else {
+            if (trselect.hasClass("red-color") && order_batal.checked == true) {
+                alert("Proses Order Untuk Dikerjakan Dulu Atau Batal ACC");
+                return;
+            }
+            if (trselect.hasClass("black-color")) {
+                alert("Proses Order Untuk Diterima Dulu, baru Koreksi");
+                return;
+            }
+            if (trselect.hasClass("red-color") && order_selesai.checked == true) {
+                alert("Proses Order Untuk Dikerjakan Dulu");
 
+                return;
+            }
+            else if (order_kerja.checked == true || order_selesai.checked == true) {
+                btnkoreksi.setAttribute("data-toggle", "modal");
+                btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
+            } else {
+                btnkoreksi.setAttribute("data-toggle", "");
+                btnkoreksi.setAttribute("data-target", "");
+            }
+            if (
+                trselect.hasClass("red-color") ||
+                (trselect.hasClass("blue-color") && order_kerja.checked == true)
+            ) {
+                // console.log(table_data.cell(index, 0).data());
+                // tglOrder.value = table_data.cell(index, 1).data();
+                // noOrder.value = table_data.cell(index, 0).data();
+                // Divisimodal.value = table_data.cell(index, 7).data();
+                // NamaBarangModal.value = table_data.cell(index, 3).data();
+                // noGambar.value = table_data.cell(index, 4).data();
+                // KeteranganModal.value = table_data.cell(index, 9).data();
+                // JumlahModal.value = table_data.cell(index, 5).data();
+                // lblstatus.textContent = table_data.cell(index, 6).data();
+                // TuserOd.value = table_data.cell(index, 11).data();
+                // Tsts.value = 1;
+            }
+            if (
+                trselect.hasClass("blue-color") &&
+                order_selesai.checked == true
+            ) {
+                // tglOrder.value = table_data.cell(index, 1).data();
+                // noOrder.value = table_data.cell(index, 0).data();
+                // Divisimodal.value = table_data.cell(index, 7).data();
+                // NamaBarangModal.value = table_data.cell(index, 3).data();
+                // noGambar.value = table_data.cell(index, 4).data();
+                // KeteranganModal.value = table_data.cell(index, 9).data();
+                // JumlahModal.value = table_data.cell(index, 5).data();
+                // lblstatus.textContent = table_data.cell(index, 6).data();
+                // TuserOd.value = table_data.cell(index, 11).data();
+                // Tsts.value = 2;
+            }
+            if (
+                trselect.hasClass("blue-color") &&
+                order_batal.checked == true
+            ) {
+                // let ada;
+                // fetch("/cekuserkoreksi/" + user)
+                //     .then((response) => response.json())
+                //     .then((datas) => {
+                //         console.log(datas[0].ada);
+                //         ada = datas[0].ada;
+                //     });
+                // if (ada == 0) {
+                //     alert("Login " + user + " Tidak berHak utk memproses.");
+                // } else {
+                //     Ket_batal = prompt("Alasan Dibatalkan : ");
+                //     if (Ket_batal !== null) {
+                //         ketbatal.value = Ket_batal;
+                //         no_orderkoreksi.value = no_order;
+                //         methodForm.value = "PUT";
+                //         radiobox.value = "order_batal";
+                //         formPemerimaGambar.action =
+                //             "/PenerimaOrderGambar/" + no_orderkoreksi.value;
+                //         formPemerimaGambar.submit();
+                //     }
+
+                // }
+            }
+
+
+        }
+    }
+}
 
 //#endregion
