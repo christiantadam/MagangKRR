@@ -1,80 +1,196 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <div class="container-fluid"  >
+    <script type="text/javascript" src="{{ asset('js/Transaksi/KoreksiAbsen.js') }}"></script>
+    <div class="container-fluid">
         <div class="row justify-content-center" style="">
-            <div class="col-md-10 RDZMobilePaddingLR0" >
+            <div class="col-md-10 RDZMobilePaddingLR0">
 
-                <div class="card" style="margin:auto;" >
-                    <div class="card-header">Insert Agenda Pegawai Baru</div>
+                <div class="card" style="margin:auto;">
+                    <div class="card-header">Koreksi Absen</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px;">
                         <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
-                            <div class="card-body" style="flex: 1; margin-right: 10px;">
-                                <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
-                                    <div class="permohonan-s-p-container19"> <span>Divisi</span>
+                            <div class="card-body" style="flex: 0 0 35%; max-width: 35%; margin-right: 10px;">
+                                <div class="row" style="padding-left:60px;">
+                                    <div class="form-group col-md-1 d-flex justify-content-end">
+                                        <span class="aligned-text">Divisi:</span>
                                     </div>
-                                    <div class="permohonan-s-p-container20" >
-                                        <div class="permohonan-s-p-container21">
-                                            <select name="kategori_utama" id="kategori_utama" class="form-control" style="width:300px;">
-                                                <option disabled selected value></option>
+                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <input class="form-control" type="text" id="Id_Div" readonly
+                                            style="resize: none; height: 40px; width:90px;">
+                                        <input class="form-control ml-3" type="text" id="Nama_Div" readonly
+                                            style="resize: none; height: 40px; max-width: 500px;">
+                                        {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                            style="resize: none; height: 40px; max-width: 250px;">
+                                            <option value=""></option>
+                                            @foreach ($divisi as $data)
+                                                <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                            @endforeach
+                                        </select> --}}
+                                        <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
+                                            onclick="showModalDivisi()">...</button>
 
-                                            </select>
 
+                                        <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
+                                            area-hidden="true" style="">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content" style="">
+                                                    <div class="modal-header" style="justify-content: center;">
+
+                                                        <div class="row" style=";">
+                                                            <div class="table-responsive" style="margin:30px;">
+                                                                <table id="table_Divisi" class="table table-bordered">
+                                                                    <thead class="thead-dark">
+                                                                        <tr>
+                                                                            <th scope="col">Id Divisi</th>
+                                                                            <th scope="col">Nama Divisi</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach ($dataDivisi as $data)
+                                                                            <tr>
+
+                                                                                <td>{{ $data->Id_Div }}</td>
+                                                                                <td>{{ $data->Nama_Div }}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        {{-- @foreach ($peringatan as $item)
+                                                                            <tr>
+                                                                                <td><input type="checkbox" style="margin-right:5px;"
+                                                                                        data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                        data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                </td>
+                                                                                <td>{{ $item->Nama_Div }}</td>
+                                                                                <td>{{ $item->kd_pegawai }}</td>
+                                                                                <td>{{ $item->Nama_Peg }}</td>
+                                                                                <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                <td>{{ $item->uraian }}</td>
+                                                                                <td>{{ $item->bulan }}</td>
+                                                                                <td>{{ $item->tahun }}</td>
+                                                                            </tr>
+                                                                        @endforeach --}}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
-                                    <div style="flex: 1; margin-right: 10px;">
-                                        <label style="margin-right: 10px;">Tanggal</label>
-                                        <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                </div>
+                                <div class="row" style="padding-left:60px;">
+                                    <div class="form-group col-md-1 d-flex justify-content-end">
+                                        <span class="aligned-text">Kode&nbsp;Pegawai:</span>
+                                    </div>
+                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <input class="form-control" type="text" id="Id_Peg" readonly
+                                            style="resize: none; height: 40px; width:90px;">
+                                        <input class="form-control ml-3" type="text" id="Nama_Peg" readonly
+                                            style="resize: none; height: 40px; max-width: 500px;">
+                                        {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                            style="resize: none; height: 40px; max-width: 250px;">
+                                            <option value=""></option>
+                                            @foreach ($divisi as $data)
+                                                <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                            @endforeach
+                                        </select> --}}
+                                        <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
+                                            onclick="showModalPegawai()">...</button>
 
 
+                                        <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
+                                            area-hidden="true" style="">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content" style="">
+                                                    <div class="modal-header" style="justify-content: center;">
+
+                                                        <div class="row" style=";">
+                                                            <div class="table-responsive" style="margin:30px;">
+                                                                <table id="table_Pegawai" class="table table-bordered">
+                                                                    <thead class="thead-dark">
+                                                                        <tr>
+                                                                            <th scope="col">Kd Pegawai</th>
+                                                                            <th scope="col">Nama Pegawai</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {{-- @foreach ($dataDivisi as $data)
+                                                                            <tr>
+
+                                                                                <td>{{ $data->Id_Div }}</td>
+                                                                                <td>{{ $data->Nama_Div }}</td>
+                                                                            </tr>
+                                                                        @endforeach --}}
+                                                                        {{-- @foreach ($peringatan as $item)
+                                                                            <tr>
+                                                                                <td><input type="checkbox" style="margin-right:5px;"
+                                                                                        data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                        data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                </td>
+                                                                                <td>{{ $item->Nama_Div }}</td>
+                                                                                <td>{{ $item->kd_pegawai }}</td>
+                                                                                <td>{{ $item->Nama_Peg }}</td>
+                                                                                <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                <td>{{ $item->uraian }}</td>
+                                                                                <td>{{ $item->bulan }}</td>
+                                                                                <td>{{ $item->tahun }}</td>
+                                                                            </tr>
+                                                                        @endforeach --}}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
-                                    <div style="flex: 1; margin-right: 10px;">
-                                        <label style="margin-right: 10px;">S/D</label>
-                                        <div style="display: flex; align-items: center;">
-                                            <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                </div>
 
-
-                                        </div>
-
+                            </div>
+                            <div class="card-body" style="flex: 0 0 35%; max-width: 35%; margin-right: 10px;">
+                                <div class="row">
+                                    <div class="form-group col-md-3 d-flex justify-content-end">
+                                        <label for="TglMulai" class="aligned-text">Tanggal:</label>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input class="form-control" type="date" id="TglMulai" name="TglMulai"
+                                            value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                            style="max-width: 200px;">
+                                        <span class="aligned-text" style="margin-left: 15px;">s/d</span>
+                                        <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
+                                            value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required
+                                            style="max-width: 200px;">
+                                        <button type="button" class="btn  " id="buttonTampil"
+                                            style="margin-left:10px;">Tampilkan</button>
                                     </div>
 
 
                                 </div>
-                                <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
-                                    <div class="permohonan-s-p-container19"> <span>Kode Pegawai</span>
+                                {{-- <div class="row">
+                                    <div class="form-group col-md-3 d-flex justify-content-end">
                                     </div>
-                                    <div class="permohonan-s-p-container20">
-                                        <div class="permohonan-s-p-container21">
-                                            <select name="kategori_utama" id="kategori_utama" class="form-control" style="width:300px;">
-                                                <option disabled selected value></option>
-
-                                            </select>
-
-                                        </div>
+                                    <div class="form-group col-md-4 d-flex justify-content-end">
+                                        <button type="button" class="btn">Tampilkan</button>
                                     </div>
-                                    <br>
-
-                                </div>
-
+                                </div> --}}
                             </div>
 
 
                         </div>
-                        <div style="text-align: right; ">
-                            <button type="button" class="btn btn-primary">Tampilkan</button>
 
-                        </div>
 
                         <br>
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-bordered" id="table_Koreksi">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Centang</th>
                                         <th scope="col">KdPegawai</th>
                                         <th scope="col">Tanggal</th>
                                         <th scope="col">Masuk</th>
@@ -83,7 +199,7 @@
                                         <th scope="col">Pulang</th>
                                         <th scope="col">Ket</th>
                                         <th scope="col">KetLembur</th>
-                                        <th scope="col">Lam..</th>
+                                        <th scope="col">Lambat</th>
                                         <th scope="col">Tinggal</th>
                                         <th scope="col">Lebih</th>
                                         <th scope="col">Lbr 1</th>
@@ -91,15 +207,16 @@
                                         <th scope="col">Lbr 3</th>
                                         <th scope="col">Lbr 4</th>
                                         <th scope="col">JmlJam</th>
+                                        <th scope="col">id_agenda</th>
                                         <th scope="col">Istirahat</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr>
+                                    {{-- <tr> --}}
 
-                                        {{-- <td>
+                                    {{-- <td>
                                             <a href="" title="Edit Employee">
                                                 <button class="btn btn-primary btn-sm">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
@@ -112,7 +229,7 @@
                                             </form>
                                         </td> --}}
 
-                                    </tr>
+                                    {{-- </tr> --}}
                                     {{-- @foreach ($employees as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
@@ -144,131 +261,465 @@
                             <input type="checkbox">
                             <label for="staff">Centang Semua</label>
                         </div>
-                        <div class="card-container"
-                        style="display: flex; flex-wrap: nowrap; ">
-                        <div>
-                        <div class="card-body" style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; ">
+                        <div class="card-container" style="display: flex; flex-wrap: nowrap; ">
+                            <div>
+                                <div class="card-body"
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " id="tambahSection" hidden>
 
-                            <div class="time-form" style="display: flex; flex-direction: row; justify-content: left;">
-                                <label for="masukLembur">Tanggal</label>
-                                <div style="margin-left:51px">
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required style="max-width: 200px; margin-left: 5px;">
-                                </div>
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Tanggal :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                            </div>
-                            <div style="display: flex; flex-direction: row; justify-content: left;">
-                                <label style="margin-bottom: 5px;">Keterangan</label>
-                                <select class="form-control" id="Shift" name="Shift"
-                                    style="resize: none;height: 35px; max-width:150px;margin-left:43px;">
-                                    <option value="">Masuk</option>
-                                    <option value="">Sakit</option>
-                                    <option value="">Ijin</option>
-                                </select>
-                            </div>
-                            <div style="display: flex; flex-direction: row; justify-content: left;margin-top:10px;">
+                                            <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
+                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
+                                                style="width: 150px;" required>
+                                        </div>
 
-                                <label style="margin-bottom: 5px;">Alasan Lembur</label>
-                                <div style="display: flex; flex-wrap: nowrap;">
-                                    <textarea class="" id="NIK" name="NIK" style="resize: none;height: 35px; margin-left:20px;" required></textarea>
-                                </div>
 
-                            </div>
-                            <div style="display: flex; flex-direction: row; justify-content: left;margin-top:10px;">
-                                <label style="margin-bottom: 5px;">Klinik</label>
-                                <select class="form-control" id="Shift" name="Shift"
-                                    style="resize: none;height: 35px; max-width:150px;margin-left:81px;">
-                                    <option value="">Masuk</option>
-                                    <option value="">Sakit</option>
-                                    <option value="">Ijin</option>
-                                </select>
-                            </div>
-                            <div class="time-form" style="display: flex; flex-direction: row; justify-content: left;">
-                                <label for="masukLembur">Pulang Kerja :</label>
-                                <div>
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required style="max-width: 200px; margin-right: 5px">
-                                </div>
-                                <div>
+                                    </div>
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Keterangan :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                    <input class="form-control" type="time" id="masukLembur" name="masukLembur">
-                                </div>
-                            </div>
+                                            <select class="form-control" id="Shift" name="Shift"
+                                                style="resize: none;height: 35px; max-width:150px;">
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="H">H</option>
+                                                <option value="I">I</option>
+                                                <option value="K">K</option>
+                                                <option value="L">L</option>
+                                                <option value="M">M</option>
+                                                <option value="P">P</option>
+                                                <option value="S">S</option>
+                                                <option value="X">X</option>
+                                            </select>
+                                        </div>
 
-                            <div class="card-body" style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; ">
-                                <div style="display: flex; flex-direction: row; justify-content: left;margin-top:10px;">
 
-                                    <label style="margin-bottom: 5px;">Alasan Lembur</label>
-                                    <div style="display: flex; flex-wrap: nowrap;">
-                                        <textarea class="" id="NIK" name="NIK" style="resize: none;height: 35px; margin-left:20px;" required></textarea>
+                                    </div>
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Alasan Lembur :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="text" id="AlasanLembur" readonly
+                                                style="resize: none; height: 40px; max-width: 550px;">
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Klinik:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Klinik" readonly
+                                                style="resize: none; height: 40px; width: 100px;">
+                                            <input class="form-control ml-3" type="text" id="Nama_Klinik" readonly
+                                                style="resize: none; height: 40px; width: 313px;">
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                style="resize: none; height: 40px; max-width: 250px;">
+                                                <option value=""></option>
+                                                @foreach ($divisi as $data)
+                                                    <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                @endforeach
+                                            </select> --}}
+                                            <button type="button" class="btn" style="margin-left: 10px; "
+                                                id="klinikButton" onclick="showModalKlinik()">...</button>
+
+                                            <div class="modal fade" id="modalKlinik" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="table_Klinik" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Id Klinik</th>
+                                                                                <th scope="col">Nama Klinik</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                            {{-- @foreach ($dataKlinik as $data)
+                                                                                <tr>
+
+                                                                                    <td>{{ $data->kd_klinik }}</td>
+                                                                                    <td>{{ $data->nama_klinik }}</td>
+                                                                                </tr>
+                                                                            @endforeach --}}
+                                                                            {{-- @foreach ($peringatan as $item)
+                                                                                <tr>
+                                                                                    <td><input type="checkbox" style="margin-right:5px;"
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                    </td>
+                                                                                    <td>{{ $item->Nama_Div }}</td>
+                                                                                    <td>{{ $item->kd_pegawai }}</td>
+                                                                                    <td>{{ $item->Nama_Peg }}</td>
+                                                                                    <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->uraian }}</td>
+                                                                                    <td>{{ $item->bulan }}</td>
+                                                                                    <td>{{ $item->tahun }}</td>
+                                                                                </tr>
+                                                                            @endforeach --}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card-body"
+                                        style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; ">
+                                        <div class="row" style="">
+                                            <div class="form-group col-md-2 d-flex justify-content-end">
+                                                <span class="aligned-text">Jumlah&nbsp;Jam&nbsp;:</span>
+                                            </div>
+                                            <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                <input class="form-control" type="text" id="jmlJam"
+                                                    style="resize: none; height: 40px; max-width: 150px;">
+                                            </div>
+
+
+                                        </div>
+                                        <div class="card-container" style="display: flex; margin-left:110px;">
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Terlambat&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamTerlambat"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Tinggal&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamTinggal"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Lembur&nbsp;1.5&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamLembur1"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Lembur&nbsp;2&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamLembur2"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Lembur&nbsp;3&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamLembur3"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Lembur&nbsp;4&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input class="form-control" type="text" id="jamLembur4"
+                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
 
                                 </div>
-                                <div class="card-container" style="display: flex; flex-wrap: nowrap;">
-                                    <div class="card-body" style="flex: 1;">
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Terlambat</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 20px;" required></textarea>
-                                            </div>
+                                <div class="card-body"
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "id="koreksiSection" >
+
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Tanggal :</span>
                                         </div>
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Tinggal</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 35px;" required></textarea>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
+                                                value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
+                                                style="width: 150px;" required>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Keterangan :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <select class="form-control" id="Shift" name="Shift"
+                                                style="resize: none;height: 35px; max-width:150px;">
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="H">H</option>
+                                                <option value="I">I</option>
+                                                <option value="K">K</option>
+                                                <option value="L">L</option>
+                                                <option value="M">M</option>
+                                                <option value="P">P</option>
+                                                <option value="S">S</option>
+                                                <option value="X">X</option>
+                                            </select>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Alasan Lembur :</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                            <input class="form-control" type="text" id="AlasanLembur" readonly
+                                                style="resize: none; height: 40px; max-width: 550px;">
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="row" style="margin-left:-120px;">
+                                        <div class="form-group col-md-3 d-flex justify-content-end">
+                                            <span class="aligned-text">Shift:</span>
+                                        </div>
+                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                            <input class="form-control" type="text" id="Id_Shift" readonly
+                                                style="resize: none; height: 40px; width: 100px;">
+
+                                            {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
+                                                style="resize: none; height: 40px; max-width: 250px;">
+                                                <option value=""></option>
+                                                @foreach ($divisi as $data)
+                                                    <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
+                                                @endforeach
+                                            </select> --}}
+                                            <button type="button" class="btn" style="margin-left: 10px; "
+                                                id="klinikButton" onclick="showModalShift()">...</button>
+
+                                            <div class="modal fade" id="modalShift" role="dialog"
+                                                arialabelledby="modalLabel" area-hidden="true" style="">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content" style="">
+                                                        <div class="modal-header" style="justify-content: center;">
+
+                                                            <div class="row" style=";">
+                                                                <div class="table-responsive" style="margin:30px;">
+                                                                    <table id="table_Shift" class="table table-bordered">
+                                                                        <thead class="thead-dark">
+                                                                            <tr>
+                                                                                <th scope="col">Id Shift</th>
+                                                                                <th scope="col">Jam</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                            @foreach ($dataShift as $data)
+                                                                                <tr>
+
+                                                                                    <td>{{ $data->Shift }}</td>
+                                                                                    <td>{{ $data->Jam }}</td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                            {{-- @foreach ($peringatan as $item)
+                                                                                <tr>
+                                                                                    <td><input type="checkbox" style="margin-right:5px;"
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                            data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                                    </td>
+                                                                                    <td>{{ $item->Nama_Div }}</td>
+                                                                                    <td>{{ $item->kd_pegawai }}</td>
+                                                                                    <td>{{ $item->Nama_Peg }}</td>
+                                                                                    <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                                    <td>{{ $item->uraian }}</td>
+                                                                                    <td>{{ $item->bulan }}</td>
+                                                                                    <td>{{ $item->tahun }}</td>
+                                                                                </tr>
+                                                                            @endforeach --}}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="card-body" style="flex: 1;">
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Lembur_1.5</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 20px;" required></textarea>
+
+                                    <div class="card-body"
+                                        style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " >
+
+                                        <div class="card-container" style="display: flex; margin-left:110px;">
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Masuk&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Keluar&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Istirahat&nbsp;Awal&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Istirahat&nbsp;Akhir&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Datang&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                        <span class="aligned-text">Pulang&nbsp;:</span>
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <input type="time" id="pulang" name="pulang">
+                                                    </div>
+
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Lembur_2</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 32px;" required></textarea>
-                                            </div>
-                                        </div>
+
+
                                     </div>
 
-                                    <div class="card-body" style="flex: 1;">
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Lembur_3</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 20px;" required></textarea>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; margin-top: 10px;">
-                                            <label style="margin-bottom: 5px; margin-right: 10px;">Lembur_4</label>
-                                            <div style="display: flex; flex-wrap: nowrap;">
-                                                <textarea class="" id="NIK" name="NIK" style="resize: none; height: 35px; margin-left: 20px;" required></textarea>
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="row" style="padding-top: 20px;">
+                                    <div class="col-6" style="text-align: left; ">
+                                        <button type="button" class="btn" style="margin-left: 10px"
+                                            id="tambahButton">Tambah</button>
+                                        <button type="button" class="btn" style="margin-left: 10px"
+                                            id="koreksiButton">Koreksi</button>
+                                        <button type="button" class="btn " style="margin-left: 10px"
+                                            id="hapusButton">Hapus</button>
+                                    </div>
+                                    <div class="col-6" style="text-align: right; ">
+                                        <button type="button" class="btn " style="margin-left: 50px"
+                                            id="prosesButton">Proses</button>
+                                        <button type="button" class="btn " style="margin-left: 10px"
+                                            id="batalButton">Batal</button>
                                     </div>
                                 </div>
 
-
                             </div>
-
-                        </div>
-                        <div class="row" style="padding-top: 20px;">
-                            <div class="col-6" style="text-align: left; ">
-                                <button type="button" class="btn btn-info" style="margin-left: 10px">Tambah</button>
-                                <button type="button" class="btn btn-primary" style="margin-left: 10px">Koreksi</button>
-                                <button type="button" class="btn btn-danger" style="margin-left: 10px">Hapus</button>
-                            </div>
-                            <div class="col-6" style="text-align: right; ">
-                                <button type="button" class="btn btn-primary" style="margin-left: 50px">Proses</button>
-                                <button type="button" class="btn btn-dark" style="margin-left: 10px">Keluar</button>
-                            </div>
-                        </div>
-
-                        </div>
-                        {{-- <div style="text-align: left; margin: 25px;">
+                            {{-- <div style="text-align: left; margin: 25px;">
                             <button type="button" class="btn btn-info" style="margin-left: 10px">Tambah</button>
                             <button type="button" class="btn btn-primary" style="margin-left: 10px">Koreksi</button>
                             <button type="button" class="btn btn-danger" style="margin-left: 10px">Hapus</button>
@@ -281,74 +732,75 @@
                         </div> --}}
 
 
-                        <div class="card-body" style="flex: 1; margin-right: 10px;margin-left: 10px; ">
+                            <div class="card-body" style="flex: 1; margin-right: 10px;margin-left: 10px; ">
 
-                            <div class="keterangan2" style="margin: 20px;">
-                                <div class="card-container"
-                        style="display: flex; flex-wrap: nowrap; ">
-                        <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto; margin-left: 10px; ">
-                            <div style=" flex-wrap: wrap; width:150px;">
-                                <div style="display: flex; ">
-                                        <span style="margin-right: 10px;">A : Alpha</span>
+                                <div class="keterangan2" style="margin: 20px;">
+                                    <div class="card-container" style="display: flex; flex-wrap: nowrap; ">
+                                        <div class="card-body RDZOverflow RDZMobilePaddingLR0"
+                                            style="flex: auto; margin-left: 10px; ">
+                                            <div style=" flex-wrap: wrap; width:150px;">
+                                                <div style="display: flex; ">
+                                                    <span style="margin-right: 10px;">A : Alpha</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">B : Hari Besar/ Libur</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">C : Cuti</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">D : Dispensasi</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">H : Hamil</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">K : Skorsing</span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto;  ">
+                                            <div style=" flex-wrap: wrap;">
+                                                <div style="display: flex; ">
+                                                    <span style="margin-right: 10px;">L : Lembur</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">M : Masuk</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">N/Z/J : Tanpa Status(mohon
+                                                        dikoreksi)</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">P : Peringatan</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">S : Sakit</span>
+                                                </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <span style="margin-right: 10px;">X : Tidak dibayar</span>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">B : Hari Besar/ Libur</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">C : Cuti</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">D : Dispensasi</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">H : Hamil</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">K : Skorsing</span>
-                                    </div>
+
+
+
+
+
+                                </div>
+
 
                             </div>
 
-                        </div>
-                        <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: auto;  ">
-                            <div style=" flex-wrap: wrap;">
-                                <div style="display: flex; ">
-                                        <span style="margin-right: 10px;">L : Lembur</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">M : Masuk</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">N/Z/J : Tanpa Status(mohon dikoreksi)</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">P : Peringatan</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">S : Sakit</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-right: 10px;">X : Tidak dibayar</span>
-                                    </div>
-
-
-
-                            </div>
 
                         </div>
-                    </div>
-
-
-
-
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
 
 
 
