@@ -124,7 +124,7 @@ txtNoOrder.addEventListener("change", function () {
             "/Order/insOrderDetail/" +
                 txtNoOrder.value +
                 "/" +
-                toSnakeCase(listOrder[i].NamaType) +
+                toSnakeCase(listOrder[i].NamaType).replace(/\//g, ".") +
                 "/" +
                 listOrder[i].QtyPrimer +
                 "/" +

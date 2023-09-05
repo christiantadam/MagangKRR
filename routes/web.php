@@ -1,6 +1,6 @@
 <!--
-    PERBAIKAN   : getDataKonversi() | FrmMohonKonversi.vb
-    MIGRASI     : loadDataKwaH() | FrmDaya.vb
+        PERBAIKAN   : getDataKonversi() | FrmMohonKonversi.vb
+        MIGRASI     : loadDataKwaH() | FrmDaya.vb
 -->
 
 <?php

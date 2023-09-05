@@ -37,7 +37,7 @@
 
             <div class="col-lg-4">
                 <label for="tanggal">Tanggal:</label>
-                <input type="date" id="tanggal" class="form-control unclickable">
+                <input type="date" id="tanggal" class="form-control">
             </div>
         </div>
 

@@ -350,7 +350,7 @@ class KonversiController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5409_EXT_INSERT_DETAILKONVERSI @IdKonversi = ?, @IdType = ?, @JumlahPrimer = ?, @JumlahSekunder = ?, @JumlahTritier = ?, @Persentase = ?, @idKonversiInv = ?',
-            [$id_konversi, $id_type, str_replace('_', ' ', $jumlah_primer), str_replace('_', ' ', $jumlah_sekunder), str_replace('_', ' ', $jumlah_tritier), $presentase, $id_konversi_inv]
+            [$id_konversi, $id_type, str_replace('_', '.', $jumlah_primer), str_replace('_', '.', $jumlah_sekunder), str_replace('_', '.', $jumlah_tritier), $presentase, $id_konversi_inv]
         );
 
         // @IdKonversi varchar(14), @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @Persentase numeric(9,2)=0, @idKonversiInv varchar(9)
@@ -360,7 +360,7 @@ class KonversiController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = ?, @kode = ?',
-            [$tgl, $shift, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $awal), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), $denier, $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $user, $kode]
+            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), str_replace("_", ".", $denier), $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $user, $kode]
         );
 
         // @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null
@@ -399,18 +399,9 @@ class KonversiController extends Controller
 
     public function getListCounter()
     {
-        try {
-            $counter = DB::connection('ConnInventory')
-                ->table('Counter')
-                ->value(DB::raw('IdKonversi'));
-
-            $a = $counter->IdKonversi + 1;
-            $xIdKonversi = str_pad($a, 9, '0', STR_PAD_LEFT);
-
-            return response()->json(['NoKonversi' => $xIdKonversi]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        $id_konversi = DB::connection('ConnInventory')->table('counter')->value('IdKonversi');
+        $formatted_id = str_pad($id_konversi, 9, '0', STR_PAD_LEFT);
+        return response()->json(['NoKonversi' => $formatted_id]);
 
         // *Query SELECT pada SP_5298_EXT_LIST_COUNTER
     }
@@ -419,7 +410,7 @@ class KonversiController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5409_EXT_UPDATE_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @jam1 = ?, @jam2 = ?, @idkonv = ?',
-            [$tgl, $shift, $awal, $akhir, $ukuran, $denier, $warna, $lot_number, $jam1, $jam2, $id_konv]
+            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), str_replace("_", ".", $ukuran), str_replace("_", ".", $denier), $warna, str_replace("_", ".", $lot_number), str_replace("_", ":", $jam1), str_replace("_", ":", $jam2), $id_konv]
         );
 
         // @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @jam1 datetime, @jam2 datetime, @idkonv char(14)
