@@ -6,11 +6,238 @@ $(document).ready(function () {
     const batalButton = document.getElementById("batalButton");
     const tambahSection = document.getElementById("tambahSection");
     const koreksiSection = document.getElementById("koreksiSection");
+    var action = 0;
     tambahButton.addEventListener("click", function (event) {
+        action = 1;
         event.preventDefault();
-
+        tambahButton.disabled = true;
+        hapusButton.disabled = true;
+        koreksiButton.disabled = true;
         tambahSection.hidden = false;
         koreksiSection.hidden = true;
+    });
+    hapusButton.addEventListener("click", function (event) {
+        action = 3;
+        table_Koreksi.select.style("multiple");
+        tambahButton.disabled = true;
+        hapusButton.disabled = true;
+        koreksiButton.disabled = true;
+    });
+    batalButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        action = 0;
+        table_Koreksi.select.style('api');
+        tambahButton.disabled = false;
+        hapusButton.disabled = false;
+        koreksiButton.disabled = false;
+        tambahSection.hidden = true;
+        koreksiSection.hidden = false;
+        document.getElementById("TglMasukKoreksi").disabled = true;
+        document.getElementById("KeteranganKoreksi").disabled = true;
+        document.getElementById("jmlJamKoreksi").disabled = true;
+        document.getElementById("jamTerlambatKoreksi").disabled = true;
+        document.getElementById("jamTinggalKoreksi").disabled = true;
+        document.getElementById("jamLemburKoreksi").disabled = true;
+        document.getElementById("jamLemburKoreksi2").disabled = true;
+        document.getElementById("jamLemburKoreksi3").disabled = true;
+        document.getElementById("jamLemburKoreksi4").disabled = true;
+    });
+    koreksiButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        action = 2;
+        table_Koreksi.select.style("single");
+        tambahButton.disabled = true;
+        hapusButton.disabled = true;
+        koreksiButton.disabled = true;
+        tambahSection.hidden = true;
+        koreksiSection.hidden = false;
+        document.getElementById("TglMasukKoreksi").disabled = false;
+        document.getElementById("KeteranganKoreksi").disabled = false;
+        document.getElementById("jmlJamKoreksi").disabled = false;
+        document.getElementById("jamTerlambatKoreksi").disabled = false;
+        document.getElementById("jamTinggalKoreksi").disabled = false;
+        document.getElementById("jamLemburKoreksi").disabled = false;
+        document.getElementById("jamLemburKoreksi2").disabled = false;
+        document.getElementById("jamLemburKoreksi3").disabled = false;
+        document.getElementById("jamLemburKoreksi4").disabled = false;
+    });
+    prosesButton.addEventListener("click", function (event) {
+        if ((action = 1)) {
+            const Nama_Klinik = document.getElementById("Nama_Klinik");
+            const AlamatKlinik = document.getElementById("AlamatKlinik");
+            const KotaKlinik = document.getElementById("KotaKlinik");
+            const NomorTelepon = document.getElementById("NomorTelepon");
+            const data = {
+                nm: Nama_Klinik.value,
+                alamat: AlamatKlinik.value,
+                kota: KotaKlinik.value,
+                telp: NomorTelepon.value,
+            };
+            console.log(data);
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "MasterKlinik");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        } else if ((action = 2)) {
+            const idklinik = document.getElementById("Id_Klinik");
+            const Nama_Klinik = document.getElementById("Nama_Klinik");
+            const AlamatKlinik = document.getElementById("AlamatKlinik");
+            const KotaKlinik = document.getElementById("KotaKlinik");
+            const NomorTelepon = document.getElementById("NomorTelepon");
+            const data = {
+                idklinik: idklinik.value,
+                nm: Nama_Klinik.value,
+                alamat: AlamatKlinik.value,
+                kota: KotaKlinik.value,
+                telp: NomorTelepon.value,
+            };
+            console.log(data);
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "MasterKlinik/{idklinik}");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "PUT"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
+
+            // Create input with "Update Keluarga" Value
+            const ifUpdate = document.createElement("input");
+            ifUpdate.setAttribute("type", "hidden");
+            ifUpdate.setAttribute("name", "_ifUpdate");
+            ifUpdate.value = "Update Keluarga"; // Set the value of the input field to the corresponding data
+            form.appendChild(ifUpdate);
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        } else if ((action = 3)) {
+            const idklinik = document.getElementById("Id_Klinik").value;
+
+            const data = {
+                idklinik: idklinik,
+            };
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "MasterKlinik/{idklinik}");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "DELETE"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        }
     });
     $("#table_Divisi").DataTable({
         order: [[0, "asc"]],
@@ -21,11 +248,9 @@ $(document).ready(function () {
     $("#table_Shift").DataTable({
         order: [[0, "asc"]],
     });
-    $("#table_Koreksi").DataTable({
+    var table_Koreksi = $("#table_Koreksi").DataTable({
         order: [[0, "asc"]],
-        select: {
-            style: "single",
-        },
+
     });
     $("#table_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
@@ -73,12 +298,50 @@ $(document).ready(function () {
 
         hideModalPegawai();
     });
+    $("#table_Shift tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#table_Shift").DataTable().row(this).data();
+        // console.log(rowData);
+        // Populate the input fields with the data
+        $("#Id_Shift").val(rowData[0]);
+
+        hideModalShift();
+    });
     $("#table_Koreksi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
-        var rowData = $("#table_Pegawai").DataTable().row(this).data();
+        var rowData = $("#table_Koreksi").DataTable().row(this).data();
+        var TglKoreksi = rowData[1].split(" ");
+
         // Populate the input fields with the data
-        $("#Id_Peg").val(rowData[0]);
-        $("#Nama_Peg").val(rowData[1]);
+        $("#TglMasukKoreksi").val(TglKoreksi[0]);
+        var selectElement = document.getElementById("KeteranganKoreksi");
+
+        // Loop melalui semua opsi dalam elemen select
+        for (var i = 0; i < selectElement.options.length; i++) {
+            var option = selectElement.options[i];
+
+            // Memeriksa apakah nilai option sama dengan nilai yang Anda miliki
+            if (option.value === rowData[6]) {
+                // Mengatur atribut 'selected' jika nilainya sama
+                option.selected = true;
+            } else {
+                // Menghilangkan atribut 'selected' jika tidak sama
+                option.selected = false;
+            }
+        }
+        $("#AlasanLemburKoreksi").val(rowData[7]);
+        $("#jmlJamKoreksi").val(rowData[15]);
+        $("#jamTerlambatKoreksi").val(rowData[8]);
+        $("#jamTinggalKoreksi").val(rowData[9]);
+        $("#jamLemburKoreksi").val(rowData[11]);
+        $("#jamLemburKoreksi2").val(rowData[12]);
+        $("#jamLemburKoreksi3").val(rowData[13]);
+        $("#jamLemburKoreksi4").val(rowData[14]);
+
+        // $("#Id_Peg").val(rowData[0]);
+        // $("#Nama_Peg").val(rowData[1]);
+        // $("#Id_Peg").val(rowData[0]);
+        // $("#Nama_Peg").val(rowData[1]);
     });
     $("#buttonTampil").click(function () {
         const Kd_Peg = document.getElementById("Id_Peg").value;

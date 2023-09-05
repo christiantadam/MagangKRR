@@ -264,7 +264,7 @@
                         <div class="card-container" style="display: flex; flex-wrap: nowrap; ">
                             <div>
                                 <div class="card-body"
-                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " id="tambahSection" hidden>
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " id="koreksiSection" >
 
                                     <div class="row" style="margin-left:-120px;">
                                         <div class="form-group col-md-3 d-flex justify-content-end">
@@ -272,9 +272,9 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
+                                            <input class="form-control" type="date" id="TglMasukKoreksi" name="TglMasukKoreksi"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                                style="width: 150px;" required>
+                                                style="width: 150px;" disabled>
                                         </div>
 
 
@@ -285,8 +285,8 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <select class="form-control" id="Shift" name="Shift"
-                                                style="resize: none;height: 35px; max-width:150px;">
+                                            <select class="form-control" id="KeteranganKoreksi" name="KeteranganKoreksiName"
+                                                style="resize: none;height: 35px; max-width:150px;"disabled>
                                                 <option value="A">A</option>
                                                 <option value="B">B</option>
                                                 <option value="C">C</option>
@@ -299,6 +299,7 @@
                                                 <option value="P">P</option>
                                                 <option value="S">S</option>
                                                 <option value="X">X</option>
+                                                <option value="N">N</option>
                                             </select>
                                         </div>
 
@@ -310,7 +311,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="text" id="AlasanLembur" readonly
+                                            <input class="form-control" type="text" id="AlasanLemburKoreksi" disabled
                                                 style="resize: none; height: 40px; max-width: 550px;">
                                         </div>
 
@@ -335,7 +336,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="klinikButton" onclick="showModalKlinik()">...</button>
+                                                id="klinikButton" onclick="showModalKlinik()" disabled>...</button>
 
                                             <div class="modal fade" id="modalKlinik" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -398,8 +399,8 @@
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                <input class="form-control" type="text" id="jmlJam"
-                                                    style="resize: none; height: 40px; max-width: 150px;">
+                                                <input class="form-control" type="text" id="jmlJamKoreksi"
+                                                    style="resize: none; height: 40px; max-width: 150px;" disabled>
                                             </div>
 
 
@@ -412,8 +413,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamTerlambat"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamTerlambatKoreksi"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -424,8 +425,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamTinggal"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamTinggalKoreksi"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -439,8 +440,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamLembur1"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamLemburKoreksi"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -451,8 +452,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamLembur2"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamLemburKoreksi2"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -466,8 +467,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamLembur3"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamLemburKoreksi3"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -478,8 +479,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamLembur4"
-                                                            style="resize: none; height: 40px; max-width: 150px;">
+                                                        <input class="form-control" type="text" id="jamLemburKoreksi4"
+                                                            style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
 
@@ -492,7 +493,7 @@
 
                                 </div>
                                 <div class="card-body"
-                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "id="koreksiSection" >
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "id="tambahSection" hidden >
 
                                     <div class="row" style="margin-left:-120px;">
                                         <div class="form-group col-md-3 d-flex justify-content-end">
@@ -502,7 +503,7 @@
 
                                             <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                                style="width: 150px;" required>
+                                                style="width: 150px;" >
                                         </div>
 
 
@@ -513,8 +514,8 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <select class="form-control" id="Shift" name="Shift"
-                                                style="resize: none;height: 35px; max-width:150px;">
+                                            <select class="form-control" id="KeteranganKoreksi" name="KeteranganKoreksi"
+                                                style="resize: none;height: 35px; max-width:150px;" >
                                                 <option value="A">A</option>
                                                 <option value="B">B</option>
                                                 <option value="C">C</option>
@@ -538,7 +539,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="text" id="AlasanLembur" readonly
+                                            <input class="form-control" type="text" id="AlasanLembur" disabled
                                                 style="resize: none; height: 40px; max-width: 550px;">
                                         </div>
 
@@ -562,7 +563,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="klinikButton" onclick="showModalShift()">...</button>
+                                                id="klinikButton" onclick="showModalShift()" >...</button>
 
                                             <div class="modal fade" id="modalShift" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -628,7 +629,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="Masuk" name="Masuk" disabled>
                                                     </div>
 
 
@@ -639,7 +640,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="Keluar" name="Keluar" disabled>
                                                     </div>
 
 
@@ -653,7 +654,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="IstirahatAwal" name="IstirahatAwal" disabled>
                                                     </div>
 
 
@@ -664,7 +665,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="IstirahatAkhir" name="IstirahatAkhir" disabled>
                                                     </div>
 
 
@@ -678,7 +679,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="Datang" name="Datang" disabled>
                                                     </div>
 
 
@@ -689,7 +690,7 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="pulang" name="pulang">
+                                                        <input type="time" id="Pulang" name="Pulang" disabled>
                                                     </div>
 
 
