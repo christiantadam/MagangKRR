@@ -82,16 +82,28 @@
                                                     <label for="tanggal" style="margin-right: 10px;">Tanggal</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%" disabled>
+                                                    <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="bulan" name="bulan" class="form-control"
+                                                        style="width: 100%">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="tahun" name="tahun" class="form-control"
+                                                        style="width: 100%">
                                                 </div>
                                             </div>
                                             <input type="text" name="idPembayaran" id="idPembayaran">
+                                            <input type="text" name="idPelunasan" id="idPelunasan">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -99,7 +111,7 @@
                                                     <label for="mataUangSelect" style="margin-right: 10px;">Mata Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select id="mataUangSelect" name="mataUangSelect" class="form-control" disabled>
+                                                    <select id="mataUangSelect" name="mataUangSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -107,7 +119,7 @@
                                                     <label for="kursRupiah" style="margin-right: 10px;">Kurs Rupiah</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" disabled>
+                                                    <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" readonly>
                                                 </div>
 
                                             </div>
@@ -117,7 +129,7 @@
                                                     <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" name="jumlahUang" id="jumlahUang" class="form-control" style="width: 100%" disabled>
+                                                    <input type="number" name="jumlahUang" id="jumlahUang" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -125,7 +137,7 @@
                                                     <label for="namaBankSelect" style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <select id="namaBankSelect" name="namaBankSelect" class="form-control" disabled>
+                                                    <select id="namaBankSelect" name="namaBankSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -142,10 +154,10 @@
                                                     <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="number" id="idKodePerkiraanBKK" name="idKodePerkiraanBKK" class="form-control" style="width: 100%" disabled>
+                                                    <input type="number" id="idKodePerkiraanBKK" name="idKodePerkiraanBKK" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="kodePerkiraanSelectBKK" name="kodePerkiraanSelectBKK" class="form-control" disabled>
+                                                    <select id="kodePerkiraanSelectBKK" name="kodePerkiraanSelectBKK" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -155,7 +167,7 @@
                                                     <label for="uraian" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,7 +180,10 @@
                                                     <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="idBKM" id="idBKM" class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" name="idBKM" id="idBKM" class="form-control" style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="id_bkm" name="id_bkm" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -176,7 +191,7 @@
                                                     <label for="jumlahUangBKM" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="jumlahUangBKM" name="jumlahUangBKM" class="form-control" style="width: 100%" disabled>
+                                                    <input type="number" id="jumlahUangBKM" name="jumlahUangBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -184,7 +199,7 @@
                                                     <label for="namaBankBKMSelect" style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="namaBankBKMSelect" name="namaBankBKMSelect" class="form-control" disabled>
+                                                    <select id="namaBankBKMSelect" name="namaBankBKMSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -196,10 +211,10 @@
                                                     <label for="kodePerkiraan" style="margin-right: 10px;">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="idKodePerkiraanBKM" name="idKodePerkiraanBKM" class="form-control" style="width: 100%" disabled>
+                                                    <input type="number" id="idKodePerkiraanBKM" name="idKodePerkiraanBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="kodePerkiraanBKMSelect" name="kodePerkiraanBKMSelect" class="form-control" disabled>
+                                                    <select id="kodePerkiraanBKMSelect" name="kodePerkiraanBKMSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -209,12 +224,14 @@
                                                     <label for="uraianBKM" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="text" id="uraianBKM" class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" id="uraianBKM" name="uraianBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                        <input type="text" id="konversi1" name="konversi1" class="form-control" style="width: 100%">
                                         <input type="text" id="nilai" name="nilai" class="form-control" style="width: 100%">
+                                        <input type="text" id="nilai1" name="nilai1" class="form-control" style="width: 100%">
                                     </div>
 
 

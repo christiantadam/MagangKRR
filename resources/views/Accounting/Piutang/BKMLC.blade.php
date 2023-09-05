@@ -16,13 +16,13 @@
                                         <label for="bulanTahun" style="margin-right: 10px;">Bulan/Tahun</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="bulan" name="bulan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" for="bulanTahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnOk" name="ok" value="OK" class="btn">
+                                        <input type="submit" id="btnOk" name="btnOk" value="OK" class="btn">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnPilihBank" name="pilihBank" value="Pilih Bank" class="btn">
@@ -35,16 +35,16 @@
                                 <br><div>
                                     Data Pelunasan
                                     <div style="overflow-y: auto; max-height: 400px;">
-                                        <table style="width: 110%; table-layout: fixed;">
+                                        <table style="width: 185%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
+                                                <col style="width: 30%;">
                                                 <col style="width: 15%;">
-                                                <col style="width: 10%;">
+                                                <col style="width: 25%;">
                                                 <col style="width: 15%;">
-                                                <col style="width: 15%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 15%;">
-                                                <col style="width: 15%;">
-                                                <col style="width: 15%;">
+                                                <col style="width: 20%;">
+                                                <col style="width: 25%;">
+                                                <col style="width: 25%;">
+                                                <col style="width: 30%;">
                                             </colgroup>
                                             <thead class="table-dark">
                                                 <tr>
@@ -59,40 +59,29 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 5</td>
-                                                    <td>Data 6</td>
-                                                    <td>Data 7</td>
-                                                    <td>Data 8</td>
-                                                </tr>
-                                                <!-- Tambahkan baris lainnya jika diperlukan -->
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                
+
                                 <!--CARD 1-->
                                 <br>
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 40%;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                            <div class="col-md-10">
+                                                <input type="radio" name="radiogrup1" value="1" id="radio_1">
                                                 <label for="radio_1">Detail Pelunasan</label>
                                             </div>
                                             <div style="overflow-x: auto; overflow-y: auto; max-height: 250px;">
-                                                <table style="width: 160%; table-layout: fixed;">
+                                                <table style="width: 300%; table-layout: fixed;" id="tabelDetailPelunasan">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 30%;">
-                                                    <col style="width: 30%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 50%;">
+                                                    <col style="width: 50%;">
+                                                    <col style="width: 50%;">
+                                                    <col style="width: 50%;">
+                                                    <col style="width: 50%;">
+                                                    <col style="width: 50%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
@@ -105,15 +94,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 4</td>
-                                                            <td>Data 5</td>
-                                                            <td>Data 6</td>
-                                                        </tr>
-                                                    <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -123,17 +103,17 @@
                                     <!--CARD 2-->
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
-                                            <div class="col-md-6">
-                                                <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
+                                            <div class="col-md-10">
+                                                <input type="radio" name="radiogrup1" value="2" id="radio_1">
                                                 <label for="radio_1">Detail Biaya</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 120%; table-layout: fixed;">
+                                                <table style="width: 280%; table-layout: fixed;" id="tabelDetailBiaya">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 30%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -144,13 +124,6 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>Data 1</td>
-                                                        <td>Data 2</td>
-                                                        <td>Data 3</td>
-                                                        <td>Data 4</td>
-                                                    </tr>
-                                                    <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -159,17 +132,17 @@
                                     <!--CARD 3-->
                                     <div class="card" style="width: 30%; overflow-y: auto; max-height: 250px;">
                                         <div class="card-body">
-                                            <div class="col-md-7">
+                                            <div class="col-md-12">
                                                 <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
                                                 <label for="radio_1">Detail Kurang/Lebih</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 120%; table-layout: fixed;">
+                                                <table style="width: 280%; table-layout: fixed;" id="tabelDetailKurangLebih">
                                                     <colgroup>
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 25%;">
-                                                    <col style="width: 30%;">
-                                                    <col style="width: 25%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
+                                                    <col style="width: 70%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                     <tr>
@@ -180,12 +153,6 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr>
-                                                        <td>Data 1</td>
-                                                        <td>Data 2</td>
-                                                        <td>Data 3</td>
-                                                        <td>Data 4</td>
-                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -213,4 +180,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/BKMLC.js') }}"></script>
 @endsection

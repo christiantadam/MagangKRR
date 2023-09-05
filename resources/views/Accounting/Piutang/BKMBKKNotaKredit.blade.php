@@ -49,6 +49,8 @@
                                     </div>
                                     <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                     <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
+                                    <input type="text" id="noNotaKredit" name="noNotaKredit" class="form-control" style="width: 100%">
+                                    <input type="text" id="jumlah" name="jumlah" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="card-container" style="display: flex;">
                                     <div style="width: 60%;">
@@ -60,14 +62,14 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <input type="date" id="tanggal" name="tanggal" class="form-control"
+                                                        style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="bulan" name="bulan" class="form-control"
                                                         style="width: 100%">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="date" id="bulan" name="bulan" class="form-control"
-                                                        style="width: 100%">
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <input type="date" id="tahun" name="tahun" class="form-control"
+                                                    <input type="text" id="tahun" name="tahun" class="form-control"
                                                         style="width: 100%">
                                                 </div>
                                             </div>
@@ -79,6 +81,10 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <input type="text" id="idBKM" name="idBKM" class="form-control"
+                                                        style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="id_bkm" name="id_bkm" class="form-control"
                                                         style="width: 100%">
                                                 </div>
                                             </div>
@@ -88,8 +94,7 @@
                                                         Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select id="mataUangBKMSelect" name="mataUangBKMSelect"
-                                                        class="form-control">
+                                                    <select id="mataUangBKMSelect" name="mataUangBKMSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -97,20 +102,17 @@
                                                     <label for="kursRupiah" style="margin-right: 10px;">Kurs Rupiah</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="kursRupiah" name="kursRupiah"
-                                                        class="form-control" style="width: 100%">
+                                                    <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <input type="text" name="idMataUangBKM" id="idMataUangBKM"
                                                 class="form-control" style="width: 100%">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="jumlahUangBKM" style="margin-right: 10px;">Jumlah
-                                                        Uang</label>
+                                                    <label for="jumlahUangBKM" style="margin-right: 10px;">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="jumlahUangBKM" name="jumlahUangBKM"
-                                                        class="form-control" style="width: 100%">
+                                                    <input type="number" id="jumlahUangBKM" name="jumlahUangBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -118,8 +120,7 @@
                                                     <label for="namaBankBKMSelect" style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="namaBankBKMSelect" name="namaBankBKMSelect"
-                                                        class="form-control">
+                                                    <select id="namaBankBKMSelect" name="namaBankBKMSelect"  class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -139,13 +140,10 @@
                                                         Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="idKodePerkiraanBKM"
-                                                        name="idKodePerkiraanBKM" class="form-control"
-                                                        style="width: 100%">
+                                                    <input type="number" id="idKodePerkiraanBKM" name="idKodePerkiraanBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="kodePerkiraanSelectBKM" name="kodePerkiraanSelectBKM"
-                                                        class="form-control">
+                                                    <select id="kodePerkiraanSelectBKM" name="kodePerkiraanSelectBKM" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -155,8 +153,7 @@
                                                     <label for="uraian" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="text" id="uraianBKM" name="uraianBKM"
-                                                        class="form-control" style="width: 100%">
+                                                    <input type="text" id="uraianBKM" name="uraianBKM" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,7 +166,10 @@
                                                     <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -179,7 +179,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <input type="number" id="jumlahUangBKK" name="jumlahUangBKK"
-                                                        class="form-control" style="width: 100%" disabled>
+                                                        class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -188,8 +188,7 @@
                                                         style="margin-right: 10px;">Bank</label>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="namaBankBKKSelect" name="namaBankBKKSelect"
-                                                        class="form-control" disabled>
+                                                    <select id="namaBankBKKSelect" name="namaBankBKKSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -200,17 +199,13 @@
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
-                                                    <label for="kodePerkiraan" style="margin-right: 10px;">Kode
-                                                        Perkiraan</label>
+                                                    <label for="kodePerkiraan" style="margin-right: 10px;">Kode  Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="idKodePerkiraanBKK"
-                                                        name="idKodePerkiraanBKK" class="form-control"
-                                                        style="width: 100%" disabled>
+                                                    <input type="number" id="idKodePerkiraanBKK" name="idKodePerkiraanBKK" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <select id="kodePerkiraanBKKSelect" name="kodePerkiraanBKKSelect"
-                                                        class="form-control" disabled>
+                                                    <select id="kodePerkiraanBKKSelect" name="kodePerkiraanBKKSelect" class="form-control" readonly>
 
                                                     </select>
                                                 </div>
@@ -220,8 +215,7 @@
                                                     <label for="uraianBKK" style="margin-right: 10px;">Uraian</label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <input type="text" id="uraianBKK" name="uraianBKK"
-                                                        class="form-control" style="width: 100%" disabled>
+                                                    <input type="text" id="uraianBKK" name="uraianBKK" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,12 +234,10 @@
                                                         class="btn btn-primary">PROSES</button>
                                                 </div>
                                                 <div style="margin-right: 10px;">
-                                                    <input type="submit" name="koreksi" value="Koreksi"
-                                                        class="btn btn-primary">
+                                                    <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary">
                                                 </div>
                                                 <div>
-                                                    <input type="submit" name="batal" value="Batal"
-                                                        class="btn btn-primary">
+                                                    <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary">
                                                 </div>
                                             </div>
                                             <br>

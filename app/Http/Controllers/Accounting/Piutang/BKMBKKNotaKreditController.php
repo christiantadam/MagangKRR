@@ -78,15 +78,25 @@ class BKMBKKNotaKreditController extends Controller
         return response()->json($tabel);
     }
 
-    // public function getIdPelunasan()
-    // {
-    //     $idPelunasan = DB::connection('ConnAccounting')
-    //         ->table('T_Pelunasan_Tagihan')
-    //         ->first('Id_Pelunasan');
-    //     dd($idPelunasan);
+    public function getIdPelunasan()
+    {
+        $idPelunasan = DB::connection('ConnAccounting')
+            ->table('T_Pelunasan_Tagihan')
+            ->max('Id_Pelunasan');
+        // dd($idPelunasan);
 
-    //     return response()->json(['Id_Pelunasan' => $idPelunasan]);
-    // }
+        return response()->json(['Id_Pelunasan' => $idPelunasan]);
+    }
+
+    public function getIdPembayaran()
+    {
+        $idPembayaran = DB::connection('ConnAccounting')
+            ->table('T_Pembayaran_Tagihan')
+            ->max('Id_Pembayaran');
+        // dd($idPelunasan);
+
+        return response()->json(['Id_Pembayaran' => $idPembayaran]);
+    }
 
     //Show the form for creating a new resource.
     public function create()
@@ -113,15 +123,19 @@ class BKMBKKNotaKreditController extends Controller
         $jenisBankBKM = $request->jenisBankBKM;
         $bulan = $request->bulan;
         $tahun = $request->tahun;
+
+        $tgl = $tahun . '-' . $bulan . '-01';
+        $id_bkm = $request->id_bkm;
+        $id_bkk = $request->id_bkk;
         $jumlahUangBKM = $request->jumlahUangBKM;
         $idPelunasan = $request->idPelunasan;
         $idPenagihan = $request->idPenagihan;
         $idKodePerkiraanBKM = $request->idKodePerkiraanBKM;
-        // $idPembayaran = $request->idPembayaran;
-        // $uraian = $request->uraian;
-        // $nilai = $request->nilai;
-        // $idKodePerkiraanBKK = $request->idKodePerkiraanBKK;
-        // $jenisBankBKK = $request->jenisBankBKK;
+        $idPembayaran = $request->idPembayaran;
+        $noNotaKredit = $request->noNotaKredit;
+        $jumlah = $request->jumlah;
+        $idKodePerkiraanBKK = $request->idKodePerkiraanBKK;
+        $jenisBankBKK = $request->jenisBankBKK;
 
         DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN]
         @idBKM = ?,
@@ -165,27 +179,25 @@ class BKMBKKNotaKreditController extends Controller
             'Y'
         ]);
 
-        // DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TDETAILPEL]
-        // @idpelunasan = ?,
-        // @idpenagihan = ?,
-        // @sisa = ?,
-        // @kodePerk = ?,
-        // @kode = ?', [
-        //     $idPelunasan,
-        //     $idPenagihan,
-        //     $jumlahUangBKM,
-        //     $idKodePerkiraanBKM,
-        //     1
-        // ]);
-
-        $tgl = $bulan . $tahun;
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TDETAILPEL]
+        @idpelunasan = ?,
+        @idpenagihan = ?,
+        @sisa = ?,
+        @kodePerk = ?,
+        @kode = ?', [
+            $idPelunasan,
+            $idPenagihan,
+            $jumlahUangBKM,
+            $idKodePerkiraanBKM,
+            1
+        ]);
 
         DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_COUNTER_IDBKM]
         @idbkm = ?,
         @idbank = ?,
         @jenis = ?,
         @tgl = ?', [
-            $idBKK,
+            $id_bkm,
             $idBankBKK,
             $jenisBankBKM,
             $tgl
@@ -208,7 +220,62 @@ class BKMBKKNotaKreditController extends Controller
             1
         ]);
 
-        return redirect()->back()->with('success', 'BKK TPembayaran berhasil diSIMPAN');
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TPEMBAYARAN_TAG]
+        @idBKK = ?,
+        @idUang = ?,
+        @idJenis = ?,
+        @idBank = ?,
+        @nilai = ?,
+        @idBKM_acuan =  ?,
+        @kurs = ?,
+        @user = ?', [
+            $idBKK,
+            $idMataUang,
+            1,
+            $idBankBKK,
+            $nilai,
+            $idBKM,
+            $kursRupiah,
+            1
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TDETAILPEMB]
+        @idpembayaran = ?,
+        @keterangan = ?,
+        @biaya = ?,
+        @kodeperkiraan = ?'
+        , [
+            $idPembayaran,
+            $noNotaKredit,
+            $jumlah,
+            $idKodePerkiraanBKK
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_COUNTER_IDBKK]
+        @idbkk = ?,
+        @idBank = ?,
+        @jenis = ?,
+        @tgl = ?'
+        , [
+            $id_bkk,
+            $idBankBKK,
+            $jenisBankBKK,
+            $tgl
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_FIELD_IDBKK]
+        @idNotaKredit = ?,
+        @idPenagihan = ?,
+        @idBKK = ?,
+        @idBKM = ?'
+        , [
+            $noNotaKredit,
+            $idPenagihan,
+            $idBKK,
+            $idBKM
+        ]);
+
+        return redirect()->back()->with('success', 'BKM No. '. $idBKM . ' & BKK No. ' . $idBKK . ' Tersimpan');
     }
 
     //Display the specified resource.

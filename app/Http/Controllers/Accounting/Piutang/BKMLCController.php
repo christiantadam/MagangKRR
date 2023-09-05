@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BKMLCController extends Controller
 {
@@ -11,6 +12,13 @@ class BKMLCController extends Controller
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BKMLC', compact('data'));
+    }
+
+    public function getTabelPelunasan($bulan, $tahun)
+    {
+        //dd($bulan, $tahun);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_PELUNASAN_DOLLAR] @bln = ?, @thn = ?', [$bulan, $tahun]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +34,7 @@ class BKMLCController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

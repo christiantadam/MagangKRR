@@ -11,8 +11,11 @@ let tanggalTampilBKM2 = document.getElementById('tanggalTampilBKM2');
 let tanggalTampilBKM = document.getElementById('tanggalTampilBKM');
 let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
 let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
+let id_bkk = document.getElementById('id_bkk');
+let id_bkm = document.getElementById('id_bkm');
 
 let idPembayaran = document.getElementById('idPembayaran');
+let idPelunasan = document.getElementById('idPelunasan');
 
 //CARD BKK
 let tanggal = document.getElementById('tanggal');
@@ -43,10 +46,12 @@ let saldo;
 let IdPelunasan;
 let jenisBank;
 let IdCust;
-let total1 = 0;
+let total1;
+let total2;
 let nilai = document.getElementById('nilai');
-let nilai1 = 0;
+let nilai1 = document.getElementById('nilai1');
 let konversi = document.getElementById('konversi');
+let konversi1 = document.getElementById('konversi1');
 let saldoRp;
 
 let idBKMTampil = document.getElementById('idBKMTampil');
@@ -275,24 +280,28 @@ btnPilihBKM.addEventListener('click', function(event) {
         jenisBank = rowData['Jenis_Bank'];
         idMtUang = rowData['Id_MataUang'];
         IdCust = rowData['ID_Cust'];
+        tglDP = rowData['Tgl_Input'];
 
-        tanggal.disabled = false;
-        idBKK.disabled = false;
-        mataUangSelect.disabled = false;
-        kursRupiah.disabled = false;
-        jumlahUang.disabled = false;
-        namaBankSelect.disabled = false;
-        idKodePerkiraanBKK.disabled = false;
-        kodePerkiraanSelectBKK.disabled = false;
-        uraian.disabled = false;
+        const dateObject = new Date(tglDP);
 
-        // console.log('Selected Data:');
-        // console.log('Id BKM:', idbkm);
-        // console.log('Saldo:', saldo);
-        // console.log('Id Pelunasan:', IdPelunasan);
-        // console.log('Jenis Bank:', jenisBank);
-        // console.log('Id Mata Uang:', idMtUang);
-        // console.log('Id Cust:', IdCust);
+        // Get month and year separately
+        bulan.value = dateObject.getMonth() + 1; // +1 karena bulan dimulai dari 0 (Januari) - 11 (Desember)
+        tahun.value = dateObject.getFullYear();
+
+        console.log('Bulan:', bulan.value);
+        console.log('Tahun:', tahun.value);
+
+        rowData['bulan'] = bulan.value;
+        rowData['tahun'] = tahun.value;
+
+        tanggal.removeAttribute("readonly");
+        mataUangSelect.removeAttribute("readonly");
+        kursRupiah.removeAttribute("readonly");
+        jumlahUang.removeAttribute("readonly");
+        namaBankSelect.removeAttribute("readonly");
+        idKodePerkiraanBKK.removeAttribute("readonly");
+        kodePerkiraanSelectBKK.removeAttribute("readonly");
+        uraian.removeAttribute("readonly");
     }
 });
 
@@ -371,16 +380,27 @@ uraian.addEventListener("keypress", function (event) {
             .then((options) => {
                 console.log(options);
                 idBKK.value = options;
+
+                id_bkk.value = (idBKK.value).substring(4);
+                console.log(id_bkk.value);
             });
 
-        idBKM.disabled = false;
-        jumlahUangBKM.disabled = false;
-        namaBankBKMSelect.disabled = false;
-        idBankBKM.disabled = false;
-        jenisBankBKM.disabled = false;
-        idKodePerkiraanBKM.disabled = false;
-        kodePerkiraanBKMSelect.disabled = false;
-        uraianBKM.disabled = false;
+        jumlahUangBKM.removeAttribute("readonly");
+        namaBankBKMSelect.removeAttribute("readonly");
+        idBankBKM.removeAttribute("readonly");
+        jenisBankBKM.removeAttribute("readonly");
+        idKodePerkiraanBKM.removeAttribute("readonly");
+        kodePerkiraanBKMSelect.removeAttribute("readonly");
+        uraianBKM.removeAttribute("readonly");
+
+        tanggal.setAttribute("readonly", true);
+        mataUangSelect.setAttribute("readonly", true);
+        kursRupiah.setAttribute("readonly", true);
+        jumlahUang.setAttribute("readonly", true);
+        namaBankSelect.setAttribute("readonly", true);
+        kodePerkiraanSelectBKK.setAttribute("readonly", true);
+        idKodePerkiraanBKK.setAttribute("readonly", true);
+        uraian.setAttribute("readonly", true);
     }
 });
 
@@ -479,16 +499,19 @@ uraianBKM.addEventListener("keypress", function (event) {
             .then((options) => {
                 console.log(options);
                 idBKM.value = options;
+
+                id_bkm.value = (idBKM.value).substring(4);
+                console.log(id_bkm.value);
             });
 
-            idBKM.disabled = true;
-            jumlahUangBKM.disabled = true;
-            namaBankBKMSelect.disabled = true;
-            idBankBKM.disabled = true;
-            jenisBankBKM.disabled = true;
-            idKodePerkiraanBKM.disabled = true;
-            kodePerkiraanBKMSelect.disabled = true;
-            uraianBKM.disabled = true;
+            idBKM.setAttribute("readonly", true);
+            jumlahUangBKM.setAttribute("readonly", true);
+            namaBankBKMSelect.setAttribute("readonly", true);
+            idBankBKM.setAttribute("readonly", true);
+            jenisBankBKM.setAttribute("readonly", true);
+            idKodePerkiraanBKM.setAttribute("readonly", true);
+            kodePerkiraanBKMSelect.setAttribute("readonly", true);
+            uraianBKM.setAttribute("readonly", true);
     }
 });
 
@@ -503,6 +526,14 @@ btnProses.addEventListener('click', function(event) {
         } else {
             konversi.value = F_Dollar(total1); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
         }
+
+        nilai1.value = parseFloat(jumlahUangBKM.value);
+        total2 = nilai1.toString();
+        if (parseInt(idMataUang.value) == 1) {
+            konversi1.value = F_Rupiah(total2); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+        } else {
+            konversi1.value = F_Dollar(total2); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+        }
     }
     else {
         console.log("Tidak Ada Yg diPROSES!");
@@ -514,6 +545,16 @@ btnProses.addEventListener('click', function(event) {
             idPembayaran.value = options.id_pembayaran;
 
             formkoreksi.submit();
+    });
+
+    fetch("/getIdPelunasan/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            idPelunasan.value = options.Id_Pelunasan;
+            console.log(idPelunasan.value);
+
+            //formkoreksi.submit();
     });
     //formkoreksi.submit();
 })
@@ -665,31 +706,29 @@ btnBatal.addEventListener('click', function(event) {
     namaBankBKMSelect.selectedIndex = 0;
     dataTable.clear().draw();
 
-    tanggal.disabled = true;
-    idBKK.disabled = true;
-    mataUangSelect.disabled = true;
-    kursRupiah.disabled = true;
-    jumlahUang.disabled = true;
-    namaBankSelect.disabled = true;
-    idBankBKK.disabled = true;
-    jenisBankBKK.disabled = true;
-    idKodePerkiraanBKK.disabled = true;
-    kodePerkiraanSelectBKK.disabled = true;
-    uraian.disabled = true;
-    idMataUang.disabled = true;
+    tanggal.setAttribute("readonly", true);
+    idBKK.setAttribute("readonly", true);
+    mataUangSelect.setAttribute("readonly", true);
+    kursRupiah.setAttribute("readonly", true);
+    jumlahUang.setAttribute("readonly", true);
+    namaBankSelect.setAttribute("readonly", true);
+    idBankBKK.setAttribute("readonly", true);
+    jenisBankBKK.setAttribute("readonly", true);
+    idKodePerkiraanBKK.setAttribute("readonly", true);
+    kodePerkiraanSelectBKK.setAttribute("readonly", true);
+    uraian.setAttribute("readonly", true);
+    idMataUang.setAttribute("readonly", true);
 });
 
 btnKoreksi.addEventListener('click', function(event) {
     event.preventDefault();
     if (idBKK.value != "") {
-        tanggal.disabled = false;
-        idBKK.disabled = false;
-        mataUangSelect.disabled = false;
-        kursRupiah.disabled = false;
-        jumlahUang.disabled = false;
-        namaBankSelect.disabled = false;
-        idKodePerkiraanBKK.disabled = false;
-        kodePerkiraanSelectBKK.disabled = false;
-        uraian.disabled = false;
+        tanggal.removeAttribute("readonly");
+        mataUangSelect.removeAttribute("readonly");
+        namaBankSelect.removeAttribute("readonly");
+        idKodePerkiraanBKK.removeAttribute("readonly");
+        kodePerkiraanSelectBKK.removeAttribute("readonly");
+        uraian.removeAttribute("readonly");
     }
 });
+

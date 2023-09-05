@@ -1,14 +1,20 @@
 let dataTable;
 let btnPilihNotaKredit = document.getElementById('btnPilihNotaKredit');
-let btnProses = document.getElementById('btnProses');
-let btnTampilBKM = document.getElementById('btnTampilBKM');
 let formkoreksi = document.getElementById('formkoreksi');
 let methodkoreksi = document.getElementById('methodkoreksi');
 let idCustomer = document.getElementById('idCustomer');
+let noNotaKredit = document.getElementById('noNotaKredit');
 let idPenagihan = document.getElementById('idPenagihan');
 let methodTampilBKK = document.getElementById('methodTampilBKK');
 let formTampilBKK = document.getElementById('formTampilBKK');
 let idPelunasan = document.getElementById('idPelunasan');
+let idPembayaran = document.getElementById('idPembayaran');
+let btnKoreksi = document.getElementById('btnKoreksi');
+let btnBatal = document.getElementById('btnBatal');
+let btnProses = document.getElementById('btnProses');
+let btnTampilBKM = document.getElementById('btnTampilBKM');
+
+let jumlah = document.getElementById('jumlah');
 
 let idMataUangBKM = document.getElementById('idMataUangBKM');
 let mataUangBKMSelect = document.getElementById('mataUangBKMSelect');
@@ -19,8 +25,6 @@ let idKodePerkiraanBKM = document.getElementById('idKodePerkiraanBKM');
 let uraianBKM = document.getElementById('uraianBKM');
 let jumlahUangBKM = document.getElementById('jumlahUangBKM');
 let kursRupiah = document.getElementById('kursRupiah');
-
-let idPembayaran = document.getElementById('idPembayaran');
 
 //CARD BKK
 let idBKK = document.getElementById('idBKK');
@@ -37,9 +41,12 @@ let NoPenagihan;
 let idMtUang;
 let IdCust;
 let tglNota;
-let bulan = document.getElementById('bulan');;
-let tahun = document.getElementById('tahun');;
+let bulan = document.getElementById('bulan');
+let tahun = document.getElementById('tahun');
 let jmlUang;
+let id_bkm = document.getElementById('id_bkm');
+let id_bkk = document.getElementById('id_bkk');
+
 
 let total1;
 let total2;
@@ -121,6 +128,7 @@ document.getElementById('tabelNotaKredit').addEventListener('change', function(e
             // Dapatkan semua elemen <td> dalam baris tersebut
             const tableCells = Array.from(tableRow.getElementsByTagName('td'));
             const idCust = tableCells[8].textContent;
+            const noNota = tableCells[2].textContent;
             const noPenagihan = tableCells[3].textContent;
             if (idCustomer) {
                 idCustomer.value = idCust;
@@ -128,11 +136,17 @@ document.getElementById('tabelNotaKredit').addEventListener('change', function(e
             if (idPenagihan) {
                 idPenagihan.value = noPenagihan;
             }
+            if (noNota) {
+                noNotaKredit.value = noNota;
+            }
         } else {
             if (idCustomer) {
                 idCustomer.value = '';
             }
             if (idPenagihan) {
+                noNotaKredit.value = '';
+            }
+            if (noNota) {
                 idPenagihan.value = '';
             }
         }
@@ -170,15 +184,16 @@ btnPilihNotaKredit.addEventListener('click', function(event) {
         rowData['bulan'] = bulan.value;
         rowData['tahun'] = tahun.value;
 
-        // tanggal.disabled = false;
-        // idBKK.disabled = false;
-        // mataUangSelect.disabled = false;
-        // kursRupiah.disabled = false;
-        // jumlahUang.disabled = false;
-        // namaBankSelect.disabled = false;
-        // idKodePerkiraanBKK.disabled = false;
-        // kodePerkiraanSelectBKK.disabled = false;
-        // uraian.disabled = false;
+        tanggal.removeAttribute("readonly");
+        mataUangBKMSelect.removeAttribute("readonly");
+        kursRupiah.removeAttribute("readonly");
+        jumlahUangBKM.removeAttribute("readonly");
+        namaBankBKMSelect.removeAttribute("readonly");
+        idBankBKM.removeAttribute("readonly");
+        jenisBankBKM.removeAttribute("readonly");
+        idKodePerkiraanBKM.removeAttribute("readonly");
+        kodePerkiraanSelectBKM.removeAttribute("readonly");
+        uraianBKM.removeAttribute("readonly");
     }
 });
 
@@ -336,16 +351,31 @@ uraianBKM.addEventListener("keypress", function (event) {
             .then((options) => {
                 console.log(options);
                 idBKM.value = options;
+
+                id_bkm.value = (idBKM.value).substring(4);
+                console.log(id_bkm.value);
             });
 
-            idBKK.disabled = false;
-            jumlahUangBKK.disabled = false;
-            namaBankBKKSelect.disabled = false;
-            idBankBKK.disabled = false;
-            jenisBankBKK.disabled = false;
-            idKodePerkiraanBKK.disabled = false;
-            kodePerkiraanBKKSelect.disabled = false;
-            uraianBKK.disabled = false;
+            tanggal.setAttribute("readonly", true);
+            idBKM.setAttribute("readonly", true);
+            mataUangBKMSelect.setAttribute("readonly", true);
+            kursRupiah.setAttribute("readonly", true);
+            mataUangBKMSelect.setAttribute("readonly", true);
+            jumlahUangBKM.setAttribute("readonly", true);
+            idBankBKM.setAttribute("readonly", true);
+            namaBankBKMSelect.setAttribute("readonly", true);
+            idKodePerkiraanBKM.setAttribute("readonly", true);
+            kodePerkiraanSelectBKM.setAttribute("readonly", true);
+            uraianBKM.setAttribute("readonly", true);
+
+            //Untuk card bkk
+            jumlahUangBKK.removeAttribute("readonly");
+            namaBankBKKSelect.removeAttribute("readonly");
+            idBankBKK.removeAttribute("readonly");
+            jenisBankBKK.removeAttribute("readonly");
+            idKodePerkiraanBKK.removeAttribute("readonly");
+            kodePerkiraanBKKSelect.removeAttribute("readonly");
+            uraianBKK.removeAttribute("readonly");
     }
 });
 
@@ -353,7 +383,7 @@ uraianBKM.addEventListener("keypress", function (event) {
 jumlahUangBKK.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
-        let jumlah = parseFloat(jumlahUangBKK.value).toFixed(2);
+        jumlah.value = parseFloat(jumlahUangBKK.value).toFixed(2);
         console.log(nilaiUang.value);
         let nilai = parseFloat(nilaiUang.value);
         // let kurs = parseFloat(kursRupiah.value);
@@ -361,7 +391,7 @@ jumlahUangBKK.addEventListener("keypress", function (event) {
         if (jumlah === '0.00') {
             alert('Jumlah Uang TIDAK BOLEH = 0 !');
             jumlahUangBKK.focus();
-        } else if (jumlah != nilai) {
+        } else if (jumlah.value != nilai) {
             alert('Jumlah Uang TIDAK BOLEH berbeda !');
             var formattedValue = nilai.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             jumlahUangBKK.value = formattedValue;
@@ -468,18 +498,19 @@ uraianBKK.addEventListener("keypress", function(event) {
             .then((options) => {
                 console.log(options);
                 idBKK.value = options;
+
+                id_bkk.value = (idBKK.value).substring(4);
+                console.log(id_bkk.value);
             });
 
-            // idBKK.disabled = true;
-            jumlahUangBKK.disabled = true;
-            namaBankBKKSelect.disabled = true;
-            idBankBKK.disabled = true;
-            jenisBankBKK.disabled = true;
-            idKodePerkiraanBKK.disabled = true;
-            kodePerkiraanBKKSelect.disabled = true;
-            uraianBKK.disabled = true;
-
-        btnProses.focus();
+            jumlahUangBKK.setAttribute("readonly", true);
+            namaBankBKKSelect.setAttribute("readonly", true);
+            idBankBKK.setAttribute("readonly", true);
+            jenisBankBKK.setAttribute("readonly", true);
+            idKodePerkiraanBKK.setAttribute("readonly", true);
+            kodePerkiraanBKKSelect.setAttribute("readonly", true);
+            uraianBKK.setAttribute("readonly", true);
+            btnProses.focus();
     }
 });
 
@@ -498,25 +529,35 @@ btnProses.addEventListener('click', function(event) {
         nilai.value = parseFloat(jumlahUangBKK.value);
         total1 = nilai.toString();
         if (parseInt(idMataUangBKM.value) == 1) {
-            konversi1.value = F_Rupiah(total1); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+            konversi1.value = F_Rupiah(total2); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
         } else {
-            konversi1.value = F_Dollar(total1); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+            konversi1.value = F_Dollar(total2); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
         }
     }
     else {
         console.log("Tidak Ada Yg diPROSES!");
     }
 
-    // fetch("/getIdPelunasan/")
-    //     .then((response) => response.json())
-    //     .then((options) => {
-    //         console.log(options);
-    //         idPelunasan.value = options.Id_Pelunasan;
-    //         console.log(idPelunasan.value);
+    fetch("/getIdPelunasanNota/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            idPelunasan.value = options.Id_Pelunasan;
+            console.log(idPelunasan.value);
 
-    //         //formkoreksi.submit();
-    // });
-    //console.log(idBKK.value);
+            //formkoreksi.submit();
+    });
+
+    fetch("/getIdPembayaranNota/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            idPembayaran.value = options.Id_Pembayaran;
+            console.log(idPembayaran.value);
+
+            //formkoreksi.submit();
+    });
+    // console.log(idBKK.value);
     formkoreksi.submit();
 })
 
@@ -583,7 +624,6 @@ btnCetakBKM.addEventListener('click', function(event) {
     console.log(idBKM.value);
     formTampilBKM.submit();
 });
-
 //#region MODAL TAMPIL BKM
 btnTampilBKK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -637,3 +677,46 @@ btnCetakBKK.addEventListener('click', function(event) {
     console.log(idBKKTampil.value);
     formTampilBKK.submit();
 });
+//#endregion
+
+btnKoreksi.addEventListener('click', function(event) {
+    event.preventDefault();
+    if (idBKM.value != "") {
+        tanggal.removeAttribute("readonly");
+        mataUangBKMSelect.removeAttribute("readonly");
+        namaBankBKMSelect.removeAttribute("readonly");
+        idBankBKM.removeAttribute("readonly");
+        jenisBankBKM.removeAttribute("readonly");
+        idKodePerkiraanBKM.removeAttribute("readonly");
+        kodePerkiraanSelectBKM.removeAttribute("readonly");
+        uraianBKM.removeAttribute("readonly");
+    }
+});
+
+btnBatal.addEventListener('click', function(event) {
+    tanggal.value = "";
+    bulan.value = "";
+    tahun.value = "";
+    idBKM.value = "";
+    id_bkm.value = "";
+    idMataUangBKM.value = "";
+    mataUangBKMSelect.selectedIndex = 0;
+    kursRupiah.value = "";
+    jumlahUangBKM.value = "";
+    namaBankBKMSelect.selectedIndex = 0;
+    idBankBKM.value = "";
+    jenisBankBKM.value = "";
+    kodePerkiraanSelectBKM.selectedIndex = 0;
+    idKodePerkiraanBKM.value = "";
+    uraianBKM.value = "";
+
+    idBKK.value = "";
+    id_bkk.value = "";
+    jumlahUangBKK.value = "";
+    namaBankBKKSelect.selectedIndex = 0;
+    idBankBKK.value = "";
+    jenisBankBKK.value = "";
+    kodePerkiraanBKKSelect.selectedIndex = 0;
+    idKodePerkiraanBKK.value = "";
+    uraianBKK.value = "";
+})
