@@ -158,9 +158,9 @@
                             </h5>
                         </div>
 
-                        <div class="row mt-3">
+                        <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="button" style="width: 150px">Cek
+                                <div class="text-center col-md-auto"><button type="button" style="width: 150px">Cetak
                                         Surat Jalan</button>
                                 </div>
                                 <div class="text-center col-md-auto"><button type="button" style="width: 150px">Batal

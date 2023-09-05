@@ -35,7 +35,16 @@ class MutasiSatuDivisiController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        //SP_1273_INV_CekBarcodeHangus
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "txtIdDivisi") {
+            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekBarcodeHangus @divisi = ?', [$crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
+        }
     }
 
     // Show the form for editing the specified resource.

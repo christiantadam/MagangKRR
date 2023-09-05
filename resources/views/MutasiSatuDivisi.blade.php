@@ -105,10 +105,9 @@
                                 <button type="button" style="width: 120px; margin-right: 10px;">Proses</button>
                                 <button type="button" style="width: 120px; margin-right: 10px;">Keluar</button>
                                 <button type="button" style="width: 120px; margin-right: 10px;">Cek Barcode</button>
-                                <button type="button" style="width: 120px; margin-right: 10px;">Cetak SJ </button>
                             </div>
                         </div>
-                        <div class="row mt-3 mb-3">
+                        <div class="row mt-5 mb-3">
                             <div class="col- row justify-content-md-center">
                                 <div class="text-center col-md-auto">
                                     <button type="button" style="width: 120px">Batal Kirim</button>

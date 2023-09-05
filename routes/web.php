@@ -80,7 +80,8 @@ Route::get('/ABM/BarcodeRollWoven/SettingTimbangan', 'App\Http\Controllers\ABM\B
 Route::get('/ABM/BarcodeRollWoven/MSD', 'App\Http\Controllers\ABM\BarcodeRoll\MSDController@index');
 
 Route::get('/ABM/ScanMutasiSatuDivisi', 'App\Http\Controllers\ABM\ScanMutasiSatuDivisiController@index');
-Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
+Route::resource('MutasiSatuDivisi', App\Http\Controllers\ABM\MutasiSatuDivisiController::class);
+// Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
 Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
 
 

@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
-                                            <a href="{{url('ABM/MutasiSatuDivisi')}}">
+                                            <a href="{{url('/MutasiSatuDivisi')}}">
                                                 <button style="width: 120px" type="button">Permohonan</button>
                                             </a>
                                         </div>
