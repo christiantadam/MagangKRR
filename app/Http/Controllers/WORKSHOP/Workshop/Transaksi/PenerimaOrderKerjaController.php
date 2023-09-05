@@ -22,6 +22,21 @@ class PenerimaOrderKerjaController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_USER-WRK] @kode = ?, @user = ?', [1, $user]);
         return response()->json($data);
     }
+    public function cekuserkoreksi($user) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_USER-WRK] @kode = ?, @user = ?', [2, $user]);
+        return response()->json($data);
+    }
+    public function namauserPenerimaOrderKerja($user) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_USER-LOGIN-1] @user = ?', [$user]);
+        return response()->json($data);
+    }
+    public function LoadStok($kdbarang) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_SALDO-BARANG] @kdBarang = ?', [$kdbarang]);
+        return response()->json($data);
+    }
+    public function cekusermodalkoreksi() {
+
+    }
 
     public function create()
     {
@@ -46,8 +61,9 @@ class PenerimaOrderKerjaController extends Controller
     public function update(Request $request, $id)
     {
         //dd($request->all());
+        $pembeda = $request->pembeda;
         $radiobox = $request->radiobox;
-        // $Tsts = $request->Tsts;
+        $Tsts = $request->Tsts;
         if ($radiobox == "acc") {
             # code...
             $data = $request->semuacentang;
@@ -75,44 +91,46 @@ class PenerimaOrderKerjaController extends Controller
             }
             return redirect()->back()->with('success', 'Order diTolak');
         }
-        // else if ($radiobox == "Pending") {
-        //     # code...
-        // }
+        else if ($pembeda == "tunda") {
+            # code...
+            $data = $request->idorderModalTunda;
+            $idorder = explode(",", $data);
+            $alasan = $request->Alasan;
+            if ($alasan == "Lain_Lain") {
+                $alasanlain = $request->alasanlainlain;
+                for ($i = 0; $i < count($idorder); $i++) {
+                    DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PENDING-ORDER-KRJ]  @noOrder = ?, @ket = ?', [$idorder[$i], $alasanlain]);
+                }
+            }
+            else{
+                for ($i = 0; $i < count($idorder); $i++) {
+                    DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PENDING-ORDER-KRJ]  @noOrder = ?, @ket = ?', [$idorder[$i], $alasan]);
+                }
+            }
+            return redirect()->back()->with('success', 'Order diTunda');
+        }
 
-        // else if ($radiobox == "order_batal") {
-        //     $no_order = $request->no_order;
-        //     $ket = $request->ketbatal;
-        //     DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_BATAL-KERJA-ORDER-GBR]  @noOrder = ?, @ket = ?', [$no_order, $ket]);
-        //     return redirect()->back()->with('success', 'Order Gambar Batal Dikerjakan');
-        // }
-        // if ($Tsts == 1) {
-        //     $noOd = $request->noOrder;
-        //     $userDraf = $request->DrafterModal;
-        //     $tglSt = $request->tgl_start;
-        //     $user = $request->IdUser;
-        //     DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-ORDER-GBR] @kode = ?, @noOd = ?, @userDraf = ?, @tglSt = ?, @user = ?', [1, $noOd, $userDraf, $tglSt, $user]);
-        //     return redirect()->back()->with('success', 'Data TerSIMPAN');
-        // }
-        // if ($Tsts == 2) {
-        //     $noOd = $request->noOrder;
-        //     $userDraf = $request->DrafterModal;
-        //     $tglSt = $request->tgl_start;
-        //     $tglFh = $request->tgl_finish;
-
-        //     $arraynogambar = $request->arraynomorgambar;
-        //     $arraynamagambar = $request->arraynamagambar;
-        //     $arraytglapp = $request->arraytglapprove;
-
-        //     $nomorgambar = explode(",", $arraynogambar);
-        //     $namagambar = explode(",", $arraynamagambar);
-        //     $tglapprove = explode(",", $arraytglapp);
-        //     DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-ORDER-GBR] @kode = ?, @noOd = ?, @userDraf = ?, @tglSt = ?, @tglFh = ?', [2, $noOd, $userDraf, $tglSt, $tglFh]);
-
-        //     for ($i=0; $i < count($nomorgambar); $i++) {
-        //         DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-DETAIL-ORDER-GBR]  @noOd = ?, @noGbr = ?, @nmBrg = ?, @tglAppv = ?', [$noOd, $nomorgambar[$i],$namagambar[$i],$tglapprove[$i]]);
-        //     }
-        //     return redirect()->back()->with('success', 'Data TerSIMPAN');
-        // }
+        else if ($radiobox == "order_batal") {
+            $no_order = $request->no_order;
+            $ket = $request->ketbatal;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_BATAL-KERJA-ORDER-KRJ]  @noOrder = ?, @ket = ?', [$no_order, $ket]);
+            return redirect()->back()->with('success', 'Order Gambar Batal Dikerjakan');
+        }
+        if ($Tsts == 1) {
+            $noOd = $request->NoOrder;
+            $tglSt = $request->TanggalStart;
+            $user = $request->Usermodalkoreksi;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-ORDER-KRJ] @kode = ?, @noOd = ?,  @tglSt = ?, @user = ?', [1, $noOd, $tglSt, $user]);
+            return redirect()->back()->with('success', 'Data TerSIMPAN');
+        }
+        if ($Tsts == 2) {
+            $noOd = $request->NoOrder;
+            $tglSt = $request->TanggalStart;
+            $tglFh = $request->tgl_finish;
+            $jml = $request->JumlahOrderSelesai;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_PROSES-ORDER-KRJ] @kode = ?, @noOd = ?, @tglSt = ?, @tglFh = ?, @jml', [2, $noOd, $tglSt, $tglFh,$jml]);
+            return redirect()->back()->with('success', 'Data TerSIMPAN');
+        }
     }
 
     public function destroy($id)

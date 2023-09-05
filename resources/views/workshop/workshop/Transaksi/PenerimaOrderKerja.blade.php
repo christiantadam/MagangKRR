@@ -18,11 +18,11 @@
     <form action="{{ url('PenerimaOrderKerja') }}" method="post" id="formPemerimaOrderKerja">
       {{ csrf_field() }}
       <input type="hidden" name="_method" id="methodForm">
-      <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo">
+      {{-- <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo"> --}}
+      <label for="tgl_acc_direktur" style="margin: 10px 0px 0px 10px;">Tgl. ACC Direktur:</label>
+      <div class="row" style="margin-bottom:10px">
+        <div class="col-lg-5 row">
 
-      <div class="row">
-        <div class="col-lg-6 row">
-          <label for="tgl_acc_direktur" style="margin: 10px 0px 0px 10px;">Tgl. ACC Direktur:</label>
           <div class="col-lg-5">
             <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal">
           </div>
@@ -34,10 +34,9 @@
           </div>
         </div>
 
-        <div class="col-lg-6">
-
+        <div class="col-lg-7">
           <div class="row d-flex justify-content-center">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="acc_order">
                 <label class="form-check-label" for="radio-terima-kerja">
@@ -46,7 +45,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="batal_acc">
                 <label class="form-check-label" for="radio-terima-kerja">
@@ -55,7 +54,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="tunda">
                 <label class="form-check-label" for="radio-terima-kerja">
@@ -63,19 +62,28 @@
                 </label>
               </div>
             </div>
+
+            <div class="col-lg-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="radio-terima-kerja" id="order_tolak">
+                  <label class="form-check-label" for="radio-terima-kerja">
+                    Order Ditolak
+                  </label>
+                </div>
+              </div>
           </div>
 
-          <div class="row d-flex justify-content-center mt-1">
-            <div class="col-lg-4">
+          <div class="row d-flex mt-1">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="order_kerja">
-                <label class="form-check-label" for="radio-terima-kerja">
+                <label class="form-check-label" for="radio-terima-kerja" style="width: max-content">
                   Order Dikerjakan
                 </label>
               </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="order_selesai">
                 <label class="form-check-label" for="radio-terima-kerja">
@@ -84,22 +92,11 @@
               </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-terima-kerja" id="order_batal">
-                <label class="form-check-label" for="radio-terima-kerja">
+                <label class="form-check-label" for="radio-terima-kerja" style="width: max-content">
                   Order Dibatalkan
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row d-flex justify-content-center mt-1">
-            <div class="col-lg-4">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="radio-terima-kerja" id="order_tolak">
-                <label class="form-check-label" for="radio-terima-kerja">
-                  Order Ditolak
                 </label>
               </div>
             </div>
@@ -130,7 +127,7 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col-lg-5">
+        <div class="col-5">
           <div class="row">
             <div class="col-lg-12">
               <button type="button" class="btn btn-light" id="refresh">Refresh</button>
@@ -147,20 +144,26 @@
 
                   <span style="color: blue;">xxxxx -></span>
                   <span>Sedang dikerjakan</span><br>
+
+                  <span style="color: hotpink;">xxxxx -></span>
+                  <span>Ditunda</span><br>
                 </div>
 
                 <div class="col-lg-6">
-                  <span>xxxxx -> Belum Diterima</span><br>
 
                   <span style="color: grey;">xxxxx -></span>
-                  <span>Ditolak</span>
+                  <span>Belum Diterima</span><br>
+
+                  <span style="color: green;">xxxxx -></span>
+                  <span>DiTolak</span><br>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-3">
           <div class="row mt-5">
             <div class="col-lg-6">
               <button type="button" class="btn btn-primary w-100" onclick="klikproses()"
@@ -172,24 +175,14 @@
             </div>
           </div>
         </div>
-
-        <div>
-          <input type="hidden" name="iduser" id="iduser">
-          <input type="hidden" name="radiobox" id="radiobox">
-          <input type="hidden" name="semuacentang" id="semuacentang">
-          <input type="hidden" name="KetTdkS" id="KetTdkS">
-        </div>
-
-
-
-        <div class="col-lg-4">
+        <div class="col-4">
           <div class="saldo saldo-padding mt-3">
             <div class="row">
               <div class="col-lg-5">
                 <span class="custom-alignment">Saldo Primer:</span>
               </div>
               <div class="col-lg-7">
-                <input type="text" name="saldo_primer" class="form-control">
+                <input type="text" name="saldo_primer" class="form-control" id="primer">
               </div>
             </div>
 
@@ -198,7 +191,7 @@
                 <span class="custom-alignment">Saldo Sekunder:</span>
               </div>
               <div class="col-lg-7">
-                <input type="text" name="saldo_sekunder" class="form-control">
+                <input type="text" name="saldo_sekunder" class="form-control" id="sekunder">
               </div>
             </div>
 
@@ -207,10 +200,19 @@
                 <span class="custom-alignment">Saldo Tritier:</span>
               </div>
               <div class="col-lg-7">
-                <input type="text" name="saldo_tritier" class="form-control">
+                <input type="text" name="saldo_tritier" class="form-control" id="tertier">
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <input type="hidden" name="iduser" id="iduser">
+          <input type="hidden" name="radiobox" id="radiobox">
+          <input type="hidden" name="semuacentang" id="semuacentang">
+          <input type="hidden" name="KetTdkS" id="KetTdkS">
+          <input type="hidden" name="ketbatal" id="ketbatal">
+          <input type="hidden" name="no_order" id="no_orderkoreksi">
+
         </div>
       </div>
     </form>
@@ -230,6 +232,8 @@
           <form action="{{ url('PenerimaOrderKerja') }}" method="post" id="FormTundaModal">
             {{ csrf_field() }}
             <input type="hidden" name="_method" id="methodFormModalTunda">
+            <input type="hidden" name="idorderModalTunda" id="idorderModalTunda">
+            <input type="hidden" name="pembeda" id="pembeda">
             <div class="container">
               <div>
                 <h3>Pilih salah satu alasan di bawah</h3>
@@ -256,7 +260,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="prosesmodaltunda"><u>P</u>roses</button>
+          <button type="button" class="btn btn-primary" id="prosesmodaltunda" onclick="klikprosestunda()"><u>P</u>roses</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal"
             id="batalmodaltunda"><u>B</u>atal</button>
         </div>
@@ -264,28 +268,30 @@
     </div>
   </div>
 
+
+
   <div class="modal fade bd-example-modal-lg" id="ModalKoreksi" tabindex="-1" role="dialog"
     aria-labelledby="ModalKoreksiLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-7" style="text-align: -webkit-right;">
-                        <h5 class="modal-title" id="ModalKoreksiLabel">Workshop</h5>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-7" style="text-align: -webkit-right;">
+                <h5 class="modal-title" id="ModalKoreksiLabel">Workshop</h5>
+              </div>
+              <div class="col-4">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <form action="{{ url('PenerimaOrderKerja') }}" method="post" id="FormKoreksiModal">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" id="methodFormModalKoreksi">
+        <form action="{{ url('PenerimaOrderKerja') }}" method="post" id="FormKoreksiModal">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodFormModalKoreksi">
+          <div class="modal-body">
             <div class="container">
               <div class="row" style="align-items: center;">
                 <div class="col-3">
@@ -334,7 +340,7 @@
 
               <div class="row" style="align-items: center; margin-top:10px">
                 <div class="col-3">
-                    <span>Nama Barang</span>
+                  <span>Nama Barang</span>
                 </div>
                 <div class="col-8">
                   <input type="text" name="NamaBarang" class="form-control" id="NamaBarang">
@@ -343,7 +349,7 @@
 
               <div class="row" style="align-items: center; margin-top:10px">
                 <div class="col-3">
-                    <span>Keterangan Order</span>
+                  <span>Keterangan Order</span>
                 </div>
                 <div class="col-8">
                   <input type="text" name="KeteranganOrder" class="form-control" id="KeteranganOrder">
@@ -352,13 +358,13 @@
 
               <div class="row" style="align-items: center; margin-top:10px">
                 <div class="col-3">
-                    <span>Jumlah Order</span>
+                  <span>Jumlah Order</span>
                 </div>
                 <div class="col-3">
                   <input type="text" name="JumlahOrder" class="form-control" id="JumlahOrder">
                 </div>
                 <div class="col-3">
-                    <span>Jumlah Odr. Selesai</span>
+                  <span>Jumlah Odr. Selesai</span>
                 </div>
                 <div class="col-3">
                   <input type="text" name="JumlahOrderSelesai" class="form-control" id="JumlahOrderSelesai">
@@ -367,13 +373,13 @@
 
               <div class="row" style="align-items: center; margin-top:10px">
                 <div class="col-3">
-                    <span>Tgl. Start</span>
+                  <span>Tgl. Start</span>
                 </div>
                 <div class="col-3">
                   <input type="date" name="TanggalStart" class="form-control" id="TanggalStart">
                 </div>
                 <div class="col-3">
-                    <span>Tgl. Finish</span>
+                  <span>Tgl. Finish</span>
                 </div>
                 <div class="col-3">
                   <input type="date" name="TanggalFinish" class="form-control" id="TanggalFinish">
@@ -382,60 +388,65 @@
 
               <div class="row" style="align-items: center; margin-top:10px">
                 <div class="col-3">
-                    <span>Operator</span>
+                  <span>Operator</span>
                 </div>
                 <div class="col-2">
-                    <input type="text" name="Usermodalkoreksi" class="form-control" id="Usermodalkoreksi" style="color: blue; font-weight:bold;">
+                  <input type="text" name="Usermodalkoreksi" class="form-control" id="Usermodalkoreksi"
+                    style="color: blue; font-weight:bold;">
                 </div>
                 <div class="col-3">
-                    <input type="text" name="LblNamaUser" class="form-control" id="LblNamaUser">
+                  <input type="text" name="LblNamaUser" class="form-control" id="LblNamaUser">
                 </div>
               </div>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
+          </div>
+          <div class="modal-footer">
             <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="saldo saldo-padding mt-3">
-                            <div class="row">
-                              <div class="col-lg-5">
-                                <span class="custom-alignment">Saldo Primer:</span>
-                              </div>
-                              <div class="col-lg-7">
-                                <input type="text" name="saldo_primer" class="form-control">
-                              </div>
-                            </div>
-
-                            <div class="row mt-1">
-                              <div class="col-lg-5">
-                                <span class="custom-alignment">Saldo Sekunder:</span>
-                              </div>
-                              <div class="col-lg-7">
-                                <input type="text" name="saldo_sekunder" class="form-control">
-                              </div>
-                            </div>
-
-                            <div class="row mt-1">
-                              <div class="col-lg-5">
-                                <span class="custom-alignment">Saldo Tritier:</span>
-                              </div>
-                              <div class="col-lg-7">
-                                <input type="text" name="saldo_tritier" class="form-control">
-                              </div>
-                            </div>
-                          </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="saldo saldo-padding mt-3">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <span class="custom-alignment">Saldo Primer:</span>
+                      </div>
+                      <div class="col-lg-7">
+                        <input type="text" name="saldo_primer" class="form-control" id="primermodal">
+                      </div>
                     </div>
-                    <div class="col-6" style="text-align: -webkit-right;">
-                        <button type="button" class="btn btn-primary" id="prosesmodalkoreksi"><u>P</u>roses</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                          id="batalmodalkoreksi"><u>B</u>atal</button>
+
+                    <div class="row mt-1">
+                      <div class="col-lg-5">
+                        <span class="custom-alignment">Saldo Sekunder:</span>
+                      </div>
+                      <div class="col-lg-7">
+                        <input type="text" name="saldo_sekunder" class="form-control" id="sekundermodal">
+                      </div>
                     </div>
+
+                    <div class="row mt-1">
+                      <div class="col-lg-5">
+                        <span class="custom-alignment">Saldo Tritier:</span>
+                      </div>
+                      <div class="col-lg-7">
+                        <input type="text" name="saldo_tritier" class="form-control" id="tertiermodal">
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <div>
+                  <input type="hidden" name="Tsts" id="Tsts">
+                </div>
+                <div class="col-6" style="text-align: -webkit-right;">
+                  <button type="button" class="btn btn-primary" id="prosesmodalkoreksi"
+                    onclick="prosesmodalklik()"><u>P</u>roses</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    id="batalmodalkoreksi"><u>B</u>atal</button>
+                </div>
+              </div>
             </div>
 
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
