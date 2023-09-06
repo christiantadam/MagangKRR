@@ -167,11 +167,11 @@
           <div class="row mt-5">
             <div class="col-lg-6">
               <button type="button" class="btn btn-primary w-100" onclick="klikproses()"
-                id="btnproses"><b>PROSES</b></button>
+                id="btnproses" disabled><b>PROSES</b></button>
             </div>
             <div class="col-lg-6">
               <button type="button" class="btn btn-warning w-100" id="btnkoreksi"
-                onclick="koreksiklik()">KOREKSI</button>
+                onclick="koreksiklik()" disabled>KOREKSI</button>
             </div>
           </div>
         </div>
@@ -392,10 +392,10 @@
                 </div>
                 <div class="col-2">
                   <input type="text" name="Usermodalkoreksi" class="form-control" id="Usermodalkoreksi"
-                    style="color: blue; font-weight:bold;">
+                    style="color: blue; font-weight:bold;" readonly>
                 </div>
                 <div class="col-3">
-                  <input type="text" name="LblNamaUser" class="form-control" id="LblNamaUser">
+                  <input type="text" name="LblNamaUser" class="form-control" id="LblNamaUser" readonly>
                 </div>
               </div>
             </div>
