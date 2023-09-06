@@ -28,9 +28,9 @@ $(document).ready(function() {
 });
 
 function printDiv() {
-    var divContents = document.getElementById("printSection").innerHTML;
-    var originalContents = document.body.innerHTML;
-    document.body.innerHTML = divContents;
+    // var divContents = document.getElementById("printSection").innerHTML;
+    // var originalContents = document.body.innerHTML;
+    // document.body.innerHTML = divContents;
     window.print();
-    document.body.innerHTML = originalContents;
+    // document.body.innerHTML = originalContents;
 }

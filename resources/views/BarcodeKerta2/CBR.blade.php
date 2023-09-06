@@ -2,7 +2,13 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/CBR.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
-
+<style>
+    @media print{
+        .card{
+            display: none;
+        }
+    }
+</style>
     <body onload="Greeting()">
         <div id="app">
             <div class="form-wrapper mt-4">

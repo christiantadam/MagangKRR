@@ -29,7 +29,7 @@ class CBR2Controller extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

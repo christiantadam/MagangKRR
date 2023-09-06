@@ -12,8 +12,12 @@ class LSTController extends Controller
     //Display a listing of the resource.
     public function index()
     {
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
+        $dataDivisiDiminta = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta @XKdUser = ?', ["U001"]);
         $data = 'HAPPY HAPPY HAPPY';
-        return view('LST', compact('data'));
+
+        // dd($dataDivisi);
+        return view('LST', compact('data', 'dataDivisi', 'dataDivisiDiminta'));
     }
 
     //Show the form for creating a new resource.
@@ -31,7 +35,23 @@ class LSTController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getXIdDivisi") {
+            if ($crExplode[0] == "JBJ"){
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            }
+
+            else if ($crExplode[0] == "JBM"){
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
+            }
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataObjek);
+
+            // dd($crExplode);
+        }
     }
 
     // Show the form for editing the specified resource.

@@ -86,7 +86,8 @@ Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohon
 
 
 // Laporan Serah Terima
-Route::get('/ABM/LST', 'App\Http\Controllers\ABM\LSTController@index');
+Route::resource('/ABM/LST', App\Http\Controllers\ABM\LSTController::class);
+// Route::get('/ABM/LST', 'App\Http\Controllers\ABM\LSTController@index');
 
 // Route::get('/ABM/Schedule', 'App\Http\Controllers\ABM@Schedule');
 // Route::get('/ABM/Buat-Barcode', 'App\Http\Controllers\ABM@BuatBarcode');
