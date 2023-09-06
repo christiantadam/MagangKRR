@@ -144,9 +144,10 @@ Route::get('cekuserkoreksiOrderKerja/{user}', 'App\Http\Controllers\WORKSHOP\Wor
 Route::get('namauserPenerimaOrderKerja/{user}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderKerjaController@namauserPenerimaOrderKerja');
 Route::get('LoadStokPenerimaOrderKerja/{kdbarang}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderKerjaController@LoadStok');
 
+Route::resource('CetakSuratOrderKerja', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\CetakOrderKerjaController::class);
+Route::get('getalldataCetakSuratOrderKerja/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\CetakOrderKerjaController@GetAllData');
 
 
-Route::get('CetakSuratOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@CetakSuratOrderKerja');
 Route::get('StatusOrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\TransaksiController@StatusOrderKerja');
 
 // Workshop - Proyek

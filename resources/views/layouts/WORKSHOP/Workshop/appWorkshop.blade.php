@@ -137,7 +137,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Penerima Order Kerja</a>
                 </li>
-                <li><a href="/CetakSuratOrderKerja" class="test"
+                <li><a href="{{ url('CetakSuratOrderKerja') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Cetak Surat Order Kerja</a>
                 </li>

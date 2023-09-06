@@ -12,11 +12,6 @@ class TransaksiController extends Controller
         return view();
     }
 
-    public function CetakSuratOrderKerja()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.CetakSuratOrderKerja');
-    }
-
     public function StatusOrderKerja()
     {
         return view('WORKSHOP.Workshop.Transaksi.StatusOrderKerja');
