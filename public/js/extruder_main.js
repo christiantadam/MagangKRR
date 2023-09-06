@@ -103,9 +103,9 @@ function addTable_DataTable(
             if ($(row).hasClass("odd") || $(row).hasClass("even")) {
                 if (rowFun != null) {
                     row.style.cursor = "pointer";
-                    row.addEventListener("click", function () {
+                    row.onclick = () => {
                         rowFun(row, data, index);
-                    });
+                    };
                 }
             }
         },
@@ -161,6 +161,16 @@ function clearSelection_DataTable(tableId) {
     rows.forEach((row) => {
         row.style.backgroundColor = "white";
     });
+}
+
+function findClickedRowInList(list, targetKey, targetValue) {
+    for (let i = 0; i < list.length; i++) {
+        const item = list[i];
+        if (item.hasOwnProperty(targetKey) && item[targetKey] === targetValue) {
+            return i;
+        }
+    }
+    return -1;
 }
 //#endregion
 

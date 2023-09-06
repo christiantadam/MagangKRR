@@ -15,18 +15,14 @@ class MasterController extends Controller
 
         switch ($form_name) {
             case 'formKomposisiTropodo':
-                $form_data = $this->komposisiTropodo();
-                break;
-            case 'formKomposisiMojosari':
-                $form_data = $this->komposisiMojosari(false);
-                break;
-            case 'formKomposisiGedungD':
-                $view_name = 'extruder.ExtruderNet.formKomposisiMojosari';
-                $form_data = $this->komposisiMojosari(true);
+                $form_data = [
+                    'listKomposisi' => $this->getListKomposisi('EXT'),
+                    'listMesin' => $this->getListMesin(1),
+                    'listObjek' => $this->getIdDivisiObjek('EXT'),
+                ];
                 break;
 
             default:
-                $form_data = [];
                 break;
         }
 
@@ -39,187 +35,185 @@ class MasterController extends Controller
         return view($view_name, $view_data);
     }
 
-
-    public function komposisiMojosari($is_gedung_d)
-    {
-        if (!$is_gedung_d) {
-            $id_komposisi = $this->getIdKomposisi('MEX');
-        } else {
-            $id_komposisi = $this->getIdKomposisi('DEX');
-        }
-
-        return [
-            'listIdKomposisi' => $id_komposisi,
-        ];
-    }
-
-    public function komposisiTropodo()
-    {
-        $id_komposisi = $this->getIdKomposisi('EXT');
-        $mesin = $this->getMesin(1);
-        $objek = $this->getObjek('EXT');
-
-        return [
-            'listIdKomposisi' => $id_komposisi,
-            'listMesin' => $mesin,
-            'listObjek' => $objek,
-        ];
-    }
-
-    public function getDataKomposisi($no_komposisi)
+    #region Tropodo
+    public function getListKomposisiBahan($id_komposisi)
     {
         return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @idkomposisi = ?',
-            [$no_komposisi]
+            'exec SP_5298_EXT_LIST_KOMPOSISI_BAHAN @IdKomposisi = ?',
+            [$id_komposisi]
         );
 
-        // TABLE NAMES
-        // Extruder - Detail_KonversiEXT, Master_KonversiEXT, MasterKomposisi, Detail_KomposisiBahan
-        // Inventory - Satuan_1, Satuan_2, Satuan_3, Type, Objek, Divisi, KelompokUtama, Kelompok, SubKelompok
-
-        // PARAMETER @idkomposisi char(9)
-
-        // RETURN listKomposisi(statustype, idtype, namatype, jumlahprimer, satuanprimer,
-        // satuansekunder, jumlahtritier, satuantritier, Persentase, idobjek, namaobjek,
-        // idkelompokutama, idkelompok, namakelompok, idsubkelompok, namasubkelompok)
+        // @IdKomposisi char(9)
     }
 
-    public function getSatuan($id_type)
+    public function getDetailBahan($id_type)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_DETAIL_BAHAN @idtype = ?',
             [$id_type]
         );
 
-        // TABLE NAMES
-        // A, Satuan_1, Satuan_2, Satuan_3, Satuan_4, Objek, Divisi, Kelompok Utama, Kelompok, Sub-kelompok
-
-        // PARAMETER @idtype varchar(20)
-
-        // RETURN unitPrimer(unitprimer), unitSekunder(unitsekunder), unitTritier(unittritier),
-        // txtSatPrimer.Text(namasatprimer), txtSatSekunder.Text(namasatsekunder),
-        // txtSatTritier.Text(namasattritier)
+        // @idtype varchar(20)
     }
 
-    public function getIdKomposisi($id_divisi, $id_komposisi = null)
+    public function getListKomposisi($id_divisi, $id_komposisi = null)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_KOMPOSISI_1 @iddivisi = ?, @idkomposisi = ?',
             [$id_divisi, $id_komposisi]
         );
 
-        // If @idkomposisi = null
-        // SELECT * FROM MasterKomposisi
-        // WHERE IdDivisi=@iddivisi AND IdKomposisi >= 'DEX000013'
-        // ORDER BY NamaKomposisi
-
-        // Else
-        // SELECT MasterKomposisi.NamaKomposisi, MasterKomposisi.IdMesin, MasterMesin.TypeMesin
-        // FROM MasterKomposisi INNER JOIN MasterMesin
-        // ON MasterKomposisi.IdMesin = MasterMesin.IdMesin
-        // WHERE MasterKomposisi.IdKomposisi = @idkomposisi
-        // ORDER BY MasterKomposisi.NamaKomposisi
+        // @iddivisi char(3), @idkomposisi char(9) = null
     }
 
-    public function getMesin($kode)
+    public function getListMesin($kode)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_MESIN @kode = ?',
             [$kode]
         );
 
-        // If @kode = 1     SELECT * FROM MasterMesin WHERE IdDivisi='EXT'
-        // If @kode = 2     SELECT * FROM MasterMesin WHERE IdDivisi='MEX'
-        // If @kode = 3     SELECT * FROM MasterMesin WHERE IdDivisi='DEX'
+        // @kode integer
     }
 
-    public function getObjek($id_divisi)
+    public function getIdDivisiObjek($id_divisi)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_5298_EXT_IDDIVISI_OBJEK @xiddivisi_objek = ?',
+            'exec SP_5298_EXT_IDDIVISI_OBJEK @XIdDivisi_Objek = ?',
             [$id_divisi]
         );
 
-        // SELECT * FROM objek WHERE IdDivisi_Objek = @xiddivisi_objek
-        // ORDER BY NamaObjek
+        // @XIdDivisi_Objek     char (3)
     }
 
-    public function getKelompokUtama($id_objek, $type = null)
+    public function getIdObjekKelompokUtama($id_objek, $type = null)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA @xidobjek_kelompokutama = ?, @type = ?',
+            'exec SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA @Xidobjek_kelompokutama = ?, @Type = ?',
             [$id_objek, $type]
         );
 
-        // If @type = null
-        // SELECT NamaKelompokUtama, IdKelompokUtama FROM KelompokUtama
-        // WHERE IdObjek_KelompokUtama = @xidobjek_kelompokutama
-        // ORDER BY NamaKelompokUtama
-
-        // If @type = '3'
-        // SELECT * FROM KelompokUtama
-        // WHERE IdObjek_KelompokUtama = @xidobjek_kelompokutama AND IdKelompokUtama = '0213'
-        // ORDER BY NamaKelompokUtama
+        // @Xidobjek_kelompokutama  varchar(4), @Type char(1) = null
     }
 
-    public function getKelompok($id_kelompok_utama, $type = null)
+    public function getIdKelompokUtamaKelompok($id_kelompok_utama, $type = null)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK @xidkelompokutama_kelompok = ?, @type = ?',
+            'exec SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK @XIdKelompokUtama_Kelompok = ?, @type = ?',
             [$id_kelompok_utama, $type]
         );
 
-        // If @type = null
-        // SELECT DISTINCT NamaKelompok, IdKelompok FROM vw_prg_5298_ext_subkel
-        // WHERE IdKelompokUtama = @xidkelompokutama_kelompok
-        // ORDER BY NamaKelompok ASC
-
-        // If @type = '1'
-        // SELECT DISTINCT IdKelompok, NamaKelompok FROM vw_prg_5298_ext_subkel
-        // WHERE IdKelompokUtama = @xidkelompokutama_kelompok AND IdKelompok = '001122'
-        // ORDER BY NamaKelompok ASC
-
-        // *ambil dari tabel Objek, Divisi, Kelompok Utama, Kelompok, Sub-kelompok
+        // @XIdKelompokUtama_Kelompok    char (4), @type char(1)=null
     }
 
-    public function getSubKelompok($id_kelompok)
+    public function getCekKelompokMesin($id_kel)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_CEK_KELOMPOK_MESIN @idkel = ?',
+            [$id_kel]
+        );
+
+        // @idkel char(4)
+    }
+
+    public function getIdKelompokSubKelompok($id_kelompok)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK @Xidkelompok_subkelompok = ?',
+            'exec SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?',
             [$id_kelompok]
         );
 
-        // SELECT DISTINCT NamaSubKelompok, IdSubKelompok FROM vw_prg_5298_ext_subkel
-        // WHERE IdKelompok = @xidkelompok_subkelompok
-        // ORDER BY NamaSubKelompok
+        // @XIdKelompok_SubKelompok    char (6)
     }
 
-    public function getType($id_sub_kelompok)
+    public function getIdSubKelompokType($id_sub_kelompok)
     {
         return DB::connection('ConnInventory')->select(
-            'exec SP_5298_EXT_IDSUBKELOMPOK_TYPE @xidsubkelompok_type = ?',
+            'exec SP_5298_EXT_IDSUBKELOMPOK_TYPE @XIdSubKelompok_Type = ?',
             [$id_sub_kelompok]
         );
 
-        // SELECT * FROM vw_prg_5298_ext_type
-        // WHERE @xidsubkelompok_type = IdSubKelompok_Type AND NonAktif = 'Y'
-        // ORDER BY NamaType
-
-        // *ambil dari tabel Type
+        // @XIdSubKelompok_Type     char (6)
     }
 
-    public function getBarang($kode, $kode_barang = null, $id_komposisi = null, $id_kelompok = null, $id_divisi = null, $mesin = null)
+    public function getCekKonversi($id_komposisi, $id_type)
     {
-        return DB::connection('ConnInventory')->select(
-            'exec SP_1273_PRG_BOM_Barang @kode = ?, @kodebarang = ?, @idkomposisi = ?, @iddivisi = ?, @mesin = ?',
-            [$kode, $kode_barang, $id_komposisi, $id_kelompok, $id_divisi, $mesin]
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5409_EXT_CEK_KONVERSI @idkomposisi = ?, @idtype = ?',
+            [$id_komposisi, $id_type]
         );
 
-        // @Kode char(2),
-        // @KodeBarang  char(9) = null,
-        // @IdKomposisi char(9) = null,
-        // @IdKelompok char(6) = null,
-        // @IdDivisi char(3) = null,
-        // @Mesin varchar(50) = null
+        // @idkomposisi char(9), @idtype char(20)
     }
+
+    public function delKomposisiBahan1($id_komposisi, $id_type)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DELETE_KOMPOSISI_BAHAN_1 @idkomposisi = ?, @idtype = ?',
+            [$id_komposisi, $id_type]
+        );
+
+        // @idkomposisi varchar(10), @idtype varchar(20)
+    }
+
+    public function insKomposisiBahan($id_komposisi, $id_objek, $nama_objek, $id_kelompok_utama, $nama_kelompok_utama, $id_kelompok, $nama_kelompok, $id_sub_kelompok, $nama_sub_kelompok, $id_type, $nama_type, $kd_brg = null, $jumlah_primer, $sat_primer = null, $jumlah_sekunder, $sat_sekunder = null, $jumlah_tritier, $sat_tritier = null, $persentase, $status_type, $cadangan)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_INSERT_KOMPOSISI_BAHAN @IdKomposisi = ?, @IdObjek = ?, @NamaObjek = ?, @IdKelompokUtama = ?, @NamaKelompokUtama = ?, @IdKelompok = ?, @NamaKelompok = ?, @IdSubKelompok = ?, @NamaSubKelompok = ?, @IdType = ?, @NamaType = ?, @KdBrg = ?, @JumlahPrimer = ?, @SatPrimer = ?, @JumlahSekunder = ?, @SatSekunder = ?, @JumlahTritier = ?, @SatTritier = ?, @Persentase = ?, @StatusType = ?, @Cadangan = ?',
+            [$id_komposisi, $id_objek, $nama_objek, $id_kelompok_utama, $nama_kelompok_utama, $id_kelompok, $nama_kelompok, $id_sub_kelompok, $nama_sub_kelompok, $id_type, $nama_type, $kd_brg, $jumlah_primer, $sat_primer, $jumlah_sekunder, $sat_sekunder, $jumlah_tritier, $sat_tritier, $persentase, $status_type, $cadangan]
+        );
+
+        // @IdKomposisi  varchar(9), @IdObjek  varchar(3), @NamaObjek  varchar(50), @IdKelompokUtama  char(4), @NamaKelompokUtama  varchar(50), @IdKelompok  char(4), @NamaKelompok  varchar(50), @IdSubKelompok  char(6), @NamaSubKelompok  varchar(50), @IdType  varchar(20), @NamaType  varchar(100), @KdBrg  varchar(9)=null, @JumlahPrimer numeric(9,2), @SatPrimer  varchar(4)=null, @JumlahSekunder numeric(9,2), @SatSekunder  varchar(4)=null, @JumlahTritier numeric(9,2), @SatTritier  varchar(4)=null, @Persentase numeric(9,2), @StatusType  char(2), @Cadangan int = 0
+    }
+
+    public function delKomposisiBahan($id_komposisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DELETE_KOMPOSISI_BAHAN @idkomposisi = ?',
+            [$id_komposisi]
+        );
+
+        // @idkomposisi  varchar(9)
+    }
+
+    public function insMasterKomposisi($nama_komposisi, $id_mesin, $id_divisi, $user = null)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_INSERT_MASTER_KOMPOSISI @NamaKomposisi = ?, @idmesin = ?, @iddivisi = ?, @user = ?',
+            [$nama_komposisi, $id_mesin, $id_divisi, $user]
+        );
+
+        // @NamaKomposisi varchar(100), @idmesin varchar(5), @iddivisi char(3), @user varchar(4)=null
+    }
+
+    public function updIdKomposisiCounter($id_divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_UPDATE_IDKOMPOSISI_COUNTER @iddivisi = ?',
+            [$id_divisi]
+        );
+
+        // @iddivisi char(3)
+    }
+
+    public function getCekKomposisi($id)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_CEK_KOMPOSISI @id = ?',
+            [$id]
+        );
+
+        // @id char(9)
+    }
+
+    public function delMasterKomposisi($id_komposisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DELETE_MASTER_KOMPOSISI @idkomposisi = ?',
+            [$id_komposisi]
+        );
+
+        // @idkomposisi  varchar(9)
+    }
+    #endregion
 }

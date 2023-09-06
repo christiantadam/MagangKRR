@@ -138,6 +138,7 @@
                             <th>Presentase</th>
                             <th>Jenis</th>
                             <th>Id Sub-kel.</th>
+                            <th>IdType</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -154,6 +155,7 @@
                                         <th>Nama Type</th>
                                         <th>Sub-kelompok</th>
                                         <th>Id Subkel.</th>
+                                        <th>IdType</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

@@ -60,7 +60,7 @@
                     <div class="col-lg-2">
                         <div class="input-group">
                             <input type="number" id="primer_qty" class="form-control" placeholder="0" disabled>
-                            <span id="primer_sat" class="input-group-text">NULL</span>
+                            <span id="primer_sat" class="input-group-text"></span>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     <div class="col-lg-2">
                         <div class="input-group">
                             <input type="number" id="sekunder_qty" class="form-control" placeholder="0" disabled>
-                            <span id="sekunder_sat" class="input-group-text">NULL</span>
+                            <span id="sekunder_sat" class="input-group-text"></span>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                     <div class="col-lg-2">
                         <div class="input-group">
                             <input type="number" id="tritier_qty" class="form-control" placeholder="0" disabled>
-                            <span id="tritier_sat" class="input-group-text">NULL</span>
+                            <span id="tritier_sat" class="input-group-text"></span>
                         </div>
                     </div>
                     <div class="col-lg-8">
