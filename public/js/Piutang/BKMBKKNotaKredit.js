@@ -624,6 +624,7 @@ btnCetakBKM.addEventListener('click', function(event) {
     console.log(idBKM.value);
     formTampilBKM.submit();
 });
+
 //#region MODAL TAMPIL BKM
 btnTampilBKK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -646,7 +647,7 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                             return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
                         },
                     },
-                    { title: "Id. BKM", data: "Id_BKK" },
+                    { title: "Id. BKK", data: "Id_BKK" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]

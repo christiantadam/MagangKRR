@@ -84,8 +84,7 @@
                                                         style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" id="id_bkm" name="id_bkm" class="form-control"
-                                                        style="width: 100%">
+                                                    <input type="text" id="id_bkm" name="id_bkm" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -340,8 +339,7 @@
                             </div>
 
                             <!--MODAL TAMPIL BKK-->
-                            <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog"
-                                aria-labelledby="pilihBankModal" aria-hidden="true">
+                            <div class="modal fade" id="modalTampilBKK" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content" style="padding: 25px;">
                                         <div class="modal-header">

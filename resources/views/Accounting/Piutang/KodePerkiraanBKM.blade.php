@@ -8,20 +8,21 @@
                     <div class="card-header">Maintenance Kode Perkiraan BKM</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('KodePerkiraanBKM') }}" id="formkoreksi">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 60%;">
                                         <div class="card-body">
                                             <div style="overflow-y: auto; max-height: 400px;">
-                                                <table style="width: 100%; table-layout: fixed;">
+                                                <table style="width: 170%; table-layout: fixed;" id="tabelKiri">
                                                     <colgroup>
-                                                        <col style="width: 20%;">
-                                                        <col style="width: 15%;">
-                                                        <col style="width: 25%;">
-                                                        <col style="width: 15%;">
-                                                        <col style="width: 25%;">
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 30%;">
+                                                        <col style="width: 40%;">
+                                                        <col style="width: 45%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
@@ -33,20 +34,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                        <tr>
-                                                            <td>Data 1</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                            <td>Data 2</td>
-                                                            <td>Data 3</td>
-                                                        </tr>
-                                                        <!-- Tambahkan baris lainnya jika diperlukan -->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -59,12 +46,12 @@
                                             <div class="col">
                                                 <div class="d-flex">
                                                     <div class="col-md-6">
-                                                        <input type="radio" name="radiogrup1" value="radio_1" id="radio_1">
-                                                        <label for="radio_2">Kas Kecil</label>
+                                                        <input type="radio" name="radiogrup1" value="kecil" id="kasKecil">
+                                                        <label for="kasKecil">Kas Kecil</label>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <input type="radio" name="radiogrup1" value="radio_1" id="radio_2">
-                                                        <label for="radio_2">Kas Besar</label>
+                                                        <input type="radio" name="radiogrup1" value="besar" id="kasBesar">
+                                                        <label for="kasBesar">Kas Besar</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -73,21 +60,23 @@
                                                     <div class="col-md-1" style="padding-right: 30px">
                                                         <label for="bulan">Bulan</label>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <input type="text" id="bulan" class="form-control" style="width: 100%">
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="bulan" name="bulan" class="form-control" style="width: 100%">
                                                     </div>
-                                                    <div class="col-md-1" style="padding-right: 25px">
+                                                    <div class="col-md-1" style="padding-right: 30px">
                                                         <label for="tahun">Tahun</label>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <input type="text" id="tahun" class="form-control" style="width: 100%">
+                                                    <div class="col-md-4">
+                                                        <input type="number" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                                     </div>
-                                                    <div class="col-md-3" >
-                                                        <button class="btn btn-block">OK</button>
+                                                    <div class="col-md-1" >
+                                                        <input type="submit" id="btnOK" name="btnOK" value="OK" class="btn btn-primary">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <input type="text" id="BlnThn" name="BlnThn" class="form-control" style="width: 100%">
 
                                         <div class="card">
                                             <div class="card-body">
@@ -126,6 +115,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <input type="text" name="idBKM" id="idBKM" class="form-control" style="width: 100%">
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 60%;">
                                         <div class="card-body">
@@ -177,4 +168,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/KodePerkiraanBKM.js') }}"></script>
 @endsection

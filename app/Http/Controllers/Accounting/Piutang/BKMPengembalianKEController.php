@@ -26,6 +26,20 @@ class BKMPengembalianKEController extends Controller
         return response()->json($jenis);
     }
 
+    public function getTabelTampilBKM($tanggalTampilBKM, $tanggalTampilBKM2)
+    {
+        // dd("masuk");
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_KE_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalTampilBKM, $tanggalTampilBKM2]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelTampilBKK($tanggalTampilBKK, $tanggalTampilBKK2)
+    {
+        // dd("masuk");
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKK_KE_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalTampilBKK, $tanggalTampilBKK2]);
+        return response()->json($tabel);
+    }
+
     function getUraianBKMEnter($id, $tanggal)
     {
         $idBank = $id;
@@ -70,6 +84,16 @@ class BKMPengembalianKEController extends Controller
         return response()->json($idBKK);
     }
 
+    public function getIdPembayaran()
+    {
+        $idPembayaran = DB::connection('ConnAccounting')
+            ->table('T_Pembayaran_Tagihan')
+            ->max('Id_Pembayaran');
+        // dd($idPelunasan);
+
+        return response()->json(['Id_Pembayaran' => $idPembayaran]);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -79,7 +103,149 @@ class BKMPengembalianKEController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $idBKK = $request->idBKK;
+        $idBKM = $request->idBKM;
+        $tanggal = $request->tanggal;
+        $konversi = $request->konversi;
+        $nilai1 = $request->nilai1;
+        $nilai= $request->nilai;
+        $idBankBKM = $request->idBankBKM;
+        $idMataUangBKM = $request->idMataUangBKM;
+        $idJenisPembayaranBKM = $request->idJenisPembayaranBKM;
+        $idKodePerkiraanBKM = $request->idKodePerkiraanBKM;
+        $uraianBKM = $request->uraianBKM;
+        $kurs = $request->kurs;
+        $idCustomer = $request->idCustomer;
+        $jenisBankBKM = $request->jenisBankBKM;
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $idBankBKK = $request->idBankBKK;
+        $idPembayaran = $request->idPembayaran;
+        $uraianBKK = $request->uraianBKK;
+        $idKodePerkiraanBKK = $request->idKodePerkiraanBKK;
+        $jenisBankBKK = $request->jenisBankBKK;
+
+        $tgl = $tahun . '-' . $bulan . '-01';
+
+        $id_bkm = $request->id_bkm;
+        $id_bkk = $request->id_bkk;
+        $konversi1 = $request->konversi1;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN]
+        @idBKM = ?,
+        @tglinput = ?,
+        @userinput = ?,
+        @terjemahan = ?,
+        @nilaipelunasan = ?,
+        @IdBank= ?',
+        [
+            $idBKM,
+            $tanggal,
+            null,
+            $konversi,
+            $nilai1,
+            $idBankBKM
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN_TAG]
+        @idBKM = ?,
+        @tgl = ?,
+        @idUang = ?,
+        @idJenis = ?,
+        @idBank = ?,
+        @kodeperkiraan = ?,
+        @uraian = ?,
+        @nilaipelunasan = ?,
+        @user = ?,
+        @Kurs = ?,
+        @idCust = ?',
+        [
+            $idBKM,
+            $tanggal,
+            $idMataUangBKM,
+            $idJenisPembayaranBKM,
+            $idBankBKM,
+            $idKodePerkiraanBKM,
+            $uraianBKM,
+            $nilai1,
+            1,
+            $kurs,
+            $idCustomer
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_COUNTER_IDBKM]
+        @idbkm = ?,
+        @idBank = ?,
+        @jenis = ?,
+        @tgl = ?',
+        [
+            $id_bkm,
+            $idBankBKM,
+            $jenisBankBKM,
+            $tgl
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TPEMBAYARAN]
+        @idBKk = ?,
+        @tgl = ?,
+        @userinput = ?,
+        @terjemahan = ?,
+        @nilai = ?,
+        @IdBank = ?',
+        [
+            $idBKK,
+            $tanggal,
+            1,
+            $konversi1,
+            $nilai,
+            $idBankBKK
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TPEMBAYARAN_TAG]
+        @idBKk = ?,
+        @idUang = ?,
+        @idJenis = ?,
+        @idBank = ?,
+        @nilai = ?,
+        @user = ?,
+        @kurs = ?,
+        @idBKM_acuan = ?',
+        [
+            $idBKK,
+            $idMataUangBKM,
+            $idJenisPembayaranBKM,
+            $idBankBKK,
+            $nilai,
+            1,
+            $kurs,
+            $idBKM
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TDETAILPEMB]
+        @idpembayaran = ?,
+        @keterangan = ?,
+        @biaya = ?,
+        @kodeperkiraan = ?',
+        [
+            $idPembayaran,
+            $uraianBKK,
+            $nilai,
+            $idKodePerkiraanBKK
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_COUNTER_IDBKK]
+        @idbkk = ?,
+        @idBank = ?,
+        @jenis = ?,
+        @tgl = ?',
+        [
+            $id_bkk,
+            $idBankBKK,
+            $jenisBankBKK,
+            $tgl
+        ]);
+
+        return redirect()->back()->with('success', 'BKK No. '. $idBKK . ' & BKM No. ' . $idBKM . ' Tersimpan');
     }
 
     //Display the specified resource.
@@ -97,7 +263,21 @@ class BKMPengembalianKEController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $proses =  $request->all();
+        if ($proses['cetak'] == "cetakBKM") {
+            //dd($request->all());
+            $idBKMTampil = $request ->idBKMTampil;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_TGLCETAK_BKM] @idBKM = ?', [
+                $idBKMTampil]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
+        else if ($proses['cetak'] == "cetakBKK") {
+            //dd($request->all());
+            $idBKKTampil = $request ->idBKKTampil;
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_TGLCETAK_BKK] @idBKK = ?', [
+                $idBKKTampil]);
+            return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        }
     }
 
     //Remove the specified resource from storage.

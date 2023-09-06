@@ -17,10 +17,17 @@ let idBKM = document.getElementById('idBKM');
 
 let btnProses = document.getElementById('btnProses');
 let btnBatal = document.getElementById('btnBatal');
+let btnTampilBKM = document.getElementById('btnTampilBKM');
+let btnTampilBKK = document.getElementById('btnTampilBKK');
 
 let namaMU;
 let namaBank;
 let namaJenisPemb;
+let total2;
+let total1;
+
+let btnCetakBKM = document.getElementById('btnCetakBKM');
+let btnCetakBKK = document.getElementById('btnCetakBKK');
 
 //CARD BKK
 let idBKK = document.getElementById('idBKK');
@@ -31,6 +38,36 @@ let jenisPembayaranBKK = document.getElementById('jenisPembayaranBKK');
 let kodePerkiraanBKKSelect = document.getElementById('kodePerkiraanBKKSelect');
 let idKodePerkiraanBKK = document.getElementById('idKodePerkiraanBKK');
 let uraianBKK = document.getElementById('uraianBKK');
+
+//MODAL TAMPIL BKM
+let idBKMTampil = document.getElementById('idBKMTampil');
+let btnOkTampilBKM = document.getElementById('btnOkTampilBKM');
+let tanggalTampilBKM = document.getElementById('tanggalTampilBKM');
+let tanggalTampilBKM2 = document.getElementById('tanggalTampilBKM2');
+let tabelTampilBKM = document.getElementById('tabelTampilBKM');
+
+//MODAL TAMPIL BKK
+let idBKKTampil = document.getElementById('idBKKTampil');
+let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
+let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
+let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
+let tabelTampilBKK = document.getElementById('tabelTampilBKK');
+
+//HIDDEN INPUT
+let nilai1 = document.getElementById('nilai1');
+let nilai = document.getElementById('nilai');
+let konversi = document.getElementById('konversi');
+let konversi1 = document.getElementById('konversi1');
+let id_bkm = document.getElementById('id_bkm');
+let id_bkk = document.getElementById('id_bkk');
+let idPembayaran = document.getElementById('idPembayaran');
+let bulan = document.getElementById('bulan');
+let tahun = document.getElementById('tahun');
+
+let methodTampilBKKKE = document.getElementById('methodTampilBKKKE');
+let formTampilBKKKE = document.getElementById('formTampilBKKKE');
+let methodTampilBKMKE = document.getElementById('methodTampilBKMKE');
+let formTampilBKMKE = document.getElementById('formTampilBKMKE');
 
 tanggal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
@@ -43,6 +80,19 @@ tanggal.addEventListener("keypress", function (event) {
         } else {
             namaCustomerSelect.focus();
         }
+
+        const dateObject = new Date(tanggal.value);
+
+        // Get month and year separately
+        bulan.value = dateObject.getMonth() + 1; // +1 karena bulan dimulai dari 0 (Januari) - 11 (Desember)
+        tahun.value = dateObject.getFullYear();
+
+        console.log('Bulan:', bulan.value);
+        console.log('Tahun:', tahun.value);
+        console.log(nilaiUang.value);
+
+        rowData['bulan'] = bulan.value;
+        rowData['tahun'] = tahun.value;
     }
 });
 
@@ -280,8 +330,8 @@ uraianBKM.addEventListener("keypress", function (event) {
                 console.log(options);
                 idBKM.value = options;
 
-                // id_bkm.value = (idBKM.value).substring(4);
-                // console.log(id_bkm.value);
+                id_bkm.value = (idBKM.value).substring(4);
+                console.log(id_bkm.value);
             });
 
         mataUangBKK.value = namaMU;
@@ -370,8 +420,8 @@ uraianBKK.addEventListener("keypress", function (event) {
                 console.log(options);
                 idBKK.value = options;
 
-                // id_bkm.value = (idBKM.value).substring(4);
-                // console.log(id_bkm.value);
+                id_bkk.value = (idBKK.value).substring(4);
+                console.log(id_bkk.value);
         });
 
         btnProses.focus();
@@ -403,6 +453,10 @@ btnBatal.addEventListener('click', function(event) {
     event.preventDefault();
 
     tanggal.value = "";
+    bulan.value = "";
+    tahun.value = "";
+    id_bkk.value = "";
+    id_bkm.value = "";
     idBKM.value = "";
     namaCustomerSelect.selectedIndex = 0;
     idCustomer.value = "";
@@ -429,6 +483,162 @@ btnBatal.addEventListener('click', function(event) {
     kodePerkiraanBKKSelect.selectedIndex = 0;
     idKodePerkiraanBKK.value = "";
     uraianBKK.value = "";
-})
+});
 
+//#region MODAL TAMPIL BKM
+btnTampilBKM.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalTampilBKMKE = $("#modalTampilBKMKE");
+    modalTampilBKMKE.modal('show');
+});
 
+btnOkTampilBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/getTabelTampilBKMKE/" + tanggalTampilBKM.value + "/" + tanggalTampilBKM2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKM = $("#tabelTampilBKM").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKM" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+                $('input[name="dataCheckbox"]').not(this).prop('checked', false);
+
+                if ($(this).prop("checked")) {
+                    const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
+                    idBKMTampil.value = checkedCheckbox.Id_BKM;
+                } else {
+                    idBKMTampil.value = "";
+                }
+            });
+        });
+});
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if ($('input[name="dataCheckbox"]:checked').length === 0) {
+        alert("Pilih 1 Id.BKM Untuk DiCetak!");
+        return;
+    }
+    methodTampilBKMKE.value="PUT";
+    formTampilBKMKE.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
+    console.log(idBKM.value);
+    formTampilBKMKE.submit();
+});
+//#endregion
+
+//#region MODAL TAMPIL BKK
+btnTampilBKK.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalTampilBKKKE = $("#modalTampilBKKKE");
+    modalTampilBKKKE.modal('show');
+});
+
+btnOkTampilBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/getTabelTampilBKKKE/" + tanggalTampilBKK.value + "/" + tanggalTampilBKK2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelTampilBKK = $("#tabelTampilBKK").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
+                        },
+                    },
+                    { title: "Id. BKM", data: "Id_BKK" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKK.on('change', 'input[name="dataCheckbox"]', function() {
+                $('input[name="dataCheckbox"]').not(this).prop('checked', false);
+
+                if ($(this).prop("checked")) {
+                    const checkedCheckbox = tabelTampilBKK.row($(this).closest('tr')).data();
+                    idBKKTampil.value = checkedCheckbox.Id_BKK;
+                } else {
+                    idBKKTampil.value = "";
+                }
+            });
+        });
+});
+
+btnCetakBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if ($('input[name="dataCheckbox"]:checked').length === 0) {
+        alert("Pilih 1 Id.BKK Untuk DiCetak!");
+        return;
+    }
+    methodTampilBKKKE.value="PUT";
+    formTampilBKKKE.action = "/BKMBKKNotaKredit/" + idBKKTampil.value;
+    console.log(idBKKTampil.value);
+    formTampilBKKKE.submit();
+});
+//#endregion
+
+btnProses.addEventListener('click', function(event) {
+    event.preventDefault();
+    if (idBKM.value != "" || idBKK.value != "") {
+        nilai1.value = parseFloat(jumlahUangBKM.value);
+        total2 = nilai1.toString();
+        // console.log("masuk");
+        if (parseInt(idMataUangBKM.value) == 1) {
+            konversi.value = F_Rupiah(total2); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+        } else {
+            konversi.value = F_Dollar(total2); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+        }
+
+        nilai.value = parseFloat(jumlahUangBKK.value);
+        total1 = nilai.toString();
+        if (parseInt(idMataUangBKM.value) == 1) {
+            konversi1.value = F_Rupiah(total1); // Menggunakan fungsi F_Rupiah jika kondisi terpenuhi
+        } else {
+            konversi1.value = F_Dollar(total1); // Menggunakan fungsi F_DOLLAR jika kondisi tidak terpenuhi
+        }
+    }
+    else {
+        console.log("Tidak Ada Yg diPROSES!");
+    }
+
+    fetch("/getIdPembayaranKE/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            idPembayaran.value = options.Id_Pembayaran;
+            console.log(idPembayaran.value);
+
+            formkoreksi.submit();
+    });
+    // console.log(idBKK.value);
+
+});
+
+//#region untuk koversi jumlah uang
+function F_Rupiah() {
+    var formatted = parseFloat(nilai1.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    return formatted;
+}
+function F_Dollar() {
+    var formatted = parseFloat(nilai1.value).toFixed(2);
+    return formatted;
+}
+//#endregion
