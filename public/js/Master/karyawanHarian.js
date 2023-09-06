@@ -26,6 +26,7 @@ $(document).ready(function () {
     const SimpanKoreksiPegawai = document.getElementById("SimpanKoreksiButton");
     const BatalIsiPegawai = document.getElementById("BatalIsiButton");
     const BatalKoreksiPegawai = document.getElementById("BatalKoreksiButton");
+    const HapusButton = document.getElementById("HapusButton");
     $("#tabel_Posisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#tabel_Posisi").DataTable().row(this).data();
@@ -370,18 +371,20 @@ $(document).ready(function () {
         function submitForm() {
             return new Promise((resolve, reject) => {
                 form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-                // form.submit();
+                form.submit();
             });
         }
-        // if (isComplete) {
-        // Call the submitForm function to initiate the form submission
-        submitForm()
-            .then(() => console.log("Form submitted successfully!"))
-            .catch((error) => console.error("Form submission error:", error));
-        // } else {
-        //     // Ada input yang belum terisi, tampilkan pesan error.
-        //     alert("Mohon lengkapi semua input terlebih dahulu.");
-        // }
+        if (isComplete) {
+            //Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        } else {
+            // Ada input yang belum terisi, tampilkan pesan error.
+            alert("Mohon lengkapi semua input terlebih dahulu.");
+        }
         // let request = {
         //     method: "POST",
         //     headers: '_token'
@@ -584,6 +587,7 @@ $(document).ready(function () {
         Nama_Peg.removeAttribute("readonly");
         SimpanIsiPegawai.hidden = false;
         BatalIsiPegawai.hidden = false;
+        document.getElementById("HapusButton").disabled = true;
     });
     BatalIsiPegawai.addEventListener("click", function (event) {
         isiPegawai.hidden = false;
@@ -592,18 +596,25 @@ $(document).ready(function () {
         Nama_Peg.setAttribute("readonly", "readonly");
         SimpanIsiPegawai.hidden = true;
         BatalIsiPegawai.hidden = true;
+        document.getElementById("HapusButton").disabled = false;
     });
     koreksiPegawai.addEventListener("click", function (event) {
         isiPegawai.hidden = true;
         koreksiPegawai.hidden = true;
         SimpanKoreksiPegawai.hidden = false;
         BatalKoreksiPegawai.hidden = false;
+        document.getElementById("HapusButton").disabled = true;
     });
     BatalKoreksiPegawai.addEventListener("click", function (event) {
         isiPegawai.hidden = false;
         koreksiPegawai.hidden = false;
         SimpanKoreksiPegawai.hidden = true;
         BatalKoreksiPegawai.hidden = true;
+        document.getElementById("HapusButton").disabled = false;
+
+    });
+    HapusButton.addEventListener("click", function (event) {
+        alert("Hubungi EDP ....");
     });
 });
 function showModalPosisi() {

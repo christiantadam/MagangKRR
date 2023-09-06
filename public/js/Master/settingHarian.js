@@ -27,7 +27,7 @@ $(document).ready(function () {
                 data.forEach((item) => {
                     $("#Id_Manager_Lama").val(item.Kd_Mng);
                     $("#Nama_Manager_Lama").val(item.Mng);
-                    $("#Id_Supervisor_Lama").val(item.Kd_Spv);
+                    $("#Id_Supervisor_Lama").val(item.Supervisor);
                     $("#Nama_Supervisor_Lama").val(item.Spv);
                 });
 
@@ -65,14 +65,31 @@ $(document).ready(function () {
         event.preventDefault();
         const idDiv = document.getElementById("Id_Div").value;
         const IdMngr = document.getElementById("Id_Manager").value;
+        const IdSupervisorLama = document.getElementById("Id_Supervisor_Lama").value;
+        const IdMngrLama = document.getElementById("Id_Manager_Lama").value;
         const IdSupervisor = document.getElementById("Id_Supervisor").value;
-        const IdSuper = IdSupervisor.split(" / ");
-        const IdSpv = IdSuper[1];
-        // const dataGabung = idDiv + "." + IdMngr +"." + IdSpv;
+        var IdMngrFinal,IdSupervisorFinal;
+        if (IdSupervisor !== "") {
+            const IdSuper = IdSupervisor.split(" / ");
+            IdSupervisorFinal = IdSuper[1];
+            // const dataGabung = idDiv + "." + IdMngr +"." + IdSpv;
+
+        }else{
+            IdSupervisorFinal = IdSupervisorLama;
+
+        }
+
+        if (IdMngr !== "") {
+            IdMngrFinal = IdMngr;
+        }else{
+            IdMngrFinal = IdMngrLama;
+
+        }
+
         const data = {
             idDiv: idDiv,
-            IdMngr: IdMngr,
-            IdSpv: IdSpv,
+            IdMngr: IdMngrFinal,
+            IdSpv: IdSupervisorFinal,
         };
         // const data = [
 

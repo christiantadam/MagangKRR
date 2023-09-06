@@ -11,6 +11,8 @@ $(document).ready(function () {
     const AlamatKlinik = document.getElementById("AlamatKlinik");
     const KotaKlinik = document.getElementById("KotaKlinik");
     const NomorTelepon = document.getElementById("NomorTelepon");
+    const KlinikButton = document.getElementById("klinikButton");
+    const simpanHapusButton = document.getElementById("simpanHapusButton");
     $("#table_Klinik").DataTable({
         order: [[0, "asc"]],
     });
@@ -34,7 +36,6 @@ $(document).ready(function () {
                     $("#AlamatKlinik").val(item.Alamat);
                     $("#KotaKlinik").val(item.Kota);
                     $("#NomorTelepon").val(item.Telp);
-
                 });
 
                 // Redraw the table to show the changes
@@ -47,17 +48,21 @@ $(document).ready(function () {
         hideModalKlinik();
     });
     isiButton.addEventListener("click", function (event) {
+        // KlinikButton.disabled = false;
         isiButton.hidden = true;
         clearButton.hidden = false;
         simpanIsiButton.hidden = false;
-        Id_Klinik.readOnly = false;
+        // Id_Klinik.readOnly = false;
         koreksiButton.hidden = true;
         Nama_Klinik.readOnly = false;
         AlamatKlinik.readOnly = false;
         KotaKlinik.readOnly = false;
         NomorTelepon.readOnly = false;
+        hapusButton.disabled = true;
+        batalButton.disabled = false;
     });
     koreksiButton.addEventListener("click", function (event) {
+        KlinikButton.disabled = false;
         koreksiButton.hidden = true;
         simpanKoreksiButton.hidden = false;
         clearButton.hidden = false;
@@ -66,9 +71,13 @@ $(document).ready(function () {
         AlamatKlinik.readOnly = false;
         KotaKlinik.readOnly = false;
         NomorTelepon.readOnly = false;
+        hapusButton.disabled = true;
+        batalButton.disabled = false;
     });
     batalButton.addEventListener("click", function (event) {
+        KlinikButton.disabled = true;
         isiButton.hidden = false;
+        simpanHapusButton.hidden = true;
         simpanIsiButton.hidden = true;
         clearButton.hidden = true;
         koreksiButton.hidden = false;
@@ -80,20 +89,27 @@ $(document).ready(function () {
         AlamatKlinik.readOnly = true;
         KotaKlinik.readOnly = true;
         NomorTelepon.readOnly = true;
+        hapusButton.disabled = false;
+        batalButton.disabled = true;
     });
 
     simpanIsiButton.addEventListener("click", function (event) {
         event.preventDefault();
-        const Nama_Klinik = document.getElementById("Nama_Klinik");
-        const AlamatKlinik = document.getElementById("AlamatKlinik");
-        const KotaKlinik = document.getElementById("KotaKlinik");
-        const NomorTelepon = document.getElementById("NomorTelepon");
-        const data = {
-            nm: Nama_Klinik.value,
-            alamat: AlamatKlinik.value,
-            kota: KotaKlinik.value,
-            telp: NomorTelepon.value,
 
+        const Nama_Klinik = document.getElementById("Nama_Klinik").value;
+        const AlamatKlinik = document.getElementById("AlamatKlinik").value;
+        const KotaKlinik = document.getElementById("KotaKlinik").value;
+        const NomorTelepon = document.getElementById("NomorTelepon").value;
+        if (Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
+            // Salah satu atau lebih elemen input memiliki nilai kosong
+            alert("Mohon isi semua field yang diperlukan.");
+            return; // Menghentikan eksekusi lebih lanjut
+        }
+        const data = {
+            nm: Nama_Klinik,
+            alamat: AlamatKlinik,
+            kota: KotaKlinik,
+            telp: NomorTelepon,
         };
         console.log(data);
 
@@ -138,18 +154,22 @@ $(document).ready(function () {
     });
     simpanKoreksiButton.addEventListener("click", function (event) {
         event.preventDefault();
-        const idklinik = document.getElementById("Id_Klinik");
-        const Nama_Klinik = document.getElementById("Nama_Klinik");
-        const AlamatKlinik = document.getElementById("AlamatKlinik");
-        const KotaKlinik = document.getElementById("KotaKlinik");
-        const NomorTelepon = document.getElementById("NomorTelepon");
+        const idklinik = document.getElementById("Id_Klinik").value;
+        const Nama_Klinik = document.getElementById("Nama_Klinik").value;
+        const AlamatKlinik = document.getElementById("AlamatKlinik").value;
+        const KotaKlinik = document.getElementById("KotaKlinik").value;
+        const NomorTelepon = document.getElementById("NomorTelepon").value;
+        if (idklinik === "" || Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
+            // Salah satu atau lebih elemen input memiliki nilai kosong
+            alert("Masih ada field yang kosong !");
+            return; // Menghentikan eksekusi lebih lanjut
+        }
         const data = {
-            idklinik: idklinik.value,
-            nm: Nama_Klinik.value,
-            alamat: AlamatKlinik.value,
-            kota: KotaKlinik.value,
-            telp: NomorTelepon.value,
-
+            idklinik: idklinik,
+            nm: Nama_Klinik,
+            alamat: AlamatKlinik,
+            kota: KotaKlinik,
+            telp: NomorTelepon,
         };
         console.log(data);
 
@@ -206,16 +226,28 @@ $(document).ready(function () {
             .catch((error) => console.error("Form submission error:", error));
     });
     hapusButton.addEventListener("click", function (event) {
+        simpanHapusButton.hidden = false;
+        koreksiButton.hidden = true;
+        isiButton.hidden = true;
+        clearButton.hidden = false;
+        batalButton.disabled = false;
+        KlinikButton.disabled = false;
+        hapusButton.disabled = true;
+    });
+    simpanHapusButton.addEventListener("click", function (event) {
         event.preventDefault();
         const idklinik = document.getElementById("Id_Klinik").value;
-
+        if (idklinik === "") {
+            alert("Pilih Dulu Kliniknya !");
+            return; // Menghentikan eksekusi lebih lanjut
+        }
         const data = {
             idklinik: idklinik,
         };
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "MasterKlinik/{idklinik}" );
+        form.setAttribute("action", "MasterKlinik/{idklinik}");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -259,7 +291,6 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
     });
-
 });
 function showModalKlinik() {
     $("#modalKlinik").modal("show");

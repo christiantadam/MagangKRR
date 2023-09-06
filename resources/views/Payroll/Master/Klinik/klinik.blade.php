@@ -25,7 +25,7 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="klinikButton"
-                                    onclick="showModalKlinik()">...</button>
+                                    onclick="showModalKlinik()" disabled>...</button>
 
                                 <div class="modal fade" id="modalKlinik" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -123,10 +123,11 @@
                     <button type="button" class="btn" style="width: 100px" id="isiButton">Isi</button>
                     <button type="button" class="btn" style="width: 100px" id="simpanIsiButton" hidden>Simpan</button>
                     <button type="button" class="btn" style="width: 100px" id="simpanKoreksiButton" hidden>Simpan</button>
+                    <button type="button" class="btn" style="width: 100px" id="simpanHapusButton" hidden>Simpan</button>
                     <button type="button" class="btn" style="width: 100px" id="clearButton" hidden>Clear</button>
                     <button type="button" class="btn" style="width: 100px" id="koreksiButton">Koreksi</button>
                     <button type="button" class="btn" style="width: 100px" id="hapusButton">Hapus</button>
-                    <button type="button" class="btn" style="width: 100px" id="batalButton">Batal</button>
+                    <button type="button" class="btn" style="width: 100px" id="batalButton" disabled>Batal</button>
                     <button type="button" class="btn" style="width: 100px" id="keluarButton">Keluar</button>
                 </div>
             </div>

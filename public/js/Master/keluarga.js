@@ -62,24 +62,28 @@ $(document).ready(function () {
         simpanTambahKel.hidden = false;
         batalTambahKel.hidden = false;
         koreksiButtonKel.hidden = true;
+        hapusButtonKel.disabled = true;
     });
     batalTambahKel.addEventListener("click", function (event) {
         tambahButtonKel.hidden = false;
         simpanTambahKel.hidden = true;
         batalTambahKel.hidden = true;
         koreksiButtonKel.hidden = false;
+        hapusButtonKel.disabled = false;
     });
     koreksiButtonKel.addEventListener("click", function (event) {
         koreksiButtonKel.hidden = true;
         tambahButtonKel.hidden = true;
         simpanKoreksiKel.hidden = false;
         batalKoreksiKel.hidden = false;
+        hapusButtonKel.disabled = true;
     });
     batalKoreksiKel.addEventListener("click", function (event) {
         tambahButtonKel.hidden = false;
         simpanKoreksiKel.hidden = true;
         batalKoreksiKel.hidden = true;
         koreksiButtonKel.hidden = false;
+        hapusButtonKel.disabled = false;
     });
     clearButtonPekerja.addEventListener("click", function () {
         const checkbox = document.getElementById("checkBPJS");
@@ -463,7 +467,9 @@ $(document).ready(function () {
     });
     hapusButtonKel.addEventListener("click", function (event) {
         event.preventDefault();
-        const id = document.getElementById("Id_Keluarga").value;
+        const konfirmasi = window.confirm("Anda yakin ingin menghapus data?");
+        if (konfirmasi) {
+            const id = document.getElementById("Id_Keluarga").value;
 
         const data = {
             idKel: id,
@@ -514,6 +520,11 @@ $(document).ready(function () {
         submitForm()
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
+        }
+        else {
+            alert("Penghapusan dibatalkan.");
+        }
+
     });
 
     $("#tabel_Divisi tbody").on("click", "tr", function () {

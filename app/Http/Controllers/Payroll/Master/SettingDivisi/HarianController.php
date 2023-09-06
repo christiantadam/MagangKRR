@@ -69,7 +69,7 @@ class HarianController extends Controller
     public function update(Request $request)
     {
         $data = $request->all();
-        dd($data);
+        // dd($data);
         DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_DIVISI2 @idDiv = ?, @IdMngr = ?, @IdSpv = ?', [
 
             $data['idDiv'],
