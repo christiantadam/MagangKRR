@@ -111,17 +111,18 @@ Route::get('/Konversi/delKonversi/{id_konversi}', [KonversiController::class, 'd
 #region ExtruderNet - Form Konversi ACC
 Route::get('/Konversi/getListKonvBlmAcc/{id_divisi}', [KonversiController::class, 'getListKonvBlmAcc']);
 Route::get('/Konversi/getListKonvDetail/{id_konversi}', [KonversiController::class, 'getListKonvDetail']);
-Route::get('/Konversi/getPenyesuaianTrans/{kode?}/{id_type?}/{id_type_transaksi?}/{id_transaksi?}/{kode_barang?}/{id_sub_kel?}', [KonversiController::class, 'getPenyesuaianTrans']);
-Route::get('/Konversi/getTransaksiKonv/{id_konv_ext}', [KonversiController::class, 'getTransaksiKonv']);
+Route::get('/Konversi/getPenyesuaianTransaksi/{id_type}/{id_type_transaksi}', [KonversiController::class, 'getPenyesuaianTransaksi']);
+Route::get('/Konversi/getTransaksiKonversi/{id_konv_ext}', [KonversiController::class, 'getTransaksiKonversi']);
 Route::get('/Konversi/getJumlahHutang/{id_type}/{subkel}/{shift}/{tgl}', [KonversiController::class, 'getJumlahHutang']);
 Route::get('/Konversi/getIdTransInv/{id_type}/{subkel}/{tgl}/{shift}', [KonversiController::class, 'getIdTransInv']);
 Route::get('/Konversi/getOrderStatus/{id_order}', [KonversiController::class, 'getOrderStatus']);
-Route::get('/Konversi/getKeteranganSaldo/{id_order}/{no_urut_order}', [KonversiController::class, 'getKeteranganSaldo']);
 
-Route::get('/Konversi/updACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{keluar_sekunder}/{keluar_tritier}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updACCKonversi']);
-Route::get('/Konversi/updHutang/{id_type}/{subkel}/{id_inv}/{pemberi}', [KonversiController::class, 'updHutang']);
+Route::get('/Konversi/updProsesACCKonversi/{id_transaksi}/{id_type}/{user_acc}/{waktu_acc}/{keluar_primer}/{keluar_sekunder}/{keluar_tritier}/{masuk_primer}/{masuk_sekunder}/{masuk_tritier}', [KonversiController::class, 'updProsesACCKonversi']);
+Route::get('/Konversi/updProsesHutang/{id_type}/{subkel}/{id_inv}/{pemberi}', [KonversiController::class, 'updProsesHutang']);
 Route::get('/Konversi/updACCMasterKonv/{id_konversi}/{user_acc}', [KonversiController::class, 'updACCMasterKonv']);
-Route::get('/Konversi/updSaldoOrdDet/{id_order}/{no_urut_order}/{primer}/{sekunder}/{tritier}', [KonversiController::class, 'updSaldoOrdDet']);
+
+Route::get('/Konversi/updSaldoOrderDetail/{id_order}/{no_urut_order}/{primer}/{sekunder}/{tritier}', [KonversiController::class, 'updSaldoOrderDetail']);
+Route::get('/Konversi/getSaldoOrderDetail/{id_order}/{no_urut_order}', [KonversiController::class, 'getSaldoOrderDetail']);
 #endregion
 
 #region ExtruderNet - Form Benang Mohon

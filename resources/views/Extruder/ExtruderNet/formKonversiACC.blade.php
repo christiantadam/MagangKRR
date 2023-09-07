@@ -1,8 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="tropodo_konversi_acc" class="form" data-aos="fade-up">
-        <input type="hidden" id="hidden_inv">
-        <input type="hidden" id="hidden_ext">
+        <input type="hidden" id="hidden_input">
 
         <div class="card mt-3">
             <div class="card-header">Daftar Konversi</div>
@@ -15,8 +14,8 @@
                         <table id="table_konversi" class="hover cell-border">
                             <thead>
                                 <tr>
-                                    <th scope="col">No. Konversi</th>
-                                    <th scope="col">Spek</th>
+                                    <th>No. Konversi</th>
+                                    <th>Spek</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,7 +73,8 @@
                                 <span class="aligned-text">Ukuran:</span>
                             </div>
                             <div class="col-lg-4">
-                                <input type="number" id="ukuran" class="form-control" placeholder="0" disabled>
+                                <input type="number" min="0" id="ukuran" class="form-control" placeholder="0"
+                                    disabled>
                             </div>
                         </div>
 
@@ -83,7 +83,8 @@
                                 <span class="aligned-text">Denier:</span>
                             </div>
                             <div class="col-lg-4">
-                                <input type="number" id="denier" class="form-control" placeholder="0" disabled>
+                                <input type="number" min="0" id="denier" class="form-control" placeholder="0"
+                                    disabled>
                             </div>
                         </div>
 
@@ -174,17 +175,19 @@
                     <thead>
                         <tr>
                             <th>Nama Type</th>
-                            <th>Qty Primer</th>
-                            <th>Sat Primer</th>
-                            <th>Qty Sekunder</th>
-                            <th>Sat Sekunder</th>
-                            <th>Qty Tertier</th>
-                            <th>Sat Tertier</th>
+                            <th>Qty. Primer</th>
+                            <th>Sat. Primer</th>
+                            <th>Qty. Sekunder</th>
+                            <th>Sat. Sekunder</th>
+                            <th>Qty. Tritier</th>
+                            <th>Sat. Tritier</th>
+                            <th>Persentase</th>
+                            <th>Jenis</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            @php $tableWidth = 7; @endphp
+                            @php $tableWidth = 9; @endphp
                             <td colspan="{{ $tableWidth }}" class="text-center">
                                 <h1 class="mt-3">Tabel masih kosong...</h1>
                             </td>
@@ -198,15 +201,16 @@
                 <div class="row mt-3 d-flex justify-content-center">
                     <div class="col-lg-3" style="margin-right: 25px;">
                         <label for="total_bahan_terpakai">Total Bahan Terpakai:</label>
-                        <input type="number" id="total_bahan_terpakai" class="form-control" placeholder="0">
+                        <input type="number" min="0" id="total_bahan_terpakai" class="form-control"
+                            placeholder="0">
                     </div>
                     <div class="col-lg-3" style="margin-right: 25px;">
                         <label for="hasil_timbang">Hasil Timbang:</label>
-                        <input type="number" id="hasil_timbang" class="form-control" placeholder="0">
+                        <input type="number" min="0" id="hasil_timbang" class="form-control" placeholder="0">
                     </div>
                     <div class="col-lg-3">
                         <label for="afalan">Afalan:</label>
-                        <input type="number" id="afalan" class="form-control" placeholder="0">
+                        <input type="number" min="0" id="afalan" class="form-control" placeholder="0">
                     </div>
                 </div>
             </div>
@@ -218,5 +222,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/konversiACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/konversiACC_new.js') }}"></script>
 @endsection

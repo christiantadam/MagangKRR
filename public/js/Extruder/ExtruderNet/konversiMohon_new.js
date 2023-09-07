@@ -459,6 +459,7 @@ timeSelesai.addEventListener("keypress", function (event) {
 
 numPrimer.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
         numSekunder.disabled = false;
         if (koreksiDetail) {
             numSekunder.select();
@@ -468,6 +469,7 @@ numPrimer.addEventListener("keypress", function (event) {
 
 numSekunder.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
         numTritier.disabled = false;
         if (koreksiDetail) {
             numTritier.select();

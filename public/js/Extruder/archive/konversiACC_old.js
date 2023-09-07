@@ -29,6 +29,7 @@ const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
 const listOfInputTxt = document.querySelectorAll("input[type='text']");
+const listOfInputTime = document.querySelectorAll("input[type='time']");
 
 const listKonversi = [];
 const listHasil = [];
@@ -62,7 +63,8 @@ btnKeluar.addEventListener("click", function () {
 });
 
 hidExtruder.addEventListener("change", function () {
-    console.log(this.value);
+    console.log("Extruder: " + this.value);
+    console.log("Inventory: " + hidInventory.value.split("!")[0]);
 
     if (this.value.split("!")[0] == "Proses Extruder Berhasil") {
         if (hidInventory.value.split("!")[0] == "Proses Inventory Berhasil") {
@@ -79,7 +81,8 @@ hidExtruder.addEventListener("change", function () {
 });
 
 hidInventory.addEventListener("change", function () {
-    console.log(this.value);
+    console.log("Inventory: " + this.value);
+    console.log("Extruder: " + hidExtruder.value);
 
     if (this.value.split("!")[0] == "Proses Inventory Berhasil") {
         if (hidExtruder.value.split("!")[0] == "Proses Extruder Berhasil") {
@@ -97,12 +100,18 @@ hidInventory.addEventListener("change", function () {
 //#endregion
 
 //#region Functions
-function clearForm() {
+function clearForm(emptyAll = true) {
     listOfInputTxt.forEach((input) => (input.value = ""));
-    listKonversi.length = 0;
-    clearTable_DataTable("table_konversi", 2);
+    listOfInputTime.forEach((input) => (input.value = "00:00"));
+    dateInput.value = getCurrentDate();
+
     listHasil.length = 0;
     clearTable_DataTable("table_hasil", tableHasilCol.length);
+
+    if (emptyAll) {
+        listKonversi.length = 0;
+        clearTable_DataTable("table_konversi", 2);
+    }
 }
 
 function daftarKonversiBelumACC() {
@@ -162,9 +171,8 @@ function daftarKonversiBelumACC() {
 
             checkboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
+                    clearCheckedBoxes(checkboxes, checkbox);
                     if (checkbox.checked) {
-                        clearCheckedBoxes(checkboxes, checkbox);
-
                         konversiPil = checkbox.value;
                         listHasil.length = 0;
                         clearTable_DataTable(
@@ -177,8 +185,8 @@ function daftarKonversiBelumACC() {
                             konversiPil,
                             listKonversi[konversiPil].IdKonversi
                         );
-
-                        window.scrollTo(0, document.body.scrollHeight);
+                    } else {
+                        clearForm(false);
                     }
                 });
             });
@@ -766,6 +774,10 @@ function init() {
         },
     });
 
+    timeAwal.value = "00:00";
+    timeAkhir.value = "00:00";
+    timeMulai.value = "00:00";
+    timeSelesai.value = "00:00";
     daftarKonversiBelumACC();
 }
 

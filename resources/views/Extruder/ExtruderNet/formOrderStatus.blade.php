@@ -33,12 +33,13 @@
 
                     <div class="col-lg-2 aligned-text">Jumlah Order:</div>
                     <div class="col-lg-3">
-                        <input type="number" id="jmlh_order" class="form-control" placeholder="0" disabled>
+                        <input type="number" min="0" id="jmlh_order" class="form-control" placeholder="0" disabled>
                     </div>
 
                     <div class="col-lg-3 aligned-text">Jumlah Produksi:</div>
                     <div class="col-lg-3">
-                        <input type="number" id="jmlh_produksi" class="form-control" placeholder="0" disabled>
+                        <input type="number" min="0" id="jmlh_produksi" class="form-control" placeholder="0"
+                            disabled>
                     </div>
 
                 </div>
