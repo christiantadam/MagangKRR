@@ -77,7 +77,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "MasterKlinik");
+            form.setAttribute("action", "KoreksiAbsen");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -192,7 +192,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "MasterKlinik/{idklinik}");
+            form.setAttribute("action", "KoreksiAbsen/{idklinik}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form

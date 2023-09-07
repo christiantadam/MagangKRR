@@ -199,7 +199,7 @@
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/InputLibur') }}">Input Libur/Masuk Pegawai</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/InputRange') }}">Input Range</a>
+                                            tabindex="-1" href="{{ url('InputRange') }}">Input Range</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Lembur') }}">Lembur</a>

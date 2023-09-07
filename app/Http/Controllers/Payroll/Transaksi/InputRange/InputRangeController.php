@@ -12,8 +12,9 @@ class InputRangeController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.InputRange.inputRange', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI');
+        $dataKlinik = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_KLINIK ');
+        return view('Payroll.Transaksi.InputRange.inputRange', compact('dataDivisi','dataKlinik'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +30,18 @@ class InputRangeController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }
     }
 
     // Show the form for editing the specified resource.
