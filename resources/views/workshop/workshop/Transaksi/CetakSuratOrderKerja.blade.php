@@ -1,5 +1,22 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+  <style>
+    @media print {
+    .card{
+        border: none !important;
+    }
+      .card-body {
+        display: none;
+      }
+
+      #print {
+        display: block !important;
+      }
+      .card-header {
+        display: none;
+      }
+    }
+  </style>
   <div class="card-header">
     Cetak Surat Order Kerja
   </div>
@@ -62,36 +79,125 @@
     <input type="hidden" name="_method" id="methodForm">
     <input type="hidden" name="noOd" id="noOd">
   </form>
-  <div id="print" >
+
+  <div id="print" style="display:none">
     <div class="container">
       <div class="divtable">
         <div class="row" style="border: solid 1px; place-items: center; border-bottom:0">
           <div class="col-6">
             <h5 style="font-weight: bolder; margin-top:8px;">P.T. KERTA RAJASA RAYA</h5>
           </div>
-          <div class="col-6" >
-            <span style="font-weight: bold">Kode Barang : </span>
-            <span id="KodeBarangPrint">123231</span>
+          <div class="col-6">
+            <span style="font-weight: bold">Kode Barang <span style="margin-left: 21px">:</span> </span>
+            <span id="KodeBarangPrint"></span>
           </div>
         </div>
         <div class="row" style="place-items: center; border:solid 1px; border-bottom:0">
-            <div class="col-6" style="border-right: solid 1px">
-                <span style="font-weight: bold">DIVISI</span>
-                <span id="NamaDivisiPrint" style="font-weight: bold">Teknik</span>
-            </div>
-            <div class="col-6">
-                <span style="font-weight: bold">Nomer :</span>
-                <span id="NomorPrint">23131</span>
-            </div>
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">DIVISI</span>
+            <span style="font-weight: bold">Teknik</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight: bold">Nomer <span style="margin-left: 61px">:</span></span>
+            <span id="idOrderPrint"></span>
+          </div>
         </div>
         <div class="row" style="place-items: center; border:solid 1px; border-bottom:0">
-            <div class="col-6" style="border-right: solid 1px">
-                <span style="font-weight: bold">Jl. Raya Tropodo No. 1</span>
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">Jl. Raya Tropodo No. 1</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight: bold">Tanggal Pesan <span style="margin-left: 10px">:</span></span>
+            <span id="TglOrderPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px; border-bottom:0; place-items:center">
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">WARU - SIDOARJO</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight:bold">Keterangan <span style="margin-left: 31px">:</span></span>
+            <span id="statusPrint" style="font-weight: bold"></span>
+            <span id="userPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px; border-bottom:0">
+          <div class="col-12" style="text-align-last: center;padding-top: 8px;">
+            <h5 style="font-weight: bolder;">SURAT PESANAN KE DIVISI <span>Teknik</span></h5>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <span>Divisi : <span id="NamaDivisiPrint"></span></span>
+              </div>
+              <div class="col-6">
+                <span>/ <span id="MesinPrint"></span></span>
+              </div>
             </div>
-            <div class="col-6">
-                <span style="font-weight: bold">Tanggal Pesan :</span>
-                <span id="TglPesanPrint">8/31/2023</span>
+            <div class="row" style="text-align: center; border:solid 1px; margin:5px">
+              <div class="container">
+                <div class="row">
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span>JUMLAH</span>
+                  </div>
+                  <div class="col-5" style="border-right: solid 1px">
+                    <span>NAMA BARANG</span>
+                  </div>
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span>NO.GAMBAR</span>
+                  </div>
+                  <div class="col-3">
+                    <span>KETERANGAN</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span id="JumlahBarangPrint"></span>
+                    <span id="NamaSatuanPrint"></span>
+                  </div>
+                  <div class="col-5" style="border-right: solid 1px">
+                    <span id="NamaBarangPrint"></span>
+                  </div>
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span id="NoGambarPrint"></span>
+                  </div>
+                  <div class="col-3">
+                    <span id="KeteranganOrderPrint"></span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+
+        </div>
+        <div class="col-3" style="text-align-last: center;">
+          <span>PPIC Teknik,</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <span>Sidoarjo, <span id="PrintDate"></span></span>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+
+        </div>
+        <div class="col-3" style="text-align-last: center;">
+          <span style="margin-left:20px;margin-right:125px">(</span>
+          <span style="margin-left:20px;margin-right:20px">)</span>
         </div>
       </div>
     </div>

@@ -6,6 +6,20 @@ let formCetakOrderKerja = document.getElementById("formCetakOrderKerja");
 let methodForm = document.getElementById("methodForm");
 let noOd = document.getElementById("noOd");
 var arraycheckbox = [];
+
+let KodeBarangPrint = document.getElementById("KodeBarangPrint");
+let idOrderPrint = document.getElementById("idOrderPrint");
+let TglOrderPrint = document.getElementById("TglOrderPrint");
+let userPrint = document.getElementById("userPrint");
+let statusPrint = document.getElementById("statusPrint");
+let NamaDivisiPrint = document.getElementById("NamaDivisiPrint");
+let MesinPrint = document.getElementById("MesinPrint");
+let JumlahBarangPrint = document.getElementById("JumlahBarangPrint");
+let NamaSatuanPrint = document.getElementById("NamaSatuanPrint");
+let NamaBarangPrint = document.getElementById("NamaBarangPrint");
+let NoGambarPrint = document.getElementById("NoGambarPrint");
+let KeteranganOrderPrint = document.getElementById("KeteranganOrderPrint");
+let PrintDate = document.getElementById("PrintDate");
 //#region set tanggal
 
 const currentDate = new Date();
@@ -118,7 +132,7 @@ refresh.addEventListener("click", function (event) {
 //#region button cetak
 
 function cetak() {
-
+    arraycheckbox.length = 0;
     if (table_data.rows().count() != 0) {
         $("input[name='CetakOrderKerjaCheckbox']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
@@ -130,20 +144,99 @@ function cetak() {
                 arraycheckbox.push(value);
                 // console.log(arraycheckbox);
             }
-            console.log(closestTd);
+            console.log("cek:" + arraycheckbox);
             // Lakukan sesuatu berdasarkan status 'checked'
         });
-        if ((arraycheckbox.length == 0 || arraycheckbox.length > 1)) {
+        if (arraycheckbox.length == 0 || arraycheckbox.length > 1) {
             alert("Pilih 1 No. Order Yg Akan DiCETAK");
             return;
         } else {
             console.log(arraycheckbox);
             noOd.value = arraycheckbox[0];
-            methodForm.value = "PUT";
-            formCetakOrderKerja.action = "/CetakSuratOrderKerja/" + noOd.value;
+            fetch("/getdataprintCetakOrderKerja/" + noOd.value)
+                .then((response) => response.json())
+                .then((datas) => {
+                    datas.forEach((data) => {
+                        // Ambil nilai Tgl_Order dari setiap objek data
+                        const tglOrder = data.Tgl_Order;
+                        // const tglTSmanager = data.Tgl_TdStjMg;
+
+                        // Split tanggal dan waktu dengan separator spasi
+                        const [tanggal, waktu] = tglOrder.split(" ");
+                        // const [tanggalTsM, waktuTsM] = tglTSmanager.split(" ");
+
+                        // Update properti Tgl_Order pada setiap objek data dengan format tanggal saja
+                        var parts = tanggal.split("-");
+                        var tahun = parts[0];
+                        var bulan = parts[1];
+                        var hari = parts[2];
+                        var tanggalBaru = `${hari}/${bulan}/${tahun}`;
+                        data.Tgl_Order = tanggalBaru;
+                        // data.Tgl_TdStjMg = tanggalTsM;
+                    });
+
+                    console.log(datas);
+                    KodeBarangPrint.textContent = datas[0].Kd_Brg;
+                    idOrderPrint.textContent = datas[0].Id_Order;
+                    TglOrderPrint.textContent = datas[0].Tgl_Order;
+                    statusPrint.textContent = datas[0].Status + " /";
+                    userPrint.textContent = datas[0].NamaUser;
+                    NamaDivisiPrint.textContent = datas[0].NamaDivisiPrint;
+                    MesinPrint.textContent = datas[0].Mesin;
+                    JumlahBarangPrint.textContent = datas[0].Jml_Brg + " ";
+                    NamaSatuanPrint.textContent = datas[0].Nama_satuan;
+                    NamaBarangPrint.textContent = datas[0].Nama_Brg;
+                    NoGambarPrint.textContent = datas[0].No_Gbr;
+                    KeteranganOrderPrint.textContent = datas[0].Ket_Order;
+                    const today = new Date();
+                    const formattedDate = formatDate(today);
+                    PrintDate.textContent = formattedDate;
+                    window.print();
+                });
+            methodForm.value = "POST";
+            $.ajax({
+                url: "UpdateCetakSuratOrderKerja",
+                method: "POST",
+                data: new FormData(formCetakOrderKerja),
+                dataType: "JSON",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (response) {
+                    alert(response);
+                },
+            });
+            //
+            // formCetakOrderKerja.action = "/CetakSuratOrderKerja/" + noOd.value;
             // formCetakOrderKerja.submit();
         }
     }
 }
 
+//#endregion
+
+//#region function format date (nama bulan)
+
+function formatDate(date) {
+    const months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+    ];
+
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
 //#endregion

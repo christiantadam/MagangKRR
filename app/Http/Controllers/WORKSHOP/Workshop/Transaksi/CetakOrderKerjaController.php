@@ -19,7 +19,12 @@ class CetakOrderKerjaController extends Controller
         $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-KRJ] @kode = ?, @tgl1 = ?, @tgl2 = ?', [12, $tgl_awal, $tgl_akhir]);
         return response()->json($all);
     }
-
+    public function getdataprint($idorder) {
+        $data = DB::connection('Connworkshop')->table('VW_PRG_5298_WRK_CETAK-ORDER-KRJ')
+        ->where('Id_Order', $idorder)
+        ->get();
+        return response()->json($data);
+    }
     public function create()
     {
         //
@@ -43,6 +48,10 @@ class CetakOrderKerjaController extends Controller
     public function update(Request $request, $id)
     {
         dd($request->all());
+
+    }
+    public function updatedatacetak(Request $request) {
+        // dd($request->all());
         $noOd = $request->noOd;
         DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_TGL-CETAK-ORDER_KRJ] @noOd = ?', [$noOd]);
         return redirect()->back();
