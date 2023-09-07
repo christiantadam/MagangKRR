@@ -25,7 +25,7 @@
                                         <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="namaBank">Nama Bank</label>
                                     </div>
@@ -39,7 +39,7 @@
                                         <input type="text" id="isiNamaBank" name="isiNamaBank" style="display: none;" class="form-control" id="isiNamaBank">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="jenisBankSelect" >Jenis Bank </label>
                                     </div>
@@ -52,7 +52,7 @@
                                         <label for="jenisBankSelect">Eksterent</label>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="statusAktif">Status Aktif</label>
                                     </div>
@@ -61,7 +61,7 @@
                                         <label for="checkbox">Aktif</label>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="kodePerkiraanSelect">Kode Perkiraan </label>
                                     </div>
@@ -77,7 +77,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="noRekening">No Rekening </label>
                                     </div>
@@ -85,7 +85,7 @@
                                         <input type="text" name="norekening" id="noRekening" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="saldoBank">Saldo Bank </label>
                                     </div>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <p>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="alamat">Alamat </label>
                                     </div>
@@ -102,7 +102,7 @@
                                         <input type="text" name="alamat" id="alamat" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="kota">Kota </label>
                                     </div>
@@ -110,7 +110,7 @@
                                         <input type="text" name="kota" id="kota" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="telp">Telp </label>
                                     </div>
@@ -118,7 +118,7 @@
                                         <input type="text" name="telp" id="telp" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="person">Person </label>
                                     </div>
@@ -126,7 +126,7 @@
                                         <input type="text" name="person" id="person" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <br><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="hp">HP </label>
                                     </div>
@@ -134,7 +134,7 @@
                                         <input type="hp" name="hp" id="hp" class="form-control" style="width: 100%" disabled>
                                     </div>
                                 </div>
-                                <br><div class="d-flex">
+                                <br><br><div class="d-flex">
                                     <input type="submit" name="isi" id="btnIsi" value="Isi" class="btn btn-primary" onclick="clickIsi()">
                                     <input type="submit" name="koreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary" onclick="clickKoreksi()">
                                     <input type="submit" name="hapus"  id="btnHapus" value="Hapus" class="btn btn-primary" onclick="clickHapus()">

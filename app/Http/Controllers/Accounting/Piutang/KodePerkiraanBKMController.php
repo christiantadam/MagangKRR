@@ -25,6 +25,12 @@ class KodePerkiraanBKMController extends Controller
         return response()->json($tabel);
     }
 
+    public function getTabelRincian($idBKM)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_TPELUNASAN] @Kode = ?, @IdBKM = ?', [7, $idBKM]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -52,7 +58,30 @@ class KodePerkiraanBKMController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        //dd($request->all());
+        $idDetail = $request->idDetail;
+        $idBayar = $request->idBayar;
+        $idKodePerkiraan = $request ->idKodePerkiraan;
+
+        if ($idDetail == 0) {
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_KDPERKIRAAN_BKM]
+            @Kode = ?,
+            @IdPelunasan = ?,
+            @KodePerkiraan = ?', [
+                1,
+                $idBayar,
+                $idKodePerkiraan]);
+        } else {
+            DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_KDPERKIRAAN_BKM]
+            @Kode = ?,
+            @IdDetail = ?,
+            @KodePerkiraan = ?', [
+                2,
+                $idDetail,
+                $idKodePerkiraan]);
+        }
+        return redirect()->back()->with('success', 'Data sudah diKOREKSI');
+
     }
 
     //Remove the specified resource from storage.
