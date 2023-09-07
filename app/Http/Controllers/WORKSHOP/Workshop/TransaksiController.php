@@ -12,8 +12,5 @@ class TransaksiController extends Controller
         return view();
     }
 
-    public function StatusOrderKerja()
-    {
-        return view('WORKSHOP.Workshop.Transaksi.StatusOrderKerja');
-    }
+
 }

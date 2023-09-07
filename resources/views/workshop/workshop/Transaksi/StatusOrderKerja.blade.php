@@ -18,13 +18,13 @@
           <div class="col-lg-8">
             <div class="row">
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_awal">
+                <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal">
               </div>
               <div class="col-lg-2 d-flex justify-content-center">
                 <span style="margin-top: 5px;">s/d</span>
               </div>
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_akhir">
+                <input type="Date" class="form-control" name="tgl_akhir" id="tgl_akhir">
               </div>
             </div>
           </div>
@@ -36,10 +36,13 @@
           </div>
 
           <div class="col-lg-8">
-            <div class="input-group">
-              <input type="text" name="divisi" class="form-control">
-              <button type="button" class="btn btn-outline-secondary">...</button>
-            </div>
+            <select class="form-select" name="KodeDivisi" style="width: 36vh;
+            height: 6vh;" id="kddivisi">
+              <option disabled selected>Pilih Divisi</option>
+              @foreach ($divisi as $d)
+                <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
+              @endforeach
+            </select>
           </div>
         </div>
 
@@ -63,22 +66,22 @@
 
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table mt-3" style="width: max-content">
+    <div class="table-responsive" style="margin-top: 10px">
+      <table class="table mt-3" style="width: max-content" id="tableStaturOrderKerja">
         <thead class="table-dark">
           <tr>
-           <th>No. Order</th>
-           <th>Tgl. Order</th>
-           <th>Nama Barang</th>
-           <th>Kode Barang</th>
-           <th>No. Gambar</th>
-           <th>JmlOrder</th>
-           <th>Mesin</th>
-           <th>Status Order</th>
-           <th>Keterangan Order</th>
-           <th>PengOrder</th>
-           <th>ACC Bpk. Peter</th>
-           <th>TglFinish</th>
+            <th>No. Order</th>
+            <th>Tgl. Order</th>
+            <th>Nama Barang</th>
+            <th>Kode Barang</th>
+            <th>No. Gambar</th>
+            <th>JmlOrder</th>
+            <th>Mesin</th>
+            <th>Status Order</th>
+            <th>Keterangan Order</th>
+            <th>PengOrder</th>
+            <th>ACC Bpk. Peter</th>
+            <th>TglFinish</th>
           </tr>
         </thead>
         <tbody>
@@ -97,4 +100,5 @@
       </div>
     </div>
   </div>
+  <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/StatusOrderKerja.js') }}"></script>
 @endsection
