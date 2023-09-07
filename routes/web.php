@@ -72,7 +72,8 @@ Route::get('/ABM/BarcodeRollWoven/CBR', 'App\Http\Controllers\ABM\BarcodeRoll\CB
 Route::get('/ABM/BarcodeRollWoven/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\HanguskanBarcode2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/KirimGudang', 'App\Http\Controllers\ABM\BarcodeRoll\KirimGudang2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/KirimCircular', 'App\Http\Controllers\ABM\BarcodeRoll\KirimCircularController@index');
-Route::get('/ABM/BarcodeRollWoven/BatalKirim', 'App\Http\Controllers\ABM\BarcodeRoll\BatalKirim2Controller@index');
+Route::resource('/ABM/BarcodeRollWoven/BatalKirim2', App\Http\Controllers\ABM\BarcodeRoll\BatalKirim2Controller::class);
+// Route::get('/ABM/BarcodeRollWoven/BatalKirim', 'App\Http\Controllers\ABM\BarcodeRoll\BatalKirim2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/Repress', 'App\Http\Controllers\ABM\BarcodeRoll\Repress2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/CekBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\CekBarcode2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/Penghanguskan', 'App\Http\Controllers\ABM\BarcodeRoll\PenghanguskanController@index');

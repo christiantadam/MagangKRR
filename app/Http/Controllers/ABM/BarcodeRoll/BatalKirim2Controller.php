@@ -12,8 +12,7 @@ class BatalKirim2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
-
-        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser =?, @XIdDivisi =?', ["U001", "ABM"]);
+        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser =?, @XIdDivisi =?', ["U001", "ABN"]);
 
         // dd($dataObjek);
         return view('BarcodeRollWoven.BatalKirim2', compact('dataObjek'));
@@ -34,7 +33,15 @@ class BatalKirim2Controller extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getType") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcode_BlmKirim @kode = ?, @status = ?, @idobjek = ?', ["4", "2", $crExplode[0]]);
+            // dd($dataKelut);
+            // Return the options as JSON data
+            return response()->json($dataType);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -46,7 +53,16 @@ class BatalKirim2Controller extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        // kodeUpd: "simpanPegawai",
+
+        DB::connection('ConnInventory')->statement('exec SP_5409_INV_SimpanPembatalanKirimKeGudang @kodebarang = ?, @noindeks = ?', [
+            $data['kodebarang'],
+            $data['noindeks'],
+
+        ]);
+        return redirect()->route('BatalKirim2.index')->with('alert', 'Data Updated successfully!');
     }
 
     //Remove the specified resource from storage.

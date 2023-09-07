@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BatalKirim2.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BatalKirim2.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
@@ -23,8 +23,8 @@
                                     <div class="form-group col-md-6 mt-3 mt-md-0">
                                         <input type="text" class="form-control" name="Objek" id="Objek"
                                             placeholder="Objek" readonly>
-                                        <div class="text-center col-md-auto"><button type="button"
-                                                onclick="openModal()" id="ButtonObjek">...</button></div>
+                                        <div class="text-center col-md-auto"><button type="button" onclick="openModal()"
+                                                id="ButtonObjek">...</button></div>
                                         <div class="modal" id="myModal">
                                             <div class="modal-content">
                                                 <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -39,16 +39,15 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($dataObjek as $data)
-                                                                <tr>
-                                                                    <td>{{ $data->IdObjek }}</td>
-                                                                    <td>{{ $data->NamaObjek }}</td>
-                                                                </tr>
-                                                            @endforeach
+                                                            <tr>
+                                                                <td>{{ $data->IdObjek }}</td>
+                                                                <td>{{ $data->NamaObjek }}</td>
+                                                            </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                                 <div class="text-center col-md-auto">
-                                                    <button type="button"
-                                                        onclick="closeModal()">Process</button>
+                                                    <button type="button" onclick="closeModal()">Process</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +65,7 @@
                                                 <th>Kelompok </th>
                                                 <th>Kode Barang</th>
                                                 <th>NoIndeks </th>
-                                                <th>Primal</th>
+                                                <th>Primer</th>
                                                 <th>Sekunder</th>
                                                 <th>Tertier</th>
                                                 <th>Tanggal</th>
@@ -81,12 +80,16 @@
                                 </div>
                         </div>
 
+                        <div id="form-container"></div>
 
                         <div class="row mt-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="button" style="width: 120px">Pilih Semua</button></div>
-                                <div class="text-center col-md-auto"><button type="button" style="width: 120px">Hapus</button></div>
-                                <div class="text-center col-md-auto"><button type="button" style="width: 120px">Keluar</button></div>
+                                <div class="text-center col-md-auto"><button type="button" style="width: 120px">Pilih
+                                        Semua</button></div>
+                                <div class="text-center col-md-auto"><button type="button" style="width: 120px"
+                                        onclick="prosesData()">Hapus</button></div>
+                                <div class="text-center col-md-auto"><button type="button"
+                                        style="width: 120px">Keluar</button></div>
                             </div>
                         </div>
                         </form>
