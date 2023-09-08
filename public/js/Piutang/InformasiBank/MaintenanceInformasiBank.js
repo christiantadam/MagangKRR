@@ -7,9 +7,9 @@ let methodkoreksi = document.getElementById('methodkoreksi');
 let btnIsi = document.getElementById('btnIsi');
 let btnSimpan = document.getElementById('btnSimpan');
 let btnKoreksi = document.getElementById('btnKoreksi');
-let btnBatal = document.getElementById('btnKoreksi');
+let btnBatal = document.getElementById('btnBatal');
 let btnSimpanKoreksi = document.getElementById('btnSimpanKoreksi');
-let btnBatalKoreksi = document.getElementById('btnBatalKoreksi');
+let btnHapus = document.getElementById('btnHapus');
 
 let namaBankSelect = document.getElementById('namaBankSelect');
 let idBank = document.getElementById('idBank');
@@ -21,7 +21,8 @@ let keterangan = document.getElementById('keterangan');
 let jenisPembayaranSelect = document.getElementById('jenisPembayaranSelect');
 let idJenisPembayaran = document.getElementById('idJenisPembayaran');
 let noBukti = document.getElementById('noBukti');
-var radiogrup1 = document.getElementsByName('radiogrup1');
+var radiogrup2 = document.getElementsByName('radiogrup1');
+let radiogrup1 = document.getElementById('radiogrup1');
 
 let dataTable;
 
@@ -45,7 +46,7 @@ fetch("/getbank/")
             namaBankSelect.appendChild(option);
         });
 
-});
+    });
 
 namaBankSelect.addEventListener("change", function (event) {
     event.preventDefault();
@@ -65,7 +66,7 @@ fetch("/getmatauang/")
     .then((response) => response.json())
     .then((options) => {
         console.log(options);
-        mataUangSelect.innerHTML="";
+        mataUangSelect.innerHTML = "";
 
         const defaultOption = document.createElement("option");
         defaultOption.disabled = true;
@@ -79,7 +80,7 @@ fetch("/getmatauang/")
             option.innerText = entry.Id_MataUang + "|" + entry.Nama_MataUang;
             mataUangSelect.appendChild(option);
         });
-});
+    });
 
 mataUangSelect.addEventListener("change", function (event) {
     event.preventDefault();
@@ -94,7 +95,6 @@ mataUangSelect.addEventListener("change", function (event) {
 //#endregion
 
 //#region jenis pembayaran
-//#region ambil list jenis pembayaran
 fetch("/jenispembayaran/")
     .then((response) => response.json())
     .then((options) => {
@@ -113,7 +113,7 @@ fetch("/jenispembayaran/")
             option.innerText = entry.Id_Jenis_Bayar + "|" + entry.Jenis_Pembayaran;
             jenisPembayaranSelect.appendChild(option);
         });
-});
+    });
 
 jenisPembayaranSelect.addEventListener("change", function (event) {
     event.preventDefault();
@@ -131,30 +131,30 @@ jenisPembayaranSelect.addEventListener("change", function (event) {
 btnOk.addEventListener('click', function (event) {
     event.preventDefault();
     // clickOK();
-        fetch("/getTabelInformasiBank/" + tanggal.value)
-            .then((response) => response.json())
-            .then((options) => {
-                console.log(options);
-                console.log(tanggal.value);
+    fetch("/getTabelInformasiBank/" + tanggal.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            console.log(tanggal.value);
 
-                dataTable = $("#tabelInfoBank").DataTable({
-                    data: options,
-                    columns: [
-                        { title: "Id. Referensi", data: "IdReferensi" },
-                        { title: "Nama Bank", data: "Nama_Bank" },
-                        { title: "Mata Uang", data: "Nama_MataUang" },
-                        { title: "Nilai", data: "Nilai" },
-                        { title: "Keterangan", data: "Keterangan" },
-                        { title: "Nama Customer", data: "NamaCust" },
-                        { title: "Id. Bank", data: "Id_Bank" },
-                        { title: "Id. Mata Uang", data: "Id_MataUang" },
-                        { title: "Tipe Transaksi", data: "TypeTransaksi"},
-                        { title: "Id. Jenis Bayar", data: "Id_Jenis_Bayar"},
-                        { title: "Jenis Pembayaran", data: "Jenis_Pembayaran"},
-                        { title: "No Bukti", data: "No_Bukti"}
-                    ],
-                });
+            dataTable = $("#tabelInfoBank").DataTable({
+                data: options,
+                columns: [
+                    { title: "Id. Referensi", data: "IdReferensi" },
+                    { title: "Nama Bank", data: "Nama_Bank" },
+                    { title: "Mata Uang", data: "Nama_MataUang" },
+                    { title: "Nilai", data: "Nilai" },
+                    { title: "Keterangan", data: "Keterangan" },
+                    { title: "Nama Customer", data: "NamaCust" },
+                    { title: "Id. Bank", data: "Id_Bank" },
+                    { title: "Id. Mata Uang", data: "Id_MataUang" },
+                    { title: "Tipe Transaksi", data: "TypeTransaksi" },
+                    { title: "Id. Jenis Bayar", data: "Id_Jenis_Bayar" },
+                    { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
+                    { title: "No Bukti", data: "No_Bukti" }
+                ],
             });
+        });
 });
 
 $("#tabelInfoBank tbody").off("click", "tr");
@@ -179,47 +179,49 @@ $("#tabelInfoBank tbody").on("click", "tr", function () {
 
     const namaBank = selectedRows[0].Id_Bank;
     const options = namaBankSelect.options;
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value === namaBank) {
-                // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
-                namaBankSelect.selectedIndex = i;
-                break;
-            }
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === namaBank) {
+            // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+            namaBankSelect.selectedIndex = i;
+            break;
+        }
     };
 
     const matauang = selectedRows[0].Id_MataUang;
     const options2 = mataUangSelect.options;
-        for (let i = 0; i < options2.length; i++) {
-            if (options2[i].value === matauang) {
-                // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
-                mataUangSelect.selectedIndex = i;
-                break;
-            }
+    for (let i = 0; i < options2.length; i++) {
+        if (options2[i].value === matauang) {
+            // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+            mataUangSelect.selectedIndex = i;
+            break;
+        }
     };
 
     const jenisbayar = selectedRows[0].Id_Jenis_Bayar;
     const options3 = jenisPembayaranSelect.options;
-        for (let i = 0; i < options2.length; i++) {
-            if (options3[i].value === jenisbayar) {
-                // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
-                jenisPembayaranSelect.selectedIndex = i;
-                break;
-            }
+    for (let i = 0; i < options2.length; i++) {
+        if (options3[i].value === jenisbayar) {
+            // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+            jenisPembayaranSelect.selectedIndex = i;
+            break;
+        }
     };
 
-    for (var i = 0; i < radiogrup1.length; i++) {
-        if (radiogrup1[i].value == selectedRows[0].TypeTransaksi) {
-            radiogrup1[i].checked = true;
+    for (var i = 0; i < radiogrup2.length; i++) {
+        if (radiogrup2[i].value == selectedRows[0].TypeTransaksi) {
+            radiogrup2[i].checked = true;
             break;
         }
     }
 
 });
 
-btnIsi.addEventListener("click", function(event) {
+btnIsi.addEventListener("click", function (event) {
     event.preventDefault();
     btnSimpan.style.display = "block";
     btnIsi.style.display = "none";
+    btnKoreksi.style.display = "none";
+    btnBatal.style.display = "block";
 
     namaBankSelect.removeAttribute("readonly");
     idBank.removeAttribute("readonly");
@@ -232,11 +234,10 @@ btnIsi.addEventListener("click", function(event) {
     noBukti.removeAttribute("readonly");
 });
 
-btnKoreksi.addEventListener("click", function(event) {
+btnKoreksi.addEventListener("click", function (event) {
     event.preventDefault();
     btnBatal.style.display = "block";
     btnKoreksi.style.display = "none";
-    btnSimpan.style.display = "block";
     btnIsi.style.display = "none";
     btnSimpanKoreksi.style.display = "block";
 
@@ -251,6 +252,113 @@ btnKoreksi.addEventListener("click", function(event) {
     noBukti.removeAttribute("readonly");
 });
 
+
+$('#btnSimpan').on("click", function (event) {
+    event.preventDefault();
+})
 function clickSimpan() {
-    formkoreksi.submit();
+    $.ajax({
+        url: "MaintenanceInformasiBank",
+        method: "POST",
+        data: new FormData(formkoreksi),
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            alert(response);
+        },
+    });
+
+    fetch("/getTabelInformasiBank/" + tanggal.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            console.log(tanggal.value);
+
+            dataTable = $("#tabelInfoBank").DataTable({
+                data: options,
+                columns: [
+                    { title: "Id. Referensi", data: "IdReferensi" },
+                    { title: "Nama Bank", data: "Nama_Bank" },
+                    { title: "Mata Uang", data: "Nama_MataUang" },
+                    { title: "Nilai", data: "Nilai" },
+                    { title: "Keterangan", data: "Keterangan" },
+                    { title: "Nama Customer", data: "NamaCust" },
+                    { title: "Id. Bank", data: "Id_Bank" },
+                    { title: "Id. Mata Uang", data: "Id_MataUang" },
+                    { title: "Tipe Transaksi", data: "TypeTransaksi" },
+                    { title: "Id. Jenis Bayar", data: "Id_Jenis_Bayar" },
+                    { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
+                    { title: "No Bukti", data: "No_Bukti" }
+                ],
+            });
+        });
+};
+
+$('#btnSimpanKoreksi').on("click", function (event) {
+    event.preventDefault();
+})
+function clickSimpanKoreksi() {
+    methodkoreksi.value = "PUT";
+    $.ajax({
+        url: "MaintenanceInformasiBank/" + idReferensi.value,
+        method: "PUT",
+        data: new FormData(formkoreksi),
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            alert(response);
+        },
+    });
+
+    fetch("/getTabelInformasiBank/" + tanggal.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            console.log(tanggal.value);
+
+            dataTable = $("#tabelInfoBank").DataTable({
+                data: options,
+                columns: [
+                    { title: "Id. Referensi", data: "IdReferensi" },
+                    { title: "Nama Bank", data: "Nama_Bank" },
+                    { title: "Mata Uang", data: "Nama_MataUang" },
+                    { title: "Nilai", data: "Nilai" },
+                    { title: "Keterangan", data: "Keterangan" },
+                    { title: "Nama Customer", data: "NamaCust" },
+                    { title: "Id. Bank", data: "Id_Bank" },
+                    { title: "Id. Mata Uang", data: "Id_MataUang" },
+                    { title: "Tipe Transaksi", data: "TypeTransaksi" },
+                    { title: "Id. Jenis Bayar", data: "Id_Jenis_Bayar" },
+                    { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
+                    { title: "No Bukti", data: "No_Bukti" }
+                ],
+            });
+        });
 }
+
+btnHapus.addEventListener('click', function (event) {
+    event.preventDefault();
+    methodkoreksi.value = "DELETE";
+    formkoreksi.action = "/MaintenanceInformasiBank/" + idReferensi.value;
+    formkoreksi.submit();
+});
+
+btnBatal.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    namaBankSelect.selectedIndex = 0;
+    idBank.value = "";
+    mataUangSelect.selectedIndex = 0;
+    idMataUang.value = "";
+    totalNilai.value = "";
+    keterangan.value = "";
+    radiogrup1.selectedItem = null;
+    jenisPembayaranSelect.selectedIndex = 0;
+    idJenisPembayaran.value = "";
+    noBukti.value = "";
+    idReferensi.value = "";
+})

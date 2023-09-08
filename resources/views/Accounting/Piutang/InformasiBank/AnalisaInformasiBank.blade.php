@@ -6,40 +6,46 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Analisa Informasi Bank</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('AnalisaInformasiBank') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div class="d-flex">
                                     <div class="col-md-1">
                                         <label for="tanggal" name="tanggal" style="margin-right: 10px;">Tanggal</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="date" id="tanggal1" class="form-control" style="width: 100%">
+                                        <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-1">
                                        s/d
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="date" name="supplierSelect" class="form-control" style="width: 100%">
+                                        <input type="date" id="tanggal2" name="tanggal2" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="radio" name="radiogrup" value="radio_1" id="radio_1">
-                                        <label for="radio_1">Belum Analisa</label>
+                                        <input type="radio" name="radiogrup" value = 0 id="radiogrup">
+                                        <label for="radiogrup">Belum Analisa</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="radio" name="radiogrup" value="radio_1" id="radio_2">
-                                        <label for="radio_2">Sudah Analisa</label>
+                                        <input type="radio" name="radiogrup" value = 1 id="radiogrup">
+                                        <label for="radiogrup">Sudah Analisa</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="submit" id="btnOk" name="ok" value="OK" class="btn btn-primary">
+                                        <input type="submit" id="btnOk" name="btnOk" value="OK" class="btn btn-primary">
                                     </div>
                                 </div>
 
                                 <br><div>
                                     <div style="overflow-y: auto; max-height: 400px;">
-                                        <table style="width: 120%; table-layout: fixed;">
+                                        <table style="width: 120%; table-layout: fixed;" id="tabelAnalisa">
                                             <colgroup>
                                                 <col style="width: 12%;">
                                                 <col style="width: 14%;">
@@ -67,30 +73,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 5</td>
-                                                    <td>Data 1</td>
-                                                    <td>Data 2</td>
-                                                    <td>Data 3</td>
-                                                    <td>Data 4</td>
-                                                    <td>Data 5</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
+                                <input type="text" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
+
                                 <br>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="tanggal3" style="margin-right: 10px;">Tanggal</label>
+                                        <label for="tanggalInput" style="margin-right: 10px;">Tanggal</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="tanggal3" class="form-control" style="width: 100%">
+                                        <input type="text" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -98,7 +94,7 @@
                                         <label for="noReferensi" style="margin-right: 10px;">No. Referensi</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" id="noReferensi" class="form-control" style="width: 100%">
+                                        <input type="text" id="noReferensi" name="noReferensi" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -106,7 +102,7 @@
                                         <label for="totalNilai" style="margin-right: 10px;">Total Nilai</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="number" id="totalNilai" class="form-control" style="width: 100%">
+                                        <input type="number" id="totalNilai" name="totalNilai" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -114,45 +110,46 @@
                                         <label for="ketDariBank" style="margin-right: 10px;">Ket dari Bank</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" id="ketDariBank" class="form-control" style="width: 100%">
+                                        <input type="text" id="ketDariBank" name="ketDariBank" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="customer" style="margin-right: 10px;">Customer</label>
+                                        <label for="namaCustomerSelect" style="margin-right: 10px;">Customer</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select name="customerSelect" id="customer" class="form-control" onchange="fillColumns()">
-                                            <option value=""></option>
-                                            <option value="customer1">cust1</option>
-                                            <option value="customer2">cust2</option>
+                                        <select name="namaCustomerSelect" id="namaCustomerSelect" class="form-control">
+
                                         </select>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="id" style="margin-right: 10px;">Untuk Pembayaran</label>
+                                        <label for="radiogrup2" style="margin-right: 10px;">Untuk Pembayaran</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="radio" name="radiogrup2" value="radio_1" id="radio_3">
-                                        <label for="radio_3">Piutang</label>
+                                        <input type="radio" name="radiogrup2" value="T" id="radiogrup2">
+                                        <label for="radiogrup2">Piutang</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="radio" name="radiogrup2" value="radio_1" id="radio_4">
-                                        <label for="radio_4">Uang Muka (DP)</label>
+                                        <input type="radio" name="radiogrup2" value="K" id="radiogrup2">
+                                        <label for="radiogrup2">Uang Muka (DP)</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="radio" name="radiogrup2" value="radio_1" id="radio_5">
-                                        <label for="radio_2">Uang Titipan</label>
+                                        <input type="radio" name="radiogrup2" value="U" id="radiogrup2">
+                                        <label for="radiogrup2">Uang Titipan</label>
                                     </div>
                                 </div>
                                 <br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary" disabled>
+                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary" disabled>
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
                                         </div>
                                     </div>
                                 </div>
@@ -164,4 +161,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/InformasiBank/AnalisaInformasiBank.js') }}"></script>
 @endsection

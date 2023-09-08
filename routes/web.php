@@ -196,7 +196,11 @@ Route::resource('MaintenanceInformasiBank', App\Http\Controllers\Accounting\Piut
 Route::get('getTabelInformasiBank/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\MaintenanceInformasiBankController@getTabelInfoBank');
 #endregion
 
-Route::get('AnalisaInformasiBank', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\AnalisaInformasiBankController@AnalisaInformasiBank');
+#region Analisa Informasi Bank
+Route::resource('AnalisaInformasiBank', App\Http\Controllers\Accounting\Piutang\InformasiBank\AnalisaInformasiBankController::class);
+Route::get('getTabelAnalisis/{tanggal}/{tanggal2}/{radiogrup}', 'App\Http\Controllers\Accounting\Piutang\InformasiBank\AnalisaInformasiBankController@getTabelAnalisis');
+
+#endregion
 Route::get('FakturUangMuka', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@FakturUangMuka');
 Route::get('PenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@PenagihanPenjualan');
 Route::get('NotaPenjualanTunai', 'App\Http\Controllers\Accounting\Piutang\NotaPenjualanTunaiController@NotaPenjualanTunai');

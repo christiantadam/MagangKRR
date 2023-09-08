@@ -34,7 +34,7 @@ class MaintenanceInformasiBankController extends Controller
         $tanggal = $request->tanggal;
         $idBank = $request->idBank;
         $idMataUang = $request->idMataUang;
-        $nilai = $request->nilai;
+        $totalNilai = $request->totalNilai;
         $radiogrup1 = $request->radiogrup1;
         $keterangan = $request->keterangan;
         $idJenisPembayaran = $request->idJenisPembayaran;
@@ -55,7 +55,7 @@ class MaintenanceInformasiBankController extends Controller
             $tanggal,
             $idBank,
             $idMataUang,
-            $nilai,
+            $totalNilai,
             $radiogrup1,
             $keterangan,
             1,
@@ -63,7 +63,8 @@ class MaintenanceInformasiBankController extends Controller
             $noBukti
         ]);
 
-        return redirect()->back()->with('success', 'Data sudah diSimpan');
+        // return redirect()->back()->with('success', 'Data sudah diSimpan');
+        return response()->json('Data sudah TerSimpan');
     }
 
     //Display the specified resource.
@@ -81,12 +82,46 @@ class MaintenanceInformasiBankController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        //dd($request->all());
+        $idReferensi = $request ->idReferensi;
+        $idBank = $request->idBank;
+        $idMataUang = $request->idMataUang;
+        $totalNilai = $request->totalNilai;
+        $radiogrup1 = $request->radiogrup1;
+        $keterangan = $request->keterangan;
+        $idJenisPembayaran = $request->idJenisPembayaran;
+        $noBukti = $request->noBukti;
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_REFERENSI_BANK]
+        @Kode = ?,
+        @IdReferensi = ?,
+        @Id_Bank = ?,
+        @Id_MataUang = ?,
+        @Nilai = ?,
+        @TypeTransaksi = ?,
+        @Keterangan = ?,
+        @Id_Jenis_Bayar = ?,
+        @No_Bukti = ?', [
+            2,
+            $idReferensi,
+            $idBank,
+            $idMataUang,
+            $totalNilai,
+            $radiogrup1,
+            $keterangan,
+            $idJenisPembayaran,
+            $noBukti]);
+            return response()->json('Data sudah TerKoreksi');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy($idReferensi)
     {
-
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_REFERENSI_BANK]
+        @Kode = ?,
+        @IdReferensi = ?', [
+            3,
+            $idReferensi
+        ]);
+        return redirect()->back()->with('success', 'Data sudah diHAPUS');
     }
 }

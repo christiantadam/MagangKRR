@@ -133,7 +133,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-4">
                                         <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
@@ -150,12 +150,11 @@
                                         <div class="col-1">
                                             <input type="submit" id="btnIsi" name="btnIsi" value="Isi" class="btn btn-primary">
                                             <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-primary" style="display: none" onclick="clickSimpan()">
-                                            <input type="submit" id="btnBatalKoreksi" name="btnBatalKoreksi" value="Batal" class="btn btn-primary" style="display: none" >
+                                            <input type="submit" id="btnSimpanKoreksi" name="btnSimpanKoreksi" value="Simpan" class="btn btn-primary" style="display: none" onclick="clickSimpanKoreksi()">
                                         </div>
                                         <div class="col-2">
                                             <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary">
                                             <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary" style="display: none">
-                                            <input type="submit" id="btnSimpanKoreksi" name="btnSimpanKoreksi" value="Batal" class="btn btn-primary" style="display: none">
                                         </div>
                                         <div class="col-2">
                                             <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-primary">
