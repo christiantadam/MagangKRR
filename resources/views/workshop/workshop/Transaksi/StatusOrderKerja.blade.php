@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+<link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
   <div class="card-header">
     Status Order Kerja
   </div>
@@ -92,12 +93,9 @@
 
     <div class="mt-3">
       <div class="float-start" style="margin-left: 12.5px;">
-        <button type="button" class="btn btn-light custom-btn" style="width: 12.5em;">Refresh</button>
+        <button type="button" class="btn btn-light custom-btn" style="width: 12.5em;" id="refresh">Refresh</button>
       </div>
 
-      <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-secondary custom-btn" style="width: 12.5em;">KELUAR</button>
-      </div>
     </div>
   </div>
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/StatusOrderKerja.js') }}"></script>

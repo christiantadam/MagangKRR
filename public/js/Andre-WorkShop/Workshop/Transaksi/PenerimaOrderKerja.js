@@ -574,7 +574,7 @@ function koreksiklik() {
 
 //#endregion
 
-//#region koreksi modal
+//#region proses modal
 
 function prosesmodalklik() {
     let ada;

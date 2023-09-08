@@ -153,6 +153,7 @@ function klikterima() {
         let closestTr = $(this).closest("tr");
         if (closestTr.hasClass('blue-color')) {
             if (user == table_data.cell(rowIndex, 13).data()) {
+                // console.log("masuk");
                 arraynomorOD.push(table_data.cell(rowIndex, 0).data());
                 arraynomorGambar.push(table_data.cell(rowIndex, 9).data());
             } else {
@@ -163,6 +164,7 @@ function klikterima() {
     });
     console.log(arraynomorOD);
     if (arraynomorGambar.length !== 0 || arraynomorOD.length !== 0) {
+        console.log("masuk");
         var arrayNoOrderString = arraynomorOD.join(",");
         var arrayNoGambarstring = arraynomorGambar.join(",");
         nomorOrder.value = arrayNoOrderString;
