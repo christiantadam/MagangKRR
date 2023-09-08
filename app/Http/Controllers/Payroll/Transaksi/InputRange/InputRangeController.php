@@ -14,7 +14,7 @@ class InputRangeController extends Controller
     {
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI');
         $dataKlinik = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_KLINIK ');
-        return view('Payroll.Transaksi.InputRange.inputRange', compact('dataDivisi','dataKlinik'));
+        return view('Payroll.Transaksi.InputRange.inputRange', compact('dataDivisi', 'dataKlinik'));
     }
 
     //Show the form for creating a new resource.
@@ -41,6 +41,17 @@ class InputRangeController extends Controller
             // dd($dataPeg);
             // Return the options as JSON data
             return response()->json($dataPeg);
+        } else if ($crExplode[$lastIndex] == "cekLembur") {
+            $ada = DB::connection('ConnPayroll')->select('exec SP_5409_LBR_SLC_JML_LEMBUR @tanggal = ? , @kdpegawai = ?', [$crExplode[1],$crExplode[0]]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($ada);
+        }else if ($crExplode[$lastIndex] == "getAgenda") {
+            $ada = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_CEK_AGENDA @kdPegawai = ? , @tanggal = ?', [$crExplode[0],$crExplode[1]]);
+            // dd($ada);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($ada);
         }
     }
 
