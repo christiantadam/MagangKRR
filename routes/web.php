@@ -1,6 +1,6 @@
 <!--
-        PERBAIKAN   : getDataKonversi() | FrmMohonKonversi.vb
-        MIGRASI     : loadDataKwaH() | FrmDaya.vb
+    PERBAIKAN   : perbaikan controller (cari "LAST") | formBenangMohon.blade.php
+    MIGRASI     : loadDataKwaH() | FrmDaya.vb
 -->
 
 <?php

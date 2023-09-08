@@ -68,6 +68,7 @@ var modeProses = "";
 var pilAsal = -1; // "tabel_asal"
 var pilTujuan = -1; // "tabel_tujuan"
 var pilNoKonv = -1; // "select_nomor_konversi"
+var pilSlcType = -1;
 var refetchType = false; // "select_type"
 var refetchKonv = false; // "select_konversi"
 //#endregion
@@ -293,7 +294,16 @@ slcType.addEventListener("change", function () {
                     }
                 );
             } else {
-                displayDataBenangNG();
+                if (this.selectedIndex != pilSlcType) {
+                    pilSlcType = this.selectedIndex;
+                    listAsal.length = 0;
+                    clearTable_DataTable("table_asal", tableCol.length, [
+                        "padding=150px",
+                        "Memuat data...",
+                    ]);
+
+                    displayDataBenangNG();
+                }
             }
         }
     );
@@ -412,9 +422,14 @@ dateInput.addEventListener("keypress", function (event) {
 
 txtShift.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        this.value = this.value.toUpperCase();
-        slcNoKonversi.disabled = false;
-        slcNoKonversi.focus();
+        if (this.value.trim() == "") {
+            alert("Shift tidak boleh kosong.");
+            this.focus();
+        } else {
+            this.value = this.value.toUpperCase();
+            slcNoKonversi.disabled = false;
+            slcNoKonversi.focus();
+        }
     }
 });
 
@@ -925,6 +940,8 @@ function init() {
         },
     });
 
+    clearTable_DataTable("table_asal", tableCol.length, "padding=150px");
+    clearTable_DataTable("table_tujuan", tableCol.length, "padding=150px");
     dateMohon.value = getCurrentDate();
     dateInput.value = getCurrentDate();
     dateMohon.focus();

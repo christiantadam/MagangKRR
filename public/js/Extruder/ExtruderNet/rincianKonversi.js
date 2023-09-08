@@ -268,6 +268,6 @@ function init_rk() {
     saldoType(txtIdType.value, true);
 }
 
-// $(document).ready(function () {
-//     init_rk();
-// });
+$(document).ready(function () {
+    init_rk();
+});

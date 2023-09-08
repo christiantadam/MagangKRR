@@ -67,8 +67,8 @@ function showOrder() {
     });
 }
 
-function rowClicked(row, data, index) {
-    if (terpilih == index) {
+function rowClicked(row, data, _) {
+    if (terpilih == findClickedRowInList(listOrder, "IDOrder", data.IDOrder)) {
         row.style.background = "white";
         terpilih = -1;
 
@@ -76,7 +76,7 @@ function rowClicked(row, data, index) {
     } else {
         clearSelection_DataTable("table_order");
         row.style.background = "aliceblue";
-        terpilih = index;
+        terpilih = findClickedRowInList(listOrder, "IDOrder", data.IDOrder);
 
         clearTable_DataTable(
             "table_detail_order",

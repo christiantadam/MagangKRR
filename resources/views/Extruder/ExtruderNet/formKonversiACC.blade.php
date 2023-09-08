@@ -113,7 +113,7 @@
 
                             <div class="col-lg-5 row d-flex justify-content-center">
                                 <div class="col-lg-10">
-                                    <input type="text" id="no_urut" class="form-control" style="margin-top: 1.5em;"
+                                    <input type="number" id="no_urut" class="form-control" style="margin-top: 1.5em;"
                                         placeholder="Nomor urut">
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
         </div>
 
         <div class="mt-3 mb-5 float-end text-center">
-            <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
+            <button type="button" id="btn_proses" class="btn btn-outline-success" disabled>Proses</button>
             <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
         </div>
     </div>

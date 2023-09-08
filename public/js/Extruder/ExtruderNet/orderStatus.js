@@ -137,8 +137,11 @@ function clearData() {
     listOfInput.forEach((input) => (input.value = ""));
 }
 
-function rowClicked(row, data, index) {
-    if (terpilih == index) {
+function rowClicked(row, data, _) {
+    if (
+        terpilih ==
+        findClickedRowInList(listOrder, "TypeBenang", data.TypeBenang)
+    ) {
         row.style.background = "white";
         terpilih = -1;
 
@@ -148,7 +151,11 @@ function rowClicked(row, data, index) {
     } else {
         clearSelection_DataTable("table_order");
         row.style.background = "aliceblue";
-        terpilih = index;
+        terpilih = findClickedRowInList(
+            listOrder,
+            "TypeBenang",
+            data.TypeBenang
+        );
 
         dateInput.value = data.TanggalOrder;
         txtSpek.value = data.TypeBenang;

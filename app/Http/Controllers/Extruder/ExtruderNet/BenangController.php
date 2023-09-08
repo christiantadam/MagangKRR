@@ -119,7 +119,7 @@ class BenangController extends Controller
     }
     #endregion
 
-    #region Benang - Permohonan
+    #region Benang - Mohon
     public function getListDataNG($id_konversi, $tanggal)
     {
         return DB::connection('ConnExtruder')->select(
@@ -127,12 +127,7 @@ class BenangController extends Controller
             [$id_konversi, $tanggal]
         );
 
-        // dd($this->getDataNG(1, 'KONV0001', 'TYPE001'));
-
-        // PARAMETER - @IdKonversi int, @Tanggal datetime
-        // MasterKonversiEXT - IdKonversi(MasterKonversiNG), IdKomposisi(MasterKomposisi)
-        // MasterKonversiNG - IdKonversiNG(DetailKonversiNG)
-        // *parameter @IdKonversi dipakai oleh MasterKonversiNG.IdKonversiNG
+        // @IdKonversi int, @Tanggal datetime
     }
 
     public function getDetailUraianKonvNG($id_konversi)
@@ -141,38 +136,18 @@ class BenangController extends Controller
             'exec SP_5298_EXT_DETAILURAIAN_KONV_NG @IdKonversi = ?',
             [$id_konversi]
         );
-        // INV0003
 
-        // PARAMETER - @IdKonversi char(9)
-        // ===
-        // EXTRUDER | DetailKonversiNG - IdKonversiNG(MasterKonversiNG),
-        // IdKonversiINV(VW_PRG_5298_EXT_TMPTRANSAKSI_1.IdKonversi)
-        // ===
-        // INVENTORY | VW_PRG_5298_EXT_TMPTRANSAKSI_1
-        // Tmp_Transaksi - IdPenerima/IdPemberi(UserLogin.KoderUser),
-        // IdType(VW_PRG_5298_EXT_TYPE_LENGKAP.IdType),
-        // TujuanIdSubKelompok(VW_PRG_5298_EXT_SUBKEL.IdSubKelompok)
-        // ===
-        // INVENTORY | VW_PRG_5298_EXT_TYPE_LENGKAP
-        // Type - UnitPrimer/Sekunder/Tritier(Satuan.no_satuan),
-        // IdSubKelompok_Type(SubKelompok.IdSubKelompok)
-        // SubKelompok - IdKelompok_SubKelompok(Kelompok.IdKelompok),
-        // Kelompok - IdKelompokUtama_Kelompok(KelompokUtama.IdKelompokUtama)
-        // KelompokUtama - IdObjek_KelompokUtama(Objek.IdObjek)
-        // Objek - IdDivisi_Objek(Divisi.IdDivisi)
+        // @IdKonversi char(9)
     }
 
-    public function getKoreksiSrtBlmAcc($tanggal)
+    public function getKoreksiSortirNGBlmAcc($tanggal)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_KOREKSI_SORTIRNG_BLMACC @Tanggal = ?',
             [$tanggal]
         );
 
-        // PARAMETER - @Tanggal datetime
-        // MasterKonversiNG - IdKonversiNG(DetailKonversiNG), IdKonversiEXT(MasterKonversiEXT.IdKonversi)
-        // MasterKonversiEXT - IdMesin(MasterMesin)
-        // WHERE saatlog is null AND useracc is null
+        // @Tanggal datetime
     }
 
     public function getListProdNG($no_konv)
@@ -182,23 +157,17 @@ class BenangController extends Controller
             [$no_konv]
         );
 
-        // PARAMETER - @NoKonv char(14)
-        // MasterKonversiEXT - IdKonversi(DetailKonversiEXT), IdMesin(MasterMesin)
-        // DetailKonversiEXT - IdType(KomposisiBahan)
-        // KomposisiBahan - IdKomposisi(MasterKomposisi)
-        // MasterKomposisi - IdKomposisi(MasterKonversiEXT)
-        // WHERE KomposisiBahan.StatusType = 'HP' AND KomposisiBahan.NamaType LIKE '%NG%'
+        // @NoKonv char(14)
     }
 
-    public function getDataNG($kode, $no_konv, $id_type)
+    public function getCekDataNG($kode, $no_konv, $id_type)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_CEK_DATA_NG @kode = ?, @noKonv = ?, @idType = ?',
             [$kode, $no_konv, $id_type]
         );
 
-        // PARAMETER - @kode int, @noKonv char(14), @idType varchar(20)
-        // DetailKonversiNG - MasterKonversiNG(IdKonversiNG)
+        // @kode int, @noKonv char(14), @idType varchar(20)
     }
 
     public function getListIdKonv($kode, $id_konversi = null, $id_type = null, $id_divisi = null, $tanggal = null, $shift = null)
@@ -208,12 +177,19 @@ class BenangController extends Controller
             [$kode, $id_divisi, $tanggal, $shift, $id_konversi, $id_type]
         );
 
+        // @Kode int, @IdDivisi char(3)=null, @Tanggal datetime=null, @Shift char(2)=null, @IdKonversi char(14)=null, @idType char(20)=null
         // dd($this->getListIdKonv(3, 'KONV0001', 'type1'));
+    }
 
-        // PARAMETER - @Kode int, @IdDivisi char(3)=null, @Tanggal datetime=null, @Shift char(2)=null, @IdKonversi char(14)=null, @idType char(20)=null
-        // MesterKonversiEXT - IdKonversi(DetailKonversiEXT), IdMesin(MasterMesin), IdKomposisi(MasterKomposisi)
-        // MasterKomposisi - IdKomposisi(KomposisiBahan)
-        // DetailKonversiEXT - IdType(KomposisiBahan)
+    public function insMasterKonvNG($tanggal, $user_input, $id_konversi_ext)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_INSERT_MASTERKONV_NG @Tanggal = ?, @UserInput = ?, @IdKonversiEXT = ?',
+            [$tanggal, $user_input, $id_konversi_ext]
+        );
+
+        // LAST Belum di-cek
+        // @Tanggal datetime, @UserInput Char(7), @IdKonversiEXT Char(14)
     }
 
     public function getIdKonversiNG()
@@ -233,16 +209,6 @@ class BenangController extends Controller
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_LIST_COUNTER'
         );
-    }
-
-    public function insMasterKonvNG($tanggal, $user_input, $id_konversi_ext)
-    {
-        return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_MASTERKONV_NG @Tanggal = ?, @UserInput = ?, @IdKonversiEXT = ?',
-            [$tanggal, $user_input, $id_konversi_ext]
-        );
-
-        // PARAMETER - @Tanggal datetime, @UserInput Char(7), @IdKonversiEXT Char(14)
     }
 
     public function insDetailKonvNG($id_konversi_ng, $id_type, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $id_konv_inv = null)

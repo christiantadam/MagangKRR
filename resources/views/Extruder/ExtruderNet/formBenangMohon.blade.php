@@ -44,7 +44,7 @@
             </div>
 
             <div class="col-lg-3">
-                <select id="select_nomor" class="form-select">
+                <select id="select_nomor" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor --</option>
                     @foreach ($formData['listNomor'] as $d)
                         <option value="{{ $d->IdKonversiNG }}">{{ $d->MesinShift }}</option>
@@ -70,9 +70,9 @@
             <div class="col-lg-3">
                 <div class="input-group">
                     <input type="text" id="shift" class="form-control" style="max-width: 50px;" disabled>
-                    <input type="time" id="shift_awal" class="form-control">
+                    <input type="time" id="shift_awal" class="form-control unclickable">
                     <span class="input-group-text">s/d</span>
-                    <input type="time" id="shift_akhir" class="form-control">
+                    <input type="time" id="shift_akhir" class="form-control unclickable">
                 </div>
             </div>
 
@@ -109,17 +109,7 @@
                             <th>Id Transaksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            @php $tableWidth = 14; @endphp
-                            <td colspan="{{ $tableWidth }}" style="padding-left: 150px">
-                                <h1 class="mt-3">Tabel masih kosong...</h1>
-                            </td>
-                            @for ($i = 0; $i < $tableWidth - 1; $i++)
-                                <td class="hidden"></td>
-                            @endfor
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -147,16 +137,7 @@
                             <th>Id Transaksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="{{ $tableWidth }}" style="padding-left: 150px">
-                                <h1 class="mt-3">Tabel masih kosong...</h1>
-                            </td>
-                            @for ($i = 0; $i < $tableWidth - 1; $i++)
-                                <td class="hidden"></td>
-                            @endfor
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -175,7 +156,7 @@
         </div>
     </div>
 
-    @include('Extruder.ExtruderNet.modalRincianKonversi')
+    {{-- @include('Extruder.ExtruderNet.modalRincianKonversi') --}}
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/benangMohon.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/benangMohon_new.js') }}"></script>
 @endsection

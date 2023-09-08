@@ -1,17 +1,20 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <button id="tes123" style="display: float">Button tes</button>
     <div id="komposisi_tropodo" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-md-3">
                 <span class="aligned-text">Id Komposisi:</span>
             </div>
             <div class="col-md-6 form-group">
-                <select class="form-select" id="select_id_komposisi" disabled>
+                <select class="form-select" id="select_id_komposisi">
                     <option selected disabled>-- Pilih Id Komposisi --</option>
                     @foreach ($formData['listKomposisi'] as $d)
                         <option value="{{ $d->IdKomposisi }}">{{ $d->IdKomposisi . ' | ' . $d->NamaKomposisi }}</option>
                     @endforeach
                 </select>
+                <input type="text" id="nama_komposisi" class="form-control hidden"
+                    placeholder="Masukkan nama komposisi disini...">
             </div>
         </div>
 
@@ -64,7 +67,8 @@
                         <select id="select_objek" class="form-select" disabled>
                             <option selected disabled>-- Pilih Objek --</option>
                             @foreach ($formData['listObjek'] as $d)
-                                <option value="{{ $d->IdObjek }}">{{ $d->IdObjek . ' | ' . $d->NamaObjek }}</option>
+                                <option value="{{ $d->IdObjek }}">{{ $d->IdObjek . ' | ' . $d->NamaObjek }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -152,25 +156,13 @@
 
                     <div class="col-md-1"></div>
 
-                    <div class="col-md-5">
-                        <div class="row mt-3 d-flex justify-content-center">
-                            <div class="col-lg-3 text-center">
-                                <button type="button" id="btn_tambah_detail" class="btn btn-outline-success"
-                                    style="height: -webkit-fill-available;" disabled>Tambah
-                                    Bahan</button>
-                            </div>
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-3 text-center">
-                                <button type="button" id="btn_koreksi_detail" class="btn btn-outline-warning"
-                                    style="height: -webkit-fill-available;" disabled>Koreksi</button>
-                            </div>
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-3 text-center">
-                                <button type="button" id="btn_hapus_detail" class="btn btn-outline-danger"
-                                    style="height: -webkit-fill-available;" disabled>Hapus</button>
-                            </div>
-                        </div>
-
+                    <div class="col-md-5 text-center">
+                        <button type="button" id="btn_tambah_detail" class="btn btn-outline-success" disabled>Tambah
+                            Bahan</button>
+                        <button type="button" id="btn_koreksi_detail" class="btn btn-outline-warning"
+                            disabled>Koreksi</button>
+                        <button type="button" id="btn_hapus_detail" class="btn btn-outline-danger"
+                            disabled>Hapus</button>
                     </div>
                 </div>
 
@@ -185,11 +177,11 @@
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-4 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-primary" disabled>Proses</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
                 <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/komposisiTropodo.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/komposisiTropodo.js') }}"></script>
 @endsection
