@@ -2,6 +2,9 @@
 @section('content')
 
 <link href="{{ asset('css/AdStar/CpTbl.css') }}" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
 <style>
     /* Gaya untuk modal */
@@ -40,81 +43,100 @@
 
 <h2>Form Copy Tabel </h2>
 
-<div class="body">
+
+<div class="container">
     <div class="card">
-        <div class="input-container">
-            <div class=radio>
-            <label for="customer">Product Name:</label>
-            <input type="radio" id="pilihan1" name="pilihan" value="pilihan1">StarPark
-            {{-- <label for="pilihan1">StarPark</label><br> --}}
-            <input type="radio" id="pilihan2" name="pilihan" value="pilihan2">AdStar
-            {{-- <label for="pilihan2">AdStar</label><br> --}}
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Product name :</div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option2">StarPark
+                    <label class="form-check-label" for="radio1"></label>
+                </div>
             </div>
-        </div>
-        <div class="input-container">
-            <div class=checkbox>
-            <label for="customer">Model:</label>
-            <input type="checkbox" id="opsi1" name="opsi" value="opsi1">Top Open
-            <input type="checkbox" id="opsi2" name="opsi" value="opsi2">Top Close
-            </div>
-        </div>
-        <div class="input-container">
-            <label for="customer">Design For:</label>
-            <input type="text" id="customer" required>
-            <input type="text" id="input1" placeholder="">
-            <button type="button">...</button>
-        </div>
-        <div class="input-container">
-            <label for="nama-barang">Product Type:</label>
-            <input type="text" id="nama-barang" required>
-            <input type="text" id="input2">
-            <button type="button">List Type</button>
-        </div>
-        <h1>Copy To</h1>
-        <div class="input-container">
-            <label for="no-pesanan">Design For:</label>
-            <input type="text" id="no-pesanan" required>
-            <button onclick="openModal()" type="button">...</button>
-            <!-- The Modal -->
-            <div class="modal" id="myModal">
-                <div class="modal-content">
-                    <span class="close-btn" onclick="closeModal()">&times;</span>
-                    <h2>Table Divisi</h2>
-                    <p>Id Divisi & Divisi</p>
-                    <table id="TableDivisi">
-                        <thead>
-                            <tr>
-                                <th>ID Divisi</th>
-                                <th>Divisi</th>
-                                <th>Select</th> <!-- New header for the checkbox column -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Test1</td>
-                                <td>Test1</td>
-                                <td> <!-- Add the checkbox here -->
-                                    <label>
-                                        <input type="checkbox" name="divisi" value="value2">
-                                    </label>
-                                </td>
-                            </tr>
-                            <!-- Add more rows as needed -->
-                        </tbody>
-                    </table>
-                    <div class="text-center col-md-auto"><button type="submit"
-                        onclick="openModal()" id="ButtonDivisi">Process</button></div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">AdStar
+                    <label class="form-check-label" for="radio2"></label>
                 </div>
             </div>
         </div>
-        <div class="input-container">
-            <label for="surat-pesanan">Product Type:</label>
-            <input type="text" id="surat-pesanan" required>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Model :</div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check1" name="option2" value="something">
+                    <label class="form-check-label">Top Open</label>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-check"><label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" id="check2" name="option2" value="something">
+                    <label class="form-check-label">Top Close</label>
+                </div>
+            </div>
         </div>
-    <div class="button-container">
-        <button class="update">Copy</button>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Desing For :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                        ...
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Product Type :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                        List Type
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h3 class="card-title">Copy to</h3>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Desing For :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                        ...
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Product Type :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                        --
+                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">
+                <button class="btn btn-primary">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {{-- <script>
         $(document).ready(function() {
             $('.dropdown-submenu a.test').on("click", function(e) {
                 $(this).next('ul').toggle();
@@ -247,5 +269,105 @@
                 ],
             });
         });
-    </script>
+
+
+<!-- Modal customer asal-->
+<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_customer" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Namacust</th>
+                        <th>IDCUST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataCust as $data)
+                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                            <td>{{ $data->NamaCust }}</td>
+                            <td>{{ $data->IDCust }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal customer product type-->
+<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_customer" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    // @foreach ($dataCust as $data)
+                    //     <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                    //         <td>{{ $data->NamaCust }}</td>
+                    //         <td>{{ $data->IDCust }}</td>
+                    //     </tr>
+                    // @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal customer tujuan-->
+<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_customer" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Namacust</th>
+                        <th>IDCUST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataCust as $data)
+                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                            <td>{{ $data->NamaCust }}</td>
+                            <td>{{ $data->IDCust }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+    </script> --}}
 @endsection
