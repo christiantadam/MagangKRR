@@ -27,8 +27,8 @@
                 <div class="col-lg-2 aligned-text">Nama Barang:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
+                        <input type="text" id="kd_brng" class="form-control" placeholder="" aria-label="">
+                        <input type="text" id="nm_type" class="form-control" placeholder="" aria-label="">
                         <button type="button" id="ld-Brng" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng">
                             ...
                         </button>
@@ -38,15 +38,15 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">No. Pesanan:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="qty-ordr" class="" required min="0" placeholder="lbr">
+                    <input type="number" id="no_psn" class="" required min="0" placeholder="lbr">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Surat Pesanan:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_srtpsn">
+                        <input type="text" id="idsurat" class="form-control" placeholder="" aria-label="">
+                        <button type="button" id="ld_srtpsn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_srtpsn">
                             ...
                         </button>
                     </div>
@@ -55,13 +55,13 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Jumlah Order:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="qty-ordr" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="qty_ordr" class="input-small" required min="0" placeholder="lbr">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Jumlah Press:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="qty-ordr" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="qty_prs" class="input-small" required min="0" placeholder="lbr">
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input type="text" id='No_Order' class="form-control" placeholder="" aria-label="">
+                        <input type="text" id='inputNoOrder' class="form-control" placeholder="" aria-label="">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_noordkrj">
                             ...
                         </button>
@@ -143,7 +143,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal customer-->
 <div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -176,6 +176,8 @@
     </div>
 </div>
 
+
+<!-- Modal Barang-->
 <div class="modal fade" id="mdl_nmbrng" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_nmbrng" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -208,6 +210,8 @@
     </div>
 </div>
 
+
+<!-- Modal Surat pesanan-->
 <div class="modal fade" id="mdl_srtpsn" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_srtpsn" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -240,6 +244,8 @@
     </div>
 </div>
 
+
+<!-- Modal no order kerja-->
 <div class="modal fade" id="mdl_noordkrj" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_noordkrj" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -257,7 +263,7 @@
                 </thead>
                 <tbody>
                     @foreach ($datanoordkrj as $data)
-                        <tr data-nmbrng="{{ $data->NAMA_BRG }}" data-noordr="{{ $data->No_Order }}">
+                        <tr data-noordkrj="{{ $data->NAMA_BRG }}" data-noordr="{{ $data->No_Order }}">
                             <td>{{ $data->NAMA_BRG }}</td>
                             <td>{{ $data->No_Order }}</td>
                         </tr>
@@ -272,6 +278,7 @@
     </div>
 </div>
 
+<!-- Modal stok order sebelum-->
 <div class="modal fade" id="mdl_stkordsblm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_stkordsblm" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -283,8 +290,8 @@
             <table id="tbl_stkordsblm" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
-                        <th>IdSuratPesanan</th>
-                        <th>QTY</th>
+                        <th>Surat Pesanan </th>
+                        <th>Tanggal Order</th>
                     </tr>
                 </thead>
                 <tbody>

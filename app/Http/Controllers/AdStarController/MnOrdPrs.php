@@ -35,9 +35,10 @@ class MnOrdPrs extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) -1;
 
         //getDivisi
-        if ($crExplode[1] == "dataBrng") {
+        if ($crExplode[$lastIndex] == "dataBrng") {
             $dataBrng = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [2, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
@@ -45,19 +46,19 @@ class MnOrdPrs extends Controller
 
             // dd($crExplode);
         }
-        elseif ($crExplode[1] == "dataSrtPsn") {
-            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [3, $crExplode[0]]);
+        elseif ($crExplode[$lastIndex] == "dataSrtPsn") {
+            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?, @KD_BRG= ?' , [3, $crExplode[0], $crExplode[1]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataSrtPsn);
 
             // dd($crExplode);
         }
-        elseif ($crExplode[1] == "dataSrtPsn") {
-            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [3, $crExplode[0]]);
+        elseif ($crExplode[$lastIndex] == "datastkordsblm") {
+            $datastkordsblm = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @KD_BRG= ?', [12, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
-            return response()->json($dataSrtPsn);
+            return response()->json($datastkordsblm);
 
             // dd($crExplode);
         }
