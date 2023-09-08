@@ -153,7 +153,11 @@ Route::resource('StatusOrderKerja', App\Http\Controllers\WORKSHOP\Workshop\Trans
 Route::get('getalldataStatusOrderKerja/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\StatusOrderKerjaController@GetAllData');
 
 // Workshop - Proyek
-Route::get('MaintenanceOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@MaintenanceOrderProyek');
+Route::resource('MaintenanceOrderProyek', App\Http\Controllers\WORKSHOP\Workshop\Proyek\MaintenanceOrderProyekController::class);
+Route::get('GetDataAllMaintenanceOrderProyek/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\MaintenanceOrderProyekController@GetDataAll');
+Route::get('GatDataForUserOrderMaintenanceOrderKerja/{tgl_awal}/{tgl_akhir}/{iduserOrder}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\MaintenanceOrderProyekController@GatDataForUserOrder');
+
+
 Route::get('ACCManagerProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@ACCManagerProyek');
 Route::get('ACCDirekturProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@ACCDirekturProyek');
 Route::get('PenerimaOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@PenerimaOrderProyek');

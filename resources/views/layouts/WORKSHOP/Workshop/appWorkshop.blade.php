@@ -154,7 +154,7 @@
                 Proyek
               </a>
               <ul class="dropdown-menu" style="cursor: default">
-                <li><a href="/MaintenanceOrderProyek" class="test"
+                <li><a href="{{ url('MaintenanceOrderProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Maintenance Order Proyek</a>
                 </li>

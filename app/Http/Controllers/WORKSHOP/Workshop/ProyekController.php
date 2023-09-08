@@ -12,10 +12,7 @@ class ProyekController extends Controller
         return view();
     }
 
-    public function MaintenanceOrderProyek()
-    {
-        return view('WORKSHOP.Workshop.Proyek.MaintenanceOrderProyek');
-    }
+
 
     public function ACCManagerProyek()
     {
