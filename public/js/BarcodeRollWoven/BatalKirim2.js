@@ -31,7 +31,7 @@ $(document).ready(function() {
         $('#Objek').val(rowData[1]);
 
         var getType = document.getElementById('IdObjek');
-        fetch("/ABM/BarcodeRollWoven/BatalKirim/" + getType.value + ".getType")
+        fetch("/ABM/BarcodeRollWoven/BatalKirim2/" + getType.value + ".getType")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

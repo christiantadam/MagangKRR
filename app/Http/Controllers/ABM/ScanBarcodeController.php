@@ -40,8 +40,8 @@ class ScanBarcodeController extends Controller
         if ($crExplode[1] == "getXIdDivisi") {
             if ($crExplode[0] == "JBJ") {
                 $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
-            } else if ($crExplode[0] == "JBM") {
-                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
+            } else if ($crExplode[0] == "ABN") {
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
             }
             // dd($dataObjek);
             // Return the options as JSON data

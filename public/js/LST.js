@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    $('.dropdown-submenu a.test').on("click", function(e) {
+$(document).ready(function () {
+    $('.dropdown-submenu a.test').on("click", function (e) {
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
@@ -20,6 +20,27 @@ $(document).ready(function() {
     });
 
     $("#TableObjek").DataTable({
+        order: [[0, "desc"]],
+        select: {
+            style: "single",
+        },
+    });
+
+    $("#TableABM").DataTable({
+        order: [[0, "desc"]],
+        select: {
+            style: "single",
+        },
+    });
+
+    $("#TableADS").DataTable({
+        order: [[0, "desc"]],
+        select: {
+            style: "single",
+        },
+    });
+
+    $("#TableADSMOJO").DataTable({
         order: [[0, "desc"]],
         select: {
             style: "single",
@@ -58,6 +79,17 @@ $(document).ready(function() {
         $('#Objek').val(rowData[1]);
 
     });
+
+    // Function to hide extend cards
+    function hideExtendCards() {
+        var extendCards = document.querySelectorAll(".extend-card");
+        extendCards.forEach(function (card) {
+            card.style.display = "none";
+        });
+    }
+
+    // Call the function to hide extend cards
+    hideExtendCards();
 });
 
 function openModal() {

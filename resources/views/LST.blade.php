@@ -1,6 +1,23 @@
 @extends('layouts.appABM')
 @section('content')
     <script type="text/javascript" src="{{ asset('js/LST.js') }}"></script>
+    <style>
+        @page {
+            size: A4;
+            /* Specify the page size */
+            margin: 1cm;
+            /* Specify the page margins */
+        }
+
+        .page-number:before {
+            content: counter(page);
+            text-align: center;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
 
     <body onload="Greeting()">
         <div id="app">
@@ -153,11 +170,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="card">
-                                        <div class="card-header">Hasil Print</div>
-                                        <h1>Tes</h1>
-                                    </div>
                             </div>
 
                             <div class="row mt-3">
@@ -172,6 +184,524 @@
                             </form>
                         </div>
                     </div>
+
+
+
+                    <div class="card extend-card mt-5" id="externalCard">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableABM">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">WOVEN BAG - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- <div class="page-number"></div> --}}
+
+                    <div class="card extend-card mt-5" id="externalCard1">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableADS">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">ADSTAR - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard2">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableADSMOJO">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">MOJOSARI ADSTAR - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard3">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBB">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">JUMBO BAG - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard4">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBM">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">JUMBO BAG MOJOSARI - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard5">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">JUMBO BERBEK - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard6">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">LAMINATING - GUDANG</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">No Roll</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter Net</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard7">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">LAMINATING - @div</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Bal/Palet</th>
+                                    <th style="width: 100px">Lembar</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard8">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">CIRCULAR LOOM - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard9">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">CIRCULAR LOOM - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">No Roll</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard10">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">CIRCULAR LOOM MOJOSARI - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard11">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">CIRCULAR LOOM MOJOSARI - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">No Roll</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard12">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center">MOJOSARI CIRCULAR LOOM - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card extend-card mt-5" id="externalCard13">
+                        <div class="card-header">Hasil Print</div>
+                        <table id="TableJBR">
+                            <span>PT.Kerta Rajasa Raya</span>
+                            <span>Woven Bag - Jumbo Bag Industrial</span>
+                            <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
+                            <h3 class="text-center"> MOJOSARICIRCULAR LOOM - DIVISI</h3>
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px">Nama Pengirim</th>
+                                    <th style="width: 100px">Mesin</th>
+                                    <th style="width: 380px">Nama Type</th>
+                                    <th style="width: 100px">No Roll</th>
+                                    <th style="width: 100px">Roll</th>
+                                    <th style="width: 100px">Meter</th>
+                                    <th style="width: 100px">KG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <table class="mt-5" id="TableTandaTangan">
+                            <thead>
+                                <tr style="height: 40px">
+                                    <th>Penerima</th>
+                                    <th>Pengirim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="height: 100px">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
             <main class="py-4">
