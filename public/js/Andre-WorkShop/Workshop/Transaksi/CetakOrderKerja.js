@@ -84,6 +84,8 @@ function AllData(tglAwal, tglAkhir) {
                         " s/d tgl " +
                         tglAkhir
                 );
+                table_data.clear().draw();
+                return;
             } else {
                 console.log(datas); // Optional: Check the data in the console
                 table_data = $("#tableCetakOrderKerja").DataTable({

@@ -9,7 +9,9 @@ let user = 4384;
 let refresh = document.getElementById("refresh");
 let isi = document.getElementById("isi");
 let modetrans;
-
+let MesinModal = document.getElementById("MesinModal");
+let Tanggalmodal = document.getElementById("Tanggalmodal");
+let namadivisimodal = document.getElementById("namadivisimodal");
 //#region set tanggal
 
 const currentDate = new Date();
@@ -28,7 +30,7 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 // Set the values of the input fields to the calculated dates
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
-
+Tanggalmodal.value = formattedCurrentDate;
 //#endregion
 
 //#region divisi di ubah
@@ -183,9 +185,41 @@ function isiklik() {
         modetrans = 1;
         isi.setAttribute("data-toggle", "modal");
         isi.setAttribute("data-target", "#ModalForm");
+        Mesin(kddivisi.value);
+        // console.log(
+        //     kddivisi.options[kddivisi.selectedIndex].text.split("--")[1]
+        // );
+        namadivisimodal.textContent =
+            kddivisi.options[kddivisi.selectedIndex].text.split("--")[1];
     } else {
         alert("Pilih Divisi Anda");
     }
+}
+//#endregion
+
+//#region mesin
+
+function Mesin(idDivisi) {
+    fetch("/GetMesinMaintenanceOrderProyek/" + idDivisi)
+        .then((response) => response.json())
+        .then((options) => {
+            //mesin buat form baru
+
+            MesinModal.innerHTML = "";
+            //
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih Mesin";
+            MesinModal.appendChild(defaultOption);
+            //
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.Nomer;
+                option.innerText = entry.Mesin + "--" + entry.Nomer;
+                MesinModal.appendChild(option);
+            });
+        });
 }
 
 //#endregion
