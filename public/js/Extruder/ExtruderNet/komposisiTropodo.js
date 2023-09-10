@@ -74,14 +74,12 @@ const colKomposisi = [
 var modeProses = "";
 var [unitPrimer, unitSekunder, unitTritier] = ["", "", "", ""];
 var refetchKelut = false;
+var refetchKelompok = false;
+var refetchSubkel = false;
+var refetchType = false;
 //#endregion
 
 //#region Events
-document.getElementById("tes123").addEventListener("click", function () {
-    slcKomposisi.classList.add("hidden");
-    txtNamaKomposisi.classList.remove("hidden");
-});
-
 slcKomposisi.addEventListener("change", function () {
     // SP_5298_EXT_LIST_KOMPOSISI_1
     fetchSelect("/Master/getListKomposisi/EXT/" + this.value, (data) => {
@@ -177,7 +175,326 @@ slcKelut.addEventListener("keydown", function (event) {
 });
 
 slcKelut.addEventListener("change", function () {
-    if (condition) {
+    if (this.value == "0117") {
+        showModal(
+            "Konfirmasi",
+            "Anda akan memasukkan data bahan pembantu, apakah anda telah memasukkan semua <b>bahan baku</b>?",
+            () => {
+                slcKelompok.disabled = false;
+                slcKelompok.focus();
+            },
+            () => {
+                this.focus();
+            }
+        );
+    }
+
+    slcKelompok.selectedIndex = 0;
+    slcType.selectedIndex = 0;
+    slcSubkel.selectedIndex = 0;
+    refetchKelompok = true;
+});
+
+slcKelompok.addEventListener("mousedown", function () {
+    if (this.querySelectorAll("option").length <= 1 || refetchKelompok) {
+        refetchKelompok = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKelompok",
+            textKey: "NamaKelompok",
+        };
+
+        // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+        fetchSelect(
+            "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcKelompok.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (this.querySelectorAll("option").length <= 1 || refetchKelompok) {
+            refetchKelompok = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdKelompok",
+                textKey: "NamaKelompok",
+            };
+
+            // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+            fetchSelect(
+                "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
+slcKelompok.addEventListener("change", function () {
+    refetchSubkel = true;
+    slcSubkel.disabled = false;
+    slcSubkel.focus();
+    slcType.selectedIndex = 0;
+    slcSubkel.selectedIndex = 0;
+
+    if (
+        slcKelut.value == "0057" ||
+        slcKelut.value == "0121" ||
+        slcKelut.value == "0009"
+    ) {
+        // Pengecekkan mesin pada DB Inventory dan Extruder
+        // SP_5298_EXT_CEK_KELOMPOK_MESIN
+        fetchSelect("/Master/getCekMesin/" + this.value, (data) => {
+            if (slcMesin.value == data[0].IdMesin) {
+                alert("Mesin tidak sama.");
+                slcSubkel.disabled = true;
+                refetchSubkel = false;
+                this.selectedIndex = 0;
+                this.focus();
+            }
+        });
+    }
+});
+
+slcSubkel.addEventListener("mousedown", function () {
+    if (this.querySelectorAll("option").length <= 1 || refetchSubkel) {
+        refetchSubkel = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdSubKelompok",
+            textKey: "NamaSubKelompok",
+        };
+
+        // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
+        fetchSelect(
+            "/Master/getIdKelompokSubKelompok/" + slcObjek.value,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcSubkel.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (this.querySelectorAll("option").length <= 1 || refetchSubkel) {
+            refetchSubkel = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdSubKelompok",
+                textKey: "NamaSubKelompok",
+            };
+
+            // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
+            fetchSelect(
+                "/Master/getIdKelompokSubKelompok/" + slcObjek.value,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
+slcSubkel.addEventListener("change", function () {
+    refetchType = true;
+    slcType.disabled = false;
+    slcType.focus();
+});
+
+slcType.addEventListener("mousedown", function () {
+    if (this.querySelectorAll("option").length <= 1 || refetchType) {
+        refetchType = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdType",
+            textKey: "NamaType",
+        };
+
+        // SP_5298_EXT_IDSUBKELOMPOK_TYPE
+        fetchSelect(
+            "/Master/getIdSubKelompokType/" + slcSubkel.value,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcType.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (this.querySelectorAll("option").length <= 1 || refetchType) {
+            refetchType = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdType",
+                textKey: "NamaType",
+            };
+
+            // SP_5298_EXT_IDSUBKELOMPOK_TYPE
+            fetchSelect(
+                "/Master/getIdSubKelompokType/" + slcSubkel.value,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
+slcType.addEventListener("change", function () {
+    getSatuanFetch(this.value);
+    numPrimer.disabled = false;
+    numPrimer.value = "";
+    numPrimer.focus();
+});
+
+btnKoreksiMaster.addEventListener("click", function () {
+    clearDataMaster();
+    clearDataDetail();
+    listKomposisi.length = 0;
+    clearTable_DataTable(
+        "table_komposisi",
+        colKomposisi.length,
+        "padding=250px"
+    );
+    slcKomposisi.disabled = false;
+    slcKomposisi.focus();
+    modeProses = "koreksi";
+    toggleButtons(2);
+});
+
+btnBaruMaster.addEventListener("click", function () {
+    clearDataMaster();
+    clearDataDetail();
+    listKomposisi.length = 0;
+    clearTable_DataTable(
+        "table_komposisi",
+        colKomposisi.length,
+        "padding=250px"
+    );
+    slcKomposisi.classList.add("hidden");
+    txtNamaKomposisi.classList.remove("hidden");
+    txtNamaKomposisi.disabled = false;
+    txtNamaKomposisi.focus();
+    toggleButtons(2);
+});
+
+btnHapusMaster.addEventListener("click", function () {
+    showModal(
+        "Hapus",
+        "Apakah anda ingin menghapus semua data komposisi bahan?",
+        () => {
+            modeProses = "hapus";
+        },
+        () => {
+            modeProses = "hapus_detail";
+        }
+    );
+
+    clearDataMaster();
+    clearDataDetail();
+    listKomposisi.length = 0;
+    clearTable_DataTable(
+        "table_komposisi",
+        colKomposisi.length,
+        "padding=250px"
+    );
+    slcKomposisi.disabled = false;
+    slcKomposisi.focus();
+    toggleButtons(2);
+});
+
+btnTambahDetail.addEventListener("click", function () {
+    let jenis = "";
+    switch (slcKelut.value) {
+        case "0057":
+        case "2480":
+            jenis = "BB";
+            break;
+        case "0117":
+            jenis = "BP";
+            break;
+        case "0121":
+        case "2481":
+            jenis = "HP";
+            break;
+        case "0213":
+            jenis = "AF";
+            break;
+        default:
+            break;
+    }
+
+    for (let i = 0; i < listOfDetail.length; i++) {
+        const ele = listOfDetail[i];
+        if (ele.tagName == "INPUT") {
+            if (ele.value.trim() == "") {
+                alert("Ada data yang belum terisi, mohon periksa kembali.");
+                ele.focus();
+                return;
+            }
+        } else if (ele.tagName == "SELECT") {
+            if (ele.selectedIndex == 0) {
+                alert("Ada data yang belum terisi, mohon periksa kembali.");
+                ele.focus();
+                return;
+            }
+        }
+    }
+
+    let found = false;
+    for (let i = 0; i < listKomposisi.length; i++) {
+        if (
+            findClickedRowInList(
+                listKomposisi,
+                "IdType",
+                listKomposisi[i].IdType
+            ) != -1
+        ) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
+        alert("Sudah ada type yang sama dalam tabel komposisi.");
+    } else {
+        listKomposisi.push({
+            StatusType: jenis,
+            IdType: slcType.value,
+            NamaType: slcType.options[slcType.selectedIndex].text,
+            JumlahPrimer: numPrimer.value,
+            SatuanPrimer: txtSatPrimer.value,
+            JumlahSekunder: numSekunder.value,
+            SatuanSekunder: txtSatSekunder.value,
+            JumlahTritier: numTritier.value,
+            SatuanTritier: txtSatTritier.value,
+            // LAST
+        });
     }
 });
 //#endregion
@@ -242,14 +559,17 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                     StatusType: data[i].StatusType,
                     IdType: data[i].IdType,
                     NamaType: data[i].NamaType,
+                    JumlahPrimer: data[i].JumlahPrimer,
                     SatuanPrimer:
                         data[i].SatuanPrimer !== undefined
                             ? data[i].SatuanPrimer
                             : "Null",
+                    JumlahSekunder: data[i].JumlahSekunder,
                     SatuanSekunder:
                         data[i].SatuanSekunder !== undefined
                             ? data[i].SatuanSekunder
                             : "Null",
+                    JumlahTritier: data[i].JumlahTritier,
                     SatuanTritier:
                         data[i].SatuanTritier !== undefined
                             ? data[i].SatuanTritier
@@ -312,6 +632,7 @@ function init() {
         colKomposisi.length,
         "padding=250px"
     );
+
     // toggleButtons(1);
 }
 
