@@ -31,7 +31,15 @@ class CSJController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getSJ") {
+            $dataSJ = DB::connection('ConnInventory')->select('exec SP_1273_INV_NoSJ');
+            // dd($dataSJ);
+            // Return the options as JSON data
+            return response()->json($dataSJ);
+        }
     }
 
     // Show the form for editing the specified resource.

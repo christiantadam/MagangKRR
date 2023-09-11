@@ -1,6 +1,7 @@
 @extends('layouts.appABM')
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/CekBarcode2.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <body onload="Greeting()">
         <div id="app">

@@ -44,11 +44,17 @@
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
-                                    <div class="row">
-                                        <div class="form-group col-md-2 d-flex justify-content-end">
+                                    <div style="margin-left: 30px">
+                                        <h2>Kepada:</h2>
+                                        <span>PT.KERTA RAJASA RAYA</span> <br>
+                                        <span>JL.RAYA TROPODO NO.1</span> <br>
+                                        <span>WARU-SIDOARJO</span>
+                                    </div>
+                                    <div class="row" style="margin-top: -100px">
+                                        <div class="form-group col-md-7 d-flex justify-content-end">
                                             <span class="aligned-text">No. Surat Jalan:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Surat_jalan" id="Surat_jalan"
                                                 placeholder="Surat Jalan">
                                             <div class="text-center col-md-auto"><button type="button" id="SJ"
@@ -88,13 +94,13 @@
                                             <div class="modal" id="myModal1">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal1()">&times;</span>
-                                                    <h2>Table Divisi</h2>
-                                                    <p>Id Divisi & Divisi</p>
+                                                    <h2>Table SJ</h2>
+                                                    <p>Nomor SJ & Tanggal kirim</p>
                                                     <table id="TableOpenSJ">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID Divisi</th>
-                                                                <th>Divisi</th>
+                                                                <th>No SJ</th>
+                                                                <th>TGL Kirim</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -112,20 +118,22 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
+
+                                <div class="form-group col-md-7 d-flex justify-content-end">
                                     <span class="aligned-text">Tanggal:</span>
                                 </div>
                                 <div class="form-group col-md-3 mt-3 mt-md-0">
                                     <input type="date" class="form-control" name="tgl" id="tgl"
-                                        placeholder="Tanggal">
+                                        placeholder="Tanggal" readonly>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-2 d-flex justify-content-end">
+
+                                <div class="form-group col-md-7 d-flex justify-content-end">
                                     <span class="aligned-text">Truk No. Pol:</span>
                                 </div>
-                                <div class="form-group col-md-7 mt-3 mt-md-0">
+                                <div class="form-group col-md-3 mt-3 mt-md-0">
                                     <input type="text" class="form-control" name="Truk_pol" id="Truk_pol"
                                         placeholder="No. Pol">
                                 </div>
