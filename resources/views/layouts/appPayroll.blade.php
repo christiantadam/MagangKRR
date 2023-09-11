@@ -202,7 +202,7 @@
                                             tabindex="-1" href="{{ url('InputRange') }}">Input Range</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Lembur') }}">Lembur</a>
+                                            tabindex="-1" href="{{ url('Lembur') }}">Lembur</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/CheckClockError') }}">Check Clock Error</a>

@@ -55,6 +55,7 @@ Route::resource('AbsenSimpang', App\Http\Controllers\Payroll\Transaksi\AbsenSimp
 Route::resource('Kontrak', App\Http\Controllers\Payroll\Transaksi\Kontrak\KontrakController::class);
 Route::resource('KoreksiAbsen', App\Http\Controllers\Payroll\Transaksi\KoreksiAbsen\KoreksiAbsenController::class);
 Route::resource('InputRange', App\Http\Controllers\Payroll\Transaksi\InputRange\InputRangeController::class);
+Route::resource('Lembur', App\Http\Controllers\Payroll\Transaksi\Lembur\LemburController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
@@ -98,7 +99,7 @@ Route::get('getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Pering
 // Route::get('ProgramPayroll/Transaksi/KoreksiAbsen', 'App\Http\Controllers\Payroll\Transaksi\KoreksiAbsen\KoreksiAbsenController@index');
 Route::get('ProgramPayroll/Transaksi/InputLibur', 'App\Http\Controllers\Payroll\Transaksi\InputLibur\InputLiburController@index');
 // Route::get('ProgramPayroll/Transaksi/InputRange', 'App\Http\Controllers\Payroll\Transaksi\InputRange\InputRangeController@index');
-Route::get('ProgramPayroll/Transaksi/Lembur', 'App\Http\Controllers\Payroll\Transaksi\Lembur\LemburController@index');
+// Route::get('ProgramPayroll/Transaksi/Lembur', 'App\Http\Controllers\Payroll\Transaksi\Lembur\LemburController@index');
 Route::get('ProgramPayroll/Transaksi/CheckClockError', 'App\Http\Controllers\Payroll\Transaksi\CheckClockError\CheckClockErrorController@index');
 Route::get('ProgramPayroll/Transaksi/CheckClockInOut', 'App\Http\Controllers\Payroll\Transaksi\CheckClockInOut\CheckClockInOutController@index');
 Route::get('ProgramPayroll/Transaksi/MaintenancePelatihan', 'App\Http\Controllers\Payroll\Transaksi\MaintenancePelatihan\MaintenancePelatihanController@index');
