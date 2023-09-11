@@ -29,6 +29,10 @@ class MaintenanceOrderProyekController extends Controller
         $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-PRY] @kode = ?, @tgl1 = ?, @tgl2 = ?, @user = ?, @div = ?', [2, $tgl_awal, $tgl_akhir, $iduserOrder, $divisi]);
         return response()->json($all);
     }
+    public function GetDataTable($noOrder) {
+        $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-PRY] @kode = ?, @noOrder = ?', [3, $noOrder]);
+        return response()->json($all);
+    }
     public function create()
     {
         //
@@ -37,7 +41,25 @@ class MaintenanceOrderProyekController extends Controller
 
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $tgl = $request->Tanggalmodal;
+        $IdDiv = $request->iddivmodal;
+        $namaBrg = $request->NamaProyekModal;
+        $jml = $request->Jumlah;
+        $userOd = $request->PengOrderModal;
+        $ketOd = $request->KeteranganModal;
+        $noSat = $request->SatuanModal;
+        $noMesin = $request->MesinModal;
+        $radio = $request->inlineRadioOptions;
+        if ($radio == "Buat") {
+            $noket = 1;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_INSERT-ORDER-PRY] @tgl = ?, @IdDiv = ?, @namaBrg = ?, @jml = ?, @userOd = ?, @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$tgl, $IdDiv, $namaBrg, $jml, $userOd, $ketOd, $noSat, $noMesin, $noket]);
+        }
+        if ($radio == "Perbaikan") {
+            $noket = 3;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_INSERT-ORDER-PRY] @tgl = ?, @IdDiv = ?, @namaBrg = ?, @jml = ?, @userOd = ?, @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$tgl, $IdDiv, $namaBrg, $jml, $userOd, $ketOd, $noSat, $noMesin, $noket]);
+        }
+        return redirect()->back()->with('success', 'Data TerSIMPAN');
     }
 
 

@@ -1,5 +1,14 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+  @if (Session::has('success'))
+    <div class="alert alert-success">
+      {{ Session::get('success') }}
+    </div>
+  @elseif (Session::has('error'))
+    <div class="alert alert-danger">
+      {{ Session::get('error') }}
+    </div>
+  @endif
   <div class="card-header">
     Maintenance Order Proyek
   </div>
@@ -67,14 +76,14 @@
       </div>
 
       <div class="col-lg-6">
-
+        <h3 id="lblstatus" style="text-align: center;color:hotpink"> </h3>
         <div class="row">
           <div class="col-lg-5">
             <span class="custom-alignment">No. Order:</span>
           </div>
 
           <div class="col-lg-5">
-            <input type="text" name="no_order" class="form-control">
+            <input type="text" name="no_order" class="form-control" id="no_order">
           </div>
         </div>
 
@@ -85,8 +94,8 @@
 
           <div class="col-lg-5">
             <div class="input-group">
-              <input type="number" name="jmlh1" class="form-control" value="1">
-              <input type="text" name="jmlh2" class="form-control" style="width: 7.5vw;">
+              <input type="number" name="jmlh1" class="form-control" id="jmlh1">
+              <input type="text" name="jmlh2" class="form-control" style="width: 7.5vw;" id="jmlh2">
             </div>
           </div>
         </div>
@@ -97,7 +106,7 @@
           </div>
 
           <div class="col-lg-7">
-            <input type="text" name="keterangan_order" class="form-control">
+            <input type="text" name="keterangan_order" class="form-control" id="keterangan_order">
           </div>
         </div>
 
@@ -107,7 +116,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="pengorder" class="form-control">
+            <input type="text" name="pengorder" class="form-control" id="pengorder">
           </div>
         </div>
 
@@ -117,7 +126,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="acc_manager" class="form-control">
+            <input type="text" name="acc_manager" class="form-control" id="acc_manager">
           </div>
         </div>
 
@@ -127,7 +136,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="manager" class="form-control">
+            <input type="text" name="manager" class="form-control" id="manager">
           </div>
         </div>
 
@@ -137,7 +146,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="acc_direktur" class="form-control">
+            <input type="text" name="acc_direktur" class="form-control" id="acc_direktur">
           </div>
         </div>
 
@@ -147,7 +156,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="date" name="tgl_manager" class="form-control">
+            <input type="date" name="tgl_manager" class="form-control" id="tgl_manager">
           </div>
         </div>
 
@@ -157,7 +166,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="ket_manager" class="form-control">
+            <input type="text" name="ket_manager" class="form-control" id="ket_manager">
           </div>
         </div>
 
@@ -167,7 +176,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="date" name="tgl_direktur" class="form-control">
+            <input type="date" name="tgl_direktur" class="form-control" id="tgl_direktur">
           </div>
         </div>
 
@@ -177,7 +186,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="ket_direktur" class="form-control">
+            <input type="text" name="ket_direktur" class="form-control" id="ket_direktur">
           </div>
         </div>
 
@@ -187,7 +196,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="date" name="tgl_teknik" class="form-control">
+            <input type="date" name="tgl_teknik" class="form-control" id="tgl_teknik">
           </div>
         </div>
 
@@ -197,7 +206,7 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="ket_teknik_tolak" class="form-control">
+            <input type="text" name="ket_teknik_tolak" class="form-control" id="ket_teknik_tolak">
           </div>
         </div>
 
@@ -207,23 +216,21 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" name="ket_teknik_tunda" class="form-control">
+            <input type="text" name="ket_teknik_tunda" class="form-control" id="ket_teknik_tunda">
           </div>
         </div>
 
         <div class="row mt-3 d-flex justify-content-center">
-          <div class="col-lg-8 content-center">
+          <div class="col-lg-12 content-center">
             <div class="input-group">
               <button type="button" class="btn btn-success custom-btn" id="isi"
                 onclick="isiklik()">ISI</button>
-              <button type="button" class="btn btn-warning custom-btn">KOREKSI</button>
+              <button type="button" class="btn btn-warning custom-btn" id="koreksi">KOREKSI</button>
               <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
             </div>
           </div>
 
-          <div class="col-lg-2 content-center">
-            <button type="button" class="btn btn-secondary custom-btn">KELUAR</button>
-          </div>
+
         </div>
 
         <div class="keterangan keterangan-padding mt-3">
@@ -263,92 +270,98 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="namadivisimodal">Judul Modal</h5>
+          <h5 class="modal-title" id="namadivisimodal" style="padding-left: 15px">Judul Modal</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <span style="font-weight: bold">Order Kerja</span>
+        <form method="post" id="FormModal" action="{{ url('MaintenanceOrderProyek') }}">
+          {{ csrf_field() }}
+          <input type="hidden" name="_method" id="methodForm">
+          <input type="hidden" name="iddivmodal" id="iddivmodal">
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <span style="font-weight: bold">Order Kerja</span>
+                </div>
               </div>
-            </div>
-            <div class="row" style="align-items: center;">
-              <div class="col-3">
-                <span>Tanggal</span>
-              </div>
-              <div class="col-4">
-                <input type="date" name="Tanggalmodal" class="form-control" id="Tanggalmodal">
-              </div>
-              <div class="col-2">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="BuatModal"
-                  value="Buat">
-                <label class="form-check-label" for="BuatModal">Buat</label>
-              </div>
-              <div class="col-3">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="PerbaikanModal"
-                  value="Perbaikan">
-                <label class="form-check-label" for="PerbaikanModal">Perbaikan</label>
-              </div>
-            </div>
-            <div class="row" style="align-items: center;margin-top:10px">
+              <div class="row" style="align-items: center;">
                 <div class="col-3">
-                    <span>Nama Proyek</span>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="NamaProyekModal" class="form-control" id="NamaProyekModal">
-                </div>
-            </div>
-            <div class="row" style="align-items: center;margin-top:10px">
-                <div class="col-3">
-                    <span>Keterangan</span>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="KeteranganModal" class="form-control" id="KeteranganModal">
-                </div>
-            </div>
-            <div class="row" style="align-items: center; margin-top:10px;">
-                <div class="col-3">
-                    <span>Jumlah</span>
-                </div>
-                <div class="col-3">
-                    <input type="number" name="Jumlah" class="form-control" id="Jumlah">
-                </div>
-                <div class="col-6">
-                    <select class="form-select" name="SatuanModal" style="width: 36vh; height: 5.9vh;" id="SatuanModal">
-                        <option disabled selected>Pilih Satuan</option>
-                        @foreach ($satuan as $s)
-                          <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
-                        @endforeach
-                      </select>
-                </div>
-            </div>
-            <div class="row" style="align-items: center;margin-top:10px;">
-                <div class="col-3">
-                    <span>Mesin</span>
-                </div>
-                <div class="col-9">
-                    <select name="MesinModal" id="MesinModal" class="form-select">
-
-                    </select>
-                </div>
-            </div>
-            <div class="row" style="align-items: center;margin-top:10px">
-                <div class="col-3">
-                    <span>Peng-Order</span>
+                  <span>Tanggal</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" name="PengOrderModal" class="form-control" id="PengOrderModal" style="color: blue">
+                  <input type="date" name="Tanggalmodal" class="form-control" id="Tanggalmodal">
                 </div>
+                <div class="col-2">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="BuatModal"
+                    value="Buat">
+                  <label class="form-check-label" for="BuatModal">Buat</label>
+                </div>
+                <div class="col-3">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="PerbaikanModal"
+                    value="Perbaikan">
+                  <label class="form-check-label" for="PerbaikanModal">Perbaikan</label>
+                </div>
+              </div>
+              <div class="row" style="align-items: center;margin-top:10px">
+                <div class="col-3">
+                  <span>Nama Proyek</span>
+                </div>
+                <div class="col-9">
+                  <input type="text" name="NamaProyekModal" class="form-control" id="NamaProyekModal">
+                </div>
+              </div>
+              <div class="row" style="align-items: center;margin-top:10px">
+                <div class="col-3">
+                  <span>Keterangan</span>
+                </div>
+                <div class="col-9">
+                  <input type="text" name="KeteranganModal" class="form-control" id="KeteranganModal">
+                </div>
+              </div>
+              <div class="row" style="align-items: center; margin-top:10px;">
+                <div class="col-3">
+                  <span>Jumlah</span>
+                </div>
+                <div class="col-3">
+                  <input type="number" name="Jumlah" class="form-control" id="Jumlah">
+                </div>
+                <div class="col-6">
+                  <select class="form-select" name="SatuanModal"  id="SatuanModal">
+                    <option disabled selected>Pilih Satuan</option>
+                    @foreach ($satuan as $s)
+                      <option value="{{ $s->No_Satuan }}">{{ $s->Nama_Satuan }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="row" style="align-items: center;margin-top:10px;">
+                <div class="col-3">
+                  <span>Mesin</span>
+                </div>
+                <div class="col-9">
+                  <select name="MesinModal" id="MesinModal" class="form-select">
+
+                  </select>
+                </div>
+              </div>
+              <div class="row" style="align-items: center;margin-top:10px">
+                <div class="col-3">
+                  <span>Peng-Order</span>
+                </div>
+                <div class="col-4">
+                  <input type="text" name="PengOrderModal" class="form-control" id="PengOrderModal"
+                    style="color: blue">
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="ProsesModal" onclick="ProsesKlik()">Proses</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

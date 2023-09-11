@@ -12,6 +12,34 @@ let modetrans;
 let MesinModal = document.getElementById("MesinModal");
 let Tanggalmodal = document.getElementById("Tanggalmodal");
 let namadivisimodal = document.getElementById("namadivisimodal");
+let FormModal = document.getElementById("FormModal");
+let methodForm = document.getElementById("methodForm");
+let BuatModal = document.getElementById("BuatModal");
+let PerbaikanModal = document.getElementById("PerbaikanModal");
+let PengOrderModal = document.getElementById("PengOrderModal");
+let iddivmodal = document.getElementById("iddivmodal");
+let no_order = document.getElementById("no_order");
+let jmlh1 = document.getElementById("jmlh1");
+let jmlh2 = document.getElementById("jmlh2");
+let keterangan_order = document.getElementById("keterangan_order");
+let pengorder = document.getElementById("pengorder");
+let acc_manager = document.getElementById("acc_manager");
+let manager = document.getElementById("manager");
+let acc_direktur = document.getElementById("acc_direktur");
+let lblstatus = document.getElementById("lblstatus");
+let tgl_manager = document.getElementById("tgl_manager");
+let ket_manager = document.getElementById("ket_manager");
+let tgl_direktur = document.getElementById("tgl_direktur");
+let ket_direktur = document.getElementById("ket_direktur");
+let tgl_teknik = document.getElementById("tgl_teknik");
+let ket_teknik_tolak = document.getElementById("ket_teknik_tolak");
+let ket_teknik_tunda = document.getElementById("ket_teknik_tunda");
+var userorder;
+let koreksi = document.getElementById('koreksi');
+var tglordersimpan;
+let NamaProyekModal = document.getElementById('NamaProyekModal');
+var namasimpan;
+let KeteranganModal = document.getElementById('KeteranganModal');
 //#region set tanggal
 
 const currentDate = new Date();
@@ -186,6 +214,8 @@ function isiklik() {
         isi.setAttribute("data-toggle", "modal");
         isi.setAttribute("data-target", "#ModalForm");
         Mesin(kddivisi.value);
+        PengOrderModal.value = user;
+        iddivmodal.value = kddivisi.value;
         // console.log(
         //     kddivisi.options[kddivisi.selectedIndex].text.split("--")[1]
         // );
@@ -220,6 +250,135 @@ function Mesin(idDivisi) {
                 MesinModal.appendChild(option);
             });
         });
+}
+
+//#endregion
+
+//#region Proses on click
+
+function ProsesKlik() {
+    if (modetrans == 1) {
+        if (BuatModal.checked == false && PerbaikanModal.checked == false) {
+            alert("Pilih Order Kerja Utk 'Buat Baru' Atau 'Perbaikan'");
+            return;
+        } else {
+            FormModal.submit();
+        }
+    }
+}
+
+//#endregion
+
+//#region table on click
+
+$("#tableMaintenanceOrderProyek tbody").off("click", "tr");
+$("#tableMaintenanceOrderProyek tbody").on("click", "tr", function () {
+    let checkSelectedRows = $("#tableMaintenanceOrderProyek tbody tr.selected");
+
+    if (checkSelectedRows.length > 0) {
+        checkSelectedRows.removeClass("selected");
+    }
+    $(this).toggleClass("selected");
+    const table = $("#tableMaintenanceOrderProyek").DataTable();
+    let selectedRows = table.rows(".selected").data().toArray();
+    console.log(selectedRows[0]);
+    fetch("/GetDataTableMaintenanceOrderProyek/" + selectedRows[0].Id_Order)
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            no_order.value = datas[0].Id_Order;
+            jmlh1.value = datas[0].Jml_Brg;
+            jmlh2.value = datas[0].Nama_satuan;
+            keterangan_order.value = datas[0].Ket_Order;
+            pengorder.value = datas[0].NmUserOd;
+            acc_manager.value = datas[0].Manager;
+            manager.value = datas[0].Tgl_Apv_1;
+            acc_direktur.value = datas[0].Tgl_Apv_2;
+            lblstatus.textContent = datas[0].Status;
+            tgl_manager.value = datas[0].Tgl_TdStjMg;
+            ket_manager.value = datas[0].Ref_TdStjMg;
+            tgl_direktur.value = datas[0].Tgl_TdStjDir;
+            ket_direktur.value = datas[0].Ref_TdStjDir;
+            tgl_teknik.value = datas[0].Tgl_Tolak_Mng;
+            ket_teknik_tolak.value = datas[0].Ref_Tolak_Mng;
+            ket_teknik_tunda.value = datas[0].Ref_Pending;
+            userorder = selectedRows[0].User_Order;
+            tglordersimpan = selectedRows[0].Tgl_Order;
+            namasimpan = selectedRows[0].Nama_Proyek;
+        });
+});
+
+//#endregion
+
+//#region koreksi
+
+function klikkoreksi() {
+    if (kddivisi.value != "Pilih Divisi") {
+        if (tgl_teknik.value != "") {
+            alert("Order Tidak Boleh Di-KOREKSI. Order ditolak.");
+            return;
+        } else if (acc_manager.value != "" || manager.value != "") {
+            alert("Order Tidak Boleh Di-KOREKSI. Sudah di-ACC.");
+            return;
+        } else if (user != userorder) {
+            // console.log(user, userorder);
+            alert(
+                "Anda Tidak Boleh Meng-KOREKSI Order Dari User " +
+                    pengorder.value
+            );
+            return;
+        } else {
+            modetrans = 2;
+            if (lblstatus.textContent == "BUAT BARU") {
+                BuatModal.checked = true;
+                PerbaikanModal.checked = false;
+            }
+            if (lblstatus.textContent == "PERBAIKAN") {
+                BuatModal.checked = false;
+                PerbaikanModal.checked = true;
+            }
+                koreksi.setAttribute("data-toggle", "modal");
+                koreksi.setAttribute("data-target", "#ModalForm");
+                namadivisimodal.textContent =
+                    kddivisi.options[kddivisi.selectedIndex].text.split("--")[1];
+                // iddivisimodalbaru.value = Divisi.value;
+                Tanggalmodal.value = tglordersimpan;
+                NamaProyekModal.value = namasimpan;
+                KeteranganModal.value = keterangan_order.value;
+                // TglMaintenanceGambarBaru.value = tglmaintenance;
+                // TNoD.value = no_order.value;
+                // NamaBarang.value = itemname;
+                // Keterangan.value = keterangan_order.value;
+                // satuanB.selectedIndex = 0;
+                // for (let i = 0; i < satuanB.length; i++) {
+                //     // console.log(satuanJual.selectedIndex);
+                //     satuanB.selectedIndex += 1;
+                //     if (
+                //         satuanB.options[satuanB.selectedIndex].text ===
+                //         jmlh2.value.trim()
+                //     ) {
+                //         break;
+                //     }
+                // }
+                // mesin.selectedIndex = 0;
+                // //console.log(mesin.length);
+                // for (let i = 0; i < mesin.length; i++) {
+                //     // console.log(satuanJual.selectedIndex);
+                //     mesin.selectedIndex += 1;
+                //     // console.log(mesin.option[mesin.selectedIndex].text.split("--"));
+                //     if (
+                //         mesin.options[mesin.selectedIndex].text.split(
+                //             "--"
+                //         )[0] === selectmesin.trim()
+                //     ) {
+                //         break;
+                //     }
+                // }
+            }
+
+    } else {
+        alert("Pilih Divisi Anda");
+    }
 }
 
 //#endregion
