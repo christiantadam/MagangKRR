@@ -96,13 +96,13 @@
                                             <input type="submit" name="isi" value="Isi" id="btnIsi" class="btn btn-primary">
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" name="koreksi" value="Koreksi" id="btnKoreksi" class="btn btn-primary" onclick="clickKoreksi()">
+                                            <input type="submit" name="koreksi" value="Koreksi" id="btnKoreksi" class="btn btn-warning" onclick="clickKoreksi()">
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" name="proses" value="Proses" id="btnProses" class="btn btn-primary" style="display: none" onclick="clickKoreksi()">
+                                            <input type="submit" name="proses" value="Proses" id="btnProses" class="btn btn-success" style="display: none" onclick="clickKoreksi()">
                                         </div>
                                         <div class="col-9">
-                                            <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto" style="display: none" onclick="clickBatal()">
+                                            <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-danger d-flex ml-auto" style="display: none" onclick="clickBatal()">
                                         </div>
                                     </div>
                                     </div>

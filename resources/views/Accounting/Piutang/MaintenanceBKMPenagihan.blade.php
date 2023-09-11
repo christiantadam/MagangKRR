@@ -27,16 +27,16 @@
                                         <input type="text" id="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnOK" value="OK" class="btn"
+                                        <input type="submit" id="btnOK" value="OK" class="btn btn-outline-dark"
                                             onclick="clickOK()">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnPilihBank" name="btnPilihBank" value="Pilih Bank"
-                                            class="btn">
+                                            class="btn btn-outline-dark">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM"
-                                            class="btn">
+                                            class="btn btn-outline-dark">
                                     </div>
                                 </div>
 
@@ -178,7 +178,7 @@
                                     <div class="row">
                                         <div class="col-5">
                                             <input type="submit" id="btnKoreksiDetail" name="koreksidetail"
-                                                value="Koreksi Detail" class="btn btn-primary d-flex ml-auto"
+                                                value="Koreksi Detail" class="btn btn-warning d-flex ml-auto"
                                                 onclick="validateTabel()">
                                         </div>
                                         <div class="col-3">
@@ -187,7 +187,7 @@
                                         </div>
                                         <div class="col-4">
                                             <input type="submit" id="btnTutup" name="tutup" value="TUTUP"
-                                                class="btn btn-primary d-flex ml-auto" disabled>
+                                                class="btn btn-dark d-flex ml-auto" disabled>
                                         </div>
                                     </div>
                                 </div>

@@ -30,30 +30,30 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <p><div class="row">
                                     <div class="col-md-4">
                                         <label for="namaMataUang">Nama Mata Uang </label>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" id="namaMataUang" name="namaMataUang">
+                                        <input type="text" id="namaMataUang" name="namaMataUang" class="form-control">
                                     </div>
                                 </div>
-                                <div class="row">
+                                <p><div class="row">
                                     <div class="col-md-4">
                                         <label for="symbol">Symbol </label>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" id="symbol" name="symbol">
+                                        <input type="text" id="symbol" name="symbol" class="form-control">
                                     </div>
                                 </div>
 
                                 <br>
                                 <div class="row">
                                     <input type="submit" name="isi" id="btnIsi" value="Isi" class="btn btn-primary" onclick="clickIsi()">
-                                    <input type="submit" name="koreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary" onclick="clickKoreksi()">
-                                    <input type="submit" name="hapus" id="btnHapus" value="Hapus" class="btn btn-primary" onclick="clickHapus()">
-                                    <input type="submit" name="proses" id="btnProses" value="Proses" class="btn btn-primary" disabled>
-                                    <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-primary" style="display: none" onclick="clickBatal()">
+                                    <input type="submit" name="koreksi" id="btnKoreksi" value="Koreksi" class="btn btn-warning" onclick="clickKoreksi()">
+                                    <input type="submit" name="hapus" id="btnHapus" value="Hapus" class="btn btn-danger" onclick="clickHapus()">
+                                    <input type="submit" name="proses" id="btnProses" value="Proses" class="btn btn-success" disabled>
+                                    <input type="submit" name="batal" id="btnBatal" value="Batal" class="btn btn-danger" style="display: none" onclick="clickBatal()">
                                 </div>
                             </form>
                         </div>
