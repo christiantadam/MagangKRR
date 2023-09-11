@@ -77,6 +77,8 @@ class FakturUangMukaController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
+
+        //dd($request->all());
         $tanggal = $request->tanggal;
         $idCustomer = $request->idCustomer;
         $noPO = $request->noPO;
@@ -90,6 +92,9 @@ class FakturUangMukaController extends Controller
         $idJenisPajak = $request->idJenisPajak;
         $Ppn = $request->Ppn;
         $noSP = $request->noSP;
+        $nomorSPSelect = $request->nomorSPSelect;
+
+        //echo gettype($noSP);
 
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PENAGIHAN_SJ]
         @Kode = ?,
@@ -122,18 +127,19 @@ class FakturUangMukaController extends Controller
             $Ppn
         ]);
 
-        // $idPenagihan = DB::connection('ConnAccounting')
-        //     ->table('T_PENAGIHAN_SJ')
-        //     ->first('Id_Penagihan');
+        $idPenagihan = DB::connection('ConnAccounting')->table('T_PENAGIHAN_SJ')
+        ->orderBy('Id_Penagihan', 'asc')
+        ->value('Id_Penagihan');
+        //dd($idPenagihan);
 
-        // DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_DETAIL_TAGIHAN_DP]
-        // @Kode = ?,
-        // @Id_Penagihan = ?,
-        // @SuratPesanan = ?', [
-        //     1,
-        //     $idPenagihan,
-        //     $noSP
-        // ]);
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_DETAIL_TAGIHAN_DP]
+        @Kode = ?,
+        @Id_Penagihan = ?,
+        @SuratPesanan = ?', [
+            1,
+            $idPenagihan,
+            $nomorSPSelect
+        ]);
 
         return redirect()->back()->with('success', 'Sudah TerSimpan');
     }

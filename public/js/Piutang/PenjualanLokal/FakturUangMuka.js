@@ -254,7 +254,7 @@ namaCustomerSelect.addEventListener("change", function (event) {
     const selectedOption = nomorSPSelect.options[nomorSPSelect.selectedIndex];
     if (selectedOption) {
         const selectedValue = selectedOption.textContent; // Atau selectedOption.innerText
-        .value  = selectedValuenoSP;
+        noSP.value  = selectedValue.toString();
 
         fetch("/getNomorPO/" + noSP.value)
         .then((response) => response.json())
