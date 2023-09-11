@@ -54,6 +54,7 @@ Route::get('/Master/getIdKelompokSubKelompok/{id_kelompok}', [MasterController::
 Route::get('/Master/getIdSubKelompokType/{id_sub_kelompok}', [MasterController::class, 'getIdSubKelompokType']);
 Route::get('/Master/getCekKonversi/{id_komposisi}/{id_type}', [MasterController::class, 'getCekKonversi']);
 Route::get('/Master/getCekKomposisi/{id}', [MasterController::class, 'getCekKomposisi']);
+Route::get('/Master/getIdMesin/{id_kel}', [MasterController::class, 'getIdMesin']);
 
 Route::get('/Master/insKomposisiBahan/{id_komposisi}/{id_objek}/{nama_objek}/{id_kelompok_utama}/{nama_kelompok_utama}/{id_kelompok}/{nama_kelompok}/{id_sub_kelompok}/{nama_sub_kelompok}/{id_type}/{nama_type}/{kd_brg?}/{jumlah_primer}/{sat_primer?}/{jumlah_sekunder}/{sat_sekunder?}/{jumlah_tritier}/{sat_tritier?}/{persentase}/{status_type}/{cadangan}', [MasterController::class, 'insKomposisiBahan']);
 Route::get('/Master/insMasterKomposisi/{nama_komposisi}/{id_mesin}/{id_divisi}/{user?}', [MasterController::class, 'insMasterKomposisi']);

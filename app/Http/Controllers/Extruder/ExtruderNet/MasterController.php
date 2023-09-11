@@ -146,6 +146,16 @@ class MasterController extends Controller
         // @idkomposisi char(9), @idtype char(20)
     }
 
+    public function getIdMesin($id_kel)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_IDMESIN @idkel = ?',
+            [$id_kel]
+        );
+
+        // @idkel char(4)
+    }
+
     public function delKomposisiBahan1($id_komposisi, $id_type)
     {
         return DB::connection('ConnExtruder')->select(
@@ -184,6 +194,21 @@ class MasterController extends Controller
         );
 
         // @NamaKomposisi varchar(100), @idmesin varchar(5), @iddivisi char(3), @user varchar(4)=null
+    }
+
+    public function getMasterKomposisi($id_divisi)
+    {
+        $mCounter = DB::connection('ConnExtruder')
+            ->table('CounterTrans')
+            ->where('divisi', $id_divisi)
+            ->value(DB::raw('ISNULL(MAX(IdKomposisi), 0)'));
+
+        $mCode = str_pad($mCounter, 9, '0', STR_PAD_LEFT);
+        $mCode = $id_divisi . substr($mCode, -6);
+
+        return response()->json(['NoKomposisi' => $mCode]);
+
+        // *Query SELECT pada SP_5298_EXT_INSERT_MASTER_KOMPOSISI
     }
 
     public function updIdKomposisiCounter($id_divisi)

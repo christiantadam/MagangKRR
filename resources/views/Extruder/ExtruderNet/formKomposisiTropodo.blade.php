@@ -76,8 +76,8 @@
                     <div class="col-md-4 form-group">
                         <label for="objek">Primer:</label>
                         <div class="input-group">
-                            <input type="number" id="primer" class="form-control" placeholder="0">
-                            <input type="text" id="sat_primer" class="form-control">
+                            <input type="number" id="primer" class="form-control" placeholder="0" disabled>
+                            <input type="text" id="sat_primer" class="form-control" disabled>
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
                     <div class="col-md-4 form-group">
                         <label for="objek">Sekunder:</label>
                         <div class="input-group">
-                            <input type="number" id="sekunder" class="form-control" placeholder="0">
-                            <input type="text" id="sat_sekunder" class="form-control">
+                            <input type="number" id="sekunder" class="form-control" placeholder="0" disabled>
+                            <input type="text" id="sat_sekunder" class="form-control" disabled>
                         </div>
                     </div>
                 </div>
@@ -110,8 +110,8 @@
                     <div class="col-md-4 form-group">
                         <label for="objek">Tritier:</label>
                         <div class="input-group">
-                            <input type="number" id="tritier" class="form-control" placeholder="0">
-                            <input type="text" id="sat_tritier" class="form-control">
+                            <input type="number" id="tritier" class="form-control" placeholder="0" disabled>
+                            <input type="text" id="sat_tritier" class="form-control" disabled>
                         </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-4 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary" disabled>Proses</button>
                 <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
