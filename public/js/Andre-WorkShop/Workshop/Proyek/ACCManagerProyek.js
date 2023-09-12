@@ -279,6 +279,8 @@ function klikproses() {
                             value +
                             ", tidak bisa diproses. Order sdh diACC, batalkan dulu ACC-nya."
                     );
+                    red = true;
+                    return;
                 }
             }
         });
