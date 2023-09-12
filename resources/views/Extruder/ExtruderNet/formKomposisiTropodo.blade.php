@@ -1,13 +1,12 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <button id="tes123" style="display: float">Button tes</button>
     <div id="komposisi_tropodo" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-md-3">
                 <span class="aligned-text">Id Komposisi:</span>
             </div>
             <div class="col-md-6 form-group">
-                <select class="form-select" id="select_id_komposisi">
+                <select class="form-select" id="select_id_komposisi" disabled>
                     <option selected disabled>-- Pilih Id Komposisi --</option>
                     @foreach ($formData['listKomposisi'] as $d)
                         <option value="{{ $d->IdKomposisi }}">{{ $d->IdKomposisi . ' | ' . $d->NamaKomposisi }}</option>
@@ -127,7 +126,7 @@
                     <div class="col-md-2 form-group">
                         <label for="objek">Presentase:</label>
                         <div class="input-group">
-                            <input type="number" id="persentase" class="form-control" placeholder="0">
+                            <input type="number" id="persentase" class="form-control" placeholder="0" disabled>
                             <span class="input-group-text">%</span>
                         </div>
                     </div>

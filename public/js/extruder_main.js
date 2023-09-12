@@ -42,11 +42,30 @@ $("#confirmation_modal").on("keydown", function (event) {
     }
 });
 
-function showModal(txtBtn, txtBody, confirmFun, cancelFun) {
+function showModal(txtBtn, txtBody, confirmFun, cancelFun, extraParam = null) {
     btnConfirm.textContent = txtBtn;
     modalConfirmBody.innerHTML = txtBody;
     btnConfirm.onclick = confirmFun;
     btnCancel.onclick = cancelFun;
+
+    /**
+     * Keterangan untuk variabel "extraParam"
+     * 0 btnCancel color
+     * 1 btnCancel text
+     * 2 btnConfirm color
+     */
+
+    if (extraParam != null) {
+        btnCancel.classList.remove("btn-secondary");
+        btnCancel.classList.add(extraParam[0]);
+
+        if (extraParam[1] !== undefined) btnCancel.textContent = extraParam[1];
+
+        if (extraParam[2] !== undefined) {
+            btnConfirm.classList.remove("btn-primary");
+            btnConfirm.classList.add(extraParam[2]);
+        }
+    }
 
     $("#confirmation_modal").modal("show");
 }
@@ -122,6 +141,17 @@ function clearTable_DataTable(tableId, tableWidth, msg = null) {
 
     const tbodyKu = document.querySelector("#" + tableId + " tbody");
 
+    /**
+     * Keterangan untuk variabel "msg"
+     *
+     * Bila input variabel berupa array maka:
+     * 0 Padding teks keterangan (dgn. format "padding=999px")
+     * 1 Isi teks keterangan yang akan ditampilkan
+     *
+     * Input bisa berupa String saja,
+     * Maka akan melakukan aksi indeks 1 saja
+     */
+
     var headingStr = `<h1 class="mt-3">Tabel masih kosong...</h1>`;
     var styleStr = `class="text-center"`;
     if (msg != null) {
@@ -164,9 +194,11 @@ function clearSelection_DataTable(tableId) {
 }
 
 function findClickedRowInList(list, targetKey, targetValue) {
+    // console.log("Item yang dicari: " + targetValue);
     for (let i = 0; i < list.length; i++) {
         const item = list[i];
         if (item.hasOwnProperty(targetKey) && item[targetKey] === targetValue) {
+            // console.log("Item yang ditemukan: " + item[targetKey]);
             return i;
         }
     }

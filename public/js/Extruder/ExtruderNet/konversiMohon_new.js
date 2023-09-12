@@ -233,6 +233,7 @@ btnKeluar.addEventListener("click", function () {
         disableDetail();
         disableMaster();
         modeProses = "";
+        listOfButtonDetail.forEach((btn) => (btn.disabled = true));
         listKomposisi.length = 0;
         clearTable_DataTable("table_komposisi", colKomposisi.length);
         listKonversi.length = 0;
@@ -1391,6 +1392,9 @@ function rowClickedKomposisi(row, data, _) {
             listKomposisi[pilKomposisi].SatuanTritier !== undefined
                 ? listKomposisi[pilKomposisi].SatuanTritier
                 : "NULL";
+        numPrimer.value = "";
+        numSekunder.value = "";
+        numTritier.value = "";
         txtJenis.value = listKomposisi[pilKomposisi].StatusType;
         getSaldoFetch(listKomposisi[pilKomposisi].IdType, () => {
             if (
