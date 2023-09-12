@@ -76,14 +76,14 @@ $(document).ready(function () {
         // Hide the modal immediately after populating the data
         closeModal();
     });
-    let No_barcode = document.getElementById("No_barcode");
-    let s = "";
-    s += String.fromCharCode(27) + "D0451,0975,0421" + String.fromCharCode(10) + String.fromCharCode(0);
-    s += String.fromCharCode(27) + "C" + String.fromCharCode(10) + String.fromCharCode(0);
-    s += String.fromCharCode(27) + "U2;0160" + String.fromCharCode(10) + String.fromCharCode(0);
+    // let No_barcode = document.getElementById("No_barcode");
+    // let s = "";
+    // s += String.fromCharCode(27) + "D0451,0975,0421" + String.fromCharCode(10) + String.fromCharCode(0);
+    // s += String.fromCharCode(27) + "C" + String.fromCharCode(10) + String.fromCharCode(0);
+    // s += String.fromCharCode(27) + "U2;0160" + String.fromCharCode(10) + String.fromCharCode(0);
 
-    No_barcode.value = s;
-    // No_barcode.value = "abc";
+    // No_barcode.value = s;
+    // // No_barcode.value = "abc";
 });
 
 function openModal() {
@@ -109,6 +109,31 @@ function closeModal1() {
 function openModal2() {
     var modal = document.getElementById('myModal2');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    fetch("/KirimGudang/" + IdDiv + ".getKelut")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+
+            // Clear the existing table rows
+            $("#TableKelut").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.IdKelompokUtama, item.NamaKelompokUtama];
+                $("#TableKelut").DataTable().row.add(row);
+            });
+
+            // Redraw the table to show the changes
+            $("#TableKelut").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 }
 
 function closeModal2() {

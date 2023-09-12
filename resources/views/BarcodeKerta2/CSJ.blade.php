@@ -35,12 +35,29 @@
                 right: 10px;
                 cursor: pointer;
             }
+
+            .info {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+
+            .info span {
+                flex: 1;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                /* Optional: Align items at the top */
+            }
         </style>
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
                     <div class="card" style="width: 1200px; margin-left: -90px">
-                        <div class="card-header">Cek Surat Jalan</div>
+                        <div class="card-header">Cetak Surat Jalan</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
                                 <form action="#" method="post" role="form">
@@ -61,9 +78,10 @@
                                                     style="width: 100px" onclick="openModal()">SJ Baru</button>
                                             </div>
                                             <div class="modal" id="myModal">
-                                                <div class="modal-content">
+                                                <div class="modal-content" style="width: 700px">
                                                     <span class="close-btn" onclick="closeModal()">&times;</span>
-                                                    <div class="card">
+                                                    <div class="card" style="width: 650px">
+                                                        <div class="card-header">Pilih Jenis Surat Jalan</div>
                                                         <div class="row">
                                                             <div class=" col-md-3 d-flex justify-content-end">
                                                                 <span class="aligned-text mt-4 mb-3">Surat Jalan
@@ -78,9 +96,11 @@
                                                                 </select>
 
                                                                 <div class="text-center col-md-auto mt-3"><button
+                                                                        style="margin-right: -100px"
                                                                         type="button">Ok</button></div>
                                                                 <div class="text-center col-md-auto mt-3"
                                                                     onclick="closeModal()"><button
+                                                                        style="margin-right: -200px"
                                                                         type="button">Cancel</button></div>
                                                             </div>
                                                         </div>
@@ -109,7 +129,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto">
-                                                        <button type="button" onclick="closeModal1()">Process</button>
+                                                        <button type="button" onclick="updateTanggal()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,8 +199,74 @@
                         </div>
                         </form>
                     </div>
+
+                    <div class="card mt-3" id="externalCard">
+                        <div class="card-header">Type</div>
+                        <div class="card mt-3" style="width: 200px; margin-left: 100px;">
+                            <h2>tes</h2>
+                        </div>
+                        <div class="info mt-3" style="display: flex; justify-content: space-between; align-items: baseline; margin-left: 100px">
+                            <span>Tanggal : </span>
+                            <div style="display: flex; align-items: baseline;">
+                                <span>Kepada: </span>
+                                <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
+                                    <span>Albert1</span>
+                                    <span>Albert2</span>
+                                    <span>Albert3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span style="margin-top: -47px; margin-left: 100px">No. Surat Jalan : </span>
+                        <span style="margin-left: 100px">Truk NoPol : </span>
+
+                        <table id="TableSJPrint" class="mt-4" style="margin-left: 20px; margin-right: 20px">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px; height: 40px">Kode</th>
+                                    <th style="width: 400px">URAIAN</th>
+                                    <th style="width: 100px">Primer</th>
+                                    <th style="width: 100px">Sekunder</th>
+                                    <th style="width: 100px">Tritier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td style="height: 40px"> </td>
+                                <td style="height: 40px"> </td>
+                                <td style="height: 40px"> </td>
+                                <td style="height: 40px"> </td>
+                                <td style="height: 40px"> </td>
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="mt-5">
+                                <span>Lembar 1 untuk : Penerima Barang </span> <br>
+                                <span>Lembar 2 untuk : Adm. Pembelian </span> <br>
+                                <span>Lembar 3 untuk : Gudang </span> <br>
+                                <span>Lembar 4 untuk : Satpam </span> <br>
+                            </div>
+                            <table class="mb-3" id="TableSJPrint" style="margin-top: 50px; margin-left: 100px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 160px; height: 40px">Gudang</th>
+                                        <th style="width: 160px">Pengirm</th>
+                                        <th style="width: 160px">Satpam</th>
+                                        <th style="width: 160px">Tanda Terima</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td style="height: 60px"> </td>
+                                    <td style="height: 60px"> </td>
+                                    <td style="height: 60px"> </td>
+                                    <td style="height: 60px"> </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+        </div>
+
         </div>
         <main class="py-4">
             @yield('content')

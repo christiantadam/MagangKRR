@@ -34,7 +34,15 @@ class KirimGudangController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "getP") {
+            $dataSP = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekDataSP @kode = ?, @KodeBarang = ?', ["2", $crExplode[0]]);
+            // dd($dataSP);
+            // Return the options as JSON data
+            return response()->json($dataSP);
+        }
     }
 
     // Show the form for editing the specified resource.

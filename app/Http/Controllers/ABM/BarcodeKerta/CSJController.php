@@ -32,10 +32,16 @@ class CSJController extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) -1;
 
         //getDivisi
         if ($crExplode[1] == "getSJ") {
             $dataSJ = DB::connection('ConnInventory')->select('exec SP_1273_INV_NoSJ');
+            // dd($dataSJ);
+            // Return the options as JSON data
+            return response()->json($dataSJ);
+        } else if ($crExplode[$lasindex] == "getListSJ") {
+            $dataSJ = DB::connection('ConnInventory')->select('exec SP_1273_INV_DataKirim_KRR @Divisi = ?, @NoSJ = ?, @Tanggal = ?', ["JBR", $crExplode[0], $crExplode[1]]);
             // dd($dataSJ);
             // Return the options as JSON data
             return response()->json($dataSJ);
