@@ -12,8 +12,9 @@ class CheckClockInOutController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.CheckClockInOut.checkClockInOut', compact('data'));
+        $dataManager = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
+        // dd($dataManager);
+        return view('Payroll.Transaksi.CheckClockInOut.checkClockInOut', compact('dataManager'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +30,31 @@ class CheckClockInOutController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIV_MANAGER @kode = ?, @kd_manager = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataDiv);
+        }else if ($crExplode[$lastIndex] == "getPegawai") {
+            if (count($crExplode) > 2) {
+                $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @id_div = ?, @kode = ?', [$crExplode[0], $crExplode[1]]);
+                // dd($dataPeg);
+                // Return the options as JSON data
+                return response()->json($dataPeg);
+            }else{
+                $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @id_div = ?', [$crExplode[0]]);
+                // dd($dataPeg);
+                // Return the options as JSON data
+                return response()->json($dataPeg);
+            }
+
+        }
     }
 
     // Show the form for editing the specified resource.

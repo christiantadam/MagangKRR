@@ -12,8 +12,9 @@ class CheckClockErrorController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.CheckClockError.checkClockError', compact('data'));
+        $dataManager = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
+        // dd($dataManager);
+        return view('Payroll.Transaksi.CheckClockError.checkClockError', compact('dataManager'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +30,18 @@ class CheckClockErrorController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "checkError") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_CHECKCLOCK_ERROR @Jenis_Peg = ?, @manager = ?, @Tanggal = ? ', [$crExplode[0], $crExplode[1], $crExplode[2]]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }
     }
 
     // Show the form for editing the specified resource.
