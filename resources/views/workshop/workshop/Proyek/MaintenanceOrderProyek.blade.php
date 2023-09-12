@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+<link href="{{ asset('css/Workshop/Transaksi/MaintenanceOrderGambar.css') }}" rel="stylesheet">
   @if (Session::has('success'))
     <div class="alert alert-success">
       {{ Session::get('success') }}
@@ -225,8 +226,8 @@
             <div class="input-group">
               <button type="button" class="btn btn-success custom-btn" id="isi"
                 onclick="isiklik()">ISI</button>
-              <button type="button" class="btn btn-warning custom-btn" id="koreksi">KOREKSI</button>
-              <button type="button" class="btn btn-danger custom-btn">HAPUS</button>
+              <button type="button" class="btn btn-warning custom-btn" id="koreksi" onclick="klikkoreksi()">KOREKSI</button>
+              <button type="button" class="btn btn-danger custom-btn" id="hapus">HAPUS</button>
             </div>
           </div>
 

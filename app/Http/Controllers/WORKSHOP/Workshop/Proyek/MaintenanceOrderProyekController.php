@@ -77,12 +77,30 @@ class MaintenanceOrderProyekController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->all());
+        $noOrder = $id;
+        $namaBrg = $request->NamaProyekModal;
+        $jml = $request->Jumlah;
+        $ketOd = $request->KeteranganModal;
+        $noSat = $request->SatuanModal;
+        $noMesin = $request->MesinModal;
+        $radio = $request->inlineRadioOptions;
+        if ($radio == "Buat") {
+            $noket = 1;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-ORDER-PRY] @noOrder = ?, @namaBrg = ?, @jml = ? , @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$noOrder, $namaBrg, $jml, $ketOd, $noSat, $noMesin, $noket]);
+        }
+        if ($radio == "Perbaikan") {
+            $noket = 3;
+            DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_UPDATE-ORDER-PRY] @noOrder = ?, @namaBrg = ?, @jml = ? , @ketOd = ?, @noSat = ?, @noMesin = ?, @noKet = ?', [$noOrder, $namaBrg, $jml, $ketOd, $noSat, $noMesin, $noket]);
+        }
+        return redirect()->back()->with('success', 'Data TerKOREKSI');
     }
 
 
     public function destroy($id)
     {
-        //
+        //dd($id);
+        DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_DELETE-ORDER-PRY] @noOrder = ?', [$id]);
+        return redirect()->back()->with('success', 'Data TerHAPUS');
     }
 }
