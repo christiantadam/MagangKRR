@@ -5,44 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-
-<style>
-    /* Gaya untuk modal */
-    .modal {
-        display: none;
-        /* Sembunyikan modal secara default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        /* Latar belakang gelap transparan */
-    }
-
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        width: 1000px;
-    }
-
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        size: 100%;
-        cursor: pointer;
-    }
-</style>
-
 <h2>Form Copy Tabel </h2>
-
 
 <div class="container">
     <div class="card">
@@ -82,7 +45,7 @@
                 <div class="input-group mb-3">
                     <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
                     <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                    <button type="button" id="btncust1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer1">
                         ...
                     </button>
                 </div>
@@ -136,143 +99,9 @@
     </div>
 </div>
 
-    {{-- <script>
-        $(document).ready(function() {
-            $('.dropdown-submenu a.test').on("click", function(e) {
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-            });
-        });
-    </script>
-
-    <script>
-        var ButtonDivisi = document.getElementById('ButtonDivisi')
-
-        ButtonDivisi.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-
-        var ButtonKelut = document.getElementById('ButtonKelut')
-
-        ButtonKelut.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-
-        var ButtonKelompok = document.getElementById('ButtonKelompok')
-
-        ButtonKelompok.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-
-        var ButtonSubKelompok = document.getElementById('ButtonSubKelompok')
-
-        ButtonSubKelompok.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-
-        var ButtonType = document.getElementById('ButtonType')
-
-        ButtonType.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-
-        function openModal() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-        }
-
-        function closeModal() {
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-        }
-
-        function openModal1() {
-            var modal = document.getElementById('myModal1');
-            modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-        }
-
-        function closeModal1() {
-            var modal = document.getElementById('myModal1');
-            modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-        }
-
-
-        function openModal2() {
-            var modal = document.getElementById('myModal2');
-            modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-        }
-
-        function closeModal2() {
-            var modal = document.getElementById('myModal2');
-            modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-        }
-
-
-        function openModal3() {
-            var modal = document.getElementById('myModal3');
-            modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-        }
-
-        function closeModal3() {
-            var modal = document.getElementById('myModal3');
-            modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-        }
-
-
-        function openModal4() {
-            var modal = document.getElementById('myModal4');
-            modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-        }
-
-        function closeModal4() {
-            var modal = document.getElementById('myModal4');
-            modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-        }
-
-        $(document).ready(function() {
-            $('#TableType').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
-
-        $(document).ready(function() {
-            $('#TableSubKelompok').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
-
-        $(document).ready(function() {
-            $('#TableKelompok').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
-
-        $(document).ready(function() {
-            $('#TableKelut').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
-
-        $(document).ready(function() {
-            $('#TableDivisi').DataTable({
-                order: [
-                    [0, 'desc']
-                ],
-            });
-        });
-
 
 <!-- Modal customer asal-->
-<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+<div class="modal fade" id="mdl_customer1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer1" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -280,7 +109,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tbl_customer" class="table table-bordered">
+            <table id="tbl_customer1" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Namacust</th>
@@ -288,12 +117,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dataCust as $data)
+                    {{-- @foreach ($dataCust as $data)
                         <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
                             <td>{{ $data->NamaCust }}</td>
                             <td>{{ $data->IDCust }}</td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -321,12 +150,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    // @foreach ($dataCust as $data)
-                    //     <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
-                    //         <td>{{ $data->NamaCust }}</td>
-                    //         <td>{{ $data->IDCust }}</td>
-                    //     </tr>
-                    // @endforeach
+                     {{-- @foreach ($dataCust as $data)
+                         <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                             <td>{{ $data->NamaCust }}</td>
+                             <td>{{ $data->IDCust }}</td>
+                         </tr>
+                     @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -354,12 +183,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dataCust as $data)
+                    {{-- @foreach ($dataCust as $data)
                         <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
                             <td>{{ $data->NamaCust }}</td>
                             <td>{{ $data->IDCust }}</td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -369,5 +198,6 @@
     </div>
     </div>
 </div>
-    </script> --}}
+
+<script src="{{ asset('js\AdStar\CpTbl.js')}}"></script>
 @endsection

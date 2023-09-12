@@ -17,7 +17,7 @@
                     <div class="input-group mb-3">
                         <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
                         <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" disabled>
                             ...
                         </button>
                     </div>
@@ -27,9 +27,9 @@
                 <div class="col-lg-2 aligned-text">Nama Barang:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" id="kd_brng" class="form-control" placeholder="" aria-label="">
-                        <input type="text" id="nm_type" class="form-control" placeholder="" aria-label="">
-                        <button type="button" id="ld-Brng" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng">
+                        <input type="text" id="kd_brng" class="form-control" placeholder="" aria-label="" readonly>
+                        <input type="text" id="nm_type" class="form-control" placeholder="" aria-label="" readonly>
+                        <button type="button" id="ld-Brng" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_nmbrng" disabled>
                             ...
                         </button>
                     </div>
@@ -38,15 +38,15 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">No. Pesanan:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="no_psn" class="" required min="0" placeholder="lbr">
+                    <input type="number" id="no_psn" class="" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Surat Pesanan:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input type="text" id="idsurat" class="form-control" placeholder="" aria-label="">
-                        <button type="button" id="ld_srtpsn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_srtpsn">
+                        <input type="text" id="idsurat" class="form-control" placeholder="" aria-label="" readonly>
+                        <button type="button" id="ld_srtpsn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_srtpsn" disabled>
                             ...
                         </button>
                     </div>
@@ -55,13 +55,13 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Jumlah Order:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="qty_ordr" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="qty_ordr" class="input-small" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Jumlah Press:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="qty_prs" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="qty_prs" class="input-small" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
         </div>
@@ -73,8 +73,8 @@
                 <div class="col-lg-2 aligned-text">No. Order Kerja:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input type="text" id='inputNoOrder' class="form-control" placeholder="" aria-label="">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_noordkrj">
+                        <input type="text" id='inputNoOrder' class="form-control" placeholder="" aria-label="" readonly>
+                        <button type="button" id="btn_inputNoOrder" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_noordkrj" disabled>
                             ...
                         </button>
                     </div>
@@ -83,16 +83,16 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Tanggal Order:</div>
                 <div class="col-lg-2">
-                    <input type="date" id="tgl-order" class="form-control" required>
+                    <input type="date" id="tgl-order" class="form-control" required readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Stock Order Sebelumnya:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
-                        <input type="text" class="form-control" placeholder="" aria-label="">
-                        <button type="button" id='id-stkordsblm' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm">
+                        <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                        <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                        <button type="button" id='id-stkordsblm' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm" disabled>
                             ...
                         </button>
                     </div>
@@ -101,25 +101,25 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Sisa Stock:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="sisa-stock" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="sisa-stock" class="input-small" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Hasil:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="hasil" class="input-small" required min="0" placeholder="lbr">
+                    <input type="number" id="hasil" class="input-small" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Tanggal Dikerjakan:</div>
                 <div class="col-lg-2">
-                    <input type="date" id="tanggal" class="form-control" required>
+                    <input type="date" id="tanggal" class="form-control" required readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Tanggal Finish:</div>
                 <div class="col-lg-2">
-                    <input type="date" id="tanggal" class="form-control" required>
+                    <input type="date" id="tanggal" class="form-control" required readonly>
                 </div>
             </div>
         </div>
@@ -127,13 +127,15 @@
         <div class="container">
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">
-                    <button class="btn btn-primary">Add</button>
+                    <button id="addButton" class="btn btn-primary" style="display: block;">Add</button>
+                    <button id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
                 </div>
                 <div class="col-lg-2 aligned-text">
-                    <button class="btn btn-success">Update</button>
+                    <button id="updateButton" class="btn btn-success" style="display: block;">Update</button>
+                    <button id="cancelButton" class="btn btn-success" style="display: none;">Cancel</button>
                 </div>
                 <div class="col-lg-2 aligned-text">
-                    <button class="btn btn-danger">Delete</button>
+                    <button id="deleteButton" class="btn btn-danger" style="display: block">Delete</button>
                 </div>
             </div>
         </div>
@@ -314,3 +316,4 @@
 <script src="{{ asset('js\AdStar\MnOrdPrs.js')}}"></script>
 
 @endsection
+

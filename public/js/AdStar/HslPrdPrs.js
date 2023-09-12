@@ -1,7 +1,43 @@
 // // Click event handler for table rows
+ // Mengambil semua elemen input tanggal
+ const inputTanggalElements = document.querySelectorAll('input[type="date"]');
 
+ // Mengatur nilai awal input tanggal ke tanggal hari ini
+ const tanggalHariIni = new Date().toISOString().slice(0, 10);
+ inputTanggalElements.forEach(function(inputElement) {
+     inputElement.value = tanggalHariIni;
+ });
 
+ // Mengizinkan pengguna untuk mengubah tanggal secara manual
+ inputTanggalElements.forEach(function(inputElement) {
+     inputElement.addEventListener('change', function() {
+         // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
+         // Contoh: const tanggalYangDiubah = inputElement.value;
+     });
+ });
 
+//--------------------------------------------------------------------------------------//
+
+       // Mengambil semua elemen input waktu
+       const inputWaktuElements = document.querySelectorAll('input[type="time"]');
+
+       // Menghilangkan detik dari waktu saat ini
+       const waktuSaatIni = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+       // Mengatur nilai awal input waktu ke waktu saat ini tanpa detik
+       inputWaktuElements.forEach(function(inputElement) {
+           inputElement.value = waktuSaatIni;
+       });
+
+       // Mengizinkan pengguna untuk mengubah waktu secara manual
+       inputWaktuElements.forEach(function(inputElement) {
+           inputElement.addEventListener('change', function() {
+               // Anda dapat mengakses waktu yang diubah dengan inputElement.value
+               // Contoh: const waktuYangDiubah = inputElement.value;
+           });
+       });
+
+//--------------------------------------------------------------------------------------//
 
 const ldtransaksi = document.getElementById('ld-transaksi');
 var kodeSave;
@@ -35,6 +71,8 @@ ldtransaksi.addEventListener("click", function () {
             console.error("Error:", error);
         });
 });
+
+//--------------------------------------------------------------------------------------//
 
 document.addEventListener("DOMContentLoaded", function () {
     var addButton = document.getElementById("addButton");
@@ -376,6 +414,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+//--------------------------------------------------------------------------------------//
+
 function getTime(date) {
     // Format tanggal dan waktu
     var dateTime = new Date(date);
@@ -387,6 +428,9 @@ function getTime(date) {
     return jam + ":" + menit;
 
 }
+
+//--------------------------------------------------------------------------------------//
+
 // // Click event handler for table rows
 $('#tabel_notransaksi tbody').on('click', 'tr', function () {
     // Get the data from the clicked row
@@ -434,6 +478,8 @@ $('#tabel_notransaksi tbody').on('click', 'tr', function () {
 
 });
 
+//--------------------------------------------------------------------------------------//
+
 $('#tabel_noorder tbody').on('click', 'tr', function () {
     // Get the data from the clicked row
     var rowData = $("#tabel_noorder").DataTable().row(this).data();
@@ -452,3 +498,4 @@ $('#tabel_Barang2 tbody').on('click', 'tr', function () {
     $('#kdmesin').val(rowData[1]);
     $('#namamesin').val(rowData[0]);
 });
+
