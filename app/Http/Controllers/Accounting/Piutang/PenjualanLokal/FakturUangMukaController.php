@@ -21,6 +21,15 @@ class FakturUangMukaController extends Controller
         return response()->json($data);
     }
 
+    public function getDataPenagihan($id_Penagihan)
+    {
+        $IdPenagihan = str_replace('.', '/', $id_Penagihan);
+        //dd($IdPenagihan);
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ]
+        @Kode = ?, @Id_Penagihan = ?', [8, $IdPenagihan]);
+        return response()->json($data);
+    }
+
     public function getJenisCustomer($idJenisCustomer)
     {
         $data =  DB::connection('ConnSales')->select('exec [SP_1486_ACC_LIST_JNSCUST]
@@ -159,12 +168,48 @@ class FakturUangMukaController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $IdPenagihan = $request->IdPenagihan;
+        $total = $request->total;
+        $idMataUang = $request->idMataUang;
+        $terbilang = $request->terbilang;
+        $idUserPenagih = $request->idUserPenagih;
+        $nilaiKurs = $request->nilaiKurs;
+        $idJenisPajak = $request->idJenisPajak;
+
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PENAGIHAN_SJ]
+        @Kode = ?,
+        @Id_Penagihan = ?,
+        @Nilai_Penagihan = ?,
+        @Discount = ?,
+        @Id_MataUang = ?,
+        @Terbilang = ?,
+        @IdPenagih = ?,
+        @NilaiKurs = ?,
+        @Jns_PPN = ?', [
+            4,
+            $IdPenagihan,
+            $total,
+            0,
+            $idMataUang,
+            $terbilang,
+            $idUserPenagih,
+            $nilaiKurs,
+            $idJenisPajak
+        ]);
+
+        return redirect()->back()->with('success', 'Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.
     public function destroy($id)
     {
-        //
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PENAGIHAN_SJ]
+        @Kode = ?,
+        @IdBank = ?', [
+            3,
+            $id
+        ]);
+        return redirect()->back()->with('success', 'Data sudah diHAPUS');
     }
 }

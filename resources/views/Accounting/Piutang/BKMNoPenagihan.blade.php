@@ -16,166 +16,146 @@
                             <form method="POST" action="{{ url('BKMNoPenagihan') }}" id="formkoreksi">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" id="methodkoreksi">
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="idBKM">Id. BKM</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="idBKM">Id. BKM</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="tanggalInput">Tanggal Input</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
-                                        </div>
-                                        <div class="col-md-2" style="color: blue">
-                                            Wajib di-ENTER
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="radiogrup1" value="1" id="biaya">
-                                            <label for="biaya">Biaya</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="radiogrup1" value="2" id="lainlain">
-                                            <label for="lainlain">Lain-lain</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="radio" name="radiogrup1" value="3" id="negoEkspor">
-                                            <label for="negoEkspor">NEGO Ekspor</label>
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="tanggalInput">Tanggal Input</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2" style="color: blue">
+                                        Wajib di-ENTER
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" name="radiogrup1" value="1" id="biaya">
+                                        <label for="biaya">Biaya</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" name="radiogrup1" value="2" id="lainlain">
+                                        <label for="lainlain">Lain-lain</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="radio" name="radiogrup1" value="3" id="negoEkspor">
+                                        <label for="negoEkspor">NEGO Ekspor</label>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="namaCustomerSelect">Nama Customer</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <select name="namaCustomerSelect" id="namaCustomerSelect" class="form-control">
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="namaCustomerSelect">Nama Customer</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select name="namaCustomerSelect" id="namaCustomerSelect" class="form-control">
 
-                                            </select>
-                                        </div>
-                                        {{-- sudah jadi --}}
-                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
-                                        <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
+                                        </select>
                                     </div>
+                                    {{-- sudah jadi --}}
+                                    <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="mataUang">Mata Uang</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select name="mataUangSelect" id="mataUangSelect" class="form-control">
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="mataUang">Mata Uang</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="mataUangSelect" id="mataUangSelect" class="form-control">
 
-                                            </select>
-                                        </div>
-                                        <div style="padding-left: 50px">
-                                            <label for="kursRupiah">Kurs Rupiah</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%">
-                                        </div>
+                                        </select>
+                                    </div>
+                                    <div style="padding-left: 50px">
+                                        <label for="kursRupiah">Kurs Rupiah</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="nilaiPelunasan">Nilai Pelunasan</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="number" id="nilaiPelunasan" name="nilaiPelunasan" class="form-control" style="width: 100%">
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="nilaiPelunasan">Nilai Pelunasan</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" id="nilaiPelunasan" name="nilaiPelunasan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="namaBankSelect">Bank</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select name="namaBankSelect" id="namaBankSelect" class="form-control">
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="namaBankSelect">Bank</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="namaBankSelect" id="namaBankSelect" class="form-control">
 
-                                            </select>
-                                        </div>
-                                        {{-- sudah jadi --}}
-                                        <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%">
-                                        <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                        </select>
+                                    </div>
+                                    {{-- sudah jadi --}}
+                                    <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="jenisPembayaranSelect">Jenis Pembayaran</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control">
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
+                                    <button id="btnTambahBiaya" name="btnTambahBiaya">Tambah Biaya</button>
+                                </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="kodePerkiraanSelect">Kode Perkiraan</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
+                                        </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="jenisPembayaranSelect">Jenis Pembayaran</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control">
-                                            </select>
-                                        </div>
-                                        <input type="hidden" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%">
-                                        <button id="btnTambahBiaya" name="btnTambahBiaya">Tambah Biaya</button>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="noBukti">No. Bukti</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="noBukti" name="noBukti" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="kodePerkiraanSelect">Kode Perkiraan</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control">
-                                            </select>
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="uraian">Uraian</label>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="noBukti">No. Bukti</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" id="noBukti" name="noBukti" class="form-control" style="width: 100%">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="uraian">Uraian</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%">
-                                        </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="uraian" name="uraian" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-2" style="padding-left: 15px">
                                             <input type="submit" name="btnTambahData" id="btnTambahData" value="Tambah Data" class="btn btn-primary" disabled>
                                         </div>
                                         <div class="col-6" style="padding-left: 15px">
-                                            <input type="submit" name="btnProses" id="btnProses" value="PROSES" class="btn btn-primary">
+                                            <input type="submit" name="btnProses" id="btnProses" value="PROSES" class="btn btn-success">
                                         </div>
                                         <div class="col-1" style="padding-left: 15px">
-                                            <input type="submit" name="btnBatal" id="btnBatal" value="Batal" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" name="btnBatal" id="btnBatal" value="Batal" class="btn btn-secondary d-flex ml-auto">
                                         </div>
                                         <div class="col-2" style="padding-left: 15px">
-                                            <input type="submit" name="btnKoreksi" id="btnKoreksi" value="Koreksi" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" name="btnKoreksi" id="btnKoreksi" value="Koreksi" class="btn btn-warning d-flex ml-auto">
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" name="btnHapus" id="btnHapus" value="Hapus" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" name="btnHapus" id="btnHapus" value="Hapus" class="btn btn-danger d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>

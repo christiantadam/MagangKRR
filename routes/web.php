@@ -211,10 +211,16 @@ Route::get('getNomorPO/{noSP}', 'App\Http\Controllers\Accounting\Piutang\Penjual
 Route::get('getUserPenagih', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@getUserPenagih');
 Route::get('getJenisPajak', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@getJenisPajak');
 Route::get('getDokumen/{kode}', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@getDokumen');
+Route::get('DataPenagihanF/{IdPenagihan}', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\FakturUangMukaController@getDataPenagihan');
 #endregion
 
+#region Faktur Uang Muka
+Route::resource('PenagihanPenjualan', App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController::class);
+Route::get('getCustomerr', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@getCustomer');
+Route::get('getCustomer', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@getCustomerKoreksi');
+Route::get('getNoPenagihanUM/{noSP}', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@getNoPenagihanUM');
+#endregion
 
-Route::get('PenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\PenjualanLokal\PenagihanPenjualanController@PenagihanPenjualan');
 Route::get('NotaPenjualanTunai', 'App\Http\Controllers\Accounting\Piutang\NotaPenjualanTunaiController@NotaPenjualanTunai');
 Route::get('UpdateSuratJalan', 'App\Http\Controllers\Accounting\Piutang\UpdateSuratJalanController@UpdateSuratJalan');
 Route::get('ACCPenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController@ACCPenagihanPenjualan');

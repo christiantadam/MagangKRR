@@ -19,6 +19,8 @@ let idJenisPajak = document.getElementById('idJenisPajak');
 let dokumenSelect = document.getElementById('dokumenSelect');
 let idJenisDokumen = document.getElementById('idJenisDokumen');
 let penagihanPajak = document.getElementById('penagihanPajak');
+let IdPenagihan = document.getElementById('IdPenagihan');
+let noPenagihanUMSelect = document.getElementById('noPenagihanUMSelect');
 
 let uangMasuk = document.getElementById('uangMasuk');
 let nilaiSblmPPN = document.getElementById('nilaiSblmPPN');
@@ -33,8 +35,11 @@ let btnKoreksi = document.getElementById('btnKoreksi');
 let btnBatal = document.getElementById('btnBatal');
 let btnHapus = document.getElementById('btnHapus');
 let formkoreksi = document.getElementById('formkoreksi');
+let methodkoreksi = document.getElementById('methodkoreksi');
 
 let namacust;
+let id_Penagihan = document.getElementById('id_Penagihan');
+let proses;
 
 const tanggalPenagihan = new Date();
 const formattedDate2 = tanggalPenagihan.toISOString().substring(0, 10);
@@ -70,14 +75,27 @@ btnIsi.addEventListener("click", function (event) {
 
     uangMasuk.removeAttribute("readonly");
     total.removeAttribute("readonly");
-    nilaiSblmPPN.removeAttribute("readonly");
-    nilaiPpn.removeAttribute("readonly");
-    terbilang.removeAttribute("readonly");
+    // nilaiSblmPPN.removeAttribute("readonly");
+    // nilaiPpn.removeAttribute("readonly");
+    // terbilang.removeAttribute("readonly");
+
+    proses = 1;
 });
 
 btnSimpan.addEventListener('click', function(event) {
     event.preventDefault();
-    formkoreksi.submit();
+    if (proses == 1) {
+        formkoreksi.submit();
+    } else if (proses == 2) {
+        methodkoreksi.value = "PUT";
+        formkoreksi.action = "/FakturUangMuka/" + id_Penagihan.value;
+        formkoreksi.submit();
+    }
+    // else if (proses == 3) {
+    //     methodform.value="DELETE";
+    //     formkoreksi.action = "/FakturUangMuka/" + id_Penagihan.value;
+    //     formkoreksi.submit();
+    // }
 })
 
 btnKoreksi.addEventListener("click", function (event) {
@@ -107,9 +125,13 @@ btnKoreksi.addEventListener("click", function (event) {
 
     uangMasuk.removeAttribute("readonly");
     total.removeAttribute("readonly");
-    nilaiSblmPPN.removeAttribute("readonly");
-    nilaiPpn.removeAttribute("readonly");
-    terbilang.removeAttribute("readonly");
+    // nilaiSblmPPN.removeAttribute("readonly");
+    // nilaiPpn.removeAttribute("readonly");
+    // terbilang.removeAttribute("readonly");
+
+    proses = 2;
+
+    namaCustomerSelect.focus();
 });
 
 btnBatal.addEventListener('click', function(event) {
@@ -144,9 +166,8 @@ btnBatal.addEventListener('click', function(event) {
 
 btnHapus.addEventListener("click", function(event) {
     event.preventDefault();
-    noPenagihanSelect.focus();
-    namaCustomerSelect.removeAttribute("readonly");
-    noPenagihanSelect.removeAttribute("readonly");
+    alert('Penagihan Tidak Boleh Dihapus. Jika Ada Salah Pengisian Mohon Dikoreksi');
+    //proses = 3;
 })
 
 fetch("/detailcustomer/")
@@ -180,6 +201,8 @@ namaCustomerSelect.addEventListener("change", function (event) {
         namacust = bagiansatu[2];
         idCustomer.value = idcust;
         idJenisCustomer.value  = jenis;
+
+        noPenagihanSelect.focus();
     }
 
     fetch("/getNoPenagihan/" + idCustomer.value)
@@ -202,13 +225,94 @@ namaCustomerSelect.addEventListener("change", function (event) {
             noPenagihanSelect.appendChild(option);
         });
     });
+    noPenagihanSelect.addEventListener("change", function (event) {
+        event.preventDefault();
+        const selectedOption = noPenagihanSelect.options[noPenagihanSelect.selectedIndex];
+        if (selectedOption) {
+            const selectedValue = selectedOption.textContent; // Atau selectedOption.innerText
+            const bagiansatu = selectedValue.split(/[-|]/);
+            const jenis = bagiansatu[0];
+            IdPenagihan.value = jenis;
+
+            id_Penagihan.value = IdPenagihan.value.replace(/\//g, '.');
+            console.log(id_Penagihan);
+
+            fetch("/DataPenagihanF/" + id_Penagihan.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                namaMataUang.value = options[0].Nama_MataUang;
+                idMataUang.value = options[0].Id_MataUang;
+                // tanggal.value = options[0].Tgl_Penagihan;
+                // penagihanPajak.value = options[0].TglFakturPajak;
+                noSP.value = options[0].NoSP;
+                nomorPO.value = options[0].PO;
+                Ppn.value = options[0].PersenPPN;
+                if (options[0].Jns_PPN == 3 || options[0].Jns_PPN == 4) {
+                    if (Ppn.value == 1) {
+                        nilaiSblmPPN.value = options[0].Nilai_Penagihan / 1.11;
+                    } else {
+                        nilaiSblmPPN.value = options[0].Nilai_Penagihan / 1.1;
+                    }
+                    nilaiPpn.value = nilaiSblmPPN.value - options[0].Nilai_blm_Pajak;
+                }
+
+                total.value = options[0].Nilai_Penagihan;
+                terbilang.value = options[0].Terbilang;
+                nilaiKurs.value = options[0].NilaiKurs;
+                idJenisDokumen.value = options[0].Id_Jenis_Dokumen;
+                idUserPenagih.value = options[0].IdPenagih;
+                idJenisPajak.value = options[0].Jns_PPN;
+
+                // const NOSP = selectedRows[0].NoSP;
+                // const options = nomorSPSelect.options;
+                // for (let i = 0; i < options.length; i++) {
+                //     if (options[i].value === NOSP) {
+                //         // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                //         nomorSPSelect.selectedIndex = i;
+                //         break;
+                //     }
+                // };
+
+                // const USERPENAGIH = selectedRows[0].IdPenagih;
+                // const options2 = userPenagihSelect.options;
+                // for (let i = 0; i < options2.length; i++) {
+                //     if (options2[i].value === USERPENAGIH) {
+                //         // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                //         userPenagihSelect.selectedIndex = i;
+                //         break;
+                //     }
+                // };
+
+                // const JNSPAJAK = selectedRows[0].Jns_PPN;
+                // const options3 = userPenagihSelect.options;
+                // for (let i = 0; i < options3.length; i++) {
+                //     if (options3[i].value === JNSPAJAK) {
+                //         // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                //         userPenagihSelect.selectedIndex = i;
+                //         break;
+                //     }
+                // };
+
+                // const JNSDOK = selectedRows[0].Id_Jenis_Dokumen;
+                // const options4 = dokumenSelect.options;
+                // for (let i = 0; i < options4.length; i++) {
+                //     if (options4[i].value === JNSDOK) {
+                //         // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                //         dokumenSelect.selectedIndex = i;
+                //         break;
+                //     }
+                // }
+            })
+        }
+    });
+
 
     fetch("/getJenisCustomer/" + idJenisCustomer.value)
     .then((response) => response.json())
     .then((options) => {
         console.log(options);
         jenisCustomer.value = options[0].NamaJnsCust;
-
     });
 
     if (jenisCustomer.value == "PNX") {

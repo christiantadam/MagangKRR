@@ -52,6 +52,12 @@
 
                                                 </select>
                                             </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="IdPenagihan" name="IdPenagihan" class="form-control" style="width: 100%" readonly>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" id="id_Penagihan" name="IdPenagihan" class="form-control" style="width: 100%" readonly>
+                                            </div>
                                         </div>
                                         <div class="d-flex">
                                             <div class="col-md-3">
