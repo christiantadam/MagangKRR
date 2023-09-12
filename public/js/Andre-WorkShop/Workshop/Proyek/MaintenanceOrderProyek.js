@@ -78,7 +78,8 @@ table_data.on("draw", function () {
             data.Tgl_TdStjMg == null &&
             data.User_Apv_1 == null &&
             data.User_Apv_2 == null &&
-            data.Tgl_Tolak_Mng == null
+            data.Tgl_Tolak_Mng == null &&
+            data.Tgl_Pending == null
         ) {
             $(this.node()).removeClass();
             $(this.node()).addClass("black-color");

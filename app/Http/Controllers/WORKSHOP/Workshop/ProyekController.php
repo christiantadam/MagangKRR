@@ -12,13 +12,6 @@ class ProyekController extends Controller
         return view();
     }
 
-
-
-    public function ACCManagerProyek()
-    {
-        return view('WORKSHOP.Workshop.Proyek.ACCManagerProyek');
-    }
-
     public function ACCDirekturProyek()
     {
         return view('WORKSHOP.Workshop.Proyek.ACCDirekturProyek');

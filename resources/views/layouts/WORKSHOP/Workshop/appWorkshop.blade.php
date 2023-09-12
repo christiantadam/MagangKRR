@@ -158,7 +158,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Maintenance Order Proyek</a>
                 </li>
-                <li><a href="/ACCManagerProyek" class="test"
+                <li><a href="{{ url('ACCManagerProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Acc Manager</a>
                 </li>
