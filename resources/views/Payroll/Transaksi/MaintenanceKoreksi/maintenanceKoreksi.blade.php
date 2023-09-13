@@ -46,12 +46,12 @@
                     <div class="card-body" style="border:1px solid black; margin:10px;">
                         <div class="row">
                             <div class="form-group col-md-1 d-flex justify-content-end">
-                                <label for="TglMulai" class="aligned-text">Tanggal:</label>
+                                <label for="TglKoreksi" class="aligned-text">Tanggal:</label>
                             </div>
                             <div class="form-group col-md-4">
-                                <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                    value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
-                                    style="max-width: 200px;">
+                                <input class="form-control" type="date" id="TglKoreksi" name="TglKoreksi"
+                                     required
+                                    style="max-width: 200px;" disabled>
 
 
                             </div>
@@ -63,9 +63,9 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input class="form-control" type="text" id="Id_Divisi" readonly
-                                    style="resize: none; height: 40px; width: 150px;">
+                                    style="resize: none; height: 40px; width: 150px;" disabled>
                                 <input class="form-control ml-3" type="text" id="Nama_Divisi" readonly
-                                    style="resize: none; height: 40px; width: 313px;">
+                                    style="resize: none; height: 40px; width: 313px;" disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
                                         <option value=""></option>
@@ -74,7 +74,7 @@
                                         @endforeach
                                     </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; "
-                                    id="divisiButton">...</button>
+                                    id="divisiButton" disabled>...</button>
 
 
                                 <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
@@ -119,9 +119,9 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input class="form-control" type="text" id="Id_Pegawai" readonly
-                                    style="resize: none; height: 40px; width: 150px;">
+                                    style="resize: none; height: 40px; width: 150px;"disabled>
                                 <input class="form-control ml-3" type="text" id="Nama_Pegawai" readonly
-                                    style="resize: none; height: 40px; width: 313px;">
+                                    style="resize: none; height: 40px; width: 313px;"disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
                                         <option value=""></option>
@@ -130,7 +130,7 @@
                                         @endforeach
                                     </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; "
-                                    id="pegawaiButton">...</button>
+                                    id="pegawaiButton" disabled>...</button>
 
 
                                 <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
@@ -174,8 +174,8 @@
                                 <span class="aligned-text">Nilai :</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:150px;">
-                                <input type="text" class="form-control" name="Divisi_pengiriman"
-                                    id="Divsi_pengiriman" placeholder="" required>
+                                <input type="number" class="form-control" name="Nilai"
+                                    id="Nilai" placeholder="" required disabled>
 
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                                 <span class="aligned-text"> Keterangan:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
-                                <textarea class="input" name="keterangan" id="keterangan" cols="60" rows="3" placeholder="Keterangan"></textarea>
+                                <textarea class="input" name="keterangan" id="keterangan" cols="60" rows="3" placeholder="Keterangan" disabled></textarea>
 
                             </div>
                         </div>
@@ -196,16 +196,17 @@
 
 
 
-
+                    <div id="form-container"></div>
                     <div class="row" style="padding-top: 20px; margin:20px;">
                         <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px">Isi</button>
-                            <button type="button" class="btn btn-info" style="margin-left: 10px">Koreksi</button>
-
+                            <button type="button" class="btn " style="margin-left: 10px;width:80px;" id="isiButton">Isi</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:80px;" id="koreksiButton">Koreksi</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:80px;" id="simpanButton" hidden>SIMPAN</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:80px;" id="batalButton" hidden>BATAL</button>
 
                         </div>
                         <div class="col-6" style="text-align: right; ">
-                            <button type="button" class="btn btn-dark" style="margin-left: 10px">Keluar</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:80px;" id="keluarButton">Keluar</button>
 
                         </div>
                     </div>
