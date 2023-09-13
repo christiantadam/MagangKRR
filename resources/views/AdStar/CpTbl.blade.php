@@ -13,13 +13,13 @@
             <div class="col-lg-2 aligned-text">Product name :</div>
             <div class="col-lg-2">
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option2">StarPark
+                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="1">StarPark
                     <label class="form-check-label" for="radio1"></label>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">AdStar
+                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="2">AdStar
                     <label class="form-check-label" for="radio2"></label>
                 </div>
             </div>
@@ -28,14 +28,14 @@
             <div class="col-lg-2 aligned-text">Model :</div>
             <div class="col-lg-2">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="check1" name="option2" value="something">
-                    <label class="form-check-label">Top Open</label>
+                    <input class="form-check-input" type="checkbox" id="check1" name="optioncheck" value="1">
+                    <label class="form-check-label" for="check1">Top Open</label>
                 </div>
             </div>
             <div class="col-lg-2">
-                <div class="form-check"><label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" id="check2" name="option2" value="something">
-                    <label class="form-check-label">Top Close</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check2" name="optioncheck" value="2">
+                    <label class="form-check-label" for="check2">Top Close</label>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="input-group mb-3">
                     <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
                     <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                    <button type="button" id="btnprodtype" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodtype">
                         List Type
                     </button>
                 </div>
@@ -134,15 +134,15 @@
 </div>
 
 <!-- Modal customer product type-->
-<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+<div class="modal fade" id="mdl_prodtype" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_prodtype" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <h1 class="modal-title fs-5" id="mdl_prodtype">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tbl_customer" class="table table-bordered">
+            <table id="tbl_prodtype" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Nama Barang</th>
@@ -183,12 +183,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($dataCust as $data)
-                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
-                            <td>{{ $data->NamaCust }}</td>
-                            <td>{{ $data->IDCust }}</td>
-                        </tr>
-                    @endforeach --}}
+                    @foreach ($dataCust2 as $data)
+                    <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCUST }}">
+                        <td>{{ $data->NAMACUST }}</td>
+                        <td>{{ $data->IDCUST }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

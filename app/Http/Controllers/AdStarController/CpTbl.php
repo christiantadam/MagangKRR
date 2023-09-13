@@ -10,7 +10,9 @@ class CpTbl extends Controller
 {
     public function index()
     {
-        return view('AdStar.CpTbl');//
+        $dataCust2 = DB::connection('ConnSALES')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
+
+        return view('AdStar.CpTbl', compact('dataCust2'));//
     }
 
     public function create()
@@ -38,10 +40,11 @@ class CpTbl extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) -1;
 
 
         //getorder
-        if ($crExplode[1] == "dataCust1") {
+        if ($crExplode[$lastIndex] == "dataCust1") {
             $dataCust1 = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?', [ $crExplode[0]]);
             // dd($dataCust1);
             // dd($dataObjek);
@@ -50,6 +53,13 @@ class CpTbl extends Controller
 
             // dd($crExplode);
 
+        }elseif ($crExplode[$lastIndex] == "dataProdType") {
+            $dataProdType = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idCust= ?' , [ $crExplode[0], $crExplode[1]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataProdType);
+
+            // dd($crExplode);
         }
     }
 
