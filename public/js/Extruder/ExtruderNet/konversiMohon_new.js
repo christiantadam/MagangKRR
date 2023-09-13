@@ -614,7 +614,7 @@ btnHapusDetail.addEventListener("click", function () {
             () => {
                 if (listKonversi.length > 1) {
                     let namaKonversi = listKonversi[pilKonversi].Type;
-                    listKonversi.splice(pilKonversi);
+                    listKonversi.splice(pilKonversi, 1);
                     clearDataDetail();
                     disableDetail();
                     addTable_DataTable(

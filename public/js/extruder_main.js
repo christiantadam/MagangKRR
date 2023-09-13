@@ -42,30 +42,14 @@ $("#confirmation_modal").on("keydown", function (event) {
     }
 });
 
-function showModal(txtBtn, txtBody, confirmFun, cancelFun, extraParam = null) {
-    btnConfirm.textContent = txtBtn;
+function showModal(txtBtn, txtBody, confirmFun, cancelFun, txtCancel = null) {
     modalConfirmBody.innerHTML = txtBody;
+    btnConfirm.textContent = txtBtn;
     btnConfirm.onclick = confirmFun;
+    btnCancel.textContent = "Batal";
     btnCancel.onclick = cancelFun;
 
-    /**
-     * Keterangan untuk variabel "extraParam"
-     * 0 btnCancel color
-     * 1 btnCancel text
-     * 2 btnConfirm color
-     */
-
-    if (extraParam != null) {
-        btnCancel.classList.remove("btn-secondary");
-        btnCancel.classList.add(extraParam[0]);
-
-        if (extraParam[1] !== undefined) btnCancel.textContent = extraParam[1];
-
-        if (extraParam[2] !== undefined) {
-            btnConfirm.classList.remove("btn-primary");
-            btnConfirm.classList.add(extraParam[2]);
-        }
-    }
+    if (txtCancel != null) btnCancel.textContent = txtCancel;
 
     $("#confirmation_modal").modal("show");
 }

@@ -62,7 +62,7 @@ const colKomposisi = [
     { width: "110px" }, // Sat. Sekunder
     { width: "100px" }, // Qty. Tritier
     { width: "100px" }, // Sat. Tritier
-    { width: "1x" }, // Persentase
+    { width: "1px" }, // Persentase
     { width: "80px" }, // Id Objek
     { width: "100px" }, // Nama Objek
     { width: "80px" }, // Id KelUt.
@@ -79,17 +79,62 @@ var refetchKelut = false;
 var refetchKelompok = false;
 var refetchSubkel = false;
 var refetchType = false;
+var refetchKomposisi = false;
 var pilKomposisi = -1;
 //#endregion
 
 //#region Events
+slcKomposisi.addEventListener("mousedown", function () {
+    if (refetchKomposisi) {
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKomposisi",
+            textKey: "NamaKomposisi",
+        };
+
+        // SP_5298_EXT_LIST_KOMPOSISI_1
+        fetchSelect(
+            "/Master/getListKomposisi/EXT",
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcKomposisi.addEventListener("keydown", function (event) {
+    if (event.key == "Enter") {
+        if (refetchKomposisi) {
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdKomposisi",
+                textKey: "NamaKomposisi",
+            };
+
+            // SP_5298_EXT_LIST_KOMPOSISI_1
+            fetchSelect(
+                "/Master/getListKomposisi/EXT",
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
 slcKomposisi.addEventListener("change", function () {
+    clearDataDetail();
+    slcMesin.selectedIndex = 0;
+
     // SP_5298_EXT_LIST_KOMPOSISI_1
     fetchSelect("/Master/getListKomposisi/EXT/" + this.value, (data) => {
         addOptionIfNotExists(slcMesin, data[0].IdMesin);
-
-        // listOfDetail.forEach((ele) => (ele.disabled = false));
-        // listOfButtonDetail.forEach((btn) => (btn.disabled = false));
 
         getDataKomposisiFetch(this.value, () => {
             if (modeProses == "koreksi") {
@@ -193,7 +238,7 @@ slcKelut.addEventListener("keydown", function (event) {
 });
 
 slcKelut.addEventListener("change", function () {
-    if (this.value == "0117") {
+    if (this.value == "1978") {
         showModal(
             "Konfirmasi",
             "Anda akan memasukkan data bahan pembantu, apakah anda telah memasukkan semua <b>bahan baku</b>?",
@@ -276,13 +321,16 @@ slcKelompok.addEventListener("change", function () {
     ) {
         // Pengecekkan mesin pada DB Inventory dan Extruder
         // SP_5298_EXT_CEK_KELOMPOK_MESIN
-        fetchSelect("/Master/getCekMesin/" + this.value, (data) => {
-            if (slcMesin.value == data[0].IdMesin) {
-                alert("Mesin tidak sama.");
+        fetchSelect("/Master/getCekKelompokMesin/" + this.value, (data) => {
+            if (data.length < 1 || slcMesin.value != data[0].IdMesin) {
                 slcSubkel.disabled = true;
                 refetchSubkel = false;
                 this.selectedIndex = 0;
                 this.focus();
+
+                if (data.length < 1) {
+                    alert("Mesin tidak ditemukan");
+                } else alert("Mesin tidak sama.");
             }
         });
     }
@@ -394,38 +442,50 @@ slcType.addEventListener("change", function () {
 });
 
 btnKoreksiMaster.addEventListener("click", function () {
+    if (slcKomposisi.classList.contains("hidden")) {
+        txtNamaKomposisi.classList.add("hidden");
+        slcKomposisi.classList.remove("hidden");
+    }
+
     clearDataMaster();
     clearDataDetail();
+    slcKomposisi.disabled = false;
+    slcKomposisi.focus();
+    modeProses = "koreksi";
+    toggleButtons(2);
+
     listKomposisi.length = 0;
     clearTable_DataTable(
         "table_komposisi",
         colKomposisi.length,
         "padding=250px"
     );
-    slcKomposisi.disabled = false;
-    slcKomposisi.focus();
-    modeProses = "koreksi";
-    toggleButtons(2);
 });
 
 btnBaruMaster.addEventListener("click", function () {
     clearDataMaster();
     clearDataDetail();
-    listKomposisi.length = 0;
-    clearTable_DataTable(
-        "table_komposisi",
-        colKomposisi.length,
-        "padding=250px"
-    );
     slcKomposisi.classList.add("hidden");
     txtNamaKomposisi.classList.remove("hidden");
     txtNamaKomposisi.disabled = false;
     txtNamaKomposisi.focus();
     modeProses = "baru";
     toggleButtons(2);
+
+    listKomposisi.length = 0;
+    clearTable_DataTable(
+        "table_komposisi",
+        colKomposisi.length,
+        "padding=250px"
+    );
 });
 
 btnHapusMaster.addEventListener("click", function () {
+    if (slcKomposisi.classList.contains("hidden")) {
+        txtNamaKomposisi.classList.add("hidden");
+        slcKomposisi.classList.remove("hidden");
+    }
+
     showModal(
         "Hapus Semua",
         "Apakah anda ingin menghapus semua data komposisi bahan atau hanya sebagian?",
@@ -461,7 +521,7 @@ btnHapusMaster.addEventListener("click", function () {
                 "padding=250px"
             );
         },
-        ["btn-light", "Hapus Sebagian", "btn-outline-danger"]
+        "Hapus Sebagian"
     );
 });
 
@@ -701,7 +761,7 @@ btnHapusDetail.addEventListener("click", function () {
                                         "/" +
                                         listKomposisi[pilKomposisi].IdType,
                                     () => {
-                                        listKomposisi.splice(pilKomposisi);
+                                        listKomposisi.splice(pilKomposisi, 1);
                                         clearDataDetail();
 
                                         addTable_DataTable(
@@ -858,6 +918,8 @@ btnProses.addEventListener("click", function () {
                                     toggleButtons(1);
                                     disableDetail();
                                     modeProses = "";
+                                    txtNamaKomposisi.disabled = true;
+                                    refetchKomposisi = true;
                                 }
                             );
                         });
