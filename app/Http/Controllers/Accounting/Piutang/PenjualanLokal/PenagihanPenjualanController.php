@@ -32,9 +32,33 @@ class PenagihanPenjualanController extends Controller
 
     public function getNoPenagihanUM($noSP)
     {
-        //dd("masuk");
-        $data =  DB::connection('ConnSales')->select('exec [SP_1486_ACC_LIST_TAGIHAN_DP_1]
-        @SuratPesanan = ?' [$noSP]);
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_TAGIHAN_DP_1]
+        @SuratPesanan = ?', [$noSP]);
+        //dd("MASUK");
+        return response()->json($data);
+    }
+
+    public function getSuratJalan($noSP)
+    {
+        $data =  DB::connection('ConnSales')->select('exec [SP_1486_ACC_LIST_PENGIRIMAN]
+        @KODE = ?, @IdSuratPesanan = ?', [1, $noSP]);
+        //dd("MASUK");
+        return response()->json($data);
+    }
+
+    public function getNoPenagihan($idCustomer)
+    {
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ]
+        @KODE = ?, @IdCustomer = ?', [6, $idCustomer]);
+        return response()->json($data);
+    }
+
+    public function getDataPenagihan($id_Penagihan)
+    {
+        $IdPenagihan = str_replace('.', '/', $id_Penagihan);
+        //dd($IdPenagihan);
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ]
+        @Kode = ?, @Id_Penagihan = ?', [7, $IdPenagihan]);
         return response()->json($data);
     }
 

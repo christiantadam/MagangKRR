@@ -264,15 +264,15 @@ namaCustomerSelect.addEventListener("change", function (event) {
                 idUserPenagih.value = options[0].IdPenagih;
                 idJenisPajak.value = options[0].Jns_PPN;
 
-                // const NOSP = selectedRows[0].NoSP;
-                // const options = nomorSPSelect.options;
-                // for (let i = 0; i < options.length; i++) {
-                //     if (options[i].value === NOSP) {
-                //         // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
-                //         nomorSPSelect.selectedIndex = i;
-                //         break;
-                //     }
-                // };
+                const NOSP = options[0].NoSP;
+                const opt = nomorSPSelect.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (opt[i].value == NOSP) {
+                        // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                        nomorSPSelect.selectedIndex = i;
+                        break;
+                    }
+                };
 
                 // const USERPENAGIH = selectedRows[0].IdPenagih;
                 // const options2 = userPenagihSelect.options;
