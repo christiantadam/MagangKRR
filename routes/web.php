@@ -163,7 +163,9 @@ Route::resource('ACCManagerProyek', App\Http\Controllers\WORKSHOP\Workshop\Proye
 Route::get('GetDataAllACCManagerProyek/{divisi}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\ACCManagerProyekController@GetDataAll');
 Route::get('GetDataTableACCManagerProyek/{idOrder}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\ACCManagerProyekController@GetDataTable');
 
-Route::get('ACCDirekturProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@ACCDirekturProyek');
+Route::resource('ACCDirekturProyek', App\Http\Controllers\WORKSHOP\Workshop\Proyek\ACCDirekturProyekController::class);
+Route::get('GetDataAllACCDirekturProyek/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\ACCDirekturProyekController@GetAllData');
+
 Route::get('PenerimaOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@PenerimaOrderProyek');
 Route::get('CetakSuratOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@CetakSuratOrderProyek');
 Route::get('StatusOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@StatusOrderProyek');

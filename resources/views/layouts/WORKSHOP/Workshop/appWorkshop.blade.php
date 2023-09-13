@@ -162,7 +162,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Acc Manager</a>
                 </li>
-                <li><a href="/ACCDirekturProyek" class="test"
+                <li><a href="{{ url('ACCDirekturProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Acc Direktur</a>
                 </li>

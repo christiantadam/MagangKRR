@@ -12,11 +12,6 @@ class ProyekController extends Controller
         return view();
     }
 
-    public function ACCDirekturProyek()
-    {
-        return view('WORKSHOP.Workshop.Proyek.ACCDirekturProyek');
-    }
-
     public function PenerimaOrderProyek()
     {
         return view('WORKSHOP.Workshop.Proyek.PenerimaOrderProyek');
