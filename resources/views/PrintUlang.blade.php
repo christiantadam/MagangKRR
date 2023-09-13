@@ -28,7 +28,7 @@
                                         <div class="form-group col-md-2 d-flex justify-content-end">
                                             <span class="aligned-text">No Barcode:</span>
                                         </div>
-                                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Barcode" id="Barcode"
                                                 placeholder="Barcode">
                                         </div>
@@ -39,7 +39,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Item Number:</span>
                                             </div>
-                                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                            <div class="form-group col-md-4 mt-3 mt-md-0">
                                                 <input type="text" class="form-control" name="Item" id="Item"
                                                     placeholder="Item">
                                             </div>
@@ -49,7 +49,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Kode Barang:</span>
                                             </div>
-                                            <div class="form-group col-md-6 mt-3 mt-md-0">
+                                            <div class="form-group col-md-4 mt-3 mt-md-0">
                                                 <input type="text" class="form-control" name="Kode" id="Kode"
                                                     placeholder="Kode">
                                             </div>
@@ -69,7 +69,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Sekunder:</span>
                                             </div>
-                                            <div class="form-group col-md-4 mt-3 mt-md-0">
+                                            <div class="form-group col-md-3 mt-3 mt-md-0">
                                                 <input type="text" class="form-control" name="Sekunder" id="Sekunder"
                                                     placeholder="Sekunder">
                                             </div>
@@ -79,7 +79,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Tritier:</span>
                                             </div>
-                                            <div class="form-group col-md-4 mt-3 mt-md-0">
+                                            <div class="form-group col-md-3 mt-3 mt-md-0">
                                                 <input type="text" class="form-control" name="Tritier" id="v"
                                                     placeholder="Tritier">
                                             </div>

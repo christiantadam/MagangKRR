@@ -49,7 +49,14 @@ class ScanBarcodeController extends Controller
 
             // dd($crExplode);
         } else if ($crExplode[1] == "txtIdObjek") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HasilProsesBarcode @Kode = ?, @IdObjek = ?', [ "5" ,$crExplode[0] ]);
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_HasilProsesBarcode @Kode = ?, @IdObjek = ?', ["5", $crExplode[0]]);
+            // dd($dataType);
+            // Return the options as JSON data
+            return response()->json($dataType);
+
+            // dd($crExplode);
+        } else if ($crExplode[1] == "getHasilBarcode") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_BCD_AmbilHasilBarcode @Kode = ?, @IdTransaksi = ?', ["6", $crExplode[0]]);
             // dd($dataType);
             // Return the options as JSON data
             return response()->json($dataType);

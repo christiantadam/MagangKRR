@@ -156,24 +156,68 @@ $(document).ready(function () {
 
     $('#TableType tbody').on('click', 'tr', function () {
         // Get the data from the clicked row in TableType
-        var rowData = tableType.row(this).data();
+        var rowData = $('#TableType').DataTable().row(this).data();
+        console.log(rowData[0]);
 
-        if (rowData) { // Check if rowData is not null
-            // Extract specific columns
-            var idTransaksi = rowData[0];
-            var kodeBarang = rowData[2];
-            var namaType = rowData[4];
-            var jumlahPrimer = rowData[7];
-            var jumlahSekunder = rowData[8];
-            var jumlahTritier = rowData[9];
+        fetch("/ABM/ScanBarcode/" + rowData[0] + ".getHasilBarcode")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
 
-            // Add the extracted data to TableType1 and TableType2 with incrementing "No."
-            tableType1.row.add([counter1++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
-            tableType2.row.add([counter2++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+                // Clear the existing table rows in TableType1 and TableType2
+                $("#TableType1").DataTable().clear().draw();
+                $("#TableType2").DataTable().clear().draw();
 
-            // Increment the counter
-            counter++;
-        }
+
+                // Loop through the data and create table rows in both TableType1 and TableType2
+                data.forEach((item) => {
+                    var row = [
+                        counter1,
+                        item.IdTransaksi,
+                        item.Kode_barang,
+                        item.NamaType,
+                        item.JumlahPengeluaranPrimer,
+                        item.JumlahPengeluaranSekunder,
+                        item.JumlahPengeluaranTritier,
+                    ];
+
+                    // Add the row to both TableType1 and TableType2
+                    $("#TableType1").DataTable().row.add(row);
+                    $("#TableType2").DataTable().row.add(row);
+
+                });
+
+                // Redraw both tables to show the changes
+                $("#TableType1").DataTable().draw();
+                $("#TableType2").DataTable().draw();
+
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        // if (rowData) { // Check if rowData is not null
+        //     // Extract specific columns
+        //     var idTransaksi = rowData[0];
+        //     var kodeBarang = rowData[2];
+        //     var namaType = rowData[4];
+        //     var jumlahPrimer = rowData[7];
+        //     var jumlahSekunder = rowData[8];
+        //     var jumlahTritier = rowData[9];
+
+        //     // Add the extracted data to TableType1 and TableType2 with incrementing "No."
+        //     tableType1.row.add([counter1++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+        //     tableType2.row.add([counter2++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+
+        //     // Increment the counter
+        //     counter++;
+        // }
     });
 
     var ButtonDivisi = document.getElementById('ButtonDivisi')

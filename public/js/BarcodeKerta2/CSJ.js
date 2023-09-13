@@ -21,6 +21,15 @@ $(document).ready(function () {
         },
     });
 
+    $('#TableSJPrint').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+        searching: false,
+        info: false,
+        paging: false,
+    });
+
     var SJ = document.getElementById('SJ');
     SJ.addEventListener("click", function (event) {
         event.preventDefault();
@@ -59,6 +68,35 @@ $(document).ready(function () {
         }
     });
 
+    var Cetak = document.getElementById('Cetak');
+    Cetak.addEventListener("click", function (event) {
+        fetch("/CSJ/" + ".getCetak")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
+                // Clear the existing table rows
+                $("#TableSJPrint").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.Kode_barang, item.NamaType, item.Primer, item.Sekunder, item.Tritier];
+                    $("#TableSJPrint").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableSJPrint").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
+
     // $(document).ready(function () {
     //     // ... kode lainnya ...
 
@@ -90,17 +128,17 @@ $(document).ready(function () {
             $('#Surat_jalan').val(noSJ);
         });
     });
-
-    function hideExtendCards() {
-        var extendCards = document.querySelectorAll(".extend-card");
-        extendCards.forEach(function (card) {
-            card.style.display = "none";
-        });
-    }
-
-    // Call the function to hide extend cards
-    hideExtendCards();
 });
+
+function showCard() {
+    var cardSection = document.getElementById('cardSection');
+    cardSection.style.display = 'block';
+}
+
+function hideCard() {
+    var cardSection = document.getElementById('cardSection');
+    cardSection.style.display = 'none';
+}
 
 function openModal() {
     var modal = document.getElementById('myModal');

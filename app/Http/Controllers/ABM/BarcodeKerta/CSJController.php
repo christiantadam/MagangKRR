@@ -32,7 +32,7 @@ class CSJController extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
-        $lasindex = count($crExplode) -1;
+        $lasindex = count($crExplode) - 1;
 
         //getDivisi
         if ($crExplode[1] == "getSJ") {
@@ -41,11 +41,19 @@ class CSJController extends Controller
             // Return the options as JSON data
             return response()->json($dataSJ);
         } else if ($crExplode[$lasindex] == "getListSJ") {
-            $dataSJ = DB::connection('ConnInventory')->select('exec SP_1273_INV_DataKirim_KRR @Divisi = ?, @NoSJ = ?, @Tanggal = ?', ["JBR", $crExplode[0], $crExplode[1]]);
-            // dd($dataSJ);
+            $dataKirimKRR = DB::connection('ConnInventory')->select('exec SP_1273_INV_DataKirim_KRR @Divisi = ?, @NoSJ = ?, @Tanggal = ?', ["JBR", $crExplode[0], $crExplode[1]]);
+            // dd($dataKirimKRR);
             // Return the options as JSON data
-            return response()->json($dataSJ);
+            return response()->json($dataKirimKRR);
+        } else if ($crExplode[$lasindex] == "getCetak") {
+            $dataPrint = DB::connection('ConnInventory')->table('VW_BCD_1273_KIRIMKRR')
+            // ->where('Tanggal',$crExplode[0])
+            ->get();
+            // dd($dataPrint);
+            // dd($dataPegawai);
+            return response()->json($dataPrint);
         }
+
     }
 
     // Show the form for editing the specified resource.

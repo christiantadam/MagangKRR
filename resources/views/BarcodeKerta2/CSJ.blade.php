@@ -52,6 +52,16 @@
                 align-items: flex-start;
                 /* Optional: Align items at the top */
             }
+
+            .label {
+                display: inline-block;
+                width: 120px;
+                /* Adjust the width as needed */
+                text-align: right;
+                /* Align text to the right of the label */
+                margin-right: 10px;
+                /* Add some spacing between labels */
+            }
         </style>
         <div id="app">
             <div class="form-wrapper mt-4">
@@ -188,11 +198,13 @@
 
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="button" style="width: 150px">Cetak
-                                        Surat Jalan</button>
+                                <div class="text-center col-md-auto">
+                                    <button type="button" style="width: 150px" onclick="showCard()" id="Cetak">Cetak Surat
+                                        Jalan</button>
                                 </div>
-                                <div class="text-center col-md-auto"><button type="button" style="width: 150px">Batal
-                                        Cetak</button></div>
+                                <div class="text-center col-md-auto">
+                                    <button type="button" style="width: 150px" onclick="hideCard()">Batal Cetak</button>
+                                </div>
                                 <div class="text-center col-md-auto"><button type="button"
                                         style="width: 150px">Keluar</button></div>
                             </div>
@@ -200,33 +212,34 @@
                         </form>
                     </div>
 
-                    <div class="card mt-3" id="externalCard">
+                    <div class="card mt-3" id="cardSection" style="display: none;">
                         <div class="card-header">Type</div>
                         <div class="card mt-3" style="width: 200px; margin-left: 100px;">
                             <h2>tes</h2>
                         </div>
-                        <div class="info mt-3" style="display: flex; justify-content: space-between; align-items: baseline; margin-left: 100px">
-                            <span>Tanggal : </span>
-                            <div style="display: flex; align-items: baseline;">
-                                <span>Kepada: </span>
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
-                                    <span>Albert1</span>
-                                    <span>Albert2</span>
-                                    <span>Albert3</span>
-                                </div>
+                        <div class="info mt-3" style="display: flex; justify-content: space-between; align-items: flex-start; margin-left: 100px">
+                            <div style="display: flex; flex-direction: column;">
+                                <span class="label">Tanggal :</span>
+                                <span class="label">No. Surat Jalan :</span>
+                                <span class="label">Truk NoPol :</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
+                                <span class="label">Kepada:</span>
+                                <span style="margin-left: 130px; margin-top: -22px">Albert1</span>
+                                <span style="margin-left: 130px;">Albert2</span>
+                                <span style="margin-left: 130px;">Albert3</span>
                             </div>
                         </div>
-                        <span style="margin-top: -47px; margin-left: 100px">No. Surat Jalan : </span>
-                        <span style="margin-left: 100px">Truk NoPol : </span>
 
-                        <table id="TableSJPrint" class="mt-4" style="margin-left: 20px; margin-right: 20px">
+                        <table id="TableSJPrint" class="mt-4"
+                            style="width: 958px; margin-left: 20px; margin-right: 20px">
                             <thead>
                                 <tr>
-                                    <th style="width: 100px; height: 40px">Kode</th>
-                                    <th style="width: 400px">URAIAN</th>
-                                    <th style="width: 100px">Primer</th>
-                                    <th style="width: 100px">Sekunder</th>
-                                    <th style="width: 100px">Tritier</th>
+                                    <th style="width: 100px; height: 40px" class="text-center">Kode</th>
+                                    <th style="width: 400px" class="text-center">URAIAN</th>
+                                    <th style="width: 100px" class="text-center">Primer</th>
+                                    <th style="width: 100px" class="text-center">Sekunder</th>
+                                    <th style="width: 100px" class="text-center">Tritier</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -247,10 +260,10 @@
                             <table class="mb-3" id="TableSJPrint" style="margin-top: 50px; margin-left: 100px;">
                                 <thead>
                                     <tr>
-                                        <th style="width: 160px; height: 40px">Gudang</th>
-                                        <th style="width: 160px">Pengirm</th>
-                                        <th style="width: 160px">Satpam</th>
-                                        <th style="width: 160px">Tanda Terima</th>
+                                        <th style="width: 160px; height: 40px" class="text-center">Gudang</th>
+                                        <th style="width: 160px" class="text-center">Pengirm</th>
+                                        <th style="width: 160px" class="text-center">Satpam</th>
+                                        <th style="width: 160px" class="text-center">Tanda Terima</th>
                                     </tr>
                                 </thead>
                                 <tbody>
