@@ -166,7 +166,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Acc Direktur</a>
                 </li>
-                <li><a href="/PenerimaOrderProyek" class="test"
+                <li><a href="{{ url('PenerimaOrderProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Penerima Order Proyek</a>
                 </li>
