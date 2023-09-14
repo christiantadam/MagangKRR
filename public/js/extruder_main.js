@@ -42,7 +42,13 @@ $("#confirmation_modal").on("keydown", function (event) {
     }
 });
 
-function showModal(txtBtn, txtBody, confirmFun, cancelFun, txtCancel = null) {
+function showModal(
+    txtBtn,
+    txtBody,
+    confirmFun,
+    cancelFun = null,
+    txtCancel = null
+) {
     modalConfirmBody.innerHTML = txtBody;
     btnConfirm.textContent = txtBtn;
     btnConfirm.onclick = confirmFun;

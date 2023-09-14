@@ -451,6 +451,7 @@ btnKoreksiMaster.addEventListener("click", function () {
     clearDataDetail();
     slcKomposisi.disabled = false;
     slcKomposisi.focus();
+    window.scrollTo(0, 0);
     modeProses = "koreksi";
     toggleButtons(2);
 
@@ -469,6 +470,7 @@ btnBaruMaster.addEventListener("click", function () {
     txtNamaKomposisi.classList.remove("hidden");
     txtNamaKomposisi.disabled = false;
     txtNamaKomposisi.focus();
+    window.scrollTo(0, 0);
     modeProses = "baru";
     toggleButtons(2);
 
@@ -496,6 +498,7 @@ btnHapusMaster.addEventListener("click", function () {
             clearDataDetail();
             slcKomposisi.disabled = false;
             slcKomposisi.focus();
+            window.scrollTo(0, 0);
             toggleButtons(2);
 
             listKomposisi.length = 0;
@@ -512,6 +515,7 @@ btnHapusMaster.addEventListener("click", function () {
             clearDataDetail();
             slcKomposisi.disabled = false;
             slcKomposisi.focus();
+            window.scrollTo(0, 0);
             toggleButtons(2);
 
             listKomposisi.length = 0;
@@ -657,24 +661,21 @@ btnKoreksiDetail.addEventListener("click", function () {
                         break;
                 }
 
+                let isEmpty = false;
                 for (let i = 0; i < listOfDetail.length; i++) {
                     const ele = listOfDetail[i];
                     if (ele.tagName == "INPUT") {
-                        if (ele.value.trim() == "") {
-                            alert(
-                                "Ada data yang belum terisi, mohon periksa kembali."
-                            );
-                            ele.focus();
-                            return;
-                        }
+                        if (ele.value.trim() == "") isEmpty = true;
                     } else if (ele.tagName == "SELECT") {
-                        if (ele.selectedIndex == 0) {
-                            alert(
-                                "Ada data yang belum terisi, mohon periksa kembali."
-                            );
-                            ele.focus();
-                            return;
-                        }
+                        if (ele.selectedIndex == 0) isEmpty = true;
+                    }
+
+                    if (isEmpty) {
+                        alert(
+                            "Ada data yang belum terisi, mohon periksa kembali."
+                        );
+                        ele.focus();
+                        return;
                     }
                 }
 
@@ -733,9 +734,7 @@ btnKoreksiDetail.addEventListener("click", function () {
 
 btnHapusDetail.addEventListener("click", function () {
     if (listKomposisi.length > 1) {
-        if (posKomposisi == -1) {
-            alert("Pilih dulu data yang akan dihapus.");
-        } else {
+        if (posKomposisi != -1) {
             showModal(
                 "Hapus",
                 "Anda yakin akan menghapus type <b>" +
@@ -793,7 +792,7 @@ btnHapusDetail.addEventListener("click", function () {
                     clearSelection_DataTable("table_komposisi");
                 }
             );
-        }
+        } else alert("Pilih dulu data yang akan dihapus.");
     } else {
         pilKomposisi = -1;
         clearSelection_DataTable("table_komposisi");
@@ -821,6 +820,8 @@ btnKeluar.addEventListener("click", function () {
 
         pilKomposisi = -1;
         clearSelection_DataTable();
+
+        btnTambahDetail.focus();
     } else window.location.href = "/Extruder/ExtruderNet";
 });
 

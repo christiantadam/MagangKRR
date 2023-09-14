@@ -27,6 +27,8 @@ class MasterController extends Controller
                     'listMesin' => $this->getListMesin(2),
                     'listAfalan' => $this->getPrgTypeProduksi(1, 1976),
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
+                    'listHP' => $this->getPrgTypeProduksi(2, 1994),
+                    'listNP' => $this->getPrgTypeProduksi(3, 1994),
                 ];
                 break;
 
@@ -76,10 +78,18 @@ class MasterController extends Controller
 
     public function insKomposisiBahanMjs($kode, $id_komposisi, $id_type = null, $kd_brg = null, $id_divisi = null, $persentase = null, $primer = null, $sekunder = null, $tritier = null, $cadangan = null, $tmp_tritir = null, $id_type1 = null)
     {
-        return DB::connection('ConnInventory')->select(
-            'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode char(1), @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
-            [$kode, $id_komposisi, $id_type, $kd_brg, $id_divisi, $persentase, $primer, $sekunder, $tritier, $cadangan, $tmp_tritir, $id_type1]
-        );
+        if ($kode == "3") {
+            return DB::connection('ConnInventory')->select(
+                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode char(1), @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
+                [$kode, $id_komposisi, $id_type, $kd_brg, $id_divisi, $persentase, $primer, $sekunder, $tritier, $cadangan, $tmp_tritir, $id_type1]
+            );
+        } else {
+            return DB::connection('ConnInventory')->statement(
+                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode char(1), @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
+                [$kode, $id_komposisi, $id_type, $kd_brg, $id_divisi, $persentase, $primer, $sekunder, $tritier, $cadangan, $tmp_tritir, $id_type1]
+            );
+        }
+
 
         // @Kode char(1), @IdKomposisi  varchar(9), @IdType  varchar(20) = null, @KdBrg  varchar(9)=null, @IdDivisi char(3)=null, @Persentase numeric(9,2) = null, @Primer numeric(9,2)= null, @Sekunder numeric(9,2)= null, @Tritier numeric(9,2)= null, @Cadangan int=null, @TmpTritir numeric(9,2) = null, @IdType1 varchar(20) = null
     }

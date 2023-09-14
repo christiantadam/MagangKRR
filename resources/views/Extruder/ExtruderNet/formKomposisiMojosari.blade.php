@@ -28,6 +28,9 @@
                     <label for="select_hp">Hasil Produksi:</label>
                     <select id="select_hp" class="form-select" disabled>
                         <option selected disabled>-- Pilih Hasil Produksi --</option>
+                        @foreach ($formData['listHP'] as $d)
+                            <option value="{{ $d->KodeBarang }}">{{ $d->KodeBarang . ' | ' . $d->NamaType }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -35,6 +38,9 @@
                     <label for="select_hp_ng">Hasil Produksi NG:</label>
                     <select id="select_hp_ng" class="form-select" disabled>
                         <option selected disabled>-- Pilih Hasil Produksi NG --</option>
+                        @foreach ($formData['listNG'] as $d)
+                            <option value="{{ $d->KodeBarang }}">{{ $d->KodeBarang . ' | ' . $d->NamaType }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -50,6 +56,7 @@
             </div>
 
             <div class="col-md-5">
+                {{-- BAGIAN INI TIDAK PERNAH TERPAKAI PADA SOURCE CODE VB --}}
                 <div class="row" style="height: 20%;">
                     <div id="radio_container" class="hidden">
                         <div class="col-md-4 row d-flex align-items-center">
@@ -197,9 +204,10 @@
                     </div>
 
                     <div class="col-md-2 form-group">
-                        <label for="objek">Presentase:</label>
+                        <label for="objek">Persentase:</label>
                         <div class="input-group">
-                            <input type="number" min="0" class="form-control" placeholder="0" disabled>
+                            <input type="number" id="persentase" min="0" class="form-control" placeholder="0"
+                                disabled>
                             <span class="input-group-text">%</span>
                         </div>
                     </div>

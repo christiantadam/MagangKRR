@@ -35,9 +35,9 @@ const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 const btnTambahAfalan = document.getElementById("btn_tambah_afalan");
 
-const radKomposisi = document.getElementById("radio_bb");
-const radHP = document.getElementById("radio_hp");
-const radAF = document.getElementById("radio_af");
+// const radKomposisi = document.getElementById("radio_bb");
+// const radHP = document.getElementById("radio_hp");
+// const radAF = document.getElementById("radio_af");
 
 const listOfMaster = document.querySelectorAll("#master .form-select");
 const listOfDetail = document.querySelectorAll(
@@ -106,6 +106,8 @@ var refetchKelompok = false;
 var refetchSubkel = false;
 var refetchType = false;
 var refetchKomposisi = false;
+var refetchHP = false;
+var pilKomposisi = -1;
 //#endregion
 
 //#region Events
@@ -343,7 +345,7 @@ slcKelut.addEventListener("change", function () {
     if (this.value == "0117") {
         showModal(
             "Konfirmasi",
-            "Anda akan memasukkan data bahan pembantu, apakah anda telah memasukkan semua <b>bahan baku</b>?",
+            "Anda akan memasukkan data Bahan Pembantu, apakah anda telah memasukkan semua <b>Bahan Baku</b>?",
             () => {
                 slcKelompok.disabled = false;
                 slcKelompok.focus();
@@ -589,42 +591,32 @@ btnHapusMaster.addEventListener("click", function () {
         slcKomposisi.classList.remove("hidden");
     }
 
+    const postModal = () => {
+        jumlah = 0;
+        clearDataMaster();
+        clearDataDetail();
+        slcKomposisi.disabled = false;
+        slcKomposisi.focus();
+        toggleButtons(2);
+
+        listKomposisi.length = 0;
+        clearTable_DataTable(
+            "table_komposisi",
+            colKomposisi.length,
+            "padding=250px"
+        );
+    };
+
     showModal(
         "Hapus Semua",
         "Apakah anda ingin menghapus semua data komposisi bahan atau hanya sebagian?",
         () => {
             modeProses = "hapus";
-            jumlah = 0;
-
-            clearDataMaster();
-            clearDataDetail();
-            slcKomposisi.disabled = false;
-            slcKomposisi.focus();
-            toggleButtons(2);
-
-            listKomposisi.length = 0;
-            clearTable_DataTable(
-                "table_komposisi",
-                colKomposisi.length,
-                "padding=250px"
-            );
+            postModal();
         },
         () => {
             modeProses = "hapus_detail";
-            jumlah = 0;
-
-            clearDataMaster();
-            clearDataDetail();
-            slcKomposisi.disabled = false;
-            slcKomposisi.focus();
-            toggleButtons(2);
-
-            listKomposisi.length = 0;
-            clearTable_DataTable(
-                "table_komposisi",
-                colKomposisi.length,
-                "padding=250px"
-            );
+            postModal();
         },
         "Hapus Sebagian"
     );
@@ -667,15 +659,704 @@ btnTambahDetail.addEventListener("click", function () {
         }
     }
 
-    let jmlh = listKomposisi.length;
-    let id_type_found = findClickedRowInList(
-        listKomposisi,
-        "IdType",
-        slcType.value
-    );
-    let hp_found = findClickedRowInList(listKomposisi, "Jenis", "HP");
-    let bb_found = findClickedRowInList(listKomposisi, "Jenis", "BB");
-    // LAST butuh tahu subitem 17
+    let [hp_found, bb_found, bp_found, type_found] = [-1, -1, -1, -1];
+
+    if (findClickedRowInList(listKomposisi, "IdType", slcType.value) != -1)
+        type_found = 1;
+
+    if (
+        findClickedRowInList(
+            listKomposisi,
+            "NamaSubKelompok",
+            slcSubkel.options[slcSubkel.selectedIndex].text
+        ) != -1
+    )
+        bp_found = 1;
+
+    if (
+        jenis == "HP" &&
+        findClickedRowInList(listKomposisi, "StatusType", jenis) != -1
+    ) {
+        hp_found = 1;
+        slcKelut.focus();
+        alert("Hasil produksi telah dipilih.");
+    } else if (
+        jenis == "BB" &&
+        findClickedRowInList(listKomposisi, "StatusType", jenis) != -1
+    ) {
+        bb_found = 1;
+    } else if (jenis == "AF") {
+        slcKelut.focus();
+        alert("Afalan telah dipilih.");
+    }
+
+    jumlah += parseFloat(numPersentase.value);
+    jumlah = jumlah.toString().substring(0, 6);
+
+    if (parseFloat(jumlah) > 100 || numPersentase.value <= 0) {
+        if (parseFloat(jumlah) > 100) {
+            alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
+        } else alert("Persentase harus diisi terlebih dahulu.");
+
+        jumlah += parseFloat(numPersentase.value);
+        numPersentase.focus();
+        return;
+    }
+
+    if (type_found == 1) {
+        alert("Sudah ada type yang sama dalam Komposisi.");
+        return;
+    } else if (hp_found == 1) {
+        alert("Hanya boleh terdapat 1 Hasil Produksi dalam Komposisi.");
+        return;
+    } else if (bb_found == 1) {
+        alert("Hanya boleh terdapat 1 Bahan Baku dalam Komposisi.");
+        return;
+    } else if (bp_found == 1) {
+        alert(
+            "Sudah ada Bahan Pembantu dengan Sub-kelompok yang sama dalam Komposisi."
+        );
+        return;
+    } else {
+        listKomposisi.push({
+            StatusType: jenis,
+            IdType: slcType.value,
+            NamaType: slcType.options[slcType.selectedIndex].text,
+            JumlahPrimer: numPrimer.value,
+            SatuanPrimer: txtSatPrimer.value,
+            JumlahSekunder: numSekunder.value,
+            SatuanSekunder: txtSatSekunder.value,
+            JumlahTritier: numTritier.value,
+            SatuanTritier: txtSatTritier.value,
+            Persentase: numPersentase.value,
+            IdObjek: slcObjek.value,
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
+            IdKelompokUtama: slcKelut.value,
+            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
+            IdKelompok: slcKelompok.value,
+            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text,
+            IdSubKelompok: slcSubkel.value,
+            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text,
+            KodeBarang: txtKodeBarang.value,
+            Cadangan: numCadangan.value,
+        });
+
+        addTable_DataTable(
+            "table_komposisi",
+            listKomposisi,
+            colKomposisi,
+            rowClickedFetch
+        );
+
+        showModal(
+            "Tambah Lagi",
+            "Ingin input data bahan / hasil produksi lagi?",
+            () => {
+                clearDataDetail("select_objek");
+                slcKelut.focus();
+            },
+            () => {
+                btnProses.focus();
+            }
+        );
+    }
+});
+
+btnKoreksiDetail.addEventListener("click", function () {
+    if (pilKomposisi != -1) {
+        showModal(
+            "Koreksi",
+            "Anda yakin akan mengoreksi Type <b>" +
+                listKomposisi[pilKomposisi].NamaType +
+                "</b>?",
+            () => {
+                let jenis = "";
+                switch (slcKelut.value) {
+                    case "1977":
+                        jenis = "BB";
+                        break;
+                    case "1978":
+                        jenis = "BP";
+                        break;
+                    case "1994":
+                        jenis = "HP";
+                        break;
+                    case "1976":
+                        jenis = "AF";
+                        break;
+                    default:
+                        jenis = "__";
+                        break;
+                }
+
+                let isEmpty = false;
+                for (let i = 0; i < listOfDetail.length; i++) {
+                    const ele = listOfDetail[i];
+                    if (ele.tagName == "INPUT") {
+                        if (ele.value.trim() == "") isEmpty = true;
+                    } else if (ele.tagName == "SELECT") {
+                        if (ele.selectedIndex == 0) isEmpty = true;
+                    }
+
+                    if (isEmpty) {
+                        alert(
+                            "Ada data yang belum terisi, mohon periksa kembali."
+                        );
+                        ele.focus();
+                        return;
+                    }
+                }
+
+                let found = false;
+                for (let i = 0; i < listKomposisi.length; i++) {
+                    if (
+                        listKomposisi[i].IdType == slcType.value &&
+                        listKomposisi[i].Cadangan == numCadangan.value &&
+                        listKomposisi[i].Persentase == numPersentase.value
+                    ) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (numCadangan.value == 0) {
+                    jumlah -= numPersentase2.value - numPersentase.value;
+                    jumlah = jumlah.toString().substring(0, 6);
+
+                    if (parseFloat(jumlah) > 100) {
+                        alert(
+                            "Persentase yang dimasukkan tidak boleh lebih dari 100%!"
+                        );
+                        jumlah -= parseFloat(numPersentase.value);
+                        numPersentase.focus();
+                        return;
+                    }
+                }
+
+                let found2 = false;
+                // SP_1273_MEX_CEK_JumlahKomposisi
+                fetchSelect(
+                    "/Master/getCekJumlahKomposisi/3/" +
+                        slcKomposisi.value +
+                        "/" +
+                        numPersentase.value +
+                        "/" +
+                        jenis,
+                    (data) => {
+                        if (data[0].Ada1 !== undefined) {
+                            found2 = data[0].Ada1;
+                        }
+
+                        if (numCadangan.value == 1 && numCadangan2.value != 1) {
+                            if (found2 > 0) {
+                                alert(
+                                    "Sudah ada Cadangan yang sama dalam Komposisi."
+                                );
+                                numCadangan.value = "";
+                                numCadangan.focus();
+                                return;
+                            }
+                        }
+
+                        if (numPersentase.value <= 0) {
+                            alert("Persentase tidak boleh kosong!");
+                            numPersentase.focus();
+                            return;
+                        }
+
+                        if (!found) {
+                            listKomposisi[pilKomposisi] = {
+                                StatusType: jenis,
+                                IdType: slcType.value,
+                                NamaType:
+                                    slcType.options[
+                                        slcType.selectedIndex
+                                    ].text.split(" | ")[1],
+                                JumlahPrimer: numPrimer.value,
+                                SatuanPrimer: txtSatPrimer.value,
+                                JumlahSekunder: numSekunder.value,
+                                SatuanSekunder: txtSatSekunder.value,
+                                JumlahTritier: numTritier.value,
+                                SatuanTritier: txtSatTritier.value,
+                                Persentase: numPersentase.value,
+                                IdObjek: slcObjek.value,
+                                NamaObjek:
+                                    slcObjek.options[
+                                        slcObjek.selectedIndex
+                                    ].text.split(" | ")[1],
+                                IdKelompokUtama: slcKelut.value,
+                                NamaKelompokUtama:
+                                    slcKelut.options[
+                                        slcKelut.selectedIndex
+                                    ].text.split(" | ")[1],
+                                IdKelompok: slcKelompok.value,
+                                NamaKelompok:
+                                    slcKelompok.options[
+                                        slcKelompok.selectedIndex
+                                    ].text.split(" | ")[1],
+                                IdSubKelompok: slcSubkel.value,
+                                NamaSubKelompok:
+                                    slcSubkel.options[
+                                        slcSubkel.selectedIndex
+                                    ].text.split(" | ")[1],
+                                KodeBarang: txtKodeBarang.value,
+                                Cadangan: numCadangan.value,
+                            };
+
+                            addTable_DataTable(
+                                "table_komposisi",
+                                listKomposisi,
+                                colKomposisi
+                            );
+                        } else
+                            alert("Sudah ada Type yang sama dalam Komposisi.");
+                    }
+                );
+            }
+        );
+    } else alert("Pilih dulu data yang akan dikoreksi.");
+});
+
+btnHapusDetail.addEventListener("click", function () {
+    if (listKomposisi.length > 1) {
+        if (posKomposisi != -1) {
+            showModal(
+                "Hapus",
+                "Anda yakin akan menghapus type <b>" +
+                    listKomposisi[pilKomposisi].NamaType +
+                    "</b>?",
+                () => {
+                    let id_komposisi = slcKomposisi.classList.contains("hidden")
+                        ? "-"
+                        : slcKomposisi.value;
+
+                    // SP_5409_EXT_CEK_KONVERSI
+                    fetchSelect(
+                        "/Master/getCekKonversi/" +
+                            id_komposisi +
+                            "/" +
+                            listKomposisi[pilKomposisi].IdType,
+                        (data) => {
+                            if (data[0].ada <= 0) {
+                                // SP_5298_EXT_DELETE_KOMPOSISI_BAHAN_1
+                                fetchStmt(
+                                    "/Master/delKomposisiBahan1/" +
+                                        id_komposisi +
+                                        "/" +
+                                        listKomposisi[pilKomposisi].IdType,
+                                    () => {
+                                        listKomposisi.splice(pilKomposisi, 1);
+                                        clearDataDetail();
+
+                                        addTable_DataTable(
+                                            "table_komposisi",
+                                            listKomposisi,
+                                            colKomposisi
+                                        );
+
+                                        pilKomposisi = -1;
+                                        clearSelection_DataTable(
+                                            "table_komposisi"
+                                        );
+                                    }
+                                );
+                            } else {
+                                pilKomposisi = -1;
+                                clearSelection_DataTable("table_komposisi");
+
+                                alert(
+                                    "Type tidak dapat dihapus karena pernah digunakan untuk konversi."
+                                );
+                            }
+                        }
+                    );
+                },
+                () => {
+                    pilKomposisi = -1;
+                    clearSelection_DataTable("table_komposisi");
+                }
+            );
+        } else alert("Pilih dulu data yang akan dihapus.");
+    } else {
+        pilKomposisi = -1;
+        clearSelection_DataTable("table_komposisi");
+
+        alert(
+            "Data komposisi hanya tersisa satu, sehingga tidak boleh dihapus."
+        );
+    }
+});
+
+txtNamaKomposisi.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (this.value == "") {
+            alert("Masukan nama komposisi terlebih dahulu.");
+            this.focus();
+        } else {
+            slcMesin.disabled = false;
+            slcMesin.focus();
+        }
+    }
+});
+
+btnKeluar.addEventListener("click", function () {
+    if (this.textContent != "Keluar") {
+        toggleButtons(1);
+        clearDataMaster();
+        clearDataDetail();
+        disableDetail();
+        modeProses = "";
+        jumlah = 0;
+
+        listAfalan.length = 0;
+        clearTable_DataTable("table_afalan", 2);
+
+        listKomposisi.length = 0;
+        clearTable_DataTable(
+            "table_komposisi",
+            colKomposisi.length,
+            "padding=250px"
+        );
+
+        pilKomposisi = -1;
+        clearSelection_DataTable();
+    } else window.location.href = "/Extruder/ExtruderNet";
+});
+
+numPrimer.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        numSekunder.disabled = false;
+        if (numSekunder.value != "") {
+            numSekunder.select();
+        } else numSekunder.focus();
+    }
+});
+
+numSekunder.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (this.value <= 0 && numPrimer.value == 1) {
+            alert(
+                "Isikan jumlah " +
+                    txtSatSekunder.value.trim() +
+                    " untuk 1 " +
+                    txtSatPrimer.value.trim() +
+                    " bahan ini."
+            );
+            this.focus();
+        } else {
+            numTritier.disabled = false;
+            if (numTritier.value != "") {
+                numTritier.select();
+            } else numTritier.focus();
+        }
+    }
+});
+
+numTritier.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (this.value == "" || this.value == 0) {
+            alert("Jumlah tritier tidak boleh kosong.");
+            this.focus();
+        } else {
+            numPersentase.disabled = false;
+            if (numPersentase.value != "") {
+                numPersentase.select();
+            } else numPersentase.focus();
+        }
+    }
+});
+
+numPersentase.addEventListener("keypress", function (event) {
+    /**
+     * Bila mode proses koreksi tidak bisa lagi mengubah data yang sudah ada,
+     * hanya bisa menambahkan data baru ke komposisi yang sudah ada
+     */
+
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        if (modeProses == "baru") {
+            btnTambahDetail.disabled = false;
+            btnKoreksiDetail.disabled = false;
+            btnHapusDetail.disabled = false;
+
+            if (pilKomposisi != -1) {
+                btnKoreksiDetail.focus();
+            } else btnTambahDetail.focus();
+        } else if (modeProses == "koreksi") {
+            btnTambahDetail.disabled = false;
+            btnTambahDetail.focus();
+        }
+    }
+});
+
+btnProses.addEventListener("click", function () {
+    let [jmlh_bb, jmlh_bom] = [-1, -1];
+    if (modeProses == "baru") {
+        if (listKomposisi.length < 1) {
+            alert(
+                "Data tidak dapat diproses karena tidak ditemukan data pada tabel komposisi."
+            );
+            return;
+        } else if (listAfalan.length < 1) {
+            alert(
+                "Data tidak dapat diproses karena tidak ditemukan data pada tabel afalan."
+            );
+            return;
+        } else {
+            jmlh_bb = 0;
+            for (let i = 0; i < listKomposisi.length; i++) {
+                if (listKomposisi[i].StatusType.trim() == "BB")
+                    jmlh_bb += parseFloat(listKomposisi[i].JumlahTritier);
+            }
+
+            // SP_1273_PRG_BOM_Barang
+            fetchSelect("/Master/getPrgBomBarang/1/" + slcHP.value, (data) => {
+                if (data[0].JumlahBOM !== undefined) {
+                    jmlh_bom = data[0].JumlahBOM;
+                } else alert("Jumlah BOM tidak ditemukan.");
+
+                if (jmlh_bom > 0) {
+                    alert(
+                        'Kode barang ini sudah mempunyai Komposisi, Jika ingin melakukan perubahan pilih "Koreksi".'
+                    );
+                    btnKoreksiMaster.focus();
+                    return;
+                } else {
+                    // SP_5298_EXT_INSERT_MASTER_KOMPOSISI
+                    fetchStmt("/Master/updIdKomposisiCounter/MEX", () => {
+                        alert("Data berhasil tersimpan.");
+                        toggleButtons(1);
+                        disableDetail();
+                        modeProses = "";
+                    });
+                }
+            });
+        }
+    } else if (modeProses == "koreksi") {
+        deleteDetailFetch(slcKomposisi.value, () => {
+            insertDetailFetch(() => {
+                alert("Data berhasil tersimpan.");
+                toggleButtons(1);
+                disableDetail();
+                modeProses = "";
+            });
+        });
+    } else if (modeProses == "hapus") {
+        let allowed = true;
+        // SP_5298_EXT_CEK_KOMPOSISI
+        fetchSelect("/Master/getCekKomposisi/" + slcKomposisi.value, (data) => {
+            if (data[0].ada !== undefined) {
+                if (data[0].ada > 0) allowed = false;
+            }
+
+            if (allowed) {
+                // SP_5298_EXT_DELETE_MASTER_KOMPOSISI
+                fetchStmt(
+                    "/Master/delMasterKomposisi/" + slcKomposisi.value,
+                    () => {
+                        alert("Komposisi berhasil dihapus.");
+                    }
+                );
+            } else
+                alert(
+                    "Data komposisi hanya tersisa satu, sehingga tidak boleh dihapus."
+                );
+        });
+    } else if (modeProses == "hapus_detail") {
+        let allowed = true;
+        // SP_5298_EXT_CEK_KOMPOSISI
+        fetchSelect("/Master/getCekKomposisi/" + slcKomposisi.value, (data) => {
+            if (data[0].ada !== undefined) {
+                if (data[0].ada > 0) allowed = false;
+            }
+
+            if (allowed) {
+                deleteDetailFetch(slcKomposisi.value, () => {
+                    insertDetailFetch(() => {
+                        alert("Data berhasil tersimpan.");
+                        toggleButtons(1);
+                        disableDetail();
+                        modeProses = "";
+                    });
+                });
+            } else
+                alert(
+                    "Data komposisi hanya tersisa satu, sehingga tidak boleh dihapus."
+                );
+        });
+    }
+});
+
+slcHP.addEventListener("change", function () {
+    slcNG.disabled = false;
+    slcNG.focus();
+});
+
+slcAF.addEventListener("change", function () {
+    jumlah = 0;
+    listKomposisi.length = 0;
+    clearTable_DataTable("table_komposisi", colKomposisi.length);
+    clearDataDetail();
+    addOptionIfNotExists(slcObjek, 213, 213 + " | Bahan dan Hasil Produksi");
+    btnTambahAfalan.disabled = false;
+    btnTambahAfalan.focus();
+});
+
+btnTambahAfalan.addEventListener("click", function () {
+    if (slcAF.selectedIndex == 0) {
+        alert("Pilih Afalan terlebih dahulu.");
+        btnTambahAfalan.focus();
+    } else {
+        let found = false;
+        for (let i = 0; i < listAfalan.length; i++) {
+            if (slcAF.value == listAfalan[i].KodeBarang) {
+                found = true;
+            }
+        }
+
+        if (found) {
+            alert("Sudah ada Type yang sama dalam Komposisi.");
+            slcAF.focus();
+        } else {
+            listAfalan.push({
+                KodeBarang: slcAF.value,
+                NamaType: slcAF.options[slcAF.selectedIndex].text,
+            });
+            addTable_DataTable("table_afalan", listAfalan);
+
+            slcKelut.disabled = false;
+            slcKelut.focus();
+        }
+    }
+});
+
+slcNG.addEventListener("change", function () {
+    btnTambahAfalan.disabled = false;
+    btnTambahAfalan.focus();
+});
+
+btnCadanganDetail.addEventListener("click", function () {
+    let jenis = "";
+    switch (slcKelut.value) {
+        case "1977":
+            jenis = "BB";
+            break;
+        case "1978":
+            jenis = "BP";
+            break;
+        case "1994":
+            jenis = "HP";
+            break;
+        case "1976":
+            jenis = "AF";
+            break;
+        default:
+            jenis = "__";
+            break;
+    }
+
+    if (slcKelut.value != "1994") {
+        alert("Data yang akan ditambahkan bukan Hasil Produksi.");
+        return;
+    } else {
+        listOfDetail.forEach((ele) => {
+            if (ele.tagName == "INPUT") {
+                if (ele.value.trim() == "") {
+                    ele.focus();
+                    alert("Ada data yang belum terisi.");
+                    return;
+                }
+            } else {
+                if (ele.selectedIndex == 0) {
+                    ele.focus();
+                    alert("Ada data yang belum terisi.");
+                    return;
+                }
+            }
+        });
+    }
+
+    let [type_found, hp_found] = [false, false];
+    for (let i = 0; i < listKomposisi.length; i++) {
+        if (listKomposisi[i].IdType == slcType.value) {
+            type_found = true;
+        }
+
+        if (jenis == "HP") {
+            if (listKomposisi.StatusType == jenis) {
+                hp_found = true;
+            }
+        }
+    }
+
+    if (jenis == "HP") {
+        alert("Hasil Produksi telah dipilih.");
+        slcKelut.focus();
+        return;
+    } else if (jenis == "AF") {
+        alert("Afalah telah dipilih.");
+        slcKelut.focus();
+        return;
+    }
+
+    jumlah += parseFloat(numPersentase.value);
+
+    if (parseFloat(numPersentase.value) > 100) {
+        alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
+        jumlah -= parseFloat(numPersentase.value);
+        return;
+    } else if (numCadangan.value == "" || numCadangan.value < 1) {
+        alert("Cadangan tidak boleh kosong!");
+        numCadangan.select();
+    }
+
+    if (type_found) {
+        alert("Sudah ada Type yang sama dalam Komposisi.");
+    } else if (hp_found) {
+        alert("Hanya boleh ada 1 Hasil Produksi dalam Komposisi.");
+    } else {
+        listKomposisi.push({
+            StatusType: jenis,
+            IdType: slcType.value,
+            NamaType: slcType.options[slcType.selectedIndex].text,
+            JumlahPrimer: numPrimer.value,
+            SatuanPrimer: txtSatPrimer.value,
+            JumlahSekunder: numSekunder.value,
+            SatuanSekunder: txtSatSekunder.value,
+            JumlahTritier: numTritier.value,
+            SatuanTritier: txtSatTritier.value,
+            Persentase: numPersentase.value,
+            IdObjek: slcObjek.value,
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
+            IdKelompokUtama: slcKelut.value,
+            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
+            IdKelompok: slcKelompok.value,
+            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text,
+            IdSubKelompok: slcSubkel.value,
+            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text,
+            KodeBarang: txtKodeBarang.value,
+            Cadangan: numCadangan.value,
+        });
+        addTable_DataTable(
+            "table_komposisi",
+            listKomposisi,
+            colKomposisi,
+            rowClickedFetch
+        );
+
+        showModal(
+            "Tambah Lagi",
+            "Ingin input data bahan / hasil produksi lagi?",
+            () => {
+                clearDataDetail("select_objek");
+                slcKelut.focus();
+            },
+            () => {
+                btnProses.focus();
+            }
+        );
+    }
 });
 //#endregion
 
@@ -722,6 +1403,12 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                 KodeBarang: data[i].KodeBarang,
                 Cadangan: data[i].Cadangan,
             });
+            addTable_DataTable(
+                "table_komposisi",
+                listKomposisi,
+                colKomposisi,
+                rowClickedFetch
+            );
         }
 
         // SP_1273_MEX_CEK_JumlahKomposisi
@@ -786,6 +1473,198 @@ function toggleButtons(tmb) {
 
         default:
             break;
+    }
+}
+
+function insertDetailFetch(post_action = null) {
+    for (let i = 0; i < listKomposisi.length; i++) {
+        // SP_5298_EXT_INSERT_KOMPOSISI_BAHAN
+        fetchStmt(
+            "/Master/insKomposisiBahan/" +
+                slcKomposisi.value.trim() +
+                "/" +
+                listKomposisi[i].IdObjek.trim() +
+                "/" +
+                listKomposisi[i].NamaObjek.replace(/ /g, "_") +
+                "/" +
+                listKomposisi[i].IdKelompokUtama.trim() +
+                "/" +
+                listKomposisi[i].NamaKelompokUtama.trim() +
+                "/" +
+                listKomposisi[i].IdKelompok.trim() +
+                "/" +
+                listKomposisi[i].NamaKelompok.trim() +
+                "/" +
+                listKomposisi[i].IdSubKelompok.trim() +
+                "/" +
+                listKomposisi[i].NamaSubKelompok.trim() +
+                "/" +
+                listKomposisi[i].IdType.trim() +
+                "/" +
+                listKomposisi[i].NamaType.trim() +
+                "/" +
+                listKomposisi[i].KodeBarang +
+                "/" +
+                listKomposisi[i].JumlahPrimer +
+                "/" +
+                listKomposisi[i].SatuanPrimer.trim() +
+                "/" +
+                listKomposisi[i].JumlahSekunder +
+                "/" +
+                listKomposisi[i].SatuanSekunder.trim() +
+                "/" +
+                listKomposisi[i].JumlahTritier +
+                "/" +
+                listKomposisi[i].SatuanTritier.trim() +
+                "/" +
+                listKomposisi[i].Persentase +
+                "/" +
+                listKomposisi[i].StatusType.trim() +
+                "/" +
+                listKomposisi[i].Cadangan,
+            () => {
+                if (listKomposisi[i].Cadangan == 0) {
+                    // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 1
+                    fetchStmt(
+                        "/Master/insKomposisiBahanMjs/1/" +
+                            slcHP.value +
+                            "/" +
+                            listKomposisi[i].IdType +
+                            "/" +
+                            slcKomposisi.value +
+                            "/MEX/" +
+                            listKomposisi[i].Persentase +
+                            "/" +
+                            listKomposisi[i].JumlahPrimer +
+                            "/" +
+                            listKomposisi[i].JumlahSekunder +
+                            "/" +
+                            listKomposisi[i].JumlahTritier +
+                            "/0"
+                    );
+                }
+
+                // if (listKomposisi[i].Cadangan == 1) {
+                //     let cadangan = -1;
+                //     // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 3
+                //     fetchSelect(
+                //         "/Master/insKomposisiBahanMjs/3/" +
+                //             slcKomposisi.value +
+                //             "/" +
+                //             numPersentase.value,
+                //         (data) => {
+                //             if (data[0].Cadangan !== undefined) {
+                //                 cadangan = data[0].Cadangan;
+                //                 cadangan += 1;
+                //             } else alert("Data cadangan tidak ditemukan.");
+                //         }
+                //     );
+                // }
+
+                if (i == listKomposisi.length - 1) {
+                    for (let j = 0; j < listAfalan.length; j++) {
+                        // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 2
+                        fetchSelect(
+                            "/Master/insKomposisiBahanMjs/2/" +
+                                slcKomposisi.value +
+                                "/MEX"
+                        );
+                    }
+
+                    if (post_action != null) post_action();
+                }
+            }
+        );
+    }
+}
+
+function deleteDetailFetch(id_komposisi) {
+    // SP_1273_MEX_DELETE_KOMPOSISI_BAHAN
+    fetchStmt("/Master/delKomposisiBahanMjs/" + id_komposisi.trim());
+}
+
+function rowClickedFetch(row, data, _) {
+    if (
+        pilKomposisi ==
+        findClickedRowInList(listKomposisi, "IdType", data.IdType)
+    ) {
+        row.style.background = "white";
+        pilKomposisi = -1;
+        clearDataDetail();
+        disableDetail();
+    } else {
+        if (modeProses == "baru" || modeProses == "hapus_detail") {
+            pilKomposisi = findClickedRowInList(
+                listKomposisi,
+                "IdType",
+                data.IdType
+            );
+
+            clearSelection_DataTable("table_komposisi");
+            row.style.background = "aliceblue";
+
+            numPrimer.value = data.JumlahPrimer;
+            txtSatPrimer.value = data.SatuanPrimer;
+            numSekunder.value = data.JumlahSekunder;
+            txtSatSekunder.value = data.SatuanSekunder;
+            numTritier.value = data.JumlahTritier;
+            txtSatTritier.value = data.SatuanTritier;
+            numPersentase.value = data.Persentase;
+            numPersentase2.value = data.Persentase;
+            txtKodeBarang.value = data.KodeBarang;
+            numCadangan.value = data.Cadangan;
+            numCadangan2.value = data.Cadangan;
+
+            addOptionIfNotExists(
+                slcType,
+                data.IdType,
+                data.IdType + " | " + data.NamaType
+            );
+
+            addOptionIfNotExists(
+                slcObjek,
+                data.IdObjek,
+                data.IdObjek + " | " + data.NamaObjek
+            );
+
+            addOptionIfNotExists(
+                slcKelut,
+                data.IdKelompokUtama,
+                data.IdKelompokUtama + " | " + data.NamaKelompokUtama
+            );
+
+            addOptionIfNotExists(
+                slcKelompok,
+                data.IdKelompok,
+                data.IdKelompok + " | " + data.NamaKelompok
+            );
+
+            addOptionIfNotExists(
+                slcSubkel,
+                data.IdSubKelompok,
+                data.IdSubKelompok + " | " + data.NamaSubKelompok
+            );
+
+            // SP_5298_EXT_IDMESIN
+            fetchSelect("/Master/getIdMesin/" + slcKelompok.value, (data) => {
+                addOptionIfNotExists(
+                    slcMesin,
+                    data[0].IdMesin,
+                    data[0].IdMesin +
+                        " | " +
+                        slcKelompok.options[
+                            slcKelompok.selectedIndex
+                        ].text.split(" | ")[1]
+                );
+
+                if (modeProses == "baru") {
+                    numPrimer.disabled = false;
+                    numPrimer.select();
+                } else {
+                    btnHapusDetail.focus();
+                }
+            });
+        }
     }
 }
 //#endregion
