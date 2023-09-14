@@ -142,8 +142,7 @@ function AllData(tglAwal, tglAkhir) {
                         { title: "No.Gambar", data: "No_Gbr" },
                         {
                             title: "Jumlah",
-                            data: null,
-                            render: function (data, type, row) {
+                            data: function (row) {
                                 return `${row.Jml_Brg} ${row.Nama_satuan}`;
                             },
                         },
@@ -423,8 +422,7 @@ function koreksiklik() {
                 order_kerja.checked == true ||
                 order_selesai.checked == true
             ) {
-                btnkoreksi.setAttribute("data-toggle", "modal");
-                btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
+
             } else {
                 btnkoreksi.setAttribute("data-toggle", "");
                 btnkoreksi.setAttribute("data-target", "");
@@ -450,7 +448,7 @@ function koreksiklik() {
                 Divisi.value = table_data.cell(index, 8).data();
                 NamaBarang.value = table_data.cell(index, 3).data();
                 KeteranganOrder.value = table_data.cell(index, 10).data();
-                JumlahOrder.value = table_data.cell(index, 5).data();
+                JumlahOrder.value = table_data.cell(index,6).data();
                 LabelStatus.textContent = table_data.cell(index, 7).data();
                 Usermodalkoreksi.value = table_data.cell(index, 12).data();
                 Tsts.value = 1;
@@ -476,6 +474,8 @@ function koreksiklik() {
                             }
                         });
                 }
+                btnkoreksi.setAttribute("data-toggle", "modal");
+                btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
                 $("#ModalKoreksi").on("shown.bs.modal", function () {
                     setTimeout(function () {
                         $('#TanggalStart').focus();
@@ -532,6 +532,8 @@ function koreksiklik() {
                             }
                         });
                 }
+                btnkoreksi.setAttribute("data-toggle", "modal");
+                btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
                 $("#ModalKoreksi").on("shown.bs.modal", function () {
                     setTimeout(function () {
                         $('#JumlahOrderSelesai').focus();
