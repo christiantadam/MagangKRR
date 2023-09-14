@@ -76,7 +76,7 @@
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
-                                        <a href="{{url('ABM/PrintUlang')}}">
+                                        <a href="{{url('ABM/PrintUlang2')}}">
                                             <button type="button">Print Ulang</button>
                                         </a>
                                     </div>

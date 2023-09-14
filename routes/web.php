@@ -60,6 +60,7 @@ Route::resource('/ABM/PilihJenisRepress', App\Http\Controllers\ABM\PilihJenisRep
 Route::get('/ABM/BalJadiPalet', 'App\Http\Controllers\ABM\BalJadiPaletController@index');
 Route::get('/ABM/PaletJadiBal', 'App\Http\Controllers\ABM\PaletJadiBalController@index');
 Route::get('/ABM/Konversi', 'App\Http\Controllers\ABM\KonversiController@index');
+Route::resource('/ABM/PrintUlang', App\Http\Controllers\ABM\PrintUlangController::class);
 Route::get('/ABM/PrintUlang', 'App\Http\Controllers\ABM\PrintUlangController@index');
 
 
@@ -83,6 +84,7 @@ Route::get('/ABM/BarcodeRollWoven/MSD', 'App\Http\Controllers\ABM\BarcodeRoll\MS
 Route::get('/ABM/ScanMutasiSatuDivisi', 'App\Http\Controllers\ABM\ScanMutasiSatuDivisiController@index');
 Route::resource('MutasiSatuDivisi', App\Http\Controllers\ABM\MutasiSatuDivisiController::class);
 // Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
+Route::resource('/ABM/PrintUlang2', App\Http\Controllers\ABM\PrintUlang2Controller::class);
 Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
 
 

@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class PrintUlangController extends Controller
+class PrintUlang2Controller extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('PrintUlang', compact('data'));
+        return view('PrintUlang2', compact('data'));
     }
 
     //Show the form for creating a new resource.

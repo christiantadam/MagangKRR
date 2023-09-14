@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-    <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PrintUlang.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/PrintUlang2.js') }}"></script>
 
     <body onload="Greeting()">
         <div id="app">
