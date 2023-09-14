@@ -29,9 +29,33 @@ class KoperasiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1003_KOP_LIHAT_DIVISI');
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataDiv);
+        } else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?, @modul = ?', [$crExplode[0], 5]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        } else if ($crExplode[$lastIndex] == "getNoKoperasi") {
+            $dataKop = DB::connection('ConnPayroll')->select('exec SP_5409_KOP_GET_NOKOP @Kd_Pegawai = ?', [$crExplode[0]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataKop);
+        } else if ($crExplode[$lastIndex] == "getPegawaiBaru") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?, @modul = ?', [$crExplode[0], 2]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -43,7 +67,16 @@ class KoperasiController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnPayroll')->statement('exec SP_KOPPAY_TRANSFER_NOKOP @old_kd_pegawai = ?, @new_kd_pegawai = ?', [
+            $data['old_kd_pegawai'],
+            $data['new_kd_pegawai'],
+
+
+
+        ]);
+        return redirect()->route('Koperasi.index')->with('alert', 'Nomor koperasi berhasil ditransfer!');
     }
 
     //Remove the specified resource from storage.

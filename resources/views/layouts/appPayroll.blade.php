@@ -217,7 +217,7 @@
                                             tabindex="-1" href="{{ url('MaintenanceKoreksi') }}">Koreksi</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Koperasi') }}">Koperasi</a>
+                                            tabindex="-1" href="{{ url('Koperasi') }}">Koperasi</a>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"

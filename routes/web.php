@@ -60,6 +60,7 @@ Route::resource('CheckClockError', App\Http\Controllers\Payroll\Transaksi\CheckC
 Route::resource('CheckClockInOut', App\Http\Controllers\Payroll\Transaksi\CheckClockInOut\CheckClockInOutController::class);
 Route::resource('MaintenancePelatihan', App\Http\Controllers\Payroll\Transaksi\MaintenancePelatihan\MaintenancePelatihanController::class);
 Route::resource('MaintenanceKoreksi', App\Http\Controllers\Payroll\Transaksi\MaintenanceKoreksi\MaintenanceKoreksiController::class);
+Route::resource('Koperasi', App\Http\Controllers\Payroll\Transaksi\Koperasi\KoperasiController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
@@ -108,7 +109,7 @@ Route::get('ProgramPayroll/Transaksi/InputLibur', 'App\Http\Controllers\Payroll\
 // Route::get('ProgramPayroll/Transaksi/CheckClockInOut', 'App\Http\Controllers\Payroll\Transaksi\CheckClockInOut\CheckClockInOutController@index');
 // Route::get('ProgramPayroll/Transaksi/MaintenancePelatihan', 'App\Http\Controllers\Payroll\Transaksi\MaintenancePelatihan\MaintenancePelatihanController@index');
 // Route::get('ProgramPayroll/Transaksi/MaintenanceKoreksi', 'App\Http\Controllers\Payroll\Transaksi\MaintenanceKoreksi\MaintenanceKoreksiController@index');
-Route::get('ProgramPayroll/Transaksi/Koperasi', 'App\Http\Controllers\Payroll\Transaksi\Koperasi\KoperasiController@index');
+// Route::get('ProgramPayroll/Transaksi/Koperasi', 'App\Http\Controllers\Payroll\Transaksi\Koperasi\KoperasiController@index');
 Route::get('ProgramPayroll/Transaksi/Mutasi/Harian', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiHarian\MutasiHarianController@index');
 Route::get('ProgramPayroll/Transaksi/Mutasi/Staff', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiStaff\MutasiStaffController@index');
 Route::get('ProgramPayroll/Transaksi/Mutasi/Histori', 'App\Http\Controllers\Payroll\Transaksi\Mutasi\HistoriMutasi\HistoriMutasiController@index');
