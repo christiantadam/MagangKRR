@@ -62,6 +62,32 @@ class PenagihanPenjualanController extends Controller
         return response()->json($data);
     }
 
+    public function LihatPenagihan($id_Penagihan, $idJenisPajak)
+    {
+        //dd("Masuk");
+        $IdPenagihan = str_replace('.', '/', $id_Penagihan);
+        $data1 =
+            DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ]
+        @Kode = ?, @Id_Penagihan = ?', [7, $IdPenagihan])
+        ;
+        //dd($IdPenagihan);
+        $data2 =
+            DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_JENIS_PAJAK]
+        @KODE = ?, @Jns_PPN = ?', [1, $idJenisPajak])
+        ;
+        $data3 =
+            DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ]
+        @Kode = ?, @Id_Penagihan = ?', [19, $IdPenagihan])
+        ;
+
+        $dataAll = [
+            'data1' => $data1,
+            'data2' => $data2,
+            'data3' => $data3
+        ];
+        return response()->json($dataAll);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

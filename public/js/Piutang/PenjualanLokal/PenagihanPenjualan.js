@@ -33,7 +33,7 @@ let tanggalBC24 = document.getElementById('tanggalBC24');
 
 let selectcust = 0;
 let namacust;
-var addmode=false;
+
 const tanggalPenagihan = new Date();
 const formattedDate2 = tanggalPenagihan.toISOString().substring(0, 10);
 tanggal.value = formattedDate2;
@@ -260,7 +260,7 @@ function iniKlikKoreksi() {
 
             options.forEach((entry) => {
                 const option = document.createElement("option");
-                option.value = entry.IdCust; // Gunakan entry.IdCust sebagai nilai opsi
+                option.value = entry.Id_Penagihan; // Gunakan entry.IdCust sebagai nilai opsi
                 option.innerText = entry.Id_Penagihan + "|" + entry.Tgl_Penagihan; // Gunakan entry.IdCust dan entry.NamaCust untuk teks opsi
                 noPenagihanSelect.appendChild(option);
             });
@@ -317,6 +317,12 @@ function iniKlikKoreksi() {
                             break;
                         }
                     };
+
+                    fetch("/LihatPenagihan/" + id_Penagihan.value + "/" + idJenisPajak.value)
+                    .then((response) => response.json())
+                    .then((options) => {
+                        console.log(options);
+                    });
                 });
             }
         });
@@ -366,8 +372,6 @@ fetch("/getJenisPajak/")
 });
 
 console.log(noSP.value);
-
-
 
 function lihatCustomer() {
     if (idJenisCustomer.value === 'NPX') {

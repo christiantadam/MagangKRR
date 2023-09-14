@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotaPenjualanTunaiController extends Controller
 {
-    public function NotaPenjualanTunai()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.NotaPenjualanTunai', compact('data'));
+    }
+
+    public function getLihatPesanan($noSP)
+    {
+        $data =  DB::connection('ConnSales')->select('exec [SP_1486_ACC_LIST_HEADER_PESANAN]
+        @Kode = ?, @IDSURATPESANAN = ?', [3, $noSP]);
+        return response()->json($data);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +34,7 @@ class NotaPenjualanTunaiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
