@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+<link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
   <div class="card-header">
     Status Order Proyek
   </div>
@@ -18,13 +19,13 @@
           <div class="col-lg-8">
             <div class="row">
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_awal">
+                <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal">
               </div>
               <div class="col-lg-2 d-flex justify-content-center">
                 <span style="margin-top: 5px;">s/d</span>
               </div>
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_akhir">
+                <input type="Date" class="form-control" name="tgl_akhir" id="tgl_akhir">
               </div>
             </div>
           </div>
@@ -36,10 +37,13 @@
           </div>
 
           <div class="col-lg-8">
-            <div class="input-group">
-              <input type="text" name="divisi" class="form-control">
-              <button type="button" class="btn btn-outline-secondary">...</button>
-            </div>
+            <select class="form-select" name="KodeDivisi" style="width: 36vh;
+            height: 6vh;" id="kddivisi">
+              <option disabled selected>Pilih Divisi</option>
+              @foreach ($divisi as $d)
+                <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
+              @endforeach
+            </select>
           </div>
         </div>
 
@@ -64,7 +68,7 @@
       </div>
     </div>
 
-    <table class="table mt-3">
+    <table class="table mt-3" id="TableStatusOrderProyek">
       <thead class="table-dark">
         <tr>
           <th>No.Order</th>
@@ -86,12 +90,11 @@
 
     <div class="mt-3">
       <div class="float-start" style="margin-left: 12.5px;">
-        <button type="button" class="btn btn-light custom-btn" style="width: 12.5em;">Refresh</button>
-      </div>
-
-      <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-secondary custom-btn" style="width: 12.5em;">KELUAR</button>
+        <button type="button" class="btn btn-light custom-btn" style="width: 12.5em;" id="refresh">Refresh</button>
       </div>
     </div>
   </div>
+
+  <script src="{{ asset('js/Andre-WorkShop/Workshop/Proyek/StatusOrderProyek.js') }}"></script>
+
 @endsection

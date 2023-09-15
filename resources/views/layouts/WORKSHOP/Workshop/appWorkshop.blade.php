@@ -174,7 +174,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Cetak Surat Order Proyek</a>
                 </li>
-                <li><a href="/StatusOrderProyek" class="test"
+                <li><a href="{{ url('StatusOrderProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Status Order Proyek</a>
                 </li>

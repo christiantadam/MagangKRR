@@ -177,7 +177,10 @@ Route::get('GetAllDataCetakOrderProyek/{tgl_awal}/{tgl_akhir}', 'App\Http\Contro
 Route::get('getdataprintCetakOrderProyek/{idorder}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\CetakOrderProyekController@getdataprint');
 Route::post('updatedatacetakOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\CetakOrderProyekController@updatedatacetak');
 
-Route::get('StatusOrderProyek', 'App\Http\Controllers\WORKSHOP\Workshop\ProyekController@StatusOrderProyek');
+
+Route::resource('StatusOrderProyek', App\Http\Controllers\WORKSHOP\Workshop\Proyek\StatusOrderProyekController::class);
+Route::get('GetAllDataStatusOrderProyek/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Proyek\StatusOrderProyekController@GetAllData');
+
 
 // Workshop - Informasi
 Route::get('OrderGambarSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderGambarSelesai');
