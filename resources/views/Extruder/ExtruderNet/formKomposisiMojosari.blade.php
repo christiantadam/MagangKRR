@@ -1,5 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
+
     <div id="form_komposisi_mojosari" class="form" data-aos="fade-up">
 
         <div id="master" class="row mt-3">
@@ -90,8 +92,8 @@
 
                 <div class="row" style="height: 80%;">
                     <div class="col-md-4 d-flex align-items-end">
-                        <button type="button" class="btn btn-outline-secondary" style="margin-bottom: 7.5px"
-                            disabled>Tambah
+                        <button type="button" id="btn_tambah_afalan" class="btn btn-outline-secondary"
+                            style="margin-bottom: 7.5px" disabled>Tambah
                             Afalan</button>
                     </div>
                     <div class="col-md-8">

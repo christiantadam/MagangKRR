@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MasterController extends Controller
 {
-    public function index($form_name)
+    public function index($form_name, $extra_param = null)
     {
         $view_name = 'extruder.ExtruderNet.' . $form_name;
         $form_data = [];
@@ -28,7 +28,8 @@ class MasterController extends Controller
                     'listAfalan' => $this->getPrgTypeProduksi(1, 1976),
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
                     'listHP' => $this->getPrgTypeProduksi(2, 1994),
-                    'listNP' => $this->getPrgTypeProduksi(3, 1994),
+                    'listNG' => $this->getPrgTypeProduksi(3, 1994),
+                    'namaGedung' => $extra_param,
                 ];
                 break;
 
@@ -80,12 +81,12 @@ class MasterController extends Controller
     {
         if ($kode == "3") {
             return DB::connection('ConnInventory')->select(
-                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode char(1), @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
+                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode = ?, @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
                 [$kode, $id_komposisi, $id_type, $kd_brg, $id_divisi, $persentase, $primer, $sekunder, $tritier, $cadangan, $tmp_tritir, $id_type1]
             );
         } else {
             return DB::connection('ConnInventory')->statement(
-                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode char(1), @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
+                'exec SP_1273_MEX_INSERT_KOMPOSISI_BAHAN @Kode = ?, @IdKomposisi = ?, @IdType = ?, @KdBrg = ?, @IdDivisi = ?, @Persentase = ?, @Primer = ?, @Sekunder = ?, @Tritier = ?, @Cadangan = ?, @TmpTritir = ?, @IdType1 = ?',
                 [$kode, $id_komposisi, $id_type, $kd_brg, $id_divisi, $persentase, $primer, $sekunder, $tritier, $cadangan, $tmp_tritir, $id_type1]
             );
         }
@@ -96,7 +97,7 @@ class MasterController extends Controller
 
     public function delKomposisiBahanMjs($id_komposisi)
     {
-        return DB::connection('ConnExtruder')->select(
+        return DB::connection('ConnExtruder')->statement(
             'exec SP_1273_MEX_DELETE_KOMPOSISI_BAHAN @idkomposisi = ?',
             [$id_komposisi]
         );

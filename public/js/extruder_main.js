@@ -67,7 +67,8 @@ function addTable_DataTable(
     listData,
     columnsWidth = null,
     rowFun = null,
-    tableHeight = null
+    tableHeight = null,
+    tableOnly = false
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
         $("#" + tableId)
@@ -91,36 +92,64 @@ function addTable_DataTable(
         }));
     }
 
-    $("#" + tableId).DataTable({
-        responsive: true,
-        paging: false,
-        scrollY: tableHeight != null ? tableHeight : "250px",
-        scrollX: columnsWidth != null ? "1000000px" : "",
-        data: listData,
-        columns: colObject,
-        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
-        language: {
-            searchPlaceholder:
-                " Tabel " +
-                tableId.replace("table_", "").replace("_", " ") +
-                "...",
-            search: "",
-            info: "Menampilkan _TOTAL_ data",
-        },
+    if (tableOnly) {
+        /**
+         * Digunakan pada Tabel Afalan di formKomposisiMojosari
+         */
 
-        rowCallback: function (row, data, index) {
-            if ($(row).hasClass("odd") || $(row).hasClass("even")) {
-                if (rowFun != null) {
-                    row.style.cursor = "pointer";
-                    row.onclick = () => {
-                        rowFun(row, data, index);
-                    };
+        $("#" + tableId).DataTable({
+            responsive: true,
+            paging: false,
+            scrollY: tableHeight != null ? tableHeight : "250px",
+            scrollX: columnsWidth != null ? "1000000px" : "",
+            data: listData,
+            columns: colObject,
+            searching: false,
+            info: false,
+
+            rowCallback: function (row, data, index) {
+                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
+                    if (rowFun != null) {
+                        row.style.cursor = "pointer";
+                        row.onclick = () => {
+                            rowFun(row, data, index);
+                        };
+                    }
                 }
-            }
-        },
-    });
+            },
+        });
+    } else {
+        $("#" + tableId).DataTable({
+            responsive: true,
+            paging: false,
+            scrollY: tableHeight != null ? tableHeight : "250px",
+            scrollX: columnsWidth != null ? "1000000px" : "",
+            data: listData,
+            columns: colObject,
+            dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+            language: {
+                searchPlaceholder:
+                    " Tabel " +
+                    tableId.replace("table_", "").replace("_", " ") +
+                    "...",
+                search: "",
+                info: "Menampilkan _TOTAL_ data",
+            },
 
-    addSearchBar_DataTable(tableId);
+            rowCallback: function (row, data, index) {
+                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
+                    if (rowFun != null) {
+                        row.style.cursor = "pointer";
+                        row.onclick = () => {
+                            rowFun(row, data, index);
+                        };
+                    }
+                }
+            },
+        });
+
+        addSearchBar_DataTable(tableId);
+    }
 }
 
 function clearTable_DataTable(tableId, tableWidth, msg = null) {
