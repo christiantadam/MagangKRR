@@ -2,9 +2,10 @@
 @section('content')
   <style>
     @media print {
-    .card{
+      .card {
         border: none !important;
-    }
+      }
+
       .card-body {
         display: none;
       }
@@ -12,6 +13,7 @@
       #print {
         display: block !important;
       }
+
       .card-header {
         display: none;
       }
@@ -126,7 +128,7 @@
             <h5 style="font-weight: bolder;">SURAT PESANAN KE DIVISI <span>Teknik</span></h5>
           </div>
         </div>
-        <div class="row" style="border: solid 1px">
+        <div class="row" style="border: solid 1px; padding-bottom:1%">
           <div class="container">
             <div class="row">
               <div class="col-6">
@@ -136,9 +138,9 @@
                 <span>/ <span id="MesinPrint"></span></span>
               </div>
             </div>
-            <div class="row" style="text-align: center; border:solid 1px; margin:5px">
+            <div class="row" style="text-align: center; border:solid 1px; margin:5px;">
               <div class="container">
-                <div class="row">
+                <div class="row" style="width: 98.9%;">
                   <div class="col-2" style="border-right: solid 1px">
                     <span>JUMLAH</span>
                   </div>
@@ -152,7 +154,8 @@
                     <span>KETERANGAN</span>
                   </div>
                 </div>
-                <div class="row">
+                {{-- <hr style="margin: 0;width: 98.9%;margin-left: -1.5%;border: 1px solid black;"> --}}
+                <div class="row" style="border-top:1px solid; width: 98.9%;">
                   <div class="col-2" style="border-right: solid 1px">
                     <span id="JumlahBarangPrint"></span>
                     <span id="NamaSatuanPrint"></span>

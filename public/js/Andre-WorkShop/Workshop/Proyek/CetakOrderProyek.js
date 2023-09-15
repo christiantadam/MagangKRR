@@ -1,13 +1,11 @@
-let table_data = $("#tableCetakOrderKerja").DataTable();
-let tgl_awal = document.getElementById("tgl_awal");
-let tgl_akhir = document.getElementById("tgl_akhir");
-let refresh = document.getElementById("refresh");
-let formCetakOrderKerja = document.getElementById("formCetakOrderKerja");
-let methodForm = document.getElementById("methodForm");
-let noOd = document.getElementById("noOd");
+let tgl_awal = document.getElementById('tgl_awal');
+let tgl_akhir = document.getElementById('tgl_akhir');
+let table_data = $("#TableCetakOrderProyek").DataTable();
+let refresh = document.getElementById('refresh');
 var arraycheckbox = [];
+let noOd = document.getElementById('noOd');
 
-let KodeBarangPrint = document.getElementById("KodeBarangPrint");
+// let KodeBarangPrint = document.getElementById("KodeBarangPrint");
 let idOrderPrint = document.getElementById("idOrderPrint");
 let TglOrderPrint = document.getElementById("TglOrderPrint");
 let userPrint = document.getElementById("userPrint");
@@ -16,10 +14,13 @@ let NamaDivisiPrint = document.getElementById("NamaDivisiPrint");
 let MesinPrint = document.getElementById("MesinPrint");
 let JumlahBarangPrint = document.getElementById("JumlahBarangPrint");
 let NamaSatuanPrint = document.getElementById("NamaSatuanPrint");
-let NamaBarangPrint = document.getElementById("NamaBarangPrint");
-let NoGambarPrint = document.getElementById("NoGambarPrint");
+let NamaProyekPrint = document.getElementById("NamaProyekPrint");
+// let NoGambarPrint = document.getElementById("NoGambarPrint");
 let KeteranganOrderPrint = document.getElementById("KeteranganOrderPrint");
 let PrintDate = document.getElementById("PrintDate");
+let methodForm = document.getElementById('methodForm');
+let formCetakOrderProyek = document.getElementById('formCetakOrderProyek');
+
 //#region set tanggal
 
 const currentDate = new Date();
@@ -41,7 +42,7 @@ tgl_akhir.value = formattedCurrentDate;
 
 //#endregion
 
-//#region tgl_akhir on enter
+//#region tgl 2 on enter
 
 tgl_akhir.addEventListener("keypress", function (event) {
     event.preventDefault();
@@ -55,10 +56,10 @@ tgl_akhir.addEventListener("keypress", function (event) {
 
 //#endregion
 
-//#region AllData
+//#region  alldata
 
 function AllData(tglAwal, tglAkhir) {
-    fetch("/getalldataCetakSuratOrderKerja/" + tglAwal + "/" + tglAkhir)
+    fetch("/GetAllDataCetakOrderProyek/" + tglAwal + "/" + tglAkhir)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
@@ -76,8 +77,7 @@ function AllData(tglAwal, tglAkhir) {
                 // data.Tgl_TdStjMg = tanggalTsM;
             });
             if (datas.length == 0) {
-                console.log("masuk ke == 0");
-
+                // console.log("masuk ke == 0");
                 alert(
                     "Belum Ada Order Yg Sdh DiACC U/ tgl " +
                         tglAwal +
@@ -88,23 +88,23 @@ function AllData(tglAwal, tglAkhir) {
                 return;
             } else {
                 console.log(datas); // Optional: Check the data in the console
-                table_data = $("#tableCetakOrderKerja").DataTable({
+                table_data = $("#TableCetakOrderProyek").DataTable({
                     destroy: true, // Destroy any existing DataTable before reinitializing
                     data: datas,
                     columns: [
                         {
-                            title: "No. Order",
+                            title: "No.Order",
                             data: "Id_Order",
                             render: function (data) {
                                 return `<input type="checkbox" name="CetakOrderKerjaCheckbox" value="${data}" /> ${data}`;
                             },
                         },
                         // { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
-                        { title: "Tgl. Order", data: "Tgl_Order" },
-                        { title: "Nama Barang", data: "Nama_Brg" },
-                        { title: "Kd.Brg", data: "Kd_Brg" },
+                        { title: "Tgl.Order", data: "Tgl_Order" },
+                        { title: "Nama Proyek", data: "Nama_Proyek" },
+                        // { title: "Kd.Brg", data: "Kd_Brg" },
                         {
-                            title: "Jumlah",
+                            title: "JmlOrder",
                             data: null,
                             render: function (data, type, row) {
                                 return `${row.Jml_Brg} ${row.Nama_satuan}`;
@@ -122,7 +122,7 @@ function AllData(tglAwal, tglAkhir) {
 
 //#endregion
 
-//#region button refresh
+//#region btn refresh
 
 refresh.addEventListener("click", function (event) {
     event.preventDefault();
@@ -131,7 +131,7 @@ refresh.addEventListener("click", function (event) {
 
 //#endregion
 
-//#region button cetak
+//#region cetak
 
 function cetak() {
     arraycheckbox.length = 0;
@@ -142,11 +142,11 @@ function cetak() {
             let isChecked = $(this).prop("checked");
             let closestTd = $(this).closest("tr");
             if (isChecked) {
-                console.log(value);
+                //console.log(value);
                 arraycheckbox.push(value);
                 // console.log(arraycheckbox);
             }
-            console.log("cek:" + arraycheckbox);
+           // console.log("cek:" + arraycheckbox);
             // Lakukan sesuatu berdasarkan status 'checked'
         });
         if (arraycheckbox.length == 0 || arraycheckbox.length > 1) {
@@ -155,7 +155,7 @@ function cetak() {
         } else {
             console.log(arraycheckbox);
             noOd.value = arraycheckbox[0];
-            fetch("/getdataprintCetakOrderKerja/" + noOd.value)
+            fetch("/getdataprintCetakOrderProyek/" + noOd.value)
                 .then((response) => response.json())
                 .then((datas) => {
                     datas.forEach((data) => {
@@ -178,7 +178,7 @@ function cetak() {
                     });
 
                     console.log(datas);
-                    KodeBarangPrint.textContent = datas[0].Kd_Brg;
+                    // KodeBarangPrint.textContent = datas[0].Kd_Brg;
                     idOrderPrint.textContent = datas[0].Id_Order;
                     TglOrderPrint.textContent = datas[0].Tgl_Order;
                     statusPrint.textContent = datas[0].Status + " /";
@@ -187,8 +187,8 @@ function cetak() {
                     MesinPrint.textContent = datas[0].Mesin;
                     JumlahBarangPrint.textContent = datas[0].Jml_Brg + " ";
                     NamaSatuanPrint.textContent = datas[0].Nama_satuan;
-                    NamaBarangPrint.textContent = datas[0].Nama_Brg;
-                    NoGambarPrint.textContent = datas[0].No_Gbr;
+                    NamaProyekPrint.textContent = datas[0].Nama_Proyek;
+                    // NoGambarPrint.textContent = datas[0].No_Gbr;
                     KeteranganOrderPrint.textContent = datas[0].Ket_Order;
                     const today = new Date();
                     const formattedDate = formatDate(today);
@@ -197,9 +197,9 @@ function cetak() {
                 });
             methodForm.value = "POST";
             $.ajax({
-                url: "UpdateCetakSuratOrderKerja",
+                url: "updatedatacetakOrderProyek",
                 method: "POST",
-                data: new FormData(formCetakOrderKerja),
+                data: new FormData(formCetakOrderProyek),
                 dataType: "JSON",
                 contentType: false,
                 cache: false,

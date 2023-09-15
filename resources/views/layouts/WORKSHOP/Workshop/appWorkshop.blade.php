@@ -170,7 +170,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Penerima Order Proyek</a>
                 </li>
-                <li><a href="/CetakSuratOrderProyek" class="test"
+                <li><a href="{{ url('CetakSuratOrderProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Cetak Surat Order Proyek</a>
                 </li>
