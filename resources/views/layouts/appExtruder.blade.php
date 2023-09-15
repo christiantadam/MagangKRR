@@ -70,10 +70,10 @@
                 <h1><a href="#">Konversi Barang</a></h1>
             @elseif($formName == 'formKomposisiTropodo')
                 <h1><a href="#">Maintenance Komposisi Bahan Tropodo</a></h1>
+            @elseif($formName == 'formKomposisiMojosari' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">Maintenance Komposisi Bahan Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKomposisiMojosari')
                 <h1><a href="#">Maintenance Komposisi Bahan Mojosari</a></h1>
-            @elseif($formName == 'formKomposisiGedungD')
-                <h1><a href="#">Maintenance Komposisi Bahan Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKiteMaster')
                 <h1><a href="#">Master KITE</a></h1>
             @elseif($formName == 'formKiteEstimasi')
@@ -208,7 +208,7 @@
                                             Komposisi Bahan Tropodo</a></li>
                                     <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari">Maintenance
                                             Komposisi Bahan Mojosari</a></li>
-                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiGedungD">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari/D">Maintenance
                                             Komposisi Bahan Gedung D Mojosari</a>
                                     </li>
                                     <li class="dropdown"><a href="#"><span>KITE</span> <i

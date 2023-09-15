@@ -862,7 +862,10 @@ numTritier.addEventListener("keypress", function (event) {
 numPersentase.addEventListener("keypress", function (event) {
     /**
      * Bila mode proses koreksi tidak bisa lagi mengubah data yang sudah ada,
-     * hanya bisa menambahkan data baru ke komposisi yang sudah ada
+     * hanya bisa menambahkan data baru ke komposisi yang sudah ada.
+     *
+     * Penghapusan data yang sudah ada dilakukan pada proses "Hapus",
+     * lalu pada pop-up pilih "Hapus Sebagian".
      */
 
     if (event.key == "Enter") {
