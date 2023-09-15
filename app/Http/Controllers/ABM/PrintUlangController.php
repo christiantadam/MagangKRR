@@ -40,6 +40,11 @@ class PrintUlangController extends Controller
             // dd($dataBarcode);
             // Return the options as JSON data
             return response()->json($dataBarcode);
+        } else if ($crExplode[$lasindex] == "getBarcode") {
+            $dataBarcodeScan = DB::connection('ConnInventory')->select('exec SP_1273_BCD_PrintUlang1 @Kode = ?, @item_number = ?, @kode_barang = ?', ["2" ,$crExplode[0], $crExplode[1]]);
+            // dd($dataBarcodeScan);
+            // Return the options as JSON data
+            return response()->json($dataBarcodeScan);
         }
     }
 

@@ -1,3 +1,5 @@
+var isitable = []
+
 $(document).ready(function () {
     $('.dropdown-submenu a.test').on("click", function (e) {
         $(this).next('ul').toggle();
@@ -159,7 +161,7 @@ $(document).ready(function () {
         var rowData = $('#TableType').DataTable().row(this).data();
         console.log(rowData[0]);
 
-        fetch("/ABM/ScanBarcode/" + rowData[0] + ".getHasilBarcode")
+        fetch("/ABM/ScanBarcode/" + rowData[0] + ".getHasilBarcode") // Perbaiki tanda titik menjadi garis miring
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -171,53 +173,99 @@ $(document).ready(function () {
                 console.log(data);
 
                 // Clear the existing table rows in TableType1 and TableType2
-                $("#TableType1").DataTable().clear().draw();
-                $("#TableType2").DataTable().clear().draw();
-
+                var table1 = $("#TableType1").DataTable();
+                var table2 = $("#TableType2").DataTable();
+                table1.clear().draw();
+                table2.clear().draw();
 
                 // Loop through the data and create table rows in both TableType1 and TableType2
                 data.forEach((item) => {
-                    var row = [
+                    var row1 = [
                         counter1,
                         item.IdTransaksi,
                         item.Kode_barang,
                         item.NamaType,
-                        item.JumlahPengeluaranPrimer,
-                        item.JumlahPengeluaranSekunder,
-                        item.JumlahPengeluaranTritier,
+                        item.Qty_Primer,
+                        item.Qty_sekunder,
+                        item.Qty,
+                    ];
+                    isitable.push([
+                        counter1,
+                        item.IdTransaksi,
+                        item.Kode_barang,
+                        item.NoIndeks,
+                        item.NamaType,
+                        item.Qty_Primer,
+                        item.Qty_sekunder,
+                        item.Qty,
+                    ])
+                    var row2 = [
+                        counter1,
+                        item.IdTransaksi,
+                        item.Kode_barang,
+                        item.NoIndeks,
+                        item.NamaType,
+                        item.Qty_Primer,
+                        item.Qty_sekunder,
+                        item.Qty,
                     ];
 
-                    // Add the row to both TableType1 and TableType2
-                    $("#TableType1").DataTable().row.add(row);
-                    $("#TableType2").DataTable().row.add(row);
-
+                    // Add the rows to both TableType1 and TableType2
+                    table1.row.add(row1);
+                    table2.row.add(row2);
                 });
 
                 // Redraw both tables to show the changes
-                $("#TableType1").DataTable().draw();
-                $("#TableType2").DataTable().draw();
-
+                table1.draw();
+                table2.draw();
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
+    });
 
-        // if (rowData) { // Check if rowData is not null
-        //     // Extract specific columns
-        //     var idTransaksi = rowData[0];
-        //     var kodeBarang = rowData[2];
-        //     var namaType = rowData[4];
-        //     var jumlahPrimer = rowData[7];
-        //     var jumlahSekunder = rowData[8];
-        //     var jumlahTritier = rowData[9];
+    var Barcode = document.getElementById('barcode');
+    Barcode.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var getHasilBarcode = document.getElementById('barcode');
+            var str = getHasilBarcode.value
+            var parts = str.split("-");
 
-        //     // Add the extracted data to TableType1 and TableType2 with incrementing "No."
-        //     tableType1.row.add([counter1++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
-        //     tableType2.row.add([counter2++, idTransaksi, kodeBarang, namaType, jumlahPrimer, jumlahSekunder, jumlahTritier]).draw();
+            console.log(isitable); // Output: ["A123", "a234"]
+            for (let i = 0; i < isitable.length; i++) {
+                 if (isitable[i].includes(parts[1])){
+                    alert("Data Sudah Discan")
+                    break
+                 }
+                 else alert("Barcode Tidak Ditemukan")
+            }
+            // if (isitable.includes(parts[1])) alert("Data Sudah Discan")
+            // else alert("Barcode Tidak Ditemukan")
 
-        //     // Increment the counter
-        //     counter++;
-        // }
+            fetch("/ABM/ScanBarcode/" + ".getHasilBarcode")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                // .then((data) => {
+
+                //     // Loop through the data and create table rows
+                //     data.forEach((item) => {
+                //         var row = [item.NoIndeks, item.Kode_barang, item.NamaType, item.Qty_Sekunder, item.Qty, item.SatSekunder, item.SatTritier];
+                //         $("#Item").val(item.NoIndeks)
+                //         $("#Kode").val(item.Kode_barang)
+                //         $("#nama_type").val(item.NamaType)
+                //         $("#Sekunder").val(item.Qty_Sekunder + " " + item.SatSekunder)
+                //         $("#Tritier").val(item.Qty + " " + item.SatTritier)
+                //     });
+
+                // })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
     });
 
     var ButtonDivisi = document.getElementById('ButtonDivisi')

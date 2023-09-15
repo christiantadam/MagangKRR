@@ -203,6 +203,7 @@
                                                                             <th>No. </th>
                                                                             <th>Id Transaksi </th>
                                                                             <th>Kode Barang </th>
+                                                                            <th>No Indeks</th>
                                                                             <th>Nama Type </th>
                                                                             <th>Jumlah Primier </th>
                                                                             <th>Jumlah Sekunder </th>
@@ -216,8 +217,10 @@
                                                                 </table>
                                                             </div>
                                                             <div class="text-center col-md-auto mt-3">
-                                                                <button type="button"
-                                                                    onclick="closeModal2()">Process</button>
+                                                                <button type="button" style="width: 150px"
+                                                                    disabled>Process</button>
+                                                                <button type="button" class="btn-danger" style="width: 150px"
+                                                                    onclick="closeModal2()">Keluar</button>
                                                             </div>
                                                         </div>
                                                     </div>

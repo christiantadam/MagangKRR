@@ -214,7 +214,7 @@
 
                             <div class="row mb-3" style="margin-left: 400px">
                                 <div class="text-center col-md-auto">
-                                    <button type="button" onclick="openModal2()" id="ButtonShift"
+                                    <button type="button" onclick="openModal2()" id="ButtonBarcode"
                                         style="width: 180px;">Lihat Barcode</button>
                                 </div>
                                 <div class="modal" id="myModal2">
