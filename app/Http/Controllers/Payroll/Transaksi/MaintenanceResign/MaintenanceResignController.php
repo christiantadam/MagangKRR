@@ -29,9 +29,38 @@ class MaintenanceResignController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getListData") {
+            $dataResign = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_KELUAR @kode = ?, @tgl_keluar = ?', [1, $crExplode[0]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataResign);
+        } else if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI');
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataDiv);
+        } else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?', [$crExplode[0]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        } else if ($crExplode[$lastIndex] == "getDataResign") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_KELUAR @KODE = ?, @Kd_pegawai = ?', [2, $crExplode[0]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }else if ($crExplode[$lastIndex] == "getMasaKerja") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_FIND_KELUAR @Kd_Pegawai = ?', [$crExplode[0]]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }
     }
 
     // Show the form for editing the specified resource.

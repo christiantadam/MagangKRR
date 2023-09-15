@@ -237,7 +237,7 @@
                                         </ul>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/MaintenanceResign') }}">Resign</a>
+                                            tabindex="-1" href="{{ url('MaintenanceResign') }}">Resign</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/KenaikanUpah') }}">Kenaikan Upah</a>
