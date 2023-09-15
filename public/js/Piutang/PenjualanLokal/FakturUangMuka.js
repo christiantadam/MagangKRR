@@ -470,7 +470,7 @@ fetch("/getJenisPajak/")
 
         options.forEach((entry) => {
             const option = document.createElement("option");
-            option.value = entry.IdCust; // Gunakan entry.IdCust sebagai nilai opsi
+            option.value = entry.Jns_PPN; // Gunakan entry.IdCust sebagai nilai opsi
             option.innerText = entry.Nama_Jns_PPN + "|" + entry.Jns_PPN; // Gunakan entry.IdCust dan entry.NamaCust untuk teks opsi
             jenisPajakSelect.appendChild(option);
 

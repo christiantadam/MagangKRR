@@ -6,6 +6,11 @@
             <div class="col-md-11 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Nota Penjualan Tunai</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="">
@@ -49,9 +54,15 @@
                                         <label for="noPenagihanSelect" style="margin-right: 10px;">No. Penagihan</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control" readonly>
+                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control" disabled>
 
                                         </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idNoPenagihan" name="idNoPenagihan" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -98,6 +109,9 @@
 
                                         </select>
                                     </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                     <div class="col-md-2">
                                         <label for="nilaiKurs" style="margin-right: 10px;">Nilai Kurs</label>
                                     </div>
@@ -131,6 +145,9 @@
 
                                         </select>
                                     </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idUserPenagih" name="idUserPenagih" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-3">
@@ -141,7 +158,15 @@
 
                                         </select>
                                     </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idJenisDokumen" name="idJenisDokumen" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                 </div>
+
+                                <div class="col-md-1">
+                                    <input type="text" id="jenisdok" name="jenisdok" class="form-control" style="width: 100%" readonly>
+                                </div>
+
                                 <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="jenisPajakSelect" style="margin-right: 10px;">Jenis Pajak</label>
@@ -165,6 +190,15 @@
 
                                         </select>
                                     </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idJenisPajak" name="idJenisPajak" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" id="idPenagihanUM" name="idPenagihanUM" class="form-control" style="width: 100%" readonly>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" id="id_PenagihanUM" name="id_PenagihanUM" class="form-control" style="width: 100%" readonly>
                                 </div>
 
 
@@ -236,15 +270,17 @@
                                     <div class="row">
                                         <div class="col-md-1">
                                             <input type="submit" id="btnIsi" name="btnIsi" value="Isi" class="btn btn-primary">
+                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-primary" style="display: none">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary" style="display: none">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
                                         </div>
                                     </div>
                                 </div>
