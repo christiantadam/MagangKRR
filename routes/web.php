@@ -246,7 +246,12 @@ Route::resource('UpdateSuratJalan', App\Http\Controllers\Accounting\Piutang\Upda
 Route::get('getTabelSuratJalan', 'App\Http\Controllers\Accounting\Piutang\UpdateSuratJalanController@getTabelSuratJalan');
 #endregion
 
-Route::get('ACCPenagihanPenjualan', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController@ACCPenagihanPenjualan');
+#region ACC Penagihan Penjualan
+Route::resource('ACCPenagihanPenjualan', App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController::class);
+Route::get('getDisplayHeader', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController@getDisplayHeader');
+Route::get('getDisplayDetail/{idPenagihan}', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanController@getDisplayDetail');
+#endregion
+
 Route::get('StatusDokumenTagihan', 'App\Http\Controllers\Accounting\Piutang\StatusDokumenTagihanController@StatusDokumenTagihan');
 Route::get('PenagihanPenjualanEkspor', 'App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanEksporController@PenagihanPenjualanEkspor');
 Route::get('ACCPenagihanPenjualanExport', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanExportController@ACCPenagihanPenjualanExport');

@@ -29,85 +29,71 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="bulanTahun">Bulan/Tahun</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" id="bulanTahun" name="bulanTahun" class="form-control" style="width: 100%">
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-3">
+                                        <label for="bulanTahun">Bulan/Tahun</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" id="bulanTahun" name="bulanTahun" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="idBKMSelect">BKM</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <select id="idBKMSelect" name="idBKMSelect" class="form-control">
+                                <p><div class="row">
+                                    <div class="col-md-3">
+                                        <label for="idBKMSelect">BKM</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select id="idBKMSelect" name="idBKMSelect" class="form-control">
 
-                                            </select>
-                                        </div>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <hr style="height:2px;">
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="statusPenagihan">Status Penagihan</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="statusPenagihan">Status Penagihan</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="mataUang">Mata Uang</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" id="mataUang" name="mataUang" class="form-control" style="width: 100%">
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-3">
+                                        <label for="mataUang">Mata Uang</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="mataUang" name="mataUang" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="nilaiBKM">Nilai BKM</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" id="nilaiBKM" name="nilaiBKM" class="form-control" style="width: 100%">
-                                        </div>
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-3">
+                                        <label for="nilaiBKM">Nilai BKM</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="nilaiBKM" name="nilaiBKM" class="form-control" style="width: 100%">
+                                    </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="alasan">Alasan</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" id="alasan" name="alasan" class="form-control" style="width: 100%">
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="alasan">Alasan</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" id="alasan" name="alasan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <label for="alasan">Tgl. Batal</label>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" id="tanggalBatal" name="tanggalBatal" class="form-control" style="width: 100%">
-                                        </div>
+                                <p><div class="row">
+                                    <div class="col-md-2">
+                                        <label for="alasan">Tgl. Batal</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" id="tanggalBatal" name="tanggalBatal" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <p><div class="mb-3">
                                     <div class="row">
                                         <div class="col-10" style="padding-left: 15px">
-                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary" disabled>
+                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-success" disabled>
                                         </div>
                                         <div class="col-1">
                                             <input type="submit" id="btnkeluar" name="btnkeluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">

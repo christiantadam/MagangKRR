@@ -120,6 +120,7 @@ btnKoreksi.addEventListener('click', function(event) {
     dokumenSelect.removeAttribute("readonly");
     jenisPajakSelect.removeAttribute("readonly");
     Ppn.removeAttribute("readonly");
+    noPenagihanUM.removeAttribute("readonly");
 
     nilaiSP.removeAttribute("readonly");
     nilaiUM.removeAttribute("readonly");
@@ -129,6 +130,49 @@ btnKoreksi.addEventListener('click', function(event) {
     //terbilang.removeAttribute("readonly");
 
     noPenagihanSelect.focus();
+});
+
+btnBatal.addEventListener('click', function (event) {
+    event.preventDefault();
+    namaCustomerSelect.selectedIndex = 0;
+    tanggalInput.value = "";
+    idCustomer.value = "";
+    idJenisCustomer.value = "";
+    noPenagihanSelect.selected = 0;
+    idNoPenagihan.value = "";
+    id_Penagihan.value = "";
+    jenisCustomer.value = "";
+    alamat.value = "";
+    noSP.value = "";
+    nomorSPSelect.selectedIndex = 0;
+    nomorPO.value = "";
+    mataUangSelect.value = "";
+    idMataUang.value = "";
+    nilaiKurs.value = "";
+    penagihanPajak.value = "";
+    syaratPembayaran.value = "";
+    userPenagihSelect.selectedIndex = 0;
+    idUserPenagih.value = "";
+    dokumenSelect.selectedIndex = 0;
+    idJenisDokumen.value = "";
+    jenisPajakSelect.selectedIndex = 0;
+    Ppn.value = "";
+    noPenagihanUM.selectedIndex = 0;
+    idPenagihanUM.value = "";
+    id_PenagihanUM.value = "";
+    idJenisPajak.value = "";
+    nilaiSP.value = "";
+    nilaiUM.value = "";
+    discount.value = "";
+    nilaiSdhBayar.value = "";
+    totalPenagihan.value = "";
+    terbilang.value = "";
+});
+
+btnHapus.addEventListener("click", function(event) {
+    event.preventDefault();
+    alert('Penagihan Tidak Boleh Dihapus. Jika Ada Salah Pengisian Mohon Dikoreksi');
+    //proses = 3;
 });
 
 fetch("/getmatauang/")
@@ -582,10 +626,11 @@ noPenagihanSelect.addEventListener("change", function (event) {
                     idJenisPajak.value = options[0].Jns_PPN;
                     Ppn.value = options[0].PersenPPN;
                     if (options[0].PersenPPN == 0) {
-                        Ppn.value == 10;
+                        Ppn.value = 10;
                     }
                     idPenagihanUM.value = options[0].Id_Penagihan_Acuan;
                     nilaiUM.value = options[0].Nilai_UM;
+
 
                     fetch("/getNoPenagihanUMNota/" + noSP.value)
                     .then((response) => response.json())
@@ -605,35 +650,19 @@ noPenagihanSelect.addEventListener("change", function (event) {
                             option.innerText = entry.Id_Penagihan + "|" + entry.nilai_BLM_PAJAK; // Gunakan entry.IdCust dan entry.NamaCust untuk teks opsi
                             noPenagihanUM.appendChild(option);
                         });
-                    });
+                    })
 
-                    noPenagihanUM.addEventListener("change", function (event) {
-                        event.preventDefault();
-                        const selectedOption = noPenagihanUM.options[noPenagihanUM.selectedIndex];
-                        if (selectedOption) {
-                            const selectedValue = selectedOption.textContent; // Atau selectedOption.innerText
-                            const bagiansatu = selectedValue.split(/[-|]/);
-                            const jenis = bagiansatu[0];
-                            idPenagihanUM.value  = jenis;
-
-                            id_PenagihanUM.value = idPenagihanUM.value.replace(/\//g, '.');
-                        }
-                    });
-
-                    let UM = options[0].Id_Penagihan;
-                    console.log("daftar:",noPenagihanUM.options);
+                    let UM = idPenagihanUM.value;
                     let opt2 = noPenagihanUM.options;
                     for (let i = 0; i < opt2.length; i++) {
-                        if (opt2[1].value == UM) {
-                            // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                        console.log("masuk");
+                        if (opt2[i].value == UM) {
                             noPenagihanUM.selectedIndex = i;
                             break;
                         }
                     };
 
-                    if (nilaiUM.value != "") {
 
-                    }
                 });
             });
 

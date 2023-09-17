@@ -100,7 +100,7 @@
                                                     <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <p><div class="row">
                                                 <div class="col-md-3">
                                                     <label for="idBKK">Id. BKK</label>
                                                 </div>
@@ -108,7 +108,7 @@
                                                     <input type="text" id="idBKK" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <p><div class="row">
                                                 <div class="col-md-3">
                                                     <label for="jumlahUang">Jumlah Uang</label>
                                                 </div>
@@ -116,7 +116,7 @@
                                                     <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <p><div class="row">
                                                 <div class="col-md-3">
                                                     <label for="kodePerkiraan">Kode Perkiraan</label>
                                                 </div>
@@ -129,7 +129,7 @@ s
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <p><div class="row">
                                                 <div class="col-md-3">
                                                     <label for="uraian">Uraian</label>
                                                 </div>
@@ -149,10 +149,10 @@ s
                                             <br>
                                             <div class="row" style="display: flex; justify-content: center;">
                                                 <div>
-                                                    <button type="submit" name="proses" class="btn btn-primary">PROSES</button>
+                                                    <button type="submit" name="proses" class="btn btn-success">PROSES</button>
                                                 </div>
                                                 <div style="display: flex; justify-content: center;">
-                                                    <input type="submit" name="batal" value="Batal" class="btn btn-primary">
+                                                    <input type="submit" name="batal" value="Batal" class="btn btn-danger">
                                                 </div>
                                             </div>
                                             <br>
@@ -161,7 +161,7 @@ s
                                                     <button type="submit" name="tampilbkk" class="btn btn-primary">Tampil BKK</button>
                                                 </div>
                                                 <div >
-                                                    <input type="submit" name="tutup" value="TUTUP" class="btn btn-primary">
+                                                    <input type="submit" name="tutup" value="TUTUP" class="btn btn-secondary">
                                                 </div>
                                             </div>
                                         </div>

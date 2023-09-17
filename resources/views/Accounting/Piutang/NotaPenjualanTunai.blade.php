@@ -54,7 +54,7 @@
                                         <label for="noPenagihanSelect" style="margin-right: 10px;">No. Penagihan</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control" disabled>
+                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control">
 
                                         </select>
                                     </div>

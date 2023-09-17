@@ -6,13 +6,19 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">ACC Penagihan Surat Jalan</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('ACCPenagihanPenjualan') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div style="overflow-y: auto; overflow-x: auto; max-height: 400px;">
-                                    <table style="width: 125%; table-layout: fixed;">
+                                    <table style="width: 260%; table-layout: fixed;" id="tabelListHeader">
                                         <colgroup>
                                             <col style="width: 15%;">
                                             <col style="width: 15%;">
@@ -21,6 +27,12 @@
                                             <col style="width: 20%;">
                                             <col style="width: 10%;">
                                             <col style="width: 20%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 30%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 10%;">
                                         </colgroup>
                                         <thead class="table-dark">
                                             <tr>
@@ -30,22 +42,20 @@
                                                 <th>PO</th>
                                                 <th>Nilai Tagihan</th>
                                                 <th>Mata Uang</th>
-                                                <th>...</th>
+                                                <th>Id. Customer</th>
+                                                <th>Id. Mata Uang</th>
+                                                <th>Kurs</th>
+                                                <th>Nama NPWP</th>
+                                                <th>Jenis Customer</th>
+                                                <th>Id. Faktur Pajak</th>
+                                                <th>Jenis PPN</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
-                                                <td>Data 3</td>
-                                                <td>Data 4</td>
-                                                <td>Data 5</td>
-                                                <td>Data 6</td>
-                                                <td>Data 7</td>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                                 <br>
                                 <div>
                                     <div class="row">
@@ -53,13 +63,13 @@
                                             <label for="idPenagihan">Id. Penagihan</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" id="idPenagihan" class="form-control" style="width: 100%">
+                                            <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-7">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary d-flex ml-auto" disabled>
+                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>
@@ -69,17 +79,38 @@
                                             <label for="fakturPajak">Faktur Pajak</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" id="fakturPajak" class="form-control" style="width: 100%">
+                                            <input type="text" id="fakturPajak" name="fakturPajak" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-md-8 d-flex justify-content-end">
                                             Sebelum Di Acc, Mohon diteliti Kembali
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="number" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="namaNPWP" name="namaNPWP" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="nilaiTagihan" name="nilaiTagihan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="kurs" name="kurs" class="form-control" style="width: 100%">
+                                    </div>
                                 </div>
 
                                 <br>
                                 <div style="overflow-y: auto; max-height: 400px;">
-                                    <table style="width: 60%; table-layout: fixed;">
+                                    <table style="width: 60%; table-layout: fixed;" id="tabelDisplayDetail">
                                         <colgroup>
                                             <col style="width: 30%;">
                                             <col style="width: 30%;">
@@ -104,4 +135,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/ACCPenagihanPenjualan.js') }}"></script>
 @endsection
