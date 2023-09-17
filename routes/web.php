@@ -35,11 +35,16 @@ Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohControl
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
-Route::get('/Extruder/ExtruderNet/Master/{formName?}/{extraParam?}', [MasterController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Master/{formName?}/{namaGedung?}', [MasterController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Benang/{formName?}', [BenangController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::class, 'index']);
+
+#region ExtruderNet - Master (KITE)
+Route::get('/Master/getCekBahanKite/{kode}', [MasterController::class, 'getCekBahanKite']);
+Route::get('/Master/getKiteExtruder/{kode}/{tgl_start?}/{kode_barang?}/{jenis_fas?}/{bahan_pp?}/{benang?}/{meter?}/{roll?}/{meter_awal?}/{hasil?}/{id_order?}/{caco3?}', [MasterController::class, 'getKiteExtruder']);
+#endregion
 
 #region ExtruderNet - Master (Tropodo)
 Route::get('/Master/getListKomposisiBahan/{id_komposisi}', [MasterController::class, 'getListKomposisiBahan']);

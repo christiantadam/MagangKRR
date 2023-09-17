@@ -35,10 +35,6 @@ const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 const btnTambahAfalan = document.getElementById("btn_tambah_afalan");
 
-// const radKomposisi = document.getElementById("radio_bb");
-// const radHP = document.getElementById("radio_hp");
-// const radAF = document.getElementById("radio_af");
-
 const listOfMaster = document.querySelectorAll("#master .form-select");
 const listOfDetail = document.querySelectorAll(
     ".card .form-control, .card .form-select, .card .btn"
@@ -103,7 +99,6 @@ const idDivisi =
 const idKelompok =
     document.getElementById("nama_gedung").value == "D" ? "8569" : "7227";
 
-// var [unitPrimer, unitSekunder, unitTritier] = ["", "", "", ""];
 var jumlah = 0;
 var modeProses = "";
 var refetchKelut = false;
@@ -787,6 +782,164 @@ btnTambahDetail.addEventListener("click", function () {
                 .split("|")[1]
                 .trim(),
             KodeBarang: txtKodeBarang.value,
+            Cadangan: 0,
+        });
+
+        addTable_DataTable(
+            "table_komposisi",
+            listKomposisi,
+            colKomposisi,
+            rowClickedFetch
+        );
+
+        showModal(
+            "Tambah Lagi",
+            "Ingin input data bahan / hasil produksi lagi?",
+            () => {
+                clearDataDetail("select_objek");
+                disableDetail("select_kelompok_utama");
+                slcKelut.focus();
+            },
+            () => {
+                btnProses.focus();
+            }
+        );
+    }
+});
+
+btnCadanganDetail.addEventListener("click", function () {
+    /**
+     * Memiliki fungsi mirip seperti button "Tambah Bahan",
+     * Namun button ini juga membaca bagian "Cadangan", dan
+     * Hanya dapat dilakukan saat mode proses "Koreksi",
+     * Tidak bisa dilakukan saat mode proses "Baru".
+     */
+
+    let jenis = "";
+    switch (slcKelut.value) {
+        case "1977": // Bahan Baku
+            jenis = "BB";
+            break;
+        case "1978": // Bahan Pembantu
+            jenis = "BP";
+            break;
+        case "1994": // Hasil Produksi
+            alert(
+                'Hasil Produksi dapat dipilih pada bagian "Hasil Produksi" & "Hasil Produksi NG" di kolom atas.'
+            );
+            slcKelut.focus();
+            return;
+        case "1976": // Afalan
+            alert('Afalan dapat dipilih pada bagian "Afalan" di kolom atas.');
+            slcKelut.focus();
+            return;
+        default:
+            jenis = "__";
+            break;
+    }
+
+    for (let i = 0; i < listOfDetail.length; i++) {
+        const ele = listOfDetail[i];
+        if (ele.tagName == "INPUT") {
+            if (ele.value.trim() == "") {
+                alert("Ada data yang belum terisi, mohon periksa kembali.");
+                ele.focus();
+                return;
+            }
+        } else if (ele.tagName == "SELECT") {
+            if (ele.selectedIndex == 0) {
+                alert("Ada data yang belum terisi, mohon periksa kembali.");
+                ele.focus();
+                return;
+            }
+        }
+    }
+
+    let [type_found, bb_found, bp_found] = [false, false, false];
+    if (findClickedRowInList(listKomposisi, "IdType", slcType.value) != -1) {
+        type_found = true;
+    }
+
+    if (
+        jenis == "BB" &&
+        findClickedRowInList(listKomposisi, "StatusType", jenis) != -1
+    ) {
+        bb_found = true;
+    }
+
+    if (
+        findClickedRowInList(
+            listKomposisi,
+            "NamaSubKelompok",
+            slcSubkel.options[slcSubkel.selectedIndex].text.split("|")[1].trim()
+        ) != -1
+    ) {
+        bp_found = true;
+    }
+
+    jumlah += parseFloat(numPersentase.value);
+    jumlah = parseFloat(jumlah.toString().substring(0, 6));
+    if (jumlah > 100 || parseFloat(numPersentase.value) <= 0) {
+        if (jumlah > 100) {
+            alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
+        } else alert("Persentase harus diisi terlebih dahulu.");
+
+        jumlah += parseFloat(numPersentase.value);
+        numPersentase.focus();
+        return;
+    }
+
+    if (numCadangan.value == "0" || numCadangan.value == "") {
+        alert("Cadangan harus diisi terlebih dahulu!");
+        numCadangan.select();
+        return;
+    }
+
+    if (type_found) {
+        alert("Sudah ada Type yang sama dalam Komposisi.");
+        slcType.focus();
+        return;
+    } else if (bb_found) {
+        alert("Hanya boleh terdapat 1 Bahan Baku dalam Komposisi.");
+        slcKelut.focus();
+        return;
+    } else if (bp_found) {
+        alert(
+            "Sudah ada Bahan Pembantu dengan Sub-kelompok yang sama dalam Komposisi."
+        );
+        slcSubkel.focus();
+        return;
+    } else {
+        listKomposisi.push({
+            StatusType: jenis,
+            IdType: slcType.value,
+            NamaType: slcType.options[slcType.selectedIndex].text
+                .split("|")[1]
+                .trim(),
+            JumlahPrimer: numPrimer.value,
+            SatuanPrimer: txtSatPrimer.value,
+            JumlahSekunder: numSekunder.value,
+            SatuanSekunder: txtSatSekunder.value,
+            JumlahTritier: numTritier.value,
+            SatuanTritier: txtSatTritier.value,
+            Persentase: numPersentase.value,
+            IdObjek: slcObjek.value,
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text
+                .split("|")[1]
+                .trim(),
+            IdKelompokUtama: slcKelut.value,
+            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text
+                .split("|")[1]
+                .trim(),
+            IdKelompok: slcKelompok.value,
+            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text
+                .split("|")[1]
+                .trim(),
+            IdSubKelompok: slcSubkel.value,
+            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text
+                .split("|")[1]
+                .trim(),
+            KodeBarang: txtKodeBarang.value,
             Cadangan: numCadangan.value,
         });
 
@@ -1347,134 +1500,6 @@ btnTambahAfalan.addEventListener("click", function () {
 slcNG.addEventListener("change", function () {
     slcAF.disabled = false;
     slcAF.focus();
-});
-
-btnCadanganDetail.addEventListener("click", function () {
-    let jenis = "";
-    switch (slcKelut.value) {
-        case "1977":
-            jenis = "BB";
-            break;
-        case "1978":
-            jenis = "BP";
-            break;
-        case "1994":
-            jenis = "HP";
-            break;
-        case "1976":
-            jenis = "AF";
-            break;
-        default:
-            jenis = "__";
-            break;
-    }
-
-    listOfDetail.forEach((ele) => {
-        if (ele.tagName == "INPUT") {
-            if (ele.value.trim() == "" && slcKelut.value != "1994") {
-                ele.focus();
-                alert("Ada data yang belum terisi.");
-                return;
-            }
-        } else {
-            if (ele.selectedIndex == 0) {
-                ele.focus();
-                alert("Ada data yang belum terisi.");
-                return;
-            }
-        }
-    });
-
-    let [type_found, hp_found] = [false, false];
-    for (let i = 0; i < listKomposisi.length; i++) {
-        if (listKomposisi[i].IdType == slcType.value) {
-            type_found = true;
-        }
-
-        if (jenis == "HP") {
-            if (listKomposisi.StatusType == jenis) {
-                hp_found = true;
-            }
-        }
-    }
-
-    if (jenis == "HP") {
-        alert("Hasil Produksi telah dipilih.");
-        slcKelut.focus();
-        return;
-    } else if (jenis == "AF") {
-        alert("Afalah telah dipilih.");
-        slcKelut.focus();
-        return;
-    }
-
-    jumlah += parseFloat(numPersentase.value);
-    if (parseFloat(numPersentase.value) > 100) {
-        alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
-        jumlah -= parseFloat(numPersentase.value);
-        return;
-    } else if (numCadangan.value == "" || numCadangan.value < 1) {
-        alert("Cadangan tidak boleh kosong!");
-        numCadangan.select();
-    }
-
-    if (type_found) {
-        alert("Sudah ada Type yang sama dalam Komposisi.");
-    } else if (hp_found) {
-        alert("Hanya boleh ada 1 Hasil Produksi dalam Komposisi.");
-    } else {
-        listKomposisi.push({
-            StatusType: jenis,
-            IdType: slcType.value,
-            NamaType: slcType.options[slcType.selectedIndex].text
-                .split("|")[1]
-                .trim(),
-            JumlahPrimer: numPrimer.value,
-            SatuanPrimer: txtSatPrimer.value,
-            JumlahSekunder: numSekunder.value,
-            SatuanSekunder: txtSatSekunder.value,
-            JumlahTritier: numTritier.value,
-            SatuanTritier: txtSatTritier.value,
-            Persentase: numPersentase.value,
-            IdObjek: slcObjek.value,
-            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text
-                .split("|")[1]
-                .trim(),
-            IdKelompokUtama: slcKelut.value,
-            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text
-                .split("|")[1]
-                .trim(),
-            IdKelompok: slcKelompok.value,
-            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text
-                .split("|")[1]
-                .trim(),
-            IdSubKelompok: slcSubkel.value,
-            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text
-                .split("|")[1]
-                .trim(),
-            KodeBarang: txtKodeBarang.value,
-            Cadangan: numCadangan.value,
-        });
-
-        addTable_DataTable(
-            "table_komposisi",
-            listKomposisi,
-            colKomposisi,
-            rowClickedFetch
-        );
-
-        showModal(
-            "Tambah Lagi",
-            "Ingin input data bahan / hasil produksi lagi?",
-            () => {
-                clearDataDetail("select_objek");
-                slcKelut.focus();
-            },
-            () => {
-                btnProses.focus();
-            }
-        );
-    }
 });
 //#endregion
 

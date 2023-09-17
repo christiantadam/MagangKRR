@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MasterController extends Controller
 {
-    public function index($form_name, $extra_param = null)
+    public function index($form_name, $nama_gedung = null)
     {
         $view_name = 'extruder.ExtruderNet.' . $form_name;
         $form_data = [];
@@ -29,7 +29,7 @@ class MasterController extends Controller
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
                     'listHP' => $this->getPrgTypeProduksi(2, 1994),
                     'listNG' => $this->getPrgTypeProduksi(3, 1994),
-                    'namaGedung' => $extra_param,
+                    'namaGedung' => $nama_gedung,
                 ];
                 break;
 
@@ -45,6 +45,35 @@ class MasterController extends Controller
 
         return view($view_name, $view_data);
     }
+
+    #region KITE
+    public function getCekBahanKite($kode)
+    {
+        return DB::connection('ConnInventory')->select(
+            'exec SP_1273_EXT_Cek_Bahan_KITE @Kode = ?',
+            [$kode]
+        );
+
+        // @Kode char(1)
+    }
+
+    public function getKiteExtruder($kode, $tgl_start = null, $kode_barang = null, $jenis_fas = null, $bahan_pp = null, $benang = null, $meter = null, $roll = null, $meter_awal = null, $hasil = null, $id_order = null, $caco3 = null)
+    {
+        if ($kode == '1' || $kode == '7') {
+            return DB::connection('ConnExtruder')->select(
+                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ? @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
+                [$kode, $tgl_start, $kode_barang, $jenis_fas, $bahan_pp, $benang, $meter, $roll, $meter_awal, $hasil, $id_order, $caco3]
+            );
+        } else {
+            return DB::connection('ConnExtruder')->statement(
+                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ? @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
+                [$kode, $tgl_start, $kode_barang, $jenis_fas, $bahan_pp, $benang, $meter, $roll, $meter_awal, $hasil, $id_order, $caco3]
+            );
+        }
+
+        // @Kode char(1), @TglStart date = null, @KodeBarang char(9) = null, @JenisFas varchar(50) = null, @BahanPP decimal(18,0) = null, @Benang decimal(18,2) = null, @Meter decimal(18,0) = null, @Roll decimal(18,0) = null, @MeterAwal decimal(18,2) = null, @Hasil decimal(18,2) = null, @IdOrder int = null, @CaCO3 decimal(18,2) = null
+    }
+    #endregion
 
     #region Mojosari
     public function getListKomposisiBahanMjs($id_komposisi)
