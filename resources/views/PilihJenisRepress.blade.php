@@ -91,6 +91,8 @@
                                                 </div>
                                             </div>
 
+                                            <div id="form-container"></div>
+
                                             <div class="row">
                                                 <div class="form-group col-md-2 d-flex justify-content-end">
                                                     <span class="aligned-text">Objek:</span>
@@ -185,7 +187,7 @@
                                         <span class="aligned-text">Divisi:</span>
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0">
-                                        <input type="text" class="form-control" name="Divisi" id="Divisi"
+                                        <input type="text" class="form-control" name="DivisiPemberi" id="DivisiPemberi"
                                             placeholder="Divisi">
                                     </div>
                                 </div>
@@ -224,17 +226,15 @@
                                         <table id="TableBarcode">
                                             <thead>
                                                 <tr>
+                                                    <th>No. </th>
                                                     <th>Id Transaksi</th>
-                                                    <th>Kelompok Utama </th>
-                                                    <th>Kelompok </th>
-                                                    <th>Sub Kelompok</th>
-                                                    <th>Nama Type</th>
-                                                    <th>Alasan Mutasi</th>
-                                                    <th>User</th>
-                                                    <th>Primer</th>
-                                                    <th>Sekunder</th>
-                                                    <th>Tritier</th>
-                                                    <th>Tanggal Mohon</th>
+                                                    <th>Kode Barang</th>
+                                                    <th>No Indeks </th>
+                                                    <th>Id Type </th>
+                                                    <th>Nama Type </th>
+                                                    <th>Jumlah Primer</th>
+                                                    <th>Jumlah Sekunder</th>
+                                                    <th>Jumlah Tritier</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -245,10 +245,6 @@
                                         <div class="text-center col-md-auto mt-3">
                                             <button style="width: 100px;" type="button"
                                                 onclick="closeModal2()">Ok</button>
-                                        </div>
-                                        <div class="form-group col-md-auto mt-3">
-                                            <input type="text" class="form-control text-center" name="Objek"
-                                                id="Objek" style="width: 300px; margin-left: 415px">
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +286,7 @@
                                     <span class="aligned-text">Kelompok Utama:</span>
                                 </div>
                                 <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="kelut" id="kelut"
+                                    <input type="text" class="form-control" name="kelut" id="kelut2"
                                         placeholder="Kelompok Utama">
                                 </div>
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -305,7 +301,7 @@
                                     <span class="aligned-text">Kelompok:</span>
                                 </div>
                                 <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok"
+                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok2"
                                         placeholder="Kelompok">
                                 </div>
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -317,11 +313,11 @@
 
                             <div class="row">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
-                                    <span class="aligned-text">Kelompok:</span>
+                                    <span class="aligned-text">Sub Kelompok:</span>
                                 </div>
                                 <div class="form-group col-md-4 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kelompok" id="Kelompok"
-                                        placeholder="Kelompok">
+                                    <input type="text" class="form-control" name="sub_kelompok2" id="sub_kelompok2"
+                                        placeholder="Sub Kelompok">
                                 </div>
                                 <div class="form-group col-md-2 d-flex justify-content-end">
                                     <span class="aligned-text">Kode Barang:</span>
@@ -345,13 +341,13 @@
                             </div>
                             <div class="row" style="margin-left: 5px">
                                 <div class="form-group col-md-2 d-flex justify-content-end" style="margin-left: -17px">
-                                    <span class="aligned-text">Satuan Primier:</span>
+                                    <span class="aligned-text">Satuan Primer:</span>
                                 </div>
                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Primier" id="Primier"
-                                        placeholder="Primier">
+                                    <input type="text" class="form-control" name="PrimerPenerima" id="PrimerPenerima" style="width: 150px"
+                                        placeholder="Primer">
                                 </div>
-                                <div class="form-group col-md-2 d-flex justify-content-end" style="margin-left: -25px">
+                                <div class="form-group col-md-2 d-flex justify-content-end">
                                     <span class="aligned-text">Satuan Sekunder:</span>
                                 </div>
                                 <input type="text" class="form-control col-md-2" name="Sekunder" id="Sekunder"
@@ -379,9 +375,9 @@
         </div>
         <div class="row mt-3">
             <div class="col- row justify-content-md-center ml-3">
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Konversi</button></div>
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Hanguskan</button></div>
-                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px">Print Ulang</button></div>
+                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px" onclick="KonversiData()">Konversi</button></div>
+                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px" >Hanguskan</button></div>
+                <div class="text-center col-md-auto mb-3"><button type="button" style="width: 100px" onclick="PrintUlangData()">Print Ulang</button></div>
             </div>
         </div>
         </form>

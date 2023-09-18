@@ -88,6 +88,7 @@ class ScheduleController extends Controller
         } else if ($crExplode[1] == "getKelompok") {
             //getDataKeluarga
             $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', [$crExplode[0]]);
+            dd($dataKelompok);
             return response()->json($dataKelompok);
         } else if ($crExplode[1] == "getSubKelompok") {
             // getPegawaiKeluarga
