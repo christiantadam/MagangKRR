@@ -183,7 +183,12 @@ Route::get('GetAllDataStatusOrderProyek/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http
 
 
 // Workshop - Informasi
-Route::get('OrderGambarSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderGambarSelesai');
+
+Route::resource('OrderGambarSelesai', App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderGambar::class);
+Route::get('GetAllDataPengorder/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderGambar@GetAllDataPengorder');
+Route::get('GetAllDataPenerima/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderGambar@GetAllDataPenerima');
+
+
 Route::get('OrderKerjaSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderKerjaSelesai');
 Route::get('OrderProyekSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderProyekSelesai');
 Route::get('NomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@NomorGambar');

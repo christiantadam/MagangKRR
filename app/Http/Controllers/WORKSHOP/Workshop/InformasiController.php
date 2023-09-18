@@ -12,11 +12,6 @@ class InformasiController extends Controller
         return view();
     }
 
-    public function OrderGambarSelesai()
-    {
-        return view('WORKSHOP.Workshop.Informasi.OrderGambarSelesai');
-    }
-
     public function OrderKerjaSelesai()
     {
         return view('WORKSHOP.Workshop.Informasi.OrderKerjaSelesai');

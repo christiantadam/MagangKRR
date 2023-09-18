@@ -187,7 +187,7 @@
                 Informasi
               </a>
               <ul class="dropdown-menu" style="cursor: default">
-                <li><a href="/OrderGambarSelesai" class="test"
+                <li><a href="{{ url('OrderGambarSelesai') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Gambar Yang Selesai</a>
                 </li>
