@@ -1,8 +1,3 @@
-<!--
-    PERBAIKAN   : perbaikan controller (cari "LAST") | formBenangMohon.blade.php
-    MIGRASI     : loadDataKwaH() | FrmDaya.vb
--->
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -12,6 +7,11 @@ use App\Http\Controllers\Extruder\ExtruderNet\KonversiController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
+
+/**
+ * PERBAIKAN   : perbaikan controller (cari "LAST") | formBenangMohon.blade.php
+ * MIGRASI     : loadDataKwaH() | FrmDaya.vb
+ */
 
 /*
 |--------------------------------------------------------------------------

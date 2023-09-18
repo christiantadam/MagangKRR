@@ -99,6 +99,15 @@ const idDivisi =
 const idKelompok =
     document.getElementById("nama_gedung").value == "D" ? "8569" : "7227";
 
+const idBahanBaku =
+    document.getElementById("nama_gedung").value == "D" ? "2248" : "1977";
+const idBahanPembantu =
+    document.getElementById("nama_gedung").value == "D" ? "2249" : "1978";
+const idHasilProduksi =
+    document.getElementById("nama_gedung").value == "D" ? "2250" : "1994";
+const idAfalan =
+    document.getElementById("nama_gedung").value == "D" ? "2251" : "1976";
+
 var jumlah = 0;
 var modeProses = "";
 var refetchKelut = false;
@@ -107,12 +116,15 @@ var refetchSubkel = false;
 var refetchType = false;
 var refetchKomposisi = false;
 var refetchHP = false;
+var refetchNG = false;
+var refetchAF = false;
 var pilKomposisi = -1;
 //#endregion
 
 //#region Events
 slcKomposisi.addEventListener("mousedown", function () {
     if (refetchKomposisi) {
+        refetchKomposisi = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
@@ -129,12 +141,17 @@ slcKomposisi.addEventListener("mousedown", function () {
             },
             errorOption
         );
+
+        refetchHP = true;
+        refetchNG = true;
+        refetchAF = true;
     }
 });
 
 slcKomposisi.addEventListener("keydown", function (event) {
     if (event.key == "Enter") {
         if (refetchKomposisi) {
+            refetchKomposisi = false;
             clearOptions(this);
             const errorOption = addLoadingOption(this);
             const optionKeys = {
@@ -151,6 +168,10 @@ slcKomposisi.addEventListener("keydown", function (event) {
                 },
                 errorOption
             );
+
+            refetchHP = true;
+            refetchNG = true;
+            refetchAF = true;
         }
     }
 });
@@ -254,6 +275,7 @@ slcKomposisi.addEventListener("change", function () {
                                                         " | " +
                                                         "Bahan dan Hasil Produksi"
                                                 );
+
                                                 btnKoreksiDetail.disabled = false;
                                                 numPersentase.disabled = false;
                                                 numCadangan.disabled = false;
@@ -429,7 +451,7 @@ slcKelompok.addEventListener("change", function () {
     slcType.selectedIndex = 0;
     slcSubkel.selectedIndex = 0;
 
-    if (slcKelut.value == "1977" || slcKelut.value == "1994") {
+    if (slcKelut.value == idBahanBaku || slcKelut.value == idHasilProduksi) {
         // Pengecekkan mesin pada DB Inventory dan Extruder
         // SP_5298_EXT_CEK_KELOMPOK_MESIN
         fetchSelect("/Master/getCekKelompokMesin/" + this.value, (data) => {
@@ -656,8 +678,8 @@ btnHapusMaster.addEventListener("click", function () {
 btnTambahDetail.addEventListener("click", function () {
     /**
      * Hanya boleh menambahkan komposisi dengan jenis:
-     * - Bahan Baku (BB | 1977)
-     * - Bahan Pembantu (BP | 1978)
+     * - Bahan Baku (BB)
+     * - Bahan Pembantu (BP)
      *
      * Untuk Afalan & Hasil Produksi dipilih pada:
      * slcAF, slcHP, dan slcNG
@@ -665,13 +687,13 @@ btnTambahDetail.addEventListener("click", function () {
 
     let jenis = "";
     switch (slcKelut.value) {
-        case "1977": // Bahan Baku
+        case idBahanBaku: // Bahan Baku
             jenis = "BB";
             break;
-        case "1978": // Bahan Pembantu
+        case idBahanPembantu: // Bahan Pembantu
             jenis = "BP";
             break;
-        case "1994": // Hasil Produksi
+        case idHasilProduksi: // Hasil Produksi
             alert(
                 'Hasil Produksi dapat dipilih pada bagian "Hasil Produksi" & "Hasil Produksi NG" di kolom atas.'
             );
@@ -817,13 +839,13 @@ btnCadanganDetail.addEventListener("click", function () {
 
     let jenis = "";
     switch (slcKelut.value) {
-        case "1977": // Bahan Baku
+        case idBahanBaku: // Bahan Baku
             jenis = "BB";
             break;
-        case "1978": // Bahan Pembantu
+        case idBahanPembantu: // Bahan Pembantu
             jenis = "BP";
             break;
-        case "1994": // Hasil Produksi
+        case idHasilProduksi: // Hasil Produksi
             alert(
                 'Hasil Produksi dapat dipilih pada bagian "Hasil Produksi" & "Hasil Produksi NG" di kolom atas.'
             );
@@ -975,13 +997,13 @@ btnKoreksiDetail.addEventListener("click", function () {
             () => {
                 let jenis = "";
                 switch (slcKelut.value) {
-                    case "1977":
+                    case idBahanBaku:
                         jenis = "BB";
                         break;
-                    case "1978":
+                    case idBahanPembantu:
                         jenis = "BP";
                         break;
-                    case "1994":
+                    case idHasilProduksi:
                         jenis = "HP";
                         break;
                     case "1976":
@@ -1327,7 +1349,7 @@ btnProses.addEventListener("click", function () {
             fetchSelect("/Master/getPrgBomBarang/1/" + slcHP.value, (data) => {
                 if (data.length > 0) {
                     jmlh_bom = data[0].JumlahBOM;
-                } else alert("Jumlah BOM tidak ditemukan.");
+                } else console.log("Jumlah BOM tidak ditemukan.");
 
                 if (jmlh_bom > 0) {
                     alert(
@@ -1373,6 +1395,7 @@ btnProses.addEventListener("click", function () {
                                                 disableAll();
                                                 btnBaruMaster.focus();
                                                 modeProses = "";
+                                                refetchKomposisi = true;
                                             }
                                         );
                                     });
@@ -1410,6 +1433,7 @@ btnProses.addEventListener("click", function () {
                             disableAll();
                             btnBaruMaster.focus();
                             modeProses = "";
+                            refetchKomposisi = true;
                         }
                     );
                 });
@@ -1440,9 +1464,152 @@ btnProses.addEventListener("click", function () {
     }
 });
 
+slcHP.addEventListener("mousedown", function () {
+    if (refetchHP) {
+        refetchHP = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "KodeBarang",
+            textKey: "NamaType",
+        };
+
+        // SP_1273_PRG_TypeProduksi
+        fetchSelect(
+            "/Master/getPrgTypeProduksi/2/" + idHasilProduksi,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcHP.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (refetchHP) {
+            refetchHP = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "KodeBarang",
+                textKey: "NamaType",
+            };
+
+            // SP_1273_PRG_TypeProduksi
+            fetchSelect(
+                "/Master/getPrgTypeProduksi/2/" + idHasilProduksi,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
 slcHP.addEventListener("change", function () {
     slcNG.disabled = false;
     slcNG.focus();
+});
+
+slcNG.addEventListener("mousedown", function () {
+    if (refetchNG) {
+        refetchNG = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "KodeBarang",
+            textKey: "NamaType",
+        };
+
+        // SP_1273_PRG_TypeProduksi
+        fetchSelect(
+            "/Master/getPrgTypeProduksi/3/" + idHasilProduksi,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcNG.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (refetchNG) {
+            refetchNG = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "KodeBarang",
+                textKey: "NamaType",
+            };
+
+            // SP_1273_PRG_TypeProduksi
+            fetchSelect(
+                "/Master/getPrgTypeProduksi/3/" + idHasilProduksi,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
+});
+
+slcNG.addEventListener("change", function () {
+    slcAF.disabled = false;
+    slcAF.focus();
+});
+
+slcAF.addEventListener("mousedown", function () {
+    if (refetchAF) {
+        refetchAF = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "KodeBarang",
+            textKey: "NamaType",
+        };
+
+        // SP_1273_PRG_TypeProduksi
+        fetchSelect(
+            "/Master/getPrgTypeProduksi/1/" + idAfalan,
+            (data) => {
+                addOptions(this, data, optionKeys);
+                this.removeChild(errorOption);
+            },
+            errorOption
+        );
+    }
+});
+
+slcAF.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (refetchAF) {
+            refetchAF = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "KodeBarang",
+                textKey: "NamaType",
+            };
+
+            // SP_1273_PRG_TypeProduksi
+            fetchSelect(
+                "/Master/getPrgTypeProduksi/1/" + idAfalan,
+                (data) => {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                },
+                errorOption
+            );
+        }
+    }
 });
 
 slcAF.addEventListener("change", function () {
@@ -1454,6 +1621,7 @@ slcAF.addEventListener("change", function () {
         "padding=250px"
     );
     clearDataDetail("cadangan");
+    numCadangan.value = 0;
     addOptionIfNotExists(slcObjek, 213, 213 + " | Bahan dan Hasil Produksi");
     btnTambahAfalan.disabled = false;
     btnTambahAfalan.focus();
@@ -1495,11 +1663,6 @@ btnTambahAfalan.addEventListener("click", function () {
             slcKelut.focus();
         }
     }
-});
-
-slcNG.addEventListener("change", function () {
-    slcAF.disabled = false;
-    slcAF.focus();
 });
 //#endregion
 
@@ -1727,7 +1890,7 @@ function insertDetailFetch(post_action = null) {
                     if (listAfalan.length > 0) {
                         for (let j = 0; j < listAfalan.length; j++) {
                             // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 2
-                            fetchSelect(
+                            fetchStmt(
                                 "/Master/insKomposisiBahanMjs/2/" +
                                     slcKomposisi.value.trim() +
                                     "/null/" +

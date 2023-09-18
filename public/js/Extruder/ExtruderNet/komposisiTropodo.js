@@ -958,6 +958,10 @@ btnProses.addEventListener("click", function () {
                         "/Master/delMasterKomposisi/" +
                             slcKomposisi.value.trim(),
                         () => {
+                            toggleButtons(1);
+                            disableDetail();
+                            modeProses = "";
+                            refetchKomposisi = true;
                             alert("Komposisi berhasil dihapus.");
                         }
                     );

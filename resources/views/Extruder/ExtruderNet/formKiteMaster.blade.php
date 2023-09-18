@@ -40,7 +40,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="input-group">
-                    <select id="select_kode_barang" class="form-select" disabled>
+                    <select id="select_kode_barang" class="form-select">
                         <option selected disabled>-- Pilih Kode Barang --</option>
                     </select>
                     <button type="button" id="btn_cek_kode" class="btn btn-outline-secondary">Cek</button>
@@ -104,10 +104,10 @@
 
         <div class="row mt-3">
             <div class="col-12 row justify-content-lg-center">
-                <div class="text-center col-lg-auto"><button type="submit" class="btn btn-outline-primary"
+                <div class="text-center col-lg-auto"><button type="button" class="btn btn-outline-primary"
                         id="btn_simpan">Simpan</button></div>
                 <div class="col-lg-4"></div>
-                <div class="text-center col-lg-auto"><button type="submit" class="btn btn-outline-secondary"
+                <div class="text-center col-lg-auto"><button type="button" class="btn btn-outline-secondary"
                         id="btn_keluar">Keluar</button></div>
             </div>
         </div>

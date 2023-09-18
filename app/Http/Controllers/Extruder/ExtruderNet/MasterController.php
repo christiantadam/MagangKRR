@@ -22,13 +22,16 @@ class MasterController extends Controller
                 ];
                 break;
             case 'formKomposisiMojosari':
+                $id_hasil = $nama_gedung == "D" ? 2250 : 1994;
+                $id_afalan = $nama_gedung == "D" ? 2251 : 1976;
+
                 $form_data = [
                     'listKomposisi' => $this->getListKomposisi('MEX'),
                     'listMesin' => $this->getListMesin(2),
-                    'listAfalan' => $this->getPrgTypeProduksi(1, 1976),
+                    'listAfalan' => $this->getPrgTypeProduksi(1, $id_afalan),
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
-                    'listHP' => $this->getPrgTypeProduksi(2, 1994),
-                    'listNG' => $this->getPrgTypeProduksi(3, 1994),
+                    'listHP' => $this->getPrgTypeProduksi(2, $id_hasil),
+                    'listNG' => $this->getPrgTypeProduksi(3, $id_hasil),
                     'namaGedung' => $nama_gedung,
                 ];
                 break;
@@ -60,13 +63,13 @@ class MasterController extends Controller
     public function getKiteExtruder($kode, $tgl_start = null, $kode_barang = null, $jenis_fas = null, $bahan_pp = null, $benang = null, $meter = null, $roll = null, $meter_awal = null, $hasil = null, $id_order = null, $caco3 = null)
     {
         if ($kode == '1' || $kode == '7') {
-            return DB::connection('ConnExtruder')->select(
-                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ? @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
+            return DB::connection('ConnExtruder')->statement(
+                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ?, @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
                 [$kode, $tgl_start, $kode_barang, $jenis_fas, $bahan_pp, $benang, $meter, $roll, $meter_awal, $hasil, $id_order, $caco3]
             );
         } else {
-            return DB::connection('ConnExtruder')->statement(
-                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ? @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
+            return DB::connection('ConnExtruder')->select(
+                'exec SP_1273_EXT_KITE @Kode = ?, @TglStart = ?, @KodeBarang = ?, @JenisFas = ?, @BahanPP = ?, @Benang = ?, @Meter = ?, @Roll = ?, @MeterAwal = ?, @Hasil = ?, @IdOrder = ?, @CaCO3 = ?',
                 [$kode, $tgl_start, $kode_barang, $jenis_fas, $bahan_pp, $benang, $meter, $roll, $meter_awal, $hasil, $id_order, $caco3]
             );
         }

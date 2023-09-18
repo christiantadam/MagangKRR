@@ -2,7 +2,7 @@
 const rdoPembebasan = document.getElementById("fasilitas_pembebasan");
 const rdoPengembalian = document.getElementById("fasilitas_pengembalian");
 const dateStart = document.getElementById("tgl_start");
-const slcKodeBarang = document.getElementById("kode_barang");
+const slcKodeBarang = document.getElementById("select_kode_barang");
 
 const txtNamaBarang = document.getElementById("nama_barang");
 const txtBahanPP = document.getElementById("bahan_pp");
@@ -52,6 +52,14 @@ slcKodeBarang.addEventListener("mousedown", function () {
             },
             errorOption
         );
+
+        txtBenang.value = "";
+        txtBahanPP.value = "";
+        hidMeter.value = "";
+        hidRoll.value = "";
+        txtHasil.value = "";
+        txtSisa.value = "";
+        btnSimpan.disabled = false;
     }
 });
 
@@ -79,6 +87,14 @@ slcKodeBarang.addEventListener("keydown", function (event) {
             },
             errorOption
         );
+
+        txtBenang.value = "";
+        txtBahanPP.value = "";
+        hidMeter.value = "";
+        hidRoll.value = "";
+        txtHasil.value = "";
+        txtSisa.value = "";
+        btnSimpan.disabled = false;
     }
 });
 
@@ -145,13 +161,41 @@ btnSimpan.addEventListener("click", function () {
 });
 
 btnCekKode.addEventListener("click", function () {
-    let kodeBarang = "";
+    const post_action = () => {
+        // SP_1273_EXT_KITE Kode 4
+        fetchSelect(
+            "/Master/getKiteExtruder/4/" + dateStart.value + "/" + kodeBarang,
+            (data) => {
+                if (data.length > 0) {
+                    addOptionIfNotExists(
+                        slcKodeBarang,
+                        kodeBarang,
+                        kodeBarang + " | " + data[0].NAMA_BRG
+                    );
+                    txtBahanPP.value = data[0].BahanPP;
+                    txtBenang.value = data[0].Benang;
+                    txtHasil.value = data[0].Hasil;
+                    txtSisa.value =
+                        parseFloat(txtBenang.value) -
+                        parseFloat(txtHasil.value);
+                    btnSimpan.disabled = true;
+                } else
+                    alert(
+                        "Tidak ditemukan data Kode Barang " + kodeBarang + "."
+                    );
+            }
+        );
+    };
+
+    let kodeBarang = "null";
     if (rdoPembebasan.checked) {
         // SP_1273_EXT_KITE Kode 2
         fetchSelect("/Master/getKiteExtruder/2", (data) => {
             if (data.length > 0) {
                 kodeBarang = data[0].KodeBarang;
                 dateStart.value = dateTimeToDate(data[0].TglStart);
+
+                post_action();
             } else {
                 alert("Tidak ditemukan data untuk Fas Pembebasan.");
                 return;
@@ -163,33 +207,14 @@ btnCekKode.addEventListener("click", function () {
             if (data.length > 0) {
                 kodeBarang = data[0].KodeBarang;
                 dateStart.value = dateTimeToDate(data[0].TglStart);
+
+                post_action();
             } else {
                 alert("Tidak ditemukan data untuk Fas Pengembalian.");
                 return;
             }
         });
     }
-
-    // SP_1273_EXT_KITE Kode 4
-    fetchSelect(
-        "/Master/getKiteExtruder/4/" + dateStart.value + "/" + kodeBarang,
-        (data) => {
-            if (data.length > 0) {
-                addOptionIfNotExists(
-                    slcKodeBarang,
-                    kodeBarang,
-                    kodeBarang + " | " + data[0].NAMA_BRG
-                );
-                txtBahanPP.value = data[0].BahanPP;
-                txtBenang.value = data[0].Benang;
-                txtHasil.value = data[0].Hasil;
-                txtSisa.value =
-                    parseFloat(txtBenang.value) - parseFloat(txtHasil.value);
-                btnSimpan.disabled = true;
-            } else
-                alert("Tidak ditemukan data Kode Barang " + kodeBarang + ".");
-        }
-    );
 });
 
 btnKeluar.addEventListener("click", function () {
