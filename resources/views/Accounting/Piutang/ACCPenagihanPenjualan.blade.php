@@ -66,14 +66,14 @@
                                             <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
                                         </div>
                                         <div class="col-7">
-                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-success d-flex ml-auto">
                                         </div>
                                         <div class="col-1">
                                             <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <p><div>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label for="fakturPajak">Faktur Pajak</label>

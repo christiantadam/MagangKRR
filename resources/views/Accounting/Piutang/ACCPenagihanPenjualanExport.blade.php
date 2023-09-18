@@ -12,13 +12,16 @@
                                 @csrf
                                 <!-- Form fields go here -->
                                 <div style="overflow-y: auto; max-height: 400px;">
-                                    <table style="width: 100%; table-layout: fixed;">
+                                    <table style="width: 175%; table-layout: fixed;" id="tabelPenagihanPenjualanEx">
                                         <colgroup>
-                                            <col style="width: 15%;">
+                                            <col style="width: 25%;">
                                             <col style="width: 15%;">
                                             <col style="width: 30%;">
                                             <col style="width: 15%;">
                                             <col style="width: 20%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 15%;">
                                             <col style="width: 20%;">
                                         </colgroup>
                                         <thead class="table-dark">
@@ -29,6 +32,9 @@
                                                 <th>PO</th>
                                                 <th>Nilai Tagihan</th>
                                                 <th>Mata Uang</th>
+                                                <th>Id. Customer</th>
+                                                <th>Id. Mata Uang</th>
+                                                <th>Kurs</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -42,7 +48,14 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
+                                <div class="col-md-2">
+                                    <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
+                                </div>
+
                                 <br>
                                 <div>
                                     <div class="row">
@@ -63,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <br>
                                 <div style="overflow-y: auto; max-height: 400px;">
                                     <table style="width: 60%; table-layout: fixed;">
@@ -78,9 +91,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -91,4 +101,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/ACCPenagihanPenjualanExport.js') }}"></script>
 @endsection

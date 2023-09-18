@@ -13,10 +13,9 @@
                     @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
-                                <!-- Form fields go here -->
-
+                            <form method="POST" action="{{ url('NotaPenjualanTunai') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="namaCustomer" style="margin-right: 10px;">Nama Customer</label>
@@ -54,7 +53,7 @@
                                         <label for="noPenagihanSelect" style="margin-right: 10px;">No. Penagihan</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control">
+                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control" disabled>
 
                                         </select>
                                     </div>
@@ -247,6 +246,12 @@
                                     </div>
                                     <div class="col-md-3">
                                         <input type="number" id="nilaiSdhBayar" name="" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="submit" id="btnHapusItem" name="btnHapusItem" value="Hapus Item" class="btn btn-primary" disabled>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">

@@ -28,6 +28,29 @@ class ACCPenagihanPenjualanController extends Controller
         return response()->json($jenis);
     }
 
+    public function getDisplaySuratJalan($id_Penagihan)
+    {
+        $idPenagihan = str_replace('.', '/', $id_Penagihan);
+        $jenis =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ] @Kode = ?, @ID_PENAGIHAN = ?',[11, $idPenagihan]);
+        return response()->json($jenis);
+    }
+
+    public function accCheckCtkSJ($id_Penagihan)
+    {
+
+        $idPenagihan = str_replace('.', '/', $id_Penagihan);
+        $jenis =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_CHECK_CTK_SJ] @IdPenagihan = ?',[$idPenagihan]);
+        return response()->json($jenis);
+    }
+
+    public function accCheckCtkSP($id_Penagihan)
+    {
+
+        $idPenagihan = str_replace('.', '/', $id_Penagihan);
+        $jenis =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_CHECK_CTK_SP] @IdPenagihan = ?',[$idPenagihan]);
+        return response()->json($jenis);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

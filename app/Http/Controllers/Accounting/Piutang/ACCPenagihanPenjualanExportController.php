@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ACCPenagihanPenjualanExportController extends Controller
 {
-    public function ACCPenagihanPenjualanExport()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.ACCPenagihanPenjualanExport', compact('data'));
+    }
+
+    public function getTabelPenagihanEx()
+    {
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ_EXPORT]
+        @Kode = ?', [4]);
+        return response()->json($data);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +34,7 @@ class ACCPenagihanPenjualanExportController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }

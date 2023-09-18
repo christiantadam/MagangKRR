@@ -10,6 +10,10 @@ let namaNPWP = document.getElementById('namaNPWP');
 let kurs = document.getElementById('kurs');
 let idCustomer = document.getElementById('idCustomer');
 let nilaiTagihan = document.getElementById('nilaiTagihan');
+let YNomor;
+let surat;
+let adaSJ = false;
+let adaSP = false;
 
 let btnProses = document.getElementById('btnProses');
 let formkoreksi = document.getElementById('formkoreksi');
@@ -69,7 +73,7 @@ $("#tabelListHeader tbody").on("click", "tr", function () {
     .then((options) => {
         console.log(options);
 
-        // let surat = options[0].Tgl_Surat_jalan;
+        surat = options[0].Tgl_Surat_jalan;
         // let sp = options[0].Surat_Jalan;
 
         tabelDisplayDetail = $("#tabelDisplayDetail").DataTable({
@@ -90,7 +94,48 @@ btnProses.addEventListener('click', function(event) {
         if(namaNPWP.value == "") {
             alert('Data Tidak dapat di-ACC, Isi dulu Nama dan Alamat NPWPnya !')
         }
-    }
+    };
 
-    formkoreksi.submit();
-})
+    //formkoreksi.submit();
+
+    DisplaySuratJalan();
+
+    fetch("/accCheckCtkSJ/" + id_Penagihan.value)
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+
+        if (options[0].Ada > 0) {
+            adaSJ = true;
+        };
+    });
+
+    fetch("/accCheckCtkSP/" + id_Penagihan.value)
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+
+        if (options[0].Ada > 0) {
+            adaSP = true;
+        };
+    });
+
+    // if (adaSP == true) {
+
+    // }
+
+});
+
+function DisplaySuratJalan() {
+    YNomor = "";
+    fetch("/getDisplaySuratJalan/" + id_Penagihan.value)
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+
+        if (YNomor != "") {
+            YNomor + ", ";
+            YNomor = YNomor + surat.toString();
+        }
+    });
+}

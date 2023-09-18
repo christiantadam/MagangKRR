@@ -202,7 +202,42 @@ class NotaPenjualanTunaiController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        //dd($request->all());
+        $id_Penagihan = $request->id_Penagihan;
+        $idNoPenagihan = str_replace('.', '/', $id_Penagihan);
+        $totalPenagihan = $request->totalPenagihan;
+        $discount = $request->discount;
+        $idMataUang = $request->idMataUang;
+        $terbilang = $request->terbilang;
+        $idUserPenagih = $request->idUserPenagih;
+        $nilaiKurs = $request->nilaiKurs;
+        $idJenisPajak = $request->idJenisPajak;
+        $Ppn = $request->Ppn;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PENAGIHAN_SJ]
+        @Kode = ?,
+        @Id_Penagihan = ?,
+        @Nilai_Penagihan = ?,
+        @Discount = ?,
+        @Id_MataUang = ?,
+        @Terbilang = ?,
+        @IdPenagih = ?,
+        @NilaiKurs = ?,
+        @Jns_PPN = ?,
+        @persenPPN = ?',
+        [
+            4,
+            $idNoPenagihan,
+            $totalPenagihan,
+            $discount,
+            $idMataUang,
+            $terbilang,
+            $idUserPenagih,
+            $nilaiKurs,
+            $idJenisPajak,
+            $Ppn
+        ]);
+        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.
