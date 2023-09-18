@@ -54,7 +54,7 @@ class CpTbl extends Controller
             // dd($crExplode);
 
         }elseif ($crExplode[$lastIndex] == "dataProdType") {
-            $dataProdType = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idCust= ?' , [ $crExplode[0], $crExplode[1]]);
+            $dataProdType = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?' , [ $crExplode[0], $crExplode[1]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataProdType);
@@ -62,6 +62,7 @@ class CpTbl extends Controller
             // dd($crExplode);
         }
     }
+
 
     /**
      * Show the form for editing the specified resource.

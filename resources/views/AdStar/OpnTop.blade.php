@@ -373,4 +373,22 @@
         </div>
 
     </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">
+                <button id="addButton" class="btn btn-primary" style="display: block;">Add</button>
+                <button id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button id="updateButton" class="btn btn-success" style="display: block;">Update</button>
+                <button id="cancelButton" class="btn btn-success" style="display: none;">Cancel</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button id="deleteButton" class="btn btn-danger" style="display: block">Delete</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ asset('js\AdStar\OpnTop.js')}}"></script>
 @endsection

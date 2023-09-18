@@ -178,7 +178,6 @@
     </div>
 </div>
 
-
 <!-- Modal Barang-->
 <div class="modal fade" id="mdl_nmbrng" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_nmbrng" aria-hidden="true">
     <div class="modal-dialog">

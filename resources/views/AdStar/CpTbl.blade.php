@@ -93,7 +93,11 @@
         </div>
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">
-                <button class="btn btn-primary">Copy</button>
+                <button id="addButton" class="btn btn-primary" style="display: block;">Copy</button>
+                <button id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
+            </div>
+            <div class="col-lg-2 aligned-text">
+                <button id="cancelButton" class="btn btn-success" style="display: none;">Cancel</button>
             </div>
         </div>
     </div>
@@ -175,7 +179,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <table id="tbl_customer" class="table table-bordered">
+            <table id="tbl_customer2" class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Namacust</th>
@@ -184,9 +188,9 @@
                 </thead>
                 <tbody>
                     @foreach ($dataCust2 as $data)
-                    <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCUST }}">
+                    <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCust }}">
                         <td>{{ $data->NAMACUST }}</td>
-                        <td>{{ $data->IDCUST }}</td>
+                        <td>{{ $data->IDCust }}</td>
                     </tr>
                 @endforeach
                 </tbody>

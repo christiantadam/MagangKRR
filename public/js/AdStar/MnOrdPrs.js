@@ -194,7 +194,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // button_noordkrj.disabled = !enable;
         // ld_transaksi.disabled = !enable;
         // btn_inputNoOrder.disabled = !disabled;
-
     }
 
     // Initialize the form with inputs and buttons disabled

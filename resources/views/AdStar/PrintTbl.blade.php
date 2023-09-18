@@ -4,22 +4,45 @@
 
 <h2>Form Print Tabel </h2>
 
-<div class="body">
+<div class="container">
     <div class="card">
-        <div class="input-container">
-            <div class=radio>
-            <label for="customer">Product Name:</label>
-            <input type="radio" id="pilihan1" name="pilihan" value="pilihan1">StarPark
-            {{-- <label for="pilihan1">StarPark</label><br> --}}
-            <input type="radio" id="pilihan2" name="pilihan" value="pilihan2">AdStar
-            {{-- <label for="pilihan2">AdStar</label><br> --}}
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Product name :</div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="1">StarPark
+                    <label class="form-check-label" for="radio1"></label>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="2">AdStar
+                    <label class="form-check-label" for="radio2"></label>
+                </div>
             </div>
         </div>
-        <div class="input-container">
-            <label for="customer">Design For:</label>
-            <input type="text" id="customer" required>
-            <input type="text" id="input1" placeholder="">
-            <button type="button">...</button>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Desing For :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" id="btncust1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer1">
+                        ...
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Ukuran :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idukuran' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" id="btnukuran" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer1">
+                        ...
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="input-container">
             <label for="customer">Ukuran:</label>

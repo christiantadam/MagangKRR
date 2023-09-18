@@ -15,10 +15,10 @@ class AdStarHome extends Controller
      */
     public function index()
     {
-        $users = DB::table('T_Mesin')
-            ->select('*')
-            ->get();
-        // dd($users);
+        // $users = DB::table('T_Mesin')
+        //     ->select('*')
+        //     ->get();
+        // // dd($users);
         return view('AdStar.AdStarHome'); //
     }
 
