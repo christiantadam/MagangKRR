@@ -29,9 +29,26 @@ class KenaikanUpahController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_HARIAN @Kode = ?', [1] );
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataDiv);
+        } else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?', [$crExplode[0]]);
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        } else if ($crExplode[$lastIndex] == "getDataGaji") {
+            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_GET_PEGAWAI @Kd_pegawai = ?', [$crExplode[0]]);
+            // dd($dataPeg);
+            // Return the options as JSON data
+            return response()->json($dataPeg);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -43,7 +60,18 @@ class KenaikanUpahController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_KENAIKANUPAH @kd_pegawai = ?, @U_gol = ?, @T_Jab = ?, @tanggal = ?, @U_gol_lama = ?, @T_jab_lama = ?', [
+
+            $data['kd_pegawai'],
+            $data['U_gol'],
+            $data['T_Jab'],
+            $data['tanggal'],
+            $data['U_gol_lama'],
+            $data['T_jab_lama']
+        ]);
+        return redirect()->route('KenaikanUpah.index')->with('alert', 'Data Upah Updated successfully!');
     }
 
     //Remove the specified resource from storage.

@@ -26,8 +26,8 @@
                             <div class="form-group col-md-4">
                                 <input class="form-control" type="date" id="TglResign" name="TglResign" required
                                     style="max-width: 200px;">
-                                <button type="button" class="btn btn-light" style="margin-left: 10px"
-                                    id="listDataButton" disabled>List Data</button>
+                                <button type="button" class="btn btn-light" style="margin-left: 10px" id="listDataButton"
+                                    disabled>List Data</button>
                                 <div class="modal fade" id="modalListData" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -137,8 +137,8 @@
                                             <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                         @endforeach
                                     </select> --}}
-                                <button type="button" class="btn" style="margin-left: 10px; "
-                                    id="pegawaiButton" disabled>...</button>
+                                <button type="button" class="btn" style="margin-left: 10px; " id="pegawaiButton"
+                                    disabled>...</button>
 
 
                                 <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
@@ -178,15 +178,24 @@
                             </div>
                         </div>
 
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Masa Kerja :</span>
                             </div>
-                            <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
+                            <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:100px;;">
                                 <input type="text" class="form-control" name="Masa_Kerja" id="Masa_Kerja"
-                                    placeholder=""  disabled>
+                                    placeholder="" style="width:100px;" disabled>
 
                             </div>
+                            <div class="form-group col-md-2 d-flex justify-content-end">
+                                <span class="aligned-text">Alasan :</span>
+
+                            </div>
+                            <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;;">
+                                <input class="radio" type="radio" name="alasan" id="AlasanRadio">
+                                <span class="aligned-text" style="margin-left:5px;">RESIGN </span>
+                            </div>
+
                         </div>
                         <div class="row" style="margin-left:-120px;">
                             <div class="form-group col-md-3 d-flex justify-content-end">
@@ -194,7 +203,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                 <input type="text" class="form-control" name="Keterangan" id="Keterangan"
-                                    placeholder=""  disabled>
+                                    placeholder="" disabled>
 
                             </div>
                         </div>
@@ -212,17 +221,30 @@
 
                     <div class="row" style="padding-top: 20px; margin:20px;">
                         <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn " style="margin-left: 10px;width:76px;" id="isiButton">Isi</button>
-                            <button type="button" class="btn " style="margin-left: 10px;width:76px;" id="koreksiButton">Koreksi</button>
-                            <button type="button" class="btn" style="margin-left: 10px;width:76px;" id="simpanButton" hidden>Simpan</button>
-                            <button type="button" class="btn" style="margin-left: 10px;width:76px;" id="batalButton" hidden>Batal</button>
-                            <button type="button" class="btn " style="margin-left: 10px;width:76px;" id="hapusButton">Hapus</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:76px;"
+                                id="isiButton">Isi</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:76px;"
+                                id="koreksiButton">Koreksi</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:76px;"
+                                id="simpanButton" hidden>Simpan</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:76px;" id="batalButton"
+                                hidden>Batal</button>
+                            <button type="button" class="btn " style="margin-left: 10px;width:76px;"
+                                id="hapusButton">Hapus</button>
 
-                            <button type="button" class="btn" style="margin-left: 10px;width:76px;" id="keluarButton">Keluar</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:76px;"
+                                id="keluarButton">Keluar</button>
 
                         </div>
                         <div class="col-6" style="text-align: right; ">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
 
+                            </div>
+                            <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
+                                <input class="radio" type="radio" name="alasan" id="KontrakRadio">
+                                <span class="aligned-text" style="margin-left:5px;">3&nbsp;TAHUN&nbsp;KONTRAK </span>
+
+                            </div>
 
                         </div>
                     </div>

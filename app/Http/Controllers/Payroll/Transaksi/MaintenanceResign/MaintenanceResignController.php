@@ -55,11 +55,23 @@ class MaintenanceResignController extends Controller
             // dd($dataDiv);
             // Return the options as JSON data
             return response()->json($dataPeg);
-        }else if ($crExplode[$lastIndex] == "getMasaKerja") {
+        } else if ($crExplode[$lastIndex] == "getMasaKerja") {
             $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_FIND_KELUAR @Kd_Pegawai = ?', [$crExplode[0]]);
             // dd($dataPeg);
             // Return the options as JSON data
             return response()->json($dataPeg);
+        } else if ($crExplode[$lastIndex] == "cekProses") {
+            if ($crExplode[1] == "2") {
+                $dataProses = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_CEK_PROSES_MINGGUAN @Tanggal = ?, @id_div = ?', [$crExplode[0]]);
+                // dd($dataPeg);
+                // Return the options as JSON data
+                return response()->json($dataProses);
+            } else if ($crExplode[1] == "3") {
+                $dataProses = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_CEK_PROSES_BULANAN @Tanggal = ?, @id_div = ?', [$crExplode[0]]);
+                // dd($dataPeg);
+                // Return the options as JSON data
+                return response()->json($dataProses);
+            }
         }
     }
 

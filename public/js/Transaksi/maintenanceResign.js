@@ -8,6 +8,8 @@ $(document).ready(function () {
     const simpanButton = document.getElementById("simpanButton");
     const batalButton = document.getElementById("batalButton");
     const keluarButton = document.getElementById("batalButton");
+    const txtMasaKerja = document.getElementById("Masa_Kerja");
+    const txtKeterangan = document.getElementById("Keterangan");
     var a = 0;
     $("#tabel_ListData").DataTable({
         order: [[0, "asc"]],
@@ -19,35 +21,76 @@ $(document).ready(function () {
         order: [[0, "asc"]],
     });
     isiButton.addEventListener("click", function () {
+        listDataButton.disabled = false;
+        divisiButton.disabled = false;
+        pegawaiButton.disabled = false;
         isiButton.hidden = true;
         koreksiButton.hidden = true;
         simpanButton.hidden = false;
         batalButton.hidden = false;
         hapusButton.disabled = true;
+        txtMasaKerja.disabled = false;
+        txtKeterangan.disabled = false;
     });
     koreksiButton.addEventListener("click", function () {
+        listDataButton.disabled = false;
+        divisiButton.disabled = false;
+        pegawaiButton.disabled = false;
         isiButton.hidden = true;
         koreksiButton.hidden = true;
         simpanButton.hidden = false;
         batalButton.hidden = false;
         hapusButton.disabled = true;
+        txtMasaKerja.disabled = false;
+        txtKeterangan.disabled = false;
     });
     hapusButton.addEventListener("click", function () {
+        listDataButton.disabled = false;
+        divisiButton.disabled = false;
+        pegawaiButton.disabled = false;
         isiButton.hidden = true;
         koreksiButton.hidden = true;
         simpanButton.hidden = false;
         batalButton.hidden = false;
         hapusButton.disabled = true;
+        txtMasaKerja.disabled = false;
+        txtKeterangan.disabled = false;
     });
     batalButton.addEventListener("click", function () {
+        listDataButton.disabled = true;
+        divisiButton.disabled = true;
+        pegawaiButton.disabled = true;
         isiButton.hidden = false;
         koreksiButton.hidden = false;
         simpanButton.hidden = true;
         batalButton.hidden = true;
         hapusButton.disabled = false;
+        txtMasaKerja.disabled = true;
+        txtKeterangan.disabled = true;
     });
-    simpanButton.addEventListener("click", function () {
+    simpanButton.addEventListener("click", function (event) {
+        const kd_peg = document.getElementById("Id_Pegawai").value;
+        const tgl_keluar = document.getElementById("TglResign").value;
+        const Alasan = document.getElementById("Keterangan");
+        const txtKeterangan = document.getElementById("Keterangan");
         if ((a = 1)) {
+            fetch("/MaintenanceResign/" + idpeg + ".cekProses")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    if (data.length > 0) {
+                        $("#Id_Divisi").val(data[0].Id_Div);
+                        $("#Nama_Divisi").val(data[0].Nama_Div);
+                        $("#Keterangan").val(data[0].Alasan_Keluar);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
             event.preventDefault();
 
             const kd_pegawai = document.getElementById("Nama_Klinik").value;
