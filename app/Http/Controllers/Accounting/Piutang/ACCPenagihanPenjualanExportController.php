@@ -21,6 +21,14 @@ class ACCPenagihanPenjualanExportController extends Controller
         return response()->json($data);
     }
 
+    public function getDetailPenagihanEx($id_Penagihan)
+    {
+        $idPenagihan = str_replace('.', '/', $id_Penagihan);
+        $data =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PENAGIHAN_SJ_EXPORT]
+        @Kode = ?, @ID_Penagihan = ?', [5, $idPenagihan]);
+        return response()->json($data);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -48,7 +56,29 @@ class ACCPenagihanPenjualanExportController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $id_Penagihan = $request->id_Penagihan;
+        $idCustomer = $request->idCustomer;
+        $idMataUang = $request->idMataUang;
+        $debet = $request->debet;
+        $kurs = $request->kurs;
+
+        $idPenagihan = str_replace('.', '/', $id_Penagihan);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_PENAGIHAN_SJ]
+        @UserAcc = ?,
+        @Id_Penagihan = ?,
+        @IdCust = ?,
+        @IdMtUang = ?,
+        @debet = ?,
+        @kurs = ?', [
+            1,
+            $idPenagihan,
+            $idCustomer,
+            $idMataUang,
+            $debet,
+            $kurs
+        ]);
+        return redirect()->back()->with('success', 'Proses Acc Penagihan Surat Jalan Selesai !!');
     }
 
     //Remove the specified resource from storage.

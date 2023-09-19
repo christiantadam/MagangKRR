@@ -6,10 +6,16 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">ACC Penagihan Surat Jalan</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('ACCPenagihanPenjualanExport') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div style="overflow-y: auto; max-height: 400px;">
                                     <table style="width: 175%; table-layout: fixed;" id="tabelPenagihanPenjualanEx">
@@ -38,22 +44,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
-                                                <td>Data 3</td>
-                                                <td>Data 4</td>
-                                                <td>Data 5</td>
-                                                <td>Data 6</td>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="hidden" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="hidden" id="debet" name="debet" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="hidden" id="kurs" name="kurs" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br>
@@ -65,11 +76,11 @@
                                                 <input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
                                             </div>
                                             <div style="white-space: nowrap;">
-                                                Potong Uang Muka
+                                                ACC Semua
                                             </div>
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary d-flex ml-auto" disabled>
+                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-1">
                                             <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
@@ -79,7 +90,7 @@
 
                                 <br>
                                 <div style="overflow-y: auto; max-height: 400px;">
-                                    <table style="width: 60%; table-layout: fixed;">
+                                    <table style="width: 60%; table-layout: fixed;margin-left:0" id="tabelDetailPenjualanEx">
                                         <colgroup>
                                             <col style="width: 30%;">
                                             <col style="width: 30%;">

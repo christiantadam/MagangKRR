@@ -265,10 +265,24 @@ Route::get('getDataStatusDokumen', 'App\Http\Controllers\Accounting\Piutang\Stat
 #region Penagihan Penjualan Ekspor
 Route::resource('ACCPenagihanPenjualanExport', App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanExportController::class);
 Route::get('getTabelPenagihanEx', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanExportController@getTabelPenagihanEx');
+Route::get('getDetailPenagihanEx/{idPenagihan}', 'App\Http\Controllers\Accounting\Piutang\ACCPenagihanPenjualanExportController@getDetailPenagihanEx');
 #endregion
 
-Route::get('PenagihanPenjualanExport', 'App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanExportController@PenagihanPenjualanEkspor');
-Route::get('MaintenancePelunasanPenjualan', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@MaintenancePelunasanPenjualan');
+#region Penagihan Penjualan Ekspor
+Route::resource('PenagihanPenjualanExport', App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanExportController::class);
+Route::get('getCustomerEx', 'App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanExportController@getCustomerEx');
+Route::get('getSuratJalanEx/{idCustomer}', 'App\Http\Controllers\Accounting\Piutang\PenagihanPenjualanExportController@getSuratJalanEx');
+#endregion
+
+#region Maintenance Pelunasan Penjualan
+Route::resource('MaintenancePelunasanPenjualan', App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController::class);
+Route::get('getCustIsi', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@getCustIsi');
+Route::get('getJenisPembayaran', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@getJenisPembayaran');
+Route::get('getReferensiBank/{idCustomer}', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@getReferensiBank');
+Route::get('getDataRefBank/{idReferensi}', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@getDataRefBank');
+Route::get('getListPenagihanSJ/{idCustomer}', 'App\Http\Controllers\Accounting\Piutang\MaintenancePelunasanPenjualanController@getListPenagihanSJ');
+#endregion
+
 Route::get('PelunasanPenjualanCashAdvance', 'App\Http\Controllers\Accounting\Piutang\PelunasanPenjualanCashAdvanceController@PelunasanPenjualanCashAdvance');
 Route::get('AnalisaStatusPenjualan', 'App\Http\Controllers\Accounting\Piutang\AnalisaStatusPenjualanController@AnalisaStatusPenjualan');
 Route::get('NotaKreditRetur', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\NotaKreditReturController@NotaKreditRetur');

@@ -287,8 +287,13 @@
                                     </li>
 
                                     <li><a class="test"
+                                        style=" color: black;font-size: 14px;display: block; "
+                                        tabindex="-1" href="{{ url('PenagihanPenjualanExport') }}">Penagihan Penjualan Export</a>
+                                    </li>
+
+                                    <li><a class="test"
                                             style=" color: black;font-size: 14px;display: block; "
-                                            tabindex="-1" href="{{ url('ACCPenagihanPenjualanExport') }}">Acc Penagihan Penjualan Eksport </a>
+                                            tabindex="-1" href="{{ url('ACCPenagihanPenjualanExport') }}">Acc Penagihan Penjualan Export </a>
                                     </li>
 
                                     <li><a class="test"
