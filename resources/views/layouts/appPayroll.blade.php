@@ -250,10 +250,10 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Skorsing/Permohonan') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('Skorsing/Permohonan') }}">Permohonan</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Skorsing/AccBayar') }}">ACC Bayar</a>
+                                                    tabindex="-1" href="{{ url('Skorsing/AccBayar') }}">ACC Bayar</a>
                                             </li>
 
 

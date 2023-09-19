@@ -1,5 +1,7 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/Transaksi/Skorsing/AccBayar.js') }}"></script>
+
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -28,7 +30,7 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                   <input class="form-control" type="date" id="TglMulai" name="TglMulai" value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required style="max-width: 200px;">
-                                  <button type="button" class="btn btn-info" style="margin-left:10px;">OK</button>
+                                  <button type="button" class="btn btn-info" style="margin-left:10px;" id="okButton">OK</button>
                                 </div>
 
                             </div>
@@ -116,7 +118,7 @@
 
                             </div>
                             <div class="table-responsive" style=" ">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" id="table_Skors">
                                     <thead>
                                         <tr>
                                             <th scope="col">Divisi</th>
@@ -132,7 +134,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-group-divider">
-                                        <tr>
+                                        {{-- <tr> --}}
 
                                             {{-- <td>
                                                 <a href="" title="Edit Employee">
@@ -147,7 +149,7 @@
                                                 </form>
                                             </td> --}}
 
-                                        </tr>
+                                        {{-- </tr> --}}
                                         {{-- @foreach ($employees as $data)
                                         <tr>
                                             <td>{{ $data->id }}</td>
@@ -197,7 +199,7 @@
 
                         </div>
                         <div class="col-6" style="text-align: right; ">
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px">Proses</button>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px" id="prosesButton" disabled>Proses</button>
                             <button type="button" class="btn btn-dark" style="margin-left: 10px">Keluar</button>
                         </div>
                     </div>

@@ -34,7 +34,7 @@ class KenaikanUpahController extends Controller
         $crExplode = explode(".", $cr);
         $lastIndex = count($crExplode) - 1;
         if ($crExplode[$lastIndex] == "getDivisi") {
-            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_HARIAN @Kode = ?', [1] );
+            $dataDiv = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI');
             // dd($dataDiv);
             // Return the options as JSON data
             return response()->json($dataDiv);

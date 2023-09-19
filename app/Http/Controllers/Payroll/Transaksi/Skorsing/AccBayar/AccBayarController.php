@@ -29,9 +29,16 @@ class AccBayarController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        if ($crExplode[$lastIndex] == "getDataSkors") {
+            $dataSkors = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_BAYARSKORSING');
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataSkors);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -43,7 +50,18 @@ class AccBayarController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_KENAIKANUPAH @kd_pegawai = ?, @U_gol = ?, @T_Jab = ?, @tanggal = ?, @U_gol_lama = ?, @T_jab_lama = ?', [
+
+            $data['kd_pegawai'],
+            $data['U_gol'],
+            $data['T_Jab'],
+            $data['tanggal'],
+            $data['U_gol_lama'],
+            $data['T_jab_lama']
+        ]);
+        return redirect()->route('KenaikanUpah.index')->with('alert', 'Data Upah Updated successfully!');
     }
 
     //Remove the specified resource from storage.
