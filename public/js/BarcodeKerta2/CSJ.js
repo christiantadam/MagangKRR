@@ -30,6 +30,21 @@ $(document).ready(function () {
         paging: false,
     });
 
+    $(document).ready(function () {
+        // ... (other code)
+
+        // Add an input event listener to the "Truk No. Pol" input field
+        $('#Truk_pol').on('input', function () {
+            // Get the input value
+            var trukNoPolValue = $(this).val();
+
+            // Update the text of the <span> element with ID "noPolLabel"
+            $('#noPolLabel').text(trukNoPolValue);
+        });
+
+        // ... (other code)
+    });
+
     var SJ = document.getElementById('SJ');
     SJ.addEventListener("click", function (event) {
         event.preventDefault();
@@ -52,15 +67,20 @@ $(document).ready(function () {
                     console.log(data);
                     // Clear the existing table rows
                     $("#TypeTable").DataTable().clear().draw();
+                    $("#TableSJPrint").DataTable().clear().draw();
 
                     // Loop through the data and create table rows
                     data.forEach((item) => {
                         var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                        var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
                         $("#TypeTable").DataTable().row.add(row);
+                        $("#TableSJPrint").DataTable().row.add(row2);
+
                     });
 
                     // Redraw the table to show the changes
                     $("#TypeTable").DataTable().draw();
+                    $("#TableSJPrint").DataTable().draw();
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -68,34 +88,34 @@ $(document).ready(function () {
         }
     });
 
-    var Cetak = document.getElementById('Cetak');
-    Cetak.addEventListener("click", function (event) {
-        fetch("/CSJ/" + ".getCetak")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
-                console.log(data);
-                // Clear the existing table rows
-                $("#TableSJPrint").DataTable().clear().draw();
+    // var Cetak = document.getElementById('Cetak');
+    // Cetak.addEventListener("click", function (event) {
+    //     fetch("/CSJ/" + ".getCetak")
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error("Network response was not ok");
+    //             }
+    //             return response.json(); // Assuming the response is in JSON format
+    //         })
+    //         .then((data) => {
+    //             // Handle the data retrieved from the server (data should be an object or an array)
+    //             console.log(data);
+    //             // Clear the existing table rows
+    //             $("#TableSJPrint").DataTable().clear().draw();
 
-                // Loop through the data and create table rows
-                data.forEach((item) => {
-                    var row = [item.Kode_barang, item.NamaType, item.Primer, item.Sekunder, item.Tritier];
-                    $("#TableSJPrint").DataTable().row.add(row);
-                });
+    //             // Loop through the data and create table rows
+    //             data.forEach((item) => {
+    //                 var row = [item.Kode_barang, item.NamaType, item.Primer, item.Sekunder, item.Tritier];
+    //                 $("#TableSJPrint").DataTable().row.add(row);
+    //             });
 
-                // Redraw the table to show the changes
-                $("#TableSJPrint").DataTable().draw();
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    });
+    //             // Redraw the table to show the changes
+    //             $("#TableSJPrint").DataTable().draw();
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+    // });
 
     // $(document).ready(function () {
     //     // ... kode lainnya ...
@@ -202,6 +222,9 @@ function openModal1() {
             data.forEach((item) => {
                 var row = [item.No_SJ, item.Tgl_Terima];
                 $("#TableOpenSJ").DataTable().row.add(row);
+
+                document.getElementById('tanggalTerima').textContent = item.Tgl_Terima;
+                document.getElementById('noSJ').textContent = item.No_SJ;
             });
 
             // Redraw the table to show the changes
@@ -219,18 +242,23 @@ function updateTanggal() {
     if (selectedRowData) {
         var tanggalTerima = selectedRowData[1]; // Mengambil tanggal dari data yang dipilih
 
-        // Mengonversi format tanggal ke "yyyy-MM-dd"
+        // Mengonversi format tanggal ke "yyyy-mm-dd" tanpa jam
         var dateObject = new Date(tanggalTerima);
-        dateObject.setDate(dateObject.getDate() + 1); // Menambahkan 1 hari
-
-        var formattedDate = dateObject.toISOString().slice(0, 10);
+        dateObject.setHours(0, 0, 0, 0); // Set time components to 00:00:00
+        var year = dateObject.getFullYear();
+        var month = ("0" + (dateObject.getMonth() + 1)).slice(-2); // Tambah 1 karena bulan dimulai dari 0
+        var day = ("0" + dateObject.getDate()).slice(-2);
+        var formattedDate = year + "-" + month + "-" + day;
 
         // Set tanggal ke bidang "tgl"
         $('#tgl').val(formattedDate);
-    }
-    closeModal1();
-}
 
+        // Tampilkan tanggal di elemen span
+        $('#tanggalTerima').text(formattedDate);
+
+        closeModal1();
+    }
+}
 function closeModal1() {
     var modal = document.getElementById('myModal1');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"

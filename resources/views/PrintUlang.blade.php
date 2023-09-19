@@ -86,13 +86,14 @@
                                         </div>
                                     </div>
 
+                                    <div id="form-container"></div>
 
                                     <div class="row mt-3">
                                         <div class="col- row justify-content-md-center">
                                             <div class="text-center col-md-auto"><button id="timbangButton" type="button"
                                                     style="width: 120px; height: 50px" disabled>Timbang</button>
                                             </div>
-                                            <div class="text-center col-md-auto"><button id="printUlangBtn" type="button"
+                                            <div class="text-center col-md-auto"><button id="printUlangBtn" type="button" onclick="PrintUlangData()"
                                                     style="width: 120px; height: 50px" disabled>Print Ulang</button>
                                             </div>
                                             <div class="text-center col-md-auto"><button id="scanBarcodeBtn" type="button"
@@ -110,8 +111,8 @@
                                                                 Barang:</span>
                                                         </div>
                                                         <div class="form-group col-md-7 mt-3 mt-md-0 ml-3">
-                                                            <input type="text" class="form-control" id="barcode"
-                                                                placeholder="Barcode">
+                                                            <input type="text" class="form-control" id="ScanBarcode"
+                                                                placeholder="Scan Barcode">
                                                         </div>
                                                         <div class="text-center col-md-auto"><button class="btn-danger" type="button" onclick="closeModal()"
                                                             style="width: 120px; height: 35px" >Keluar</button>

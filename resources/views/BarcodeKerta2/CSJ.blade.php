@@ -62,11 +62,27 @@
                 margin-right: 10px;
                 /* Add some spacing between labels */
             }
+
+            .printme {
+                display: none;
+            }
+
+            @media print {
+
+                /* Aturan CSS untuk tampilan cetak */
+                .no-print {
+                    display: none;
+                }
+
+                .printme {
+                    display: block;
+                }
+            }
         </style>
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
-                    <div class="card" style="width: 1200px; margin-left: -90px">
+                    <div class="card no-print" style="width: 1200px; margin-left: -90px">
                         <div class="card-header">Cetak Surat Jalan</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
@@ -159,7 +175,6 @@
                             </div>
 
                             <div class="row">
-
                                 <div class="form-group col-md-7 d-flex justify-content-end">
                                     <span class="aligned-text">Truk No. Pol:</span>
                                 </div>
@@ -199,8 +214,8 @@
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
                                 <div class="text-center col-md-auto">
-                                    <button type="button" style="width: 150px" onclick="showCard()" id="Cetak">Cetak Surat
-                                        Jalan</button>
+                                    <button type="button" style="width: 150px" onclick={window.print()} id="">Cetak
+                                        Surat Jalan</button>
                                 </div>
                                 <div class="text-center col-md-auto">
                                     <button type="button" style="width: 150px" onclick="hideCard()">Batal Cetak</button>
@@ -212,18 +227,23 @@
                         </form>
                     </div>
 
-                    <div class="card mt-3" id="cardSection" style="display: none;">
+                    <div class="card mt-3 printme" id="cardSection" >
                         <div class="card-header">Type</div>
                         <div class="card mt-3" style="width: 200px; margin-left: 100px;">
                             <h2>tes</h2>
                         </div>
-                        <div class="info mt-3" style="display: flex; justify-content: space-between; align-items: flex-start; margin-left: 100px">
-                            <div style="display: flex; flex-direction: column;">
+                        <div class="info mt-3"
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-left: 100px">
+                            <div style="display: flex; flex-direction: column; width: 300px">
                                 <span class="label">Tanggal :</span>
+                                <span id="tanggalTerima" class="label"></span>
                                 <span class="label">No. Surat Jalan :</span>
+                                <span id="noSJ" class="label"> </span>
                                 <span class="label">Truk NoPol :</span>
+                                <span id="noPolLabel" class="label"></span>
                             </div>
-                            <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
+                            <div
+                                style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
                                 <span class="label">Kepada:</span>
                                 <span style="margin-left: 130px; margin-top: -22px">Albert1</span>
                                 <span style="margin-left: 130px;">Albert2</span>
@@ -267,10 +287,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td style="height: 60px"> </td>
-                                    <td style="height: 60px"> </td>
-                                    <td style="height: 60px"> </td>
-                                    <td style="height: 60px"> </td>
+                                    <td style="height: 90px"> </td>
+                                    <td style="height: 90px"> </td>
+                                    <td style="height: 90px"> </td>
+                                    <td style="height: 90px"> </td>
                                 </tbody>
                             </table>
                         </div>
