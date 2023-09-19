@@ -191,7 +191,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Gambar Yang Selesai</a>
                 </li>
-                <li><a href="/OrderKerjaSelesai" class="test"
+                <li><a href="{{ url('OrderKerjaSelesai') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Kerja Yang Selesai</a>
                 </li>

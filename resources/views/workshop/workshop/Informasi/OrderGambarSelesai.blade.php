@@ -97,11 +97,7 @@
 
     <div class="mt-3">
       <div class="float-start" style="margin-left: 12.5px;">
-        <button type="button" class="btn btn-light custom-btn">Refresh</button>
-      </div>
-
-      <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-secondary custom-btn" style="margin-left: 12.5px;">KELUAR</button>
+        <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
       </div>
     </div>
   </div>

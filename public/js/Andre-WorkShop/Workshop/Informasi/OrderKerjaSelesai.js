@@ -1,7 +1,7 @@
-let tgl_awal = document.getElementById("tgl_awal");
-let tgl_akhir = document.getElementById("tgl_akhir");
+let tgl_awal = document.getElementById('tgl_awal');
+let tgl_akhir = document.getElementById('tgl_akhir');
 let kddivisi = document.getElementById("kddivisi");
-let table_data = $("#TableOrderGambarSelesai").DataTable();
+let table_data = $("#TableOrderKerjaSelesai").DataTable();
 let pengorder = document.getElementById('pengorder');
 let terima_order = document.getElementById('terima_order');
 let refresh = document.getElementById('refresh');
@@ -28,15 +28,13 @@ tgl_akhir.value = formattedCurrentDate;
 //#endregion
 
 //#region divisi di ubah
-
 kddivisi.addEventListener("change", function () {
     table_data.clear().draw();
     AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
 });
-
 //#endregion
 
-//#region tanggal 2 on enter
+//#region tgl 2 on enter
 
 tgl_akhir.addEventListener("keypress", function (event) {
     // Mengecek apakah tombol yang ditekan adalah tombol 'Enter'
@@ -51,8 +49,6 @@ tgl_akhir.addEventListener("keypress", function (event) {
             alert("Pilih 'Sebagai Pengorder' Atau 'Sebagai Penerima Order'");
             return;
         }
-        // Tambahkan kode yang ingin Anda jalankan saat tombol 'Enter' ditekan di sini
-        //console.log('Tombol Enter ditekan!');
     }
 });
 
@@ -61,7 +57,7 @@ tgl_akhir.addEventListener("keypress", function (event) {
 //#region all data
 
 function AllData(tglawal,tglakhir,idDivisi) {
-    table_data = $("#TableOrderGambarSelesai").DataTable({
+    table_data = $("#TableOrderKerjaSelesai").DataTable({
         destroy: true, // Destroy any existing DataTable before reinitializing
         data: [],
         columns: [
@@ -75,11 +71,12 @@ function AllData(tglawal,tglakhir,idDivisi) {
             //{ title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
             { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
             { title: "Nama Barang", data: "Nama_Brg" },
+            { title: "KodeBarang", data: "Kd_Brg"},
+            { title: "No.Gambar", data: "No_Gbr"},
             {
-                title: "Jumlah",
-                data: "Nama_satuan",
-                render: function (data) {
-                    return `1 ${data}`;
+                title: "JmlOrder",
+                data: function (row) {
+                    return `${row.Jml_Brg} ${row.Nama_satuan}`;
                 },
             },
             { title: "Status Order", data: "Status" },
@@ -87,18 +84,19 @@ function AllData(tglawal,tglakhir,idDivisi) {
             { title: "Mesin", data: "Mesin" },
             { title: "Keterangan Order", data: "Ket_Order" },
             { title: "PengOrder", data: "NmUserOd" },
-            { title: "Diterima", data: "Tgl_Rcv_Gbr"},
-            { title: "Diserahkan", data: "Tgl_Beri_Gbr"},
-            { title: "NoGambar", data: "No_Gambar"},
-            { title: "NamaGambar", data: "Nm_Brg"},
-            { title: "KdBrg", data: "KodeBrg"},
+            {
+                title: "JmlOderFinish",
+                data: function (row) {
+                    return `${row.Jml_Finish} ${row.Nama_Satuan}`;
+                },
+            },
             { title: "TglFinish", data: "Tgl_Finish"},
         ],
     });
 
 
     if (pengorder.checked == true) {
-        fetch("/GetAllDataPengorder/" +tglawal+"/"+tglakhir+ "/"+ idDivisi)
+        fetch("/GetAllDataPengorderKerja/" +tglawal+"/"+tglakhir+ "/"+ idDivisi)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
@@ -112,31 +110,15 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 const [tanggal, waktu] = tglOrder.split(" ");
 
                 data.Tgl_Order = tanggal;
-                if (data.Tgl_Rcv_Gbr != null) {
-                    const tglmanager = data.Tgl_Rcv_Gbr;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Rcv_Gbr = tanggal1;
-                }
-                if (data.Tgl_Beri_Gbr !== null) {
-                    const tglmanager = data.Tgl_Beri_Gbr;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Beri_Gbr = tanggal1;
-                }
-                if (data.Tgl_Finish !== null) {
-                    const tglmanager = data.Tgl_Finish;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Finish = tanggal1;
-                }
-
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)
-            $('#TableOrderGambarSelesai').css('width', 'max-content');
+            $('#TableOrderKerjaSelesai').css('width', 'max-content');
             table_data.rows.add(datas).draw();
             // datatable = datas;
         });
     }
     else if (terima_order.checked == true) {
-        fetch("/GetAllDataPenerima/" + tglawal + "/" + tglakhir)
+        fetch("/GetAllDataPenerimaKerja/" + tglawal + "/" + tglakhir)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
@@ -150,24 +132,9 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 const [tanggal, waktu] = tglOrder.split(" ");
 
                 data.Tgl_Order = tanggal;
-                if (data.Tgl_Rcv_Gbr != null) {
-                    const tglmanager = data.Tgl_Rcv_Gbr;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Rcv_Gbr = tanggal1;
-                }
-                if (data.Tgl_Beri_Gbr !== null) {
-                    const tglmanager = data.Tgl_Beri_Gbr;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Beri_Gbr = tanggal1;
-                }
-                if (data.Tgl_Finish !== null) {
-                    const tglmanager = data.Tgl_Finish;
-                    const [tanggal1, waktu1] = tglmanager.split(" ");
-                    data.Tgl_Finish = tanggal1;
-                }
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)
-            $('#TableOrderGambarSelesai').css('width', 'max-content');
+            $('#TableOrderKerjaSelesai').css('width', 'max-content');
             table_data.rows.add(datas).draw();
             // datatable = datas;
         });
@@ -176,8 +143,6 @@ function AllData(tglawal,tglakhir,idDivisi) {
         alert("Pilih 'Sebagai Pengorder' Atau 'Sebagai Penerima Order'");
         return;
     }
-
-    // console.log(datatable); // Optional: Check the data in the console
 
 }
 
@@ -188,6 +153,5 @@ refresh.addEventListener("click", function (event) {
     event.preventDefault();
     AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
 });
-
 
 //#endregion
