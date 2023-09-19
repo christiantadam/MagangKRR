@@ -108,8 +108,8 @@ slcNomor.addEventListener("mousedown", function () {
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "TglStart",
-            textKey: "KodeBarang",
+            valueKey: "MesinShift",
+            textKey: "IdKonversiNG",
         };
 
         // SP_5298_EXT_KOREKSI_SORTIRNG_BLMACC
@@ -125,10 +125,45 @@ slcNomor.addEventListener("mousedown", function () {
         );
     }
 });
+
+slcNomor.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchNomor) {
+        refetchNomor = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "MesinShift",
+            textKey: "IdKonversiNG",
+        };
+
+        // SP_5298_EXT_KOREKSI_SORTIRNG_BLMACC
+        fetchSelect(
+            "/Master/getKoreksiSortirNGBlmAcc/" + dateInput.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys, false);
+                    this.removeChild(errorOption);
+                } else refetchNomor = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcNomor.addEventListener("change", function () {
+    // Memasukkan data ke teks shift & select mesin
+    // Dilakukan setelah melihat format dari data
+
+    lihatDataKonversiNGFetch(this.options[this.selectedIndex].text, () => {
+        if (modeProses == "koreksi") {
+            $("html, body").animate({ scrollTop: pilAsal }, 100);
+        }
+    });
+});
 //#endregion
 
 //#region Functions
-function lihatDataKonversiNGFetch(id_konversi) {
+function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
     listAsal.length = 0;
     clearTable_DataTable("table_asal", colTable.length, "padding=250px");
     listTujuan.length = 0;
@@ -202,6 +237,8 @@ function lihatDataKonversiNGFetch(id_konversi) {
                             if (data2.length <= 0)
                                 alert("Data konversi tidak ditemukan.");
                         }
+
+                        if (post_action != null) post_action();
                     }
                 );
             } else alert("Data NG tidak ditemukan.");
