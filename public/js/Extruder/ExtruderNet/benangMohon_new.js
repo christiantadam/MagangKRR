@@ -157,6 +157,8 @@ slcNomor.addEventListener("change", function () {
     lihatDataKonversiNGFetch(this.options[this.selectedIndex].text, () => {
         if (modeProses == "koreksi") {
             $("html, body").animate({ scrollTop: pilAsal }, 100);
+        } else if (modeProses == "hapus") {
+            btnProses.focus();
         }
     });
 });
