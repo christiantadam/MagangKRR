@@ -203,7 +203,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Nomor Gambar</a>
                 </li>
-                <li><a href="/OrderGambar" class="test"
+                <li><a href="{{ url('OrderGambar') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Gambar</a>
                 </li>
