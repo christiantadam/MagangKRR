@@ -231,11 +231,16 @@ function addOptions(selectEle, optionData, keyMapping, showId = true) {
         const newOption = document.createElement("option");
 
         if (keyMapping.valueKey && keyMapping.textKey) {
-            newOption.value = optionData[i][keyMapping.valueKey];
-            newOption.text = showId
-                ? `${optionData[i][keyMapping.valueKey]} |
-                    ${optionData[i][keyMapping.textKey]}`
-                : optionData[i][keyMapping.textKey];
+            if (showId == "swap") {
+                newOption.value = optionData[i][keyMapping.textKey];
+                newOption.text = `${optionData[i][keyMapping.valueKey]}`;
+            } else {
+                newOption.value = optionData[i][keyMapping.valueKey];
+                newOption.text = showId
+                    ? `${optionData[i][keyMapping.valueKey]} |
+                        ${optionData[i][keyMapping.textKey]}`
+                    : optionData[i][keyMapping.textKey];
+            }
 
             selectEle.appendChild(newOption);
         }

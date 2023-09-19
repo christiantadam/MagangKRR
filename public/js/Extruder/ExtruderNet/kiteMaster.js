@@ -47,8 +47,10 @@ slcKodeBarang.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getCekBahanKite/" + kode,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys, "swap");
+                    this.removeChild(errorOption);
+                } else refetchKode = true;
             },
             errorOption
         );
@@ -64,7 +66,7 @@ slcKodeBarang.addEventListener("mousedown", function () {
 });
 
 slcKodeBarang.addEventListener("keydown", function (event) {
-    if (refetchKode || event.key === "Enter") {
+    if (event.key === "Enter" && refetchKode) {
         refetchKode = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -82,8 +84,10 @@ slcKodeBarang.addEventListener("keydown", function (event) {
         fetchSelect(
             "/Master/getCekBahanKite/" + kode,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys, "swap");
+                    this.removeChild(errorOption);
+                } else refetchKode = true;
             },
             errorOption
         );
@@ -99,6 +103,7 @@ slcKodeBarang.addEventListener("keydown", function (event) {
 });
 
 slcKodeBarang.addEventListener("change", function () {
+    txtNamaBarang.value = this.value;
     txtBahanPP.focus();
 });
 
@@ -113,7 +118,7 @@ txtBahanPP.addEventListener("keypress", function (event) {
         hidAwal.value = parseFloat(hidMeter.value).toFixed(2);
         hidRoll.value = parseFloat(hidMeter.value) / 2000;
         hidRoll.value = parseFloat(hidRoll.value).toFixed(0);
-        hidMeter = parseFloat(hidRoll.value) * 2000;
+        hidMeter.value = parseFloat(hidRoll.value) * 2000;
 
         btnSimpan.focus();
     }

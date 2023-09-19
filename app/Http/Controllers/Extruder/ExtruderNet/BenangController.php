@@ -20,7 +20,7 @@ class BenangController extends Controller
                 $current_date = Carbon::now();
                 $formatted_date = $current_date->format('Y-m-d');
 
-                $form_data = ['listNomor' => $this->getKoreksiSrtBlmAcc($formatted_date)];
+                $form_data = ['listNomor' => $this->getKoreksiSortirNGBlmAcc($formatted_date)];
                 break;
 
             default:

@@ -35,6 +35,9 @@ class MasterController extends Controller
                     'namaGedung' => $nama_gedung,
                 ];
                 break;
+            case 'formKiteEstimasi':
+                $form_data = ['listBarang' => $this->getKiteExtruder(2)];
+                break;
 
             default:
                 break;
@@ -75,6 +78,22 @@ class MasterController extends Controller
         }
 
         // @Kode char(1), @TglStart date = null, @KodeBarang char(9) = null, @JenisFas varchar(50) = null, @BahanPP decimal(18,0) = null, @Benang decimal(18,2) = null, @Meter decimal(18,0) = null, @Roll decimal(18,0) = null, @MeterAwal decimal(18,2) = null, @Hasil decimal(18,2) = null, @IdOrder int = null, @CaCO3 decimal(18,2) = null
+    }
+
+    public function getKiteExtOrder($kode, $id_order)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_1273_EXT_KITE @Kode = ?, @IdOrder = ?',
+            [$kode, $id_order]
+        );
+    }
+
+    public function getKiteExtruder7($id_order, $tgl_start, $bahan_pp, $caco3, $benang)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_1273_EXT_KITE @Kode = 7, @IdOrder = ?, @TglStart = ?, @BahanPP = ?, @CaCO3 = ?, @Benang = ?',
+            [$id_order, $tgl_start, $bahan_pp, $caco3, $benang]
+        );
     }
     #endregion
 

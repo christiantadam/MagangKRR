@@ -53,7 +53,7 @@
                 <span class="aligned-text">Nama Barang:</span>
             </div>
             <div class="col-lg-9">
-                <input type="text" class="form-control" id="nama_barang">
+                <input type="text" class="form-control" id="nama_barang" disabled>
             </div>
         </div>
 

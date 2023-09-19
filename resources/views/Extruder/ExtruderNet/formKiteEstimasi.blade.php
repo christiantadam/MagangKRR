@@ -50,6 +50,9 @@
                     <div class="col-lg-3">
                         <select id="select_kode_barang" class="form-select">
                             <option selected disabled>-- Pilih Kode Barang --</option>
+                            @foreach ($formData['listBarang'] as $d)
+                                <option value="{{ $d->TglStart }}">{{ $d->KodeBarang }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-2 hidden">
@@ -103,28 +106,28 @@
                                 <div class="row mt-3">
                                     <div class="col-lg-4 aligned-text">Tanggal:</div>
                                     <div class="col-lg-8">
-                                        <input type="date" id="tgl_start" class="form-control">
+                                        <input type="date" id="estimasi_tgl" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-lg-4 aligned-text">Bahan PP:</div>
                                     <div class="col-lg-8">
-                                        <input type="text" id="bahan_pp" class="form-control">
+                                        <input type="text" id="estimasi_pp" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-lg-4 aligned-text">CaCO3:</div>
                                     <div class="col-lg-8">
-                                        <input type="text" id="caco3" class="form-control">
+                                        <input type="text" id="estimasi_caco3" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-lg-4 aligned-text">Benang:</div>
                                     <div class="col-lg-8">
-                                        <input type="text" id="benang" class="form-control">
+                                        <input type="text" id="estimasi_benang" class="form-control">
                                     </div>
                                 </div>
 

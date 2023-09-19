@@ -44,6 +44,8 @@ Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::cla
 #region ExtruderNet - Master (KITE)
 Route::get('/Master/getCekBahanKite/{kode}', [MasterController::class, 'getCekBahanKite']);
 Route::get('/Master/getKiteExtruder/{kode}/{tgl_start?}/{kode_barang?}/{jenis_fas?}/{bahan_pp?}/{benang?}/{meter?}/{roll?}/{meter_awal?}/{hasil?}/{id_order?}/{caco3?}', [MasterController::class, 'getKiteExtruder']);
+Route::get('/Master/getKiteExtOrder/{kode}/{id_order}', [MasterController::class, 'getKiteExtOrder']);
+Route::get('/Master/getKiteExtruder7/{id_order}/{tgl_start}/{bahan_pp}/{caco3}/{benang}', [MasterController::class, 'getKiteExtruder7']);
 #endregion
 
 #region ExtruderNet - Master (Tropodo)
