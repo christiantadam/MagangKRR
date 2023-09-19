@@ -12,10 +12,7 @@ class InformasiController extends Controller
         return view();
     }
 
-    public function OrderProyekSelesai()
-    {
-        return view('WORKSHOP.Workshop.Informasi.OrderProyekSelesai');
-    }
+
 
     public function NomorGambar()
     {

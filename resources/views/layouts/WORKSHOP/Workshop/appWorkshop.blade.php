@@ -195,7 +195,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Kerja Yang Selesai</a>
                 </li>
-                <li><a href="/OrderProyekSelesai" class="test"
+                <li><a href="{{ url('OrderProyekSelesai') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Proyek Yang Selesai</a>
                 </li>

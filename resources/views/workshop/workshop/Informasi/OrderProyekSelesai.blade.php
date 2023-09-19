@@ -2,9 +2,8 @@
 @section('content')
 
 <div class="card-header">
-    Lacak Order Kerja
+    Lacak Order Proyek
 </div>
-
 <div class="card-body">
     <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo">
 
@@ -19,13 +18,13 @@
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-lg-5">
-                            <input type="Date" class="form-control" name="tgl_awal">
+                            <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal">
                         </div>
                         <div class="col-lg-2 d-flex justify-content-center">
                             <span style="margin-top: 5px;">s/d</span>
                         </div>
                         <div class="col-lg-5">
-                            <input type="Date" class="form-control" name="tgl_akhir">
+                            <input type="Date" class="form-control" name="tgl_akhir" id="tgl_akhir">
                         </div>
                     </div>
                 </div>
@@ -37,10 +36,13 @@
                 </div>
 
                 <div class="col-lg-8">
-                    <div class="input-group">
-                        <input type="text" name="divisi" class="form-control">
-                        <button type="button" class="btn btn-outline-secondary">...</button>
-                    </div>
+                    <select class="form-select" name="KodeDivisi" style="width: 36vh;
+                    height: 6vh;" id="kddivisi">
+                      <option disabled selected>Pilih Divisi</option>
+                      @foreach ($divisi as $d)
+                        <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi }} -- {{ $d->NamaDivisi }}</option>
+                      @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -65,7 +67,7 @@
         </div>
     </div>
 <div class="table-responsive">
-    <table class="table mt-3" style="width: max-content">
+    <table class="table mt-3" style="width: max-content" id="TableOrderProyekSelesai">
         <thead class="table-dark">
             <tr>
                 <th>No. Order</th>
@@ -89,13 +91,10 @@
 
     <div class="mt-3">
         <div class="float-start" style="margin-left: 12.5px;">
-            <button type="button" class="btn btn-light custom-btn">Refresh</button>
-        </div>
-
-        <div class="float-end" style="margin-right: 12.5px;">
-            <button type="button" class="btn btn-secondary custom-btn" style="margin-left: 12.5px;">KELUAR</button>
+            <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
         </div>
     </div>
 </div>
+<script src="{{ asset('js/Andre-WorkShop/Workshop/Informasi/OrderProyekSelesai.js') }}"></script>
 
 @endsection

@@ -192,8 +192,12 @@ Route::resource('OrderKerjaSelesai', App\Http\Controllers\WORKSHOP\Workshop\Info
 Route::get('GetAllDataPengorderKerja/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderKerja@GetAllDataPengorder');
 Route::get('GetAllDataPenerimaKerja/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderKerja@GetAllDataPenerima');
 
+Route::resource('OrderProyekSelesai', App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderProyek::class);
+Route::get('GetAllDataPengorderProyek/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderProyek@GetAllDataPengorder');
+Route::get('GetAllDataPenerimaProyek/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\LacakOrderProyek@GetAllDataPenerima');
 
-Route::get('OrderProyekSelesai', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderProyekSelesai');
+
+
 Route::get('NomorGambar', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@NomorGambar');
 Route::get('OrderGambar', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderGambar');
 Route::get('OrderKerja', 'App\Http\Controllers\WORKSHOP\Workshop\InformasiController@OrderKerja');

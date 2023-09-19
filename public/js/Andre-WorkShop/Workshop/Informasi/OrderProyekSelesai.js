@@ -1,7 +1,7 @@
 let tgl_awal = document.getElementById('tgl_awal');
 let tgl_akhir = document.getElementById('tgl_akhir');
 let kddivisi = document.getElementById("kddivisi");
-let table_data = $("#TableOrderKerjaSelesai").DataTable();
+let table_data = $("#TableOrderProyekSelesai").DataTable();
 let pengorder = document.getElementById('pengorder');
 let terima_order = document.getElementById('terima_order');
 let refresh = document.getElementById('refresh');
@@ -57,7 +57,7 @@ tgl_akhir.addEventListener("keypress", function (event) {
 //#region all data
 
 function AllData(tglawal,tglakhir,idDivisi) {
-    table_data = $("#TableOrderKerjaSelesai").DataTable({
+    table_data = $("#TableOrderProyekSelesai").DataTable({
         destroy: true, // Destroy any existing DataTable before reinitializing
         data: [],
         columns: [
@@ -68,11 +68,8 @@ function AllData(tglawal,tglakhir,idDivisi) {
                     return `<input type="checkbox" name="ManagerCheckbox" value="${data}" /> ${data}`;
                 },
             },
-            //{ title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
             { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
-            { title: "Nama Barang", data: "Nama_Brg" },
-            { title: "KodeBarang", data: "Kd_Brg"},
-            { title: "No.Gambar", data: "No_Gbr"},
+            { title: "Nama Proyek", data: "Nama_Proyek" },
             {
                 title: "JmlOrder",
                 data: function (row) {
@@ -96,7 +93,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
 
 
     if (pengorder.checked == true) {
-        fetch("/GetAllDataPengorderKerja/" +tglawal+"/"+tglakhir+ "/"+ idDivisi)
+        fetch("/GetAllDataPengorderProyek/" +tglawal+"/"+tglakhir+ "/"+ idDivisi)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
@@ -117,13 +114,13 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 }
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)
-            $('#TableOrderKerjaSelesai').css('width', 'max-content');
+            $('#TableOrderProyekSelesai').css('width', 'max-content');
             table_data.rows.add(datas).draw();
             // datatable = datas;
         });
     }
     else if (terima_order.checked == true) {
-        fetch("/GetAllDataPenerimaKerja/" + tglawal + "/" + tglakhir)
+        fetch("/GetAllDataPenerimaProyek/" + tglawal + "/" + tglakhir)
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
@@ -144,7 +141,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 }
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)
-            $('#TableOrderKerjaSelesai').css('width', 'max-content');
+            $('#TableOrderProyekSelesai').css('width', 'max-content');
             table_data.rows.add(datas).draw();
             // datatable = datas;
         });
@@ -163,5 +160,4 @@ refresh.addEventListener("click", function (event) {
     event.preventDefault();
     AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
 });
-
 //#endregion

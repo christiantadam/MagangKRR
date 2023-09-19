@@ -103,7 +103,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
         .then((datas) => {
             console.log(datas);
             if (datas.length == 0) {
-                alert("Tidak ada Order Untuk Divisi " + idDivisi);
+                alert("Belum Ada Order Yg Selesai U/ tgl " + tglawal + " s/d tgl " + tglakhir);
                 return;
             }
             datas.forEach((data) => {
