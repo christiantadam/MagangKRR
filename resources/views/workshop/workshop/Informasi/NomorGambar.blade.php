@@ -11,7 +11,7 @@
                 <span class="custom-alignment">Kode Barang:</span>
             </div>
             <div class="col-lg-3">
-                <input type="text" name="kd_barang" class="form-control">
+                <input type="text" name="kd_barang" class="form-control" id="kd_barang">
             </div>
         </div>
 
@@ -20,7 +20,7 @@
                 <span class="custom-alignment">Nama Barang:</span>
             </div>
             <div class="col-lg-8">
-                <input type="text" name="nama_barang" class="form-control">
+                <input type="text" name="nama_barang" class="form-control" id="nama_barang">
             </div>
         </div>
 
@@ -29,15 +29,15 @@
                 <span class="custom-alignment">No. Barang:</span>
             </div>
             <div class="col-lg-3">
-                <input type="text" name="no_barang" class="form-control">
+                <input type="text" name="no_barang" class="form-control" id="no_barang">
             </div>
         </div>
 
-        <div class="float-end">
-            <button type="button" class="btn btn-primary" disabled><u>P</u>ROSES</button>
-            <button type="button" class="btn btn-secondary"><u>K</u>ELUAR</button>
-        </div>
+        {{-- <div class="float-end">
+            <button type="button" class="btn btn-primary" disabled id="btnproses"><u>P</u>ROSES</button>
+        </div> --}}
     </form>
 </div>
+<script src="{{ asset('js/Andre-WorkShop/Workshop/Informasi/NomorGambar.js') }}"></script>
 
 @endsection

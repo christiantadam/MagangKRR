@@ -11,14 +11,6 @@ class InformasiController extends Controller
     {
         return view();
     }
-
-
-
-    public function NomorGambar()
-    {
-        return view('WORKSHOP.Workshop.Informasi.NomorGambar');
-    }
-
     public function OrderGambar()
     {
         return view('WORKSHOP.Workshop.Informasi.OrderGambar');
