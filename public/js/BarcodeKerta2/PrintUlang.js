@@ -124,76 +124,6 @@ function closeModal() {
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
 
-function PrintUlangData() {
-    var selectedRows1 = document.getElementById('Kode');
-    var selectedRows2 = document.getElementById('Item');
-    var kodebarang = selectedRows1.value;
-    var noindeks = selectedRows2.value;
-    var opsi = "tuju";
-
-    // Create a data object to hold the values
-    const data = {
-        kodebarang: kodebarang,
-        noindeks: noindeks,
-        opsi: opsi
-    };
-
-    console.log(data);
-
-    const formContainer = document.getElementById("form-container");
-    const form = document.createElement("form");
-    form.setAttribute("action", "PrintUlang/{selectedRows1}"); // Replace with the correct action URL
-    form.setAttribute("method", "POST");
-
-    // Loop through the data object and add hidden input fields to the form
-    for (const key in data) {
-        const input = document.createElement("input");
-        input.setAttribute("type", "hidden");
-        input.setAttribute("name", key);
-        input.value = data[key]; // Set the value of the input field to the corresponding data
-        form.appendChild(input);
-    }
-
-    // Create input with "_method" field set to "PUT" (if you need to override the HTTP method)
-    const method = document.createElement("input");
-    method.setAttribute("type", "hidden");
-    method.setAttribute("name", "_method");
-    method.value = "PUT"; // Set the value of the input field to the corresponding data
-    form.appendChild(method);
-
-    // Create input with "_ifUpdate" field set to "Update Barcode"
-    const ifUpdate = document.createElement("input");
-    ifUpdate.setAttribute("type", "hidden");
-    ifUpdate.setAttribute("name", "_ifUpdate");
-    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
-    form.appendChild(ifUpdate);
-
-    formContainer.appendChild(form);
-
-    // Add CSRF token input field (assuming the csrfToken is properly fetched)
-    let csrfToken = document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
-    let csrfInput = document.createElement("input");
-    csrfInput.type = "hidden";
-    csrfInput.name = "_token";
-    csrfInput.value = csrfToken;
-    form.appendChild(csrfInput);
-
-    // Wrap form submission in a Promise
-    function submitForm() {
-        return new Promise((resolve, reject) => {
-            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-            form.submit();
-        });
-    }
-
-    // Call the submitForm function to initiate the form submission
-    submitForm()
-        .then(() => console.log("Form submitted successfully!"))
-        .catch((error) => console.error("Form submission error:", error));
-}
-
 // function PrintUlangData() {
 //     var selectedRows1 = document.getElementById('Kode');
 //     var selectedRows2 = document.getElementById('Item');
@@ -210,25 +140,96 @@ function PrintUlangData() {
 
 //     console.log(data);
 
-//     // Serialize data into a URL-encoded string
-//     const formData = new URLSearchParams();
+//     const formContainer = document.getElementById("form-container");
+//     const form = document.createElement("form");
+//     form.setAttribute("action", "PrintUlang/tuju"); // Replace with the correct action URL
+//     form.setAttribute("method", "POST");
+
+//     // Loop through the data object and add hidden input fields to the form
 //     for (const key in data) {
-//         formData.append(key, data[key]);
+//         const input = document.createElement("input");
+//         input.setAttribute("type", "hidden");
+//         input.setAttribute("name", key);
+//         input.value = data[key]; // Set the value of the input field to the corresponding data
+//         form.appendChild(input);
 //     }
 
-//     // Send the data using AJAX
-//     $.ajax({
-//         type: "POST", // or "PUT" if needed
-//         url: "PrintUlang/{selectedRows1}.tuju", // Replace with the correct action URL
-//         data: formData.toString(),
-//         processData: false,
-//         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-//         success: function () {
-//             console.log("Form submitted successfully!");
-//             // You can perform any additional actions here if needed
-//         },
-//         error: function (error) {
-//             console.error("Form submission error:", error);
-//         }
-//     });
+//     // Create input with "_method" field set to "PUT" (if you need to override the HTTP method)
+//     const method = document.createElement("input");
+//     method.setAttribute("type", "hidden");
+//     method.setAttribute("name", "_method");
+//     method.value = "PUT"; // Set the value of the input field to the corresponding data
+//     form.appendChild(method);
+
+//     // Create input with "_ifUpdate" field set to "Update Barcode"
+//     const ifUpdate = document.createElement("input");
+//     ifUpdate.setAttribute("type", "hidden");
+//     ifUpdate.setAttribute("name", "_ifUpdate");
+//     ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+//     form.appendChild(ifUpdate);
+
+//     formContainer.appendChild(form);
+
+//     // Add CSRF token input field (assuming the csrfToken is properly fetched)
+//     let csrfToken = document
+//         .querySelector('meta[name="csrf-token"]')
+//         .getAttribute("content");
+//     let csrfInput = document.createElement("input");
+//     csrfInput.type = "hidden";
+//     csrfInput.name = "_token";
+//     csrfInput.value = csrfToken;
+//     form.appendChild(csrfInput);
+
+//     // Wrap form submission in a Promise
+//     function submitForm() {
+//         return new Promise((resolve, reject) => {
+//             form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+//             form.submit();
+//         });
+//     }
+
+//     // Call the submitForm function to initiate the form submission
+//     submitForm()
+//         .then(() => console.log("Form submitted successfully!"))
+//         .catch((error) => console.error("Form submission error:", error));
 // }
+
+function PrintUlangData() {
+    var selectedRows1 = document.getElementById('Kode');
+    var selectedRows2 = document.getElementById('Item');
+    var kodebarang = selectedRows1.value;
+    var noindeks = selectedRows2.value;
+    var opsi = "tuju";
+
+    // Create a data object to hold the values
+    const data = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        opsi: opsi
+    };
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        url: "PrintUlang/tuju", // Replace with the correct action URL
+        method: "POST",
+        data: {
+            ...data,
+            _token: csrfToken,
+            _method: "PUT",
+            _ifUpdate: "Update Barcode"
+        },
+        success: function(response) {
+            console.log("Form submitted successfully!");
+            // Handle the server's response if needed
+        },
+        error: function(error) {
+            console.error("Form submission error:", error);
+            // Handle the error if needed
+        }
+    });
+}

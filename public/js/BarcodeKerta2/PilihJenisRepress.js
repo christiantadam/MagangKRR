@@ -34,6 +34,29 @@ $(document).ready(function () {
         ],
     });
 
+    $('#TableType tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+        var rowData = $('#TableType').DataTable().row(this).data();
+
+        // Ambil tanggal dari data yang sesuai dalam tabel Type (misalnya, kolom ke-5)
+        var originalDateString = rowData[11];
+
+        // Parse tanggal awal menjadi objek Date
+        var originalDate = new Date(originalDateString);
+
+        // Ambil tahun, bulan, dan tanggal
+        var year = originalDate.getFullYear();
+        var month = String(originalDate.getMonth() + 1).padStart(2, '0');
+        var day = String(originalDate.getDate()).padStart(2, '0');
+
+        // Format ulang menjadi "yyyy-mm-dd" untuk elemen input tanggal
+        var formattedDate = `${year}-${month}-${day}`;
+
+        // Set nilai elemen input dengan ID "Tanggal" sesuai dengan formattedDate
+        $('#Tanggal').val(formattedDate);
+    });
+
+
     $('#TableDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
 
@@ -152,7 +175,6 @@ $(document).ready(function () {
                     var row = [item.UraianDetailTransaksi, item.SaatAwalTransaksiTransaksi, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, item.namakelompokutama, item.namasubkelompok, item.namakelompok, item.NamaType, item.kode_barang, item.Primer, item.Sekunder, item.Tritier, item.NamaType, item.NamaUser];
 
                     $("#kelut2").val(item.namakelompokutama)
-                    $("#Tanggal").val(item.SaatAwalTransaksi)
                     $("#Kelompok2").val(item.namakelompok)
                     $("#sub_kelompok2").val(item.namasubkelompok)
 

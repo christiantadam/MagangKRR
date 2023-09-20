@@ -128,7 +128,7 @@ class PrintUlangController extends Controller
                 $data['kodebarang'],
                 $data['noindeks']
             ]);
-            return redirect()->route('PrintUlang.index')->with('alert', 'Data Updated successfully!');
+            return redirect()->back();
         }
     }
 

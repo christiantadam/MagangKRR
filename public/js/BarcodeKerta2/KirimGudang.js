@@ -76,14 +76,133 @@ $(document).ready(function () {
         // Hide the modal immediately after populating the data
         closeModal();
     });
-    // let No_barcode = document.getElementById("No_barcode");
-    // let s = "";
-    // s += String.fromCharCode(27) + "D0451,0975,0421" + String.fromCharCode(10) + String.fromCharCode(0);
-    // s += String.fromCharCode(27) + "C" + String.fromCharCode(10) + String.fromCharCode(0);
-    // s += String.fromCharCode(27) + "U2;0160" + String.fromCharCode(10) + String.fromCharCode(0);
 
-    // No_barcode.value = s;
-    // // No_barcode.value = "abc";
+    $("#TableSP tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableSP").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $("#NoSP").val(rowData[0]);
+
+        var ScanBarcode = document.getElementById('No_barcode');
+        var str = ScanBarcode.value
+        var parts = str.split("-");
+        console.log(parts); // Output: ["A123", "a234"]
+
+        fetch("/KirimGudang/" + parts[0] + parts[1] + ".getTampilData")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#RekapKirim").DataTable().clear().draw();
+                $("#DaftarKirim").DataTable().clear().draw();
+
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.tgl_mutasi, item.namatype, item.uraiandetailtransaksi, item.qty_primer, item.qty_sekunder, item.qty, "IDSP1"];
+                    var row2 = [item.tgl_mutasi, item.namatype, item.uraiandetailtransaksi, ScanBarcode, item.namasubkelompok, item.namakelompok, ScanBarcode.split("-")[1], item.noindeks, item.qty_primer, item.qty_sekunder, item.qty, "IDSP1"];
+                    $("#RekapKirim").DataTable().row.add(row);
+                    $("#DaftarKirim").DataTable().row.add(row2);
+                });
+
+                // Redraw the table to show the changes
+                $("#RekapKirim").DataTable().draw();
+                $("#DaftarKirim").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+
+        closeModal2();
+    });
+
+
+    var ScanBarcode = document.getElementById('No_barcode');
+    ScanBarcode.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var ScanBarcode = document.getElementById('No_barcode').value;
+            console.log(ScanBarcode);
+
+            fetch("/KirimGudang/" + ScanBarcode.split("-")[0] + ".getSP")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
+
+                    // Clear the existing table rows
+                    $("#TableSP").DataTable().clear().draw();
+
+
+                    // Loop through the data and create table rows
+                    data.forEach((item) => {
+                        var row = [item.IDSuratPesanan, item.NamaJnsBrg];
+                        $("#TableSP").DataTable().row.add(row);
+                    });
+
+                    // Redraw the table to show the changes
+                    $("#TableSP").DataTable().draw();
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+
+
+    });
+
+    // var ScanBarcode = document.getElementById('No_barcode');
+    // ScanBarcode.addEventListener("keypress", function (event) {
+    //     if (event.key == "Enter") {
+    //         var ScanBarcode = document.getElementById('No_barcode');
+    //         var str = ScanBarcode.value
+    //         var parts = str.split("-");
+    //         console.log(parts); // Output: ["A123", "a234"]
+
+    //         fetch("/KirimGudang/" + parts[0] + parts[1] + ".getTampilData")
+    //             .then((response) => {
+    //                 if (!response.ok) {
+    //                     throw new Error("Network response was not ok");
+    //                 }
+    //                 return response.json(); // Assuming the response is in JSON format
+    //             })
+    //             .then((data) => {
+    //                 // Handle the data retrieved from the server (data should be an object or an array)
+
+    //                 // Clear the existing table rows
+    //                 $("#RekapKirim").DataTable().clear().draw();
+    //                 $("#DaftarKirim").DataTable().clear().draw();
+
+
+    //                 // Loop through the data and create table rows
+    //                 data.forEach((item) => {
+    //                     var row = [item.tgl_mutasi, item.namatype, item.uraiandetailtransaksi, item.qty_primer, item.qty_sekunder, item.qty, "IDSP1"];
+    //                     var row2 = [item.tgl_mutasi, item.namatype, item.uraiandetailtransaksi, ScanBarcode, item.namasubkelompok, item.namakelompok, ScanBarcode.split("-")[1], item.noindeks, item.qty_primer, item.qty_sekunder, item.qty, "IDSP1"];
+    //                     $("#RekapKirim").DataTable().row.add(row);
+    //                     $("#DaftarKirim").DataTable().row.add(row2);
+    //                 });
+
+    //                 // Redraw the table to show the changes
+    //                 $("#RekapKirim").DataTable().draw();
+    //                 $("#DaftarKirim").DataTable().draw();
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error:", error);
+    //             });
+    //     }
+    // });
 });
 
 function openModal() {
@@ -109,34 +228,10 @@ function closeModal1() {
 function openModal2() {
     var modal = document.getElementById('myModal2');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-    fetch("/KirimGudang/" + IdDiv + ".getKelut")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json(); // Assuming the response is in JSON format
-        })
-        .then((data) => {
-            // Handle the data retrieved from the server (data should be an object or an array)
-
-            // Clear the existing table rows
-            $("#TableKelut").DataTable().clear().draw();
-
-            // Loop through the data and create table rows
-            data.forEach((item) => {
-                var row = [item.IdKelompokUtama, item.NamaKelompokUtama];
-                $("#TableKelut").DataTable().row.add(row);
-            });
-
-            // Redraw the table to show the changes
-            $("#TableKelut").DataTable().draw();
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
 }
 
 function closeModal2() {
     var modal = document.getElementById('myModal2');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
+
