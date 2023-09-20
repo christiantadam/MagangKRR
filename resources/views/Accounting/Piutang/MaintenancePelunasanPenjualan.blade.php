@@ -43,10 +43,10 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="noPenagihanSelect" style="margin-right: 10px;">No. Pelunasan</label>
+                                        <label for="noPelunasanSelect" style="margin-right: 10px;">No. Pelunasan</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <select id="noPenagihanSelect" name="noPenagihanSelect" class="form-control" readonly>
+                                        <select id="noPelunasanSelect" name="noPelunasanSelect" class="form-control" readonly>
 
                                         </select>
                                     </div>
@@ -123,7 +123,7 @@
 
                                 <br><div>
                                     <div style="overflow-y: auto; overflow-x: auto; max-height: 400px;">
-                                        <table style="width: 150%; table-layout: fixed;" id="tabelPelunasanPenjualan">
+                                        <table style="width: 165%; table-layout: fixed;" id="tabelPelunasanPenjualan">
                                             <colgroup>
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
@@ -135,6 +135,7 @@
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
+                                                <col style="width: 20%;">
                                             <thead class="table-dark">
                                                 <tr>
                                                     <th>Id. Penagihan</th>
@@ -143,6 +144,7 @@
                                                     <th>Lunas</th>
                                                     <th>Id. Detail Pelunasan</th>
                                                     <th>Pelunasan Rupiah</th>
+                                                    <th>Mata Uang</th>
                                                     <th>Pelunasan Currency</th>
                                                     <th>Kurang Lebih</th>
                                                     <th>Perkiraan</th>
@@ -215,7 +217,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ url('PenagihanPenjualanExport') }}" id="formLihatPenagihan" method="POST">
+                                        <form action="{{ url('MaintenancePelunasanPenjualan') }}" id="formLihatPenagihan" method="POST">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" id="methodLihatPenagihan">
 
@@ -240,14 +242,17 @@
                                                     <div class="col-md-4">
                                                         <label for="noPenagihan" style="margin-right: 10px;">No. Penagihan</label>
                                                     </div>
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-4">
                                                         <select id="noPenagihan" name="noPenagihan" class="form-control">
 
                                                         </select>
                                                     </div>
-                                                    {{-- <div class="col-md-2">
-                                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control"style="width: 100%">
-                                                    </div> --}}
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="noPen" name="noPen" class="form-control"style="width: 100%">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="text" id="no_Pen" name="no_Pen" class="form-control"style="width: 100%">
+                                                    </div>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="col-md-4">
@@ -275,6 +280,10 @@
                                                     <div class="col-md-3">
                                                         <input type="number" id="terbayar" name="terbayar" class="form-control" style="width: 100%">
                                                     </div>
+                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="sisa" name="sisa" class="form-control" style="width: 100%">
+                                                    </div>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="col-md-4">
@@ -283,14 +292,18 @@
                                                     <div class="col-md-3">
                                                         <input type="number" id="terbayarRupiah" name="terbayarRupiah" class="form-control" style="width: 100%">
                                                     </div>
+                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="sisaRupiah" name="sisaRupiah" class="form-control" style="width: 100%">
+                                                    </div>
                                                 </div>
 
                                                 <br><div class="d-flex">
                                                     <div class="col-md-4">
-                                                        <label for="jumlahUangBKM" style="margin-right: 10px;">Jumlah Yang Dibayar</label>
+                                                        <label for="jumlahYangDibayar" style="margin-right: 10px;">Jumlah Yang Dibayar</label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="number" id="jumlahUangBKM" name="jumlahUangBKM" class="form-control" style="width: 100%" readonly>
+                                                        <input type="number" id="jumlahYangDibayar" name="jumlahYangDibayar" class="form-control" style="width: 100%" readonly>
                                                     </div>
                                                     <div class="col-md-4" style="color: blue">
                                                         Wajib Dienter
@@ -327,7 +340,7 @@
                                                 <b>Biaya Ditanggung</b>
                                                 <div class="d-flex">
                                                     <div class="col-md-4">
-                                                        <label for="pelunasanRupiah" style="margin-right: 10px;">Nilai Biaya</label>
+                                                        <label for="nilaiBiaya" style="margin-right: 10px;">Nilai Biaya</label>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <input type="number" id="nilaiBiaya" name="nilaiBiaya" class="form-control" style="width: 100%" readonly>
@@ -337,20 +350,26 @@
                                             <div class="card" style>
                                                 <div class="d-flex">
                                                     <div class="col-md-4">
-                                                        <label for="pelunasanRupiah" style="margin-right: 10px;">Nilai Kurang/Lebih</label>
+                                                        <label for="nilaiKurangLebih" style="margin-right: 10px;">Nilai Kurang/Lebih</label>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <input type="number" id="nilaiBiaya" name="nilaiBiaya" class="form-control" style="width: 100%" readonly>
+                                                        <input type="number" id="nilaiKurangLebih" name="nilaiKurangLebih" class="form-control" style="width: 100%" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="col-md-4">
-                                                        <label for="pelunasanRupiah" style="margin-right: 10px;">No. Penagihan</label>
+                                                        <label for="noPenagihan1" style="margin-right: 10px;">No. Penagihan</label>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <select id="noPenagihan1" name="noPenagihan1" class="form-control" readonly>
 
                                                         </select>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <input type="number" id="noPen1" name="noPen1" class="form-control" style="width: 100%" readonly>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input type="number" id="no_Pen1" name="no_Pen1" class="form-control" style="width: 100%" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -371,7 +390,7 @@
 
                                             <br><div class="row">
                                                 <div class="col-md-2">
-                                                    <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-success">
+                                                    <input type="submit" id="btnSimpanModal" name="btnSimpanModal" value="Simpan" class="btn btn-success">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">

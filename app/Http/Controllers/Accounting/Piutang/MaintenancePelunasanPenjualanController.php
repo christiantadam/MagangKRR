@@ -44,6 +44,26 @@ class MaintenancePelunasanPenjualanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getLihatDetailPelunasan($no_Pen)
+    {
+        $noPen = str_replace('.', '/', $no_Pen);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Penagihan = ?', [4, $noPen]);
+        return response()->json($tabel);
+    }
+
+    public function getListPelunasanTagihan($no_Pen)
+    {
+        $noPen = str_replace('.', '/', $no_Pen);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Penagihan = ?', [4, $noPen]);
+        return response()->json($tabel);
+    }
+
+    public function getKdPerkiraan()
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [Sp_List_KodePerkiraan] @Kode = ?', [1]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
