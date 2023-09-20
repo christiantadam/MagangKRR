@@ -494,26 +494,26 @@ btnSimpanModal.addEventListener('click', function(event) {
     //     }
     // });
 
-    //     if (sel.length == 0) {
-    //         console.log("masuk Z == 0");
-    //         totalPelunasan.value = totalPelunasan.value + nilaiPiutang.value;
-    //         totalBiaya.value = totalBiaya.value + nilaiBiaya.value;
-    //         kurangLebih.value = kurangLebih.value + nilaiKurangLebih.value;
+    if (rowCount == 0) {
+        console.log("masuk Z == 0");
+        totalPelunasan.value = totalPelunasan.value + nilaiPiutang.value;
+        totalBiaya.value = totalBiaya.value + nilaiBiaya.value;
+        kurangLebih.value = kurangLebih.value + nilaiKurangLebih.value;
 
-    //         tabelPelunasanPenjualan.row.add([
-    //             noPen.value,
-    //             jumlahYangDibayar.value,
-    //             nilaiBiaya.value,
-    //             lunas.value.toUpperCase(),
-    //             "",
-    //             pelunasanRupiah.value,
-    //             pelunasanRupiah.value,
-    //             idMataUang.value,
-    //             nilaiKurangLebih.value,
-    //             idKodePerkiraan.value,
-    //             noPen1.value
-    //         ]).draw().node();
-    //     }
+        tabelPelunasanPenjualan.row.add([
+            noPen.value,
+            jumlahYangDibayar.value,
+            nilaiBiaya.value,
+            lunas.value.toUpperCase(),
+            "",
+            pelunasanRupiah.value,
+            pelunasanRupiah.value,
+            idMataUang.value,
+            nilaiKurangLebih.value,
+            idKodePerkiraan.value,
+            noPen1.value
+        ]).draw().node();
+    }
     $('#modalLihatPenagihan').modal('hide');
 })
 
