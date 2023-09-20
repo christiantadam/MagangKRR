@@ -193,6 +193,7 @@ function AllData(tglAwal, tglAkhir) {
         });
 }
 
+
 //#endregion
 
 //#region tgl2 press enter

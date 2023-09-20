@@ -71,9 +71,175 @@
       </form>
 
       <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-dark custom-btn" style="margin-right: 18vh">CETAK</button>
+        <button type="button" class="btn btn-dark custom-btn" style="margin-right: 18vh" data-toggle="modal" data-target="#ModalCetak">CETAK</button>
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="ModalCetak" tabindex="-1" role="dialog" aria-labelledby="ModalCetakLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalCetakLabel">Cetak Surat Order Gambar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container" style="text-align: center;">
+                <div class="row" style="place-items: center">
+                    <div class="col-2">
+                        <span>Tgl. Order</span>
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" name="Tglawalmodal" id="Tglawalmodal">
+                    </div>
+                    <div class="col-1">
+                        <span>s/d</span>
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" name="Tglakhirmodal" id="Tglakhirmodal">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table mt-3" id="TableCetakModal">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>No. Order</th>
+                          <th>Tgl. Order</th>
+                          <th>Nama Barang</th>
+                          <th>Status Order</th>
+                          <th>Divisi</th>
+                          <th>Keterangan Order</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-success" id="refreshModal">Refresh</button>
+                    </div>
+                    <div class="col-6" style="text-align-last: right;">
+                        <button type="button" class="btn btn-dark" >Cetak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="print" style="display:">
+    <div class="container">
+      <div class="divtable">
+        <div class="row" style="border: solid 1px; place-items: center; border-bottom:0">
+          <div class="col-6">
+            <h5 style="font-weight: bolder; margin-top:8px;">P.T. KERTA RAJASA RAYA</h5>
+          </div>
+          <div class="col-6">
+            <span style="font-weight: bold">Kode Barang <span style="margin-left: 21px">:</span> </span>
+            <span id="KodeBarangPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="place-items: center; border:solid 1px; border-bottom:0">
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">DIVISI</span>
+            <span style="font-weight: bold">Teknik</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight: bold">Nomer <span style="margin-left: 61px">:</span></span>
+            <span id="idOrderPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="place-items: center; border:solid 1px; border-bottom:0">
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">Jl. Raya Tropodo No. 1</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight: bold">Tanggal Pesan <span style="margin-left: 10px">:</span></span>
+            <span id="TglOrderPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px; border-bottom:0; place-items:center">
+          <div class="col-6" style="border-right: solid 1px">
+            <span style="font-weight: bold">WARU - SIDOARJO</span>
+          </div>
+          <div class="col-6">
+            <span style="font-weight:bold">Keterangan <span style="margin-left: 31px">:</span></span>
+            <span id="KeteranganPrint" style="font-weight: bold"></span>
+            <span id="userPrint"></span>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px; border-bottom:0">
+          <div class="col-12" style="text-align-last: center;padding-top: 8px;">
+            <h5 style="font-weight: bolder;">SURAT PESANAN KE DIVISI <span>Teknik</span></h5>
+          </div>
+        </div>
+        <div class="row" style="border: solid 1px; padding-bottom:1%">
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <span>Divisi : <span id="NamaDivisiPrint"></span></span>
+              </div>
+              <div class="col-6">
+                <span>/ <span id="MesinPrint"></span></span>
+              </div>
+            </div>
+            <div class="row" style="text-align: center; border:solid 1px; margin:5px;">
+              <div class="container">
+                <div class="row" style="width: 98.9%;">
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span>JUMLAH</span>
+                  </div>
+                  <div class="col-5" style="border-right: solid 1px">
+                    <span>NAMA BARANG</span>
+                  </div>
+                  <div class="col-5">
+                    <span>KETERANGAN</span>
+                  </div>
+                </div>
+                {{-- <hr style="margin: 0;width: 98.9%;margin-left: -1.5%;border: 1px solid black;"> --}}
+                <div class="row" style="border-top:1px solid; width: 98.9%;">
+                  <div class="col-2" style="border-right: solid 1px">
+                    <span>1</span>
+                    <span id="NamaSatuanPrint"></span>
+                  </div>
+                  <div class="col-5" style="border-right: solid 1px">
+                    <span id="NamaBarangPrint"></span>
+                  </div>
+                  <div class="col-3">
+                    <span id="KeteranganOrderPrint"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+        </div>
+        <div class="col-3">
+
+        </div>
+        <div class="col-3" style="text-align-last: center;">
+          <span>Sidoarjo, <span id="PrintDate"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form action="{{ url('CetakSuratOrderKerja') }}" method="post" id="formCetakOrderKerja">
+    {{ csrf_field() }}
+    <input type="hidden" name="_method" id="methodForm">
+    <input type="hidden" name="noOd" id="noOd">
+  </form>
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/ProsesPembeliGambar.js') }}"></script>
+
 @endsection

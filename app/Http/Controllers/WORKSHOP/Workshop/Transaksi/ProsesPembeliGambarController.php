@@ -18,6 +18,16 @@ class ProsesPembeliGambarController extends Controller
         $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-GBR] @kode = ?, @tgl1 = ?, @tgl2 = ?', [12, $tgl_awal, $tgl_akhir]);
         return response()->json($all);
     }
+    public function GetDataModal($tgl_awal,$tgl_akhir) {
+        $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-GBR] @kode = ?, @tgl1 = ?, @tgl2 = ?', [13, $tgl_awal, $tgl_akhir]);
+        return response()->json($all);
+    }
+    public function getdataprint($idorder) {
+        $data = DB::connection('Connworkshop')->table('VW_PRG_5298_WRK_CETAK-ORDER-GBR')
+        ->where('Id_Order', $idorder)
+        ->get();
+        return response()->json($data);
+    }
 
 
     public function create()
