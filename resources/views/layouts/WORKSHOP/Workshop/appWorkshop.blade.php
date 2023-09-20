@@ -64,22 +64,22 @@
               <ul class="dropdown-menu" style="cursor: default">
                 <li>
                   <a href="{{ url('MaintenanceDivisi') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Divisi</a>
                 </li>
                 <li>
                   <a href="{{ url('MaintenanceDrafter') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Drafter</a>
                 </li>
                 <li>
                   <a href="{{ url('UpdateNoGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Update No. Gambar</a>
                 </li>
                 <li>
                   <a href="{{ url('MaintenanceMesin') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Mesin</a>
                 </li>
               </ul>
@@ -93,56 +93,56 @@
 
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a href="{{ url('MaintenanceOrderGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Order Gambar</a>
                 </li>
                 <li><a href="{{ url('ACCManagerGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer" tabindex="-1">ACC
                     Manager</a>
                 </li>
                 <li><a href="{{ url('ACCDirekturGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default" tabindex="-1">ACC
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer" tabindex="-1">ACC
                     Direktur</a>
                 </li>
                 <li><a href="{{ url('PenerimaOrderGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Penerima Order Gambar</a>
                 </li>
                 <li><a href="{{ url('ProsesPembeliGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Proses Pemberi Gambar</a>
                 </li>
                 <li><a href="{{ url('StatusOrderGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Status Order Gambar</a>
                 </li>
                 <li><a href="{{ url('MaintenanceKodeGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Nomor Gambar</a>
                 </li>
                 <hr style="height:2px;">
                 <li><a href="{{ url('MaintenanceOrderKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Order Kerja</a>
                 </li>
                 <li><a href="{{ url('ACCManagerKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">ACC Manager</a>
                 </li>
                 <li><a href="{{ url('ACCDirekturKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">ACC Direktur</a>
                 </li>
                 <li><a href="{{ url('PenerimaOrderKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Penerima Order Kerja</a>
                 </li>
                 <li><a href="{{ url('CetakSuratOrderKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Cetak Surat Order Kerja</a>
                 </li>
                 <li><a href="{{ url('StatusOrderKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Status Order Kerja</a>
                 </li>
               </ul>
@@ -155,27 +155,27 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a href="{{ url('MaintenanceOrderProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Maintenance Order Proyek</a>
                 </li>
                 <li><a href="{{ url('ACCManagerProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Acc Manager</a>
                 </li>
                 <li><a href="{{ url('ACCDirekturProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Acc Direktur</a>
                 </li>
                 <li><a href="{{ url('PenerimaOrderProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Penerima Order Proyek</a>
                 </li>
                 <li><a href="{{ url('CetakSuratOrderProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Cetak Surat Order Proyek</a>
                 </li>
                 <li><a href="{{ url('StatusOrderProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Status Order Proyek</a>
                 </li>
               </ul>
@@ -188,31 +188,31 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a href="{{ url('OrderGambarSelesai') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Gambar Yang Selesai</a>
                 </li>
                 <li><a href="{{ url('OrderKerjaSelesai') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Kerja Yang Selesai</a>
                 </li>
                 <li><a href="{{ url('OrderProyekSelesai') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Proyek Yang Selesai</a>
                 </li>
                 <li><a href="{{ url('NomorGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Nomor Gambar</a>
                 </li>
                 <li><a href="{{ url('OrderGambar') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Gambar</a>
                 </li>
                 <li><a href="{{ url('OrderKerja') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Kerja</a>
                 </li>
                 <li><a href="{{ url('OrderProyek') }}" class="test"
-                    style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Order Proyek</a>
                 </li>
 
