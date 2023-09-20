@@ -12,11 +12,6 @@ class InformasiController extends Controller
         return view();
     }
 
-    public function OrderKerja()
-    {
-        return view('WORKSHOP.Workshop.Informasi.OrderKerja');
-    }
-
     public function OrderProyek()
     {
         return view('WORKSHOP.Workshop.Informasi.OrderProyek');

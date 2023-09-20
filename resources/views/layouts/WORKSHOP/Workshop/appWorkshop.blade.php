@@ -207,7 +207,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Gambar</a>
                 </li>
-                <li><a href="/OrderKerja" class="test"
+                <li><a href="{{ url('OrderKerja') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Kerja</a>
                 </li>
