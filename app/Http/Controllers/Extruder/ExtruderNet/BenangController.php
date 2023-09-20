@@ -44,7 +44,7 @@ class BenangController extends Controller
             [$tanggal1, $tanggal2, $kode]
         );
 
-        // PARAMETER - @Tanggal1 datetime, @Tanggal2 datetime, @kode char(1) = null
+        // @Tanggal1 datetime, @Tanggal2 datetime, @kode char(1) = null
     }
 
     public function getDetailDataBenangNG($id_konversi_ng)
@@ -85,7 +85,7 @@ class BenangController extends Controller
             [$kode, $id_type, $id_type_transaksi, $id_transaksi, $kode_barang, $id_sub_kel]
         );
 
-        // PARAMETER - @Kode char(1)=null, @idtype  varchar(20) =null, @idtypetransaksi  varchar(2) = null, @Idtransaksi int =null, @KodeBarang varchar(10) =null, @idSubKel char(6)=null
+        // @Kode char(1)=null, @idtype  varchar(20) =null, @idtypetransaksi  varchar(2) = null, @Idtransaksi int =null, @KodeBarang varchar(10) =null, @idSubKel char(6)=null
     }
 
     public function getTransaksiKonversiNG($id_konv_ng)
@@ -95,7 +95,7 @@ class BenangController extends Controller
             [$id_konv_ng]
         );
 
-        // PARAMETER - @idkonvNG  varchar(14)
+        // @idkonvNG  varchar(14)
     }
 
     public function updProsesACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc = null, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
@@ -105,7 +105,7 @@ class BenangController extends Controller
             [$id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier]
         );
 
-        // PARAMETER - @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
+        // @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
     }
 
     public function updACCKonversiNG($id_konversi_ng, $user_acc)
@@ -115,7 +115,7 @@ class BenangController extends Controller
             [$id_konversi_ng, $user_acc]
         );
 
-        // PARAMETER - @IdKonversiNG int, @UserAcc char(7)
+        // @IdKonversiNG int, @UserAcc char(7)
     }
     #endregion
 
@@ -128,6 +128,22 @@ class BenangController extends Controller
         );
 
         // @IdKonversi int, @Tanggal datetime
+
+        /**
+         * IdKonversiNG, IdKonversiEXT, AwalShift, AkhirShift, NamaKomposisi, Tanggal, IdKonversiINV
+         * 1	EXT-0000009013	2023-08-25 12:00:00.000	2023-08-25 23:00:00.000	namaKom1	2023-08-22 00:00:00.000	INV0001
+         * 2	EXT-0000009032	2023-08-25 01:00:00.000	2023-08-25 02:00:00.000	namaKom1	2023-08-22 00:00:00.000	INV0002
+         * 3	EXT-0000009043	2023-08-25 00:00:00.000	2023-08-25 00:00:00.000	namaKom1	2023-08-22 00:00:00.000	INV0003
+         *
+         * MasterKonversiEXT.IdKonversi - MasterKonversiNG.IdKonversiEXT
+         * (EXT-0000009013, EXT-0000009032, EXT-0000009043)
+         *
+         * MasterKonversiEXT.IdKomposisi - MasterKomposisi.IdKomposisi
+         * (DEX000013)
+         *
+         * MasterKonversiNG.IdKonversiNG - DetailKonversiNG.IdKonversiNG
+         * (1, 2, 3)
+         */
     }
 
     public function getDetailUraianKonvNG($id_konversi)
@@ -138,6 +154,22 @@ class BenangController extends Controller
         );
 
         // @IdKonversi char(9)
+
+        /**
+         * IdKonversiNG, TypeMesin + '/' + Shift, Tanggal
+         * 1	type1/P 	2023-08-22 00:00:00.000
+         * 2	type1/P 	2023-08-22 00:00:00.000
+         * 3	type1/P 	2023-08-22 00:00:00.000
+         *
+         * MasterKonversiEXT.IdMesin - MasterMesin.IdMesin
+         * (M-001, mes01)
+         *
+         * MasterKonversiEXT.IdKonversi - MasterKonversiNG.IdKonversiEXT
+         * (EXT-0000009013, EXT-0000009032, EXT-0000009043)
+         *
+         * MasterKonversiNG.IdKonversiNG - DetailKonversiNG.IdKonversiNG
+         * (1, 2, 3)
+         */
     }
 
     public function getKoreksiSortirNGBlmAcc($tanggal)
@@ -170,7 +202,7 @@ class BenangController extends Controller
         // @kode int, @noKonv char(14), @idType varchar(20)
     }
 
-    public function getListIdKonv($kode, $id_konversi = null, $id_type = null, $id_divisi = null, $tanggal = null, $shift = null)
+    public function getListIdKonv($kode, $id_divisi = null, $tanggal = null, $shift = null, $id_konversi = null, $id_type = null)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_IDKONV @Kode = ?, @IdDivisi = ?, @Tanggal = ?, @Shift = ?, @IdKonversi = ?, @idType = ?',
@@ -192,7 +224,7 @@ class BenangController extends Controller
         // @Tanggal datetime, @UserInput Char(7), @IdKonversiEXT Char(14)
     }
 
-    public function getIdKonversiNG()
+    public function getMasterKonversiNG()
     {
         $idKonversiNG = MasterKonversiNG::on('ConnExtruder')
             ->select('IdKonversiNG')
@@ -218,7 +250,7 @@ class BenangController extends Controller
             [$id_konversi_ng, $id_type, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $id_konv_inv]
         );
 
-        // PARAMETER - @IdKonversiNG int, @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @IdKonv_Inv varchar(10) = null
+        // @IdKonversiNG int, @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @IdKonv_Inv varchar(10) = null
     }
 
     public function insAsalTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
@@ -228,7 +260,7 @@ class BenangController extends Controller
             [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi]
         );
 
-        // PARAMETER - @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XAsalsubKel  char(6), @XIdKonversi  char(9)
+        // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XAsalsubKel  char(6), @XIdKonversi  char(9)
     }
 
     public function insTujuanTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $tujuan_sub_kel, $id_konversi)
@@ -238,7 +270,7 @@ class BenangController extends Controller
             [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $tujuan_sub_kel, $id_konversi]
         );
 
-        // PARAMETER - @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XtujuansubKel  char(6), @XIdKonversi  char(9)
+        // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XtujuansubKel  char(6), @XIdKonversi  char(9)
     }
 
     public function updDetailKonvNG($id_konversi, $id_type, $j_primer, $j_sekunder, $j_tritier)
@@ -248,7 +280,7 @@ class BenangController extends Controller
             [$id_konversi, $id_type, $j_primer, $j_sekunder, $j_tritier]
         );
 
-        // PARAMETER - @idkonversi int, @idType varchar(20), @jprimer numeric(18,2), @jsekunder numeric(18,2), @jtritier numeric(18,2)
+        // @idkonversi int, @idType varchar(20), @jprimer numeric(18,2), @jsekunder numeric(18,2), @jtritier numeric(18,2)
     }
 
     public function updTmpTransaksi($id_transaksi, $uraian_detail_transaksi = null, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $tujuan_sub_kelompok = null)
@@ -258,7 +290,7 @@ class BenangController extends Controller
             [$id_transaksi, $uraian_detail_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $tujuan_sub_kelompok]
         );
 
-        // PARAMETER - @XIdTransaksi       int, @XUraianDetailTransaksi varchar (150) = null, @XJumlahKeluarPrimer numeric (9,2), @XJumlahKeluarSekunder numeric (9,2), @XJumlahKeluarTritier numeric (9,2), @XTujuanSubKelompok char (6) =null
+        // @XIdTransaksi       int, @XUraianDetailTransaksi varchar (150) = null, @XJumlahKeluarPrimer numeric (9,2), @XJumlahKeluarSekunder numeric (9,2), @XJumlahKeluarTritier numeric (9,2), @XTujuanSubKelompok char (6) =null
     }
 
     public function delKonversiNG($id_konversi)
@@ -268,12 +300,12 @@ class BenangController extends Controller
             [$id_konversi]
         );
 
-        // PARAMETER - @idkonversi varchar(14)
+        // @idkonversi varchar(14)
     }
     #endregion
 
     #region Form Rincian Konversi
-    public function getIdObjekKelUtama($id_objek_kelompok_utama, $type = null)
+    public function getKelompokUtama_IdObjek($id_objek_kelompok_utama, $type = null)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA @Xidobjek_kelompokutama = ?, @Type = ?',
@@ -281,31 +313,30 @@ class BenangController extends Controller
         );
 
         // dd($this->getIdObjKelUtama("032", "3"));
-
-        // PARAMETER - @Xidobjek_kelompokutama  varchar(4), @Type char(1) = null
+        // @Xidobjek_kelompokutama  varchar(4), @Type char(1) = null
     }
 
-    public function geIdKelUtamaKelompok($id_kelompok_utama_kelompok, $type = null)
+    public function getKelompok_IdKelut($id_kelompok_utama_kelompok, $type = null)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK @XIdKelompokUtama_Kelompok = ?, @type = ?',
             [$id_kelompok_utama_kelompok, $type]
         );
 
-        // PARAMETER - @XIdKelompokUtama_Kelompok    char (4), @type char(1)=null
+        // @XIdKelompokUtama_Kelompok    char (4), @type char(1)=null
     }
 
-    public function getIdKelSubKelompok($id_kelompok_sub_kelompok)
+    public function getSubKelompok_IdKelompok($id_kelompok_sub_kelompok)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?',
             [$id_kelompok_sub_kelompok]
         );
 
-        // PARAMETER - @XIdKelompok_SubKelompok    char (6)
+        // @XIdKelompok_SubKelompok    char (6)
     }
 
-    public function getIdSubKelompokType($id_sub_kelompok_type)
+    public function getType_IdSubkel($id_sub_kelompok_type)
     {
         return DB::connection('ConnInventory')->select(
             'exec SP_5298_EXT_IDSUBKELOMPOK_TYPE @XIdSubKelompok_Type = ?',
@@ -322,7 +353,7 @@ class BenangController extends Controller
             [$id_type]
         );
 
-        // PARAMETER - @IdType char(20)
+        // @IdType char(20)
     }
     #endregion
 }

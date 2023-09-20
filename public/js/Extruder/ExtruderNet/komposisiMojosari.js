@@ -136,8 +136,10 @@ slcKomposisi.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getListKomposisi/" + idDivisi,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKomposisi = true;
             },
             errorOption
         );
@@ -149,30 +151,30 @@ slcKomposisi.addEventListener("mousedown", function () {
 });
 
 slcKomposisi.addEventListener("keydown", function (event) {
-    if (event.key == "Enter") {
-        if (refetchKomposisi) {
-            refetchKomposisi = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "IdKomposisi",
-                textKey: "NamaKomposisi",
-            };
+    if (event.key == "Enter" && refetchKomposisi) {
+        refetchKomposisi = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKomposisi",
+            textKey: "NamaKomposisi",
+        };
 
-            // SP_5298_EXT_LIST_KOMPOSISI_1
-            fetchSelect(
-                "/Master/getListKomposisi/" + idDivisi,
-                (data) => {
+        // SP_5298_EXT_LIST_KOMPOSISI_1
+        fetchSelect(
+            "/Master/getListKomposisi/" + idDivisi,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
+                } else refetchKomposisi = true;
+            },
+            errorOption
+        );
 
-            refetchHP = true;
-            refetchNG = true;
-            refetchAF = true;
-        }
+        refetchHP = true;
+        refetchNG = true;
+        refetchAF = true;
     }
 });
 
@@ -307,16 +309,17 @@ slcKomposisi.addEventListener("change", function () {
 
 slcMesin.addEventListener("change", function () {
     jumlah = 0;
+    clearDataDetail("select_objek");
+    slcHP.disabled = false;
+    numCadangan.value = 0;
+    slcHP.focus();
+
     listKomposisi.length = 0;
     clearTable_DataTable(
         "table_komposisi",
         colKomposisi.length,
         "padding=250px"
     );
-    clearDataDetail("select_objek");
-    slcHP.disabled = false;
-    numCadangan.value = 0;
-    slcHP.focus();
 });
 
 slcObjek.addEventListener("change", function () {
@@ -326,10 +329,11 @@ slcObjek.addEventListener("change", function () {
     slcSubkel.selectedIndex = 0;
     slcKelut.disabled = false;
     slcKelut.focus();
+    refetchKelut = true;
 });
 
 slcKelut.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchKelut) {
+    if (refetchKelut) {
         refetchKelut = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -342,8 +346,10 @@ slcKelut.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKelut = true;
             },
             errorOption
         );
@@ -351,26 +357,26 @@ slcKelut.addEventListener("mousedown", function () {
 });
 
 slcKelut.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.querySelectorAll("option").length <= 1 || refetchKelut) {
-            refetchKelut = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "IdKelompokUtama",
-                textKey: "NamaKelompokUtama",
-            };
+    if (event.key === "Enter" && refetchKelut) {
+        refetchKelut = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKelompokUtama",
+            textKey: "NamaKelompokUtama",
+        };
 
-            // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
-            fetchSelect(
-                "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
-                (data) => {
+        // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
+        fetchSelect(
+            "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchKelut = true;
+            },
+            errorOption
+        );
     }
 });
 
@@ -399,7 +405,7 @@ slcKelut.addEventListener("change", function () {
 });
 
 slcKelompok.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchKelompok) {
+    if (refetchKelompok) {
         refetchKelompok = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -412,8 +418,10 @@ slcKelompok.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKelompok = true;
             },
             errorOption
         );
@@ -421,26 +429,26 @@ slcKelompok.addEventListener("mousedown", function () {
 });
 
 slcKelompok.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.querySelectorAll("option").length <= 1 || refetchKelompok) {
-            refetchKelompok = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "idkelompok",
-                textKey: "namakelompok",
-            };
+    if (event.key === "Enter" && refetchKelompok) {
+        refetchKelompok = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "idkelompok",
+            textKey: "namakelompok",
+        };
 
-            // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
-            fetchSelect(
-                "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
-                (data) => {
+        // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+        fetchSelect(
+            "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchKelompok = true;
+            },
+            errorOption
+        );
     }
 });
 
@@ -470,7 +478,7 @@ slcKelompok.addEventListener("change", function () {
 });
 
 slcSubkel.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchSubkel) {
+    if (refetchSubkel) {
         refetchSubkel = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -483,8 +491,10 @@ slcSubkel.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchSubkel = true;
             },
             errorOption
         );
@@ -492,26 +502,26 @@ slcSubkel.addEventListener("mousedown", function () {
 });
 
 slcSubkel.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.querySelectorAll("option").length <= 1 || refetchSubkel) {
-            refetchSubkel = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "idsubkelompok",
-                textKey: "namasubkelompok",
-            };
+    if (event.key === "Enter" && refetchSubkel) {
+        refetchSubkel = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "idsubkelompok",
+            textKey: "namasubkelompok",
+        };
 
-            // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
-            fetchSelect(
-                "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
-                (data) => {
+        // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
+        fetchSelect(
+            "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchSubkel = true;
+            },
+            errorOption
+        );
     }
 });
 
@@ -522,7 +532,7 @@ slcSubkel.addEventListener("change", function () {
 });
 
 slcType.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchType) {
+    if (refetchType) {
         refetchType = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -535,8 +545,10 @@ slcType.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchType = true;
             },
             errorOption
         );
@@ -544,7 +556,7 @@ slcType.addEventListener("mousedown", function () {
 });
 
 slcType.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && refetchType) {
         refetchType = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -557,8 +569,10 @@ slcType.addEventListener("keydown", function (event) {
         fetchSelect(
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchType = true;
             },
             errorOption
         );
@@ -1478,8 +1492,10 @@ slcHP.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getPrgTypeProduksi/2/" + idHasilProduksi,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchHP = true;
             },
             errorOption
         );
@@ -1501,8 +1517,10 @@ slcHP.addEventListener("keydown", function (event) {
             fetchSelect(
                 "/Master/getPrgTypeProduksi/2/" + idHasilProduksi,
                 (data) => {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchHP = true;
                 },
                 errorOption
             );
@@ -1529,8 +1547,10 @@ slcNG.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getPrgTypeProduksi/3/" + idHasilProduksi,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchNG = true;
             },
             errorOption
         );
@@ -1552,8 +1572,10 @@ slcNG.addEventListener("keydown", function (event) {
             fetchSelect(
                 "/Master/getPrgTypeProduksi/3/" + idHasilProduksi,
                 (data) => {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchNG = true;
                 },
                 errorOption
             );
@@ -1580,8 +1602,10 @@ slcAF.addEventListener("mousedown", function () {
         fetchSelect(
             "/Master/getPrgTypeProduksi/1/" + idAfalan,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchAF = true;
             },
             errorOption
         );
@@ -1603,8 +1627,10 @@ slcAF.addEventListener("keydown", function (event) {
             fetchSelect(
                 "/Master/getPrgTypeProduksi/1/" + idAfalan,
                 (data) => {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchAF = true;
                 },
                 errorOption
             );

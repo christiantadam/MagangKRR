@@ -1,8 +1,8 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="form_benang_mohon" class="form" data-aos="fade-up">
-        <input type="hidden" id="form_rk_return">
-        <button id="btn_rk" class="hidden" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi"></button>
+        {{-- <input type="hidden" id="form_rk_return"> --}}
+        {{-- <button id="btn_rk" class="hidden" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi"></button> --}}
 
         <div class="row mt-3">
             <div class="col-lg-7"></div>
@@ -23,17 +23,16 @@
                 <span class="aligned-text">Tanggal:</span>
             </div>
             <div class="col-lg-3">
-                <input type="date" id="tanggal" class="form-control unclickable">
+                <input type="date" id="tanggal" class="form-control">
             </div>
 
             <div class="col-lg-2">
                 <span class="aligned-text">Mesin:</span>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <select id="select_mesin" class="form-select" disabled>
                     <option selected disabled>-- Pilih Mesin --</option>
-                    <option value="loading" style="display: none" disabled>Memuat data...</option>
                 </select>
             </div>
         </div>
@@ -44,10 +43,10 @@
             </div>
 
             <div class="col-lg-3">
-                <select id="select_nomor" class="form-select" disabled>
+                <select id="select_nomor" class="form-select">
                     <option selected disabled>-- Pilih Nomor --</option>
                     @foreach ($formData['listNomor'] as $d)
-                        <option value="{{ $d->IdKonversiNG }}">{{ $d->MesinShift }}</option>
+                        <option value="{{ $d->MesinShift }}">{{ $d->IdKonversiNG }}</option>
                     @endforeach
                 </select>
             </div>
@@ -57,7 +56,7 @@
             </div>
 
             <div class="col-lg-4">
-                <select id="select_nomor_konversi" class="form-select" disabled>
+                <select id="select_nomor_konversi" class="form-select">
                     <option selected disabled>-- Pilih Nomor Konversi --</option>
                 </select>
             </div>
@@ -80,7 +79,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="col-lg-4">
-                <select id="select_type" class="form-select" disabled>
+                <select id="select_type" class="form-select">
                     <option selected disabled>-- Pilih Type --</option>
                 </select>
             </div>

@@ -121,8 +121,10 @@ slcNomor.addEventListener("mousedown", function () {
         fetchSelect(
             "/Konversi/getListKonversi/EXT",
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchNomor = true;
             },
             errorOption
         );
@@ -144,8 +146,10 @@ slcNomor.addEventListener("keydown", function (event) {
             fetchSelect(
                 "/Konversi/getListKonversi/EXT",
                 (data) => {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchNomor = true;
                 },
                 errorOption
             );
@@ -271,7 +275,7 @@ slcOrder.addEventListener("change", function () {
 });
 
 slcKomposisi.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchKomposisi) {
+    if (refetchKomposisi) {
         refetchKomposisi = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -284,8 +288,10 @@ slcKomposisi.addEventListener("mousedown", function () {
         fetchSelect(
             "/Konversi/getListKomposisi/1/" + slcMesin.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKomposisi = true;
             },
             errorOption
         );
@@ -293,26 +299,26 @@ slcKomposisi.addEventListener("mousedown", function () {
 });
 
 slcKomposisi.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.querySelectorAll("option").length <= 1 || refetchKomposisi) {
-            refetchKomposisi = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "IdKomposisi",
-                textKey: "NamaKomposisi",
-            };
+    if (event.key === "Enter" && refetchKomposisi) {
+        refetchKomposisi = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKomposisi",
+            textKey: "NamaKomposisi",
+        };
 
-            // SP_5298_EXT_LIST_KOMPOSISI
-            fetchSelect(
-                "/Konversi/getListKomposisi/1/" + slcMesin.value,
-                (data) => {
+        // SP_5298_EXT_LIST_KOMPOSISI
+        fetchSelect(
+            "/Konversi/getListKomposisi/1/" + slcMesin.value,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchKomposisi = true;
+            },
+            errorOption
+        );
     }
 });
 
@@ -332,7 +338,7 @@ slcKomposisi.addEventListener("change", function () {
 });
 
 slcSpek.addEventListener("mousedown", function () {
-    if (this.querySelectorAll("option").length <= 1 || refetchSpek) {
+    if (refetchSpek) {
         refetchSpek = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
@@ -345,8 +351,10 @@ slcSpek.addEventListener("mousedown", function () {
         fetchSelect(
             "/Konversi/getListSpek/" + slcOrder.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchSpek = true;
             },
             errorOption
         );
@@ -354,33 +362,30 @@ slcSpek.addEventListener("mousedown", function () {
 });
 
 slcSpek.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.querySelectorAll("option").length <= 1 || refetchSpek) {
-            refetchSpek = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "NoUrutOrder",
-                textKey: "TypeBenang",
-            };
+    if (event.key === "Enter" && refetchSpek) {
+        refetchSpek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "NoUrutOrder",
+            textKey: "TypeBenang",
+        };
 
-            // SP_5298_EXT_LIST_SPEK_ORDER
-            fetchSelect(
-                "/Konversi/getListSpek/" + slcOrder.value,
-                (data) => {
-                    addOptions(this, data, optionKeys, false);
+        // SP_5298_EXT_LIST_SPEK_ORDER
+        fetchSelect(
+            "/Konversi/getListSpek/" + slcOrder.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchSpek = true;
+            },
+            errorOption
+        );
     }
 });
 
 slcSpek.addEventListener("change", function () {
-    // console.log(this.options[this.selectedIndex].text);
-    // console.log(this.value);
-
     clearDataDetail();
     ambilDataUkuran(this.options[this.selectedIndex].text);
     hidNoUrut.value = this.value;
