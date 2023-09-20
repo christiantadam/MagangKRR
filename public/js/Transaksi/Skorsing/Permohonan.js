@@ -4,6 +4,11 @@ $(document).ready(function () {
     const pegawaiButton = document.getElementById("pegawaiButton");
     const isiButton = document.getElementById("isiButton");
     const batalButton = document.getElementById("batalButton");
+    const TglMulai = document.getElementById("TglMulai");
+    const TglSelesai = document.getElementById("TglSelesai");
+    // const Id_Pegawai = document.getElementById("Id_Pegawai");
+    const kode_Skors = document.getElementById("kode_Skors");
+    const keterangan = document.getElementById("keterangan");
     const simpanButton = document.getElementById("simpanButton");
     $("#tabel_Divisi").DataTable({
         order: [[0, "asc"]],
@@ -15,11 +20,23 @@ $(document).ready(function () {
         isiButton.hidden = true;
         simpanButton.hidden = false;
         batalButton.disabled = false;
+        TglMulai.disabled = false;
+        TglSelesai.disabled = false;
+        kode_Skors.disabled = false;
+        keterangan.disabled = false;
+        divisiButton.disabled = false;
+        pegawaiButton.disabled = false;
     });
     batalButton.addEventListener("click", function () {
         isiButton.hidden = false;
         simpanButton.hidden = true;
         batalButton.disabled = true;
+        TglMulai.disabled = true;
+        TglSelesai.disabled = true;
+        kode_Skors.disabled = true;
+        keterangan.disabled = true;
+        divisiButton.disabled = true;
+        pegawaiButton.disabled = true;
     });
     simpanButton.addEventListener("click", function () {
         event.preventDefault();

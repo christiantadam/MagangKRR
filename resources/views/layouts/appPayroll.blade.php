@@ -264,7 +264,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/Permohonan') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('Peringatan/Permohonan') }}">Permohonan</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/AccPermohonan') }}">Acc Permohonan</a>

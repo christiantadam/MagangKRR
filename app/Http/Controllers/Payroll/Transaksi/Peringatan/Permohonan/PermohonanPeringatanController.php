@@ -13,30 +13,12 @@ class PermohonanPeringatanController extends Controller
     public function index()
     {
 
-        $peringatanDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
+        // $peringatanDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI ?', [1]);
         // dd($peringatanPegawai);
-        return view('Payroll.Transaksi.Peringatan.Permohonan.permohonanPeringatan', compact('peringatanDivisi'));
+        return view('Payroll.Transaksi.Peringatan.Permohonan.permohonanPeringatan');
     }
 
-    public function getPegawai($Id_Div)
-    {
 
-        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div], [1]);
-
-        // Return the options as JSON data
-        return response()->json($dataPegawai);
-    }
-
-    public function prosesPeringatan(Request $request)
-    {
-        $dataDiv = $request->all();
-
-        // Loop melalui data peringatan dan eksekusi stored procedure untuk setiap data
-
-
-        // Respon berhasil (optional)
-        return response()->json(['message' => 'Data peringatan berhasil diproses']);
-    }
 
     //Show the form for creating a new resource.
     public function create()
@@ -47,26 +29,53 @@ class PermohonanPeringatanController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        // Validate the form data (if needed)
-        $request->validate([
-            'id_div' => 'required',
-            // Add validation rules for other form fields here if needed
+        $data = $request->all();
+        // dd($data , " Masuk store bosq");
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_PERINGATAN @kd_pegawai = ?, @peringatan_ke = ?, @bulan = ?, @tahun = ?, @no_surat= ?, @uraian= ?, @TglBerlaku= ?, @TglAkhir= ?', [
+
+            $data['kd_pegawai'],
+            $data['peringatan_ke'],
+            $data['bulan'],
+            $data['tahun'],
+            $data['no_surat'],
+            $data['uraian'],
+            $data['TglBerlaku'],
+            $data['TglAkhir'],
         ]);
-
-        // Get the submitted data
-        $idDiv = $request->input('id_div');
-
-        // Now, you can use the $idDiv to fetch data for the selected division from the database
-        $peringatanPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$idDiv] ,[1]);
-
-        // Do whatever you want with the $peringatanPegawai data, for example, pass it to a view
-        return view('your.view.name', compact('peringatanPegawai'));
+        return redirect()->route('Permohonan.index')->with('alert', 'Data Peringatan berhasil ditambahkan!');
     }
 
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI');
+            // dd($dataDiv);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
+        } else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?', [$crExplode[0]]);
+
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        } else if ($crExplode[$lastIndex] == "getPeringatan") {
+            $dataPeringatan = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_MAX_PERINGATAN @Type = ?, @Kd_Pegawai = ?', [1, $crExplode[0]]);
+
+            // Return the options as JSON data
+            return response()->json($dataPeringatan);
+        } else if ($crExplode[$lastIndex] == "getPeringatan2") {
+            $dataPeringatan = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_MAX_PERINGATAN @Type = ?, @Kd_Pegawai = ?, @Tahun = ?', [2, $crExplode[0], $crExplode[1]]);
+            // dd($dataPeringatan);
+            // Return the options as JSON data
+            return response()->json($dataPeringatan);
+        } else if ($crExplode[$lastIndex] == "getPeringatan3") {
+            $dataPeringatan = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_MAX_PERINGATAN @Type = ?, @Kd_Pegawai = ?, @Tahun = ?, @Bulan = ?', [3, $crExplode[0], $crExplode[1], $crExplode[2]]);
+            // dd($dataPeringatan);
+            // Return the options as JSON data
+            return response()->json($dataPeringatan);
+        }
     }
 
     // Show the form for editing the specified resource.
@@ -78,12 +87,30 @@ class PermohonanPeringatanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_PERINGATAN @kd_pegawai = ?, @peringatan_ke = ?, @bulan = ?, @tahun = ?, @no_surat= ?, @uraian= ?', [
+            $data['kd_pegawai'],
+            $data['peringatan_ke'],
+            $data['bulan'],
+            $data['tahun'],
+            $data['no_surat'],
+            $data['uraian'],
+        ]);
+        return redirect()->route('Permohonan.index')->with('alert', 'Data Peringatan Updated successfully!');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd('Masuk Destroy', $data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_DEL_PERINGATAN @kd_pegawai = ?, @peringatan_ke = ?, @bulan = ?, @tahun = ?', [
+            $data['kd_pegawai'],
+            $data['peringatan_ke'],
+            $data['bulan'],
+            $data['tahun'],
+        ]);
+        return redirect()->route('Permohonan.index')->with('alert', 'Data peringatan berhasil dihapus!');
     }
 }

@@ -65,6 +65,8 @@ Route::resource('MaintenanceResign', App\Http\Controllers\Payroll\Transaksi\Main
 Route::resource('KenaikanUpah', App\Http\Controllers\Payroll\Transaksi\KenaikanUpah\KenaikanUpahController::class);
 Route::resource('Skorsing/Permohonan', App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController::class);
 Route::resource('Skorsing/AccBayar', App\Http\Controllers\Payroll\Transaksi\Skorsing\AccBayar\AccBayarController::class);
+Route::resource('Peringatan/Permohonan', App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController::class);
+
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
@@ -122,8 +124,8 @@ Route::get('ProgramPayroll/Transaksi/Mutasi/Histori', 'App\Http\Controllers\Payr
 Route::get('ProgramPayroll/Transaksi/Absen1', 'App\Http\Controllers\Payroll\Transaksi\Absen1\Absen1Controller@index');
 // Route::get('ProgramPayroll/Transaksi/Skorsing/Permohonan', 'App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController@index');
 // Route::get('ProgramPayroll/Transaksi/Skorsing/AccBayar', 'App\Http\Controllers\Payroll\Transaksi\Skorsing\AccBayar\AccBayarController@index');
-Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@index');
-Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan/getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
+// Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@index');
+// Route::get('ProgramPayroll/Transaksi/Peringatan/Permohonan/getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
 
 
 Route::get('ProgramPayroll/Transaksi/Peringatan/AccPermohonan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\AccPermohonan\AccPermohonanController@index');

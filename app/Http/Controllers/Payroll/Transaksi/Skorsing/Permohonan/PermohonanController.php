@@ -38,7 +38,7 @@ class PermohonanController extends Controller
             $data['id_user'],
 
         ]);
-        return redirect()->route('Permohonan.index')->with('alert', 'Data klinik berhasil ditambahkan!');
+        return redirect()->route('Permohonan.index')->with('alert', 'Data Skorsing berhasil ditambahkan!');
     }
 
     //Display the specified resource.

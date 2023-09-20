@@ -1,120 +1,7 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <script>
-        $(document).ready(function() {
-            $('#table_Divisi').DataTable({
-                order: [
-                    [0, 'asc']
-                ],
-            });
+    <script type="text/javascript" src="{{ asset('js/Transaksi/Peringatan/Permohonan.js') }}"></script>
 
-
-
-            // Function to remove the backdrop
-            function removeBackdrop() {
-                $('.modal-backdrop').remove();
-            }
-
-            // Function to show the modal
-            function showModalDivisi() {
-                $('#modalKdPeg').addClass('show');
-                $('#modalKdPeg').css('display', 'block');
-                $('body').addClass('modal-open');
-            }
-
-            // Function to hide the modal
-            function hideModalDivisi() {
-                $('#modalKdPeg').removeClass('show');
-                $('#modalKdPeg').css('display', 'none');
-                $('body').removeClass('modal-open');
-                removeBackdrop();
-            }
-
-            function showModalPegawai() {
-                $('#modalPeg').addClass('show');
-                $('#modalPeg').css('display', 'block');
-                $('body').addClass('modal-open');
-            }
-
-            // Function to hide the modal
-            function hideModalPegawai() {
-                $('#modalPeg').removeClass('show');
-                $('#modalPeg').css('display', 'none');
-                $('body').removeClass('modal-open');
-                removeBackdrop();
-            }
-
-            // Attach click event to DataTable rows
-            $('#table_Divisi tbody').on('click', 'tr', function() {
-                // Get the data from the clicked row
-                var rowData = $('#table_Divisi').DataTable().row(this).data();
-                // Populate the input fields with the data
-                $('#Id_Div').val(rowData[0]);
-                $('#Nama_Div').val(rowData[1]);
-                fetch("/getPegawai/" + rowData[0])
-                    .then(response => {
-
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json(); // Assuming the response is in JSON format
-                    })
-                    .then(data => {
-
-                        // Handle the data retrieved from the server (data should be an object or an array)
-
-                        // Clear the existing table rows
-                        $('#table_Peg').DataTable().clear().draw();
-
-                        // Loop through the data and create table rows
-                        data.forEach(item => {
-                            var row = [item.kd_pegawai, item.nama_peg];
-                            $('#table_Peg').DataTable().row.add(row);
-                        });
-
-                        // Redraw the table to show the changes
-                        $('#table_Peg').DataTable().draw();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                // var idDivValue = rowData[0];
-                // submitFormWithIdDiv(idDivValue);
-                // Hide the modal immediately after populating the data
-                hideModalDivisi();
-            });
-            $('#table_Peg').DataTable({
-                order: [
-                    [0, 'asc']
-                ]
-            });
-
-            // Attach click event to table rows
-            $('#table_Peg tbody').on('click', 'tr', function() {
-                // Get the data from the clicked row
-                console.log($('#table_Peg').DataTable().row(this));
-                var rowData = $('#table_Peg').DataTable().row(this).data();
-                console.log(rowData);
-                // Populate the input fields with the data
-                $('#Id_Peg').val(rowData[0]);
-                $('#Nama_Peg').val(rowData[1]);
-
-                // Hide the modal immediately after populating the data
-                hideModalPegawai();
-            });
-
-            // Attach click event to the button to show the modal
-            $('#divisiButton').on('click', function() {
-                showModalDivisi();
-            });
-
-            // Attach hidden event to the modal
-            $('#modalKdPeg').on('hidden.bs.modal', function() {
-                removeBackdrop();
-            });
-
-        });
-    </script>
 
 
 
@@ -162,10 +49,10 @@
                                             <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                         @endforeach
                                     </select> --}}
-                                    <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                        data-toggle="modal" data-target="#modalKdPeg">...</button>
+                                    <button type="button" class="btn" style="margin-left: 10px; "
+                                        id="divisiButton">...</button>
 
-                                    <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
+                                    <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
                                         <div class="modal-dialog " role="document">
                                             <div class="modal-content" style="">
@@ -182,7 +69,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($peringatanDivisi as $data)
+                                                                    {{-- @foreach ($peringatanDivisi as $data)
                                                                         <tr>
 
                                                                             <td>{{ $data->Id_Div }}</td>
@@ -191,7 +78,7 @@
 
 
                                                                         </tr>
-                                                                    @endforeach
+                                                                    @endforeach --}}
                                                                     {{-- @foreach ($peringatan as $item)
                                                                         <tr>
                                                                             <td><input type="checkbox" style="margin-right:5px;"
@@ -229,8 +116,8 @@
                                     <input class="form-control" type="text" id="Nama_Peg" readonly
                                         style="resize: none; height: 40px; max-width: 450px;">
                                     <button type="button" class="btn" style="margin-left: 10px;" data-toggle="modal"
-                                        data-target="#modalPeg">...</button>
-                                    <div class="modal fade" id="modalPeg" role="dialog" arialabelledby="modalLabel"
+                                        id="pegawaiButton">...</button>
+                                    <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
                                         <div class="modal-dialog " role="document">
                                             <div class="modal-content" style="">
@@ -281,8 +168,8 @@
                                             <span class="aligned-text">Tahun Akhir :</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                            <input type="text" class="form-control" name="Divisi_pengiriman"
-                                                id="Divsi_pengiriman" placeholder="" required>
+                                            <input type="text" class="form-control" name="" id="Tahun_Akhir"
+                                                placeholder="" disabled required>
                                         </div>
                                     </div>
                                     <div class="row" style="">
@@ -290,8 +177,8 @@
                                             <span class="aligned-text">Peringatan :</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                            <input type="text" class="form-control" name="Divisi_pengiriman"
-                                                id="Divsi_pengiriman" placeholder="" required>
+                                            <input type="text" class="form-control" name=""
+                                                id="Peringatan_Ke_Lama" placeholder=""  required>
 
                                         </div>
                                     </div>
@@ -304,8 +191,8 @@
                                             <span class="aligned-text">Bulan Akhir :</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                            <input type="text" class="form-control" name="Divisi_pengiriman"
-                                                id="Divsi_pengiriman" placeholder="" required>
+                                            <input type="text" class="form-control" name="" id="Bulan_Akhir"
+                                                placeholder="" required disabled>
 
                                         </div>
                                     </div>
@@ -314,9 +201,8 @@
                                             <span class="aligned-text">Tgl Akhir Peringatan :</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:180px;">
-                                            <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                                value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
-                                                style="max-width: 200px;">
+                                            <input class="form-control" type="date" id="TglPeringatanLama"
+                                                name="TglPeringatanLama" required style="max-width: 200px;" disabled>
 
 
                                         </div>
@@ -336,80 +222,86 @@
                         </div>
 
 
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:;">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Peringatan:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <select class="form-control" id="Shift" name="Shift"
+                                <select class="form-control" id="Peringatan_ke" name="Peringatan_ke"
                                     style="resize: none;height: 40px; max-width:450px;">
-                                    <option value=""></option>
-                                    @foreach ($peringatanDivisi as $data)
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="SUB KERAS">SUB KERAS</option>
+                                    <option value="KERAS">KERAS</option>
+                                    <option value="PERNYATAAN">PERNYATAAN</option>
+                                    <option value="TERAKHIR">TERAKHIR</option>
+                                    <option value="SKORSING">SKORSING</option>
+                                    {{-- @foreach ($peringatanDivisi as $data)
                                         <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
 
                             </div>
                         </div>
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:;">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Bulan:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <select class="form-control" id="Shift" name="Shift"
+                                <select class="form-control" id="bulanPeringatan" name="bulanPeringatan"
                                     style="resize: none;height: 40px; max-width:450px;">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
+                                    @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
                                 </select>
 
                             </div>
                         </div>
 
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:;">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">Tahun :</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                <input type="text" class="form-control" name="Divisi_pengiriman"
-                                    id="Divsi_pengiriman" placeholder="" required>
+                                <input type="text" class="form-control" name="tahunPeringatan" id="tahunPeringatan"
+                                    placeholder="" required>
 
                             </div>
                         </div>
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:;">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <span class="aligned-text">No. Surat :</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                <input type="text" class="form-control" name="Divisi_pengiriman"
-                                    id="Divsi_pengiriman" placeholder="" required>
+                                <input type="text" class="form-control" name="Nomor_Surat" id="Nomor_Surat"
+                                    placeholder="" required>
 
                             </div>
                         </div>
-                        <div class="row" style="margin-left:-120px; ">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
+                        <div class="row" style="margin-left:; ">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
                                 <label for="TglMulai" class="aligned-text" style="min-width: fit-content">Tgl.
                                     Mulai:</label>
                             </div>
                             <div class="form-group col-md-4" style="">
-                                <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                    value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                <input class="form-control" type="date" id="TglMulai" name="TglMulai" required
                                     style="max-width: 200px;">
                                 <span class="aligned-text" style="margin-left: 15px; min-width:fit-content;">Tgl. Akhir
                                     :</span>
-                                <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
-                                    value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required
+                                <input class="form-control" type="date" id="TglSelesai" name="TglSelesai" required
                                     style="max-width: 200px;">
 
                             </div>
 
 
                         </div>
-                        <div class="row" style="margin-left:-120px;">
-                            <div class="form-group col-md-3 d-flex justify-content-end">
-                                <span class="aligned-text"> Keterangan:</span>
+                        <div class="row" style="margin-left:;">
+                            <div class="form-group col-md-2 d-flex justify-content-end">
+                                <span class="aligned-text"> Uraian:</span>
                             </div>
                             <div class="form-group col-md-4" style="max-width:1000px">
-                                <textarea class="input" name="keterangan" id="keterangan" cols="60" rows="3" placeholder="Keterangan"
+                                <textarea class="input" name="Uraian" id="Uraian" cols="60" rows="3" placeholder="Uraian"
                                     style=""></textarea>
                             </div>
 
@@ -423,17 +315,18 @@
 
 
 
-
+                    <div id="form-container"></div>
                     <div class="row" style="padding-top: 20px; margin:20px;">
                         <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn btn-primary"
-                                style="margin-left: 10px;width:100px;">Isi</button>
-                            <button type="button" class="btn btn-secondary"
-                                style="margin-left: 10px;width:100px;">Koreksi</button>
-                            <button type="button" class="btn btn-danger"
-                                style="margin-left: 10px;width:100px;">Hapus</button>
-                            <button type="button" class="btn btn-dark"
-                                style="margin-left: 10px;width:100px;">Keluar</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;"
+                                id="isiButton">Isi</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;"
+                                id="simpanButton" hidden>SIMPAN</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;"
+                                id="batalButton" hidden>Batal</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;" id="koreksiButton">Koreksi</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;" id="hapusButton">Hapus</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;" id="keluarButton">Keluar</button>
 
                         </div>
                         <div class="col-6" style="text-align: right; ">

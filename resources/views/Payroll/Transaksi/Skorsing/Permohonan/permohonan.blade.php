@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/Transaksi/Skorsing/Permohonan.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Transaksi/Skorsing/Permohonan.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -18,7 +18,7 @@
 
 
                     <div class="card-body" style="border: 1px solid black; margin: 10px;">
-                        <div class="card-body" >
+                        <div class="card-body">
 
                             <div class="row" style="">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -37,7 +37,7 @@
                                             @endforeach
                                         </select> --}}
                                     <button type="button" class="btn" style="margin-left: 10px; "
-                                        id="divisiButton">...</button>
+                                        id="divisiButton" disabled>...</button>
 
 
                                     <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
@@ -93,7 +93,7 @@
                                             @endforeach
                                         </select> --}}
                                     <button type="button" class="btn" style="margin-left: 10px; "
-                                        id="pegawaiButton">...</button>
+                                        id="pegawaiButton" disabled>...</button>
 
 
                                     <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
@@ -137,8 +137,8 @@
                                     <span class="aligned-text">Kode Skors:</span>
                                 </div>
                                 <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:180px;">
-                                    <input type="text" class="form-control" name=""
-                                        id="kode_Skors" placeholder="" required>
+                                    <input type="text" class="form-control" name="" id="kode_Skors" placeholder=""
+                                        required disabled>
 
                                 </div>
                             </div>
@@ -147,18 +147,23 @@
                                     <span class="aligned-text"> Keterangan:</span>
                                 </div>
                                 <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
-                                    <textarea class="input" name="keterangan" id="keterangan" cols="60" rows="3" placeholder="Keterangan"></textarea>
+                                    <textarea class="input" name="keterangan" id="keterangan" cols="60" rows="3" placeholder="Keterangan"
+                                        disabled></textarea>
 
                                 </div>
                             </div>
                             <div class="row" style="margin-left:;">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
-                                  <label for="TglMulai" class="aligned-text">Tanggal:</label>
+                                    <label for="TglMulai" class="aligned-text">Tanggal:</label>
                                 </div>
                                 <div class="form-group col-md-4">
-                                  <input class="form-control" type="date" id="TglMulai" name="TglMulai" value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required style="max-width: 200px;">
-                                  <span class="aligned-text" style="margin-left: 15px;">s/d</span>
-                                  <input class="form-control" type="date" id="TglSelesai" name="TglSelesai" value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required style="max-width: 200px;">
+                                    <input class="form-control" type="date" id="TglMulai" name="TglMulai"
+                                        value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                        style="max-width: 200px;"disabled>
+                                    <span class="aligned-text" style="margin-left: 15px;">s/d</span>
+                                    <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
+                                        value="{{ old('TglSelesai', now()->format('Y-m-d')) }}" required
+                                        style="max-width: 200px;"disabled>
 
                                 </div>
 
@@ -182,9 +187,12 @@
                     <div id="form-container"></div>
                     <div class="row" style="padding-top: 20px; margin:20px;">
                         <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px;width:100px;" id="isiButton">Isi</button>
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px;width:100px;" id="simpanButton" hidden>Simpan</button>
-                            <button type="button" class="btn btn-dark" style="margin-left: 10px;width:100px;" id="batalButton" disabled>Batal</button>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px;width:100px;"
+                                id="isiButton">Isi</button>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px;width:100px;"
+                                id="simpanButton" hidden>Simpan</button>
+                            <button type="button" class="btn btn-dark" style="margin-left: 10px;width:100px;"
+                                id="batalButton" disabled>Batal</button>
 
                         </div>
                         <div class="col-6" style="text-align: right; ">
