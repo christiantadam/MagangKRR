@@ -1,7 +1,7 @@
 let tgl_awal = document.getElementById("tgl_awal");
 let tgl_akhir = document.getElementById("tgl_akhir");
 let kddivisi = document.getElementById("kddivisi");
-let table_data = $("#TableOrderKerja").DataTable();
+let table_data = $("#TableOrderProyek").DataTable();
 let pengorder = document.getElementById("pengorder");
 let terima_order = document.getElementById("terima_order");
 let refresh = document.getElementById("refresh");
@@ -58,7 +58,7 @@ tgl_akhir.addEventListener("keypress", function (event) {
 //#region alldata
 
 function AllData(tglawal, tglakhir, idDivisi) {
-    table_data = $("#TableOrderKerja").DataTable({
+    table_data = $("#TableOrderProyek").DataTable({
         destroy: true, // Destroy any existing DataTable before reinitializing
         data: [],
         columns: [
@@ -72,9 +72,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
             //{ title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
             { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
             { title: "Divisi", data: "NamaDivisi" },
-            { title: "Nama Barang", data: "Nama_Brg" },
-            { title: "KodeBarang", data: "Kd_Brg" },
-            { title: "No.Gambar", data: "No_Gbr" },
+            { title: "Nama Proyek", data: "Nama_Proyek" },
             { title: "Mesin", data: "Mesin" },
             {
                 title: "JmlOrder",
@@ -83,7 +81,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 },
             },
             { title: "Status Order", data: "Status" },
-            { title: "Keterangan Order", data: "Ket_Order" },
+            { title: "Ket. Order", data: "Ket_Order" },
             { title: "PengOrder", data: "UserOd" },
             {
                 title: "ACC Mngr",
@@ -102,23 +100,23 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 title: "JmlFinish",
                 data: function (row) {
                     return row.Finish !== null
-                    ? `${row.Jml_Finish}  ${row.Nama_satuan}`
-                    : " ";
+                        ? `${row.Jml_Finish}  ${row.Nama_satuan}`
+                        : " ";
                 },
             },
             {
-                title: "TdkStj Mngr",
+                title: "Tdk Stj Mngr",
                 data: function (row) {
                     return row.TdStj1 !== null
                         ? `${row.UserMng} , ${row.TdStj1}`
                         : " ";
                 },
             },
-            { title: "Ket. TdkStj Mngr", data: "Ref1" },
-            { title: "TdkStj Dir", data: "TdStj2" },
-            { title: "Ket. TdkStj Dir", data: "Ref2" },
+            { title: "Ket.Tdk Stj Mngr", data: "Ref1" },
+            { title: "Tdk Stj Dir", data: "TdStj2" },
+            { title: "Ket. Tdk Stj Dir", data: "Ref2" },
             { title: "Ditunda D.Teknik", data: "Ditunda" },
-            { title: "Ket. Ditunda D.Teknik", data: "RefDitunda" },
+            { title: "Ket.Ditunda D.Teknik", data: "RefDitunda" },
             { title: "Ditolak D.Teknik", data: "Ditolak" },
             { title: "Ket. Ditolak D.Teknik", data: "RefDitolak" },
 
@@ -128,7 +126,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
 
     if (pengorder.checked == true) {
         fetch(
-            "/GetAllDataPengorderKerja/" +
+            "/GetAllDataPengorderProyek/" +
                 tglawal +
                 "/" +
                 tglakhir +
@@ -200,12 +198,12 @@ function AllData(tglawal, tglakhir, idDivisi) {
                     }
                 });
                 table_data.clear(); // Bersihkan data saat ini (jika ada)
-                $("#TableOrderKerja").css("width", "max-content");
+                $("#TableOrderProyek").css("width", "max-content");
                 table_data.rows.add(datas).draw();
                 // datatable = datas;
             });
     } else if (terima_order.checked == true) {
-        fetch("/GetAllDataPenerimaKerja/" + tglawal + "/" + tglakhir)
+        fetch("/GetAllDataPenerimaProyek/" + tglawal + "/" + tglakhir)
             .then((response) => response.json())
             .then((datas) => {
                 console.log(datas);
@@ -231,7 +229,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                     }
                 });
                 table_data.clear(); // Bersihkan data saat ini (jika ada)
-                $("#TableOrderKerja").css("width", "max-content");
+                $("#TableOrderProyek").css("width", "max-content");
                 table_data.rows.add(datas).draw();
                 // datatable = datas;
             });

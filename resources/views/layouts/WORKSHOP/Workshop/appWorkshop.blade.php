@@ -211,7 +211,7 @@
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Kerja</a>
                 </li>
-                <li><a href="/OrderProyek" class="test"
+                <li><a href="{{ url('OrderProyek') }}" class="test"
                     style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1">Order Proyek</a>
                 </li>
