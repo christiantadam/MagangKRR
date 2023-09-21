@@ -64,6 +64,12 @@ class MaintenancePelunasanPenjualanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getListPelunasan($idCustomer)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASANTAGIHAN] @Kode = ?, @Id_Customer = ?', [1, $idCustomer]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -73,7 +79,45 @@ class MaintenancePelunasanPenjualanController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $tanggalInput = $request->tanggalInput;
+        $idJenisPembayaran = $request->idJenisPembayaran;
+        $nilaiPiutang = $request->nilaiPiutang;
+        $idMataUang = $request->idMataUang;
+        $buktiPelunasan = $request->buktiPelunasan;
+        $idCustomer = $request->idCustomer;
+        $sisa = $request->sisa;
+        $idReferensi = $request->idReferensi;
+        $statusBayar = $request->statusBayar;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        @Kode = ?,
+        @Tgl_Pelunasan = ?,
+        @id_Jenis_Bayar = ?,
+        @Nilai_Pelunasan = ?,
+        @Id_MataUang = ?,
+        @No_Bukti = ?,
+        @Status_Penagihan = ?,
+        @Id_Cust = ?,
+        @SaldoPelunasan = ?,
+        @UserInput = ?,
+        @Status_Bayar = ?,
+        @IdReferensi = ?,
+        ', [
+            1,
+            $tanggalInput,
+            $idJenisPembayaran,
+            $nilaiPiutang,
+            $idMataUang,
+            $buktiPelunasan,
+            "Y",
+            $idCustomer,
+            $sisa,
+            1,
+            $statusBayar,
+            $idReferensi
+        ]);
+        return redirect()->back()->with('success', 'Sudah TerSimpan');
     }
 
     //Display the specified resource.
