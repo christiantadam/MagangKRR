@@ -1,7 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <div id="form_benang_mohon" class="form" data-aos="fade-up">
-        {{-- <input type="hidden" id="form_rk_return"> --}}
+        <input type="hidden" id="form_rk_return">
         {{-- <button id="btn_rk" class="hidden" data-bs-toggle="modal" data-bs-target="#form_rincian_konversi"></button> --}}
 
         <div class="row mt-3">
@@ -155,7 +155,6 @@
         </div>
     </div>
 
-    {{-- @include('Extruder.ExtruderNet.modalRincianKonversi') --}}
-
+    @include('Extruder.ExtruderNet.modalRincianKonversi')
     <script src="{{ asset('js/Extruder/ExtruderNet/benangMohon_new.js') }}"></script>
 @endsection

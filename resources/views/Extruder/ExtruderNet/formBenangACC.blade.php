@@ -76,5 +76,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/ExtruderNet/benangACC.js') }}"></script>
+    <script src="{{ asset('js/Extruder/ExtruderNet/benangACC_new.js') }}"></script>
 @endsection

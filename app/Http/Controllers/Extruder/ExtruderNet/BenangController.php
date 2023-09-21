@@ -20,7 +20,10 @@ class BenangController extends Controller
                 $current_date = Carbon::now();
                 $formatted_date = $current_date->format('Y-m-d');
 
-                $form_data = ['listNomor' => $this->getKoreksiSortirNGBlmAcc($formatted_date)];
+                $form_data = [
+                    'listNomor' => $this->getKoreksiSortirNGBlmAcc($formatted_date),
+                    'listKelut' => $this->getKelompokUtama_IdObjek('032', '3'),
+                ];
                 break;
 
             default:
@@ -202,7 +205,7 @@ class BenangController extends Controller
         // @kode int, @noKonv char(14), @idType varchar(20)
     }
 
-    public function getListIdKonv($kode, $id_divisi = null, $tanggal = null, $shift = null, $id_konversi = null, $id_type = null)
+    public function getListIdKonv($kode, $id_konversi = null, $id_type = null, $id_divisi = null, $tanggal = null, $shift = null)
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_IDKONV @Kode = ?, @IdDivisi = ?, @Tanggal = ?, @Shift = ?, @IdKonversi = ?, @idType = ?',

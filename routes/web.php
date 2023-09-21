@@ -9,7 +9,7 @@ use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 
 /**
- * PERBAIKAN   : btnProses_Click | FrmMohonKonversiNG.vb
+ * PERBAIKAN   : DEBUG | FrmMohonKonversiNG.vb
  * MIGRASI     : loadDataKwaH() | FrmDaya.vb
  *
  * User_id = 4384
@@ -153,7 +153,7 @@ Route::get('/Benang/getDetailUraianKonvNG/{id_konversi}', [BenangController::cla
 Route::get('/Benang/getKoreksiSortirNGBlmAcc/{tanggal}', [BenangController::class, 'getKoreksiSortirNGBlmAcc']);
 Route::get('/Benang/getListProdNG/{no_konv}', [BenangController::class, 'getListProdNG']);
 Route::get('/Benang/getCekDataNG/{kode}/{no_konv}/{id_type}', [BenangController::class, 'getCekDataNG']);
-Route::get('/Benang/getListIdKonv/{kode}/{id_divisi?}/{tanggal?}/{shift?}/{id_konversi?}/{id_type?}', [BenangController::class, 'getListIdKonv']);
+Route::get('/Benang/getListIdKonv/{kode}/{id_konversi?}/{id_type?}/{id_divisi?}/{tanggal?}/{shift?}', [BenangController::class, 'getListIdKonv']);
 Route::get('/Benang/getListCounter', [BenangController::class, 'getListCounter']);
 
 Route::get('/Benang/insMasterKonvNG/{tanggal}/{user_input}/{id_konversi_ext}', [BenangController::class, 'insMasterKonvNG']);

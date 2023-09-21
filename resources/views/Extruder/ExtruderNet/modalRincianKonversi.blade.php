@@ -129,6 +129,10 @@
                                 <label for="select_kelut_rk">Kelompok Utama:</label>
                                 <select id="select_kelut_rk" class="form-select mb-3">
                                     <option disabled selected>-- Pilih Kelompok Utama --</option>
+                                    @foreach ($formData['listKelut'] as $d)
+                                        <option value="{{ $d->IdKelompokUtama }}">
+                                            {{ $d->IdKelompokUtama . ' | ' . $d->NamaKelompokUtama }}</option>
+                                    @endforeach
                                 </select>
 
                                 <label for="select_kel_rk">Kelompok:</label>

@@ -212,6 +212,14 @@ function clearSelection_DataTable(tableId) {
     });
 }
 
+function clearCheckedBoxes(checkboxes, checkedCheckbox) {
+    checkboxes.forEach(function (checkbox) {
+        if (checkbox !== checkedCheckbox) {
+            checkbox.checked = false;
+        }
+    });
+}
+
 function findClickedRowInList(list, targetKey, targetValue) {
     // console.log("Item yang dicari: " + targetValue);
     for (let i = 0; i < list.length; i++) {
@@ -368,12 +376,11 @@ function fetchSelect(
         });
 }
 
-function clearCheckedBoxes(checkboxes, checkedCheckbox) {
-    checkboxes.forEach(function (checkbox) {
-        if (checkbox !== checkedCheckbox) {
-            checkbox.checked = false;
-        }
-    });
+function padLeft(str, length, char) {
+    while (str.length < length) {
+        str = char + str;
+    }
+    return str;
 }
 
 function snakeCaseToTitleCase(inputStr) {
