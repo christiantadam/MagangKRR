@@ -27,14 +27,7 @@
                             <th>Tanggal</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2">
-                                <h1 class="text-center mt-3">Tabel masih kosong...</h1>
-                            </td>
-                            <td class="hidden"></td>
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
 
@@ -50,22 +43,14 @@
                             <th>Qty. Sekunder</th>
                             <th>Qty. Tritier</th>
                             <th>Objek</th>
-                            <th>Kel. Ut.</th>
+                            <th>Kelut</th>
                             <th>Kelompok</th>
-                            <th>Sub-kel.</th>
-                            <th>Id Sub-kel.</th>
+                            <th>Subkel</th>
+                            <th>Id Subkel</th>
                             <th>Id Type</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php $tableWidth = 13; @endphp
-                        <td colspan="{{ $tableWidth }}" style="padding-left: 150px">
-                            <h1 class="mt-3">Tabel masih kosong...</h1>
-                        </td>
-                        @for ($i = 0; $i < $tableWidth - 1; $i++)
-                            <td class="hidden"></td>
-                        @endfor
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

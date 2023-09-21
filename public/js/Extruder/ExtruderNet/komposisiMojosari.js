@@ -1682,7 +1682,7 @@ btnTambahAfalan.addEventListener("click", function () {
                 null,
                 null,
                 null,
-                true
+                "table_only"
             );
 
             slcKelut.disabled = false;

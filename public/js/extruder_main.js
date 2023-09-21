@@ -68,7 +68,7 @@ function addTable_DataTable(
     columnsWidth = null,
     rowFun = null,
     tableHeight = null,
-    tableOnly = false
+    extraParam = ""
 ) {
     if ($.fn.DataTable.isDataTable("#" + tableId)) {
         $("#" + tableId)
@@ -92,7 +92,7 @@ function addTable_DataTable(
         }));
     }
 
-    if (tableOnly) {
+    if (extraParam == "table_only") {
         /**
          * Digunakan pada Tabel Afalan di formKomposisiMojosari
          */
@@ -118,6 +118,40 @@ function addTable_DataTable(
                 }
             },
         });
+    } else if (extraParam == "dom_empty") {
+        /**
+         * Digunakan pada Tabel Konversi di formBenangACC
+         */
+
+        $("#" + tableId).DataTable({
+            responsive: true,
+            paging: false,
+            scrollY: tableHeight != null ? tableHeight : "250px",
+            scrollX: columnsWidth != null ? "1000000px" : "",
+            data: listData,
+            columns: colObject,
+            language: {
+                searchPlaceholder:
+                    " Tabel " +
+                    tableId.replace("table_", "").replace("_", " ") +
+                    "...",
+                search: "",
+                info: "Menampilkan _TOTAL_ data",
+            },
+
+            rowCallback: function (row, data, index) {
+                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
+                    if (rowFun != null) {
+                        row.style.cursor = "pointer";
+                        row.onclick = () => {
+                            rowFun(row, data, index);
+                        };
+                    }
+                }
+            },
+        });
+
+        addSearchBar_DataTable(tableId);
     } else {
         $("#" + tableId).DataTable({
             responsive: true,

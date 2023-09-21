@@ -158,7 +158,7 @@ slcNomor.addEventListener("change", function () {
 
     lihatDataKonversiNGFetch(this.options[this.selectedIndex].text, () => {
         if (modeProses == "koreksi") {
-            $("html, body").animate({ scrollTop: pilAsal }, 100);
+            $("html, body").animate({ scrollTop: posAsal }, 100);
         } else if (modeProses == "hapus") {
             btnProses.focus();
         }
@@ -556,7 +556,7 @@ function displayDataBenangNGFetch(post_action = null) {
         "/Benang/getListIdKonv/3/" + slcNoKonversi.value + "/" + slcType.value,
         (d) => {
             if (d.length > 0) {
-                $("html, body").animate({ scrollTop: pilAsal }, 100);
+                $("html, body").animate({ scrollTop: posAsal }, 100);
                 for (let i = 0; i < d.length; i++) {
                     listAsal.push({
                         IdType: d[i].IdType,

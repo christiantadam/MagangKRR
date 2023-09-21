@@ -53,11 +53,11 @@ class BenangController extends Controller
     public function getDetailDataBenangNG($id_konversi_ng)
     {
         return DB::connection('ConnExtruder')->select(
-            'exec SP_5298_EXT_DETAILDATA_BENANG_N @IdKonversiNG = ?',
+            'exec SP_5298_EXT_DETAILDATA_BENANG_NG @IdKonversiNG = ?',
             [$id_konversi_ng]
         );
 
-        // PARAMTER - @IdKonversiNG int
+        // @IdKonversiNG int
 
         // IdKonversiNG = 1, 2, 3, 4, 5
 
@@ -346,7 +346,7 @@ class BenangController extends Controller
             [$id_sub_kelompok_type]
         );
 
-        // PARAMTER - @XIdSubKelompok_Type     char (6)
+        // @XIdSubKelompok_Type     char (6)
     }
 
     public function getSaldoBarang($id_type)
