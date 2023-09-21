@@ -43,8 +43,8 @@ class KirimGudangController extends Controller
             // dd($dataSP);
             // Return the options as JSON data
             return response()->json($dataSP);
-        } else if ($crExplode[0] == "getTampilData") {
-            $dataSP = DB::connection('ConnInventory')->select('exec SP_5409_INV_TampilDataBarang @kodebarang = ?, @noindeks = ?', [$crExplode[1], $crExplode[2]]);
+        } else if ($crExplode[$lasindex] == "getTampilData") {
+            $dataSP = DB::connection('ConnInventory')->select('exec SP_5409_INV_TampilDataBarang @kodebarang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
             // dd($dataSP);
             // Return the options as JSON data
             return response()->json($dataSP);

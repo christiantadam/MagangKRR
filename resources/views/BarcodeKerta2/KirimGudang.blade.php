@@ -150,42 +150,16 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3 mb-4">
-                            <div class="text-center col-md-auto" style="margin-left: 300px"><button type="button"
-                                    onclick="openModal1()" id="ButtonProcess" style="width: 150px">Process</button></div>
-                            <div class="modal" id="myModal1">
-                                <div class="modal-content">
-                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
-                                    <h2>Table Divisi</h2>
-                                    <p>Id Divisi & Divisi</p>
-                                    <table id="TableProcess">
-                                        <thead>
-                                            <tr>
-                                                <th>Nama Divisi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>-</td>
-                                            </tr>
-
-                                            <!-- Add more rows as needed -->
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center col-md-auto mt-3">
-                                        <button type="button" style="width: 150px">Ok</button>
-                                        <button type="button" onclick="closeModal1()" style="width: 150px">Batal</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="text-center col-md-auto mb-3">
+                            <button id="ButtonProcess" type="button" style="width: 150px; height: 50px">Process</button>
                             <a href="{{ url('BatalKirim') }}">
-                                <button type="button" style="margin-right: 15px; width: 150px">Belum Dikirim</button>
+                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px"">Belum Dikirim</button>
                             </a>
                             <a href="{{ url('CSJ') }}">
-                                <button type="button" style="width: 150px">Cek S.Jalan</button>
+                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px"">Cek S.Jalan</button>
                             </a>
-                            <div class="text-center col-md-auto"><button type="button" style="width: 150px">Keluar</button></div>
+                            <button class="btn-danger" type="button" style="margin-left: 15px; width: 150px; height: 50px"">Keluar</button>
+                        </div>
                         </div>
                     </div>
                     </form>
