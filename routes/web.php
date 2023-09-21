@@ -66,7 +66,8 @@ Route::resource('KenaikanUpah', App\Http\Controllers\Payroll\Transaksi\KenaikanU
 Route::resource('Skorsing/Permohonan', App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController::class);
 Route::resource('Skorsing/AccBayar', App\Http\Controllers\Payroll\Transaksi\Skorsing\AccBayar\AccBayarController::class);
 Route::resource('Peringatan/Permohonan', App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController::class);
-
+Route::resource('ProsesGajiStaff', App\Http\Controllers\Payroll\Transaksi\ProsesGaji\ProsesGajiController::class);
+Route::resource('Rekap', App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
@@ -132,7 +133,7 @@ Route::get('ProgramPayroll/Transaksi/Peringatan/AccPermohonan', 'App\Http\Contro
 Route::post('ProgramPayroll/Transaksi/Peringatan/AccPermohonan/proses-peringatan', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\AccPermohonan\AccPermohonanController@prosesPeringatan')->name('prosesPeringatan');
 
 
-Route::get('ProgramPayroll/Transaksi/Rekap', 'App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController@index');
+// Route::get('ProgramPayroll/Transaksi/Rekap', 'App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController@index');
 Route::get('ProgramPayroll/Transaksi/EstimasiGaji', 'App\Http\Controllers\Payroll\Transaksi\EstimasiGaji\EstimasiGajiController@index');
 Route::get('ProgramPayroll/Transaksi/HitGajiHarian', 'App\Http\Controllers\Payroll\Transaksi\HitGajiHarian\HitGajiHarianController@index');
 Route::get('ProgramPayroll/Transaksi/HitTHRHarian', 'App\Http\Controllers\Payroll\Transaksi\HitTHRHarian\HitTHRHarianController@index');

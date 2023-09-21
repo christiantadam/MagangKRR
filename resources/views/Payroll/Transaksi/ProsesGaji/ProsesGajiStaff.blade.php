@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/Transaksi/RekapAbsen.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/Transaksi/prosesGajiStaff.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -60,8 +60,8 @@
                                     <label for="TglMulai" class="aligned-text">Penutupan Tgl:</label>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                        value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                    <input class="form-control" type="date" id="TglTutup" name="TglTutup"
+                                        required
                                         style="max-width: 169px;">
 
 

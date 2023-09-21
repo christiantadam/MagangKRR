@@ -274,10 +274,13 @@
                                         </ul>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                        tabindex="-1" href="{{ url('ProsesGajiStaff') }}">Proses Gaji Staff</a>
+                                </li>
+                                    <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1">Copy Gaji To. TXT</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Rekap') }}">Proses Rekap Absen & Lembur</a>
+                                            tabindex="-1" href="{{ url('Rekap') }}">Proses Rekap Absen & Lembur</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/EstimasiGaji') }}">Estimasi Gaji</a>

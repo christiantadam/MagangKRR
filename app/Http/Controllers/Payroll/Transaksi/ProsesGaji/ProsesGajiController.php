@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur;
+namespace App\Http\Controllers\Payroll\Transaksi\ProsesGaji;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class RekapAbsenLemburController extends Controller
+class ProsesGajiController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Transaksi.RekapAbsenLembur.rekapAbsenLembur', compact('data'));
+        return view('Payroll.Transaksi.ProsesGaji.ProsesGajiStaff', compact('data'));
     }
 
     //Show the form for creating a new resource.
@@ -52,12 +52,12 @@ class RekapAbsenLemburController extends Controller
     {
         $data = $request->all();
 
-        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_REKAP_ABSEN_LEMBUR_STAFF @Periode = ?', [
+        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_AKHIR_PERIODE @Periode = ?, @tgl_tutup = ?', [
 
             $data['Periode'],
-
+            $data['tgl_tutup'],
         ]);
-        return redirect()->route('Rekap.index')->with('alert', 'Proses selesai');
+        return redirect()->route('ProsesGajiStaff.index')->with('alert', 'Proses selesai');
     }
 
     //Remove the specified resource from storage.
