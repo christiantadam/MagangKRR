@@ -277,7 +277,7 @@ refreshModal.addEventListener("click", function (event) {
 
 function cetak() {
     arraycheckboxmodal.length = 0;
-    if (table_data.rows().count() != 0) {
+    if (table_modal.rows().count() != 0) {
         $("input[name='PembeliCheckboxModal']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
             let value = $(this).val();
@@ -322,7 +322,7 @@ function cetak() {
                     console.log(datas);
                     idOrderPrint.textContent = datas[0].Id_Order;
                     TglOrderPrint.textContent = datas[0].Tgl_Order;
-                    KeteranganPrint.textContent = datas[0].Keterangan;
+                    KeteranganPrint.textContent = datas[0].Keterangan + " /";
                     userPrint.textContent = datas[0].NamaUser;
                     NamaDivisiPrint.textContent = datas[0].NamaDivisi;
                     MesinPrint.textContent = datas[0].Mesin;
@@ -332,7 +332,7 @@ function cetak() {
                     const today = new Date();
                     const formattedDate = formatDate(today);
                     PrintDate.textContent = formattedDate;
-                    // window.print();
+                    window.print();
                 });
             // methodForm.value = "POST";
             // $.ajax({
@@ -351,4 +351,30 @@ function cetak() {
     }
 }
 
+//#endregion
+
+//#region function format date (nama bulan)
+
+function formatDate(date) {
+    const months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+    ];
+
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
 //#endregion

@@ -1,5 +1,33 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+  <style>
+    @media print {
+      .card {
+        border: none !important;
+      }
+
+      .card-body {
+        display: none;
+      }
+
+      #print {
+        display: block !important;
+        /* z-index: 2 !important; */
+      }
+
+      .card-header {
+        display: none;
+      }
+
+      .modal {
+        display: none !important;
+        /* visibility: hidden !important; */
+        /* z-index: -1 !important; */
+        /* color: transparent; */
+
+      }
+    }
+  </style>
   @if (Session::has('success'))
     <div class="alert alert-success">
       {{ Session::get('success') }}
@@ -9,6 +37,7 @@
       {{ Session::get('error') }}
     </div>
   @endif
+
   <div class="card-header">
     Proses Pemberi Gambar
   </div>
@@ -71,7 +100,8 @@
       </form>
 
       <div class="float-end" style="margin-right: 12.5px;">
-        <button type="button" class="btn btn-dark custom-btn" style="margin-right: 18vh" data-toggle="modal" data-target="#ModalCetak">CETAK</button>
+        <button type="button" class="btn btn-dark custom-btn" style="margin-right: 18vh" data-toggle="modal"
+          data-target="#ModalCetak">CETAK</button>
       </div>
     </div>
   </div>
@@ -88,64 +118,60 @@
           </button>
         </div>
         <div class="modal-body">
-            <div class="container" style="text-align: center;">
-                <div class="row" style="place-items: center">
-                    <div class="col-2">
-                        <span>Tgl. Order</span>
-                    </div>
-                    <div class="col-3">
-                        <input type="date" class="form-control" name="Tglawalmodal" id="Tglawalmodal">
-                    </div>
-                    <div class="col-1">
-                        <span>s/d</span>
-                    </div>
-                    <div class="col-3">
-                        <input type="date" class="form-control" name="Tglakhirmodal" id="Tglakhirmodal">
-                    </div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table mt-3" id="TableCetakModal">
-                      <thead class="table-dark">
-                        <tr>
-                          <th>No. Order</th>
-                          <th>Tgl. Order</th>
-                          <th>Nama Barang</th>
-                          <th>Status Order</th>
-                          <th>Divisi</th>
-                          <th>Keterangan Order</th>
-                        </tr>
-                      </thead>
-                    </table>
-                  </div>
+          <div class="container" style="text-align: center;">
+            <div class="row" style="place-items: center">
+              <div class="col-2">
+                <span>Tgl. Order</span>
+              </div>
+              <div class="col-3">
+                <input type="date" class="form-control" name="Tglawalmodal" id="Tglawalmodal">
+              </div>
+              <div class="col-1">
+                <span>s/d</span>
+              </div>
+              <div class="col-3">
+                <input type="date" class="form-control" name="Tglakhirmodal" id="Tglakhirmodal">
+              </div>
             </div>
+
+            <div class="table-responsive">
+              <table class="table mt-3" id="TableCetakModal">
+                <thead class="table-dark">
+                  <tr>
+                    <th>No. Order</th>
+                    <th>Tgl. Order</th>
+                    <th>Nama Barang</th>
+                    <th>Status Order</th>
+                    <th>Divisi</th>
+                    <th>Keterangan Order</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-success" id="refreshModal">Refresh</button>
-                    </div>
-                    <div class="col-6" style="text-align-last: right;">
-                        <button type="button" class="btn btn-dark" >Cetak</button>
-                    </div>
-                </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <button type="button" class="btn btn-success" id="refreshModal">Refresh</button>
+              </div>
+              <div class="col-6" style="text-align-last: right;">
+                <button type="button" class="btn btn-dark" onclick="cetak()">Cetak</button>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="print" style="display:">
+  <div id="print" style="display:none">
     <div class="container">
       <div class="divtable">
         <div class="row" style="border: solid 1px; place-items: center; border-bottom:0">
           <div class="col-6">
             <h5 style="font-weight: bolder; margin-top:8px;">P.T. KERTA RAJASA RAYA</h5>
-          </div>
-          <div class="col-6">
-            <span style="font-weight: bold">Kode Barang <span style="margin-left: 21px">:</span> </span>
-            <span id="KodeBarangPrint"></span>
           </div>
         </div>
         <div class="row" style="place-items: center; border:solid 1px; border-bottom:0">
@@ -235,11 +261,10 @@
       </div>
     </div>
   </div>
-  <form action="{{ url('CetakSuratOrderKerja') }}" method="post" id="formCetakOrderKerja">
+  <form action="{{ url('ProsesPembeliGambar') }}" method="post" id="">
     {{ csrf_field() }}
     <input type="hidden" name="_method" id="methodForm">
     <input type="hidden" name="noOd" id="noOd">
   </form>
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Transaksi/ProsesPembeliGambar.js') }}"></script>
-
 @endsection
