@@ -36,60 +36,97 @@ const txtTritierTujuan = document.getElementById("tritier_tujuan");
 const RK_btnConfirm = document.getElementById("rk_confirm");
 const RK_btnCancel = document.getElementById("rk_cancel");
 
-const boxAsalKonversi = document.querySelectorAll("asal_konv .form-control");
+const boxAsalKonversi = document.querySelectorAll("#asal_konv .form-control");
 const boxTujuanKonversi = document.querySelectorAll(
-    "tujuan_konv .form-select, tujuan_konv .form-control"
+    "#tujuan_konv .form-select, #tujuan_konv .form-control"
 );
 
 var refetchKelutRK = false;
 var reftechKelRK = false;
 var refetchSubkelRK = false;
 var refetchTypeRK = false;
+var RK_modeProses = "";
 //#endregion
 
 //#region Events
 txtPrimerAsal.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtSekunderAsal.focus();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtSekunderAsal.select();
+    }
 });
 
 txtSekunderAsal.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtTritierAsal.focus();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtTritierAsal.select();
+    }
 });
 
 txtTritierAsal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (txtTritierAsal.value <= 0) {
             alert("Jumlah tritier harus lebih besar dari 0.");
-            this.focus();
+            this.select();
         } else {
             txtTritierTujuan.value = this.value;
 
             if (RK_slcKelut.disabled == false) {
                 RK_slcKelut.focus();
-            } else btnConfirm.focus();
+            } else RK_btnConfirm.focus();
         }
     }
 });
 
 txtPrimerTujuan.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtSekunderTujuan.focus();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtSekunderTujuan.select();
+    }
 });
 
 txtSekunderTujuan.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtTritierTujuan.focus();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtTritierTujuan.select();
+    }
 });
 
 txtTritierTujuan.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (txtTritierTujuan.value <= 0) {
             alert("Jumlah tritier harus lebih besar dari 0.");
-            this.focus();
-        } else btnConfirm.focus();
+            this.select();
+        } else RK_btnConfirm.focus();
     }
 });
 
 RK_slcKelut.addEventListener("mousedown", function () {
     if (refetchKelutRK) {
+        refetchKelutRK = false;
+        clearOptions(this, "Kelompok Utama");
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKelompokUtama",
+            textKey: "NamaKelompokUtama",
+        };
+
+        // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
+        fetchSelect(
+            `/Benang/getKelompokUtama_IdObjek/032/3`,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKelutRK = true;
+            },
+            errorOption
+        );
+    }
+});
+
+RK_slcKelut.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchKelutRK) {
         refetchKelutRK = false;
         clearOptions(this, "Kelompok Utama");
         const errorOption = addLoadingOption(this);
@@ -126,8 +163,32 @@ RK_slcKelompok.addEventListener("mousedown", function () {
         clearOptions(this, "Kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdKelompok",
-            textKey: "NamaKelompok",
+            valueKey: "idkelompok",
+            textKey: "namakelompok",
+        };
+
+        // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+        fetchSelect(
+            `/Benang/getKelompok_IdKelut/${RK_slcKelut.value}`,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else reftechKelRK = true;
+            },
+            errorOption
+        );
+    }
+});
+
+RK_slcKelompok.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && reftechKelRK) {
+        reftechKelRK = false;
+        clearOptions(this, "Kelompok");
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "idkelompok",
+            textKey: "namakelompok",
         };
 
         // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
@@ -174,8 +235,32 @@ RK_slcSubkel.addEventListener("mousedown", function () {
         clearOptions(this, "Sub-kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdSubKelompok",
-            textKey: "NamaSubKelompok",
+            valueKey: "idsubkelompok",
+            textKey: "namasubkelompok",
+        };
+
+        // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
+        fetchSelect(
+            `/Benang/getSubKelompok_IdKelompok/${RK_slcKelompok.value}`,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchSubkelRK = true;
+            },
+            errorOption
+        );
+    }
+});
+
+RK_slcSubkel.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchSubkelRK) {
+        refetchSubkelRK = false;
+        clearOptions(this, "Sub-kelompok");
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "idsubkelompok",
+            textKey: "namasubkelompok",
         };
 
         // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
@@ -211,7 +296,31 @@ RK_slcType.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_IDSUBKELOMPOK_TYPE
         fetchSelect(
-            `/Benang/getIdSubKelompokType/${RK_slcSubkel.value}`,
+            `/Benang/getType_IdSubkel/${RK_slcSubkel.value}`,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchTypeRK = true;
+            },
+            errorOption
+        );
+    }
+});
+
+RK_slcType.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchTypeRK) {
+        refetchTypeRK = false;
+        clearOptions(this, "Type");
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdType",
+            textKey: "NamaType",
+        };
+
+        // SP_5298_EXT_IDSUBKELOMPOK_TYPE
+        fetchSelect(
+            `/Benang/getType_IdSubkel/${RK_slcSubkel.value}`,
             (data) => {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
@@ -224,8 +333,8 @@ RK_slcType.addEventListener("mousedown", function () {
 });
 
 RK_slcType.addEventListener("change", function () {
-    saldoTypeFetch(this.textContent.split(" | ")[1], false);
-    txtPrimerTujuan.focus();
+    saldoTypeFetch(this.value, false);
+    txtPrimerTujuan.select();
 });
 
 RK_btnConfirm.addEventListener("click", function () {
@@ -257,6 +366,21 @@ function saldoTypeFetch(id_type, asal) {
     });
 }
 
+function RK_disableAll(groupStr = "") {
+    boxTujuanKonversi.forEach((ele) => (ele.disabled = true));
+    boxAsalKonversi.forEach((ele) => (ele.disabled = true));
+
+    if (groupStr == "asal") {
+        txtPrimerAsal.disabled = false;
+        txtSekunderAsal.disabled = false;
+        txtTritierAsal.disabled = false;
+    } else if (groupStr == "tujuan") {
+        txtPrimerTujuan.disabled = false;
+        txtSekunderTujuan.disabled = false;
+        txtTritierTujuan.disabled = false;
+    }
+}
+
 function RK_clearAll() {
     boxAsalKonversi.forEach((txt) => (txt.value = ""));
     boxTujuanKonversi.forEach((ele) => {
@@ -267,11 +391,10 @@ function RK_clearAll() {
 }
 //#endregion
 
-function init_rk() {
-    txtPrimerAsal.focus();
-    // saldoTypeFetch(RK_txtIdType.value, true);
-}
-
 $("#form_rincian_konversi").on("shown.bs.modal", function () {
-    init_rk();
+    if (RK_modeProses == "tujuan") {
+        txtPrimerTujuan.select();
+    } else {
+        txtPrimerAsal.select();
+    }
 });

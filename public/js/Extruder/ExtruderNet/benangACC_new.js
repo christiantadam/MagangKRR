@@ -1,6 +1,7 @@
 //#region Variables
 const dateAwal = document.getElementById("tanggal_awal");
 const dateAkhir = document.getElementById("tanggal_akhir");
+const hidInput = document.getElementById("hiddenKu");
 
 const btnOK = document.getElementById("btn_ok");
 const btnProses = document.getElementById("btn_proses");
@@ -23,9 +24,36 @@ const listDetail = [];
     6 JumlahTritier
     7 NamaObjek
     8 NamaKelompokUtama
-    9 NamaSubKelompok
-    10 IdSubKelompok
-    11 IdType
+    9 NamaKelompok
+    10 NamaSubKelompok
+    11 IdSubKelompok
+    12 IdType
+*/
+
+const listTmpTrans = [];
+/* ISI LIST TMP TRANSAKSI
+    0 IdTransaksi
+    1 IdTypeTransaksi
+    2 UraianDetailTransaksi
+    3 IdType
+    4 IdPenerima
+    5 IdPemberi
+    6 SaatAwalTransaksi
+    7 SaatAkhirTransaksi
+    8 JumlahPemasukanPrimer
+    9 JumlahPemasukanSekunder
+    10 JumlahPemasukanTritier
+    11 JumlahPengeluaranPrimer
+    12 JumlahPengeluaranSekunder
+    13 JumlahPengeluaranTritier
+    14 AsalIdSubKelompok
+    15 TujuanIdSubKelompok
+    16 idkonversi
+    17 SaldoPrimer
+    18 SaldoSekunder
+    19 SaldoTritier
+    20 namatype
+    21 idsubkelompok_type
 */
 
 const posTable = $("#table_konversi").offset().top - 125;
@@ -45,16 +73,43 @@ const colDetail = [
     { width: "100px" }, // Id Type
 ];
 
+var idKonversiNG = -1;
 var radios = null;
 //#endregion
 
 //#region Events
+hidInput.addEventListener("change", function () {
+    let [strFunction, strData] = this.value.split("|");
+    console.log(this.value);
+    console.log(strFunction);
+    console.log(strData);
+
+    if (strFunction.trim() == "cekPenyesuaian") {
+        console.log("Cek penyesuaian selesai.");
+        listTmpTrans.length = 0;
+        if (strData.trim().toLowerCase() == "false") prosesInventoryFetch();
+    } else if (strFunction.trim() == "prosesInventory") {
+        console.log("Proses inventory selesai.");
+        if (strData.trim().toLowerCase() == "true") prosesExtruderFetch();
+    } else if (strFunction.trim() == "prosesExtruder") {
+        console.log("Proses extruder selesai.");
+        alert("Data berhasil di-ACC.");
+        clearAll();
+    }
+});
+
 btnOK.addEventListener("click", function () {
     listKonversi.length = 0;
     clearTable_DataTable("table_konversi", 2);
     listDetail.length = 0;
-    clearTable_DataTable("table_detail", colDetail, "padding=250px");
+    clearTable_DataTable("table_detail", colDetail.length, "padding=250px");
     daftarKonversiBelumACCFetch();
+});
+
+btnProses.addEventListener("click", function () {
+    if (idKonversiNG == -1) {
+        alert("Pilih dulu data yang ingin di-ACC.");
+    } else cekPenyesuaianFetch();
 });
 //#endregion
 
@@ -84,7 +139,7 @@ function daftarKonversiBelumACCFetch() {
                 radios = document.querySelectorAll("input[type='radio']");
                 radios.forEach((radio) => {
                     radio.addEventListener("click", function () {
-                        console.log(radio.id.split("_")[1]);
+                        idKonversiNG = radio.id.split("_")[1];
                         tampilDetailKonversiFetch(radio.id.split("_")[1]);
                     });
                 });
@@ -115,7 +170,7 @@ function tampilDetailKonversiFetch(id_konversi_ng) {
             }
 
             listDetail.push({
-                Tanggal: data[i].Tanggal,
+                Tanggal: dateTimeToDate(data[i].Tanggal),
                 IdKonversiNG: data[i].IdKonversiNG,
                 UraianDetailTransaksi: data[i].UraianDetailTransaksi,
                 NamaType: data[i].NamaType,
@@ -124,8 +179,9 @@ function tampilDetailKonversiFetch(id_konversi_ng) {
                 JumlahTritier: jmlhTritier,
                 NamaObjek: data[i].NamaObjek,
                 NamaKelompokUtama: data[i].NamaKelompokUtama,
+                NamaKelompok: data[i].NamaKelompok,
                 NamaSubKelompok: data[i].NamaSubKelompok,
-                IdSubKelompok: data[i].IdSubKelompok,
+                IdSubKelompok: data[i].IdSubkelompok,
                 IdType: data[i].IdType,
             });
         }
@@ -137,8 +193,124 @@ function tampilDetailKonversiFetch(id_konversi_ng) {
                     id_konversi_ng +
                     "</b> tidak ditemukan.",
             ]);
+        } else addTable_DataTable("table_detail", listDetail, colDetail);
+    });
+}
+
+function cekPenyesuaianFetch() {
+    let penyesuaian = false;
+    for (let i = 0; i < listHasil.length; i++) {
+        if (!penyesuaian) {
+            // SP_5298_EXT_CHECK_PENYESUAIAN_TRANSAKSI
+            fetchSelect(
+                "/Konversi/getPenyesuaianTransaksi/" +
+                    listHasil[i].IdType.trim() +
+                    "/06",
+                (data) => {
+                    if (data > 1) {
+                        penyesuaian = true;
+                        alert(
+                            "Terdapat penyesuaian untuk type " +
+                                listHasil[i].NamaType +
+                                "."
+                        );
+
+                        hidInput.value = "cekPenyesuaian | " + penyesuaian;
+                        hidInput.dispatchEvent(new Event("change"));
+                        return;
+                    }
+                }
+            );
+        } else break;
+    }
+
+    hidInput.value = "cekPenyesuaian | " + penyesuaian;
+    hidInput.dispatchEvent(new Event("change"));
+}
+
+function prosesInventoryFetch() {
+    // SP_5409_EXT_DISPLAY_TRANSAKSI_KONVERSI_NG
+    fetchSelect("/Benang/getTransaksiKonversiNG/" + idKonversiNG, (data) => {
+        for (let i = 0; i < data.length; i++) listTmpTrans.push(data[i]);
+
+        // Cek saldo barang
+        for (let i = 0; i < listTmpTrans.length; i++) {
+            if (
+                listTmpTrans[i].JumlahPengeluaranPrimer >
+                    listTmpTrans[i].SaldoPrimer ||
+                listTmpTrans[i].JumlahPengeluaranSekunder >
+                    listTmpTrans[i].SaldoSekunder ||
+                listTmpTrans[i].JumlahPengeluaranTritier >
+                    listTmpTrans[i].SaldoTritier
+            ) {
+                alert(
+                    "Saldo untuk type " +
+                        listTmpTrans[i].NamaType +
+                        " tidak mencukupi."
+                );
+
+                return;
+            }
+        }
+
+        for (let i = 0; i < listTmpTrans.length; i++) {
+            // SP_5298_EXT_PROSES_ACC_KONVERSI
+            fetchStmt(
+                "/Konversi/updProsesACCKonversi/" +
+                    listTmpTrans[i].IdTransaksi +
+                    "/" +
+                    listTmpTrans[i].IdType.trim() +
+                    "/4384/" +
+                    dateInput.value +
+                    "/" +
+                    listTmpTrans[i].JumlahPengeluaranPrimer +
+                    "/" +
+                    listTmpTrans[i].JumlahPengeluaranSekunder +
+                    "/" +
+                    listTmpTrans[i].JumlahPengeluaranTritier +
+                    "/" +
+                    listTmpTrans[i].JumlahPemasukanPrimer +
+                    "/" +
+                    listTmpTrans[i].JumlahPemasukanSekunder +
+                    "/" +
+                    listTmpTrans[i].JumlahPemasukanTritier,
+                () => {
+                    if (i == listTmpTrans.length - 1) {
+                        hidInput.value = "prosesInventory | true";
+                        hidInput.dispatchEvent(new Event("change"));
+                    }
+                },
+                () => {
+                    hidInput.value = "prosesInventory | false";
+                    hidInput.dispatchEvent(new Event("change"));
+                }
+            );
         }
     });
+}
+
+function prosesExtruderFetch() {
+    // SP_5298_EXT_ACC_KONVERSI_NG
+    fetchStmt(
+        "/Benang/updACCKonversiNG/" + idKonversiNG + "/4384",
+        () => {
+            hidInput.value = "prosesExtruder | true";
+            hidInput.dispatchEvent(new Event("change"));
+        },
+        () => {
+            hidInput.value = "prosesExtruder | false";
+            hidInput.dispatchEvent(new Event("change"));
+        }
+    );
+}
+
+function clearAll() {
+    dateAwal.value = getCurrentDate();
+    dateAkhir.value = getCurrentDate();
+    listKonversi.length = 0;
+    clearTable_DataTable("table_konversi", 2);
+    listDetail.length = 0;
+    clearTable_DataTable("table_detail", colDetail.length, "padding=250px");
 }
 //#endregion
 
@@ -187,7 +359,7 @@ function init() {
 
     dateAwal.value = "2023-08-01";
     dateAkhir.value = getCurrentDate();
-    daftarKonversiBelumACCFetch();
+    // daftarKonversiBelumACCFetch();
 }
 
 $(document).ready(() => init());

@@ -316,10 +316,28 @@ function addLoadingOption(selectEle) {
     return loadingOption;
 }
 
-function removeOption(selectEle, optValue) {
-    const optionToRemove = selectEle.querySelector(
-        'option[value="' + optValue + '"]'
-    );
+function removeOption(selectEle, optValue = "", optChar = "") {
+    /**
+     * optValue, menghapus option dengan value tersebut
+     *
+     * optChar, menghapus option yang tidak memiliki karakter tersebut,
+     * Indeks ke-0 tidak ikut diseleksi.
+     */
+
+    let optionToRemove = null;
+    if (optValue != "") {
+        optionToRemove = selectEle.querySelector(
+            'option[value="' + optValue + '"]'
+        );
+    } else if (optChar != "") {
+        for (var i = 1; i < selectEle.options.length; i++) {
+            var optionText = selectEle.options[i].textContent;
+
+            if (optionText.indexOf(optChar) === -1) {
+                optionToRemove = selectEle.options[i];
+            }
+        }
+    }
 
     if (optionToRemove) {
         selectEle.removeChild(optionToRemove);

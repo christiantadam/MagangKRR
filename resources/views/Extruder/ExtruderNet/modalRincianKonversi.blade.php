@@ -16,32 +16,34 @@
                             <div class="col-lg-4">
                                 <label for="kelut_rk">Kelompok Utama:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_kelut_rk" class="form-control col-3"
-                                        style="width: 30%;">
+                                    <input type="text" id="id_kelut_rk" class="form-control col-3" style="width: 30%"
+                                        disabled>
                                     <input type="text" id="nama_kelut_rk" class="form-control col-7"
-                                        style="width: 70%;">
+                                        style="width: 70%" disabled>
                                 </div>
 
                                 <label for="kel_rk">Kelompok:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_kel_rk" class="form-control col-3" style="width: 30%;">
-                                    <input type="text" id="nama_kel_rk" class="form-control col-7"
-                                        style="width: 70%;">
+                                    <input type="text" id="id_kel_rk" class="form-control col-3" style="width: 30%"
+                                        disabled>
+                                    <input type="text" id="nama_kel_rk" class="form-control col-7" style="width: 70%"
+                                        disabled>
                                 </div>
 
                                 <label for="subkel_rk">Sub-kelompok:</label>
                                 <div class="input-group mb-3">
                                     <input type="text" id="id_subkel_rk" class="form-control col-3"
-                                        style="width: 30%;">
+                                        style="width: 30%" disabled>
                                     <input type="text" id="nama_subkel_rk" class="form-control col-7"
-                                        style="width: 70%;">
+                                        style="width: 70%" disabled>
                                 </div>
 
                                 <label for="type_rk">Type:</label>
                                 <div class="input-group mb-3">
-                                    <input type="text" id="id_type_rk" class="form-control col-3" style="width: 30%">
+                                    <input type="text" id="id_type_rk" class="form-control col-3" style="width: 30%"
+                                        disabled>
                                     <input type="text" id="nama_type_rk" class="form-control col-7"
-                                        style="width: 70%">
+                                        style="width: 70%" disabled>
                                 </div>
                             </div>
 

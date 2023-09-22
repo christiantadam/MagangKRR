@@ -23,7 +23,7 @@
                 <span class="aligned-text">Tanggal:</span>
             </div>
             <div class="col-lg-3">
-                <input type="date" id="tanggal" class="form-control">
+                <input type="date" id="tanggal" class="form-control unclickable">
             </div>
 
             <div class="col-lg-2">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="col-lg-3">
-                <select id="select_nomor" class="form-select">
+                <select id="select_nomor" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor --</option>
                     @foreach ($formData['listNomor'] as $d)
                         <option value="{{ $d->MesinShift }}">{{ $d->IdKonversiNG }}</option>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="col-lg-4">
-                <select id="select_nomor_konversi" class="form-select">
+                <select id="select_nomor_konversi" class="form-select" disabled>
                     <option selected disabled>-- Pilih Nomor Konversi --</option>
                 </select>
             </div>
@@ -79,7 +79,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="col-lg-4">
-                <select id="select_type" class="form-select">
+                <select id="select_type" class="form-select" disabled>
                     <option selected disabled>-- Pilih Type --</option>
                 </select>
             </div>

@@ -97,9 +97,11 @@ txtShift.addEventListener("change", function () {
 
 txtShift.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        this.value = this.value.toUpperCase();
-        slcNoKonversi.disabled = false;
-        slcNoKonversi.focus();
+        if (this.value.trim() != "") {
+            this.value = this.value.toUpperCase();
+            slcNoKonversi.disabled = false;
+            slcNoKonversi.focus();
+        } else this.select();
     }
 });
 
@@ -166,6 +168,9 @@ slcNomor.addEventListener("change", function () {
 });
 
 slcNoKonversi.addEventListener("mousedown", function () {
+    removeOption(this, "", "//");
+    this.selectedIndex = 0;
+
     if (refetchKonversi) {
         refetchKonversi = false;
         clearOptions(this);
@@ -177,7 +182,7 @@ slcNoKonversi.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_LIST_IDKONV
         fetchSelect(
-            "/Benang/getListIdKonv/1/EXT/" +
+            "/Benang/getListIdKonv1/EXT/" +
                 dateInput.value +
                 "/" +
                 txtShift.value,
@@ -193,6 +198,9 @@ slcNoKonversi.addEventListener("mousedown", function () {
 });
 
 slcNoKonversi.addEventListener("keydown", function (event) {
+    removeOption(this, "", "//");
+    this.selectedIndex = 0;
+
     if (event.key === "Enter" && refetchKonversi) {
         refetchKonversi = false;
         clearOptions(this);
@@ -204,7 +212,7 @@ slcNoKonversi.addEventListener("keydown", function (event) {
 
         // SP_5298_EXT_LIST_IDKONV
         fetchSelect(
-            "/Benang/getListIdKonv/1/EXT/" +
+            "/Benang/getListIdKonv1/EXT/" +
                 dateInput.value +
                 "/" +
                 txtShift.value,
@@ -231,6 +239,8 @@ slcNoKonversi.addEventListener("change", function () {
     let type_mesin = this.options[this.selectedIndex].text.split("|")[1].trim();
     addOptionIfNotExists(slcMesin, type_mesin);
     addOptionIfNotExists(this, id_konv, id_konv + " | " + komposisi);
+    slcType.disabled = false;
+    slcType.focus();
 });
 
 slcType.addEventListener("mousedown", function () {
@@ -305,17 +315,13 @@ slcType.addEventListener("change", function () {
 
                                 if (data2[0].SaatLog == "Ada") {
                                     alert(
-                                        "Type: " +
-                                            nama_type +
+                                        nama_type +
                                             " sudah disortir dan di-ACC.\n" +
                                             "Cek datanya di Kartu Barang Inventory."
                                     );
-                                } else if (
-                                    data2[0].SaatLog.toLowerCase() == "null"
-                                ) {
+                                } else if (data2[0].SaatLog == null) {
                                     alert(
-                                        "Type: " +
-                                            nama_type +
+                                        nama_type +
                                             " sudah disortir namun belum di-ACC.\n" +
                                             "Cek datanya di ACC Sortir Benang NG."
                                     );
@@ -333,7 +339,7 @@ slcType.addEventListener("change", function () {
 
 btnIsi.addEventListener("click", function () {
     clearAll();
-    dateInput.disabled = false;
+    dateInput.classList.remove("unclickable");
     dateInput.value = dateMohon.value;
     dateInput.focus();
     modeProses = "isi";
@@ -376,7 +382,7 @@ btnProses.addEventListener("click", function () {
                     slcNomor.value +
                     "</b>?",
                 () => {
-                    // prosesKoreksi(txtIdKonversi.Text)
+                    prosesKoreksiFetch(slcNomor.value);
                 }
             );
         }
@@ -387,10 +393,12 @@ btnProses.addEventListener("click", function () {
             showModal(
                 "Hapus",
                 "Apakah anda yakin akan menghapus data <b>" +
-                    slcNomor.value +
+                    slcNomor.options[slcNomor.selectedIndex].text +
                     "</b>?",
                 () => {
-                    // prosesHapus(txtIdKonversi.Text)
+                    prosesHapusFetch(
+                        slcNomor.options[slcNomor.selectedIndex].text
+                    );
                 }
             );
         }
@@ -407,21 +415,28 @@ btnKeluar.addEventListener("click", function () {
 });
 
 hidRincianKonv.addEventListener("change", function () {
-    // console.log("halo");
     if (clickedTable == "asal") {
         if (modeProses == "isi") {
             listTujuan.push({
                 IdType: RK_slcType.value,
-                NamaType: RK_slcType.options[RK_slcType.selectedIndex].text,
+                NamaType: RK_slcType.options[RK_slcType.selectedIndex].text
+                    .split("|")[1]
+                    .trim(),
                 JumlahPrimer: txtPrimerTujuan.value,
                 JumlahSekunder: txtSekunderTujuan.value,
                 JumlahTritier: txtTritierTujuan.value,
                 NamaObjek: "Bahan & Hasil Produksi",
                 NamaKelompokUtama: RK_slcKelut.value,
-                NamaKelompok:
-                    RK_slcKelut.options[RK_slcKelut.selectedIndex].text,
-                NamaSubKelompok:
-                    RK_slcSubkel.options[RK_slcSubkel.selectedIndex].text,
+                NamaKelompok: RK_slcKelut.options[
+                    RK_slcKelut.selectedIndex
+                ].text
+                    .split("|")[1]
+                    .trim(),
+                NamaSubKelompok: RK_slcSubkel.options[
+                    RK_slcSubkel.selectedIndex
+                ].text
+                    .split("|")[1]
+                    .trim(),
                 IdObjek: "032",
                 IdKelompokUtama: RK_slcKelut.value,
                 IdKelompok: RK_slcKelompok.value,
@@ -439,11 +454,25 @@ hidRincianKonv.addEventListener("change", function () {
             listAsal[pilAsal].JumlahPrimer = txtPrimerAsal.value;
             listAsal[pilAsal].JumlahSekunder = txtSekunderAsal.value;
             listAsal[pilAsal].JumlahTritier = txtTritierAsal.value;
+
+            addTable_DataTable(
+                "table_asal",
+                listAsal,
+                colTable,
+                rowClickedAsal
+            );
         }
     } else if (clickedTable == "tujuan") {
         listTujuan[pilTujuan].JumlahPrimer = txtPrimerTujuan.value;
         listTujuan[pilTujuan].JumlahSekunder = txtSekunderTujuan.value;
         listTujuan[pilTujuan].JumlahTritier = txtTritierTujuan.value;
+
+        addTable_DataTable(
+            "table_tujuan",
+            listTujuan,
+            colTable,
+            rowClickedTujuan
+        );
     }
 
     clickedTable = "";
@@ -454,6 +483,8 @@ $("#form_rincian_konversi").on("hidden.bs.modal", function () {
     RK_clearAll();
     pilAsal = -1;
     clearSelection_DataTable("table_asal");
+    pilTujuan = -1;
+    clearSelection_DataTable("table_tujuan");
 });
 //#endregion
 
@@ -553,7 +584,7 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
 function displayDataBenangNGFetch(post_action = null) {
     // SP_5298_EXT_LIST_IDKONV Kode 3
     fetchSelect(
-        "/Benang/getListIdKonv/3/" + slcNoKonversi.value + "/" + slcType.value,
+        "/Benang/getListIdKonv3/" + slcNoKonversi.value + "/" + slcType.value,
         (d) => {
             if (d.length > 0) {
                 $("html, body").animate({ scrollTop: posAsal }, 100);
@@ -572,7 +603,7 @@ function displayDataBenangNGFetch(post_action = null) {
                         IdKelompokUtama: d[i].IdKelompokUtama,
                         IdKelompok: d[i].IdKelompok,
                         IdSubKelompok: d[i].IdSubKelompok,
-                        IdTransaksi: "Tidak ada.",
+                        IdTransaksi: "",
                     });
                 }
 
@@ -611,6 +642,8 @@ function prosesIsiFetch() {
                                     toggleButtons(1);
                                     modeProses = "";
                                     alert("Data berhasil tersimpan.");
+                                    btnIsi.focus();
+                                    RK_modeProses = "";
                                 }
                             );
                         }
@@ -628,7 +661,7 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
             "/Benang/insDetailKonvNG/" +
                 slcNomor.options[slcNomor.selectedIndex].text +
                 "/" +
-                listAsal[i].IdType +
+                listAsal[i].IdType.trim() +
                 "/" +
                 listAsal[i].JumlahPrimer +
                 "/" +
@@ -655,7 +688,7 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
             "/Benang/insDetailKonvNG/" +
                 slcNomor.options[slcNomor.selectedIndex].text +
                 "/" +
-                listTujuan[i].IdType +
+                listTujuan[i].IdType.trim() +
                 "/" +
                 listTujuan[i].JumlahPrimer +
                 "/" +
@@ -665,13 +698,7 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
                 "/" +
                 id_konv_inv,
             () => {
-                if (i == listTujuan.length - 1) {
-                    createTmpTransaksiInventoryFetch(i, id_konv_inv, 1, () => {
-                        if (post_action != null) post_action();
-                    });
-                } else {
-                    createTmpTransaksiInventoryFetch(i, id_konv_inv, 1);
-                }
+                createTmpTransaksiInventoryFetch(i, id_konv_inv, 1);
             }
         );
     }
@@ -736,6 +763,8 @@ function prosesKoreksiFetch() {
         toggleButtons(1);
         modeProses = "";
         alert("Data berhasil dikoreksi.");
+        btnIsi.focus();
+        RK_modeProses = "";
     };
 
     for (let i = 0; i < listAsal.length; i++) {
@@ -790,7 +819,7 @@ function prosesKoreksiFetch() {
                 fetchStmt(
                     "/Benang/updTmpTransaksi/" +
                         listTujuan[i].IdTransaksi +
-                        "/asal_konversi/" +
+                        "/tujuan_konversi/" +
                         listTujuan[i].JumlahPrimer +
                         "/" +
                         listTujuan[i].JumlahSekunder +
@@ -815,6 +844,9 @@ function prosesHapusFetch(id_konversi_ng) {
         toggleButtons(1);
         modeProses = "";
         alert("Data berhasil dihapus.");
+        btnIsi.focus();
+        RK_modeProses = "";
+        refetchNomor = true;
     });
 }
 
@@ -828,15 +860,13 @@ function rowClickedAsal(row, data, _) {
         row.style.background = "aliceblue";
         clickedTable = "asal";
 
-        // $("#form_rincian_konversi").modal("show");
-
         if (modeProses == "koreksi" || modeProses == "isi") {
             RK_txtIdKelut.value = data.IdKelompokUtama;
             RK_txtNamaKelut.value = data.NamaKelompokUtama;
             RK_txtIdKelompok.value = data.IdKelompok;
             RK_txtNamaKelompok.value = data.NamaKelompok;
             RK_txtIdSubkel.value = data.IdSubKelompok;
-            RK_txtNamaKelompok.value = data.NamaSubKelompok;
+            RK_txtNamaSubkel.value = data.NamaSubKelompok;
             RK_txtIdType.value = data.IdType;
             RK_txtNamaType.value = data.NamaType;
 
@@ -844,9 +874,12 @@ function rowClickedAsal(row, data, _) {
                 txtPrimerAsal.value = data.JumlahPrimer;
                 txtSekunderAsal.value = data.JumlahSekunder;
                 txtTritierAsal.value = data.JumlahTritier;
-                boxTujuanKonversi.forEach((ele) => (ele.disabled = true));
+
+                RK_disableAll("asal");
             }
 
+            RK_modeProses = "asal";
+            saldoTypeFetch(RK_txtIdType.value, true);
             $("#form_rincian_konversi").modal("show");
         }
     }
@@ -861,51 +894,48 @@ function rowClickedTujuan(row, data, _) {
         row.style.background = "aliceblue";
         clickedTable = "tujuan";
 
-        // $("#form_rincian_konversi").modal("show");
-
         if (modeProses == "koreksi") {
             addOptionIfNotExists(
                 RK_slcKelut,
-                listTujuan[pilTujuan].IdKelompokUtama,
-                listTujuan[pilTujuan].IdKelompokUtama +
-                    " | " +
-                    listTujuan[pilTujuan].NamaKelompokUtama
+                data.IdKelompokUtama,
+                data.IdKelompokUtama + " | " + data.NamaKelompokUtama
             );
 
             addOptionIfNotExists(
                 RK_slcKelompok,
-                listTujuan[pilTujuan].IdKelompok,
-                listTujuan[pilTujuan].IdKelompok +
-                    " | " +
-                    listTujuan[pilTujuan].NamaKelompok
+                data.IdKelompok,
+                data.IdKelompok + " | " + data.NamaKelompok
             );
 
             addOptionIfNotExists(
                 RK_slcSubkel,
-                listTujuan[pilTujuan].IdSubKelompok,
-                listTujuan[pilTujuan].IdSubKelompok +
-                    " | " +
-                    listTujuan[pilTujuan].NamaSubKelompok
+                data.IdSubKelompok,
+                data.IdSubKelompok + " | " + data.NamaSubKelompok
             );
 
             addOptionIfNotExists(
                 RK_slcType,
-                listTujuan[pilTujuan].IdType,
-                listTujuan[pilTujuan].IdType +
-                    " | " +
-                    listTujuan[pilTujuan].NamaType
+                data.IdType,
+                data.IdType + " | " + data.NamaType
             );
 
-            boxAsalKonversi.forEach((ele) => (ele.disabled = true));
-            txtPrimerTujuan.focus();
+            txtPrimerTujuan.value = data.JumlahPrimer;
+            txtSekunderTujuan.value = data.JumlahSekunder;
+            txtTritierTujuan.value = data.JumlahTritier;
+
+            RK_disableAll("tujuan");
+            RK_modeProses = "tujuan";
+            saldoTypeFetch(listTujuan[pilTujuan].IdType, false);
+            $("#form_rincian_konversi").modal("show");
         }
     }
 }
 
 function disableAll() {
     listOfSlc.forEach((slc) => (slc.disabled = true));
-    timeAwal.disabled = true;
-    timeAkhir.disabled = true;
+    timeAwal.classList.add("unclickable");
+    timeAkhir.classList.add("unclickable");
+    dateInput.classList.add("unclickable");
     txtShift.disabled = true;
 }
 
@@ -983,6 +1013,9 @@ function init() {
     clearTable_DataTable("table_tujuan", colTable.length, "padding=250px");
     dateInput.value = getCurrentDate();
     dateMohon.value = getCurrentDate();
+    timeAkhir.value = "00:00";
+    timeAwal.value = "00:00";
+    btnIsi.focus();
 
     /**
      * DEBUG
@@ -993,9 +1026,9 @@ function init() {
 
     // txtShift.value = "P";
 
-    addOptionIfNotExists(slcNoKonversi, "EXT-0000009043");
-    addOptionIfNotExists(slcType, "1");
-    displayDataBenangNGFetch();
+    // addOptionIfNotExists(slcNoKonversi, "EXT-0000009043");
+    // addOptionIfNotExists(slcType, "1");
+    // displayDataBenangNGFetch();
 }
 
 $(document).ready(() => init());

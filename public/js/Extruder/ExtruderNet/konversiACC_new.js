@@ -581,11 +581,13 @@ function prosesInventoryFetch() {
                                         "/" +
                                         listTmpTrans[j].JumlahPemasukanTritier,
                                     () => {
-                                        hidInput.value =
-                                            "prosesInventory | Tidak_ditemukan_hutang_extruder.";
-                                        hidInput.dispatchEvent(
-                                            new Event("change")
-                                        );
+                                        if (j == listTmpTrans.length - 1) {
+                                            hidInput.value =
+                                                "prosesInventory | Tidak_ditemukan_hutang_extruder.";
+                                            hidInput.dispatchEvent(
+                                                new Event("change")
+                                            );
+                                        }
                                     }
                                 );
                             }
