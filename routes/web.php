@@ -8,9 +8,15 @@ Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
 Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
 #home Workshop
 Route::get('HomeWorkshop', 'App\Http\Controllers\HomeController@HomeWorkshop');
-#GPS
+#GPS Jadwal Konstruksi
 Route::get('gps', 'App\Http\Controllers\HomeController@GPS');
-Route::get('estimasiJadwal', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksiController@estimasi_jadwal');
+
+Route::resource('estimasiJadwal', App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EstimasiJadwalController::class);
+Route::get('CekEstimasiKonstruksi/{noOd}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EstimasiJadwalController@CekEstimasiKonstruksi');
+Route::get('LoadDataEstimasiJadwal/{noOd}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EstimasiJadwalController@LoadData');
+Route::get('GetTanggalEstimasiJadwal/{noOd}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EstimasiJadwalController@GetTanggal');
+
+
 Route::get('MaintenanceGambar', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksiController@MaintenanceBagianGambar');
 Route::get('InputJadwalKonstruksi', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksiController@InputJadwal');
 Route::get('EditJam', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksiController@EditJamkerja');

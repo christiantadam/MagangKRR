@@ -24,7 +24,9 @@
         /* visibility: hidden !important; */
         /* z-index: -1 !important; */
         /* color: transparent; */
-
+      }
+      .fade{
+        opacity: 0 !important;
       }
     }
   </style>

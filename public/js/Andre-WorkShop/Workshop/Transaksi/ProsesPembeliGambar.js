@@ -13,6 +13,7 @@ let formproses = document.getElementById("formproses");
 let methodForm = document.getElementById("methodForm");
 var arraycheckbox = [];
 var rowIndexArray = [];
+
 var arrayket = [];
 var arraycheckboxmodal = []
 let gambar = document.getElementById("gambar");
