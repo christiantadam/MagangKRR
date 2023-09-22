@@ -70,6 +70,27 @@ class MaintenancePelunasanPenjualanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getDataPelunasanTagihan($Id_Pelunasan)
+    {
+        $IdPelunasan = str_replace('.', '/', $Id_Pelunasan);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Pelunasan = ?', [2, $IdPelunasan]);
+        return response()->json($tabel);
+    }
+
+    public function LihatDetailPelunasan($Id_Pelunasan)
+    {
+        $IdPelunasan = str_replace('.', '/', $Id_Pelunasan);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = 3, @Id_Pelunasan = ?', [3, $IdPelunasan]);
+        return response()->json($tabel);
+    }
+
+    public function getCekReferensiPelunasan($Id_Pelunasan)
+    {
+        $IdPelunasan = str_replace('.', '/', $Id_Pelunasan);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_REFERENSI_BANK] @Kode = ?, @Id_pelunasan = ?', [5, $IdPelunasan]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
@@ -135,12 +156,115 @@ class MaintenancePelunasanPenjualanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $Id_Pelunasan = $request->Id_Pelunasan;
+        $IdPelunasan = str_replace('.', '/', $Id_Pelunasan);
+
+        $tabelIdDetailPelunasan = $request->tabelIdDetailPelunasan;
+        $tabelIdPenagihan = $request->tabelIdPenagihan;
+        $tabelNilaiPelunasan = $request->tabelNilaiPelunasan;
+        $tabelPelunasanRupiah = $request->tabelPelunasanRupiah;
+        $tabelBiaya = $request->tabelBiaya;
+        $tabelLunas = $request->tabelLunas;
+        $tabelPelunasanCurrency = $request->tabelPelunasanCurrency;
+        $tabelKurangLebih = $request->tabelKurangLebih;
+        $tabelKodePerkiraan = $request->tabelKodePerkiraan;
+
+        $nilaiPiutang = $request->nilaiPiutang;
+        $tanggalInput = $request->tanggalInput;
+        $idJenisPembayaran = $request->idJenisPembayaran;
+        $buktiPelunasan = $request->buktiPelunasan;
+        $sisa = $request->sisa;
+
+        $arrayDetail = $request->arrayDetail;
+        $arrayNew = explode(",", $arrayDetail);
+
+        $arrayPenagihan = $request->arrayPenagihan;
+        $arrayNewPenagihan = explode(",", $arrayPenagihan);
+
+        for ($i=0; $i < count($arrayNew); $i++) {
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        @Kode = ?,
+        @Id_Pelunasan = ?,
+        @Id_Detail_Pelunasan = ?,
+        @Id_Penagihan = ?',
+        [
+            4,
+            $IdPelunasan,
+            $arrayNew[$i],
+            $arrayNewPenagihan[$i]
+        ]);
+        }
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        @Kode = ?,
+        @Id_Pelunasan = ?,
+        @Id_Detail_Pelunasan = ?,
+        @Id_Penagihan = ?,
+        @Nilai_Pelunasan = ?,
+        @Pelunasan_Rupiah = ?,
+        @Biaya = ?,
+        @Lunas = ?,
+        @Pelunasan_Curency = ?,
+        @KurangLebih = ?,
+        @Kode_Perkiraan = ?',
+        [
+            5,
+            $IdPelunasan,
+            $tabelIdDetailPelunasan,
+            $tabelIdPenagihan,
+            $tabelNilaiPelunasan,
+            $tabelPelunasanRupiah,
+            $tabelBiaya,
+            $tabelLunas,
+            $tabelPelunasanCurrency,
+            $tabelKurangLebih,
+            $tabelKodePerkiraan
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        @Kode = ?,
+        @Id_Pelunasan = ?,
+        @Nilai_Pelunasan = ?,
+        @Tgl_Pelunasan = ?,
+        @id_Jenis_Bayar = ?,
+        @No_Bukti = ?,
+        @SaldoPelunasan = ?',
+        [
+            3,
+            $IdPelunasan,
+            $nilaiPiutang,
+            $tanggalInput,
+            $idJenisPembayaran,
+            $buktiPelunasan,
+            $tabelBiaya,
+            $tabelLunas,
+            $tabelPelunasanCurrency,
+            $tabelKurangLebih,
+            $sisa
+        ]);
+        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $hAtauB = $request->hAtauB;
+        $Id_Pelunasan = $request->Id_Pelunasan;
+        $IdPelunasan = str_replace('.', '/', $Id_Pelunasan);
+
+
+        if ($hAtauB == 'H') {
+            DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+            @Kode = ?,
+            @Id_Pelunasan = ?',
+            [
+                3,
+                $IdPelunasan
+            ]);
+        } elseif ($hAtauB == 'B') {
+
+        }
+
+        return redirect()->back()->with('success', 'Data Sudah Terhapus');
     }
 }

@@ -50,6 +50,12 @@
 
                                         </select>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="IdPelunasan" name="IdPelunasan" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="Id_Pelunasan" name="Id_Pelunasan" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-3">
@@ -158,6 +164,36 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelIdDetailPelunasan" name="tabelIdDetailPelunasan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelIdPenagihan" name="tabelIdPenagihan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelNilaiPelunasan" name="tabelNilaiPelunasan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelPelunasanRupiah" name="tabelPelunasanRupiah" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelBiaya" name="tabelBiaya" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelLunas" name="tabelLunas" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelPelunasanCurrency" name="tabelPelunasanCurrency" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelKurangLebih" name="tabelKurangLebih" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="tabelKodePerkiraan" name="tabelKodePerkiraan" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="hAtauB" name="hAtauB" class="form-control" style="width: 100%">
+                                    </div>
                                 </div>
                                 <br>
                                 <div class="d-flex">
@@ -190,7 +226,10 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <input type="text" id="idPelunasan" name="idPelunasan" class="form-control" style="width: 100%" readonly>
+                                    <input type="text" id="arrayDetail" name="arrayDetail" class="form-control" style="width: 100%" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" id="arrayPenagihan" name="arrayIdPen" class="form-control" style="width: 100%" readonly>
                                 </div>
 
                                 <br><div>
