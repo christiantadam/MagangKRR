@@ -12,7 +12,7 @@
 
         <div class="form-wrapper mt-4">
             <div style="width: 80%;">
-                <div class="card">
+                <div class="card" style="height: 900px">
                     <div class="card-header">FrmPembayaranStaff</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form berat_woven">
@@ -32,8 +32,8 @@
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto">
-                                                <button type="button" onclick="openModal()" id="ButtonShift"
-                                                    style="width:180px;" disabled>Pilih
+                                                <button type="button" onclick="openModal(); enableDivisiButton();"
+                                                    id="ButtonShift" style="width: 180px; height: 50px" disabled>Pilih
                                                     Shift</button>
                                             </div>
                                             <div class="modal" id="myModal">
@@ -75,8 +75,9 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal1()" id="ButtonDivisi"
-                                                    style="width:180px;" disabled>Divisi</button>
+                                                <button type="button" onclick="openModal1(); enableNamaTypeButton();"
+                                                    id="ButtonDivisi" style="width: 180px; height: 50px"
+                                                    disabled>Divisi</button>
                                             </div>
                                             <div class="modal" id="myModal1">
                                                 <div class="modal-content">
@@ -102,7 +103,8 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="enableButtonType()">Process</button>
+                                                        <button type="button" onclick="enableButtonType()"
+                                                            onclick="closeModal1()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -111,8 +113,9 @@
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px;">Nama Type</button>
+                                                <button type="button"
+                                                    onclick="openModal2(); enableIsiJumlahBarangButton();" id="ButtonType"
+                                                    style="width: 180px; height: 50px" disabled>Nama Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -137,10 +140,11 @@
                                             </div>
                                         </div>
 
-                                        <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
+                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal3()" id="ButtonJumlahBarang"
-                                                    style="width:180px;" disabled>Isi Jumlah Barang</button>
+                                                <button type="button" onclick="openModal3(); enableTimbangButton();"
+                                                    id="ButtonJumlahBarangModal" style="width: 180px; height: 50px"
+                                                    disabled>Isi Jumlah Barang</button>
                                             </div>
                                             <div class="modal" id="myModal3">
                                                 <div class="modal-content">
@@ -153,17 +157,17 @@
                                                             </div>
                                                             <div class="mt-4">
                                                                 <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                                    <input type="text" class="form-control"
-                                                                        name="Sekunder" id="Sekunder"
-                                                                        placeholder="Sekunder">
+                                                                    <input style="width: 500px" type="text"
+                                                                        class="form-control" name="Sekunder"
+                                                                        id="Sekunder" placeholder="Sekunder">
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px; margin-left:200px">
+                                                                style="margin-top: 5px; margin-left:-100px">
                                                                 <button type="button"
                                                                     onclick="setSekunderValue()">Ok</button>
                                                             </div>
-                                                            <div class="text-center col-md-auto" style="margin-top: 15px;"
+                                                            <div class="text-center col-md-auto" style="margin-top: 5px;"
                                                                 onclick="closeModal3()">
                                                                 <button type="button">Cancel</button>
                                                             </div>
@@ -178,21 +182,21 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" id="ButtonTimbang" style="width:180px;"
-                                                    disabled>Timbang</button>
+                                                <button type="button" id="ButtonTimbang"
+                                                    style="width:180px; height: 50px" disabled>Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    id="printBarcodeButton" style="width:180px;">Print Barcode</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonPrintBarcode"
+                                                    style="width:180px; height: 50px">Print Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
                                                     onclick="openModal4()" id="ButtonJumlahBarang"
-                                                    style="width:180px;">Acc Barcode</button>
+                                                    style="width:180px; height: 50px">Acc Barcode</button>
                                             </div>
                                             <div class="modal" id="myModal4">
                                                 <div class="modal-content">
@@ -223,20 +227,20 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px;">Print
+                                                    style="width:180px; height: 50px">Print
                                                     Ulang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    class="btn-danger" style="width:180px;">Keluar</button>
+                                                    class="btn-danger" style="width:180px; height: 50px">Keluar</button>
                                             </div>
                                         </div>
                                         <div>
                                         </div>
                                     </div>
-                                    <div class="card" style="width: 100%; margin-left: -75px">
+                                    <div class="card" style="width: 100%; margin-left: -75px; height: 500px">
                                         <div class="card-header">Data Barang</div>
                                         <div class="row mt-3">
                                             <div class="form-group col-md-2 d-flex justify-content-end">
@@ -264,7 +268,7 @@
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
                                                 <textarea class="form-control" type="text" name="Type" id="Type" rows="Type" placeholder="Type"
-                                                    readonly></textarea>
+                                                    style="height: 100px" readonly></textarea>
                                             </div>
                                         </div>
 
@@ -302,7 +306,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div style="margin-top:-20px; margin-left:-198px">
+                                                <div style="margin-top:-20px; margin-left:20px">
                                                     <div class="d-flex flex-column align-items-center">
                                                         <label for="text" class="aligned-text">Jumlah
                                                             Barcode:</label>
@@ -319,7 +323,7 @@
 
 
                                 <div class="card mt-3"
-                                    style="width: 83.3%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap">
+                                    style="width: 50%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap; position: absolute; top: 570px">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -354,7 +358,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="tritier" rows="tritier"
-                                                placeholder="Tritier">
+                                                id="tritier" placeholder="Tritier">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">KG</button></div>
                                         </div>

@@ -39,9 +39,31 @@ class BuatBarcodeController extends Controller
         //getDivisi
         if ($crExplode[1] == "txtIdDivisi") {
             $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', [ "", $crExplode[0] ]);
-            // dd($dataKelut);
+            // dd($dataType);
             // Return the options as JSON data
             return response()->json($dataType);
+        } else if ($crExplode[1] == "buatBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_SimpanPermohonanBarcode
+            @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
+            @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?',
+            [ "0016",
+              "U001",
+              "2023-09-22",
+              "1",
+              "10",
+              "12",
+              "SKL01",
+              "00000KB02",
+              "00000KB02",
+              "Pagi",]);
+            dd($dataBarcode);
+            // Return the options as JSON data
+            return response()->json($dataBarcode);
+        } else if ($crExplode[1] == "getJumlahBarcode") {
+            $dataJumlahBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_JumlahBarcode @tanggal = ?, @kelompokutama = ?, @shift = ?', [ ]);
+            // dd($dataJumlahBarcode);
+            // Return the options as JSON data
+            return response()->json($dataJumlahBarcode);
         }
     }
 

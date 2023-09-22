@@ -245,9 +245,9 @@
                             <div
                                 style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 200px">
                                 <span class="label">Kepada:</span>
-                                <span style="margin-left: 130px; margin-top: -22px">Albert1</span>
-                                <span style="margin-left: 130px;">Albert2</span>
-                                <span style="margin-left: 130px;">Albert3</span>
+                                <span style="margin-left: 130px; margin-top: -22px">PT.KERTA RAJASA RAYA</span>
+                                <span style="margin-left: 130px;">JL.RAYA TROPODO NO.1</span>
+                                <span style="margin-left: 130px;">WARU-SIDOARJO</span>
                             </div>
                         </div>
 

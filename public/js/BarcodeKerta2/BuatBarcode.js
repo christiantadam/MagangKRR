@@ -9,23 +9,21 @@ $(document).ready(function () {
         order: [
             [0, 'desc']
         ],
+        select: 'single'
     });
-
 
     $('#TableType').DataTable({
         order: [
             [0, 'desc']
         ],
+        select: 'single'
     });
-
 
     $('#TableDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
-
         var rowData = $('#TableDivisi').DataTable().row(this).data();
 
         // Populate the input fields with the data
-
         fetch("/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
             .then((response) => {
                 if (!response.ok) {
@@ -36,6 +34,7 @@ $(document).ready(function () {
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
                 console.log(data);
+
                 // Clear the existing table rows
                 $("#TableType").DataTable().clear().draw();
 
@@ -47,13 +46,39 @@ $(document).ready(function () {
 
                 // Redraw the table to show the changes
                 $("#TableType").DataTable().draw();
+
+                // Clear the textarea "Type" before populating it
+                document.getElementById("Type").value = "";
+
+                // Hide the modal immediately after populating the data
+                closeModal1();
+
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
+    });
 
-        // Hide the modal immediately after populating the data
-        closeModal1();
+    $('#TableType tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+        var rowData = $('#TableType').DataTable().row(this).data();
+
+        // Populate the input field with the selected type
+        if (rowData) {
+            const selectedType = rowData[0]; // Assuming the type is in the first column
+            document.getElementById("Type").value = selectedType;
+            closeModal2(); // Close the modal
+        }
+    });
+
+    document.getElementById("ButtonTimbang").addEventListener("click", function () {
+        var tritierInput = document.getElementById("tritier").value;
+
+        if (tritierInput.trim() === "") {
+            alert("Berat harus diisi!");
+        } else {
+            // Lanjutkan dengan operasi timbang
+        }
     });
 
     var ButtonShift = document.getElementById('ButtonShift')
@@ -76,6 +101,36 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode')
+    ButtonPrintBarcode.addEventListener("click", function (event) {
+        var txtIdDivisi = document.getElementById('IdDivisi');
+        fetch("/BuatBarcode/" + txtIdDivisi.value + ".buatBarcode")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
+                // Clear the existing table rows
+                $("#TableObjek").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.IdObjek, item.NamaObjek];
+                    $("#TableObjek").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableObjek").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
+
     // Get the input elements
     const tanggalInput = document.getElementById("tanggalInput");
     const tanggalOutput = document.getElementById("tanggalOutput");
@@ -89,23 +144,35 @@ $(document).ready(function () {
         tanggalOutput.value = selectedDate;
     });
 
-    document.getElementById("printBarcodeButton").addEventListener("click", function () {
-        // Hide the button and other unnecessary elements before printing
-        document.getElementById("printBarcodeButton").style.display = "none";
-        document.getElementById("ButtonTimbang").style.display = "none"; // Hide the "Timbang" button if needed
-        window.print();
+    // Get the input element for "Type"
+    const typeInput = document.getElementById("Type");
 
-        // After printing is done or if the user cancels the print dialog, show the button again
-        document.getElementById("printBarcodeButton").style.display = "block";
-        document.getElementById("ButtonTimbang").style.display = "block"; // Show the "Timbang" button again if needed
+    // Get the "Isi Jumlah Barang" button element
+    const isiJumlahBarangButton = document.getElementById("ButtonJumlahBarang");
+
+    // Function to enable the "Isi Jumlah Barang" button
+    function enableIsiJumlahBarangButton() {
+        isiJumlahBarangButton.removeAttribute("disabled");
+    }
+
+    // Function to disable the "Isi Jumlah Barang" button
+    function disableIsiJumlahBarangButton() {
+        isiJumlahBarangButton.setAttribute("disabled", "disabled");
+    }
+
+    // Add an event listener to monitor changes in the "Type" input
+    typeInput.addEventListener("input", function () {
+        const typeValue = typeInput.value;
+
+        // Check if the "Type" input is not empty
+        if (typeValue.trim() !== "") {
+            // Enable the "Isi Jumlah Barang" button
+            enableIsiJumlahBarangButton();
+        } else {
+            // If the "Type" input is empty, disable the button
+            disableIsiJumlahBarangButton();
+        }
     });
-
-    document.getElementById("myModal2").querySelector("button[type='button']").addEventListener("click", enableButtonType);
-
-
-    document.getElementById("myModal3").querySelector("button[type='button']").addEventListener("click",
-        setSekunderValue);
-
 });
 
 function openModal() {
@@ -161,33 +228,26 @@ function closeModal4() {
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
 
-function enableButtonJumlahBarang() {
-    document.getElementById("ButtonJumlahBarang").disabled = false;
-    closeModal2()
-}
-
-
 // Function to enable the "Type" button and disable the "Process" button
-function enableButtonType() {
-    // Enable the "Type" button
-    const buttonType = document.getElementById("ButtonType");
-    buttonType.removeAttribute("disabled");
+// function enableButtonType() {
+//     // Get the selected value from the "TableType" table
+//     const selectedType = document.querySelector("#TableType tbody tr td").textContent;
 
-    // Get the selected value from the "TableType" table
-    const selectedType = document.querySelector("#TableType tbody tr td").textContent;
+//     // Set the selected value to the "Type" input field
+//     document.getElementById("Type").value = selectedType;
 
-    // Set the selected value to the input field
-    document.getElementById("Type").value = selectedType;
-
-    // Close the "Table Type" modal
-    closeModal2();
-}
+//     // Close the "Table Type" modal
+//     closeModal2();
+// }
 
 function setSekunderValue() {
     const sekunderValue = document.getElementById("Sekunder").value;
     document.getElementById("SekunderOutput").value = sekunderValue;
     document.getElementById("LembarOutput").value = sekunderValue;
     closeModal3();
+
+    // Aktifkan tombol "Isi Jumlah Barang" di dalam modal
+    document.getElementById("ButtonJumlahBarangModal").disabled = false;
 }
 
 // Add event listener to the "Ok" button to set the sekunder value and close the modal
@@ -198,16 +258,25 @@ function setSekunderValue() {
 // Make sure you have already defined the functions: openModal3, closeModal3, etc.
 
 
-
 // Function to enable the "Divisi" button after selecting the shift
-function enableButtonDivisi() {
-    const buttonDivisi = document.getElementById("ButtonDivisi");
-    buttonDivisi.removeAttribute("disabled");
+function enableDivisiButton() {
+    document.getElementById("ButtonDivisi").removeAttribute("disabled");
+}
+
+function enableNamaTypeButton() {
+    document.getElementById("ButtonType").removeAttribute("disabled");
+}
+
+function enableIsiJumlahBarangButton() {
+    document.getElementById("ButtonJumlahBarangModal").removeAttribute("disabled");
+}
+
+function enableTimbangButton() {
+    document.getElementById("ButtonTimbang").removeAttribute("disabled");
 }
 
 // Rest of your JavaScript code for handling modals and other functionality can be placed here
 // Make sure you have already defined the functions: openModal1, closeModal1, openModal2, closeModal2, etc.
-
 
 // Function to set the selected shift value and close the modal
 // function setShiftValue() {
@@ -238,7 +307,7 @@ function setShiftValue() {
     document.getElementById("JumlahBarcode").value = "0";
 
     // Enable the "Divisi" button
-    enableButtonDivisi();
+    enableDivisiButton();
 
     // Close the modal
     closeModal();
