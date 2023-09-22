@@ -1,8 +1,9 @@
 @extends('layouts.appPayroll')
 @section('content')
-    <div class="container-fluid">
+    <script type="text/javascript" src="{{ asset('js/Laporan/LaporanAbnormal.js') }}"></script>
+    <div class="container-fluid no-print">
         <div class="row justify-content-center">
-            <div class="col-md-10 RDZMobilePaddingLR0">
+            <div class="col-md-10 RDZMobilePaddingLR0" style="width:1050px;">
 
                 <div class="card" style=" ">
                     <div class="card-header" style="">Form Absen Abnormal</div>
@@ -19,13 +20,16 @@
 
                         <div class="row">
                             <div class="form-group col-md-3 d-flex justify-content-end">
-                              <label for="TglMulai" class="aligned-text">Tanggal:</label>
+                                <label for="TglAbnormal" class="aligned-text">Tanggal:</label>
                             </div>
                             <div class="form-group col-md-4">
-                              <input class="form-control" type="date" id="TglMulai" name="TglMulai" value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required style="max-width: 200px;">
+                                <input class="form-control" type="date" id="TglAbnormal" name="TglAbnormal"
+                                    value="" required style="max-width: 200px;">
 
-                              <button type="button" class="btn  " style="margin-left:10px;">Tampilkan</button>
-                              <button type="button" class="btn btn-dark  " style="margin-left:10px;">Keluar</button>
+                                <button type="button" class="btn  " style="margin-left:10px;"
+                                    id="tampilButton">Tampilkan</button>
+                                <button type="button" class="btn btn-dark  " style="margin-left:10px;"
+                                    onclick={window.print()}>Cetak</button>
                             </div>
 
 
@@ -44,81 +48,22 @@
 
                     <div class="row">
                         <div class="table-responsive" style="margin:30px; ">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" id="tabel_Abnormal">
                                 <thead>
                                     <tr>
 
-                                        <th scope="col">Kode Pegawai</th>
-                                        <th scope="col">Nama Pegawai</th>
-
+                                        <th scope="col">Kd_Pegawai</th>
+                                        <th scope="col">Nama_Peg</th>
                                         <th scope="col">Jumlah</th>
-
-
-
+                                        <th scope="col">Jam_Masuk</th>
+                                        <th scope="col">Jam_Keluar</th>
+                                        <th scope="col">Terlambat</th>
+                                        <th scope="col">Tinggal</th>
+                                        <th scope="col">Ket</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
 
-                                        {{-- <td>
-                                            <a href="" title="Edit Employee">
-                                                <button class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                                </button>
-                                            </a>
-                                            <form method="POST" action="" accept-charset="UTF-8" style="display:inline">
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Employee" onclick='return confirm("Confirm delete?")'>
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
-                                                </button>
-                                            </form>
-                                        </td> --}}
-
-                                    </tr>
                                     {{-- @foreach ($employees as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
@@ -169,29 +114,34 @@
 
 
     </div>
+    <div class="printme" id="printSection">
+        <div class="header">
+            <h4 style="text-align: center;">ABSEN ABNORMAL</h4>
+            <div class="date" id="TglCetak">Tanggal: </div>
+        </div>
+        <table id="tabelCetak">
+            <thead>
+                <tr>
+
+                    <th scope="col">Kd_Pegawai</th>
+                    <th scope="col">Nama_Peg</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Jam_Masuk</th>
+                    <th scope="col">Jam_Keluar</th>
+                    <th scope="col">Terlambat</th>
+                    <th scope="col">Tinggal</th>
+                    <th scope="col">Ket</th>
+                    <!-- Add more column headers as needed -->
+                </tr>
+
+
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
 
 
 
-
-
-
-
-
-    <br>
-
-
-
-
-
-
-
-    </div>
-    </div>
-
-    </div>
-    <br>
-
-    </div>
-    </div>
     </div>
 @endsection

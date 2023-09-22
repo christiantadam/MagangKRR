@@ -29,9 +29,22 @@ class LaporanAbnormalController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show( $cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getAbsenAbnormal") {
+            // dump($crExplode);
+            // dd($crExplode);
+            //getDataPegawai
+            $records = DB::table('VW_PRG_5409_PAY_ABSEN_ABNORMAL')
+            ->where('Tanggal',$crExplode[0])
+            ->get();
+            // dd($records);
+            // dd($dataPegawai);
+            return response()->json($records);
+        }
     }
 
     // Show the form for editing the specified resource.

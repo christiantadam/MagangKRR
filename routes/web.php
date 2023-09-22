@@ -68,10 +68,20 @@ Route::resource('Skorsing/AccBayar', App\Http\Controllers\Payroll\Transaksi\Skor
 Route::resource('Peringatan/Permohonan', App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController::class);
 Route::resource('ProsesGajiStaff', App\Http\Controllers\Payroll\Transaksi\ProsesGaji\ProsesGajiController::class);
 Route::resource('Rekap', App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController::class);
+Route::resource('EstimasiGaji', App\Http\Controllers\Payroll\Transaksi\EstimasiGaji\EstimasiGajiController::class);
+Route::resource('HitGajiHarian', App\Http\Controllers\Payroll\Transaksi\HitGajiHarian\HitGajiHarianController::class);
+Route::resource('HitTHRHarian', App\Http\Controllers\Payroll\Transaksi\HitTHRHarian\HitTHRHarianController::class);
 // Route::post('ProgramPayroll/Master/Karyawan/updatePekerja', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updatePekerja');
 // Route::post('ProgramPayroll/Master/Karyawan/tambahKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@tambahKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/updateKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@updateKeluarga');
 // Route::post('ProgramPayroll/Master/Karyawan/hapusKeluarga', 'App\Http\Controllers\Payroll\Master\Karyawan\KaryawanKeluargaController@hapusKeluarga');
+
+//Laporan
+Route::resource('LaporanAbnormal', App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController::class);
+
+
+
+
 
 
 Route::get('ProgramPayroll/Master/Divisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@index')->name('divisi.index');
@@ -134,12 +144,12 @@ Route::post('ProgramPayroll/Transaksi/Peringatan/AccPermohonan/proses-peringatan
 
 
 // Route::get('ProgramPayroll/Transaksi/Rekap', 'App\Http\Controllers\Payroll\Transaksi\RekapAbsenLembur\RekapAbsenLemburController@index');
-Route::get('ProgramPayroll/Transaksi/EstimasiGaji', 'App\Http\Controllers\Payroll\Transaksi\EstimasiGaji\EstimasiGajiController@index');
-Route::get('ProgramPayroll/Transaksi/HitGajiHarian', 'App\Http\Controllers\Payroll\Transaksi\HitGajiHarian\HitGajiHarianController@index');
-Route::get('ProgramPayroll/Transaksi/HitTHRHarian', 'App\Http\Controllers\Payroll\Transaksi\HitTHRHarian\HitTHRHarianController@index');
+// Route::get('ProgramPayroll/Transaksi/EstimasiGaji', 'App\Http\Controllers\Payroll\Transaksi\EstimasiGaji\EstimasiGajiController@index');
+// Route::get('ProgramPayroll/Transaksi/HitGajiHarian', 'App\Http\Controllers\Payroll\Transaksi\HitGajiHarian\HitGajiHarianController@index');
+// Route::get('ProgramPayroll/Transaksi/HitTHRHarian', 'App\Http\Controllers\Payroll\Transaksi\HitTHRHarian\HitTHRHarianController@index');
 
 // Payroll Laporan
-Route::get('ProgramPayroll/Laporan/Absen/LaporanAbnormal', 'App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController@index');
+// Route::get('ProgramPayroll/Laporan/Absen/LaporanAbnormal', 'App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController@index');
 Route::get('ProgramPayroll/Laporan/Absen/DaftarLembur/getDataLembur', 'App\Http\Controllers\Payroll\Laporan\Absen\DaftarLemburSupervisor\DaftarLemburSupervisorController@getDataLembur')->name('getDataLembur');
 Route::get('ProgramPayroll/Laporan/Absen/DaftarLembur', 'App\Http\Controllers\Payroll\Laporan\Absen\DaftarLemburSupervisor\DaftarLemburSupervisorController@index');
 Route::get('ProgramPayroll/Laporan/Staff/FormDaftarHadir', 'App\Http\Controllers\Payroll\Laporan\Staff\FormDaftarHadir\FormDaftarHadirController@index');

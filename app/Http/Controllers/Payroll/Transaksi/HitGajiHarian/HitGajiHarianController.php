@@ -29,7 +29,7 @@ class HitGajiHarianController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
@@ -43,7 +43,29 @@ class HitGajiHarianController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        if ($data['AwalAkhirMinggu'] === "0") {
+            // dd("Masuk Haid" ,$data);
+            DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_HITUNG_HAID @MinDate = ?, @MaxDate = ?', [
+                $data['MinDate'],
+                $data['MaxDate'],
+            ]);
+        }
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_PROSES_GAJI_HARIAN @MinDate = ?, @MaxDate = ?, @AwalAkhirMinggu = ?', [
+            $data['MinDate'],
+            $data['MaxDate'],
+            $data['AwalAkhirMinggu'],
+        ]);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_LANJUTAN_PROSES_GAJI @MinDate = ?, @MaxDate = ?', [
+            $data['MinDate'],
+            $data['MaxDate'],
+        ]);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_KOP_PROSES_SLIP_HARIAN @MinDate = ?, @MaxDate = ?, @AwalAkhirMinggu = ?', [
+            $data['MinDate'],
+            $data['MaxDate'],
+            $data['AwalAkhirMinggu'],
+        ]);
+        return redirect()->route('HitGajiHarian.index')->with('alert', 'Hitung Gaji Selesai...');
     }
 
     //Remove the specified resource from storage.

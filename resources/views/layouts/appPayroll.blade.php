@@ -283,13 +283,13 @@
                                             tabindex="-1" href="{{ url('Rekap') }}">Proses Rekap Absen & Lembur</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/EstimasiGaji') }}">Estimasi Gaji</a>
+                                            tabindex="-1" href="{{ url('EstimasiGaji') }}">Estimasi Gaji</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/HitGajiHarian') }}">Hit Gaji Harian</a>
+                                            tabindex="-1" href="{{ url('HitGajiHarian') }}">Hit Gaji Harian</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/HitTHRHarian') }}">Hit THR Harian</a>
+                                            tabindex="-1" href="{{ url('HitTHRHarian') }}">Hit THR Harian</a>
                                     </li>
 
                                 </ul>
@@ -309,7 +309,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/LaporanAbnormal') }}">Laporan Absen Abnormal</a>
+                                                    tabindex="-1" href="{{ url('LaporanAbnormal') }}">Laporan Absen Abnormal</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Absen/DaftarLembur') }}">Daftar Lembur By Supervisor (X)</a>

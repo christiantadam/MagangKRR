@@ -29,7 +29,7 @@ class EstimasiGajiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
@@ -43,7 +43,14 @@ class EstimasiGajiController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_ESTIMASI_GAJI @MinDate = ?, @MaxDate = ?, @AwalAkhirMinggu = ?', [
+            $data['MinDate'],
+            $data['MaxDate'],
+            $data['AwalAkhirMinggu'],
+        ]);
+        return redirect()->route('Rekap.index')->with('alert', 'Hitung Gaji Selesai...');
     }
 
     //Remove the specified resource from storage.
