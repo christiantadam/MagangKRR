@@ -28,6 +28,13 @@ class ProsesPembeliGambarController extends Controller
         ->get();
         return response()->json($data);
     }
+    public function updatedatacetak(Request $request) {
+        // dd($request->all());
+        $noOd = $request->noOd;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_WRK_TGL-CETAK-ORDER_GBR] @noOd = ?', [$noOd]);
+        return redirect()->back();
+    }
+
 
 
     public function create()

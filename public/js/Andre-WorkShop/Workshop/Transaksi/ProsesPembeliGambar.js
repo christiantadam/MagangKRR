@@ -33,6 +33,7 @@ let NamaBarangPrint = document.getElementById('NamaBarangPrint');
 let KeteranganOrderPrint = document.getElementById('KeteranganOrderPrint');
 let PrintDate = document.getElementById('PrintDate');
 let noOd = document.getElementById('noOd');
+let formPembeliGambar = document.getElementById('formPembeliGambar');
 //#endregion
 
 //#region set tanggal
@@ -334,19 +335,19 @@ function cetak() {
                     PrintDate.textContent = formattedDate;
                     window.print();
                 });
-            // methodForm.value = "POST";
-            // $.ajax({
-            //     url: "UpdateCetakSuratOrderKerja",
-            //     method: "POST",
-            //     data: new FormData(formCetakOrderKerja),
-            //     dataType: "JSON",
-            //     contentType: false,
-            //     cache: false,
-            //     processData: false,
-            //     success: function (response) {
-            //         alert(response);
-            //     },
-            // });
+            methodForm.value = "POST";
+            $.ajax({
+                url: "UpdateCetakpembeligambar",
+                method: "POST",
+                data: new FormData(formPembeliGambar),
+                dataType: "JSON",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (response) {
+                    alert(response);
+                },
+            });
         }
     }
 }

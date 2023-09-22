@@ -9,6 +9,7 @@
       {{ Session::get('error') }}
     </div>
   @endif
+
   <div class="card-header">
     Maintenance Kode Barang
   </div>

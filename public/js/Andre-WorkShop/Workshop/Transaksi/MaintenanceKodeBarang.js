@@ -16,6 +16,7 @@ let nama_barang = document.getElementById('nama_barang');
 let noGambar = document.getElementById('noGambar');
 
 let modetrans;
+
 //#endregion
 
 //#region style button

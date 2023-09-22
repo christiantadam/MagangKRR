@@ -22,6 +22,7 @@ class MaintenanceKodeBarangController extends Controller
         return response()->json($all);
     }
 
+
     public function create()
     {
         //

@@ -261,7 +261,7 @@
       </div>
     </div>
   </div>
-  <form action="{{ url('ProsesPembeliGambar') }}" method="post" id="">
+  <form action="{{ url('ProsesPembeliGambar') }}" method="post" id="formPembeliGambar">
     {{ csrf_field() }}
     <input type="hidden" name="_method" id="methodForm">
     <input type="hidden" name="noOd" id="noOd">
