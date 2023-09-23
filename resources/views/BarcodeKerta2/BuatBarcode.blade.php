@@ -159,7 +159,8 @@
                                                                 <div class="form-group col-md-9 mt-3 mt-md-0">
                                                                     <input style="width: 500px" type="text"
                                                                         class="form-control" name="Sekunder"
-                                                                        id="Sekunder" placeholder="Sekunder">
+                                                                        id="Sekunder" placeholder="Sekunder"
+                                                                        value="10">
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
@@ -183,13 +184,15 @@
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" id="ButtonTimbang"
-                                                    style="width:180px; height: 50px" disabled>Timbang</button>
+                                                    style="width:180px; height: 50px" disabled
+                                                    onclick="enablePrintBarcodeButton()">Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonPrintBarcode"
-                                                    style="width:180px; height: 50px">Print Barcode</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    id="ButtonPrintBarcode" style="width:180px; height: 50px"
+                                                    disabled>Print Barcode</button>
                                             </div>
                                         </div>
 
@@ -210,14 +213,16 @@
                                                                 <div class="form-group col-md-auto mt-3 mt-md-1">
                                                                     <input type="text" class="form-control"
                                                                         name="Barcode" id="Barcode"
-                                                                        placeholder="Barcode">
+                                                                        style="width: 500px" placeholder="Barcode">
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px; margin-left:200px"><button
+                                                                style="margin-top: 15px; margin-left:350px;"><button
+                                                                    style="width: 100px; height: 50px"
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal4()"><button
+                                                                    style="width: 100px; height: 50px"
                                                                     type="button">Cancel</button></div>
                                                         </div>
                                                     </div>
@@ -346,8 +351,7 @@
                                             <input class="form-control" type="text" name="sekunder"
                                                 id="SekunderOutput" rows="sekunder" placeholder="Sekunder">
                                             <div class="text-center col-md-auto">
-                                                <button type="button" style="width: 100px"
-                                                    onclick="openModal3()">LBR</button>
+                                                <button type="button" style="width: 100px">LBR</button>
                                             </div>
                                         </div>
                                     </div>

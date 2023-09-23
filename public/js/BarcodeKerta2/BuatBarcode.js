@@ -101,30 +101,91 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
-    var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode')
+    // var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode')
+    // ButtonPrintBarcode.addEventListener("click", function (event) {
+    //     var idtype = document.getElementById('0016');
+    //     var tanggal = document.getElementById('tanggalOutput');
+    //     var primer = document.getElementById('Primer');
+    //     var sekunder = document.getElementById('SekunderOutput');
+    //     var tritier = document.getElementById('tritier');
+    //     var UserID = document.getElementById('U001');
+    //     var asalidsubkelompok = document.getElementById('SKL01');
+    //     var kodebarang = document.getElementById('00000KB02');
+    //     var uraian = document.getElementById('shift');
+    //     var idsubkontraktor = document.getElementById('00000KB02');
+
+    //     fetch("/BuatBarcode/" + idtype.value + UserID.value + tanggal.value +
+    //     primer.value + sekunder.value + tritier.value + asalidsubkelompok.value +
+    //     idsubkontraktor.value + kodebarang.value + uraian.value + ".buatBarcode")
+
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error("Network response was not ok");
+    //             }
+    //             return response.json(); // Assuming the response is in JSON format
+    //         })
+    //         .then((data) => {
+    //             // // Handle the data retrieved from the server (data should be an object or an array)
+    //             // console.log(data);
+    //             // // Clear the existing table rows
+    //             // $("#TableObjek").DataTable().clear().draw();
+
+    //             // Loop through the data and create table rows
+    //             // data.forEach((item) => {
+    //             //     var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
+    //             //     console.log(kodebarcode);
+    //             //     var row = [kodebarang];
+    //             //     $("#TableObjek").DataTable().row.add(row);
+    //             // });
+    //             data.forEach((item) => {
+    //                 var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
+    //                 console.log(kodebarcode);
+
+    //                 // Show an alert for each 'kodebarang'
+    //                 alert('Kode Barang: ' + kodebarcode);
+    //             });
+
+    //             // // Redraw the table to show the changes
+    //             // $("#TableObjek").DataTable().draw();
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+    // });
+
+    var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
+
     ButtonPrintBarcode.addEventListener("click", function (event) {
-        var txtIdDivisi = document.getElementById('IdDivisi');
-        fetch("/BuatBarcode/" + txtIdDivisi.value + ".buatBarcode")
+        // Mengambil nilai dari elemen-elemen dengan ID yang sesuai
+        var idtype = document.getElementById('0016').value;
+        var tanggal = document.getElementById('tanggalOutput').value;
+        var primer = document.getElementById('Primer').value;
+        var sekunder = document.getElementById('SekunderOutput').value;
+        var tritier = document.getElementById('tritier').value;
+        var UserID = document.getElementById('U001').value;
+        var asalidsubkelompok = document.getElementById('SKL01').value;
+        var kodebarang = document.getElementById('00000KB02').value;
+        var uraian = document.getElementById('shift').value;
+        var idsubkontraktor = document.getElementById('00000KB02').value;
+
+        // Menggabungkan nilai-nilai tersebut untuk membentuk URL
+        var url = `/BuatBarcode/${idtype}${UserID}${tanggal}${primer}${sekunder}${tritier}${asalidsubkelompok}${idsubkontraktor}${kodebarang}${uraian}.buatBarcode`;
+
+        fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                return response.json(); // Assuming the response is in JSON format
+                return response.json(); // Asumsi respons dalam format JSON
             })
             .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
-                console.log(data);
-                // Clear the existing table rows
-                $("#TableObjek").DataTable().clear().draw();
-
-                // Loop through the data and create table rows
                 data.forEach((item) => {
-                    var row = [item.IdObjek, item.NamaObjek];
-                    $("#TableObjek").DataTable().row.add(row);
-                });
+                    var kodebarcode = item.kodebarang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
+                    console.log(kodebarcode);
 
-                // Redraw the table to show the changes
-                $("#TableObjek").DataTable().draw();
+                    // Menampilkan kodebarang dalam sebuah pop-up alert
+                    alert('Kode Barang: ' + kodebarcode);
+                });
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -273,6 +334,10 @@ function enableIsiJumlahBarangButton() {
 
 function enableTimbangButton() {
     document.getElementById("ButtonTimbang").removeAttribute("disabled");
+}
+
+function enablePrintBarcodeButton() {
+    document.getElementById("ButtonPrintBarcode").removeAttribute("disabled");
 }
 
 // Rest of your JavaScript code for handling modals and other functionality can be placed here
