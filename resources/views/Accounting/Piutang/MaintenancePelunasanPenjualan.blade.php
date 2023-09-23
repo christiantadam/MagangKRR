@@ -192,6 +192,9 @@
                                         <input type="text" id="tabelKodePerkiraan" name="tabelKodePerkiraan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
+                                        <input type="text" id="tabelIdDetail" name="tabelIdDetail" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
                                         <input type="text" id="hAtauB" name="hAtauB" class="form-control" style="width: 100%">
                                     </div>
                                 </div>

@@ -110,6 +110,17 @@ class MaintenancePelunasanPenjualanController extends Controller
         $sisa = $request->sisa;
         $idReferensi = $request->idReferensi;
         $statusBayar = $request->statusBayar;
+        $IdPelunasan = $request->IdPelunasan;
+
+        $tabelIdPenagihan = $request->tabelIdPenagihan;
+        $tabelNilaiPelunasan = $request->tabelNilaiPelunasan;
+        $tabelPelunasanRupiah = $request->tabelPelunasanRupiah;
+        $tabelBiaya = $request->tabelBiaya;
+        $tabelLunas = $request->tabelLunas;
+        $tabelPelunasanCurrency = $request->tabelPelunasanCurrency;
+        $tabelKurangLebih = $request->tabelKurangLebih;
+        $tabelKodePerkiraan = $request->tabelKodePerkiraan;
+        $tabelIdDetail = $request->tabelIdDetail;
 
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
         @Kode = ?,
@@ -123,7 +134,7 @@ class MaintenancePelunasanPenjualanController extends Controller
         @SaldoPelunasan = ?,
         @UserInput = ?,
         @Status_Bayar = ?,
-        @IdReferensi = ?,
+        @IdReferensi = ?
         ', [
             1,
             $tanggalInput,
@@ -138,6 +149,39 @@ class MaintenancePelunasanPenjualanController extends Controller
             $statusBayar,
             $idReferensi
         ]);
+
+        // Lakukan operasi UPDATE
+        $IdPelunasan = DB::connection('ConnAccounting')->table('T_Referensi_Bank')
+            ->where('IdReferensi', '=', $idReferensi)
+            ->value('Id_Pelunasan');
+
+        //dd($IdPelunasan);
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        @Kode = ?,
+        @Id_Pelunasan = ?,
+        @Id_Penagihan = ?,
+        @Nilai_Pelunasan = ?,
+        @Pelunasan_Rupiah = ?,
+        @Biaya = ?,
+        @Lunas = ?,
+        @Pelunasan_Curency = ?,
+        @KurangLebih = ?,
+        @Kode_Perkiraan = ?,
+        @ID_Penagihan_Pembulatan = ?',
+        [
+            2,
+            $IdPelunasan,
+            $tabelIdPenagihan,
+            $tabelNilaiPelunasan,
+            $tabelPelunasanRupiah,
+            $tabelBiaya,
+            $tabelLunas,
+            $tabelPelunasanCurrency,
+            $tabelKurangLebih,
+            $tabelKodePerkiraan,
+            $tabelIdDetail
+        ]);
+
         return redirect()->back()->with('success', 'Sudah TerSimpan');
     }
 
