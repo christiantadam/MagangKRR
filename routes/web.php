@@ -78,7 +78,7 @@ Route::resource('HitTHRHarian', App\Http\Controllers\Payroll\Transaksi\HitTHRHar
 
 //Laporan
 Route::resource('LaporanAbnormal', App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController::class);
-
+Route::resource('FormDaftarHadir', App\Http\Controllers\Payroll\Laporan\Staff\FormDaftarHadir\FormDaftarHadirController::class);
 
 
 
@@ -152,7 +152,7 @@ Route::post('ProgramPayroll/Transaksi/Peringatan/AccPermohonan/proses-peringatan
 // Route::get('ProgramPayroll/Laporan/Absen/LaporanAbnormal', 'App\Http\Controllers\Payroll\Laporan\Absen\LaporanAbnormal\LaporanAbnormalController@index');
 Route::get('ProgramPayroll/Laporan/Absen/DaftarLembur/getDataLembur', 'App\Http\Controllers\Payroll\Laporan\Absen\DaftarLemburSupervisor\DaftarLemburSupervisorController@getDataLembur')->name('getDataLembur');
 Route::get('ProgramPayroll/Laporan/Absen/DaftarLembur', 'App\Http\Controllers\Payroll\Laporan\Absen\DaftarLemburSupervisor\DaftarLemburSupervisorController@index');
-Route::get('ProgramPayroll/Laporan/Staff/FormDaftarHadir', 'App\Http\Controllers\Payroll\Laporan\Staff\FormDaftarHadir\FormDaftarHadirController@index');
+// Route::get('ProgramPayroll/Laporan/Staff/FormDaftarHadir', 'App\Http\Controllers\Payroll\Laporan\Staff\FormDaftarHadir\FormDaftarHadirController@index');
 Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapAbsen', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\RekapAbsen\RekapAbsenController@index');
 Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/CetakDetailAbsen', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\CetakDetailAbsen\CetakDetailAbsenController@index');
 Route::get('ProgramPayroll/Laporan/Staff/AbsensiKaryawan/RekapPerolehanASI', 'App\Http\Controllers\Payroll\Laporan\Staff\AbsensiKaryawan\RekapPerolehanASI\RekapPerolehanASIController@index');

@@ -31,7 +31,18 @@ class FormDaftarHadirController extends Controller
     //Display the specified resource.
     public function show( $cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+         if ($crExplode[$lastIndex] == "getViewHadir") {
+
+            //getDataPegawai
+            $records = DB::table('VW_PRG_1486_PAY_KARYAWAN_STAFF_2')
+            ->get();
+            // dd($records);
+            // dd($dataPegawai);
+            return response()->json($records);
+        }
     }
 
     // Show the form for editing the specified resource.

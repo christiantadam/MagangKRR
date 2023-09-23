@@ -323,7 +323,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Laporan/Staff/FormDaftarHadir') }}">Form Daftar Hadir</a>
+                                                    tabindex="-1" href="{{ url('FormDaftarHadir') }}">Form Daftar Hadir</a>
                                             </li>
                                             <li>
                                                 <a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1" href="">Absensi Karyawan &raquo</a>
