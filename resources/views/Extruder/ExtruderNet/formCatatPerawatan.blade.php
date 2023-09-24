@@ -1,19 +1,25 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <style>
+        .spn_enter {
+            display: flex;
+            margin-top: 5px;
+            color: blue;
+        }
+    </style>
 
-<div id="tropodo_perawatan" class="form" data-aos="fade-up">
-    <form>
+    <div id="tropodo_perawatan" class="form" data-aos="fade-up">
         <div class="card mt-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-2">
                         <span class="aligned-text">Tanggal:</span>
                     </div>
-                    <div class="col-lg-3">
-                        <input type="date" name="tanggal" id="tanggal" class="form-control">
-                    </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <input type="date" id="tanggal" class="form-control">
+                    </div>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -21,11 +27,14 @@
                     <div class="col-lg-2">
                         <span class="aligned-text">Nama:</span>
                     </div>
-                    <div class="col-lg-5">
-                        <input type="text" name="nama" id="nama" class="form-control">
+                    <div class="col-lg-6">
+                        <input type="text" id="nama" class="form-control">
+                    </div>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <input type="text" id="kode" class="form-control hidden">
                     </div>
                 </div>
 
@@ -34,25 +43,25 @@
                         <span class="aligned-text">Shift:</span>
                     </div>
                     <div class="col-lg-2">
-                        <input type="text" name="shift" id="shift" class="form-control">
+                        <input type="text" id="shift" class="form-control">
                     </div>
                     <div class="col-lg-1">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
 
                     <div class="col-lg-1">
                         <span class="aligned-text">Jam:</span>
                     </div>
-                    <div class="col-lg-3">
-                        <select class="form-select">
-                            <option selected></option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                    <div class="col-lg-2">
+                        <select id="select_jam" class="form-select" disabled>
+                            <option selected>-- Pilih Jam --</option>
+                            <option value="P">07.00 - 15.00</option>
+                            <option value="S">15.00 - 23.00</option>
+                            <option value="M">23.00 - 07.00</option>
                         </select>
                     </div>
-                    <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -61,14 +70,12 @@
                         <span class="aligned-text">Bagian:</span>
                     </div>
                     <div class="col-lg-6">
-                        <div class="input-group">
-                            <input type="text" name="bagian1" id="bagian1" class="form-control">
-                            <input type="text" name="bagian2" id="bagian2" class="form-control" style="width: 15vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                        <select id="select_bagian" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Bagian --</option>
+                        </select>
                     </div>
-                    <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -77,32 +84,29 @@
                         <span class="aligned-text">Mesin:</span>
                     </div>
                     <div class="col-lg-6">
-                        <div class="input-group">
-                            <input type="text" name="mesin1" id="mesin1" class="form-control">
-                            <input type="text" name="mesin2" id="mesin2" class="form-control" style="width: 15vw;">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                        <select id="select_mesin" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Mesin --</option>
+                        </select>
                     </div>
-                    <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-lg-2">
-                        <span class="aligned-text">Bagian:</span>
+                        <span class="aligned-text">No. Winder:</span>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="input-group">
-                            <input type="text" name="bagian1" id="bagian1" class="form-control">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-6">
+                        <select id="select_winder" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Nomor Winder --</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1">
+                        <span class="spn_enter">Enter</span>
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
-                    </div>
-                    <div class="col-lg-3">
-                        <input type="text" name="bagian1" id="bagian1" class="form-control">
+                        <input type="text" id="winder" class="form-control" placeholder="Winder">
                     </div>
                 </div>
             </div>
@@ -114,14 +118,13 @@
                     <div class="col-lg-2">
                         <span class="aligned-text">Gangguan:</span>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="input-group">
-                            <input type="text" name="gangguan" id="gangguan" class="form-control">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-7">
+                        <select id="select_gangguan" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Gangguan --</option>
+                        </select>
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -129,14 +132,13 @@
                     <div class="col-lg-2">
                         <span class="aligned-text">Penyebab:</span>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="input-group">
-                            <input type="text" name="penyebab" id="penyebab" class="form-control">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-7">
+                        <select id="select_penyebab" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Penyebab --</option>
+                        </select>
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -144,14 +146,13 @@
                     <div class="col-lg-2">
                         <span class="aligned-text">Penyelesaian:</span>
                     </div>
-                    <div class="col-lg-8">
-                        <div class="input-group">
-                            <input type="text" name="penyelesaian" id="penyelesaian" class="form-control">
-                            <button type="button" class="btn btn-outline-secondary">...</button>
-                        </div>
+                    <div class="col-lg-7">
+                        <select id="select_penyelesaian" class="form-select" disabled>
+                            <option selected disabled>-- Pilih Penyelesaian --</option>
+                        </select>
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -160,10 +161,10 @@
                         <span class="aligned-text">Waktu Mulai:</span>
                     </div>
                     <div class="col-lg-2">
-                        <input type="time" name="waktu_mulai" id="waktu_mulai" class="form-control">
+                        <input type="time" id="waktu_mulai" class="form-control">
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -172,10 +173,10 @@
                         <span class="aligned-text">Waktu Selesai:</span>
                     </div>
                     <div class="col-lg-2">
-                        <input type="time" name="waktu_selesai" id="waktu_selesai" class="form-control">
+                        <input type="time" id="waktu_selesai" class="form-control">
                     </div>
                     <div class="col-lg-2">
-                        <span style="display: flex; margin-top: 5px;">Enter</span>
+                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
             </div>
@@ -183,17 +184,17 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-success">Isi</button>
-                <button type="submit" class="btn btn-outline-warning">Koreksi</button>
-                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-outline-success">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-outline-warning">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="submit" class="btn btn-outline-primary">Proses</button>
-                <button type="button" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
             </div>
         </div>
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/ExtruderNet/catatPerawatan.js') }}"></script>
 @endsection

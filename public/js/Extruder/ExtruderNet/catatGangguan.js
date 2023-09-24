@@ -1,8 +1,10 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
+const rdoMasuk = document.getElementById("radio_masuk");
+const rdoLibur = document.getElementById("radio_libur");
 
-const timeAwal = document.getElementById("shift_awal");
-const timeAkhir = document.getElementById("shift_akhir");
+const timeShiftAwal = document.getElementById("shift_awal");
+const timeShiftAkhir = document.getElementById("shift_akhir");
 const timeGangAwal = document.getElementById("waktu_awal");
 const timeGangAkhir = document.getElementById("waktu_akhir");
 
@@ -17,9 +19,6 @@ const txtJmlhMenit = document.getElementById("jmlh_menit");
 const txtKeterangan = document.getElementById("keterangan");
 const txtTanggal = document.getElementById("data_tgl");
 
-const radMasuk = document.getElementById("radio_masuk");
-const radLibur = document.getElementById("radio_libur");
-
 const btnOk = document.getElementById("btn_ok");
 const btnIsi = document.getElementById("btn_isi");
 const btnKoreksi = document.getElementById("btn_koreksi");
@@ -27,11 +26,11 @@ const btnHapus = document.getElementById("btn_hapus");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
-const listOfInputTransaksi = document.querySelectorAll(
+const listOfTransaksi = document.querySelectorAll(
     "#card_transaksi .form-control, .form-check-input, #card_transaksi .form-select"
 );
 
-const listOfInputGangguan = document.querySelectorAll(
+const listOfGangguan = document.querySelectorAll(
     "#card_gangguan .form-control, #card_gangguan .form-select"
 );
 
@@ -51,9 +50,8 @@ const listGangguan = [];
     11 Keterangan
 */
 
-const tableGangguanPos = $("#table_gangguan").offset().top - 125;
-
-const tableGangguanCol = [
+const posGangguan = $("#table_gangguan").offset().top - 125;
+const colGangguan = [
     { width: "125px" }, // No. Transaksi
     { width: "100px" }, // Tanggal
     { width: "100px" }, // Id Mesin
@@ -70,7 +68,6 @@ const tableGangguanCol = [
 
 var checkboxesGangguan = null;
 var pilGangguan = -1;
-
 var modeProses = "";
 var refetchKomposisi = false;
 //#endregion
@@ -82,9 +79,9 @@ dateInput.addEventListener("keypress", function (event) {
     }
 });
 
-timeAwal.addEventListener("keypress", function (event) {
+timeShiftAwal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        timeAkhir.focus();
+        timeShiftAkhir.focus();
     }
 });
 
@@ -114,27 +111,23 @@ timeGangAkhir.addEventListener("keypress", function (event) {
     }
 });
 
-timeAkhir.addEventListener("keypress", function (event) {
+timeShiftAkhir.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         slcGangguan.focus();
     }
 });
 
-radLibur.addEventListener("change", function () {
+rdoLibur.addEventListener("change", function () {
     slcKomposisi.selectedIndex = 0;
 });
 
-radMasuk.addEventListener("change", function () {
+rdoMasuk.addEventListener("change", function () {
     slcKomposisi.selectedIndex = 0;
 });
 
 btnOk.addEventListener("click", function () {
     listGangguan.length = 0;
-    clearTable_DataTable(
-        "table_gangguan",
-        tableGangguanCol.length,
-        "padding=250px"
-    );
+    clearTable_DataTable("table_gangguan", colGangguan.length, "padding=250px");
 
     loadDataGangguanProdEXT();
 });
@@ -142,7 +135,7 @@ btnOk.addEventListener("click", function () {
 btnIsi.addEventListener("click", function () {
     toggleButtons(2);
     setEnable(true);
-    clearData();
+    clearAll();
 
     dateInput.focus();
     timeGangAwal.value = getCurrentDate() + " " + getCurrentTime();
@@ -155,7 +148,7 @@ btnKoreksi.addEventListener("click", function () {
     if (pilGangguan != -1) {
         toggleButtons(2);
         setEnable(true, "groupbox1");
-        clearData();
+        clearAll();
 
         modeProses = "koreksi";
 
@@ -168,7 +161,7 @@ btnKoreksi.addEventListener("click", function () {
 btnHapus.addEventListener("click", function () {
     if (pilGangguan != -1) {
         toggleButtons(2);
-        clearData();
+        clearAll();
 
         modeProses = "hapus";
 
@@ -193,11 +186,11 @@ btnKeluar.addEventListener("click", function () {
         window.location.href = "/Extruder/ExtruderNet";
     } else {
         toggleButtons(1);
-        clearData();
+        clearAll();
         setEnable(false);
 
         listGangguan.length = 0;
-        clearTable_DataTable("table_gangguan", tableGangguanCol.length);
+        clearTable_DataTable("table_gangguan", colGangguan.length);
 
         modeProses = "";
     }
@@ -212,7 +205,7 @@ slcKodeMesin.addEventListener("change", function () {
         slcGangguan.focus();
     }
 
-    if (radLibur.checked) {
+    if (rdoLibur.checked) {
         slcKomposisi.disabled = true;
         txtShift.disabled = false;
         txtShift.focus();
@@ -278,8 +271,8 @@ slcKomposisi.addEventListener("change", function () {
     // SP_5298_EXT_DISPLAY_SHIFT
     fetchSelect("/Catat/getDisplayShift/" + this.value, (data) => {
         txtShift.value = data[0].Shift;
-        timeAwal.value = dateTimetoTime(data[0].AwalShift);
-        timeAkhir.value = dateTimetoTime(data[0].AkhirShift);
+        timeShiftAwal.value = dateTimetoTime(data[0].AwalShift);
+        timeShiftAkhir.value = dateTimetoTime(data[0].AkhirShift);
 
         slcGangguan.focus();
     });
@@ -300,7 +293,7 @@ slcGangguan.addEventListener("keydown", function (event) {
 txtShift.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         this.value = this.value.toUpperCase();
-        timeAwal.focus();
+        timeShiftAwal.focus();
     }
 });
 
@@ -328,7 +321,6 @@ function toggleButtons(tmb) {
             btnProses.disabled = true;
             btnKeluar.textContent = "Keluar";
             break;
-
         case 2:
             btnIsi.disabled = true;
             btnKoreksi.disabled = true;
@@ -343,54 +335,46 @@ function toggleButtons(tmb) {
 }
 
 function setEnable(m_value, group_box = "") {
-    if (group_box != "groupbox1") {
-        listOfInputTransaksi.forEach((input) => {
-            if (input.type == "text") {
-                input.disabled = !m_value;
-            } else {
-                if (!m_value == true) {
-                    input.classList.add("unclickable");
-                } else {
-                    input.classList.remove("unclickable");
-                }
-            }
+    // Bagian Transaksi
+    if (group_box != "gangguan") {
+        listOfTransaksi.forEach((ele) => {
+            if (ele.type == "date" || ele.type == "time") {
+                if (m_value) {
+                    ele.classList.remove("unclickable");
+                } else ele.classList.add("unclickable");
+            } else ele.disabled = !m_value;
         });
     }
 
-    if (group_box != "groupbox3") {
-        listOfInputGangguan.forEach((input) => {
-            if (input.type == "text") {
-                input.disabled = !m_value;
-            } else {
-                if (!m_value == true) {
-                    input.classList.add("unclickable");
-                } else {
-                    input.classList.remove("unclickable");
-                }
-            }
+    // Bagian Gangguan
+    if (group_box != "transaksi") {
+        listOfGangguan.forEach((ele) => {
+            if (ele.type == "datetime") {
+                if (m_value) {
+                    ele.classList.remove("unclickable");
+                } else ele.classList.add("unclickable");
+            } else ele.disabled = !m_value;
         });
     }
 }
 
-function clearData() {
-    listOfInputTransaksi.forEach((input) => {
-        if (
-            input.tagName == "INPUT" &&
-            input.classList.contains("form-control")
-        ) {
-            input.value = "";
-        } else if (input.tagName == "SELECT") {
-            input.selectedIndex = 0;
-        }
-    });
-
-    listOfInputGangguan.forEach((input) => {
+function clearAll() {
+    listOfTransaksi.forEach((input) => {
         if (input.tagName == "INPUT") {
             input.value = "";
-        } else if (input.tagName == "SELECT") {
-            input.selectedIndex = 0;
-        }
+        } else input.selectedIndex = 0;
     });
+
+    listOfGangguan.forEach((input) => {
+        if (input.tagName == "INPUT") {
+            input.value = "";
+        } else input.selectedIndex = 0;
+    });
+
+    timeShiftAwal.value = "00:00";
+    timeShiftAkhir.value = "00:00";
+    timeGangAwal.value = "00:00";
+    tglGangAkhir.value = "00:00";
 }
 
 function loadDataGangguanProdEXT() {
@@ -429,7 +413,7 @@ function loadDataGangguanProdEXT() {
                         NoTrans: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_gangguan"> ${item.NoTrans}`,
                     };
                 }),
-                tableGangguanCol,
+                colGangguan,
                 rowClickedGangguan
             );
 
@@ -479,8 +463,8 @@ function rowClickedGangguan(row, data, index) {
         fetchSelect("/Catat/getListShift/" + slcKomposisi.value, (data) => {
             if (data[0].Shift !== undefined) {
                 txtShift.value = data[0].Shift;
-                timeAwal.value = data[0].AwalShift;
-                timeAkhir.value = data[0].AkhirShift;
+                timeShiftAwal.value = data[0].AwalShift;
+                timeShiftAkhir.value = data[0].AkhirShift;
             } else {
                 txtShift.value = "***";
             }
@@ -502,9 +486,9 @@ function prosesIsi() {
             "/" +
             txtShift.value +
             "/" +
-            timeAwal.value +
+            timeShiftAwal.value +
             "/" +
-            timeAkhir.value +
+            timeShiftAkhir.value +
             "/" +
             timeGangAwal.value +
             "/" +
@@ -514,7 +498,7 @@ function prosesIsi() {
             "/" +
             txtJmlhMenit.value +
             "/" +
-            radLibur.checked
+            rdoLibur.checked
             ? "L"
             : "M" +
                   "/" +
@@ -571,9 +555,9 @@ function prosesUpdate() {
             slcKodeMesin.disabled = false;
             modeProses = "";
             toggleButtons(1);
-            clearData();
+            clearAll();
             listGangguan.length = 0;
-            clearTable_DataTable("table_gangguan", tableGangguanCol.length);
+            clearTable_DataTable("table_gangguan", colGangguan.length);
             btnIsi.focus();
 
             alert("Data berhasil dikoreksi!");
@@ -587,9 +571,9 @@ function prosesDelete() {
         setEnable(false);
         modeProses = "";
         toggleButtons(1);
-        clearData();
+        clearAll();
         listGangguan.length = 0;
-        clearTable_DataTable("table_gangguan", tableGangguanCol.length);
+        clearTable_DataTable("table_gangguan", colGangguan.length);
         btnIsi.focus();
 
         alert("Data berhasil dihapus!");
@@ -603,7 +587,7 @@ function init() {
         paging: false,
         scrollY: "250px",
         scrollX: "1000000px",
-        columns: tableGangguanCol,
+        columns: colGangguan,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
             searchPlaceholder: " Tabel gangguan...",
@@ -622,13 +606,13 @@ function init() {
     });
 
     toggleButtons(1);
-    // setEnable(false);
+    setEnable(false);
 
     btnIsi.focus();
     txtTanggal.value = getCurrentDate(true);
     dateInput.value = getCurrentDate();
-    timeAwal.value = "00:00";
-    timeAkhir.value = "00:00";
+    timeShiftAwal.value = "00:00";
+    timeShiftAkhir.value = "00:00";
     timeGangAwal.value = getCurrentDate() + " 00:00";
     timeGangAkhir.value = getCurrentDate() + " 00:00";
 }
