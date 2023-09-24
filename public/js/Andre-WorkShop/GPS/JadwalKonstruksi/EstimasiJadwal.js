@@ -98,6 +98,14 @@ function koreksiklik(){
 
 //#endregion
 
+//#region hapus
+
+function hapusdiklik() {
+    proses = 3;
+}
+
+//#endregion
+
 //#region Proses
 
 function Prosesdiklik() {
@@ -125,10 +133,44 @@ function Prosesdiklik() {
         .then((response) => response.json())
         .then((datas) => {
             console.log(datas);
-            tglmulai = datas[0].TglMulai;
-            sampaitgl = datas[0].SampaiTgl;
-            ada = true;
+            if (datas.length > 0) {
+                tglmulai = datas[0].TglMulai;
+                sampaitgl = datas[0].SampaiTgl;
+                ada = true;
+            }
         });
+        if (ada == true) {
+            if (TglStart.value > tglmulai || TglFinish.value < sampaitgl) {
+                if (TglStart.value > tglmulai) {
+                    alert("Tidak dapat dikoreksi, krn sdh terjadwal mulai tgl " + tglmulai + ", dan estimasi tgl start > jadwal mulai.");
+                    return;
+                }
+                if (TglFinish.value < sampaitgl) {
+                    alert("Tidak dapat dikoreksi, krn sdh terjadwal sampai tgl " + sampaitgl + ", dan tgl finish < tgl terjadwal.");
+                    return;
+                }
+            }
+        }
+        // console.log(NoOrder.value);
+        methodForm.value = "PUT";
+        FormEstimasiJadwal.action = "/estimasiJadwal/" + NoOrder.value;
+        FormEstimasiJadwal.submit();
+
+    }
+    if (proses == 3) {
+       fetch("/CekEstimasiKonstruksi/" + NoOrder.value)
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas);
+                if (datas[0].ada > 0) {
+                    alert("Tdk bisa diHapus, karena sudah terjadwal.");
+                    return;
+                } else {
+                    methodForm.value = "DELETE";
+                    FormEstimasiJadwal.action = "/estimasiJadwal/" + NoOrder.value;
+                    FormEstimasiJadwal.submit();
+                }
+            });
     }
 }
 

@@ -77,8 +77,8 @@
 
             <div class="mb-3">
               <button class="btn btn-primary" id="Isi" onclick="isi()" type="button">Isi</button>
-              <button id="Koreksi" class="btn btn-warning" type="button">Koreksi</button>
-              <button id="Hapus" class="btn btn-danger" type="button">Hapus</button>
+              <button id="Koreksi" class="btn btn-warning" type="button" onclick="koreksiklik()">Koreksi</button>
+              <button id="Hapus" class="btn btn-danger" type="button" onclick="hapusdiklik()">Hapus</button>
               <button  type="button" id="Proses" class="btn btn-success" onclick="Prosesdiklik()">Proses</button>
             </div>
           </div>

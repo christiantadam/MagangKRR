@@ -25,6 +25,10 @@ class EstimasiJadwalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_ESTIMASI_KONSTRUKSI] @noOd = ?', [$noOd]);
         return response()->json($data);
     }
+    public function Cekjadwal($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-TRANSAKSI-KONSTRUKSI] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
 
     public function create()
     {
@@ -55,10 +59,20 @@ class EstimasiJadwalController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+        $noOd = $request->NoOrder;
+        $tglStart = $request->TglStart;
+        $tglFinish = $request->TglFinish;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-ESTIMASI-KONSTRUKSI] @kode = ?, @noOd = ?, @tglStart = ?, @tglFinish = ?, @ppic = ?', [2, $noOd, $tglStart, $tglFinish,4384]);
+        return redirect()->back()->with('success',"Data telah diKoreksi.");
+
     }
 
     public function destroy($id)
     {
         //
+        dd($id);
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-ESTIMASI-KONSTRUKSI] @kode = ?, @noOd = ?', [3, $id]);
+        return redirect()->back()->with('success',"Data telah diHapus.");
     }
 }
