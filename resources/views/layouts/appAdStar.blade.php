@@ -214,23 +214,23 @@
                                 </a>
                                 <ul class="dropdown-menu" style="cursor: default">
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('UpKdBrng') }}');">Update Kd Barang</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('UpKodeBarang') }}');">Update Kd Barang</a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('MnOrdPrs') }}');">Main Order Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('MaintOrder') }}');">Main Order Press </a>
 
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('StpOrdPrs') }}');">Stop Order Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('StopOrder') }}');">Stop Order Press </a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('HslPrdPrs') }}');">Hasil Prod Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HasilProd') }}');">Hasil Prod Press </a>
                                     </li>
 
                                 </ul>
@@ -245,25 +245,25 @@
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('OpnTop') }}');">Open Top</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('OpenTop') }}');">Open Top</a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('ClsTop') }}');">Close Top</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CloseTop') }}');">Close Top</a>
                                     </li>
 
                                 </ul>
                             </div>
 
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('CpTbl') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('CopyTabel') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Copy Tabel
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('PrintTbl') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('PrintTabel') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Print
                                 </a>

@@ -136,12 +136,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                     {{-- @foreach ($dataCust as $data)
-                         <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
-                             <td>{{ $data->NamaCust }}</td>
-                             <td>{{ $data->IDCust }}</td>
-                         </tr>
-                     @endforeach --}}
+                    @foreach ($dataDivisi as $data)
+                    <tr>
+                        <td>{{ $data->IdDivisi }}</td>
+                        <td>{{ $data->NamaDivisi }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -317,4 +317,5 @@
     </div>
 </div>
 
+<script src="{{ asset('js\AdStar\Schedule.js')}}"></script>
 @endsection

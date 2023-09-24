@@ -224,37 +224,37 @@
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');">Cetak Barcode Rusak </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('CetakBarcodeRusak') }}');">Cetak Barcode Rusak </a>
                                     </li>
 
                                     <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" onclick="OpenNewTab('{{ url('DftPlt') }}');">Daftar Palet </a>
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('DaftarPalet') }}');">Daftar Palet </a>
                                     </li>
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('HngsBrcd') }}');">Hanguskan Barcode </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('HangusBarcode') }}');">Hanguskan Barcode </a>
                                     </li>
 
                                     <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" onclick="OpenNewTab('{{ url('KrmGdng') }}');"> Kirim Gudang </a>
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KirimGudang') }}');"> Kirim Gudang </a>
                                     </li>
 
                                     <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" onclick="OpenNewTab('{{ url('BtlKrm') }}');">Batal Kirim </a>
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('BatalKirim') }}');">Batal Kirim </a>
                                     </li>
 
                                     <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" onclick="OpenNewTab('{{ url('KnvGdng') }}');">Konversi Gudang JBB </a>
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('KonversiGudang') }}');">Konversi Gudang JBB </a>
                                     </li>
 
                                     <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" onclick="OpenNewTab('{{ url('HslBrcd') }}');">Hasil Barcode </a>
+                                        tabindex="-1" onclick="OpenNewTab('{{ url('HasilBarcode') }}');">Hasil Barcode </a>
                                 </li>
 
                                 </ul>
@@ -267,7 +267,7 @@
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('BtBrcd') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('BuatBarcode') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Buat Barcode
                                 </a>
@@ -279,43 +279,43 @@
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('CtkBrcdRsk') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('CetakBarcodeRusak') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Cetak Barcode Rusak
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('DftPlt') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('DaftarPalet') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Daftar Palet
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('HngsBrcd') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('HangusBarcode') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Hanguskan Barcode
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('KrmGdng') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('KirimGudang') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Kirim Gudang
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('BtlKrm') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('BatalKirim') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Batal Kirim
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('KnvGdng') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('KonversiGudang') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Konversi Gudang JBB
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('HslBrcd') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('HasilBarcode') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
                                     Hasil Barcode
                                 </a>

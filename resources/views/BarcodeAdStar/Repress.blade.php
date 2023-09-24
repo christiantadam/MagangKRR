@@ -86,4 +86,5 @@
     </div>
 </div>
 
+<script src="{{ asset('js\AdStar\Repress.js')}}"></script>
 @endsection
