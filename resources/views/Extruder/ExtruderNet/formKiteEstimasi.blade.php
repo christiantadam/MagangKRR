@@ -32,7 +32,7 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Tanggal Start:</div>
                     <div class="col-lg-3">
-                        <input type="date" id="tgl_start" class="form-control">
+                        <input type="date" id="tgl_start" class="form-control unclickable">
                     </div>
                     <div class="col-lg-2 hidden">
                         <input type="number" class="form-control" id="meter">
@@ -63,7 +63,7 @@
                 <div class="row mt-3">
                     <div class="col-lg-2 aligned-text">Nama Barang:</div>
                     <div class="col-lg-10">
-                        <input type="text" id="nama_barang" class="form-control">
+                        <input type="text" id="nama_barang" class="form-control" disabled>
                     </div>
                 </div>
 
@@ -74,32 +74,32 @@
                         <div class="row">
                             <div class="col-lg-6 aligned-text">Bahan PP:</div>
                             <div class="col-lg-6" style="height: fit-content;">
-                                <input type="text" id="bahan_pp" class="form-control">
+                                <input type="text" id="bahan_pp" class="form-control" disabled>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-6 aligned-text">Benang:</div>
                             <div class="col-lg-6" style="height: fit-content;">
-                                <input type="text" id="benang" class="form-control">
+                                <input type="text" id="benang" class="form-control" disabled>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-6 aligned-text">Hasil:</div>
                             <div class="col-lg-6" style="height: fit-content;">
-                                <input type="text" id="hasil" class="form-control">
+                                <input type="text" id="hasil" class="form-control" disabled>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-lg-6 aligned-text">Sisa:</div>
                             <div class="col-lg-6" style="height: fit-content;">
-                                <input type="text" id="sisa" class="form-control">
+                                <input type="text" id="sisa" class="form-control" disabled>
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div id="estimase_bahan" class="card mt-3">
                             <div class="card-header">Estimasi Bahan</div>
 
                             <div class="card-body">

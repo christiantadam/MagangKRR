@@ -278,6 +278,12 @@ slcKomposisi.addEventListener("change", function () {
                                                         "Bahan dan Hasil Produksi"
                                                 );
 
+                                                slcKelut.selectedIndex = 0;
+                                                slcKelompok.selectedIndex = 0;
+                                                slcType.selectedIndex = 0;
+                                                slcSubkel.selectedIndex = 0;
+                                                refetchKelut = true;
+
                                                 btnKoreksiDetail.disabled = false;
                                                 numPersentase.disabled = false;
                                                 numCadangan.disabled = false;
@@ -320,16 +326,6 @@ slcMesin.addEventListener("change", function () {
         colKomposisi.length,
         "padding=250px"
     );
-});
-
-slcObjek.addEventListener("change", function () {
-    slcKelut.selectedIndex = 0;
-    slcKelompok.selectedIndex = 0;
-    slcType.selectedIndex = 0;
-    slcSubkel.selectedIndex = 0;
-    slcKelut.disabled = false;
-    slcKelut.focus();
-    refetchKelut = true;
 });
 
 slcKelut.addEventListener("mousedown", function () {
@@ -628,6 +624,7 @@ btnKoreksiMaster.addEventListener("click", function () {
 btnBaruMaster.addEventListener("click", function () {
     if (txtNamaKomposisi.classList.contains("hidden")) {
         txtNamaKomposisi.classList.remove("hidden");
+        txtNamaKomposisi.value = "";
         slcKomposisi.classList.add("hidden");
     }
 
@@ -685,7 +682,8 @@ btnHapusMaster.addEventListener("click", function () {
         () => {
             postModal("hapus_detail");
         },
-        "Hapus Sebagian"
+        "Hapus Sebagian",
+        () => {}
     );
 });
 
@@ -849,6 +847,8 @@ btnCadanganDetail.addEventListener("click", function () {
      * Namun button ini juga membaca bagian "Cadangan", dan
      * Hanya dapat dilakukan saat mode proses "Koreksi",
      * Tidak bisa dilakukan saat mode proses "Baru".
+     *
+     * Data cadangan hanya akan dimasukkan ke database bila berupa 0 atau 1
      */
 
     let jenis = "";
@@ -1481,7 +1481,7 @@ btnProses.addEventListener("click", function () {
 slcHP.addEventListener("mousedown", function () {
     if (refetchHP) {
         refetchHP = false;
-        clearOptions(this);
+        clearOptions(this, "Hasil Produksi");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1506,7 +1506,7 @@ slcHP.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchHP) {
             refetchHP = false;
-            clearOptions(this);
+            clearOptions(this, "Hasil Produksi");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",
@@ -1536,7 +1536,7 @@ slcHP.addEventListener("change", function () {
 slcNG.addEventListener("mousedown", function () {
     if (refetchNG) {
         refetchNG = false;
-        clearOptions(this);
+        clearOptions(this, "Hasil Produksi NG");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1561,7 +1561,7 @@ slcNG.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchNG) {
             refetchNG = false;
-            clearOptions(this);
+            clearOptions(this, "Hasil Produksi NG");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",
@@ -1591,7 +1591,7 @@ slcNG.addEventListener("change", function () {
 slcAF.addEventListener("mousedown", function () {
     if (refetchAF) {
         refetchAF = false;
-        clearOptions(this);
+        clearOptions(this, "Afalan");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1616,7 +1616,7 @@ slcAF.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchAF) {
             refetchAF = false;
-            clearOptions(this);
+            clearOptions(this, "Afalan");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",
@@ -1649,6 +1649,11 @@ slcAF.addEventListener("change", function () {
     clearDataDetail("cadangan");
     numCadangan.value = 0;
     addOptionIfNotExists(slcObjek, 213, 213 + " | Bahan dan Hasil Produksi");
+    slcKelut.selectedIndex = 0;
+    slcKelompok.selectedIndex = 0;
+    slcType.selectedIndex = 0;
+    slcSubkel.selectedIndex = 0;
+    refetchKelut = true;
     btnTambahAfalan.disabled = false;
     btnTambahAfalan.focus();
 });
@@ -1791,8 +1796,11 @@ function clearDataMaster() {
     listOfMaster.forEach((slc) => (slc.selectedIndex = 0));
 }
 
-function disableDetail() {
+function disableDetail(exclusion_id = "") {
     listOfDetail.forEach((ele) => (ele.disabled = true));
+
+    if (exclusion_id != "")
+        document.getElementById(exclusion_id).disabled = false;
 }
 
 function disableAll() {
@@ -1895,22 +1903,29 @@ function insertDetailFetch(post_action = null) {
                     );
                 }
 
-                // if (listKomposisi[i].Cadangan == 1) {
-                //     let cadangan = -1;
-                //     // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 3
-                //     fetchSelect(
-                //         "/Master/insKomposisiBahanMjs/3/" +
-                //             slcKomposisi.value +
-                //             "/" +
-                //             numPersentase.value,
-                //         (data) => {
-                //             if (data.length > 0) {
-                //                 cadangan = data[0].Cadangan;
-                //                 cadangan += 1;
-                //             } else alert("Data cadangan tidak ditemukan.");
-                //         }
-                //     );
-                // }
+                if (listKomposisi[i].Cadangan == 1) {
+                    // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 1
+                    fetchStmt(
+                        "/Master/insKomposisiBahanMjs/1/" +
+                            slcKomposisi.value.trim() +
+                            "/" +
+                            listKomposisi[i].IdType.trim() +
+                            "/" +
+                            slcHP.value.trim() +
+                            "/" +
+                            idDivisi +
+                            "/" +
+                            listKomposisi[i].Persentase +
+                            "/" +
+                            listKomposisi[i].JumlahPrimer +
+                            "/" +
+                            listKomposisi[i].JumlahSekunder +
+                            "/" +
+                            listKomposisi[i].JumlahTritier +
+                            "/" +
+                            listKomposisi[i].Cadangan
+                    );
+                }
 
                 if (i == listKomposisi.length - 1) {
                     if (listAfalan.length > 0) {

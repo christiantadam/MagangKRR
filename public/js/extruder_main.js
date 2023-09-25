@@ -15,6 +15,7 @@
 //#region Modal jQuery
 const btnConfirm = document.getElementById("btn_confirm_md");
 const btnCancel = document.getElementById("btn_cancel_md");
+const btnClose = document.getElementById("btn_close_md");
 const modalConfirmBody = document.getElementById("modal_body");
 
 $("#confirmation_modal").on("shown.bs.modal", function () {
@@ -47,16 +48,18 @@ function showModal(
     txtBody,
     confirmFun,
     cancelFun = null,
-    txtCancel = null
+    txtCancel = null,
+    closeFun = null
 ) {
     modalConfirmBody.innerHTML = txtBody;
     btnConfirm.textContent = txtBtn;
     btnConfirm.onclick = confirmFun;
     btnCancel.textContent = "Batal";
     btnCancel.onclick = cancelFun;
-
+    btnClose.onclick = closeFun == null ? cancelFun : closeFun;
     if (txtCancel != null) btnCancel.textContent = txtCancel;
 
+    $("#confirmation_modal").modal({ backdrop: "static", keyboard: false });
     $("#confirmation_modal").modal("show");
 }
 //#endregion

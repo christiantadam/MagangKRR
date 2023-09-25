@@ -19,7 +19,6 @@ const btnSimpan = document.getElementById("btn_simpan");
 const btnKeluar = document.getElementById("btn_keluar");
 
 const listOfTxt = document.querySelectorAll(".form-control");
-
 var refetchKode = true;
 //#endregion
 
@@ -142,9 +141,9 @@ btnSimpan.addEventListener("click", function () {
             "/Master/getKiteExtruder/1/" +
                 dateStart.value +
                 "/" +
-                jenis +
+                slcKodeBarang.options[slcKodeBarang.selectedIndex].text +
                 "/" +
-                slcKodeBarang.value +
+                jenis +
                 "/" +
                 txtBahanPP.value +
                 "/" +
@@ -169,7 +168,10 @@ btnCekKode.addEventListener("click", function () {
     const post_action = () => {
         // SP_1273_EXT_KITE Kode 4
         fetchSelect(
-            "/Master/getKiteExtruder/4/" + dateStart.value + "/" + kodeBarang,
+            "/Master/getKiteExtruder/4/" +
+                dateStart.value +
+                "/" +
+                kodeBarang.trim(),
             (data) => {
                 if (data.length > 0) {
                     addOptionIfNotExists(

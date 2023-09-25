@@ -396,12 +396,12 @@
     </header><!-- End Header -->
 
     <!-- Modal -->
-    <div class="modal fade" id="confirmation_modal" tabindex="-1">
+    <div class="modal fade" id="confirmation_modal" tabindex="-1" data-toggle="modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Pesan Konfirmasi</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" id="btn_close_md" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div id="modal_body" class="modal-body">
                     ...

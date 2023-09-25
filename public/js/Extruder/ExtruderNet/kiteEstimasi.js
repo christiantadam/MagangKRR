@@ -22,6 +22,10 @@ const hidOrder = document.getElementById("id_order");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
+const listOfEstimasi = document.querySelectorAll(
+    "#estimasi_bahan .form-control"
+);
+
 const listOrder = [];
 /* ISI LIST ORDER
     0 Tanggal
@@ -36,6 +40,12 @@ var refetchKode = false;
 //#region Events
 rdoPembebasan.addEventListener("change", function () {
     refetchKode = true;
+    clearAll();
+});
+
+rdoPengembalian.addEventListener("change", function () {
+    refetchKode = true;
+    clearAll();
 });
 
 slcKodeBarang.addEventListener("mousedown", function () {
@@ -262,6 +272,21 @@ btnKeluar.addEventListener("click", function () {
 //#endregion
 
 //#region Functions
+function clearAll() {
+    listOrder.length = 0;
+    clearTable_DataTable("table_order", 4);
+
+    slcKodeBarang.selectedIndex = 0;
+    dateStart.value = getCurrentDate();
+    txtNamaBarang.value = "";
+    txtBahanPP.value = "";
+    txtBenang.value = "";
+    txtHasil.value = "";
+    txtSisa.value = "";
+
+    listOfEstimasi.forEach((ele) => (ele.value = ""));
+    dateEstimasi.value = getCurrentDate();
+}
 //#endregion
 
 function init() {

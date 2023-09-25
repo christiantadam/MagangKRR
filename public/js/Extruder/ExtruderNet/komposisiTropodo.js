@@ -535,7 +535,8 @@ btnHapusMaster.addEventListener("click", function () {
                 "padding=250px"
             );
         },
-        "Hapus Sebagian"
+        "Hapus Sebagian",
+        () => {}
     );
 });
 
