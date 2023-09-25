@@ -72,17 +72,17 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('KaryawanHarian') }}">Harian</a>
+                                                    tabindex="-1" href="{{ url('KaryawanHarian') }}">Harian ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('KaryawanKeluarga') }}">Keluarga</a>
+                                                    tabindex="-1" href="{{ url('KaryawanKeluarga') }}">Keluarga ✓</a>
                                             </li>
 
                                         </ul>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Master/Divisi') }}">Divisi</a>
+                                            tabindex="-1" href="{{ url('ProgramPayroll/Master/Divisi') }}">Divisi ✓</a>
                                     </li>
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
@@ -90,25 +90,25 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('settingDivisiHarian') }}">Harian</a></li>
+                                                    tabindex="-1" href="{{ url('settingDivisiHarian') }}">Harian ✓</a></li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('settingDivisiStaff') }}">Staff</a>
+                                                    tabindex="-1" href="{{ url('settingDivisiStaff') }}">Staff ✓</a>
                                             </li>
 
                                         </ul>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('MasterNomer') }}">Nomer</a>
+                                            tabindex="-1" href="{{ url('MasterNomer') }}">Nomer ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('MasterKartu') }}">Kartu</a>
+                                            tabindex="-1" href="{{ url('MasterKartu') }}">Kartu ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('settingShift') }}">Setting Shift</a>
+                                            tabindex="-1" href="{{ url('settingShift') }}">Setting Shift ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('MasterKlinik') }}">Klinik</a>
+                                            tabindex="-1" href="{{ url('MasterKlinik') }}">Klinik ✓</a>
                                     </li>
 
                                 </ul>
@@ -125,7 +125,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Jam') }}">Pakai Jam</a>
+                                                    tabindex="-1" href="{{ url('AgendaMasuk/Jam') }}">Pakai Jam</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Shift') }}">Pakai Shift</a>

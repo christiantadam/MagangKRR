@@ -12,8 +12,8 @@ class AgendaJamController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Agenda.AgendaMasuk.agendaJam', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
+        return view('Payroll.Agenda.AgendaMasuk.agendaJam', compact('dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -25,13 +25,34 @@ class AgendaJamController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data , " Masuk store bosq");
+        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
+
+            $data['kd_pegawai'],
+            $data['Tanggal'],
+            $data['Jml_Jam'],
+            $data['Ket_Absensi'],
+            $data['User_Input']
+        ]);
+        return redirect()->route('Jam.index')->with('alert', 'Data Agenda berhasil ditambahkan!');
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getPegawai
+        if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }else if ($crExplode[$lastIndex] == "cekAgenda") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_AGENDA @kd_pegawai = ?, @Tanggal = ?', [$crExplode[0],$crExplode[1]]);
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/Agenda/agendaJam.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -11,8 +12,8 @@
                             <div style="flex: 1; margin-right: 10px;">
                                 <label style="margin-right: 10px;">Tanggal</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                    <input class="form-control" type="date" id="TglAwal" name="TglAwal"
+                                        value="{{ old('TglAwal', now()->format('Y-m-d')) }}" required>
 
 
                                 </div>
@@ -21,8 +22,8 @@
                             <div style="flex: 1; margin-right: 10px;">
                                 <label style="margin-right: 10px;">S/D</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                    <input class="form-control" type="date" id="TglAkhir" name="TglAkhir"
+                                        value="{{ old('TglAkhir', now()->format('Y-m-d')) }}" required>
 
 
                                 </div>
@@ -44,6 +45,32 @@
                                     <label for="staff">Perorangan</label>
                                 </div>
                                 <br>
+                                <div class="row" style="margin-left:50px;">
+                                    <div class="form-group col-md-1 d-flex justify-content-end">
+                                        <span class="aligned-text">Divisi</span>
+                                    </div>
+                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <select class="form-control" id="DivisiSelect" name="Divisi"
+                                            style="resize: none;height: 40px; max-width:350px">
+                                            <option value="">Pilih Divisi</option>
+                                            @foreach ($dataDivisi as $option)
+                                                <option value="{{ $option->Id_Div }}">{{ $option->Id_Div }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-left:50px;">
+                                    <div class="form-group col-md-1 d-flex justify-content-end">
+                                        <span class="aligned-text">Kd&nbsp;Pegawai</span>
+                                    </div>
+                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+                                        <select class="form-control" id="PegawaiSelect" name="PegawaiSelect"
+                                            style="resize: none;height: 40px; max-width:350px">
+                                            <option value="">Pilih Pegawai</option>
+
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead>
@@ -98,9 +125,9 @@
                                     </table>
                                 </div>
 
-                                <div style="text-align: right; margin-top: 100px;">
-                                    <button type="button" class="btn btn-primary">Pilih Semua</button>
-                                    <button type="button" class="btn btn-info">Generate Perorangan</button>
+                                <div style="text-align: center; margin-top: 100px;">
+
+                                    <button type="button" class="btn" style="height: 50px;width: 100px;" id="generateButton">Generate</button>
                                 </div>
 
                             </div>
@@ -166,6 +193,7 @@
 
                                     </table>
                                 </div>
+                                <div id="form-container"></div>
                                 <div style="text-align: right; margin-top: 100px;">
                                     <button type="button" class="btn btn-primary">Pilih Semua</button>
                                     <button type="button" class="btn btn-info">Generate Divisi</button>

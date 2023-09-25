@@ -43,6 +43,7 @@ Route::resource('MasterKlinik', App\Http\Controllers\Payroll\Master\Klinik\Klini
 
 
 //Agenda
+Route::resource('AgendaMasuk/Jam', App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaJamController::class);
 Route::resource('TambahAgenda', App\Http\Controllers\Payroll\Agenda\TambahAgenda\TambahAgendaController::class);
 Route::resource('UbahAgenda', App\Http\Controllers\Payroll\Agenda\UbahAgenda\UbahAgendaController::class);
 Route::resource('HariBesar', App\Http\Controllers\Payroll\Agenda\HariBesar\HariBesarController::class);
@@ -98,7 +99,7 @@ Route::post('ProgramPayroll/Master/deleteDivisi', 'App\Http\Controllers\Payroll\
 // Route::get('ProgramPayroll/Master/Klinik', 'App\Http\Controllers\Payroll\Master\Klinik\KlinikController@index');
 
 // Payroll Agenda
-Route::get('ProgramPayroll/Agenda/AgendaMasuk/Jam', 'App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaJamController@index');
+// Route::get('ProgramPayroll/Agenda/AgendaMasuk/Jam', 'App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaJamController@index');
 Route::get('ProgramPayroll/Agenda/AgendaMasuk/Shift', 'App\Http\Controllers\Payroll\Agenda\AgendaMasuk\AgendaShiftController@index');
 // Route::get('ProgramPayroll/Agenda/TambahAgenda', 'App\Http\Controllers\Payroll\Agenda\TambahAgenda\TambahAgendaController@index');
 // Route::get('ProgramPayroll/Agenda/UbahAgenda', 'App\Http\Controllers\Payroll\Agenda\UbahAgenda\UbahAgendaController@index');
