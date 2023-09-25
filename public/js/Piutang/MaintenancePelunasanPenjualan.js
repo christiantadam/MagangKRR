@@ -208,6 +208,60 @@ function TampilCust() {
                 });
             });
         });
+    } else if (cust == 2 || cust == 3) {
+        fetch("/getCustKoreksi/")
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            namaCustomerSelect.innerHTML = "";
+
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih Cust";
+            namaCustomerSelect.appendChild(defaultOption);
+
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.IDCust; // Gunakan entry.IdCust sebagai nilai opsi
+                option.innerText = entry.IDCust + "|" + entry.NAMACUST; // Gunakan entry.IdCust dan entry.NamaCust untuk teks opsi
+                namaCustomerSelect.appendChild(option);
+            });
+        });
+        namaCustomerSelect.addEventListener("change", function (event) {
+            event.preventDefault();
+            const selectedOption = namaCustomerSelect.options[namaCustomerSelect.selectedIndex];
+            if (selectedOption) {
+                const selectedValue = selectedOption.textContent; // Atau selectedOption.innerText
+                const bagiansatu = selectedValue.split(/[-|]/);
+                const jenis = bagiansatu[0];
+                const idcust = bagiansatu[1];
+                namacust = bagiansatu[2];
+                idCustomer.value = idcust;
+                idJenisCustomer.value  = jenis;
+
+                jenisPembayaranSelect.focus();
+            }
+            fetch("/getReferensiBank/" + idCustomer.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                informasiBankSelect.innerHTML="";
+
+                const defaultOption = document.createElement("option");
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                defaultOption.innerText = "Ref Bank";
+                informasiBankSelect.appendChild(defaultOption);
+
+                options.forEach((entry) => {
+                    const option = document.createElement("option");
+                    option.value = entry.IdReferensi;
+                    option.innerText = entry.IdReferensi + "|" + entry.Ket;
+                    informasiBankSelect.appendChild(option);
+                });
+            });
+        });
     }
 };
 
@@ -709,7 +763,7 @@ $("#tabelPelunasanPenjualan tbody").on("click", "tr", function () {
         tabelKurangLebih.value = selectedRows[0][8];
         tabelKodePerkiraan.value = selectedRows[0][9];
         tabelIdDetail.value = selectedRows[0][10];
-    } else if (proses == 2) {
+    } else if (proses == 2 || proses == 3) {
         tabelIdDetailPelunasan.value = selectedRows[0].ID_Detail_Pelunasan;
         tabelIdPenagihan.value = selectedRows[0].ID_Penagihan;
         tabelNilaiPelunasan.value = selectedRows[0].Nilai_Pelunasan;
@@ -887,10 +941,16 @@ btnSimpan.addEventListener('click', function(event) {
     } else if (proses == 3) {
         var userInput = prompt("Menghapus Pelunasan [H] Atau Batal Giro [B]");
         userInput = hAtauB.value;
+        console.log(hAtauB.value);
+        if (hAtauB.value === 'H' || hAtauB.value === 'B') {
+
+            methodkoreksi.value="DELETE";
+            formkoreksi.action = "/MaintenancePelunasanPenjualan/" + Id_Pelunasan.value;
+            formkoreksi.submit();
+        }
+
     }
-    // methodkoreksi.value="DELETE";
-    //     formkoreksi.action = "/MaintenancePelunasanPenjualan/" + Id_Pelunasan.value;
-    //     formkoreksi.submit();
+
 
 });
 
@@ -1080,6 +1140,7 @@ btnHapus.addEventListener('click', function(event) {
 
     koreksi();
     proses = 3;
+    cust = 3;
 })
 
 

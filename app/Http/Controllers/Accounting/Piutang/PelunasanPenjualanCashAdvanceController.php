@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelunasanPenjualanCashAdvanceController extends Controller
 {
-    public function PelunasanPenjualanCashAdvance()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.PelunasanPenjualanCashAdvance', compact('data'));
+    }
+
+    public function getCustIsiCashAdvance()
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = ?', [7]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +33,7 @@ class PelunasanPenjualanCashAdvanceController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
