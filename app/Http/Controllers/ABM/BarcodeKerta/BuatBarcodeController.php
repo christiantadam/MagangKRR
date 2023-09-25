@@ -31,39 +31,55 @@ class BuatBarcodeController extends Controller
         //
     }
 
-    //Display the specified resource.
+    // Display the specified resource.
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
 
-        //getDivisi
-        if ($crExplode[1] == "txtIdDivisi") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', [ "", $crExplode[0] ]);
+        // getDivisi
+        if ($crExplode[$lasindex] == "txtIdDivisi") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', ["", $crExplode[0]]);
             // dd($dataType);
             // Return the options as JSON data
             return response()->json($dataType);
-        } else if ($crExplode[1] == "buatBarcode") {
-            $dataBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_SimpanPermohonanBarcode
-            @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
-            @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?',
-            [ "0016",
-              "U001",
-              "2023-09-22",
-              "1",
-              "10",
-              "12",
-              "SKL01",
-              "00000KB02",
-              "00000KB02",
-              "Pagi",]);
-            dd($dataBarcode);
+        } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->statement(
+                'exec SP_5409_INV_SimpanPermohonanBarcode
+        @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
+        @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
+                [
+                    "0016",
+                    "U001",
+                    "2023-09-22",
+                    "1",
+                    "10",
+                    "12",
+                    "SKL01",
+                    "00000KB02",
+                    "00000KB02",
+                    "Pagi",
+                    " ",
+                    " "
+                ]
+            );
+            // dd($dataBarcode);
             // Return the options as JSON data
             return response()->json($dataBarcode);
-        } else if ($crExplode[1] == "getJumlahBarcode") {
-            $dataJumlahBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_JumlahBarcode @tanggal = ?, @kelompokutama = ?, @shift = ?', [ ]);
+        } else if ($crExplode[$lasindex] == "getJumlahBarcode") {
+            $dataJumlahBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_JumlahBarcode @tanggal = ?, @kelompokutama = ?, @shift = ?', []);
             // dd($dataJumlahBarcode);
             // Return the options as JSON data
             return response()->json($dataJumlahBarcode);
+        } else if ($crExplode[$lasindex] == "getIndex") {
+            $dataNoIndex = DB::connection('ConnInventory')
+                ->table('SP_5409_INV_SimpanPermohonanBarcode')
+                ->where('NoIndeks', $crExplode[0]) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
+                ->first(); // Ambil data dari baris pertama yang sesuai
+
+            // dd($dataNoIndex);
+            return response()->json($dataNoIndex); // Mengembalikan dataNoIndex sebagai respons JSON
         }
     }
 

@@ -103,50 +103,49 @@ $(document).ready(function () {
 
     // var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode')
     // ButtonPrintBarcode.addEventListener("click", function (event) {
-    //     var idtype = document.getElementById('0016');
+    //     var idtype = '0016';
     //     var tanggal = document.getElementById('tanggalOutput');
     //     var primer = document.getElementById('Primer');
     //     var sekunder = document.getElementById('SekunderOutput');
     //     var tritier = document.getElementById('tritier');
-    //     var UserID = document.getElementById('U001');
-    //     var asalidsubkelompok = document.getElementById('SKL01');
-    //     var kodebarang = document.getElementById('00000KB02');
+    //     var UserID = 'U001';
+    //     var asalidsubkelompok = 'SKL01';
+    //     var kodebarang = '00000KB02';
     //     var uraian = document.getElementById('shift');
-    //     var idsubkontraktor = document.getElementById('00000KB02');
+    //     var idsubkontraktor = '00000KB02';
 
-    //     fetch("/BuatBarcode/" + idtype.value + UserID.value + tanggal.value +
-    //     primer.value + sekunder.value + tritier.value + asalidsubkelompok.value +
-    //     idsubkontraktor.value + kodebarang.value + uraian.value + ".buatBarcode")
+    // fetch("/BuatBarcode/" + idtype + UserID + tanggal.value +
+    //     primer.value + sekunder.value + tritier.value + asalidsubkelompok +
+    //     idsubkontraktor + kodebarang + uraian.value + ".buatBarcode")
 
     //         .then((response) => {
     //             if (!response.ok) {
     //                 throw new Error("Network response was not ok");
     //             }
-    //             return response.json(); // Assuming the response is in JSON format
+    //             return response.json();
     //         })
     //         .then((data) => {
-    //             // // Handle the data retrieved from the server (data should be an object or an array)
-    //             // console.log(data);
-    //             // // Clear the existing table rows
-    //             // $("#TableObjek").DataTable().clear().draw();
+    //             if (data === true) {
+    //                 // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
+    //                 console.log("Response is true, handling it...");
 
-    //             // Loop through the data and create table rows
-    //             // data.forEach((item) => {
-    //             //     var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
-    //             //     console.log(kodebarcode);
-    //             //     var row = [kodebarang];
-    //             //     $("#TableObjek").DataTable().row.add(row);
-    //             // });
-    //             data.forEach((item) => {
-    //                 var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
-    //                 console.log(kodebarcode);
+    //                 // Lakukan tindakan yang sesuai ketika respons adalah true
+    //                 // Contoh: Munculkan pesan sukses atau lakukan tindakan lain
 
-    //                 // Show an alert for each 'kodebarang'
-    //                 alert('Kode Barang: ' + kodebarcode);
-    //             });
-
-    //             // // Redraw the table to show the changes
-    //             // $("#TableObjek").DataTable().draw();
+    //                 // Misalnya:
+    //                 alert('Barcode berhasil dibuat.');
+    //             } else if (Array.isArray(data)) {
+    //                 // Respons adalah array JSON yang sesuai
+    //                 data.forEach((item) => {
+    //                     var kodebarcode = item.Kode_barang.padStart(9, '0') + '-' + item.noindeks.padStart(9, '0');
+    //                     console.log(kodebarcode);
+    //                     // Show an alert for each 'kodebarang'
+    //                     alert('Kode Barang: ' + kodebarcode);
+    //                 });
+    //             } else {
+    //                 console.error("Unexpected response data:", data);
+    //                 // Handle other unexpected responses here
+    //             }
     //         })
     //         .catch((error) => {
     //             console.error("Error:", error);
@@ -154,43 +153,67 @@ $(document).ready(function () {
     // });
 
     var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
-
     ButtonPrintBarcode.addEventListener("click", function (event) {
-        // Mengambil nilai dari elemen-elemen dengan ID yang sesuai
-        var idtype = document.getElementById('0016').value;
+        var idtype = '0016';
         var tanggal = document.getElementById('tanggalOutput').value;
         var primer = document.getElementById('Primer').value;
         var sekunder = document.getElementById('SekunderOutput').value;
         var tritier = document.getElementById('tritier').value;
-        var UserID = document.getElementById('U001').value;
-        var asalidsubkelompok = document.getElementById('SKL01').value;
-        var kodebarang = document.getElementById('00000KB02').value;
+        var UserID = 'U001';
+        var asalidsubkelompok = 'SKL01';
+        var kodebarang = '00000KB02';
         var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = document.getElementById('00000KB02').value;
+        var idsubkontraktor = '00000KB02';
 
-        // Menggabungkan nilai-nilai tersebut untuk membentuk URL
-        var url = `/BuatBarcode/${idtype}${UserID}${tanggal}${primer}${sekunder}${tritier}${asalidsubkelompok}${idsubkontraktor}${kodebarang}${uraian}.buatBarcode`;
-
-        fetch(url)
+        // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+        fetch("/BuatBarcode/" + idtype + UserID + tanggal +
+            primer + sekunder + tritier + asalidsubkelompok +
+            idsubkontraktor + kodebarang + uraian + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
-                return response.json(); // Asumsi respons dalam format JSON
+                return response.json();
             })
             .then((data) => {
-                data.forEach((item) => {
-                    var kodebarcode = item.kodebarang.padStart(9, '0') + '-' + item.NoIndeks.padStart(9, '0');
-                    console.log(kodebarcode);
+                if (data === true) {
+                    // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
+                    console.log("Barcode berhasil dibuat.");
+                    alert('Barcode berhasil dibuat.');
 
-                    // Menampilkan kodebarang dalam sebuah pop-up alert
-                    alert('Kode Barang: ' + kodebarcode);
-                });
+                    // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
+                    fetch("/BuatBarcode/" + idtype + UserID + tanggal +
+                    primer + sekunder + tritier + asalidsubkelompok +
+                    idsubkontraktor + kodebarang + uraian + ".getIndex")
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            // Handle data yang diterima dari fetch kedua di sini
+                            console.log("Data dari fetch kedua:", data);
+                        })
+                        .catch((error) => {
+                            console.error("Error dalam fetch kedua:", error);
+                        });
+                } else {
+                    console.error("Unexpected response data:", data);
+                    // Handle other unexpected responses here
+                }
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
     });
+    // ... (Bagian kode lainnya)
+
+    // Function to enable the "Isi Jumlah Barang" button and "Timbang" button
+    function enableIsiJumlahBarangButton() {
+        document.getElementById("ButtonJumlahBarang").disabled = false;
+        document.getElementById("ButtonTimbang").disabled = false;
+    }
 
     // Get the input elements
     const tanggalInput = document.getElementById("tanggalInput");

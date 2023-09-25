@@ -369,6 +369,8 @@
                                     </div>
                                 </div>
                         </div>
+                        <div id="kodeBarcodeContainer"></div>
+
                         </form>
                     </div>
                 </div>
