@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class JadwalKonstruksiController extends Controller
 {
-    public function MaintenanceBagianGambar() {
-        return view('workshop.GPS.Jadwal_konstruksi.MaintenanceGambar');
-    }
     public function InputJadwal() {
         return view('workshop.GPS.Jadwal_konstruksi.InputJadwal');
     }

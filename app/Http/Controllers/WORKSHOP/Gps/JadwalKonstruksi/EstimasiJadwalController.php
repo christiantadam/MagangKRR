@@ -21,6 +21,10 @@ class EstimasiJadwalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-ORDER-GAMBAR] @kode = ?, @noOd = ?', [1,$noOd]);
         return response()->json($data);
     }
+    public function cektanggal($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
     public function GetTanggal($noOd) {
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_ESTIMASI_KONSTRUKSI] @noOd = ?', [$noOd]);
         return response()->json($data);
