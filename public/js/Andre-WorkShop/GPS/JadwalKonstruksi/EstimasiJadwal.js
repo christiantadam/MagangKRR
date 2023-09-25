@@ -12,13 +12,48 @@ let Mesin = document.getElementById('Mesin');
 let Pengorder = document.getElementById('Pengorder');
 let TglStart = document.getElementById('TglStart');
 let TglFinish = document.getElementById('TglFinish');
+let btnisi = document.getElementById('Isi');
+let btnkoreksi = document.getElementById('Koreksi');
+let btnhapus = document.getElementById('Hapus');
 let btnProses = document.getElementById('Proses');
-
-
+let btnbatal = document.getElementById('Batal');
 //#region btn isi on click
 function isi() {
     proses = 1;
+    NoOrder.disabled = false;
+    TglStart.disabled = false;
+    TglFinish.disabled = false;
+    btnisi.disabled = true;
+    btnkoreksi.disabled = true;
+    btnhapus.disabled = true;
+    btnbatal.style.display = "";
 }
+//#endregion
+
+//#region batal
+
+function Bataldiklik() {
+    btnbatal.style.display = "none";
+    btnProses.disabled = true;
+    NoOrder.disabled = true;
+    TglStart.disabled = true;
+    TglFinish.disabled = true;
+    btnisi.disabled = false;
+    btnkoreksi.disabled = false;
+    btnhapus.disabled = false;
+    NoOrder.value = "";
+    OdSts.textContent = "";
+    divisi.value = "";
+    Kode_Barang.value = "";
+    NoGambarRev.value = "";
+    NamaBarang.value = "";
+    Mesin.value = "";
+    Pengorder.value = "";
+    KetOrder.value = "";
+    TglStart.value = "";
+    TglFinish.value = "";
+}
+
 //#endregion
 
 //#region tgl start dan tgl finish on enter
@@ -38,7 +73,7 @@ TglFinish.addEventListener('keypress', function(event){
             return;
         }
         else{
-            btnProses.disable = false;
+            btnProses.disabled = false;
             btnProses.focus();
         }
     }
@@ -94,6 +129,13 @@ function loaddata(NomorOrder) {
 
 function koreksiklik(){
     proses = 2;
+    NoOrder.disabled = false;
+    TglStart.disabled = false;
+    TglFinish.disabled = false;
+    btnisi.disabled = true;
+    btnkoreksi.disabled = true;
+    btnhapus.disabled = true;
+    btnbatal.style.display = "";
 }
 
 //#endregion
@@ -102,6 +144,13 @@ function koreksiklik(){
 
 function hapusdiklik() {
     proses = 3;
+    NoOrder.disabled = false;
+    TglStart.disabled = false;
+    TglFinish.disabled = false;
+    btnisi.disabled = true;
+    btnkoreksi.disabled = true;
+    btnhapus.disabled = true;
+    btnbatal.style.display = "";
 }
 
 //#endregion
