@@ -27,15 +27,32 @@ class AgendaJamController extends Controller
     {
         $data = $request->all();
         // dd($data , " Masuk store bosq");
-        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
+        if ( $data['opsi'] === 'hariMinggu') {
+            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
 
-            $data['kd_pegawai'],
-            $data['Tanggal'],
-            $data['Jml_Jam'],
-            $data['Ket_Absensi'],
-            $data['User_Input']
-        ]);
-        return redirect()->route('Jam.index')->with('alert', 'Data Agenda berhasil ditambahkan!');
+                $data['kd_pegawai'],
+                $data['Tanggal'],
+                $data['Jml_Jam'],
+                $data['Ket_Absensi'],
+                $data['User_Input']
+            ]);
+            return redirect()->back();
+        }else if ($data['opsi'] === 'hariNormal') {
+            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
+
+                $data['kd_pegawai'],
+                $data['Tanggal'],
+                $data['Jam_Masuk'],
+                $data['Jam_Keluar'],
+                $data['Jml_Jam'],
+                $data['awal_Jam_istirahat'],
+                $data['akhir_Jam_istirahat'],
+                $data['Ket_Absensi'],
+                $data['User_Input']
+            ]);
+            return redirect()->back();
+        }
+
     }
 
     //Display the specified resource.
