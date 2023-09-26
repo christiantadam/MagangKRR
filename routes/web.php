@@ -9,8 +9,8 @@ use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 
 /**
- * PERBAIKAN   : DEBUG | FrmMohonKonversiNG.vb
- * MIGRASI     : loadDataKwaH() | FrmDaya.vb
+ * DOKUMENTASI  : Form Benang Mohon & ACC
+ * MIGRASI      : loadDataKwaH() | FrmDaya.vb
  *
  * User_id = 4384
  *
@@ -201,20 +201,20 @@ Route::get('/Catat/getListShift/{id_konversi}', [PencatatanController::class, 'g
 Route::get('/Catat/getNoTrans', [PencatatanController::class, 'getNoTrans']);
 
 Route::get('/Catat/insGangguanProd/{tanggal}/{id_mesin}/{id_gangguan}/{id_konversi?}/{shift}/{awal}/{akhir}/{awal_gangguan}/{akhir_gangguan}/{jumlah_jam}/{jumlah_menit}/{status}/{keterangan}/{jam_user}/{user}', [PencatatanController::class, 'insGangguanProd']);
-
 Route::get('/Catat/updGangguanProd/{no_trans}/{awal}/{akhir}/{jam}/{menit}/{ket}', [PencatatanController::class, 'updGangguanProd']);
-
 Route::get('/Catat/delGangguanProd/{no_trans}', [PencatatanController::class, 'delGangguanProd']);
 #endregion
 
 #region ExtruderNet - Form Catat Daya
 Route::get('/Catat/getFaktorKali/{id_mesin}', [PencatatanController::class, 'getFaktorKali']);
 Route::get('/Catat/getKwahMesinPerbulan/{bulan}/{tahun}', [PencatatanController::class, 'getKwahMesinPerbulan']);
-Route::get('/Catat/insKwahMesin/{tanggal}/{id_mesin}/{jam}/{counter}/{kali}/{jam_user}/{user}', [PencatatanController::class, 'insKwahMesin']);
-Route::get('/Catat/updKwahMesin/{id_kwah_mesin}/{counter}', [PencatatanController::class, 'updKwahMesin']);
-Route::get('/Catat/delKwahMesin/{id_kwah}', [PencatatanController::class, 'delKwahMesin']);
 Route::get('/Catat/getListDataKwahMesin/{bulan}/{tahun}', [PencatatanController::class, 'getListDataKwahMesin']);
 Route::get('/Catat/getKwahMesin/{tanggal}/{id_divisi}', [PencatatanController::class, 'getKwahMesin']);
+
+Route::get('/Catat/insKwahMesin/{tanggal}/{id_mesin}/{jam}/{counter}/{kali}/{jam_user}/{user}', [PencatatanController::class, 'insKwahMesin']);
+// Route::get('/Catat/insKwahMesin111/{tanggal}/{id_mesin}/{jam}/{counter}/{kali}/{jam_user}/{user}', [PencatatanController::class, 'insKwahMesin111']);
+Route::get('/Catat/updKwahMesin/{id_kwah_mesin}/{counter}', [PencatatanController::class, 'updKwahMesin']);
+Route::get('/Catat/delKwahMesin/{id_kwah}', [PencatatanController::class, 'delKwahMesin']);
 #endregion
 
 #region ExtruderNet - Form Catat Effisiensi

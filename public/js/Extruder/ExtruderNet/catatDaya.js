@@ -1,13 +1,12 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
 const timeJamProd = document.getElementById("jam_produksi");
+const slcMesin = document.getElementById("select_mesin");
 
 const txtCounter = document.getElementById("counter");
 const txtId = document.getElementById("teks_id");
-const txtFaktor = document.getElementById("faktor_kali");
+const txtFaktor = document.getElementById("faktor");
 const txtTanggal = document.getElementById("data_tgl");
-
-const slcMesin = document.getElementById("select_mesin");
 
 const btnOk = document.getElementById("btn_ok");
 const btnIsi = document.getElementById("btn_isi");
@@ -26,18 +25,19 @@ const tableDayaCol = [
     { width: "140px" }, // Counter
     { width: "100px" }, // Faktor Kali
     { width: "140px" }, // Id User
-    { width: "140px" }, // Id KwaH
+    { width: "100px" }, // Id KWaH
 ];
 
 const listDaya = [];
 /* ISI LIST DAYA
-    0 Tanggal
-    1 IdMesin
-    2 Jam
-    3 CounterKWaH
-    4 FaktorKali
-    5 UserInput
-    6 IdKwahMesin
+    0 IdKwahMesin1
+    1 Tanggal
+    2 IdMesin
+    3 Jam
+    4 CounterKWaH
+    5 FaktorKali
+    6 UserInput
+    8 IdKwahMesin2
 */
 
 var checkboxesDaya = null;
@@ -61,14 +61,16 @@ slcMesin.addEventListener("change", function () {
 txtCounter.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         // SP_5298_EXT_FAKTOR_KALI
-        fetchStmt("/Catat/getFaktorKali/" + slcMesin.value, (data) => {
-            if (data[0].FaktorKali !== undefined) {
+        fetchSelect("/Catat/getFaktorKali/" + slcMesin.value, (data) => {
+            if (data.length > 0) {
                 txtFaktor.value = data[0].FaktorKali;
-            } else {
-                alert("Faktor kali tidak ditemukan!");
-            }
-
-            btnProses.focus();
+                btnProses.focus();
+            } else
+                alert(
+                    "Faktor Kali untuk Mesin " +
+                        slcMesin.value +
+                        " tidak ditemukan."
+                );
         });
     }
 });
@@ -101,7 +103,7 @@ btnHapus.addEventListener("click", function () {
 
 btnOk.addEventListener("click", function () {
     listDaya.length = 0;
-    clearTable_DataTable("table_daya", tableDayaCol.length);
+    clearTable_DataTable("table_daya", 8);
 
     // SP_5298_EXT_KWAH_MESIN_PERBULAN
     fetchSelect(
@@ -112,26 +114,30 @@ btnOk.addEventListener("click", function () {
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listDaya.push({
+                    IdKwahMesin1: data[i].IdKWaHMesin,
                     Tanggal: data[i].Tanggal,
                     IdMesin: data[i].IdMesin,
                     Jam: dateTimetoTime(data[i].Jam),
                     CounterKWaH: data[i].CounterKWaH,
+                    FaktorKali: data[i].FaktorKali,
                     UserInput: data[i].UserInput,
+                    IdKwahMesin2: data[i].IdKWaHMesin,
                 });
 
+                checkboxesDaya = document.querySelectorAll(
+                    'input[name="checkbox_daya"]'
+                );
+            }
+
+            if (listDaya.length > 0) {
                 addTable_DataTable(
                     "table_daya",
                     listDaya.map((item, index) => {
                         return {
                             ...item,
-                            Tanggal: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_daya"> ${item.Tanggal}`,
+                            IdKwahMesin1: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_daya"> ${item.IdKwahMesin1}`,
                         };
-                    }),
-                    tableDayaCol
-                );
-
-                checkboxesDaya = document.querySelectorAll(
-                    'input[name="checkbox_daya"]'
+                    })
                 );
             }
         }
@@ -195,9 +201,10 @@ function clearData() {
     slcMesin.selectedIndex = 0;
     listOfInput.forEach((input) => (input.value = ""));
     timeJamProd.value = "00:00";
+    dateInput.value = getCurrentDate();
 
     listDaya.length = 0;
-    clearTable_DataTable("table_daya", tableDayaCol.length);
+    clearTable_DataTable("table_daya", 8);
 }
 
 function prosesIsi() {
@@ -208,14 +215,14 @@ function prosesIsi() {
             "/" +
             slcMesin.value +
             "/" +
+            timeJamProd.value +
+            "/" +
             txtCounter.value +
             "/" +
             txtFaktor.value +
             "/" +
-            timeJamProd.value +
-            "/" +
             getCurrentTime() +
-            "/tmpUser",
+            "/4384",
         () => {
             setEnable(false);
             toggleButtons(1);
@@ -262,7 +269,7 @@ function prosesDelete() {
 function loadDataKwah() {
     // loadDataKwahMesin()
     listDaya.length = 0;
-    clearTable_DataTable("table_daya", tableDayaCol.length);
+    clearTable_DataTable("table_daya", 8);
 
     // SP_5298_EXT_LISTDATA_KWAH_MESIN
     fetchSelect(
@@ -273,14 +280,27 @@ function loadDataKwah() {
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listDaya.push({
+                    IdKwahMesin1: data[i].IdKWaHMesin,
                     Tanggal: data[i].Tanggal,
                     IdMesin: data[i].IdMesin,
                     Jam: dateTimetoTime(data[i].Jam),
                     CounterKWaH: data[i].CounterKWaH,
                     FaktorKali: data[i].FaktorKali,
                     UserInput: data[i].UserInput,
-                    IdKwahMesin: data[i].IdKwahMesin,
+                    IdKwahMesin2: data[i].IdKWaHMesin,
                 });
+            }
+
+            if (listDaya.length > 0) {
+                addTable_DataTable(
+                    "table_daya",
+                    listDaya.map((item, index) => {
+                        return {
+                            ...item,
+                            IdKwahMesin1: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_daya"> ${item.IdKwahMesin1}`,
+                        };
+                    })
+                );
             }
         }
     );
@@ -288,20 +308,33 @@ function loadDataKwah() {
 
 function loadDataPerDivisi() {
     listDaya.length = 0;
-    clearTable_DataTable("table_daya", tableDayaCol.length);
+    clearTable_DataTable("table_daya", 8);
 
     // SP_5298_EXT_KWAH_MESIN
     fetchSelect("/Catat/getKwahMesin/" + dateInput.value + "/EXT", (data) => {
         for (let i = 0; i < data.length; i++) {
             listDaya.push({
+                IdKwahMesin1: data[i].IdKWaHMesin,
                 Tanggal: data[i].Tanggal,
                 IdMesin: data[i].IdMesin,
                 Jam: dateTimetoTime(data[i].Jam),
                 CounterKWaH: data[i].CounterKWaH,
                 FaktorKali: data[i].FaktorKali,
                 UserInput: data[i].UserInput,
-                IdKwahMesin: data[i].IdKwahMesin,
+                IdKwahMesin2: data[i].IdKWaHMesin,
             });
+        }
+
+        if (listDaya.length > 0) {
+            addTable_DataTable(
+                "table_daya",
+                listDaya.map((item, index) => {
+                    return {
+                        ...item,
+                        IdKwahMesin1: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_daya"> ${item.IdKwahMesin1}`,
+                    };
+                })
+            );
         }
     });
 }
@@ -334,8 +367,7 @@ function init() {
         responsive: true,
         paging: false,
         scrollY: "250px",
-        scrollX: "1000000px",
-        columns: tableDayaCol,
+        scrollX: "",
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
         language: {
             searchPlaceholder: " Tabel daya...",

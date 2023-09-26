@@ -259,7 +259,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_GANGGUAN_PROD @Tanggal = ?, @IdMesin = ?, @IdGangguan = ?, @IdKonversi = ?, @Shift = ?, @Awal = ?, @Akhir = ?, @AwalGangguan = ?, @AkhirGangguan = ?, @JumlahJam = ?, @JumlahMenit = ?, @Status = ?, @Keterangan = ?, @JamUser = ?, @User = ?',
-            [$tanggal, $id_mesin, $id_gangguan, $id_konversi, $shift, $awal, $akhir, $awal_gangguan, $akhir_gangguan, $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user, $user]
+            [$tanggal, $id_mesin, $id_gangguan, $id_konversi, $shift, str_replace('T', ' ', $awal), str_replace('T', ' ', $akhir), str_replace('T', ' ', $awal_gangguan), str_replace('T', ' ', $akhir_gangguan), $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user, $user]
         );
 
         // @Tanggal Datetime, @IdMesin Char(5), @IdGangguan Char(5), @IdKonversi Char(14)=null, @Shift Char(2), @Awal datetime, @Akhir datetime, @AwalGangguan datetime, @AkhirGangguan datetime, @JumlahJam numeric(9, @JumlahMenit numeric(9, @Status Char(1), @Keterangan Varchar(100), @JamUser datetime, @User Char(7)
@@ -269,10 +269,10 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_UPDATE_GANGGUAN_PROD @NoTrans = ?, @Awal = ?, @Akhir = ?, @Jam = ?, @Menit = ?, @Ket = ?',
-            [$no_trans, $awal, $akhir, $jam, $menit, $ket]
+            [$no_trans, str_replace('T', ' ', $awal), str_replace('T', ' ', $akhir), $jam, $menit, $ket]
         );
 
-        // PARAMTER - @NoTrans int, @Awal datetime, @Akhir datetime, @Jam numeric(9,0), @Menit numeric(9,0), @Ket varchar(100)
+        // @NoTrans int, @Awal datetime, @Akhir datetime, @Jam numeric(9,0), @Menit numeric(9,0), @Ket varchar(100)
     }
 
     public function delGangguanProd($no_trans)
@@ -282,7 +282,7 @@ class PencatatanController extends Controller
             [$no_trans]
         );
 
-        // PARAMTER - @NoTrans int
+        // @NoTrans int
     }
     #endregion
 }

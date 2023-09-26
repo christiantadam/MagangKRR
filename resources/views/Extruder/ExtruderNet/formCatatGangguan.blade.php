@@ -47,7 +47,7 @@
                         <select id="select_kode_mesin" class="form-select">
                             <option selected disabled>-- Pilih Kode Mesin --</option>
                             @foreach ($formData['listMesin'] as $d)
-                                <option value="{{ $d->IdMesin }}">{{ $d->TypeMesin }}</option>
+                                <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -92,7 +92,8 @@
                         <select id="select_gangguan" class="form-select">
                             <option selected disabled>-- Pilih Gangguan --</option>
                             @foreach ($formData['listGangguan'] as $d)
-                                <option value="{{ $d->NamaGangguan }}">{{ $d->IdGangguan }}</option>
+                                <option value="{{ $d->IdGangguan }}">{{ $d->IdGangguan . ' | ' . $d->NamaGangguan }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -117,7 +118,7 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <input type="datetime-local" id="waktu_akhir" class="form-control">
+                                <input type="datetime-local" id="waktu_akhir" class="form-control" onblur="hitungWaktu()">
                             </div>
                         </div>
 

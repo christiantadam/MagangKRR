@@ -366,7 +366,7 @@ function clearOptions(selectEle, selectLbl = "") {
 //#endregion
 
 function fetchStmt(urlString, postAction = null, catchAction = null) {
-    fetch(urlString)
+    fetch(encodeURL(urlString))
         .then((response) => {
             if (!response.ok) throw new Error("Network response was not ok!");
             return response.json();
@@ -394,7 +394,7 @@ function fetchSelect(
     selectOption = null,
     catchAction = null
 ) {
-    fetch(urlString)
+    fetch(encodeURL(urlString))
         .then((response) => {
             if (!response.ok) throw new Error("Network response was not ok!");
             return response.json();
@@ -429,6 +429,10 @@ function fetchSelect(
 
             console.error("Error: ", error);
         });
+}
+
+function encodeURL(urlString) {
+    return urlString.replace(/:/g, "%3A");
 }
 
 function padLeft(str, length, char) {
@@ -470,25 +474,38 @@ function formatDateToDDMMYY(inputDate) {
     return `${day}-${month}-${year}`;
 }
 
-function getCurrentTime() {
+function getCurrentTime(timeStr = "") {
     const currentTime = new Date();
-    const hours = currentTime.getHours();
-    const minutes = currentTime.getMinutes();
-    const seconds = currentTime.getSeconds();
+    const hours = currentTime.getHours().toString().padStart(2, "0");
+    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+    const seconds = currentTime.getSeconds().toString().padStart(2, "0");
 
-    return `${hours} : ${minutes} : ${seconds}`;
+    if (timeStr === "hh:mm") {
+        return `${hours}:${minutes}`;
+    } else {
+        return `${hours}:${minutes}:${seconds}`;
+    }
 }
 
-function getTimeDiff(startTime, endTime, type) {
-    const timeDifference = startTime.getTime() - endTime.getTime();
+function calculateTimeDifference(dt_ele1, dt_ele2) {
+    // Get the values of the datetime inputs
+    const datetime1 = new Date(dt_ele1.value);
+    const datetime2 = new Date(dt_ele2.value);
 
-    if (type == "hour") {
-        timeDifference = timeDifference / (1000 * 60 * 60);
-    } else if (type == "minute") {
-        timeDifference = timeDifference / (1000 * 60);
-    }
+    // Calculate the time difference in milliseconds
+    const timeDifference = Math.abs(datetime1 - datetime2);
 
-    return timeDifference;
+    // Calculate hours and minutes
+    const hoursDifference = Math.floor(timeDifference / (60 * 60 * 1000));
+    const minutesDifference = Math.floor(
+        (timeDifference % (60 * 60 * 1000)) / (60 * 1000)
+    );
+
+    // Display the difference
+    // console.log(`Hour Difference: ${hoursDifference} hours`);
+    // console.log(`Minute Difference: ${minutesDifference} minutes`);
+
+    return [hoursDifference, minutesDifference];
 }
 
 function dateTimeToDate(dateTimeStr) {

@@ -93,18 +93,10 @@
                             <th>Counter</th>
                             <th>Faktor Kali</th>
                             <th>Id User</th>
-                            <th>Id KwaH</th>
+                            <th>Id KWaH</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php $tableWidth = 8; @endphp
-                        <td colspan="{{ $tableWidth }}" style="padding-left: 250px">
-                            <h1 class="mt-3">Tabel masih kosong...</h1>
-                        </td>
-                        @for ($i = 0; $i < $tableWidth - 1; $i++)
-                            <td class="hidden"></td>
-                        @endfor
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>

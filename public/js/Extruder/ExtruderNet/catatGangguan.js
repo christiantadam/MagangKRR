@@ -74,9 +74,7 @@ var refetchKomposisi = false;
 
 //#region Events
 dateInput.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        slcKodeMesin.focus();
-    }
+    if (event.key == "Enter") slcKodeMesin.focus();
 });
 
 timeShiftAwal.addEventListener("keypress", function (event) {
@@ -85,30 +83,12 @@ timeShiftAwal.addEventListener("keypress", function (event) {
     }
 });
 
+timeGangAwal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") timeGangAkhir.focus();
+});
+
 timeGangAkhir.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        if (this.value < timeGangAwal.value) {
-            const tglGangAkhir = new Date(timeGangAkhir.value.split(" ")[0]);
-            timeGangAkhir.value =
-                tglGangAkhir.setDate(tglGangAkhir.getDate() + 1) +
-                " " +
-                timeGangAkhir.value.split(" ")[1];
-        }
-
-        txtJmlhJam.value = getTimeDiff(
-            new Date(timeGangAwal.value),
-            new Date(timeGangAkhir.value),
-            "hour"
-        );
-
-        txtJmlhMenit.value = getTimeDiff(
-            new Date(timeGangAwal.value),
-            new Date(timeGangAkhir.value),
-            "minute"
-        );
-
-        txtKeterangan.focus();
-    }
+    if (event.key == "Enter") this.blur();
 });
 
 timeShiftAkhir.addEventListener("keypress", function (event) {
@@ -134,24 +114,18 @@ btnOk.addEventListener("click", function () {
 
 btnIsi.addEventListener("click", function () {
     toggleButtons(2);
-    setEnable(true);
     clearAll();
-
-    dateInput.focus();
-    timeGangAwal.value = getCurrentDate() + " " + getCurrentTime();
-    timeGangAkhir.value = getCurrentDate() + " " + getCurrentTime();
-
     modeProses = "isi";
+    timeGangAwal.value = getCurrentDate() + "T" + getCurrentTime("hh:mm");
+    timeGangAkhir.value = getCurrentDate() + "T" + getCurrentTime("hh:mm");
+    setEnable(true);
 });
 
 btnKoreksi.addEventListener("click", function () {
     if (pilGangguan != -1) {
-        toggleButtons(2);
-        setEnable(true, "groupbox1");
-        clearAll();
-
         modeProses = "koreksi";
-
+        toggleButtons(2);
+        setEnable(true, "gangguan");
         timeGangAwal.focus();
     } else {
         alert("Belum ada data yang dipilih.");
@@ -161,8 +135,6 @@ btnKoreksi.addEventListener("click", function () {
 btnHapus.addEventListener("click", function () {
     if (pilGangguan != -1) {
         toggleButtons(2);
-        clearAll();
-
         modeProses = "hapus";
 
         btnProses.focus();
@@ -173,7 +145,19 @@ btnHapus.addEventListener("click", function () {
 
 btnProses.addEventListener("click", function () {
     if (modeProses == "isi") {
-        prosesIsi();
+        if (slcKodeMesin.selectedIndex == 0) {
+            slcKodeMesin.focus();
+            alert("Data belum terisi dengan lengkap. Mohon periksa kembali!");
+        } else if (slcKomposisi.selectedIndex == 0) {
+            slcKomposisi.focus();
+            alert("Data belum terisi dengan lengkap. Mohon periksa kembali!");
+        } else if (slcGangguan.selectedIndex == 0) {
+            slcGangguan.focus();
+            alert("Data belum terisi dengan lengkap. Mohon periksa kembali!");
+        } else if (txtKeterangan.value.trim() == "") {
+            txtKeterangan.focus();
+            alert("Data belum terisi dengan lengkap. Mohon periksa kembali!");
+        } else prosesIsi();
     } else if (modeProses == "koreksi") {
         prosesUpdate();
     } else if (modeProses == "hapus") {
@@ -189,6 +173,7 @@ btnKeluar.addEventListener("click", function () {
         clearAll();
         setEnable(false);
 
+        pilGangguan = -1;
         listGangguan.length = 0;
         clearTable_DataTable("table_gangguan", colGangguan.length);
 
@@ -218,12 +203,18 @@ slcKodeMesin.addEventListener("change", function () {
 });
 
 slcKomposisi.addEventListener("mousedown", function () {
-    if (this.options.length <= 1 || refetchKomposisi) {
+    /**
+     * Test case db lokal
+     * Pilih tanggal 22 September bila data tidak muncul
+     */
+
+    if (refetchKomposisi) {
+        refetchKomposisi = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdKonversi",
-            textKey: "NamaKomposisi",
+            valueKey: "idkonversi",
+            textKey: "namakomposisi",
         };
 
         // SP_5298_EXT_LIST_IDKOMPOSISI
@@ -231,10 +222,12 @@ slcKomposisi.addEventListener("mousedown", function () {
             "/Catat/getListIdKomposisi/" +
                 dateInput.value +
                 "/" +
-                slcMesin.value,
+                slcKodeMesin.value,
             (data) => {
-                addOptions(this, data, optionKeys);
-                this.removeChild(errorOption);
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKomposisi = true;
             },
             errorOption
         );
@@ -242,28 +235,29 @@ slcKomposisi.addEventListener("mousedown", function () {
 });
 
 slcKomposisi.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.options.length <= 1 || refetchKomposisi) {
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "IdKonversi",
-                textKey: "NamaKomposisi",
-            };
+    if (event.key === "Enter" && refetchKomposisi) {
+        refetchKomposisi = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "idkonversi",
+            textKey: "namakomposisi",
+        };
 
-            // SP_5298_EXT_LIST_IDKOMPOSISI
-            fetchSelect(
-                "/Catat/getListIdKomposisi/" +
-                    dateInput.value +
-                    "/" +
-                    slcMesin.value,
-                (data) => {
+        // SP_5298_EXT_LIST_IDKOMPOSISI
+        fetchSelect(
+            "/Catat/getListIdKomposisi/" +
+                dateInput.value +
+                "/" +
+                slcKodeMesin.value,
+            (data) => {
+                if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
+                } else refetchKomposisi = true;
+            },
+            errorOption
+        );
     }
 });
 
@@ -274,20 +268,14 @@ slcKomposisi.addEventListener("change", function () {
         timeShiftAwal.value = dateTimetoTime(data[0].AwalShift);
         timeShiftAkhir.value = dateTimetoTime(data[0].AkhirShift);
 
+        slcGangguan.disabled = false;
         slcGangguan.focus();
     });
 });
 
-slcGangguan.addEventListener("mousedown", function () {
+slcGangguan.addEventListener("change", function () {
     timeGangAwal.disabled = false;
     timeGangAwal.focus();
-});
-
-slcGangguan.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        timeGangAwal.disabled = false;
-        timeGangAwal.focus();
-    }
 });
 
 txtShift.addEventListener("keypress", function (event) {
@@ -299,19 +287,36 @@ txtShift.addEventListener("keypress", function (event) {
 
 txtKeterangan.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        txtKeterangan.value = txtKeterangan.value.toUpperCase();
+        this.value = this.value.toUpperCase().replace(/\n/g, "");
         btnProses.focus();
     }
 });
 
 txtTanggal.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        btnOk.focus();
-    }
+    if (event.key == "Enter") btnOk.focus();
 });
 //#endregion
 
 //#region Functions
+function hitungWaktu() {
+    /**
+     * Dipakai oleh datetime "Akhir Gangguan" onblur
+     */
+
+    let waktuAwal = new Date(timeGangAwal.value);
+    let waktuAkhir = new Date(timeGangAkhir.value);
+    if (waktuAkhir > waktuAwal) {
+        let timeDiff = calculateTimeDifference(timeGangAwal, timeGangAkhir);
+        txtJmlhJam.value = timeDiff[0];
+        txtJmlhMenit.value = timeDiff[1];
+        txtKeterangan.focus();
+    } else {
+        alert(
+            "Akhir Gangguan tidak bisa lebih awal dibandingkan Awal Gangguan."
+        );
+    }
+}
+
 function toggleButtons(tmb) {
     switch (tmb) {
         case 1:
@@ -344,6 +349,14 @@ function setEnable(m_value, group_box = "") {
                 } else ele.classList.add("unclickable");
             } else ele.disabled = !m_value;
         });
+
+        if (modeProses == "isi" && m_value) {
+            txtShift.disabled = true;
+            timeShiftAwal.disabled = true;
+            timeShiftAkhir.disabled = true;
+            txtNoTransaksi.disabled = true;
+            dateInput.focus();
+        }
     }
 
     // Bagian Gangguan
@@ -355,6 +368,13 @@ function setEnable(m_value, group_box = "") {
                 } else ele.classList.add("unclickable");
             } else ele.disabled = !m_value;
         });
+
+        if (modeProses == "isi" || modeProses == "koreksi") {
+            if (m_value) {
+                txtJmlhJam.disabled = true;
+                txtJmlhMenit.disabled = true;
+            }
+        }
     }
 }
 
@@ -366,15 +386,16 @@ function clearAll() {
     });
 
     listOfGangguan.forEach((input) => {
-        if (input.tagName == "INPUT") {
+        if (input.tagName == "INPUT" || input.tagName == "TEXTAREA") {
             input.value = "";
         } else input.selectedIndex = 0;
     });
 
+    dateInput.value = getCurrentDate();
     timeShiftAwal.value = "00:00";
     timeShiftAkhir.value = "00:00";
-    timeGangAwal.value = "00:00";
-    tglGangAkhir.value = "00:00";
+    timeGangAwal.value = getCurrentDate() + "T" + getCurrentTime("hh:mm");
+    timeGangAkhir.value = getCurrentDate() + "T" + getCurrentTime("hh:mm");
 }
 
 function loadDataGangguanProdEXT() {
@@ -429,6 +450,7 @@ function rowClickedGangguan(row, data, index) {
         row.style.background = "white";
         pilGangguan = -1;
         checkboxesGangguan[index].checked = false;
+        clearAll();
     } else {
         clearSelection_DataTable("table_gangguan");
         clearCheckedBoxes(checkboxesGangguan, checkboxesGangguan[index]);
@@ -439,8 +461,8 @@ function rowClickedGangguan(row, data, index) {
 
         txtNoTransaksi.value = listGangguan[index].NoTrans;
         dateInput.value = data.Tanggal;
-        timeGangAwal.value = data.AwalGangguan;
-        timeGangAkhir.value = data.AkhirGangguan;
+        timeGangAwal.value = data.AwalGangguan.replace(" ", "T");
+        timeGangAkhir.value = data.AkhirGangguan.replace(" ", "T");
         txtJmlhJam.value = data.JumlahJam;
         txtJmlhMenit.value = data.JumlahMenit;
         txtKeterangan.value = data.Keterangan;
@@ -463,8 +485,10 @@ function rowClickedGangguan(row, data, index) {
         fetchSelect("/Catat/getListShift/" + slcKomposisi.value, (data) => {
             if (data[0].Shift !== undefined) {
                 txtShift.value = data[0].Shift;
-                timeShiftAwal.value = data[0].AwalShift;
-                timeShiftAkhir.value = data[0].AkhirShift;
+                timeShiftAwal.value =
+                    data[0].AwalShift.split(" ")[1].split(".")[0];
+                timeShiftAkhir.value =
+                    data[0].AkhirShift.split(" ")[1].split(".")[0];
             } else {
                 txtShift.value = "***";
             }
@@ -473,6 +497,8 @@ function rowClickedGangguan(row, data, index) {
 }
 
 function prosesIsi() {
+    let radioStr = rdoLibur.checked ? "L" : "M";
+
     // SP_5298_EXT_INSERT_GANGGUAN_PROD
     fetchStmt(
         "/Catat/insGangguanProd/" +
@@ -486,8 +512,12 @@ function prosesIsi() {
             "/" +
             txtShift.value +
             "/" +
+            getCurrentDate() +
+            "T" +
             timeShiftAwal.value +
             "/" +
+            getCurrentDate() +
+            "T" +
             timeShiftAkhir.value +
             "/" +
             timeGangAwal.value +
@@ -498,14 +528,12 @@ function prosesIsi() {
             "/" +
             txtJmlhMenit.value +
             "/" +
-            rdoLibur.checked
-            ? "L"
-            : "M" +
-                  "/" +
-                  txtKeterangan.value +
-                  "/" +
-                  getCurrentTime() +
-                  "/tmpUser",
+            radioStr +
+            "/" +
+            txtKeterangan.value +
+            "/" +
+            getCurrentTime() +
+            "/4384",
         () => {
             // SP_5298_EXT_NO_TRANS
             fetchSelect("/Catat/getNoTrans", (data) => {
@@ -524,12 +552,19 @@ function prosesIsi() {
                     IdKonversi: slcKomposisi.value,
                     IdGangguan: slcGangguan.value,
                     NamaGangguan: slcGangguan.textContent.split(" | ")[1],
-                    AwalGangguan: timeGangAwal.value,
-                    AkhirGangguan: timeGangAkhir.value,
+                    AwalGangguan: timeGangAwal.value.replace("T", " "),
+                    AkhirGangguan: timeGangAkhir.value.replace("T", " "),
                     JumlahJam: txtJmlhJam.value,
                     JumlahMenit: txtJmlhMenit.value,
                     Keterangan: txtKeterangan.value,
                 });
+
+                addTable_DataTable(
+                    "table_gangguan",
+                    listGangguan,
+                    colGangguan,
+                    rowClickedGangguan
+                );
             });
         }
     );
@@ -552,7 +587,6 @@ function prosesUpdate() {
             txtKeterangan.value,
         () => {
             setEnable(false);
-            slcKodeMesin.disabled = false;
             modeProses = "";
             toggleButtons(1);
             clearAll();
@@ -605,6 +639,7 @@ function init() {
         },
     });
 
+    clearTable_DataTable("table_gangguan", colGangguan.length);
     toggleButtons(1);
     setEnable(false);
 

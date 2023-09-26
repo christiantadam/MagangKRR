@@ -1464,7 +1464,7 @@ function rowClickedKonversi(row, data, _) {
         txtJenis.value = listKonversi[pilKonversi].StatusType;
         loadSaldoFetch(listKonversi[pilKonversi].IdType);
 
-        if (modeProses != "") {
+        if (modeProses != "" && modeProses != "hapus") {
             numPrimer.disabled = false;
             numPrimer.select();
         }
