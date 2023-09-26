@@ -10,6 +10,10 @@ let idBKM = document.getElementById('idBKM');
 let sisaPelunasan = document.getElementById('sisaPelunasan');
 let tabelPelunasanPenjualan = $('#tabelPelunasanPenjualan').DataTable();
 let sUser;
+let totalPemakaian = document.getElementById('totalPemakaian');
+let kurangLebih = document.getElementById('kurangLebih');
+let totalBiaya = document.getElementById('totalBiaya');
+let sTotalKembalian;
 
 //HIDDEN
 let idCustomer = document.getElementById('idCustomer');
@@ -17,6 +21,40 @@ let namaCustomer = document.getElementById('namaCustomer');
 let noPelunasan = document.getElementById('noPelunasan');
 let idJenisPembayaran = document.getElementById('idJenisPembayaran');
 
+//MODAL
+let totalKembalian = 0;
+let noPenagihan = document.getElementById('noPenagihan');
+let noPen = document.getElementById('noPen');
+let no_Pen = document.getElementById('no_Pen');
+let nilaiPenagihan = document.getElementById('nilaiPenagihan');
+let mataUangPenagihan = document.getElementById('mataUangPenagihan');
+let nilaiKurs = document.getElementById('nilaiKurs');
+let terbayar = document.getElementById('terbayar');
+let terbayarRupiah = document.getElementById('terbayarRupiah');
+let pelunasanCurrency = document.getElementById('pelunasanCurrency');
+let pelunasanRupiah = document.getElementById('pelunasanRupiah');
+let nilai_Pelunasan = document.getElementById('nilai_Pelunasan');
+let sisa = document.getElementById('sisa');
+let sisaRupiah = document.getElementById('sisaRupiah');
+let kodePerkiraanSelect = document.getElementById('kodePerkiraanSelect');
+let idKodePerkiraan = document.getElementById('idKodePerkiraan');
+let nilaiBiaya = document.getElementById('nilaiBiaya');
+let nilaiKurangLebih = document.getElementById('nilaiKurangLebih');
+let noPenagihan1 = document.getElementById('noPenagihan1');
+let lunas = document.getElementById('lunas');
+let namaMU = document.getElementById('namaMU');
+
+let btnSimpanModal = document.getElementById('btnSimpanModal');
+
+let matauang;
+let matauang2;
+let sNilai_Pelunasan = 0;
+let sBiaya = 0;
+let sKurangLebih = 0;
+
+let btnAddItem = document.getElementById('btnAddItem');
+let btnEditItem = document.getElementById('btnEditItem');
+let btnDeleteItem = document.getElementById('btnDeleteItem');
 let btnSimpan = document.getElementById('btnSimpan');
 let btnIsi = document.getElementById('btnIsi');
 let btnBatal = document.getElementById('btnBatal');
@@ -84,7 +122,9 @@ mataUangSelect.addEventListener("change", function (event) {
     if (selectedOption) {
         const selectedValue = selectedOption.textContent;
         const idMU = selectedValue.split("|")[0];
+        const namaMtUang = selectedValue.split("|")[1];
         idMataUang.value = idMU;
+        namaMU.value = namaMtUang;
     };
 });
 
@@ -234,8 +274,293 @@ fetch("/getCustIsiCashAdvance/")
                 .then((response) => response.json())
                 .then((options) => {
                     console.log(options);
+                    if ($.fn.DataTable.isDataTable("#tabelPelunasanPenjualan")) {
+                        tabelPelunasanPenjualan.destroy();
+                    }
+                    tabelPelunasanPenjualan = $("#tabelPelunasanPenjualan").DataTable({
+                        data: options,
+                        columns: [
+                            { title: "Id. Penagihan", data: "ID_Penagihan" },
+                            { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                            { title: "Biaya", data: "Biaya" },
+                            { title: "Lunas", data: "Lunas" },
+                            { title: "Id. Detail Pelunasan", data: "ID_Detail_Pelunasan" },
+                            { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah" },
+                            { title: "Mata Uang", data: "Id_MataUang" },
+                            { title: "Pelunasan Currency", data: "Pelunasan_Curency" },
+                            { title: "Kurang Lebih", data: "KurangLebih" },
+                            { title: "Perkiraan", data: "Kode_Perkiraan" },
+                            { title: "Kurs", data: "Kurs" },
+                            { title: "ID_Tagihan_Pembulatan", data: "ID_Penagihan_Pembulatan" }
+                        ]
+                    });
+                    totalPemakaian.value = totalPemakaian.value + parseFloat(options[0].Nilai_Pelunasan);
+                    totalBiaya.value = totalBiaya.value + parseFloat(options[0].Biaya);
+                    kurangLebih.value = kurangLebih.value + parseFloat(options[0].KurangLebih);
+
+                    const rowCount = tabelPelunasanPenjualan.rows().count();
+                    if (rowCount == 0) {
+                        nilaiMasukKas.value = nilaiPelunasan.value;
+                    } else {
+                        nilaiMasukKas.value = nilaiPelunasan.value - totalBiaya.value + kurangLebih.value;
+                    }
                 })
+            });
+            btnAddItem.focus();
+        })
+});
+
+$("#tabelPelunasanPenjualan tbody").off("click", "tr");
+$("#tabelPelunasanPenjualan tbody").on("click", "tr", function () {
+    let checkSelectedRows = $("#tabelPelunasanPenjualan tbody tr.selected");
+
+    if (checkSelectedRows.length > 0) {
+        // Remove "selected" class from previously selected rows
+        checkSelectedRows.removeClass("selected");
+    }
+    $(this).toggleClass("selected");
+    const table = $("#tabelPelunasanPenjualan").DataTable();
+    selectedRows = table.rows(".selected").data().toArray();
+    console.log(selectedRows[0]);
+});
+
+btnAddItem.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalLihatPenagihan = $("#modalLihatPenagihan");
+    modalLihatPenagihan.modal('show');
+});
+
+function handleRadioChange() {
+    var selectedValue = document.querySelector('input[name="radiogrup1"]:checked').value;
+    kodePerkiraanSelect.removeAttribute("readonly", true);
+
+    // Cek nilai yang terpilih dan lakukan sesuatu berdasarkan nilai tersebut
+    if (selectedValue === "1") {
+        noPenagihan.removeAttribute("readonly", true);
+        nilaiPenagihan.removeAttribute("readonly", true);
+        nilaiKurs.removeAttribute("readonly", true);
+        nilai_Pelunasan.removeAttribute("readonly", true);
+        pelunasanCurrency.removeAttribute("readonly", true);
+        pelunasanRupiah.removeAttribute("readonly", true);
+        nilaiPenagihan.removeAttribute("readonly", true);
+        terbayar.removeAttribute("readonly", true);
+        terbayarRupiah.removeAttribute("readonly", true);
+        lunas.removeAttribute("readonly", true);
+        console.log("Anda memilih Pelunasan");
+        fetch("/getListPenagihanSJ/" + idCustomer.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            noPenagihan.innerHTML="";
+
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih No. Penagihan";
+            noPenagihan.appendChild(defaultOption);
+
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.Id_Penagihan;
+                option.innerText = entry.Id_Penagihan + "|" + entry.Tgl_Penagihan;
+                noPenagihan.appendChild(option);
             });
 
         })
-})
+
+        // totalKembalian = options[0].
+
+        noPenagihan.addEventListener("change", function (event) {
+            event.preventDefault();
+            const selectedOption = noPenagihan.options[noPenagihan.selectedIndex];
+            if (selectedOption) {
+                const selectedValue = selectedOption.textContent;
+                const penagihan = selectedValue.split("|")[0];
+                noPen.value = penagihan;
+
+                no_Pen.value = noPen.value.replace(/\//g, '.');
+
+            }
+
+            fetch("/getLihat_PenagihanCashAdvance/" + no_Pen.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+
+                sTotalKembalian = options[0].TotalKembalian;
+            });
+
+            fetch("/getLihat_PenagihanCashAdvance2/" + no_Pen.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+
+                nilaiPenagihan.value = options[0].Nilai_Penagihan;
+                nilaiPenagihan.value = nilaiPenagihan.value - sTotalKembalian;
+                mataUangPenagihan.value = options[0].Nama_MataUang;
+                nilaiKurs.value = options[0].NilaiKurs;
+
+                if (options[0].Tot_Pelunasan_Rupiah == null) {
+                    terbayar.value = 0;
+                    terbayarRupiah.value = 0;
+                } else {
+                    const rowCount = tabelPelunasanPenjualan.rows().count();
+                    if (rowCount >= 1) {
+                        // if (condition) {
+
+                        // }else {
+                        //     terbayarRupiah.value = options[0].Tot_Pelunasan_Rupiah - pelunasanRupiah.value;
+                        //     terbayar.value = options[0].Tot_Nilai_Pelunasan - pelunasanCurrency.value;
+                        // }
+                    } else {
+                        terbayarRupiah.value = options[0].Tot_Pelunasan_Rupiah;
+                        terbayar.value = options[0].Tot_Nilai_Pelunasan;
+                    }
+
+                    if (nilai_Pelunasan.value == 0) {
+                        nilai_Pelunasan.value = nilai_Pelunasan.value - totalPemakaian.value;
+                    }
+                    sisa.value = nilaiPenagihan.value - terbayar.value;
+                    sisaRupiah.value = (nilaiPenagihan.value * nilaiKurs.value) - (terbayar.value - nilaiKurs.value)
+                    sisa.value = parseFloat(sisa.value).toFixed(2).replace(/\d(?=(\d{10})+\.)/g, '$&,');
+                    sisaRupiah.value = parseFloat(sisaRupiah.value).toFixed(2).replace(/\d(?=(\d{10})+\.)/g, '$&,');
+                }
+            });
+            nilai_Pelunasan.focus();
+
+            nilai_Pelunasan.addEventListener("keypress", function(event) {
+                if (event.key == "Enter") {
+                    event.preventDefault();
+                    matauang = mataUangPenagihan.value.trim().toUpperCase();
+                    matauang2 = namaMU.value.trim().toUpperCase();
+                    if (matauang !== matauang2) {
+                        if (matauang !== "RUPIAH" && idMataUang.value == 1) {
+                            pelunasanCurrency.value = jumlahYangDibayar.value / nilaiKurs.value;
+                            pelunasanRupiah.value = jumlahYangDibayar.value;
+                        } else {
+                            pelunasanCurrency.value = nilai_Pelunasan.value * nilaiKurs.value;
+                            pelunasanRupiah.value = pelunasanCurrency.value;
+                        }
+                    } else {
+                        if (idMataUang != 1) {
+                            pelunasanRupiah.value = nilai_Pelunasan.value * nilaiKurs.value;
+                        } else {
+                            pelunasanRupiah.value = nilai_Pelunasan.value;
+                        }
+                        pelunasanCurrency.value = nilai_Pelunasan.value;
+                    }
+                }
+                pelunasanCurrency.focus();
+            });
+            pelunasanCurrency.addEventListener("keypress", function(event) {
+                if (event.key == "Enter") {
+                    event.preventDefault();
+                    kodePerkiraanSelect.focus();
+                }
+            });
+        })
+    }
+};
+
+var radioButtons = document.querySelectorAll('input[name="radiogrup1"]');
+radioButtons.forEach(function (radioButton) {
+    radioButton.addEventListener('change', handleRadioChange);
+});
+
+fetch("/getKdPerkiraan/")
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        kodePerkiraanSelect.innerHTML="";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.innerText = "Pilih Kode Perkiraan";
+        kodePerkiraanSelect.appendChild(defaultOption);
+
+        options.forEach((entry) => {
+            const option = document.createElement("option");
+            option.value = entry.NoKodePerkiraan;
+            option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+            kodePerkiraanSelect.appendChild(option);
+        });
+});
+
+kodePerkiraanSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
+    if (selectedOption) {
+        const selectedValue = selectedOption.textContent;
+        const penagihan = selectedValue.split("|")[0];
+        idKodePerkiraan.value = penagihan;
+    }
+    btnSimpanModal.focus();
+});
+
+
+btnSimpanModal.addEventListener('click', function(event) {
+    event.preventDefault();
+    var selectedValue = document.querySelector('input[name="radiogrup1"]:checked').value;
+    // console.log("Harusnya jalan memilih Pelunasan", selectedValue);
+    if (selectedValue != "1" && selectedValue != "2" && selectedValue != "3") {
+        alert("Tidak Ada Yang DiSimpan !!");
+    }
+
+    if (selectedValue == "1" && nilai_Pelunasan.value <= 0) {
+        alert("Nilai Pelunasan Harus Diisi");
+        nilai_Pelunasan.focus();
+    } else if (selectedValue == "2" && nilaiBiaya.value <= 0) {
+        alert("Nilai Biaya Harus Diisi");
+    } else if (selectedValue == "3" && nilaiKurangLebih.value == 0) {
+        alert("Nilai Kurang/Lebih Harus Diisi");
+    };
+
+    if ((lunas.value === "" || lunas.value === " " || (lunas.value.toUpperCase() != "Y" && lunas.value.toUpperCase() != "N"))
+    && selectedValue === 1) {
+        alert("Salah Input Kolom Lunas");
+        lunas.focus();
+    };
+
+    const rowCount = tabelPelunasanPenjualan.rows().count();
+    if (rowCount == 0) {
+        totalPelunasan.value = totalPelunasan.value + nilaiPiutang.value;
+        totalBiaya.value = totalBiaya.value + nilaiBiaya.value;
+        kurangLebih.value = kurangLebih.value + nilaiKurangLebih.value;
+
+        var inputData = {
+            ID_Penagihan: noPen.value,
+            Nilai_Pelunasan: nilai_Pelunasan.value,
+            Biaya: nilaiBiaya.value,
+            Lunas: lunas.value.toUpperCase(),
+            ID_Detail_Pelunasan: "",
+            Pelunasan_Rupiah: pelunasanRupiah.value,
+            Id_MataUang: idMataUang.value,
+            Pelunasan_Curency: pelunasanCurrency.value,
+            KurangLebih: nilaiKurangLebih.value,
+            Kode_Perkiraan: idKodePerkiraan.value,
+            ID_Penagihan_Pembulatan: noPen1.value
+        };
+        tabelPelunasanPenjualan.row.add(inputData).draw();
+    } else {
+        totalPemakaian.value = totalPemakaian.value - sNilai_Pelunasan + nilai_Pelunasan.value;
+        totalBiaya.value = totalBiaya.value - sBiaya + nilaiBiaya.value;
+        kurangLebih.value = kurangLebih.value - sKurangLebih + nilaiKurangLebih.value;
+
+        var inputData = {
+            ID_Penagihan: noPen.value,
+            Nilai_Pelunasan: nilai_Pelunasan.value,
+            Biaya: nilaiBiaya.value,
+            Lunas: lunas.value.toUpperCase(),
+            ID_Detail_Pelunasan: "",
+            Pelunasan_Rupiah: pelunasanRupiah.value,
+            Id_MataUang: idMataUang.value,
+            Pelunasan_Curency: pelunasanCurrency.value,
+            KurangLebih: nilaiKurangLebih.value,
+            Kode_Perkiraan: idKodePerkiraan.value,
+            ID_Penagihan_Pembulatan: noPen1.value
+        };
+        tabelPelunasanPenjualan.row.add(inputData).draw();
+    }
+    $('#modalLihatPenagihan').modal('hide');
+});

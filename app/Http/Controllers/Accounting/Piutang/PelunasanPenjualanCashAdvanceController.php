@@ -38,6 +38,20 @@ class PelunasanPenjualanCashAdvanceController extends Controller
         return response()->json($tabel);
     }
 
+    public function getLihat_PenagihanCashAdvance($no_Pen)
+    {
+        $noPen = str_replace('.', '/', $no_Pen);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Penagihan = ?', [5, $noPen]);
+        return response()->json($tabel);
+    }
+
+    public function getLihat_PenagihanCashAdvance2($no_Pen)
+    {
+        $noPen = str_replace('.', '/', $no_Pen);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Penagihan = ?', [4, $noPen]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

@@ -480,8 +480,8 @@ function handleRadioChange() {
                     nilaiKurs.value = options[0].NilaiKurs;
 
                     if (options[0].Tot_Pelunasan_Rupiah == null) {
-                        terbayarRupiah.value = 0
-                        terbayar.value = 0
+                        terbayarRupiah.value = 0;
+                        terbayar.value = 0;
                     } else {
                         var rows = tabelPelunasanPenjualan.getElementsByTagName('tr');
                         if (rows.length > 0) {
@@ -909,7 +909,7 @@ btnSimpan.addEventListener('click', function(event) {
 
     if (idMataUang.value != (selectedRows[0].Id_MataUang || selectedRows[0][6])) {
         alert("Mata Uang Tidak Boleh DiGanti");
-        console.log("MASUK IF ELSE TIDAK JELAS");
+        // console.log("MASUK IF ELSE TIDAK JELAS");
     }
 
     if (idJenisPembayaran == 2 || idJenisPembayaran == 3) {
@@ -940,10 +940,10 @@ btnSimpan.addEventListener('click', function(event) {
         formkoreksi.submit();
     } else if (proses == 3) {
         var userInput = prompt("Menghapus Pelunasan [H] Atau Batal Giro [B]");
-        userInput = hAtauB.value;
+        //userInput = hAtauB.value;
         console.log(hAtauB.value);
-        if (hAtauB.value === 'H' || hAtauB.value === 'B') {
-
+        if (userInput === 'H' || userInput === 'B') {
+            console.log("masuk hAtauB");
             methodkoreksi.value="DELETE";
             formkoreksi.action = "/MaintenancePelunasanPenjualan/" + Id_Pelunasan.value;
             formkoreksi.submit();
