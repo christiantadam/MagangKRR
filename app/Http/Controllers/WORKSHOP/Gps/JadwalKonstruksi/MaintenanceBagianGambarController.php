@@ -24,6 +24,14 @@ class MaintenanceBagianGambarController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-BAGIAN-GAMBAR] @noOd = ?, @bagian = ?', [$noOd, $bagian]);
         return response()->json($data);
     }
+    public function Getdatabagian($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-BAGIAN-GAMBAR] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
+    public function cekdatabagian($noOd , $Idbag) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-TRANSAKSI-BAGIAN-GAMBAR] @noOd = ? , @Idbag = ?', [$noOd,$Idbag]);
+        return response()->json($data);
+    }
 
     public function create()
     {
@@ -33,6 +41,11 @@ class MaintenanceBagianGambarController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $noOd = $request->NoOrder;
+        $bagian = $request->NamaBagiantext;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-BAGIAN-GAMBAR] @kode = ?, @noOd = ?, @bagian = ?', [1, $noOd,$bagian]);
+        return redirect()->back()->with('success',"Data telah diSimpan.");
     }
 
     public function show($id)
@@ -48,10 +61,19 @@ class MaintenanceBagianGambarController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+        $IdBagian = $request->NamaBagian;
+        $bagian = $request->NamaBagiantext;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-BAGIAN-GAMBAR] @kode = ?, @IdBagian = ?, @bagian = ?', [2, $IdBagian,$bagian]);
+        return redirect()->back()->with('success',"Data telah diSimpan.");
+
     }
 
     public function destroy($id)
     {
         //
+       // dd($id);
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-BAGIAN-GAMBAR] @kode = ?, @IdBagian = ?', [3, $id]);
+        return redirect()->back()->with('success',"Data bagian telah DiHapus.");
     }
 }

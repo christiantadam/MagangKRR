@@ -14,9 +14,11 @@ let Pengorder = document.getElementById("Pengorder");
 let KetOrder = document.getElementById("KetOrder");
 let OdSts = document.getElementById("OdSts");
 let NamaBagiantext = document.getElementById("NamaBagiantext");
-
+let FormMaintenanceGambar = document.getElementById("FormMaintenanceGambar");
 let proses;
-
+let methodForm = document.getElementById("methodForm");
+let ubah = document.getElementById('ubah');
+let terubah = false;
 //#region btn isi on click
 function isi() {
     proses = 1;
@@ -40,9 +42,9 @@ function koreksiklik() {
     btnkoreksi.disabled = true;
     btnhapus.disabled = true;
     btnbatal.style.display = "";
+    ubah.style.display = "";
     NoOrder.focus();
 }
-
 //#endregion
 
 //#region hapus
@@ -99,7 +101,6 @@ NoOrder.addEventListener("keypress", function (event) {
         }
         NoOrder.value = NoOrder6digit.value;
         loaddata(NoOrder.value);
-        loadnamabagian(NoOrder.value);
     }
 });
 
@@ -147,6 +148,7 @@ function loaddata(NomorOrder) {
                                 NamaBagian.style.display = "none";
                                 NamaBagiantext.focus();
                             } else {
+                                loadnamabagian(NoOrder.value);
                                 NamaBagiantext.style.display = "none";
                                 NamaBagian.style.display = "";
                                 NamaBagian.focus();
@@ -176,13 +178,29 @@ NamaBagiantext.addEventListener("keypress", function (event) {
 
 //#endregion
 
+//#region select bagian on enter
+
+NamaBagian.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (proses == 2) {
+            // console.log(NamaBagian.textContent.split('--')[0]);
+            NamaBagiantext.value = NamaBagian.options[NamaBagian.selectedIndex].text.split("--")[0];;
+            NamaBagian.style.display = "none";
+            NamaBagiantext.style.display = "";
+        }
+        btnProses.disabled = false;
+        btnProses.focus();
+    }
+});
+
+//#endregion
+
 //#region loadnamabagian
 
 function loadnamabagian(NomorOrder) {
-    fetch("/mesin/" + NomorOrder)
+    fetch("/GetdatabagianMaintenanceGambar/" + NomorOrder)
         .then((response) => response.json())
         .then((options) => {
-            //mesin buat form baru
             console.log(options);
             NamaBagian.innerHTML = "";
             //
@@ -194,9 +212,8 @@ function loadnamabagian(NomorOrder) {
             //
             options.forEach((entry) => {
                 const option = document.createElement("option");
-                option.value = entry.Nomer;
-
-                // option.innerText = entry.Mesin + "--" + entry.Nomer;
+                option.value = entry.IdBagian;
+                option.innerText = entry.NamaBagian + "--" + entry.IdBagian;
                 NamaBagian.appendChild(option);
             });
         });
@@ -204,10 +221,27 @@ function loadnamabagian(NomorOrder) {
 
 //#endregion
 
+//#region ubah on click
+
+ubah.addEventListener('click', function(){
+    if (terubah == false) {
+        NamaBagian.style.display = "none";
+        NamaBagiantext.style.display = "";
+        terubah = true;
+    }
+    else{
+        NamaBagian.style.display = "";
+        NamaBagiantext.style.display = "none";
+        terubah = false;
+    }
+})
+
+//#endregion
+
 //#region Proses
 
 function prosesdiklik() {
-    // console.log(proses);
+    console.log(proses);
     // console.log(NoOrder.value);
     if (proses == 1) {
         fetch(
@@ -225,65 +259,52 @@ function prosesdiklik() {
                     );
                     return;
                 } else {
-                    // FormEstimasiJadwal.submit();
+                    $.ajax({
+                        url: "MaintenanceGambar",
+                        method: "POST",
+                        data: new FormData(FormMaintenanceGambar),
+                        dataType: "JSON",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            // console.log(response);
+                        },
+                    });
+                    alert("Data telah diSimpan.");
+                    var userConfirmed = confirm(
+                        "Apakah Anda yakin ingin melanjutkan?"
+                    );
+                    if (userConfirmed) {
+                        NamaBagiantext.value = "";
+                        NamaBagiantext.focus();
+                    } else {
+                        Bataldiklik();
+                    }
+                    // FormMaintenanceGambar.submit();
                 }
             });
     }
-    // if (proses == 2) {
-    //     let tglmulai;
-    //     let sampaitgl;
-    //     let ada = false;
-    //     fetch("/GetTanggalEstimasiJadwal/" + NoOrder.value)
-    //         .then((response) => response.json())
-    //         .then((datas) => {
-    //             console.log(datas);
-    //             if (datas.length > 0) {
-    //                 tglmulai = datas[0].TglMulai;
-    //                 sampaitgl = datas[0].SampaiTgl;
-    //                 ada = true;
-    //             }
-    //         });
-    //     if (ada == true) {
-    //         if (TglStart.value > tglmulai || TglFinish.value < sampaitgl) {
-    //             if (TglStart.value > tglmulai) {
-    //                 alert(
-    //                     "Tidak dapat dikoreksi, krn sdh terjadwal mulai tgl " +
-    //                         tglmulai +
-    //                         ", dan estimasi tgl start > jadwal mulai."
-    //                 );
-    //                 return;
-    //             }
-    //             if (TglFinish.value < sampaitgl) {
-    //                 alert(
-    //                     "Tidak dapat dikoreksi, krn sdh terjadwal sampai tgl " +
-    //                         sampaitgl +
-    //                         ", dan tgl finish < tgl terjadwal."
-    //                 );
-    //                 return;
-    //             }
-    //         }
-    //     }
-    //     // console.log(NoOrder.value);
-    //     methodForm.value = "PUT";
-    //     FormEstimasiJadwal.action = "/estimasiJadwal/" + NoOrder.value;
-    //     FormEstimasiJadwal.submit();
-    // }
-    // if (proses == 3) {
-    //     fetch("/CekEstimasiKonstruksi/" + NoOrder.value)
-    //         .then((response) => response.json())
-    //         .then((datas) => {
-    //             console.log(datas);
-    //             if (datas[0].ada > 0) {
-    //                 alert("Tdk bisa diHapus, karena sudah terjadwal.");
-    //                 return;
-    //             } else {
-    //                 methodForm.value = "DELETE";
-    //                 FormEstimasiJadwal.action =
-    //                     "/estimasiJadwal/" + NoOrder.value;
-    //                 FormEstimasiJadwal.submit();
-    //             }
-    //         });
-    // }
+    if (proses == 2) {
+        methodForm.value = "PUT";
+        FormMaintenanceGambar.action = "/MaintenanceGambar/" + NoOrder.value;
+        FormMaintenanceGambar.submit();
+    }
+    if (proses == 3) {
+        fetch("/cekdatabagianMaintenanceGambar/" + NoOrder.value + "/" +NamaBagian.value)
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas);
+                if (datas[0].ada > 0) {
+                    alert("Nama Bagian tdk bisa diHapus, karena sudah terjadwal.");
+                    return;
+                } else {
+                    methodForm.value = "DELETE";
+                    FormMaintenanceGambar.action = "/MaintenanceGambar/" + NamaBagian.value;
+                    FormMaintenanceGambar.submit();
+                }
+            });
+    }
 }
 
 //#endregion

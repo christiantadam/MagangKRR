@@ -75,7 +75,7 @@ class EstimasiJadwalController extends Controller
     public function destroy($id)
     {
         //
-        dd($id);
+        //dd($id);
         DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_MAINT-ESTIMASI-KONSTRUKSI] @kode = ?, @noOd = ?', [3, $id]);
         return redirect()->back()->with('success',"Data telah diHapus.");
     }
