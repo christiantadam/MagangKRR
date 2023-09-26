@@ -73,12 +73,12 @@ class BuatBarcodeController extends Controller
             return response()->json($dataJumlahBarcode);
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')
-                ->table('SP_5409_INV_SimpanPermohonanBarcode')
-                ->where('NoIndeks', $crExplode[0]) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->table('Dispresiasi')
+                ->where('Kode_Barang', $crExplode[0]) // Menggunakan $crExplode[0] sebagai NoIndeks
                 ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
                 ->first(); // Ambil data dari baris pertama yang sesuai
 
-            // dd($dataNoIndex);
+            // dd($crExplode[0]);
             return response()->json($dataNoIndex); // Mengembalikan dataNoIndex sebagai respons JSON
         }
     }
@@ -92,7 +92,26 @@ class BuatBarcodeController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        if ($data['opsi'] == "satu") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+                'U001'
+            ]);
+            return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
+
+
+        } else if ($data['opsi'] == "dua") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_DataPrintUlang @kodebarang = ?, @noindeks = ?', [
+                $data['kodebarang'],
+                $data['noindeks']
+            ]);
+            return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
+
+        }
     }
 
     //Remove the specified resource from storage.

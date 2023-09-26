@@ -71,15 +71,31 @@ $(document).ready(function () {
         }
     });
 
-    document.getElementById("ButtonTimbang").addEventListener("click", function () {
+    // Ambil elemen tombol "Timbang" dan "Print Barcode"
+    var ButtonTimbang = document.getElementById('ButtonTimbang');
+    var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
+
+    // Nonaktifkan tombol "Print Barcode" secara awal
+    ButtonPrintBarcode.disabled = true;
+
+    // Menambahkan event listener pada tombol "Timbang"
+    ButtonTimbang.addEventListener("click", function (event) {
         var tritierInput = document.getElementById("tritier").value;
 
         if (tritierInput.trim() === "") {
             alert("Berat harus diisi!");
         } else {
             // Lanjutkan dengan operasi timbang
+
+            // Aktifkan tombol "Print Barcode" setelah tritier diisi
+            enablePrintBarcodeButton();
         }
     });
+
+    // Fungsi untuk mengaktifkan tombol "Print Barcode"
+    function enablePrintBarcodeButton() {
+        ButtonPrintBarcode.disabled = false;
+    }
 
     var ButtonShift = document.getElementById('ButtonShift')
     ButtonShift.addEventListener("click", function (event) {
@@ -152,8 +168,13 @@ $(document).ready(function () {
     //         });
     // });
 
+    // Ambil elemen tombol "Print Barcode"
     var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
     ButtonPrintBarcode.addEventListener("click", function (event) {
+        // Mengatur tombol menjadi tidak dapat diakses (disabled)
+        ButtonPrintBarcode.disabled = true;
+
+        // Lakukan operasi pencetakan barcode
         var idtype = '0016';
         var tanggal = document.getElementById('tanggalOutput').value;
         var primer = document.getElementById('Primer').value;
@@ -182,9 +203,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + idtype + UserID + tanggal +
-                    primer + sekunder + tritier + asalidsubkelompok +
-                    idsubkontraktor + kodebarang + uraian + ".getIndex")
+                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -194,6 +213,10 @@ $(document).ready(function () {
                         .then((data) => {
                             // Handle data yang diterima dari fetch kedua di sini
                             console.log("Data dari fetch kedua:", data);
+                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                            console.log(kodebarcode);
+                            // Show an alert for each 'kodebarang'
+                            alert('Kode Barang: ' + kodebarcode);
                         })
                         .catch((error) => {
                             console.error("Error dalam fetch kedua:", error);
@@ -207,7 +230,47 @@ $(document).ready(function () {
                 console.error("Error:", error);
             });
     });
-    // ... (Bagian kode lainnya)
+
+    // document.getElementById("BarcodeACC").addEventListener("keypress", function (e) {
+    //     if (e.key === "Enter") {
+    //         var barcode = document.getElementById("BarcodeACC").value;
+
+    //         if (barcode !== "") {
+    //             var noindeks = barcode.substring(0, 9);
+    //             var kodebarang = barcode.substring(barcode.length - 9);
+    //             noindeks = noindeks.replace(/^0+/, ''); // Menghapus leading "0"
+
+    //             // Panggil fungsi untuk memeriksa jenis barcode
+    //             var jenisResult = cekJenisbarcode(kodebarang, parseInt(noindeks));
+    //             if (jenisResult === 0) {
+    //                 return; // Keluar jika jenis barcode tidak valid
+    //             }
+
+    //             // Panggil fungsi untuk memeriksa status barcode
+    //             var statusResult = cekbarcode(kodebarang, parseInt(noindeks));
+    //             if (statusResult === 1) {
+    //                 // Panggil fungsi untuk menyetujui barcode
+    //                 var sukses = ACCBarcode(kodebarang, noindeks, User_id);
+    //                 if (sukses === 1) {
+    //                     alert("Data sudah di ACC");
+    //                     document.getElementById("btnKeluar").focus();
+    //                 } else {
+    //                     alert("Data tidak bisa di ACC, ulangi sekali lagi");
+    //                 }
+    //             } else if (statusResult === 2) {
+    //                 alert("Barcode sudah pernah di ACC!");
+    //                 document.getElementById("BarcodeACC").focus();
+    //             } else {
+    //                 alert("Data barcode tidak ditemukan!");
+    //                 document.getElementById("BarcodeACC").focus();
+    //             }
+
+    //             document.getElementById("BarcodeACC").value = "";
+    //         } else {
+    //             alert("Scan barcode terlebih dahulu");
+    //         }
+    //     }
+    // });
 
     // Function to enable the "Isi Jumlah Barang" button and "Timbang" button
     function enableIsiJumlahBarangButton() {
@@ -419,4 +482,135 @@ function enableButtonJumlahBarang() {
     document.getElementById("ButtonJumlahBarang").disabled = false;
     document.getElementById("ButtonTimbang").disabled = false; // Enable the Timbang button
     closeModal2();
+}
+
+function prosesACCBarcode(data) {
+    var noindeks = data.noindeks;
+    var kodebarang = '00000KB02';
+    var userid = 'U001';
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        userid: userid,
+    };
+    console.log(formData);
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "BuatBarcode/{noindeks}");
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding data
+        form.appendChild(input);
+    }
+    // Create method input with "PUT" Value
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding data
+    form.appendChild(method);
+
+    // Create input with "Update Keluarga" Value
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
+}
+
+function PrintUlangData(data) {
+    var kodebarang = data.kodebarang;
+    var noindeks = data.noindeks;
+    var userid = "U001";
+
+    // Create a data object to hold the values
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        userid: userid
+    };
+
+    console.log(formData);
+
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "BuatBarcode/{noindeks}"); // Replace with the correct action URL
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding formData
+        form.appendChild(input);
+    }
+
+    // Create input with "_method" field set to "PUT" (if you need to override the HTTP method)
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding formData
+    form.appendChild(method);
+
+    // Create input with "_ifUpdate" field set to "Update Barcode"
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
 }

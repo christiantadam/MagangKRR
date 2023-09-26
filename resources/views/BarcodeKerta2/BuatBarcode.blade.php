@@ -184,8 +184,7 @@
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" id="ButtonTimbang"
-                                                    style="width:180px; height: 50px" disabled
-                                                    onclick="enablePrintBarcodeButton()">Timbang</button>
+                                                    style="width:180px; height: 50px" disabled>Timbang</button>
                                             </div>
                                         </div>
 
@@ -212,7 +211,7 @@
                                                             <div class="mt-4">
                                                                 <div class="form-group col-md-auto mt-3 mt-md-1">
                                                                     <input type="text" class="form-control"
-                                                                        name="Barcode" id="Barcode"
+                                                                        name="BarcodeACC" id="BarcodeACC"
                                                                         style="width: 500px" placeholder="Barcode">
                                                                 </div>
                                                             </div>
