@@ -20,6 +20,24 @@ class PelunasanPenjualanCashAdvanceController extends Controller
         return response()->json($tabel);
     }
 
+    public function getNoPelunasanCashAdvance($idCustomer)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Customer = ?', [6, $idCustomer]);
+        return response()->json($tabel);
+    }
+
+    public function LihatHeaderPelunasanCashAdvance($noPelunasan)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Pelunasan = ?', [2, $noPelunasan]);
+        return response()->json($tabel);
+    }
+
+    public function LihatDetailPelunasanCashAdvance($noPelunasan)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_PELUNASAN_TAGIHAN] @Kode = ?, @Id_Pelunasan = ?', [3, $noPelunasan]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

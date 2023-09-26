@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8 RDZMobilePaddingLR0">
+            <div class="col-md-11 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Maintenance Pelunasan Tagihan (Cash Advance)</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -32,7 +32,7 @@
                                         <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%" readonly>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" id="idJenisCustomer" name="idJenisCustomer" class="form-control" style="width: 100%" readonly>
+                                        <input type="text" id="namaCustomer" name="namaCustomer" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -43,6 +43,9 @@
                                         <select id="noPelunasanSelect" name="noPelunasanSelect" class="form-control" readonly>
 
                                         </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="noPelunasan" name="noPelunasan" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -68,10 +71,10 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="noBKM" style="margin-right: 10px;">No. BKM</label>
+                                        <label for="idBKM" style="margin-right: 10px;">No. BKM</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" id="noBKM" name="noBKM" class="form-control" style="width: 100%" readonly>
+                                        <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -82,6 +85,9 @@
                                         <select id="jenisPembayaranSelect" name="jenisPembayaranSelect" class="form-control" readonly>
 
                                         </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <div class="d-flex">
