@@ -1,15 +1,15 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
-  @if (Session::has('success'))
-    <div class="alert alert-success">
-      {{ Session::get('success') }}
-    </div>
-  @elseif (Session::has('error'))
-    <div class="alert alert-danger">
-      {{ Session::get('error') }}
-    </div>
-  @endif
   <div class="container-fluid">
+    @if (Session::has('success'))
+      <div class="alert alert-success">
+        {{ Session::get('success') }}
+      </div>
+    @elseif (Session::has('error'))
+      <div class="alert alert-danger">
+        {{ Session::get('error') }}
+      </div>
+    @endif
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
         <div class="card">
@@ -79,8 +79,10 @@
               <button class="btn btn-primary" id="Isi" onclick="isi()" type="button">Isi</button>
               <button id="Koreksi" class="btn btn-warning" type="button" onclick="koreksiklik()">Koreksi</button>
               <button id="Hapus" class="btn btn-danger" type="button" onclick="hapusdiklik()">Hapus</button>
-              <button  type="button" id="Proses" class="btn btn-success" onclick="Prosesdiklik()" disabled>Proses</button>
-              <button  type="button" id="Batal" class="btn btn-danger" style="display: none" onclick="Bataldiklik()">Batal</button>
+              <button type="button" id="Proses" class="btn btn-success" onclick="Prosesdiklik()"
+                disabled>Proses</button>
+              <button type="button" id="Batal" class="btn btn-danger" style="display: none"
+                onclick="Bataldiklik()">Batal</button>
             </div>
           </div>
         </div>
