@@ -26,6 +26,7 @@ class AgendaJamController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         // dd($data , " Masuk store bosq");
         if ( $data['opsi'] === 'hariMinggu') {
             DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
@@ -50,6 +51,15 @@ class AgendaJamController extends Controller
                 $data['Ket_Absensi'],
                 $data['User_Input']
             ]);
+            return redirect()->back();
+        }else if ($data['opsi'] === 'insertDivisi') {
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_SHIFT @id_divisi = ?', [
+                $data['id_divisi'],
+            ]);
+            // dd($dataShift);
+            foreach ($dataShift as $shift) {
+                dd($shift->Kd_Pegawai);
+            };
             return redirect()->back();
         }
 

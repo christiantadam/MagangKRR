@@ -4,11 +4,116 @@ $(document).ready(function () {
     // Ambil elemen select pegawai
     var pegawaiSelect = document.getElementById("PegawaiSelect");
     const generateButton = document.getElementById("generateButton");
-    // Tambahkan event listener untuk perubahan pada select divisi
-    $("#tabel_Divisi").DataTable({
-        order: [[0, "asc"]],
-    });
+    const generateDivisi = document.getElementById("generateDivisi");
+    const pilihSemua = document.getElementById("pilihSemua");
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
 
+    // Tambahkan event listener untuk perubahan pada select divisi
+    var tabel = $("#tabel_Divisi").DataTable({
+        order: [[0, "asc"]],
+        select: {
+            style: "multi",
+        },
+    });
+    let semuaDipilih = false;
+
+    pilihSemua.addEventListener("click", function () {
+        if (semuaDipilih) {
+            tabel.rows().deselect();
+            semuaDipilih = false;
+        } else {
+            tabel.rows().select();
+            semuaDipilih = true;
+        }
+    });
+    generateDivisi.addEventListener("click", function () {
+        var dataDipilih = tabel.rows(".selected").data();
+        const DateTimePicker1 = document.getElementById("TglAwal");
+        const DateTimePicker2 = document.getElementById("TglAkhir");
+        const kd_pegawai = document.getElementById("PegawaiSelect").value;
+        const startDate = new Date(DateTimePicker1.value);
+        const endDate = new Date(DateTimePicker2.value);
+        const startJam = document.getElementById("masuk").value;
+        const endJam = document.getElementById("pulang").value;
+        const awalIstirahat = document.getElementById("masuk_istirahat").value;
+        const akhirIstirahat =
+            document.getElementById("pulang_istirahat").value;
+        // Mencetak data yang dipilih ke console
+        for (var i = 0; i < dataDipilih.length; i++) {
+            console.log(dataDipilih[i]);
+            const tanggal = new Date(startDate);
+            tanggal.setDate(startDate.getDate() + i);
+            const hari = tanggal.getDay();
+            tanggalString = tanggal.toISOString().slice(0, 10);
+            const jamMasuk = new Date(`${tanggalString}T${startJam}:00`);
+            const jamPulang = new Date(`${tanggalString}T${endJam}:00`);
+            var Jam_Masuk = tanggalString + " " + startJam;
+            var Jam_Keluar = tanggalString + " " + endJam;
+            var awal_Jam_istirahat = tanggalString + " " + awalIstirahat;
+            var akhir_Jam_istirahat = tanggalString + " " + akhirIstirahat;
+            // Hitung selisih jam antara "Masuk" dan "Pulang" untuk tanggal ini
+            const Jml_Jam = Math.round(
+                (jamPulang - jamMasuk) / (1000 * 60 * 60)
+            );
+            const data = {
+                id_divisi: dataDipilih[i][0],
+                Tanggal: DateTimePicker1.value,
+                Jam_Masuk: Jam_Masuk,
+                Jam_Keluar: Jam_Keluar,
+                Jml_Jam: Jml_Jam,
+                awal_Jam_istirahat: awal_Jam_istirahat,
+                akhir_Jam_istirahat: akhir_Jam_istirahat,
+                hari: hari,
+                Ket_Absensi: "M",
+                User_Input: "U001",
+                opsi: "insertDivisi",
+            };
+            console.log(data);
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "Jam");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        }
+    });
     document.getElementById("opsi1").addEventListener("change", function () {
         if (this.checked) {
             document.getElementById("peroranganSection").hidden = false;
@@ -111,7 +216,8 @@ $(document).ready(function () {
                         console.log("datanya ada");
                         alert("Agenda Sudah ada sehingga tidak bisa diproses");
                         return;
-                    } else {
+                    } else if (data[0].ada == 0) {
+                        console.log("masuk gan");
                         if (hari === 0) {
                             const data = {
                                 kd_pegawai: kd_pegawai,
@@ -122,9 +228,9 @@ $(document).ready(function () {
                                 opsi: "hariMinggu",
                             };
 
-                            let csrfToken = document
-                                .querySelector('meta[name="csrf-token"]')
-                                .getAttribute("content");
+                            // let csrfToken = document
+                            //     .querySelector('meta[name="csrf-token"]')
+                            //     .getAttribute("content");
 
                             // Send the data to the server using AJAX
                             $.ajax({
@@ -198,21 +304,5 @@ $(document).ready(function () {
                     console.error("Error fetching data:", error);
                 });
         }
-
-        // $.ajax({
-        //     url: "/AgendaMasuk/Jam/" + kd_pegawai + "." + DateTimePicker1.value + ".cekAgenda",
-
-        //     method: "GET", // Anda ingin menampilkan data, jadi metode HTTP harus GET
-        //     success: function(response) {
-        //         console.log("Data berhasil diambil!");
-        //         getAjaxResponse = response;
-        //         console.log(getAjaxResponse);
-        //          // Data yang ditemukan akan tersedia di sini
-        //     },
-        //     error: function(error) {
-        //         console.error("Error saat mengambil data:", error);
-        //         // Handle the error if needed
-        //     }
-        // });
     });
 });

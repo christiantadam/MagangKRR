@@ -125,8 +125,8 @@
                                     </div>
                                     <div id="form-container"></div>
                                     <div style="text-align: right; margin-top: 100px;">
-                                        <button type="button" class="btn btn-primary">Pilih Semua</button>
-                                        <button type="button" class="btn btn-info">Generate Divisi</button>
+                                        <button type="button" class="btn btn-primary" id="pilihSemua">Pilih Semua</button>
+                                        <button type="button" class="btn btn-info" id="generateDivisi">Generate Divisi</button>
                                     </div>
 
 
