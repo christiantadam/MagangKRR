@@ -10,7 +10,7 @@
 
     <div id="tropodo_perawatan" class="form" data-aos="fade-up">
         <div class="card mt-3">
-            <div class="card-body">
+            <div id="group_box1" class="card-body">
                 <div class="row">
                     <div class="col-lg-2">
                         <span class="aligned-text">Tanggal:</span>
@@ -113,7 +113,7 @@
         </div>
 
         <div class="card mt-3">
-            <div class="card-body">
+            <div id="group_box2" class="card-body">
                 <div class="row">
                     <div class="col-lg-2">
                         <span class="aligned-text">Gangguan:</span>

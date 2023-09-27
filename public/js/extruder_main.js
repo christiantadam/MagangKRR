@@ -350,14 +350,15 @@ function removeOption(selectEle, optValue = "", optChar = "") {
 function clearOptions(selectEle, selectLbl = "") {
     selectHead =
         selectLbl == ""
-            ? snakeCaseToTitleCase(
+            ? "Pilih " +
+              snakeCaseToTitleCase(
                   selectEle.getAttribute("id").replace("select_", "")
               )
             : selectLbl;
 
     selectEle.innerHTML = `
         <option selected disabled>
-            -- Pilih ${selectHead} --
+            -- ${selectHead} --
         </option>
     `;
 

@@ -1481,7 +1481,7 @@ btnProses.addEventListener("click", function () {
 slcHP.addEventListener("mousedown", function () {
     if (refetchHP) {
         refetchHP = false;
-        clearOptions(this, "Hasil Produksi");
+        clearOptions(this, "Pilih Hasil Produksi");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1506,7 +1506,7 @@ slcHP.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchHP) {
             refetchHP = false;
-            clearOptions(this, "Hasil Produksi");
+            clearOptions(this, "Pilih Hasil Produksi");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",
@@ -1536,7 +1536,7 @@ slcHP.addEventListener("change", function () {
 slcNG.addEventListener("mousedown", function () {
     if (refetchNG) {
         refetchNG = false;
-        clearOptions(this, "Hasil Produksi NG");
+        clearOptions(this, "Pilih Hasil Produksi NG");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1561,7 +1561,7 @@ slcNG.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchNG) {
             refetchNG = false;
-            clearOptions(this, "Hasil Produksi NG");
+            clearOptions(this, "Pilih Hasil Produksi NG");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",
@@ -1591,7 +1591,7 @@ slcNG.addEventListener("change", function () {
 slcAF.addEventListener("mousedown", function () {
     if (refetchAF) {
         refetchAF = false;
-        clearOptions(this, "Afalan");
+        clearOptions(this, "Pilih Afalan");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "KodeBarang",
@@ -1616,7 +1616,7 @@ slcAF.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         if (refetchAF) {
             refetchAF = false;
-            clearOptions(this, "Afalan");
+            clearOptions(this, "Pilih Afalan");
             const errorOption = addLoadingOption(this);
             const optionKeys = {
                 valueKey: "KodeBarang",

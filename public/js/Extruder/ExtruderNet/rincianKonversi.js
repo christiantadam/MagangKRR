@@ -104,7 +104,7 @@ txtTritierTujuan.addEventListener("keypress", function (event) {
 RK_slcKelut.addEventListener("mousedown", function () {
     if (refetchKelutRK) {
         refetchKelutRK = false;
-        clearOptions(this, "Kelompok Utama");
+        clearOptions(this, "Pilih Kelompok Utama");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "IdKelompokUtama",
@@ -128,7 +128,7 @@ RK_slcKelut.addEventListener("mousedown", function () {
 RK_slcKelut.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && refetchKelutRK) {
         refetchKelutRK = false;
-        clearOptions(this, "Kelompok Utama");
+        clearOptions(this, "Pilih Kelompok Utama");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "IdKelompokUtama",
@@ -160,7 +160,7 @@ RK_slcKelut.addEventListener("change", function () {
 RK_slcKelompok.addEventListener("mousedown", function () {
     if (reftechKelRK) {
         reftechKelRK = false;
-        clearOptions(this, "Kelompok");
+        clearOptions(this, "Pilih Kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "idkelompok",
@@ -184,7 +184,7 @@ RK_slcKelompok.addEventListener("mousedown", function () {
 RK_slcKelompok.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && reftechKelRK) {
         reftechKelRK = false;
-        clearOptions(this, "Kelompok");
+        clearOptions(this, "Pilih Kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "idkelompok",
@@ -232,7 +232,7 @@ RK_slcKelompok.addEventListener("change", function () {
 RK_slcSubkel.addEventListener("mousedown", function () {
     if (refetchSubkelRK) {
         refetchSubkelRK = false;
-        clearOptions(this, "Sub-kelompok");
+        clearOptions(this, "Pilih Sub-kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "idsubkelompok",
@@ -256,7 +256,7 @@ RK_slcSubkel.addEventListener("mousedown", function () {
 RK_slcSubkel.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && refetchSubkelRK) {
         refetchSubkelRK = false;
-        clearOptions(this, "Sub-kelompok");
+        clearOptions(this, "Pilih Sub-kelompok");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "idsubkelompok",
@@ -287,7 +287,7 @@ RK_slcSubkel.addEventListener("change", function () {
 RK_slcType.addEventListener("mousedown", function () {
     if (refetchTypeRK) {
         refetchTypeRK = false;
-        clearOptions(this, "Type");
+        clearOptions(this, "Pilih Type");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "IdType",
@@ -311,7 +311,7 @@ RK_slcType.addEventListener("mousedown", function () {
 RK_slcType.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && refetchTypeRK) {
         refetchTypeRK = false;
-        clearOptions(this, "Type");
+        clearOptions(this, "Pilih Type");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "IdType",

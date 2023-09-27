@@ -37,9 +37,9 @@
                     <div class="col-lg-3">
                         <select id="select_shift" class="form-select">
                             <option selected disabled>-- Pilih Shift --</option>
-                            <option value="a">A</option>
-                            <option value="b">B</option>
-                            <option value="c">C</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
                         </select>
                     </div>
                 </div>
@@ -63,9 +63,9 @@
                         <input type="time" id="akhir" class="form-control">
                     </div>
 
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <select id="select_waktu_produksi" class="form-select hidden">
-                            <option selected disabled>-- Pilih Waktu Produksi --</option>
+                            <option selected disabled>-- Awal Produksi | Akhir Produksi --</option>
                         </select>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="screw_revolution" class="form-control">
+                            <input type="number" min="0" id="screw_revolution" class="form-control">
                             <span class="input-group-text">Rpm</span>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="roll_speed" class="form-control">
+                            <input type="number" min="0" id="roll_speed" class="form-control">
                             <span class="input-group-text">m/min</span>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="motor_current" class="form-control">
+                            <input type="number" min="0" id="motor_current" class="form-control">
                             <span class="input-group-text">A</span>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="stretching_ratio" class="form-control">
+                            <input type="number" min="0" id="stretching_ratio" class="form-control">
                             <span class="input-group-text">times</span>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="slitter_width" class="form-control">
+                            <input type="number" min="0" id="slitter_width" class="form-control">
                             <span class="input-group-text">mm</span>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="relax" class="form-control">
+                            <input type="number" min="0" id="relax" class="form-control">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="no_yam" class="form-control">
+                            <input type="number" min="0" id="no_yam" class="form-control">
                             <span class="input-group-text">Pcs</span>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="denier" class="form-control">
+                            <input type="number" min="0" id="denier" class="form-control">
                             <span class="input-group-text">m</span>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="water_gap" class="form-control">
+                            <input type="number" min="0" id="water_gap" class="form-control">
                             <span class="input-group-text">mm</span>
                         </div>
                     </div>
@@ -211,7 +211,7 @@
 
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" id="denier_rata" class="form-control">
+                            <input type="number" min="0" id="denier_rata" class="form-control">
                             <span class="input-group-text">m</span>
                         </div>
                     </div>

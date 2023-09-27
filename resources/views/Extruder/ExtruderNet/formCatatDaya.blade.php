@@ -52,7 +52,8 @@
                     </div>
 
                     <div class="col-lg-3">
-                        <input type="text" id="teks_id" class="form-control" style="margin-top: 1.75em;">
+                        <input type="text" id="teks_id" class="form-control" style="margin-top: 1.75em;"
+                            placeholder="Id KWaH..">
                     </div>
                 </div>
 

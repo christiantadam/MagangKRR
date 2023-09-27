@@ -26,6 +26,12 @@ class PencatatanController extends Controller
             case 'formCatatEffisiensi':
                 $form_data = ['listMesin' => $this->getListMesin(1)];
                 break;
+            case 'formCatatPerawatan':
+                $form_data = [
+                    'listPerawatan' => $this->getListJnsPerawatan("EXT"),
+                    'listMesin' => $this->getListMesin(1),
+                ];
+                break;
 
             default:
                 break;
@@ -37,10 +43,91 @@ class PencatatanController extends Controller
             'formData' => $form_data,
         ];
 
-        // dd($this->getListGangguanProd(8, 2023));
 
         return view($view_name, $view_data);
     }
+
+    #region Perawatan
+    public function getListJnsPerawatan($id_divisi)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_JNS_PERAWATAN @IdDivisi = ?',
+            [$id_divisi]
+        );
+
+        // @IdDivisi char(3)
+    }
+
+    public function getListWinder($id_perawatan = null, $id_mesin = null)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_LIST_WINDER @idperawatan = ?, @idmesin = ?',
+            [$id_perawatan, $id_mesin]
+        );
+
+        // @idperawatan int =null, @idmesin varchar(5) =null
+    }
+
+    public function getJenisGangguan($id_perawatan)
+    {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_JENIS_GANGGUAN @IdPerawatan = ?',
+            [$id_perawatan]
+        );
+
+        // @IdPerawatan int
+    }
+
+    public function insPerawatan($tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_INSERT_PERAWATAN @tanggal = ?, @userId = ?, @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @userinput = ?',
+            [$tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input]
+        );
+
+        // @tanggal datetime, @userId char(4), @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @userinput varchar(7)
+    }
+
+    public function updPerawatan($shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_UPDATE_PERAWATAN @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @Kode = ?, @userkoreksi = ?',
+            [$shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi]
+        );
+
+        // @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @Kode int, @userkoreksi char(4) = null
+    }
+
+    public function delPerawatan($kode)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5298_EXT_DELETE_PERAWATAN @Kode = ?',
+            [$kode]
+        );
+
+        // @Kode int
+    }
+
+    public function getJenisPenyebab($id_perawatan)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_JENIS_PENYEBAB @IdPerawatan = ?',
+            [$id_perawatan]
+        );
+
+        // @IdPerawatan int
+    }
+
+    public function getJenisPenyelesaian($id_perawatan)
+    {
+        return DB::connection('ConnExtruder')->statement(
+            'exec SP_5409_EXT_JENIS_PENYELESAIAN @IdPerawatan = ?',
+            [$id_perawatan]
+        );
+
+        // @IdPerawatan int
+    }
+    #endregion
 
     #region Efisiensi
     public function getListAwalProdEff($tanggal, $no_mesin, $shift)
@@ -235,6 +322,7 @@ class PencatatanController extends Controller
         );
 
         // @Bulan Numeric(10,2), @Tahun Numeric(10,2)
+        // dd($this->getListGangguanProd(8, 2023));
     }
 
     public function getListShift($id_konversi)

@@ -445,8 +445,11 @@ function loadDataGangguanProdEXT() {
     );
 }
 
-function rowClickedGangguan(row, data, index) {
-    if (pilGangguan == index) {
+function rowClickedGangguan(row, data, _) {
+    if (
+        pilGangguan ==
+        findClickedRowInList(listGangguan, "NoTrans", data.NoTrans)
+    ) {
         row.style.background = "white";
         pilGangguan = -1;
         checkboxesGangguan[index].checked = false;
@@ -456,8 +459,12 @@ function rowClickedGangguan(row, data, index) {
         clearCheckedBoxes(checkboxesGangguan, checkboxesGangguan[index]);
 
         row.style.background = "aliceblue";
-        pilGangguan = index;
         checkboxesGangguan[index].checked = true;
+        pilGangguan = findClickedRowInList(
+            listGangguan,
+            "NoTrans",
+            data.NoTrans
+        );
 
         txtNoTransaksi.value = listGangguan[index].NoTrans;
         dateInput.value = data.Tanggal;
@@ -626,7 +633,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel gangguan...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: () => {

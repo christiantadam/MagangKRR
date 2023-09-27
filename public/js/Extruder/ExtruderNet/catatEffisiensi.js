@@ -1,6 +1,5 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
-
 const timeAwal = document.getElementById("awal");
 const timeAkhir = document.getElementById("akhir");
 
@@ -31,6 +30,7 @@ const groupBox1Slc = document.querySelectorAll("#group_box1 .form-select");
 const groupBox2 = document.querySelectorAll("#group_box2 .form-control");
 
 var refetchWaktu = false;
+var refetchKonversi = false;
 var modeProses = "";
 //#endregion
 
@@ -39,66 +39,28 @@ dateInput.addEventListener("keypress", function (event) {
     if (event.key == "Enter") slcMesin.focus();
 });
 
-dateInput.addEventListener("change", () => (refetchWaktu = true));
+dateInput.addEventListener("change", () => {
+    refetchWaktu = true;
+    refetchKonversi = true;
+});
 
 slcMesin.addEventListener("change", () => {
     slcShift.focus();
     refetchWaktu = true;
+    refetchKonversi = true;
 });
 
 slcShift.addEventListener("change", () => {
-    if (modeProses == "isi") {
-        dateInput.focus();
-    } else if (modeProses == "koreksi" || modeProses == "hapus") {
-        slcWaktu.classList.remove("hidden");
-        slcWaktu.focus();
-    }
-
     refetchWaktu = true;
+    refetchKonversi = true;
+    slcWaktu.classList.remove("hidden");
+    slcWaktu.focus();
 });
 
 slcWaktu.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (this.options.length <= 1 || refetchWaktu) {
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "AwalProduksi",
-                textKey: "AkhirProduksi",
-            };
-
-            // SP_5298_EXT_LIST_AWALPROD_EFF
-            fetchSelect(
-                "/Catat/getListAwalProdEff/" +
-                    dateInput.value +
-                    "/" +
-                    slcMesin.value +
-                    "/" +
-                    slcShift.value,
-                (data) => {
-                    addOptions(
-                        this,
-                        data.map((item) => {
-                            return {
-                                AwalProduksi: dateTimetoTime(item.AwalProduksi),
-                                AkhirProduksi: dateTimetoTime(
-                                    item.AkhirProduksi
-                                ),
-                            };
-                        }),
-                        optionKeys
-                    );
-                    this.removeChild(errorOption);
-                },
-                errorOption
-            );
-        }
-    }
-});
-
-slcWaktu.addEventListener("mousedown", function () {
-    if (this.options.length <= 1 || refetchWaktu) {
-        clearOptions(this);
+    if (event.key === "Enter" && refetchWaktu) {
+        refetchWaktu = false;
+        clearOptions(this, "Awal Produksi | Akhir Produksi");
         const errorOption = addLoadingOption(this);
         const optionKeys = {
             valueKey: "AwalProduksi",
@@ -114,17 +76,61 @@ slcWaktu.addEventListener("mousedown", function () {
                 "/" +
                 slcShift.value,
             (data) => {
-                addOptions(
-                    this,
-                    data.map((item) => {
+                if (data.length > 0) {
+                    let formattedData = data.map((item) => {
                         return {
-                            AwalProduksi: dateTimetoTime(item.AwalProduksi),
-                            AkhirProduksi: dateTimetoTime(item.AkhirProduksi),
+                            AwalProduksi: dateTimetoTime(
+                                item.AwalProduksi
+                            ).slice(0, -3),
+                            AkhirProduksi: dateTimetoTime(
+                                item.AkhirProduksi
+                            ).slice(0, -3),
                         };
-                    }),
-                    optionKeys
-                );
-                this.removeChild(errorOption);
+                    });
+
+                    addOptions(this, formattedData, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchWaktu = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcWaktu.addEventListener("mousedown", function () {
+    if (refetchWaktu) {
+        refetchWaktu = false;
+        clearOptions(this, "Awal Produksi | Akhir Produksi");
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "AwalProduksi",
+            textKey: "AkhirProduksi",
+        };
+
+        // SP_5298_EXT_LIST_AWALPROD_EFF
+        fetchSelect(
+            "/Catat/getListAwalProdEff/" +
+                dateInput.value +
+                "/" +
+                slcMesin.value +
+                "/" +
+                slcShift.value,
+            (data) => {
+                if (data.length > 0) {
+                    let formattedData = data.map((item) => {
+                        return {
+                            AwalProduksi: dateTimetoTime(
+                                item.AwalProduksi
+                            ).slice(0, -3),
+                            AkhirProduksi: dateTimetoTime(
+                                item.AkhirProduksi
+                            ).slice(0, -3),
+                        };
+                    });
+
+                    addOptions(this, formattedData, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchWaktu = true;
             },
             errorOption
         );
@@ -132,20 +138,306 @@ slcWaktu.addEventListener("mousedown", function () {
 });
 
 slcWaktu.addEventListener("change", function () {
-    timeAwal.value = this[this.selectedIndex].textContent.split(" | ")[0];
-    timeAkhir.value = this[this.selectedIndex].textContent.split(" | ")[1];
+    timeAwal.value = this[this.selectedIndex].text.split(" | ")[0];
+    timeAkhir.value = this[this.selectedIndex].text.split(" | ")[1];
 
     if (timeAwal.value != "00:00") {
         if (modeProses == "koreksi" || modeProses == "hapus") {
             getDataEffisiensi();
 
             if (modeProses == "koreksi") {
-                txtScrew.focus();
+                txtScrew.select();
             } else {
                 btnProses.focus();
             }
         }
     }
+});
+
+slcKodeKonv.addEventListener("mousedown", function () {
+    if (refetchKonversi) {
+        refetchKonversi = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKonversi",
+            textKey: "NamaKomposisi",
+        };
+
+        // SP_5298_EXT_LIST_IDKONVERSI
+        fetchSelect(
+            "/Master/getListIdKonversi/" +
+                dateInput.value +
+                "/" +
+                slcMesin.value +
+                "/" +
+                slcShift.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKonversi = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcKodeKonv.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchKonversi) {
+        refetchKonversi = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdKonversi",
+            textKey: "NamaKomposisi",
+        };
+
+        // SP_5298_EXT_LIST_IDKONVERSI
+        fetchSelect(
+            "/Master/getListIdKonversi/" +
+                dateInput.value +
+                "/" +
+                slcMesin.value +
+                "/" +
+                slcShift.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKonversi = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcKodeKonv.addEventListener("change", function () {
+    txtScrew.select();
+});
+
+txtScrew.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtSlitter.select();
+});
+
+txtSlitter.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtNoYam.select();
+});
+
+txtNoYam.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtRoll.select();
+});
+
+txtRoll.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtStretch.select();
+});
+
+txtStretch.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtRelax.select();
+});
+
+txtRelax.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtDenier.select();
+});
+
+txtDenier.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (parseFloat(this.value) < 100) {
+            alert("Denier tidak boleh kurang dari 100.");
+            this.select();
+        } else {
+            switch (parseFloat(this.value)) {
+                case 800:
+                    txtRata.value = 750;
+                    break;
+                case 850:
+                    txtRata.value = 825;
+                    break;
+                case 900:
+                    txtRata.value = 850;
+                    break;
+                case 1000:
+                    txtRata.value = 950;
+                    break;
+                case 1500:
+                    txtRata.value = 1500;
+                    break;
+                case 1800:
+                    txtRata.value = 1700;
+                    break;
+                case 1700:
+                    txtRata.value = 1700;
+                    break;
+                case 2000:
+                    txtRata.value = 1800;
+                    break;
+                case 2100:
+                    txtRata.value = 1800;
+                    break;
+                case 950:
+                    txtRata.value = 925;
+                    break;
+
+                default:
+                    alert("Denier tidak valid.");
+                    this.select();
+                    return;
+            }
+
+            txtRata.select();
+        }
+    }
+});
+
+txtRata.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") btnProses.focus();
+});
+
+btnIsi.addEventListener("click", function () {
+    modeProses = "isi";
+    toggleButtons(2);
+    setEnable(true);
+    clearAll();
+    dateInput.focus();
+});
+
+btnKoreksi.addEventListener("click", function () {
+    modeProses = "koreksi";
+    toggleButtons(2);
+    setEnable(true);
+    dateInput.focus();
+});
+
+btnHapus.addEventListener("click", function () {
+    modeProses = "hapus";
+    toggleButtons(2);
+    groupBox1Ctr.forEach((ctr) => (ctr.disabled = false));
+    groupBox1Slc.forEach((slc) => (slc.disabled = false));
+    dateInput.focus();
+});
+
+btnProses.addEventListener("click", function () {
+    // SP_5298_EXT_CEK_DATA_EFF
+    fetchSelect(
+        "/Catat/getCekDataEff/" +
+            dateInput.value +
+            "/" +
+            slcMesin.value +
+            "/" +
+            slcShift.value +
+            "/" +
+            timeAwal.value +
+            "/" +
+            timeAkhir.value +
+            "/" +
+            slcKodeKonv.value,
+        (data) => {
+            if (data.length > 0) {
+                if (modeProses == "isi" && data[0].ada > 0) {
+                    alert(
+                        "Data Effisiensi dengan ketentuan berikut sudah ada, \nMesin: " +
+                            slcMesin.options[slcMesin.selectedIndex].text +
+                            "\nTanggal: " +
+                            dateInput.value +
+                            "\nShift: " +
+                            slcShift.value +
+                            "\nNomor Konversi: " +
+                            slcKodeKonv.value +
+                            "\nJam Produksi: " +
+                            timeAwal.value +
+                            " - " +
+                            timeAkhir.value
+                    );
+                    return;
+                }
+            }
+
+            const post_action = () => {
+                setEnable(false);
+                modeProses = "";
+                toggleButtons(1);
+                clearAll();
+                slcWaktu.classList.add("hidden");
+            };
+
+            let sp_str = "";
+            if (modeProses == "isi") {
+                sp_str = "insEff";
+            } else if (modeProses == "koreksi") {
+                sp_str = "updEff";
+            } else sp_str = "delEff";
+
+            if (modeProses == "isi" || modeProses == "koreksi") {
+                fetchStmt(
+                    "/Catat/" +
+                        sp_str +
+                        "/" +
+                        dateInput.value +
+                        "/" +
+                        slcMesin.value +
+                        "/" +
+                        slcShift.value +
+                        "/" +
+                        timeAwal.value +
+                        "/" +
+                        timeAkhir.value +
+                        "/" +
+                        slcKodeKonv.value +
+                        "/" +
+                        txtScrew.value +
+                        "/" +
+                        txtMotor.value +
+                        "/" +
+                        txtSlitter.value +
+                        "/" +
+                        txtWater.value +
+                        "/" +
+                        txtRoll.value +
+                        "/" +
+                        txtRelax.value +
+                        "/" +
+                        txtDenier.value +
+                        "/" +
+                        txtRata.value +
+                        "/4384",
+                    () => {
+                        alert("Data berhasil dikoreksi.");
+                        slcWaktu.classList.add("hidden");
+                        post_action();
+                    }
+                );
+            } else {
+                fetchStmt(
+                    "/Catat/" +
+                        sp_str +
+                        "/" +
+                        dateInput.value +
+                        "/" +
+                        slcMesin.value +
+                        "/" +
+                        slcShift.value +
+                        "/" +
+                        timeAwal.value +
+                        "/" +
+                        timeAkhir.value,
+                    () => {
+                        alert("Data berhasil dihapus.");
+                        post_action();
+                    }
+                );
+            }
+        }
+    );
+});
+
+btnKeluar.addEventListener("click", function () {
+    if (this.textContent != "Keluar") {
+        toggleButtons(1);
+        clearAll();
+        setEnable(false);
+        modeProses = "";
+        slcWaktu.classList.add("hidden");
+    } else window.location.href = "/Extruder/ExtruderNet";
 });
 //#endregion
 
@@ -178,13 +470,13 @@ function toggleButtons(tmb) {
     }
 }
 
-function clearData() {
+function clearAll() {
     groupBox1Ctr.forEach((input) => (input.value = ""));
     groupBox1Slc.forEach((input) => (input.selectedIndex = 0));
     groupBox2.forEach((input) => (input.value = ""));
-
     timeAwal.value = "00:00";
     timeAkhir.value = "00:00";
+    dateInput.value = getCurrentDate();
 }
 
 function getDataEffisiensi() {
@@ -199,24 +491,26 @@ function getDataEffisiensi() {
             "/" +
             timeAwal.value,
         (data) => {
-            txtScrew.value = data[0].ScrewRevolution;
-            txtMotor.value = data[0].MotorCurrent;
-            txtSlitter.value = data[0].SlitterWidth;
-            txtNoYam.value = data[0].NoOfYarn;
-            txtWater.value = data[0].WaterGap;
-            txtRoll.value = data[0].RollSpeed3;
-            txtStretch.value = data[0].StretchingRatio;
-            txtRelax.value = data[0].Relax;
-            txtDenier.value = data[0].Denier;
-            txtRata.value = data[0].DenierRata;
+            if (data.length > 0) {
+                txtScrew.value = data[0].ScrewRevolution;
+                txtMotor.value = data[0].MotorCurrent;
+                txtSlitter.value = data[0].SlitterWidth;
+                txtNoYam.value = data[0].NoOfYarn;
+                txtWater.value = data[0].WaterGap;
+                txtRoll.value = data[0].RollSpeed3;
+                txtStretch.value = data[0].StretchingRatio;
+                txtRelax.value = data[0].Relax;
+                txtDenier.value = data[0].Denier;
+                txtRata.value = data[0].DenierRata;
 
-            addOptionIfNotExists(
-                slcKodeKonv,
-                data[0].IdKonversi,
-                data[0].IdKonversi + " | " + data[0].NamaKomposisi
-            );
+                addOptionIfNotExists(
+                    slcKodeKonv,
+                    data[0].IdKonversi,
+                    data[0].IdKonversi + " | " + data[0].NamaKomposisi
+                );
 
-            txtScrew.focus();
+                txtScrew.focus();
+            } else alert("Data Effisiensi tidak ditemukan.");
         }
     );
 }
@@ -226,6 +520,10 @@ function init() {
     timeAwal.value = "00:00";
     timeAkhir.value = "00:00";
     dateInput.value = getCurrentDate();
+    toggleButtons(1);
+    setEnable(false);
+    clearAll();
+    btnIsi.focus();
 }
 
 $(document).ready(() => {
