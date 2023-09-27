@@ -26,6 +26,14 @@ class InputJadwalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-BAGIAN-GAMBAR] @noOd = ?', [$noOd]);
         return response()->json($data);
     }
+    public function GetJamKerja($worksts , $estDate) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_GET-JAM-KERJA-KONSTRUKSI] @worksts = ?, @estDate = ?', [$worksts , $estDate]);
+        return response()->json($data);
+    }
+    public function Cekdatasudahada($idBagian, $estDate, $worksts) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-PROSES-KONSTRUKSI] @idBagian = ?, @estDate = ?, @worksts = ?', [$idBagian , $estDate , $worksts]);
+        return response()->json($data);
+    }
 
     public function create()
     {

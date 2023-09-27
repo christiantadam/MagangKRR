@@ -93,7 +93,14 @@
                 </div>
                 <div class="mb-3">
                   <label for="tglStart" class="form-label">Tanggal Start</label>
-                  <input type="Date" class="form-control" name="tglStart" id="tglStart" disabled>
+                  <div class="row">
+                    <div class="col">
+                        <input type="Date" class="form-control" name="tglStart" id="tglStart" disabled>
+                    </div>
+                    <div class="col">
+                        <span style="color: red; display:none" id="tulisanjamkerja">Jam Kerja <span id="JamKerja" style="color: red"></span></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="hariKe" class="form-label">Hari Ke</label>

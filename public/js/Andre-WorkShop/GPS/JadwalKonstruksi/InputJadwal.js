@@ -15,7 +15,10 @@ let tglStart = document.getElementById("tglStart");
 let hariKe = document.getElementById("hariKe");
 let jam = document.getElementById("jam");
 let menit = document.getElementById("menit");
-let btnbatal = document.getElementById('batal');
+let btnbatal = document.getElementById("batal");
+let JamKerja = document.getElementById("JamKerja");
+let tulisanjamkerja = document.getElementById("tulisanjamkerja");
+let btnproses = document.getElementById("proses");
 const currentDate = new Date();
 // Format the current date to be in 'YYYY-MM-DD' format for setting the input value
 const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
@@ -35,6 +38,7 @@ NoOrder.addEventListener("keypress", function (event) {
         loaddata(NoOrder.value);
         loadnamabagian(NoOrder.value);
         btnbatal.disabled = false;
+        NamaBagian.focus();
     }
 });
 
@@ -53,6 +57,7 @@ function loaddata(NomorOrder) {
                         NomorOrder +
                         ", tidak ada, blm di-ACC, ditolak, atau sudah finish."
                 );
+                cleartext();
                 NoOrder.focus();
                 return;
             } else {
@@ -132,4 +137,234 @@ function loadnamabagian(NomorOrder) {
 
 //#endregion
 
+//#region batal
 
+btnbatal.addEventListener("click", function () {
+    cleartext();
+    NoOrder.focus();
+});
+
+//#endregion
+
+//#region clear text
+
+function cleartext() {
+    NoOrder.value = "";
+    OdSts.textContent = "";
+    divisi.value = "";
+    Kode_Barang.value = "";
+    NoGambarRev.value = "";
+    NamaBarang.value = "";
+    Mesin.value = "";
+    Pengorder.value = "";
+    KetOrder.value = "";
+    estStart.textContent = "";
+    estFinish.textContent = "";
+    NamaBagian.value = "Pilih Bagian";
+    NamaBagian.disabled = true;
+    WorkStation.value = "Pilih Work Station";
+    WorkStation.disabled = true;
+    tglStart.value = formattedCurrentDate;
+    tglStart.disabled = true;
+    hariKe.value = "";
+    hariKe.disabled = true;
+    jam.value = "";
+    jam.disabled = true;
+    menit.value = "";
+    menit.disabled = true;
+}
+
+//#endregion
+
+//#region tanggal start on enter
+
+tglStart.addEventListener("keypress", function (event) {
+    let tglS;
+    let tglF;
+    if (event.key == "Enter") {
+        fetch("/cekdataestimasiInputJadwal/" + NoOrder.value)
+            .then((response) => response.json())
+            .then((datas) => {
+                // console.log(datas);
+                if (datas[0].ada > 0) {
+                    tglS = datas[0].TglS;
+                    tglF = datas[0].TglF;
+                }
+                if (tglStart.value < tglS || tglStart.value > tglF) {
+                    // console.log(tglStart.value);
+                    // console.log(tglS);
+                    if (tglStart.value < tglS) {
+                        alert(
+                            "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+                                tglS +
+                                ") yg dijadwalkan oleh PPIC."
+                        );
+                    }
+                    if (tglStart.value > tglF) {
+                        alert(
+                            "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+                                tglF +
+                                ") yg dijadwalkan oleh PPIC."
+                        );
+                    }
+                    tglStart.focus();
+                    return;
+                } else {
+                    hariKe.focus();
+                }
+            });
+    }
+});
+
+//#endregion
+
+//#region Thari on enter
+
+hariKe.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        jam.focus();
+    }
+});
+
+//#endregion
+
+//#region nama bagian on change
+
+NamaBagian.addEventListener("change", function (event) {
+    if (NamaBagian.value != "Pilih Bagian") {
+        WorkStation.focus();
+    }
+});
+
+//#endregion
+
+//#region workstation on change
+
+WorkStation.addEventListener("change", function () {
+    if (WorkStation.value != "Pilih Work Station") {
+        tglStart.focus();
+    }
+});
+
+//#endregion
+
+//#region Jam on enter
+
+jam.addEventListener("keypress", function (event) {
+    let jumlahjam;
+    if (event.key == "Enter") {
+        fetch(
+            "/GetJamKerjaInputJadwal/" +
+                WorkStation.value +
+                "/" +
+                tglStart.value
+        )
+            .then((response) => response.json())
+            .then((datas) => {
+                // console.log(datas);
+                if (datas.length > 0) {
+                    JamKerja.textContent = datas[0].JmlJamKerja + " Jam";
+                    tulisanjamkerja.style.display = "";
+                    jumlahjam = datas[0].JmlJamKerja;
+                } else {
+                    tulisanjamkerja.style.display = "none";
+                }
+            });
+        if (jam.value == "") {
+            jam.value = 0;
+        }
+        menit.focus();
+    }
+});
+
+//#endregion
+
+//#region menin on enter
+
+menit.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        btnproses.disabled = false;
+        btnproses.focus();
+        if (menit.value == "") {
+            menit.value = 0;
+        }
+    }
+});
+
+//#endregion
+
+//#region btn proses
+
+function prosesdiklik() {
+    // let Status1;
+    let status_kerja;
+    let pilih_que;
+    if (jam.value == 0 && menit.value == 0) {
+        alert("Estimate waktu harus lebih besar dari NOL...");
+        return;
+    }
+    fetch(
+        "/CekdatasudahadaInputJadwal/" +
+            NamaBagian.value +
+            "/" +
+            tglStart.value +
+            "/" +
+            WorkStation.value
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas[0].ada > 0) {
+                var userConfirmed = confirm(
+                    "Jadwal konstruksi yg akan diinputkan, sudah ada. Mau diinput lagi ??"
+                );
+                if (userConfirmed == false) {
+                    NamaBagian.focus();
+                    // Status1 = false;
+                    return;
+                }
+                var jawab_antrian = confirm("Tambahkan antrian baru ... ??");
+                let tglSrv = formattedCurrentDate;
+                let tglEst = tglStart.value;
+                if (jawab_antrian) {
+                    pilih_que = 1;
+                    if (tglEst < tglSrv) {
+                        status_kerja = 1;
+                    } else {
+                        if (confirm("Tidak emergency.... ??")) {
+                            status_kerja = 0;
+                        } else {
+                            status_kerja = 1;
+                        }
+                    }
+                } else {
+                    if (
+                        (tulisanjamkerja.style.display =
+                            "none" && JamKerja.textContent == "")
+                    ) {
+                        alert(
+                            "Tidak ada jadwal konstruksi. Tidak bisa disisipkan."
+                        );
+                        if (confirm("Disimpan ??")) {
+                            pilih_que = 1;
+                            if (tglEst < tglSrv) {
+                                status_kerja = 1;
+                            } else {
+                                if (confirm("Tidak emergency.... ??")) {
+                                    status_kerja = 0;
+                                } else {
+                                    status_kerja = 1;
+                                }
+                            }
+                        } else {
+                            Bataldiklik();
+                        }
+                    } else {
+                        pilih_que = 2;
+                    }
+                }
+            }
+        });
+}
+
+//#endregion
