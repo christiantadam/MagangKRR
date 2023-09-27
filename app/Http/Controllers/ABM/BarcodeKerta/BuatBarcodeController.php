@@ -78,8 +78,8 @@ class BuatBarcodeController extends Controller
                 ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
                 ->first(); // Ambil data dari baris pertama yang sesuai
 
-            // dd($crExplode[0]);
-            return response()->json($dataNoIndex); // Mengembalikan dataNoIndex sebagai respons JSON
+            // Mengembalikan dataNoIndex sebagai respons JSON
+            return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
         }
     }
 

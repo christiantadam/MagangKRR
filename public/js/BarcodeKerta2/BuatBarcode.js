@@ -485,18 +485,23 @@ function enableButtonJumlahBarang() {
 }
 
 function prosesACCBarcode(data) {
-    var noindeks = data.noindeks;
-    var kodebarang = '00000KB02';
+    var str = BarcodeACC.value;
+    var parts = str.split("-");
+    var noindeks = parts[1];
+    var kodebarang = parts[0];
     var userid = 'U001';
+    var opsi = 'satu';
+
     const formData = {
         kodebarang: kodebarang,
         noindeks: noindeks,
         userid: userid,
+        opsi: opsi
     };
     console.log(formData);
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "BuatBarcode/{noindeks}");
+    form.setAttribute("action", "BuatBarcode/dua");
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form
@@ -548,15 +553,17 @@ function prosesACCBarcode(data) {
 }
 
 function PrintUlangData(data) {
-    var kodebarang = data.kodebarang;
-    var noindeks = data.noindeks;
-    var userid = "U001";
+    var str = BarcodeACC.value;
+    var parts = str.split("-");
+    var noindeks = parts[1];
+    var kodebarang = parts[0];
+    var opsi = 'dua';
 
     // Create a data object to hold the values
     const formData = {
         kodebarang: kodebarang,
         noindeks: noindeks,
-        userid: userid
+        opsi: opsi
     };
 
     console.log(formData);

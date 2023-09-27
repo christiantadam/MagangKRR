@@ -217,7 +217,7 @@
                                                             </div>
                                                             <div class="text-center col-md-auto"
                                                                 style="margin-top: 15px; margin-left:350px;"><button
-                                                                    style="width: 100px; height: 50px"
+                                                                    style="width: 100px; height: 50px" onclick="prosesACCBarcode()"
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal4()"><button
@@ -230,7 +230,7 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                            <div class="text-center col-md-auto mt-3"><button type="button" onclick="PrintUlangData()"
                                                     style="width:180px; height: 50px">Print
                                                     Ulang</button>
                                             </div>
@@ -325,6 +325,7 @@
                                     </div>
                                 </div>
 
+                                <div id="form-container"></div>
 
                                 <div class="card mt-3"
                                     style="width: 50%; margin-left:250px; display: flex; flex-direction: column;gap:5px;white-space:nowrap; position: absolute; top: 570px">

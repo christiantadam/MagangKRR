@@ -141,8 +141,8 @@
                                                     <span class="aligned-text">Ketua Kelompok:</span>
                                                 </div>
                                                 <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="IdKelompokUtama" id="IdKelompokUtama"
-                                                        placeholder="ID Kelompok Utama" readonly>
+                                                    <input type="text" class="form-control" name="IdKelompokUtama"
+                                                        id="IdKelompokUtama" placeholder="ID Kelompok Utama" readonly>
                                                 </div>
                                                 <div class="form-group col-md-7 mt-3 mt-md-0">
                                                     <input type="text" class="form-control" name="ketua_Kelompok"
@@ -302,7 +302,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataDivisi2 as $data)
+                                                            @foreach ($dataDivisi as $data)
                                                                 <tr>
                                                                     <td>{{ $data->IdDivisi }}</td>
                                                                     <td>{{ $data->NamaDivisi }}</td>
@@ -360,8 +360,8 @@
                                             <span class="aligned-text">Ketua Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdKelompokUtama2" id="IdKelompokUtama2"
-                                                placeholder="ID Ketua Kelompok" readonly>
+                                            <input type="text" class="form-control" name="IdKelompokUtama2"
+                                                id="IdKelompokUtama2" placeholder="ID Ketua Kelompok" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="ketua_Kelompok2"
@@ -399,10 +399,6 @@
                                             <input type="text" class="form-control" name="Transaksi" id="Transaksi"
                                                 placeholder="Kode Transakski">
                                         </div>
-                                        <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Transaksi" id="Transaksi"
-                                                placeholder="Kode Transakski">
-                                        </div>
                                     </div>
 
 
@@ -411,12 +407,12 @@
                                             <span class="aligned-text">Kelompok:</span>
                                         </div>
                                         <div class="form-group col-md-3 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdKelompok2"
-                                                id="IdKelompok2" placeholder="ID Kelompok" readonly>
+                                            <input type="text" class="form-control" name="IdKelompokUtama2"
+                                                id="IdKelompokUtama2" placeholder="ID Kelompok Utama" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Kelompok2" id="Kelompok2"
-                                                placeholder="Kelompok" readonly>
+                                            <input type="text" class="form-control" name="NamaKelompokUtama2" id="NamaKelompokUtama2"
+                                                placeholder="Nama Kelompok Utama" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
                                                     onclick="openModal10()" id="ButtonKelut">...</button></div>
                                             <div class="modal" id="myModal10">
@@ -607,8 +603,8 @@
                                                                 <span class="aligned-text">Primer:</span>
                                                             </div>
                                                             <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                                <input type="text" class="form-control" name="Primer"
-                                                                    id="Primer" placeholder="Primer">
+                                                                <input type="text" class="form-control" name="PrimerStok"
+                                                                    id="PrimerStok" placeholder="Primer">
                                                             </div>
                                                         </div>
 
@@ -618,7 +614,7 @@
                                                             </div>
                                                             <div class="form-group col-md-6 mt-3 mt-md-0">
                                                                 <input type="text" class="form-control"
-                                                                    name="Sekunder" id="Sekunder"
+                                                                    name="SekunderStok" id="SekunderStok"
                                                                     placeholder="Sekunder">
                                                             </div>
                                                         </div>
@@ -628,7 +624,7 @@
                                                                 <span class="aligned-text">Tritier:</span>
                                                             </div>
                                                             <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                                <input class="form-control" name="Tritier" rows="Tritier"
+                                                                <input class="form-control" name="TritierStok" rows="TritierStok"
                                                                     placeholder="Tritier">
                                                             </div>
                                                         </div>
@@ -655,7 +651,7 @@
                                                                     </div>
                                                                     <div class="form-group col-md-6 mt-3 mt-md-0">
                                                                         <input type="text" class="form-control"
-                                                                            name="Primer" id="Primer"
+                                                                            name="PrimerKeluar" id="PrimerKeluar"
                                                                             placeholder="Primer">
                                                                     </div>
                                                                 </div>
@@ -667,7 +663,7 @@
                                                                     </div>
                                                                     <div class="form-group col-md-6 mt-3 mt-md-0">
                                                                         <input type="text" class="form-control"
-                                                                            name="Sekunder" id="Sekunder"
+                                                                            name="SekunderKeluar" id="SekunderKeluar"
                                                                             placeholder="Sekunder">
                                                                     </div>
                                                                 </div>
@@ -678,8 +674,8 @@
                                                                         <span class="aligned-text">Tritier:</span>
                                                                     </div>
                                                                     <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                                        <input class="form-control" name="Tritier"
-                                                                            rows="Tritier" placeholder="Tritier">
+                                                                        <input class="form-control" name="TritierKeluar"
+                                                                            rows="TritierKeluar" placeholder="Tritier">
                                                                     </div>
                                                                 </div>
                                                         </div>

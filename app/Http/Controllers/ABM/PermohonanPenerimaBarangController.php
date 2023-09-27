@@ -39,12 +39,12 @@ class PermohonanPenerimaBarangController extends Controller
 
         //getDivisi
         if ($crExplode[1] == "getXIdDivisi") {
-            if ($crExplode[0] == "JBJ"){
+            if ($crExplode[0] == "ABN"){
                 $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
             }
 
-            else if ($crExplode[0] == "JBM"){
-                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U002"]);
+            else if ($crExplode[0] == "JBJ"){
+                $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
             }
             // dd($dataObjek);
             // Return the options as JSON data
@@ -57,18 +57,63 @@ class PermohonanPenerimaBarangController extends Controller
             $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama @XIdObjek_KelompokUtama = ?', [$crExplode[0]]);
             // dd($dataSchedule);
             return response()->json($dataKelut);
-        } else if ($crExplode[1] == "XIdKelompokUtama_Kelompok") {
+        } else if ($crExplode[1] == "getXIdObjek_KelompokUtama1") {
+
+            //getDataPegawai
+            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama @XIdObjek_KelompokUtama = ?', [$crExplode[0]]);
+            // dd($dataSchedule);
+            return response()->json($dataKelut);
+        }
+
+        else if ($crExplode[1] == "XIdKelompokUtama_Kelompok") {
 
             //getDataPegawai
             $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', [$crExplode[0]]);
             // dd($dataKelompok);
             return response()->json($dataKelompok);
-        } else if ($crExplode[1] == "XIdKelompok_SubKelompok") {
+        } else if ($crExplode[1] == "XIdKelompokUtama_Kelompok1") {
+
+            //getDataPegawai
+            $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', [$crExplode[0]]);
+            // dd($dataKelompok);
+            return response()->json($dataKelompok);
+        }
+
+
+        else if ($crExplode[1] == "XIdKelompok_SubKelompok") {
 
             //getDataPegawai
             $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompok_SubKelompok @XIdKelompok_SubKelompok = ?', [$crExplode[0]]);
             // dd($dataSubKelompok);
             return response()->json($dataSubKelompok);
+        }else if ($crExplode[1] == "XIdKelompok_SubKelompok1") {
+
+            //getDataPegawai
+            $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompok_SubKelompok @XIdKelompok_SubKelompok = ?', [$crExplode[0]]);
+            // dd($dataSubKelompok);
+            return response()->json($dataSubKelompok);
+        }
+
+        else if ($crExplode[1] == "getView1") {
+
+            //getDataPegawai
+            $dataView = DB::connection('ConnInventory')->select('exec SP_1273_INV_List_Bon_TmpTransaksi @kode = ?, @XIdTypeTransaksi = ?, @XIdDivisi = ?, @XUser = ?', ["1", "26", $crExplode[0], "U001"]);
+            // dd($dataView);
+            return response()->json($dataView);
+        }else if ($crExplode[1] == "getView2") {
+
+            //getDataPegawai
+            $dataView = DB::connection('ConnInventory')->select('exec SP_1273_INV_List_Bon_TmpTransaksi @kode = ?, @XIdTypeTransaksi = ?, @XIdDivisi = ?', ["2", "26", $crExplode[0]]);
+            // dd($dataView);
+            return response()->json($dataView);
+        }
+
+        else if ($crExplode[1] == "getListLogin") {
+
+            //getDataPegawai
+            $dataView = DB::connection('ConnInventory')->select('exec SP_1003_INV_ListNama_Login @NamaUser = ?', ["Albert"]);
+            // dd($dataView);
+            return response()->json($dataView);
         }
     }
 

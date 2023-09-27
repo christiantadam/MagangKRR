@@ -89,6 +89,17 @@ $(document).ready(function () {
         ],
     });
 
+    // Mendapatkan elemen input tanggal
+    var inputTanggal = document.getElementById('Jenis');
+
+    // Mendapatkan tanggal dan waktu saat ini
+    var tanggalSekarang = new Date();
+
+    // Mengubah tanggal dan waktu saat ini menjadi format tanggal HTML yang valid (YYYY-MM-DD)
+    var tanggalFormat = tanggalSekarang.toISOString().slice(0, 10);
+
+    // Mengatur nilai input tanggal dengan tanggal saat ini
+    inputTanggal.value = tanggalFormat;
 
     $('#TablePemberiDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
@@ -149,7 +160,7 @@ $(document).ready(function () {
 
         // Populate the input fields with the data
         $('#IdKelompokUtama2').val(rowData[0]);
-        $('#ketua_Kelompok2').val(rowData[1]);
+        $('#NamaKelompokUtama2').val(rowData[1]);
 
         // Hide the modal immediately after populating the data
         closeModal9();
@@ -550,7 +561,7 @@ function closeModal10() {
 function openModal11() {
     var modal = document.getElementById('myModal11');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-    var txtIdKelompok = document.getElementById('IdKelompok2');
+    var txtIdKelompok = document.getElementById('IdKelompokUtama2');
     fetch("/ABM/PermohonanPenerimaBarang/" + txtIdKelompok.value + ".XIdKelompok_SubKelompok")
         .then((response) => {
             if (!response.ok) {
