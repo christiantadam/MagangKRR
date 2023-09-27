@@ -8,8 +8,9 @@
                     <div class="card-header">Maintenance Pelunasan Tagihan (Cash Advance)</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('PelunasanPenjualanCashAdvance') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div class="d-flex">
                                     <div class="col-md-3">
@@ -165,6 +166,36 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelIdDetailPelunasan" name="tabelIdDetailPelunasan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelIdPenagihan" name="tabelIdPenagihan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelNilaiPelunasan" name="tabelNilaiPelunasan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelPelunasanRupiah" name="tabelPelunasanRupiah" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelBiaya" name="tabelBiaya" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelLunas" name="tabelLunas" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelPelunasanCurrency" name="tabelPelunasanCurrency" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelKurangLebih" name="tabelKurangLebih" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelKodePerkiraan" name="tabelKodePerkiraan" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" id="tabelIdDetail" name="tabelIdDetail" class="form-control" style="width: 100%">
                                 </div>
                                 <br>
                                 <div class="d-flex">

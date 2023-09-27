@@ -61,7 +61,34 @@ class PelunasanPenjualanCashAdvanceController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        // DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+        // @Kode = ?,
+        // @Id_Pelunasan = ?,
+        // @Id_Detail_Pelunasan = ?,
+        // @Id_Penagihan = ?,
+        // @Nilai_Pelunasan = ?,
+        // @Pelunasan_Rupiah = ?,
+        // @Biaya = ?,
+        // @Lunas = ?,
+        // @Pelunasan_Curency = ?,
+        // @KurangLebih = ?,
+        // @Kode_Perkiraan = ?,
+        // @Id_Penagihan_Pembulatan = ?
+        // ', [
+        //     5,
+        //     $tanggalInput,
+        //     $idJenisPembayaran,
+        //     $nilaiPiutang,
+        //     $idMataUang,
+        //     $buktiPelunasan,
+        //     "Y",
+        //     $idCustomer,
+        //     $sisa,
+        //     1,
+        //     $statusBayar,
+        //     $idReferensi
+        // ]);
+        return redirect()->back()->with('success', 'Sudah TerSimpan');
     }
 
     //Display the specified resource.
