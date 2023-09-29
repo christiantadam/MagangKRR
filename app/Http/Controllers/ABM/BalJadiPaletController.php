@@ -12,8 +12,9 @@ class BalJadiPaletController extends Controller
     //Display a listing of the resource.
     public function index()
     {
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BalJadiPalet', compact('data'));
+        return view('BalJadiPalet', compact('data', 'dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -31,7 +32,16 @@ class BalJadiPaletController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+        // dd($cr);
+
+        if ($crExplode[$lasindex] == "getType") {
+            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', [" ", $crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
+        }
     }
 
     // Show the form for editing the specified resource.

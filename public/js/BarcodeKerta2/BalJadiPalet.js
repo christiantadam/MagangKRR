@@ -16,14 +16,72 @@ $(document).ready(function() {
         order: [
             [0, 'desc']
         ],
+        select: {
+            style: "single",
+        },
     });
 
     $('#TableType').DataTable({
         order: [
             [0, 'desc']
         ],
+        select: {
+            style: "single",
+        },
     });
 
+    $("#TableDivisi tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableDivisi").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        // $("#IdDivisi").val(rowData[0]);
+        // $("#Divisi").val(rowData[1]);
+
+        // var txtIdDivisi = document.getElementById(rowData[0]);
+        fetch("/ABM/BalJadiPalet/" + rowData[0] + ".getType")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log(data);
+                // Clear the existing table rows
+                $("#TableType").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [item.NamaType, item.IdType];
+                    $("#TableType").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableType").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+        // Hide the modal immediately after populating the data
+        closeModal();
+    });
+
+    $("#TableType tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableType").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $("#IdType").val(rowData[0]);
+        $("#NamaType").val(rowData[1]);
+
+        // var txtIdDivisi = document.getElementById(rowData[0]);
+        // Hide the modal immediately after populating the data
+        closeModal();
+    });
 
     var ButtonDivisi = document.getElementById('ButtonDivisi')
     ButtonDivisi.addEventListener("click", function (event) {
@@ -48,7 +106,10 @@ function closeModal() {
 
 function openModal1() {
     var modal = document.getElementById('myModal1');
-    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    modal.style.display = 'block';
+
+    // Enable the "Pilih Type" button
+    document.getElementById('ButtonType').disabled = false;
 }
 
 function closeModal1() {
@@ -58,7 +119,10 @@ function closeModal1() {
 
 function openModal2() {
     var modal = document.getElementById('myModal2');
-    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+    modal.style.display = 'block';
+
+    // Enable the "Scan Barcode" button
+    document.getElementById('ScanBarcodeButton').disabled = false;
 }
 
 function closeModal2() {
@@ -74,4 +138,33 @@ function openModal3() {
 function closeModal3() {
     var modal = document.getElementById('myModal3');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function setShiftValue() {
+    var selectedShift = document.getElementById('Shift').value;
+    document.getElementById('shiftInput').value = selectedShift;
+
+    // Enable the "Divisi" button
+    document.getElementById('ButtonDivisi').disabled = false;
+
+    closeModal(); // Close the modal or adjust as needed
+}
+
+function scanBarcode() {
+    // Dapatkan elemen input "No Barcode" berdasarkan ID
+    var barcodeInput = document.getElementById('BarcodeInput');
+
+    // Setel atribut readonly menjadi false
+    barcodeInput.readOnly = false;
+
+    // Fokuskan kursor ke dalam input "No Barcode"
+    barcodeInput.focus();
+
+    // Enable the "Print Barcode" button
+    var printBarcodeButton = document.getElementById('PrintBarcodeButton');
+    if (printBarcodeButton) {
+        printBarcodeButton.disabled = false;
+    } else {
+        console.error('PrintBarcodeButton element not found');
+    }
 }
