@@ -61,33 +61,108 @@ class PelunasanPenjualanCashAdvanceController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        // DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
-        // @Kode = ?,
-        // @Id_Pelunasan = ?,
-        // @Id_Detail_Pelunasan = ?,
-        // @Id_Penagihan = ?,
-        // @Nilai_Pelunasan = ?,
-        // @Pelunasan_Rupiah = ?,
-        // @Biaya = ?,
-        // @Lunas = ?,
-        // @Pelunasan_Curency = ?,
-        // @KurangLebih = ?,
-        // @Kode_Perkiraan = ?,
-        // @Id_Penagihan_Pembulatan = ?
-        // ', [
-        //     5,
-        //     $tanggalInput,
-        //     $idJenisPembayaran,
-        //     $nilaiPiutang,
-        //     $idMataUang,
-        //     $buktiPelunasan,
-        //     "Y",
-        //     $idCustomer,
-        //     $sisa,
-        //     1,
-        //     $statusBayar,
-        //     $idReferensi
-        // ]);
+
+        $noPelunasan = $request->noPelunasan;
+        $idCustomer = $request->idCustomer;
+        $idBKM = $request->idBKM;
+        $sisa = $request->sisa;
+        $nilai_Pelunasan = $request->nilai_Pelunasan;
+
+        // $tabelIdDetailPelunasan = $request->tabelIdDetailPelunasan;
+        // $tabelIdPenagihan = $request->tabelIdPenagihan;
+        // $tabelNilaiPelunasan = $request->tabelNilaiPelunasan;
+        // $tabelPelunasanRupiah = $request->tabelPelunasanRupiah;
+        // $tabelMataUang = $request->tabelMataUang;
+        // $tabelBiaya = $request->tabelBiaya;
+        // $tabelLunas = $request->tabelLunas;
+        // $tabelPelunasanCurrency = $request->tabelPelunasanCurrency;
+        // $tabelKurangLebih = $request->tabelKurangLebih;
+        // $tabelKodePerkiraan = $request->tabelKodePerkiraan;
+        // $tabelKurs = $request->tabelKurs;
+        // $tabelIdDetail = $request->tabelIdDetail;
+
+        $listDataJSON = $request->input('listData');
+        // Mendekode JSON menjadi array
+        $listData = json_decode($listDataJSON, true);
+
+        if (is_array($listData)) {
+            foreach ($listData as $data) {
+                $tabelIdDetailPelunasan = $data['tabelIdDetailPelunasan'];
+                $noPelunasan = $noPelunasan;
+                $tabelIdPenagihan = $data['tabelIdPenagihan'];
+                $tabelNilaiPelunasan = $data['tabelNilaiPelunasan'];
+                $tabelPelunasanRupiah = $data['tabelPelunasanRupiah'];
+                $tabelBiaya = $data['tabelBiaya'];
+                $tabelLunas = $data['tabelLunas'];
+                $tabelPelunasanCurrency = $data['tabelPelunasanCurrency'];
+                $tabelKurangLebih = $data['tabelKurangLebih'];
+                $tabelKodePerkiraan = $data['tabelKodePerkiraan'];
+                $tabelIdDetail = $data['tabelIdDetail'];
+                $tabelMataUang = $data['tabelMataUang'];
+                $tabelKurs = $data['tabelKurs'];
+
+                DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+                @Kode = ?,
+                @Id_Pelunasan = ?,
+                @Id_Detail_Pelunasan = ?,
+                @Id_Penagihan = ?,
+                @Nilai_Pelunasan = ?,
+                @Pelunasan_Rupiah = ?,
+                @Biaya = ?,
+                @Lunas = ?,
+                @Pelunasan_Curency = ?,
+                @KurangLebih = ?,
+                @Kode_Perkiraan = ?,
+                @Id_Penagihan_Pembulatan = ?
+                ', [
+                    5,
+                    $tabelIdDetailPelunasan,
+                    $noPelunasan,
+                    $tabelIdPenagihan,
+                    $tabelNilaiPelunasan,
+                    $tabelPelunasanRupiah,
+                    $tabelBiaya,
+                    $tabelLunas,
+                    $tabelPelunasanCurrency,
+                    $tabelKurangLebih,
+                    $tabelKodePerkiraan,
+                    $tabelIdDetail
+                ]);
+
+                // DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_KARTU_PIUTANG]
+                // @IdPenagihan = ?,
+                // @IdCust = ?,
+                // @IdMtUang = ?,
+                // @kreditRp = ?,
+                // @kreditCur = ?,
+                // @kurs = ?,
+                // @noBKM = ?
+                // ', [
+                //     $tabelIdPenagihan,
+                //     $idCustomer,
+                //     $tabelMataUang,
+                //     $tabelPelunasanRupiah,
+                //     $tabelPelunasanCurrency,
+                //     $tabelKurs,
+                //     $idBKM
+                // ]);
+
+                DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PELUNASAN_TAGIHAN]
+                @Kode = ?,
+                @Id_Pelunasan = ?,
+                @SaldoPelunasan = ?,
+                @Nilai_Pelunasan = ?
+                ', [
+                    6,
+                    $tabelIdDetailPelunasan,
+                    $sisa,
+                    $tabelNilaiPelunasan
+                ]);
+            }
+        } else {
+            return redirect()->back()->with('success', 'Data listData tidak valid');
+        }
+        // dd($listData);
         return redirect()->back()->with('success', 'Sudah TerSimpan');
     }
 

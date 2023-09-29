@@ -20,6 +20,20 @@ let idCustomer = document.getElementById('idCustomer');
 let namaCustomer = document.getElementById('namaCustomer');
 let noPelunasan = document.getElementById('noPelunasan');
 let idJenisPembayaran = document.getElementById('idJenisPembayaran');
+let arrayData = document.getElementById('arrayData');
+
+let tabelIdDetailPelunasan = document.getElementById('tabelIdDetailPelunasan');
+let tabelIdPenagihan = document.getElementById('tabelIdPenagihan');
+let tabelNilaiPelunasan = document.getElementById('tabelNilaiPelunasan');
+let tabelPelunasanRupiah = document.getElementById('tabelPelunasanRupiah');
+let tabelMataUang = document.getElementById('tabelMataUang');
+let tabelBiaya = document.getElementById('tabelBiaya');
+let tabelLunas = document.getElementById('tabelLunas');
+let tabelPelunasanCurrency = document.getElementById('tabelPelunasanCurrency');
+let tabelKurangLebih = document.getElementById('tabelKurangLebih');
+let tabelKodePerkiraan = document.getElementById('tabelKodePerkiraan');
+let tabelKurs = document.getElementById('tabelKodePerkiraan');
+let tabelIdDetail = document.getElementById('tabelIdDetail');
 
 //MODAL
 let totalKembalian = 0;
@@ -57,6 +71,7 @@ let listHapus = [];
 let listHapusPenagihan = [];
 let proses;
 var selectedRows = [];
+let listData = [];
 
 let btnAddItem = document.getElementById('btnAddItem');
 let btnEditItem = document.getElementById('btnEditItem');
@@ -354,11 +369,13 @@ $("#tabelPelunasanPenjualan tbody").on("click", "tr", function () {
     tabelIdPenagihan.value = selectedRows[0].ID_Penagihan;
     tabelNilaiPelunasan.value = selectedRows[0].Nilai_Pelunasan;
     tabelPelunasanRupiah.value = selectedRows[0].Pelunasan_Rupiah;
+    tabelMataUang.value = selectedRows[0].Id_MataUang;
     tabelBiaya.value = selectedRows[0].Biaya;
     tabelLunas.value = selectedRows[0].Lunas;
     tabelPelunasanCurrency.value = selectedRows[0].Pelunasan_Curency;
     tabelKurangLebih.value = selectedRows[0].KurangLebih;
     tabelKodePerkiraan.value = selectedRows[0].Kode_Perkiraan;
+    tabelKurs.value = selectedRows[0].Kurs;
     tabelIdDetail.value = selectedRows[0].ID_Penagihan_Pembulatan;
 });
 
@@ -752,7 +769,34 @@ btnSimpan.addEventListener('click', function(event) {
     event.preventDefault();
 
     var data = tabelPelunasanPenjualan.rows().data();
+    var listData = [];
+
     data.each(function(value, index) {
         console.log(value);
-    })
-})
+        listData.push({
+            tabelIdDetailPelunasan: value.ID_Detail_Pelunasan,
+            noPelunasan: noPelunasan.value,
+            tabelIdPenagihan: value.ID_Penagihan,
+            tabelNilaiPelunasan: value.Nilai_Pelunasan,
+            tabelPelunasanRupiah: value.Pelunasan_Rupiah,
+            tabelMataUang: idMataUang.value,
+            tabelBiaya: value.Biaya,
+            tabelLunas: value.Lunas,
+            tabelPelunasanCurrency: value.Pelunasan_Curency,
+            tabelKurangLebih: value.KurangLebih,
+            tabelKodePerkiraan: value.Kode_Perkiraan,
+            tabelKurs: value.Kurs,
+            tabelIdDetail: value.ID_Penagihan_Pembulatan
+        });
+    });
+
+    document.getElementById('listDataInput').value = JSON.stringify(listData);
+    document.getElementById('arrayData').value = JSON.stringify(listData);
+
+    console.log(listData);
+    const rowCount = tabelPelunasanPenjualan.rows().count();
+    if (rowCount > 0) {
+        formkoreksi.submit();
+    }
+});
+
