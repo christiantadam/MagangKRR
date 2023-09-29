@@ -157,9 +157,7 @@ slcWaktu.addEventListener("change", function () {
             getDataEffisiensi(() => {
                 if (modeProses == "koreksi") {
                     txtScrew.select();
-                } else {
-                    btnProses.focus();
-                }
+                } else btnProses.focus();
             });
         }
     }

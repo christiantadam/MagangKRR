@@ -416,6 +416,10 @@ function clearAll() {
     groupBox2Ctr.forEach((ele) => (ele.value = ""));
     groupBox2Slc.forEach((ele) => (ele.selectedIndex = 0));
 }
+
+function prosesIsi() {
+    // SP_5298_EXT_INSERT_PERAWATAN
+}
 //#endregion
 
 function init() {}
