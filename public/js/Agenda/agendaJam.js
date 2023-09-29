@@ -41,78 +41,101 @@ $(document).ready(function () {
         const akhirIstirahat =
             document.getElementById("pulang_istirahat").value;
         // Mencetak data yang dipilih ke console
+        var gabungData = "";
         for (var i = 0; i < dataDipilih.length; i++) {
-            console.log(dataDipilih[i]);
-            const tanggal = new Date(startDate);
-            tanggal.setDate(startDate.getDate() + i);
-            const hari = tanggal.getDay();
-            tanggalString = tanggal.toISOString().slice(0, 10);
-            const jamMasuk = new Date(`${tanggalString}T${startJam}:00`);
-            const jamPulang = new Date(`${tanggalString}T${endJam}:00`);
-            var Jam_Masuk = tanggalString + " " + startJam;
-            var Jam_Keluar = tanggalString + " " + endJam;
-            var awal_Jam_istirahat = tanggalString + " " + awalIstirahat;
-            var akhir_Jam_istirahat = tanggalString + " " + akhirIstirahat;
-            // Hitung selisih jam antara "Masuk" dan "Pulang" untuk tanggal ini
-            const Jml_Jam = Math.round(
-                (jamPulang - jamMasuk) / (1000 * 60 * 60)
-            );
-            const data = {
-                id_divisi: dataDipilih[i][0],
-                Tanggal: DateTimePicker1.value,
-                Jam_Masuk: Jam_Masuk,
-                Jam_Keluar: Jam_Keluar,
-                Jml_Jam: Jml_Jam,
-                awal_Jam_istirahat: awal_Jam_istirahat,
-                akhir_Jam_istirahat: akhir_Jam_istirahat,
-                hari: hari,
-                Ket_Absensi: "M",
-                User_Input: "U001",
-                opsi: "insertDivisi",
-            };
-            console.log(data);
-
-            const formContainer = document.getElementById("form-container");
-            const form = document.createElement("form");
-            form.setAttribute("action", "Jam");
-            form.setAttribute("method", "POST");
-
-            // Loop through the data object and add hidden input fields to the form
-            for (const key in data) {
-                const input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("name", key);
-                input.value = data[key]; // Set the value of the input field to the corresponding data
-                form.appendChild(input);
+            gabungData += dataDipilih[i][0]; // Mengakses indeks pertama dari setiap elemen
+            if (i < dataDipilih.length - 1) {
+                gabungData += "."; // Tambahkan separator kecuali untuk elemen terakhir
             }
-
-            formContainer.appendChild(form);
-
-            // Add CSRF token input field (assuming the csrfToken is properly fetched)
-            let csrfToken = document
-                .querySelector('meta[name="csrf-token"]')
-                .getAttribute("content");
-            let csrfInput = document.createElement("input");
-            csrfInput.type = "hidden";
-            csrfInput.name = "_token";
-            csrfInput.value = csrfToken;
-            form.appendChild(csrfInput);
-
-            // Wrap form submission in a Promise
-            function submitForm() {
-                return new Promise((resolve, reject) => {
-                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-                    form.submit();
-                });
-            }
-
-            // Call the submitForm function to initiate the form submission
-            submitForm()
-                .then(() => console.log("Form submitted successfully!"))
-                .catch((error) =>
-                    console.error("Form submission error:", error)
-                );
         }
+        console.log(gabungData);
+        // return;
+        if (
+            !DateTimePicker1.value ||
+            !DateTimePicker2.value ||
+            !startJam ||
+            !endJam ||
+            !awalIstirahat ||
+            !akhirIstirahat
+        ) {
+            alert("Masih ada form yang kosong !");
+            return; // Stop executing the function
+        }
+        if (!dataDipilih[0]) {
+            alert("Pilih dulu divisinya !");
+            return; // Stop executing the function
+        }
+        if (startDate > endDate) {
+            alert("Dicek dulu tanggalnya !");
+            return;
+        }
+
+        console.log(dataDipilih[i]);
+        const tanggal = new Date(startDate);
+        tanggal.setDate(startDate.getDate() + i);
+        const hari = tanggal.getDay();
+        tanggalString = tanggal.toISOString().slice(0, 10);
+        const jamMasuk = new Date(`${tanggalString}T${startJam}:00`);
+        const jamPulang = new Date(`${tanggalString}T${endJam}:00`);
+        // var Jam_Masuk = tanggalString + " " + startJam;
+        // var Jam_Keluar = tanggalString + " " + endJam;
+        // var awal_Jam_istirahat = tanggalString + " " + awalIstirahat;
+        // var akhir_Jam_istirahat = tanggalString + " " + akhirIstirahat;
+        // Hitung selisih jam antara "Masuk" dan "Pulang" untuk tanggal ini
+        const Jml_Jam = Math.round((jamPulang - jamMasuk) / (1000 * 60 * 60));
+        const data = {
+            id_divisi: gabungData,
+            Tanggal1: DateTimePicker1.value,
+            Tanggal2: DateTimePicker2.value,
+            Jam_Masuk: startJam,
+            Jam_Keluar: endJam,
+            Jml_Jam: Jml_Jam,
+            awal_Jam_istirahat: awalIstirahat,
+            akhir_Jam_istirahat: akhirIstirahat,
+            hari: hari,
+            User_Input: "U001",
+            opsi: "insertDivisi",
+        };
+        console.log(data);
+
+        const formContainer = document.getElementById("form-container");
+        const form = document.createElement("form");
+        form.setAttribute("action", "Jam");
+        form.setAttribute("method", "POST");
+
+        // Loop through the data object and add hidden input fields to the form
+        for (const key in data) {
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", key);
+            input.value = data[key]; // Set the value of the input field to the corresponding data
+            form.appendChild(input);
+        }
+
+        formContainer.appendChild(form);
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+        let csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "_token";
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+
+        // Wrap form submission in a Promise
+        function submitForm() {
+            return new Promise((resolve, reject) => {
+                form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                form.submit();
+            });
+        }
+
+        // Call the submitForm function to initiate the form submission
+        submitForm()
+            .then(() => console.log("Form submitted successfully!"))
+            .catch((error) => console.error("Form submission error:", error));
     });
     document.getElementById("opsi1").addEventListener("change", function () {
         if (this.checked) {
