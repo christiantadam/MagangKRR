@@ -23,7 +23,13 @@ const currentDate = new Date();
 // Format the current date to be in 'YYYY-MM-DD' format for setting the input value
 const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 tglStart.value = formattedCurrentDate;
-
+let ForminputJadwal = document.getElementById("ForminputJadwal");
+let jam_kerja = document.getElementById("jam_kerja");
+let statuskerja = document.getElementById("status");
+let ModalEdit = document.getElementById("ModalEdit");
+let Tanggalmodaledit = document.getElementById("Tanggal");
+let WorkStationModalEdit = document.getElementById("WorkStationModalEdit");
+let TNoWorkSts = document.getElementById("TNoWorkSts");
 //#region no order on enter
 
 NoOrder.addEventListener("keypress", function (event) {
@@ -299,6 +305,17 @@ function prosesdiklik() {
     // let Status1;
     let status_kerja;
     let pilih_que;
+    let sisa_jam;
+    let sisa_menit;
+    let total_menit;
+    let jumlah_jam;
+    let hasil_msg;
+    let sisa_no_input;
+    let hasil;
+    let sisa_jam_no_input;
+    let sisa_menit_no_input;
+    let Status;
+    let input_sebagian;
     if (jam.value == 0 && menit.value == 0) {
         alert("Estimate waktu harus lebih besar dari NOL...");
         return;
@@ -323,48 +340,214 @@ function prosesdiklik() {
                     // Status1 = false;
                     return;
                 }
-                var jawab_antrian = confirm("Tambahkan antrian baru ... ??");
-                let tglSrv = formattedCurrentDate;
-                let tglEst = tglStart.value;
-                if (jawab_antrian) {
-                    pilih_que = 1;
-                    if (tglEst < tglSrv) {
-                        status_kerja = 1;
+            }
+            var jawab_antrian = confirm("Tambahkan antrian baru ... ??");
+            let tglSrv = formattedCurrentDate;
+            let tglEst = tglStart.value;
+            if (jawab_antrian) {
+                pilih_que = 1;
+                if (tglEst < tglSrv) {
+                    status_kerja = 1;
+                } else {
+                    if (confirm("Tidak emergency.... ??")) {
+                        status_kerja = 0;
                     } else {
-                        if (confirm("Tidak emergency.... ??")) {
-                            status_kerja = 0;
-                        } else {
+                        status_kerja = 1;
+                    }
+                }
+            } else {
+                if (
+                    (tulisanjamkerja.style.display =
+                        "none" && JamKerja.textContent == "")
+                ) {
+                    alert(
+                        "Tidak ada jadwal konstruksi. Tidak bisa disisipkan."
+                    );
+                    if (confirm("Disimpan ??")) {
+                        pilih_que = 1;
+                        if (tglEst < tglSrv) {
                             status_kerja = 1;
+                        } else {
+                            if (confirm("Tidak emergency.... ??")) {
+                                status_kerja = 0;
+                            } else {
+                                status_kerja = 1;
+                            }
                         }
+                    } else {
+                        Bataldiklik();
                     }
                 } else {
-                    if (
-                        (tulisanjamkerja.style.display =
-                            "none" && JamKerja.textContent == "")
-                    ) {
-                        alert(
-                            "Tidak ada jadwal konstruksi. Tidak bisa disisipkan."
-                        );
-                        if (confirm("Disimpan ??")) {
-                            pilih_que = 1;
-                            if (tglEst < tglSrv) {
-                                status_kerja = 1;
+                    pilih_que = 2;
+                }
+            }
+            if (pilih_que == 1) {
+                fetch(
+                    "/Cekestimasidatekonstruksi/" +
+                        tglStart.value +
+                        "/" +
+                        WorkStation.value
+                )
+                    .then((response) => response.json())
+                    .then((datas) => {
+                        // console.log(datas);
+                        if (datas[0].Ada < 1) {
+                            let total_menit_input =
+                                jam.value * 60 + menit.value;
+                            let jam_kerja_prompt = prompt(
+                                "Tentukan jam kerja optimal u/ tanggal: " +
+                                    tglStart.value +
+                                    " = "
+                            );
+                            let menit_jam_kerja = jam_kerja_prompt * 60;
+                            if (total_menit_input > menit_jam_kerja) {
+                                alert(
+                                    "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
+                                );
+                                jam.focus();
+                                return;
+                            }
+                            if (
+                                jam_kerja_prompt !== null &&
+                                !isNaN(jam_kerja_prompt)
+                            ) {
+                                jam_kerja.value = jam_kerja_prompt;
+                                // console.log(jam_kerja_prompt);
+                                // console.log(jam_kerja.value);
+                            }
+                            statuskerja.value = status_kerja;
+
+                            ForminputJadwal.submit();
+
+                            // console.log(total_menit_input);
+                        } else {
+                            fetch(
+                                "/HitungSisaJamInputJadwalKons/" +
+                                    tglStart.value +
+                                    "/" +
+                                    WorkStation.value
+                            )
+                                .then((response) => response.json())
+                                .then((datas) => {
+                                    console.log(datas);
+                                    if (datas.length > 0) {
+                                        sisa_jam = datas[0].SisaJamKrj;
+                                        sisa_menit = datas[0].SisaMenitKrj;
+                                        total_menit =
+                                            datas[0].SisaMenitKrj_bantu;
+                                        jumlah_jam = datas[0].JamKrj;
+
+                                        let total_menit_input =
+                                            jam.value * 60 + menit.value;
+
+                                        if (total_menit_input <= total_menit) {
+                                            ForminputJadwal.submit();
+                                        } else {
+                                            if (
+                                                sisa_jam == 0 &&
+                                                sisa_menit == 0
+                                            ) {
+                                                alert("Jadwal FULL....");
+                                                hasil_msg = confirm(
+                                                    "Edit jam kerja optimal (OK), atau diinputkan di hari berikutnya (Cancel) ??"
+                                                );
+                                            } else {
+                                                sisa_no_input =
+                                                    total_menit_input -
+                                                    total_menit;
+                                                hasil = Math.floor(
+                                                    sisa_no_input / 60
+                                                );
+                                                sisa_jam_no_input = hasil;
+                                                sisa_menit_no_input =
+                                                    sisa_no_input - 60 * hasil;
+                                                alert(
+                                                    "Karena jam kerja yg bisa masuk: " +
+                                                        sisa_jam +
+                                                        " jam " +
+                                                        sisa_menit +
+                                                        " menit."
+                                                );
+                                                hasil_msg = confirm(
+                                                    "Sisa jam kerjanya (" +
+                                                        sisa_jam_no_input +
+                                                        " jam " +
+                                                        sisa_menit_no_input +
+                                                        " menit ), diinputkan hari berikutnya (Yes), atau edit jam kerja optimal (No) ??"
+                                                );
+                                            }
+                                            console.log(hasil_msg);
+                                            if (hasil_msg) {
+                                                ForminputJadwal.submit();
+                                                Status = true;
+                                                input_sebagian = true;
+                                            } else if (hasil_msg == false) {
+                                                //open modal
+                                                ModalEdit.style.display =
+                                                    "block";
+                                                Tanggalmodaledit.value = tglStart.value;
+                                                WorkStationModalEdit.value = WorkStation.value;
+                                                TNoWorkSts.value =  WorkStation.value;
+                                            } else {
+                                                tglStart.focus();
+                                            }
+                                        }
+                                    }
+                                });
+                        }
+                        if (input_sebagian == true) {
+                            alert("Data TerSIMPAN");
+                            jam.value = sisa_jam_no_input;
+                            menit.value = sisa_menit_no_input;
+                            tglStart.focus();
+                        }
+                        if (Status == true) {
+                            alert("Data TerSIMPAN");
+                            var msg = confirm(
+                                "Input lagi jadwal konstruksi lain u/ no. order: " +
+                                    NoOrder.value +
+                                    " ??"
+                            );
+                            if (msg) {
+                                clearText1();
+                                NamaBagian.focus();
                             } else {
-                                if (confirm("Tidak emergency.... ??")) {
-                                    status_kerja = 0;
-                                } else {
-                                    status_kerja = 1;
-                                }
+                                clearText();
+                                NoOrder.focus();
                             }
                         } else {
                             Bataldiklik();
                         }
-                    } else {
-                        pilih_que = 2;
-                    }
-                }
+                    });
+            }
+            if (pilih_que == 2) {
+                //modal open
             }
         });
+}
+
+//#endregion
+
+//#region clear text  1
+
+function clearText1() {
+    WorkStation.value = "Pilih Work Station";
+    jam.value = "0";
+    menit.value = "0";
+    hariKe.value = 0;
+    NamaBagian.value = "Pilih Bagian";
+    tulisanjamkerja.style.display = "none";
+    // JamKerja.style.display = "none";
+    JamKerja.textContent = "";
+    btnproses.disabled = true;
+}
+
+//#endregion
+
+//#region clear textx
+
+function clearText() {
+    Bataldiklik();
 }
 
 //#endregion
