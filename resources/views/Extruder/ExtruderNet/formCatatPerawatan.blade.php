@@ -1,12 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
-    <style>
-        .spn_enter {
-            display: flex;
-            margin-top: 5px;
-            color: blue;
-        }
-    </style>
+    {{-- <button data-bs-toggle="modal" data-bs-target="#form_daftar_rawat">tes123</button> --}}
+    <input type="hidden" id="form_rw_return">
 
     <div id="tropodo_perawatan" class="form" data-aos="fade-up">
         <div class="card mt-3">
@@ -43,7 +38,7 @@
                         <span class="aligned-text">Shift:</span>
                     </div>
                     <div class="col-lg-2">
-                        <input type="text" id="shift" class="form-control">
+                        <input type="text" id="shift" class="form-control" disabled>
                     </div>
                     <div class="col-lg-1">
                         <span class="spn_enter">Enter</span>
@@ -196,5 +191,6 @@
         </div>
     </div>
 
+    @include('Extruder.ExtruderNet.modalDaftarPerawatan')
     <script src="{{ asset('js/Extruder/ExtruderNet/catatPerawatan.js') }}"></script>
 @endsection

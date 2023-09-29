@@ -166,9 +166,7 @@ btnProses.addEventListener("click", function () {
 });
 
 btnKeluar.addEventListener("click", function () {
-    if (this.textContent == "Keluar") {
-        window.location.href = "/Extruder/ExtruderNet";
-    } else {
+    if (this.textContent != "Keluar") {
         toggleButtons(1);
         clearAll();
         setEnable(false);
@@ -178,7 +176,7 @@ btnKeluar.addEventListener("click", function () {
         clearTable_DataTable("table_gangguan", colGangguan.length);
 
         modeProses = "";
-    }
+    } else window.location.href = "/Extruder/ExtruderNet";
 });
 
 slcKodeMesin.addEventListener("change", function () {

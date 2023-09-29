@@ -258,16 +258,16 @@ function prosesInventoryFetch() {
         // Cek saldo barang
         for (let i = 0; i < listTmpTrans.length; i++) {
             if (
-                listTmpTrans[i].JumlahPengeluaranPrimer >
-                    listTmpTrans[i].SaldoPrimer ||
-                listTmpTrans[i].JumlahPengeluaranSekunder >
-                    listTmpTrans[i].SaldoSekunder ||
-                listTmpTrans[i].JumlahPengeluaranTritier >
-                    listTmpTrans[i].SaldoTritier
+                parseFloat(listTmpTrans[i].JumlahPengeluaranPrimer) >
+                    parseFloat(listTmpTrans[i].SaldoPrimer) ||
+                parseFloat(listTmpTrans[i].JumlahPengeluaranSekunder) >
+                    parseFloat(listTmpTrans[i].SaldoSekunder) ||
+                parseFloat(listTmpTrans[i].JumlahPengeluaranTritier) >
+                    parseFloat(listTmpTrans[i].SaldoTritier)
             ) {
                 alert(
                     "Saldo untuk type " +
-                        listTmpTrans[i].NamaType +
+                        listTmpTrans[i].namatype +
                         " tidak mencukupi."
                 );
 
@@ -327,7 +327,7 @@ function prosesExtruderFetch() {
 }
 
 function clearAll() {
-    dateAwal.value = getCurrentDate();
+    dateAwal.value = getCurrentDate(false, "month,-1");
     dateAkhir.value = getCurrentDate();
     listKonversi.length = 0;
     clearTable_DataTable("table_konversi", 2);
@@ -374,13 +374,13 @@ function init() {
 
     clearTable_DataTable("table_konversi", 2);
     clearTable_DataTable("table_detail", colDetail.length, "padding=250px");
+    dateAwal.value = getCurrentDate(false, "month,-1");
+    dateAkhir.value = getCurrentDate();
 
     /**
      * DEBUG
      */
 
-    dateAwal.value = "2023-08-01";
-    dateAkhir.value = getCurrentDate();
     // daftarKonversiBelumACCFetch();
 }
 

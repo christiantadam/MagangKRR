@@ -220,7 +220,7 @@ Route::get('/Catat/delKwahMesin/{id_kwah}', [PencatatanController::class, 'delKw
 Route::get('/Catat/getListAwalProdEff/{tanggal}/{no_mesin}/{shift}', [PencatatanController::class, 'getListAwalProdEff']);
 Route::get('/Catat/getListEffisiensi/{tanggal}/{no_mesin}/{shift}/{awal_produksi}', [PencatatanController::class, 'getListEffisiensi']);
 Route::get('/Catat/getListIdKonversi/{tanggal}/{no_mesin}/{shift}', [PencatatanController::class, 'getListIdKonversi']);
-Route::get('/Catat/getCekDataEff/', [PencatatanController::class, 'getCekDataEff']);
+Route::get('/Catat/getCekDataEff/{tgl}/{mesin}/{shift}/{awal}/{akhir}/{id_konversi}', [PencatatanController::class, 'getCekDataEff']);
 
 Route::get('/Catat/insEff/{Tanggal}/{IdMesin}/{Shift}/{AwalProduksi}/{AkhirProduksi}/{IdKonversi}/{ScrewRevolution}/{MotorCurrent}/{SlitterWidth}/{NoOfYarn}/{WaterGap}/{RollSpeed3}/{StretchingRatio}/{Relax}/{Denier}/{DenierRata}/{JamUser}/{UserInput}', [PencatatanController::class, 'insEff']);
 Route::get('/Catat/updEff/{Tanggal}/{IdMesin}/{Shift}/{AwalProduksi}/{AkhirProduksi}/{IdKonversi}/{ScrewRevolution}/{MotorCurrent}/{SlitterWidth}/{NoOfYarn}/{WaterGap}/{RollSpeed3}/{StretchingRatio}/{Relax}/{Denier}/{DenierRata}/{JamUser}/{UserInput}', [PencatatanController::class, 'updEff']);
@@ -233,6 +233,7 @@ Route::get('/Catat/getListWinder/{id_perawatan}/{id_mesin}', [PencatatanControll
 Route::get('/Catat/getJenisGangguan/{id_perawatan}', [PencatatanController::class, 'getJenisGangguan']);
 Route::get('/Catat/getJenisPenyebab/{id_perawatan}', [PencatatanController::class, 'getJenisPenyebab']);
 Route::get('/Catat/getJenisPenyelesaian/{id_perawatan}', [PencatatanController::class, 'getJenisPenyelesaian']);
+Route::get('/Catat/getDataPerawatan/{tanggal}/{user_id}', [PencatatanController::class, 'getDataPerawatan']);
 
 Route::get('/Catat/insPerawatan/{tanggal}/{user_id}/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{id_gangguan}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{user_input}', [PencatatanController::class, 'insPerawatan']);
 Route::get('/Catat/updPerawatan/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{id_gangguan}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{kode}/{user_koreksi}', [PencatatanController::class, 'updPerawatan']);

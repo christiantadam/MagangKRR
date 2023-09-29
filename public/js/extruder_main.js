@@ -437,9 +437,7 @@ function encodeURL(urlString) {
 }
 
 function padLeft(str, length, char) {
-    while (str.length < length) {
-        str = char + str;
-    }
+    while (str.length < length) str = char + str;
     return str;
 }
 
@@ -454,11 +452,18 @@ function toSnakeCase(inputStr) {
     return inputStr.toLowerCase().replace(/\s+/g, "_");
 }
 
-function getCurrentDate(monthYearOnly = false) {
+function getCurrentDate(monthYearOnly = false, extraParam = null) {
     const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
+    let year = currentDate.getFullYear();
+    let month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    let day = String(currentDate.getDate()).padStart(2, "0");
+
+    if (extraParam != null) {
+        if (extraParam.split(",")[0] == "month") {
+            month = parseFloat(month) + parseFloat(extraParam.split(",")[1]);
+            month = String(month).padStart(2, "0");
+        }
+    }
 
     if (monthYearOnly) {
         return `${month}/${year}`;

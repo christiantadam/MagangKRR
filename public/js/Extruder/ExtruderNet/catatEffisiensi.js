@@ -53,8 +53,19 @@ slcMesin.addEventListener("change", () => {
 slcShift.addEventListener("change", () => {
     refetchWaktu = true;
     refetchKonversi = true;
-    slcWaktu.classList.remove("hidden");
-    slcWaktu.focus();
+
+    if (modeProses != "isi") {
+        slcWaktu.classList.remove("hidden");
+        slcWaktu.focus();
+    } else timeAwal.focus();
+});
+
+timeAwal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") timeAkhir.focus();
+});
+
+timeAkhir.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") slcKodeKonv.focus();
 });
 
 slcWaktu.addEventListener("keydown", function (event) {
@@ -143,13 +154,13 @@ slcWaktu.addEventListener("change", function () {
 
     if (timeAwal.value != "00:00") {
         if (modeProses == "koreksi" || modeProses == "hapus") {
-            getDataEffisiensi();
-
-            if (modeProses == "koreksi") {
-                txtScrew.select();
-            } else {
-                btnProses.focus();
-            }
+            getDataEffisiensi(() => {
+                if (modeProses == "koreksi") {
+                    txtScrew.select();
+                } else {
+                    btnProses.focus();
+                }
+            });
         }
     }
 });
@@ -166,7 +177,7 @@ slcKodeKonv.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_LIST_IDKONVERSI
         fetchSelect(
-            "/Master/getListIdKonversi/" +
+            "/Catat/getListIdKonversi/" +
                 dateInput.value +
                 "/" +
                 slcMesin.value +
@@ -195,7 +206,7 @@ slcKodeKonv.addEventListener("keydown", function (event) {
 
         // SP_5298_EXT_LIST_IDKONVERSI
         fetchSelect(
-            "/Master/getListIdKonversi/" +
+            "/Catat/getListIdKonversi/" +
                 dateInput.value +
                 "/" +
                 slcMesin.value +
@@ -217,6 +228,10 @@ slcKodeKonv.addEventListener("change", function () {
 });
 
 txtScrew.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtMotor.select();
+});
+
+txtMotor.addEventListener("keypress", function (event) {
     if (event.key == "Enter") txtSlitter.select();
 });
 
@@ -225,6 +240,10 @@ txtSlitter.addEventListener("keypress", function (event) {
 });
 
 txtNoYam.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") txtWater.select();
+});
+
+txtWater.addEventListener("keypress", function (event) {
     if (event.key == "Enter") txtRoll.select();
 });
 
@@ -279,9 +298,7 @@ txtDenier.addEventListener("keypress", function (event) {
                     break;
 
                 default:
-                    alert("Denier tidak valid.");
-                    this.select();
-                    return;
+                    break;
             }
 
             txtRata.select();
@@ -305,6 +322,10 @@ btnKoreksi.addEventListener("click", function () {
     modeProses = "koreksi";
     toggleButtons(2);
     setEnable(true);
+    timeAwal.disabled = true;
+    timeAkhir.disabled = true;
+    slcKodeKonv.disabled = true;
+    clearAll();
     dateInput.focus();
 });
 
@@ -313,6 +334,10 @@ btnHapus.addEventListener("click", function () {
     toggleButtons(2);
     groupBox1Ctr.forEach((ctr) => (ctr.disabled = false));
     groupBox1Slc.forEach((slc) => (slc.disabled = false));
+    timeAwal.disabled = true;
+    timeAkhir.disabled = true;
+    slcKodeKonv.disabled = true;
+    clearAll();
     dateInput.focus();
 });
 
@@ -335,7 +360,7 @@ btnProses.addEventListener("click", function () {
             if (data.length > 0) {
                 if (modeProses == "isi" && data[0].ada > 0) {
                     alert(
-                        "Data Effisiensi dengan ketentuan berikut sudah ada, \nMesin: " +
+                        "Data Effisiensi dengan ketentuan di bawah sudah ada, \nMesin: " +
                             slcMesin.options[slcMesin.selectedIndex].text +
                             "\nTanggal: " +
                             dateInput.value +
@@ -356,7 +381,6 @@ btnProses.addEventListener("click", function () {
                 setEnable(false);
                 modeProses = "";
                 toggleButtons(1);
-                clearAll();
                 slcWaktu.classList.add("hidden");
             };
 
@@ -390,18 +414,26 @@ btnProses.addEventListener("click", function () {
                         "/" +
                         txtSlitter.value +
                         "/" +
+                        txtNoYam.value +
+                        "/" +
                         txtWater.value +
                         "/" +
                         txtRoll.value +
+                        "/" +
+                        txtStretch.value +
                         "/" +
                         txtRelax.value +
                         "/" +
                         txtDenier.value +
                         "/" +
                         txtRata.value +
+                        "/" +
+                        getCurrentTime() +
                         "/4384",
                     () => {
-                        alert("Data berhasil dikoreksi.");
+                        if (modeProses == "isi") {
+                            alert("Data berhasil disimpan.");
+                        } else alert("Data berhasil dikoreksi.");
                         slcWaktu.classList.add("hidden");
                         post_action();
                     }
@@ -446,6 +478,8 @@ function setEnable(m_value) {
     groupBox1Ctr.forEach((input) => (input.disabled = !m_value));
     groupBox1Slc.forEach((input) => (input.disabled = !m_value));
     groupBox2.forEach((input) => (input.disabled = !m_value));
+
+    if (!m_value) txtRata.blur();
 }
 
 function toggleButtons(tmb) {
@@ -479,7 +513,7 @@ function clearAll() {
     dateInput.value = getCurrentDate();
 }
 
-function getDataEffisiensi() {
+function getDataEffisiensi(post_action = null) {
     // SP_5298_EXT_LIST_EFFISIENSI
     fetchSelect(
         "/Catat/getListEffisiensi/" +
@@ -509,7 +543,7 @@ function getDataEffisiensi() {
                     data[0].IdKonversi + " | " + data[0].NamaKomposisi
                 );
 
-                txtScrew.focus();
+                if (post_action != null) post_action();
             } else alert("Data Effisiensi tidak ditemukan.");
         }
     );

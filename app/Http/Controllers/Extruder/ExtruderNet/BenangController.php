@@ -244,7 +244,7 @@ class BenangController extends Controller
     public function getMasterKonversiNG()
     {
         $idKonversiNG = DB::connection('ConnExtruder')
-            ->select('SELECT IdKonversiNG FROM MasterKonversiNG');
+            ->select('SELECT IdKonversiNG FROM MasterKonversiNG ORDER BY IdKonversiNG DESC');
 
         return $idKonversiNG[0];
 

@@ -34,7 +34,6 @@ const txtSekunderTujuan = document.getElementById("sekunder_tujuan");
 const txtTritierTujuan = document.getElementById("tritier_tujuan");
 
 const RK_btnConfirm = document.getElementById("rk_confirm");
-const RK_btnCancel = document.getElementById("rk_cancel");
 
 const boxAsalKonversi = document.querySelectorAll("#asal_konv .form-control");
 const boxTujuanKonversi = document.querySelectorAll(

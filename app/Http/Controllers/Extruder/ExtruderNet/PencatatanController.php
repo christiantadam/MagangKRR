@@ -127,6 +127,15 @@ class PencatatanController extends Controller
 
         // @IdPerawatan int
     }
+
+    public function getDataPerawatan($tanggal, $user_id) {
+        return DB::connection('ConnExtruder')->select(
+            'exec SP_5298_EXT_DATA_PERAWATAN @Tanggal = ?, @userId = ?',
+            [$tanggal, $user_id]
+        );
+
+        // @Tanggal datetime, @userId char(4)
+    }
     #endregion
 
     #region Efisiensi
@@ -158,6 +167,15 @@ class PencatatanController extends Controller
         );
 
         // @tanggal datetime, @noMesin char(5), @shift char(2)
+
+        /**
+         * IdKonversi       NamaKomposisi   SaatLog                 Tanggal                 IdMesin Shift
+         * EXT-0000009013	namaKom1	    2023-09-22 00:00:00.000	2023-09-22 00:00:00.000	M-001	P
+         * EXT-0000009032	namaKom1	    2023-09-22 00:00:00.000	2023-09-22 00:00:00.000	M-001	P
+         * EXT-0000009043	namaKom1	    2023-09-22 00:00:00.000	2023-09-22 00:00:00.000	M-001	P
+         * EXT-0000009044	namaKom1	    2023-08-29 00:00:00.000	2023-08-25 00:00:00.000	mes01	P
+         * EXT-0000009045	namaKom1	    2023-08-29 00:00:00.000	2023-08-25 00:00:00.000	mes01	P
+         */
     }
 
     public function getCekDataEff($tgl, $mesin, $shift, $awal, $akhir, $id_konversi)

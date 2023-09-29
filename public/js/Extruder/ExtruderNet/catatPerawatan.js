@@ -1,6 +1,7 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
 const hidKode = document.getElementById("kode");
+const hidDaftarRW = document.getElementById("form_rw_return");
 const timeMulai = document.getElementById("waktu_mulai");
 const timeSelesai = document.getElementById("waktu_selesai");
 
@@ -16,7 +17,7 @@ const slcGangguan = document.getElementById("select_gangguan");
 const slcPenyebab = document.getElementById("select_penyebab");
 const slcPenyelesaian = document.getElementById("select_penyelesaian");
 
-const btnIsi = document.getElementById("button_isi");
+const btnIsi = document.getElementById("btn_isi");
 const btnKoreksi = document.getElementById("btn_koreksi");
 const btnHapus = document.getElementById("btn_hapus");
 const btnProses = document.getElementById("btn_proses");
@@ -29,7 +30,7 @@ const groupBox2Ctr = document.querySelectorAll("#group_box2 .form-control");
 
 var modeProses = "";
 var refetchWinder = false;
-var refetchGangguan = false;
+var refetchGroup2 = false; // Gangguan, Penyebab, Penyelesaian
 //#endregion
 
 //#region Events
@@ -48,9 +49,50 @@ txtNama.addEventListener("keypress", function (event) {
          * Setelah memilih data dan klik OK akan kembali ke halaman ini,
          * menampilkan data terhadap perawatan yang dipilih.
          *
-         * Akan dimigrasi pada modalDaftarPerawatan.blade.php
+         * Modal dapat dilihat pada file modalDaftarPerawatan.blade.php
          */
+
+        RW_tanggal = dateInput.value;
+        $("#form_daftar_rawat").modal("show");
     }
+});
+
+hidDaftarRW.addEventListener("change", function () {
+    if (RW_clickedData != null) {
+        hidKode.value = RW_clickedData.Kode;
+        txtNama.value = RW_clickedData.NamaUser;
+        txtShift.value = RW_clickedData.Shift;
+        timeMulai.value = RW_clickedData.WaktuMulai;
+        timeSelesai.value = RW_clickedData.WaktuSelesai;
+        txtWinder.value = RW_clickedData.Winder;
+
+        addOptionIfNotExists(slcWinder, RW_clickedData.NoWinder);
+        addOptionIfNotExists(slcJam, RW_clickedData.Waktu);
+        addOptionIfNotExists(slcPenyebab, RW_clickedData.Penyebab);
+        addOptionIfNotExists(slcPenyelesaian, RW_clickedData.Penyelesaian);
+
+        addOptionIfNotExists(
+            slcBagian,
+            RW_clickedData.IdPerawatan,
+            RW_clickedData.IdPerawatan + " | " + RW_clickedData.NamaPerawatan
+        );
+
+        addOptionIfNotExists(
+            slcMesin,
+            RW_clickedData.IdMesin,
+            RW_clickedData.IdMesin + " | " + RW_clickedData.TypeMesin
+        );
+
+        addOptionIfNotExists(
+            slcGangguan,
+            RW_clickedData.IdGangguan,
+            RW_clickedData.IdGangguan + " | " + RW_clickedData.Gangguan
+        );
+
+        if (modeProses == "koreksi") {
+            slcGangguan.focus();
+        } else btnProses.focus();
+    } else alert("Belum ada data perawatan yang terpilih.");
 });
 
 txtShift.addEventListener("keypress", function (event) {
@@ -91,7 +133,7 @@ slcWinder.addEventListener("mousedown", function () {
             "/Catat/getListWinder/" + slcBagian.value + "/" + slcMesin.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, "swap");
                     this.removeChild(errorOption);
                 } else refetchWinder = true;
             },
@@ -115,7 +157,7 @@ slcWinder.addEventListener("keydown", function (event) {
             "/Catat/getListWinder/" + slcBagian.value + "/" + slcMesin.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, "swap");
                     this.removeChild(errorOption);
                 } else refetchWinder = true;
             },
@@ -125,12 +167,13 @@ slcWinder.addEventListener("keydown", function (event) {
 });
 
 slcWinder.addEventListener("change", function () {
+    txtWinder.value = this.value;
     slcGangguan.focus();
 });
 
 slcGangguan.addEventListener("mousedown", function () {
-    if (refetchGangguan) {
-        refetchGangguan = false;
+    if (refetchGroup2) {
+        refetchGroup2 = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
@@ -145,7 +188,7 @@ slcGangguan.addEventListener("mousedown", function () {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                } else refetchGangguan = true;
+                } else refetchGroup2 = true;
             },
             errorOption
         );
@@ -153,8 +196,8 @@ slcGangguan.addEventListener("mousedown", function () {
 });
 
 slcGangguan.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchGangguan) {
-        refetchGangguan = false;
+    if (event.key === "Enter" && refetchGroup2) {
+        refetchGroup2 = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
@@ -169,13 +212,172 @@ slcGangguan.addEventListener("keydown", function (event) {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
-                } else refetchGangguan = true;
+                } else refetchGroup2 = true;
             },
             errorOption
         );
     }
 });
 
+slcGangguan.addEventListener("change", function () {
+    slcPenyebab.focus();
+});
+
+slcPenyebab.addEventListener("mousedown", function () {
+    if (refetchGroup2) {
+        refetchGroup2 = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdPenyebab",
+            textKey: "NamaPenyebab",
+        };
+
+        // SP_5409_EXT_JENIS_PENYEBAB
+        fetchSelect(
+            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchGroup2 = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcPenyebab.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchGroup2) {
+        refetchGroup2 = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdPenyebab",
+            textKey: "NamaPenyebab",
+        };
+
+        // SP_5409_EXT_JENIS_PENYEBAB
+        fetchSelect(
+            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchGroup2 = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcPenyebab.addEventListener("change", function () {
+    slcPenyelesaian.focus();
+});
+
+slcPenyelesaian.addEventListener("mousedown", function () {
+    if (refetchGroup2) {
+        refetchGroup2 = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdPenyelesaian",
+            textKey: "NamaPenyelesaian",
+        };
+
+        // SP_5409_EXT_JENIS_PENYELESAIAN
+        fetchSelect(
+            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchGroup2 = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcPenyelesaian.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchGroup2) {
+        refetchGroup2 = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdPenyelesaian",
+            textKey: "NamaPenyelesaian",
+        };
+
+        // SP_5409_EXT_JENIS_PENYELESAIAN
+        fetchSelect(
+            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchGroup2 = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcPenyelesaian.addEventListener("change", function () {
+    timeMulai.focus();
+});
+
+timeMulai.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") timeSelesai.focus();
+});
+
+timeSelesai.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") btnProses.focus();
+});
+
+btnIsi.addEventListener("click", function () {
+    modeProses = "isi";
+    toggleButtons(2);
+    setEnable(true);
+    clearAll();
+    dateInput.focus();
+});
+
+btnKoreksi.addEventListener("click", function () {
+    clearAll();
+    modeProses = "koreksi";
+    toggleButtons(2);
+    setEnable(true);
+    dateInput.focus();
+});
+
+btnHapus.addEventListener("click", function () {
+    clearAll();
+    modeProses = "hapus";
+    toggleButtons(2);
+    groupBox1Ctr.disabled = false;
+    groupBox1Slc.disabled = false;
+    dateInput.focus();
+});
+
+btnProses.addEventListener("click", function () {
+    if (modeProses == "isi") {
+        // prosesIsi()
+    } else if (modeProses == "koreksi") {
+        // prosesUpdate()
+    } else if (modeProses == "hapus") {
+        // prosesDelete()
+    }
+});
+
+btnKeluar.addEventListener("click", function () {
+    if (this.textContent != "Keluar") {
+        toggleButtons(1);
+        clearAll();
+        setEnable(false);
+        modeProses = "";
+    } else window.location.href = "/Extruder/ExtruderNet";
+});
 //#endregion
 
 //#region Functions

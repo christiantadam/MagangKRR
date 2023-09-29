@@ -1,4 +1,7 @@
-// Untuk form konversi acc, konversi mohon belum di-tes secara menyeluruh, mungkin nanti kalau ada waktu bisa kembali lagi untuk melakukan testing terhadap form tersebut
+// button utk tes show modal di html
+<button data-bs-toggle="modal" data-bs-target="#form_daftar_rawat">
+    tes123
+</button>;
 
 function getSatuan(id_type, i) {
     fetch("/ExtruderNet/getSatuan/" + id_type)

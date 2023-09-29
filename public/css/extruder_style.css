@@ -1,3 +1,9 @@
+.spn_enter {
+    display: flex;
+    margin-top: 5px;
+    color: blue;
+}
+
 .aligned-text {
     display: flex;
     justify-content: center;

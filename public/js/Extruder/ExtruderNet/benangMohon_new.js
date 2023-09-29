@@ -1,4 +1,10 @@
 //#region Variables
+
+/**
+ * Script tersambung dengan "rincianKonversi.js"
+ * Pastikan tidak ada duplikasi nama variabel untuk menghindari error
+ */
+
 const slcMesin = document.getElementById("select_mesin");
 const slcNomor = document.getElementById("select_nomor");
 const slcNoKonversi = document.getElementById("select_nomor_konversi");
@@ -13,11 +19,22 @@ const btnKoreksi = document.getElementById("btn_koreksi");
 const btnHapus = document.getElementById("btn_hapus");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
-// const btnRK = document.getElementById("btn_rk");
 
-const hidRincianKonv = document.getElementById("form_rk_return");
 const dateMohon = document.getElementById("tanggal_mohon");
 const dateInput = document.getElementById("tanggal");
+
+/**
+ * Tanggal Mohon
+ * - digunakan saat melakukan insert data ke database.
+ * - saat ketik enter tanggal berubah sesuai tanggal biasa.
+ * - tidak memiliki dampak apapun saat mode "Koreksi" dan "Hapus".
+ *
+ * Tanggal biasa
+ * - digunakan untuk mencari nomor konversi yang diinginkan.
+ * - digunakan pada 3 proses "Isi", "Koreksi", dan "Hapus".
+ */
+
+const hidRincianKonv = document.getElementById("form_rk_return");
 const listOfSlc = document.querySelectorAll("select");
 
 const listAsal = [];
@@ -349,6 +366,7 @@ btnIsi.addEventListener("click", function () {
 
 btnKoreksi.addEventListener("click", function () {
     clearAll();
+    dateInput.classList.remove("unclickable");
     slcNomor.disabled = false;
     slcNomor.focus();
     modeProses = "koreksi";
@@ -357,6 +375,7 @@ btnKoreksi.addEventListener("click", function () {
 
 btnHapus.addEventListener("click", function () {
     clearAll();
+    dateInput.classList.remove("unclickable");
     slcNomor.disabled = false;
     slcNomor.focus();
     modeProses = "hapus";
@@ -373,7 +392,7 @@ btnProses.addEventListener("click", function () {
             prosesIsiFetch();
         }
     } else if (modeProses == "koreksi") {
-        if (slcNomor.value.trim() == "") {
+        if (slcNomor.selectedIndex == 0) {
             alert("Pilih dulu data konversi yang akan dikoreksi.");
         } else {
             showModal(
@@ -387,7 +406,7 @@ btnProses.addEventListener("click", function () {
             );
         }
     } else if (modeProses == "hapus") {
-        if (slcNomor.value.trim() == "") {
+        if (slcNomor.selectedIndex == 0) {
             alert("Pilih dulu data konversi yang akan dikoreksi.");
         } else {
             showModal(
@@ -876,6 +895,7 @@ function rowClickedAsal(row, data, _) {
                 txtTritierAsal.value = data.JumlahTritier;
 
                 RK_disableAll("asal");
+                RK_modeProses = "asal";
             }
 
             RK_modeProses = "asal";
@@ -884,6 +904,7 @@ function rowClickedAsal(row, data, _) {
         }
     }
 }
+
 function rowClickedTujuan(row, data, _) {
     if (pilTujuan == findClickedRowInList(listTujuan, "IdType", data.IdType)) {
         row.style.background = "white";
@@ -944,6 +965,8 @@ function clearAll() {
     timeAwal.value = "00:00";
     timeAkhir.value = "00:00";
     txtShift.value = "";
+    dateInput.value = getCurrentDate();
+    dateMohon.value = getCurrentDate();
     listAsal.length = 0;
     clearTable_DataTable("table_asal", colTable.length, "padding=250px");
     listTujuan.length = 0;
