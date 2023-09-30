@@ -36,30 +36,107 @@ class AgendaJamController extends Controller
         // Mengambil tanggal baru dalam format yang diinginkan
         // echo $tanggal_baru;
 
-        if ($data['opsi'] === 'hariMinggu') {
-            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
+        if ($data['opsi'] === 'insertPegawai') {
+            $tanggal_awal = new DateTime($data['Tanggal1']);
+            $tanggal_akhir = new DateTime($data['Tanggal2']);
+            $tanggal_akhir->modify('+1 day');
+            // dd($tanggal_akhir);
+            $interval = new DateInterval('P1D'); // P1D mewakili interval 1 hari
+            $daterange = new DatePeriod($tanggal_awal, $interval, $tanggal_akhir);
+            $hari = (int)$tanggal_awal->format('w');
 
-                $data['kd_pegawai'],
-                $data['Tanggal'],
-                $data['Jml_Jam'],
-                $data['Ket_Absensi'],
-                $data['User_Input']
-            ]);
-            return redirect()->back();
-        } else if ($data['opsi'] === 'hariNormal') {
-            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
+            if ($data['Tanggal1'] === $data['Tanggal2']) {
+                $Jam_Masuk = $tanggal_awal->format('Y-m-d') . " " . $data['Jam_Masuk'];
+                $Jam_Keluar = $tanggal_awal->format('Y-m-d') . " " . $data['Jam_Keluar'];
+                $Awal_Istirahat = $tanggal_awal->format('Y-m-d') . " " . $data['awal_Jam_istirahat'];
+                $Akhir_Istirahat = $tanggal_awal->format('Y-m-d') . " " . $data['akhir_Jam_istirahat'];
+                $dataAgenda = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_AGENDA @kd_pegawai = ?, @Tanggal = ?', [
 
-                $data['kd_pegawai'],
-                $data['Tanggal'],
-                $data['Jam_Masuk'],
-                $data['Jam_Keluar'],
-                $data['Jml_Jam'],
-                $data['awal_Jam_istirahat'],
-                $data['akhir_Jam_istirahat'],
-                $data['Ket_Absensi'],
-                $data['User_Input']
-            ]);
-            return redirect()->back();
+                    $data['kd_pegawai'],
+                    $tanggal_awal->format('Y-m-d'),
+                ]);
+
+                if ($dataAgenda[0]->ada >= '1') {
+                    return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal_awal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
+                } else {
+                    // dd("masuk gan");
+                    if ($hari === '0') {
+                        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
+
+                            $data['kd_pegawai'],
+                            $tanggal_awal->format('Y-m-d'),
+                            0,
+                            'B',
+                            $data['User_Input']
+                        ]);
+                    } else if ($hari >= 1 && $hari <= 6) {
+
+                        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
+
+                            $data['kd_pegawai'],
+                            $tanggal_awal->format('Y-m-d'),
+                            $Jam_Masuk,
+                            $Jam_Keluar,
+                            $data['Jml_Jam'],
+                            $Awal_Istirahat,
+                            $Akhir_Istirahat,
+                            'M',
+                            $data['User_Input']
+                        ]);
+                    }
+                };
+                return redirect()->route('Jam.index')->with('alert', 'Agenda pegawai berhasil ditambahkan!');
+            } else if ($data['Tanggal1'] != $data['Tanggal2']) {
+                foreach ($daterange as $tanggal) {
+                    // dd($tanggal->format('Y-m-d'));
+
+                    $Jam_Masuk = $tanggal->format('Y-m-d') . " " . $data['Jam_Masuk'];
+                    $Jam_Keluar = $tanggal->format('Y-m-d') . " " . $data['Jam_Keluar'];
+                    $Awal_Istirahat = $tanggal->format('Y-m-d') . " " . $data['awal_Jam_istirahat'];
+                    $Akhir_Istirahat = $tanggal->format('Y-m-d') . " " . $data['akhir_Jam_istirahat'];
+                    // dd($Jam_Masuk, $Jam_Keluar, $Awal_Istirahat, $Akhir_Istirahat);
+                    $dataAgenda = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_AGENDA @kd_pegawai = ?, @Tanggal = ?', [
+
+                        $data['kd_pegawai'],
+                        $tanggal->format('Y-m-d'),
+
+                    ]);
+                    if ($dataAgenda[0]->ada >= '1') {
+                        return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
+                    } else {
+                        if ($hari === '0') {
+                            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
+
+                                $data['kd_pegawai'],
+                                $tanggal->format('Y-m-d'),
+                                0,
+                                'B',
+                                $data['User_Input']
+                            ]);
+                        } else if ($hari >= 1 && $hari <= 6) {
+
+                            DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
+
+                                $data['kd_pegawai'],
+                                $tanggal->format('Y-m-d'),
+                                $Jam_Masuk,
+                                $Jam_Keluar,
+                                $data['Jml_Jam'],
+                                $Awal_Istirahat,
+                                $Akhir_Istirahat,
+                                'M',
+                                $data['User_Input']
+                            ]);
+                        }
+                    }
+                    // dd($dataAgenda[0]->ada);
+
+
+
+                    // echo ($tanggal->format('Y-m-d'));
+                };
+                return redirect()->route('Jam.index')->with('alert', 'Agenda pegawai berhasil ditambahkan!');
+            };
         } else if ($data['opsi'] === 'insertDivisi') {
             $tanggal_awal = new DateTime($data['Tanggal1']);
             $tanggal_akhir = new DateTime($data['Tanggal2']);
@@ -67,6 +144,7 @@ class AgendaJamController extends Controller
             // dd($tanggal_akhir);
             $interval = new DateInterval('P1D'); // P1D mewakili interval 1 hari
             $daterange = new DatePeriod($tanggal_awal, $interval, $tanggal_akhir);
+            $hari = (int)$tanggal_awal->format('w');
             if ($data['Tanggal1'] === $data['Tanggal2']) {
                 foreach ($arrayDivisi as $divisi) {
                     $Jam_Masuk = $tanggal_awal->format('Y-m-d') . " " . $data['Jam_Masuk'];
@@ -90,7 +168,7 @@ class AgendaJamController extends Controller
                             return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal_awal->format('Y-m-d') . ' untuk kd pegawai : ' . $shift->Kd_Pegawai . ' Sudah ada sehingga tidak bisa diproses');
                         } else {
                             // dd("masuk gan");
-                            if ($data['hari'] === '0') {
+                            if ($hari === '0') {
                                 DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
 
                                     $shift->Kd_Pegawai,
@@ -99,7 +177,7 @@ class AgendaJamController extends Controller
                                     'B',
                                     $data['User_Input']
                                 ]);
-                            } else if ($data['hari'] >= 1 && $data['hari'] <= 6) {
+                            } else if ($hari >= 1 && $hari <= 6) {
 
                                 DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
 
@@ -144,7 +222,7 @@ class AgendaJamController extends Controller
                             if ($dataAgenda[0]->ada >= '1') {
                                 return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $shift->Kd_Pegawai . ' Sudah ada sehingga tidak bisa diproses');
                             } else {
-                                if ($data['hari'] === '0') {
+                                if ($hari === '0') {
                                     DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jml_Jam = ?, @Ket_Absensi = ?, @User_Input= ?', [
 
                                         $shift->Kd_Pegawai,
@@ -153,7 +231,7 @@ class AgendaJamController extends Controller
                                         'B',
                                         $data['User_Input']
                                     ]);
-                                } else if ($data['hari'] >= 1 && $data['hari'] <= 6) {
+                                } else if ($hari >= 1 && $hari <= 6) {
 
                                     DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_Jam_istirahat= ?, @akhir_Jam_istirahat= ?, @Ket_Absensi= ?, @User_Input= ?', [
 
@@ -173,11 +251,10 @@ class AgendaJamController extends Controller
 
                         };
                     };
-                   echo($tanggal->format('Y-m-d'));
+                    echo ($tanggal->format('Y-m-d'));
                 };
                 return redirect()->route('Jam.index')->with('alert', 'Agenda divisi berhasil ditambahkan!');
             }
-
         }
     }
 
