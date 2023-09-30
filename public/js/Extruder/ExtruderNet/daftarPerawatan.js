@@ -1,6 +1,6 @@
 //#region Variables
 const spnLoading = document.getElementById("loading_lbl");
-const tableRawat = document.getElementById("tabel_perawatan");
+const tableRawat = document.getElementById("table_perawatan");
 const RW_btnConfirm = document.getElementById("rw_confirm");
 
 const listRawat = [];
@@ -26,18 +26,19 @@ const listRawat = [];
 */
 
 const colRawat = [
-    { width: "1px" }, // Tanggal
+    { width: "100px" }, // Tanggal
     { width: "100px" }, // Nama
     { width: "1px" }, // Shift
-    { width: "1px" }, // Waktu
-    { width: "100px" }, // Bagian
+    { width: "100px" }, // Waktu
+    { width: "150px" }, // Bagian
     { width: "100px" }, // Mesin
     { width: "100px" }, // No. Winder
-    { width: "100px" }, // Gangguan
-    { width: "100px" }, // Penyebab
-    { width: "100px" }, // Penyelesaian
+    { width: "150px" }, // Gangguan
+    { width: "150px" }, // Penyebab
+    { width: "150px" }, // Penyelesaian
     { width: "1px" }, // Mulai
     { width: "1px" }, // Selesai
+    { width: "1px" }, // Kode
 ];
 
 var pilRawat = -1;
@@ -57,6 +58,7 @@ RW_btnConfirm.addEventListener("click", function () {
 function RW_showData() {
     // SP_5298_EXT_DATA_PERAWATAN
     fetchSelect("/Catat/getDataPerawatan/" + RW_tanggal + "/4384", (data) => {
+        let pushedData = [];
         for (let i = 0; i < data.length; i++) {
             listRawat.push({
                 Kode: data[i].Kode,
@@ -67,37 +69,66 @@ function RW_showData() {
                 Waktu: data[i].Waktu,
                 IdPerawatan: data[i].IdPerawatan,
                 NamaPerawatan: data[i].NamaPerawatan,
-                TypeMesin: data[i].TypeMesin,
                 IdMesin: data[i].IdMesin,
                 TypeMesin: data[i].TypeMesin,
                 NoWinder: data[i].NoWinder,
                 Gangguan: data[i].Gangguan,
                 Penyebab: data[i].Penyebab,
                 Penyelesaian: data[i].Penyelesaian,
-                WaktuMulai: dateTimetoTime(data[i].WaktuMulai),
-                WaktuSelesai: dateTimetoTime(data[i].WaktuSelesai),
+                WaktuMulai: dateTimetoTime(data[i].WaktuMulai).slice(0, 5),
+                WaktuSelesai: dateTimetoTime(data[i].WaktuSelesai).slice(0, 5),
                 IdGangguan:
                     data[i].IdGangguan !== undefined ? data[i].IdGangguan : "",
                 Winder: data[i].Winder,
             });
+
+            pushedData.push({
+                Tanggal: dateTimeToDate(data[i].Tanggal),
+                NamaUser: data[i].NamaUser,
+                // UserId: data[i].UserId,
+                Shift: data[i].Shift,
+                Waktu: data[i].Waktu,
+                // IdPerawatan: data[i].IdPerawatan,
+                NamaPerawatan: data[i].NamaPerawatan,
+                // IdMesin: data[i].IdMesin,
+                TypeMesin: data[i].TypeMesin,
+                NoWinder: data[i].NoWinder,
+                Gangguan: data[i].Gangguan,
+                Penyebab: data[i].Penyebab,
+                Penyelesaian: data[i].Penyelesaian,
+                WaktuMulai: dateTimetoTime(data[i].WaktuMulai).slice(0, 5),
+                WaktuSelesai: dateTimetoTime(data[i].WaktuSelesai).slice(0, 5),
+                Kode: data[i].Kode,
+                // IdGangguan:
+                //     data[i].IdGangguan !== undefined ? data[i].IdGangguan : "",
+                // Winder: data[i].Winder,
+            });
         }
 
         if (data.length > 0)
-            addTable_DataTable("table_perawatan", listRawat, colRawat);
+            addTable_DataTable(
+                "table_perawatan",
+                pushedData,
+                colRawat,
+                rowClickedRawat
+            );
     });
 }
 
 function rowClickedRawat(row, data, _) {
-    if (pilDaya == findClickedRowInList(listRawat, "Kode", data.Kode)) {
+    if (pilRawat == findClickedRowInList(listRawat, "Kode", data.Kode)) {
         row.style.background = "white";
-        pilDaya = -1;
+        pilRawat = -1;
         RW_clickedData = null;
     } else {
-        clearSelection_DataTable("tabel_perawatan");
+        clearSelection_DataTable("table_perawatan");
         row.style.background = "aliceblue";
-        pilDaya = findClickedRowInList(listRawat, "Kode", data.Kode);
-        RW_clickedData = data;
+        pilRawat = findClickedRowInList(listRawat, "Kode", data.Kode);
+        RW_clickedData = listRawat[pilRawat];
+        RW_btnConfirm.focus();
     }
+
+    console.log(RW_clickedData);
 }
 //#endregion
 
@@ -109,8 +140,8 @@ function init_rw() {
     spnLoading.classList.add("hidden");
     tableRawat.classList.remove("hidden");
 
-    if (!$.fn.DataTable.isDataTable("#tabel_perawatan")) {
-        $("#tabel_perawatan").DataTable({
+    if (!$.fn.DataTable.isDataTable("#table_perawatan")) {
+        $("#table_perawatan").DataTable({
             responsive: true,
             paging: false,
             scrollY: "250px",
@@ -136,7 +167,11 @@ function init_rw() {
     }
 
     listRawat.length = 0;
-    clearTable_DataTable("tabel_perawatan", colRawat.length, "padding=250px");
+    clearTable_DataTable("table_perawatan", colRawat.length, [
+        "padding=250px",
+        "Memuat data...",
+    ]);
+    RW_showData();
 }
 
 $("#form_daftar_rawat").on("shown.bs.modal", function () {

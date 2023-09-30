@@ -78,21 +78,21 @@ class PencatatanController extends Controller
         // @IdPerawatan int
     }
 
-    public function insPerawatan($tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input)
+    public function insPerawatan($tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input, $id_gangguan = null)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_PERAWATAN @tanggal = ?, @userId = ?, @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @userinput = ?',
-            [$tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input]
+            [$tanggal, $user_id, $shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai, $user_input]
         );
 
         // @tanggal datetime, @userId char(4), @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @userinput varchar(7)
     }
 
-    public function updPerawatan($shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi)
+    public function updPerawatan($shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi, $id_gangguan = null)
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_UPDATE_PERAWATAN @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @Kode = ?, @userkoreksi = ?',
-            [$shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $id_gangguan, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi]
+            [$shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai, $kode, $user_koreksi]
         );
 
         // @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @Kode int, @userkoreksi char(4) = null
@@ -110,7 +110,7 @@ class PencatatanController extends Controller
 
     public function getJenisPenyebab($id_perawatan)
     {
-        return DB::connection('ConnExtruder')->statement(
+        return DB::connection('ConnExtruder')->select(
             'exec SP_5409_EXT_JENIS_PENYEBAB @IdPerawatan = ?',
             [$id_perawatan]
         );
@@ -120,7 +120,7 @@ class PencatatanController extends Controller
 
     public function getJenisPenyelesaian($id_perawatan)
     {
-        return DB::connection('ConnExtruder')->statement(
+        return DB::connection('ConnExtruder')->select(
             'exec SP_5409_EXT_JENIS_PENYELESAIAN @IdPerawatan = ?',
             [$id_perawatan]
         );
@@ -128,7 +128,8 @@ class PencatatanController extends Controller
         // @IdPerawatan int
     }
 
-    public function getDataPerawatan($tanggal, $user_id) {
+    public function getDataPerawatan($tanggal, $user_id)
+    {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_DATA_PERAWATAN @Tanggal = ?, @userId = ?',
             [$tanggal, $user_id]

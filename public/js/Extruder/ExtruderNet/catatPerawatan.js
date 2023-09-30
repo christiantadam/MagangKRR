@@ -30,7 +30,9 @@ const groupBox2Ctr = document.querySelectorAll("#group_box2 .form-control");
 
 var modeProses = "";
 var refetchWinder = false;
-var refetchGroup2 = false; // Gangguan, Penyebab, Penyelesaian
+var refetchGangguan = false;
+var refetchPenyebab = false;
+var refetchPenyelesaian = false;
 //#endregion
 
 //#region Events
@@ -52,6 +54,7 @@ txtNama.addEventListener("keypress", function (event) {
          * Modal dapat dilihat pada file modalDaftarPerawatan.blade.php
          */
 
+        event.preventDefault();
         RW_tanggal = dateInput.value;
         $("#form_daftar_rawat").modal("show");
     }
@@ -67,9 +70,19 @@ hidDaftarRW.addEventListener("change", function () {
         txtWinder.value = RW_clickedData.Winder;
 
         addOptionIfNotExists(slcWinder, RW_clickedData.NoWinder);
-        addOptionIfNotExists(slcJam, RW_clickedData.Waktu);
         addOptionIfNotExists(slcPenyebab, RW_clickedData.Penyebab);
         addOptionIfNotExists(slcPenyelesaian, RW_clickedData.Penyelesaian);
+        addOptionIfNotExists(
+            slcGangguan,
+            RW_clickedData.IdGangguan,
+            RW_clickedData.Gangguan
+        );
+
+        addOptionIfNotExists(
+            slcJam,
+            RW_clickedData.Waktu.replace(/ /g, "_"),
+            RW_clickedData.Waktu
+        );
 
         addOptionIfNotExists(
             slcBagian,
@@ -83,13 +96,11 @@ hidDaftarRW.addEventListener("change", function () {
             RW_clickedData.IdMesin + " | " + RW_clickedData.TypeMesin
         );
 
-        addOptionIfNotExists(
-            slcGangguan,
-            RW_clickedData.IdGangguan,
-            RW_clickedData.IdGangguan + " | " + RW_clickedData.Gangguan
-        );
-
         if (modeProses == "koreksi") {
+            refetchWinder = true;
+            refetchGangguan = true;
+            refetchPenyebab = true;
+            refetchPenyelesaian = true;
             slcGangguan.focus();
         } else btnProses.focus();
     } else alert("Belum ada data perawatan yang terpilih.");
@@ -97,8 +108,10 @@ hidDaftarRW.addEventListener("change", function () {
 
 txtShift.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        this.value = this.value.toUpperCase();
-        slcJam.focus();
+        if (this.value != "") {
+            this.value = this.value.toUpperCase();
+            slcJam.focus();
+        } else this.focus();
     }
 });
 
@@ -110,6 +123,9 @@ slcJam.addEventListener("change", function () {
 
 slcBagian.addEventListener("change", function () {
     refetchWinder = true;
+    refetchGangguan = true;
+    refetchPenyebab = true;
+    refetchPenyelesaian = true;
     slcMesin.focus();
 });
 
@@ -172,13 +188,13 @@ slcWinder.addEventListener("change", function () {
 });
 
 slcGangguan.addEventListener("mousedown", function () {
-    if (refetchGroup2) {
-        refetchGroup2 = false;
+    if (refetchGangguan) {
+        refetchGangguan = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "idgangguan",
-            textKey: "namagangguan",
+            valueKey: "IdGangguan",
+            textKey: "NamaGangguan",
         };
 
         // SP_5298_EXT_JENIS_GANGGUAN
@@ -186,9 +202,9 @@ slcGangguan.addEventListener("mousedown", function () {
             "/Catat/getJenisGangguan/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchGangguan = true;
             },
             errorOption
         );
@@ -196,13 +212,13 @@ slcGangguan.addEventListener("mousedown", function () {
 });
 
 slcGangguan.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchGroup2) {
-        refetchGroup2 = false;
+    if (event.key === "Enter" && refetchGangguan) {
+        refetchGangguan = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "idgangguan",
-            textKey: "namagangguan",
+            valueKey: "IdGangguan",
+            textKey: "NamaGangguan",
         };
 
         // SP_5298_EXT_JENIS_GANGGUAN
@@ -210,9 +226,9 @@ slcGangguan.addEventListener("keydown", function (event) {
             "/Catat/getJenisGangguan/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchGangguan = true;
             },
             errorOption
         );
@@ -224,12 +240,12 @@ slcGangguan.addEventListener("change", function () {
 });
 
 slcPenyebab.addEventListener("mousedown", function () {
-    if (refetchGroup2) {
-        refetchGroup2 = false;
+    if (refetchPenyebab) {
+        refetchPenyebab = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdPenyebab",
+            valueKey: "NamaPenyebab",
             textKey: "NamaPenyebab",
         };
 
@@ -238,9 +254,9 @@ slcPenyebab.addEventListener("mousedown", function () {
             "/Catat/getJenisPenyebab/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchPenyebab = true;
             },
             errorOption
         );
@@ -248,12 +264,12 @@ slcPenyebab.addEventListener("mousedown", function () {
 });
 
 slcPenyebab.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchGroup2) {
-        refetchGroup2 = false;
+    if (event.key === "Enter" && refetchPenyebab) {
+        refetchPenyebab = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdPenyebab",
+            valueKey: "NamaPenyebab",
             textKey: "NamaPenyebab",
         };
 
@@ -262,9 +278,9 @@ slcPenyebab.addEventListener("keydown", function (event) {
             "/Catat/getJenisPenyebab/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchPenyebab = true;
             },
             errorOption
         );
@@ -276,23 +292,23 @@ slcPenyebab.addEventListener("change", function () {
 });
 
 slcPenyelesaian.addEventListener("mousedown", function () {
-    if (refetchGroup2) {
-        refetchGroup2 = false;
+    if (refetchPenyelesaian) {
+        refetchPenyelesaian = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdPenyelesaian",
+            valueKey: "NamaPenyelesaian",
             textKey: "NamaPenyelesaian",
         };
 
         // SP_5409_EXT_JENIS_PENYELESAIAN
         fetchSelect(
-            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            "/Catat/getJenisPenyelesaian/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchPenyelesaian = true;
             },
             errorOption
         );
@@ -300,23 +316,23 @@ slcPenyelesaian.addEventListener("mousedown", function () {
 });
 
 slcPenyelesaian.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchGroup2) {
-        refetchGroup2 = false;
+    if (event.key === "Enter" && refetchPenyelesaian) {
+        refetchPenyelesaian = false;
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IdPenyelesaian",
+            valueKey: "NamaPenyelesaian",
             textKey: "NamaPenyelesaian",
         };
 
         // SP_5409_EXT_JENIS_PENYELESAIAN
         fetchSelect(
-            "/Catat/getJenisPenyebab/" + slcBagian.value,
+            "/Catat/getJenisPenyelesaian/" + slcBagian.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
-                } else refetchGroup2 = true;
+                } else refetchPenyelesaian = true;
             },
             errorOption
         );
@@ -355,18 +371,18 @@ btnHapus.addEventListener("click", function () {
     clearAll();
     modeProses = "hapus";
     toggleButtons(2);
-    groupBox1Ctr.disabled = false;
-    groupBox1Slc.disabled = false;
+    dateInput.disabled = false;
+    txtNama.disabled = false;
     dateInput.focus();
 });
 
 btnProses.addEventListener("click", function () {
     if (modeProses == "isi") {
-        // prosesIsi()
+        prosesIsi();
     } else if (modeProses == "koreksi") {
-        // prosesUpdate()
+        prosesUpdate();
     } else if (modeProses == "hapus") {
-        // prosesDelete()
+        prosesDelete();
     }
 });
 
@@ -386,6 +402,9 @@ function setEnable(m_value) {
     groupBox1Slc.forEach((ele) => (ele.disabled = !m_value));
     groupBox2Ctr.forEach((ele) => (ele.disabled = !m_value));
     groupBox2Slc.forEach((ele) => (ele.disabled = !m_value));
+
+    txtWinder.disabled = true;
+    if (modeProses == "isi" && m_value) txtNama.disabled = true;
 }
 
 function toggleButtons(tmb) {
@@ -415,13 +434,126 @@ function clearAll() {
     groupBox1Slc.forEach((ele) => (ele.selectedIndex = 0));
     groupBox2Ctr.forEach((ele) => (ele.value = ""));
     groupBox2Slc.forEach((ele) => (ele.selectedIndex = 0));
+
+    dateInput.value = getCurrentDate();
+    timeMulai.value = "00:00";
+    timeSelesai.value = "00:00";
+
+    listRawat.length = 0;
+    clearTable_DataTable("table_perawatan", colRawat.length, "padding=250px");
 }
 
 function prosesIsi() {
+    let id_gangguan = slcBagian.value == 2 ? slcGangguan.value : "";
+
     // SP_5298_EXT_INSERT_PERAWATAN
+    fetchStmt(
+        "/Catat/insPerawatan/" +
+            dateInput.value +
+            "/4384/" +
+            txtShift.value +
+            "/" +
+            slcJam.value +
+            "/" +
+            slcBagian.value +
+            "/" +
+            slcMesin.value +
+            "/" +
+            slcWinder.options[slcWinder.selectedIndex].text +
+            "/" +
+            slcGangguan.options[slcGangguan.selectedIndex].text.replace(
+                / /g,
+                "_"
+            ) +
+            "/" +
+            slcPenyebab.value.replace(/ /g, "_") +
+            "/" +
+            slcPenyelesaian.value.replace(/ /g, "_") +
+            "/" +
+            timeMulai.value +
+            "/" +
+            timeSelesai.value +
+            "/4384/" +
+            id_gangguan,
+        () => {
+            showModal(
+                "Tambah Lagi",
+                "Data berhasil tersimpan, ingin input data perawatan lagi?",
+                () => {
+                    slcMesin.focus();
+                },
+                () => {
+                    setEnable(false);
+                    modeProses = "";
+                    toggleButtons(1);
+                    clearAll();
+                }
+            );
+        }
+    );
+}
+
+function prosesUpdate() {
+    let id_gangguan = slcBagian.value == 2 ? slcGangguan.value : "";
+
+    // SP_5298_EXT_UPDATE_PERAWATAN
+    fetchStmt(
+        "/Catat/updPerawatan/" +
+            txtShift.value +
+            "/" +
+            slcJam.value +
+            "/" +
+            slcBagian.value +
+            "/" +
+            slcMesin.value +
+            "/" +
+            slcWinder.options[slcWinder.selectedIndex].text +
+            "/" +
+            slcGangguan.options[slcGangguan.selectedIndex].text.replace(
+                / /g,
+                "_"
+            ) +
+            "/" +
+            slcPenyebab.value.replace(/ /g, "_") +
+            "/" +
+            slcPenyelesaian.value.replace(/ /g, "_") +
+            "/" +
+            timeMulai.value +
+            "/" +
+            timeSelesai.value +
+            "/" +
+            hidKode.value +
+            "/4384/" +
+            id_gangguan,
+        () => {
+            setEnable(false);
+            modeProses = "";
+            toggleButtons(1);
+            clearAll();
+
+            alert("Data berhasil dikoreksi.");
+        }
+    );
+}
+
+function prosesDelete() {
+    // SP_5298_EXT_DELETE_PERAWATAN
+    fetchStmt("/Catat/delPerawatan/" + hidKode.value, () => {
+        setEnable(false);
+        modeProses = "";
+        toggleButtons(1);
+        clearAll();
+
+        alert("Data berhasil dihapus.");
+    });
 }
 //#endregion
 
-function init() {}
+function init() {
+    toggleButtons(1);
+    setEnable(false);
+    clearAll();
+    btnIsi.focus();
+}
 
 $(document).ready(() => init());

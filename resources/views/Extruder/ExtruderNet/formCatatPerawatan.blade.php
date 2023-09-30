@@ -50,9 +50,9 @@
                     <div class="col-lg-2">
                         <select id="select_jam" class="form-select" disabled>
                             <option selected>-- Pilih Jam --</option>
-                            <option value="P">07.00 - 15.00</option>
-                            <option value="S">15.00 - 23.00</option>
-                            <option value="M">23.00 - 07.00</option>
+                            <option value="07:00_-_15:00__">07.00 - 15.00</option>
+                            <option value="15:00_-_23:00__">15.00 - 23.00</option>
+                            <option value="23:00_-_07:00__">23.00 - 07.00</option>
                         </select>
                     </div>
                     <div class="col-lg-1">
@@ -67,6 +67,10 @@
                     <div class="col-lg-6">
                         <select id="select_bagian" class="form-select" disabled>
                             <option selected disabled>-- Pilih Bagian --</option>
+                            @foreach ($formData['listPerawatan'] as $d)
+                                <option value="{{ $d->IdPerawatan }}">{{ $d->IdPerawatan . ' | ' . $d->NamaPerawatan }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-1">
@@ -81,6 +85,9 @@
                     <div class="col-lg-6">
                         <select id="select_mesin" class="form-select" disabled>
                             <option selected disabled>-- Pilih Mesin --</option>
+                            @foreach ($formData['listMesin'] as $d)
+                                <option value="{{ $d->IdMesin }}">{{ $d->IdMesin . ' | ' . $d->TypeMesin }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-1">

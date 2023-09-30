@@ -235,7 +235,7 @@ Route::get('/Catat/getJenisPenyebab/{id_perawatan}', [PencatatanController::clas
 Route::get('/Catat/getJenisPenyelesaian/{id_perawatan}', [PencatatanController::class, 'getJenisPenyelesaian']);
 Route::get('/Catat/getDataPerawatan/{tanggal}/{user_id}', [PencatatanController::class, 'getDataPerawatan']);
 
-Route::get('/Catat/insPerawatan/{tanggal}/{user_id}/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{id_gangguan}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{user_input}', [PencatatanController::class, 'insPerawatan']);
-Route::get('/Catat/updPerawatan/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{id_gangguan}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{kode}/{user_koreksi}', [PencatatanController::class, 'updPerawatan']);
+Route::get('/Catat/insPerawatan/{tanggal}/{user_id}/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{user_input}/{id_gangguan?}', [PencatatanController::class, 'insPerawatan']);
+Route::get('/Catat/updPerawatan/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{kode}/{user_koreksi}/{id_gangguan?}', [PencatatanController::class, 'updPerawatan']);
 Route::get('/Catat/delPerawatan/{kode}', [PencatatanController::class, 'delPerawatan']);
 #endregion

@@ -12,7 +12,7 @@
                     <center>Memuat data...</center>
                 </h1>
 
-                <table id="tabel_perawatan" class="hover cell-border hidden">
+                <table id="table_perawatan" class="hover cell-border hidden">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -27,6 +27,7 @@
                             <th>Penyelesaian</th>
                             <th>Mulai</th>
                             <th>Selesai</th>
+                            <th>Kode</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
