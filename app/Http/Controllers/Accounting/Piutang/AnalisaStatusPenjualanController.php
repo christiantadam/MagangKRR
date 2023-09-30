@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnalisaStatusPenjualanController extends Controller
 {
-    public function AnalisaStatusPenjualan()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.AnalisaStatusPenjualan', compact('data'));
+    }
+
+    public function getDisplaySuratJalan($tanggal, $tanggal2)
+    {
+        // dd("masuk");
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1486_ACC_LIST_STATUS_PENAGIHAN_PENJUALAN] @Kode = ?, @Tgl1 = ?, @Tgl2 = ?', [1, $tanggal, $tanggal2]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -22,11 +30,11 @@ class AnalisaStatusPenjualanController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
         //
     }
@@ -40,7 +48,22 @@ class AnalisaStatusPenjualanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $no_Faktur = $request->no_Faktur;
+        $lunas = $request->lunas;
+        $idBKM = $request->idBKM;
+        $noFaktur = str_replace('.', '/', $no_Faktur);
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_UPDATE_LUNAS]
+        @id_Penagihan = ?,
+        @Lunas = ?,
+        @Id_BKM = ?
+        ', [
+            6,
+            $noFaktur,
+            $lunas,
+            $idBKM
+        ]);
+
+        return redirect()->back()->with('success', 'Data Telah Tersimpan');
     }
 
     //Remove the specified resource from storage.

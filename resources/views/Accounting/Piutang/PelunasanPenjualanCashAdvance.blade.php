@@ -240,11 +240,11 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <input type="submit" id="btnIsi" name="btnIsi" value="Isi" class="btn btn-primary">
-                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-primary" style="display: none">
+                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-success" style="display: none">
                                         </div>
                                         <div class="col-md-2">
                                             <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
-                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary" style="display: none">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-warning" style="display: none">
                                         </div>
                                     </div>
                                 </div>

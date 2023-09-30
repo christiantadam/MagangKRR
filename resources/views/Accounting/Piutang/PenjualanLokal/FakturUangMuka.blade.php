@@ -27,7 +27,7 @@
                                                 <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="namaCustomer" style="margin-right: 10px;">Nama Customer</label>
                                             </div>
@@ -43,7 +43,7 @@
                                                 <input type="text" id="idJenisCustomer" name="idJenisCustomer" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="noPenagihanSelect" style="margin-right: 10px;">No. Penagihan</label>
                                             </div>
@@ -59,7 +59,7 @@
                                                 <input type="text" id="id_Penagihan" name="IdPenagihan" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="jenisCustomer" style="margin-right: 10px;">Jenis Customer</label>
                                             </div>
@@ -67,7 +67,7 @@
                                                 <input type="text" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="alamat" style="margin-right: 10px;">Alamat</label>
                                             </div>
@@ -75,7 +75,7 @@
                                                 <input type="text" id="alamat" name="alamat" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="nomorSPSelect" style="margin-right: 10px;">Nomor SP</label>
                                             </div>
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="nomorSP" style="margin-right: 10px;">Mata Uang</label>
                                             </div>
@@ -112,7 +112,7 @@
                                                 <input type="number" id="nilaiKurs" name="nilaiKurs" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="penagihanPajak" style="margin-right: 10px;">Penagihan Pajak</label>
                                             </div>
@@ -132,7 +132,7 @@
                                                 <label for="penagihanPajak" style="margin-right: 10px;">Hari</label>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="userPenagihSelect" style="margin-right: 10px;">User Penagih</label>
                                             </div>
@@ -145,7 +145,7 @@
                                                 <input type="number" id="idUserPenagih" name="idUserPenagih" class="form-control" style="width: 100%" readonly>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="jenisPajakSelect" style="margin-right: 10px;">Jenis Pajak</label>
                                             </div>
@@ -164,7 +164,7 @@
                                                 <input type="text" id="idJenisPajak" name="idJenisPajak" class="form-control" style="width: 100%">
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-3">
                                                 <label for="dokumenSelect" style="margin-right: 10px;">Dokumen</label>
                                             </div>
@@ -200,7 +200,7 @@
                                             <input type="text" id="total" name="total" class="form-control" style="width: 100%" readonly>
                                         </div>
                                     </div>
-                                    <div class="d-flex">
+                                    <p><div class="d-flex">
                                         <div class="col-md-3">
                                             <label for="nilaiSblmPPN" style="margin-right: 10px;">Nilai Sblm PPN</label>
                                         </div>
@@ -208,7 +208,7 @@
                                             <input type="number" id="nilaiSblmPPN" name="nilaiSblmPPN" class="form-control" style="width: 100%" readonly>
                                         </div>
                                     </div>
-                                    <div class="d-flex">
+                                    <p><div class="d-flex">
                                         <div class="col-md-3">
                                             <label for="nilaiPpn" style="margin-right: 10px;">Nilai Ppn</label>
                                         </div>
@@ -216,7 +216,7 @@
                                             <input type="number" id="nilaiPpn" name="nilaiPpn" class="form-control" style="width: 100%" readonly>
                                         </div>
                                     </div>
-                                    <div class="d-flex">
+                                    <p><div class="d-flex">
                                         <div class="col-md-3">
                                             <label for="terbilang" style="margin-right: 10px;">Terbilang</label>
                                         </div>
@@ -230,22 +230,18 @@
                                     <div class="row">
                                         <div class="col-md-1">
                                             <input type="submit" id="btnIsi" name="btnIsi" value="Isi" class="btn btn-primary">
-                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-primary" style="display: none">
+                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-success" style="display: none">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary">
-                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary" style="display: none">
+                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-warning">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-warning" style="display: none">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-primary">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
+                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-danger">
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                            <br>
                         </div>
                     </div>
                 </div>

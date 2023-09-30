@@ -52,7 +52,7 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary" disabled>
+                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-success" disabled>
                                         </div>
                                         <div class="col-2">
                                             <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary">

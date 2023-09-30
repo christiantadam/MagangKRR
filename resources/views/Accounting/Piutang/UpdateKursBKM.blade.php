@@ -74,14 +74,13 @@
                                         <div class="col-md-2">
                                             <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%">
                                         </div>
+                                        <div class="col-3">
+                                        </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-success d-flex ml-auto">
                                         </div>
                                         <div class="col-3">
                                             <input type="submit" id="btnPilihBKM" name="btnPilihBKM" value="Pilih BKM" class="btn btn-primary d-flex ml-auto">
-                                        </div>
-                                        <div class="col-2">
-                                            <input type="submit" id="btnTutup" name="tutup" value="TUTUP" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>

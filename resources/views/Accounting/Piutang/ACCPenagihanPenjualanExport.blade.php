@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-success d-flex ml-auto">
                                         </div>
                                         <div class="col-1">
                                             <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary d-flex ml-auto">

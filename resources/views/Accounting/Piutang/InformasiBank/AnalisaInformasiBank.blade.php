@@ -89,7 +89,7 @@
                                         <input type="text" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="noReferensi" style="margin-right: 10px;">No. Referensi</label>
                                     </div>
@@ -97,7 +97,7 @@
                                         <input type="text" id="noReferensi" name="noReferensi" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="totalNilai" style="margin-right: 10px;">Total Nilai</label>
                                     </div>
@@ -105,7 +105,7 @@
                                         <input type="number" id="totalNilai" name="totalNilai" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="ketDariBank" style="margin-right: 10px;">Ket dari Bank</label>
                                     </div>
@@ -113,7 +113,7 @@
                                         <input type="text" id="ketDariBank" name="ketDariBank" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="namaCustomerSelect" style="margin-right: 10px;">Customer</label>
                                     </div>
@@ -126,7 +126,7 @@
                                         <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="radiogrup2" style="margin-right: 10px;">Untuk Pembayaran</label>
                                     </div>
@@ -143,10 +143,10 @@
                                         <label for="radiogrup2">Uang Titipan</label>
                                     </div>
                                 </div>
-                                <br><div class="mb-3">
+                                <p><br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary" disabled>
+                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-success" disabled>
                                         </div>
                                         <div class="col-2">
                                             <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
@@ -154,7 +154,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <br>
                         </div>
                     </div>
                 </div>

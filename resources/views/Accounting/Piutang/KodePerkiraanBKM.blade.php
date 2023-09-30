@@ -150,7 +150,7 @@
                                     <div class="card-container" style="display: flex;">
                                         <div style="width: 40%;">
                                             <p><div style="padding-left: 450px">
-                                                <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary">
+                                                <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-success">
                                             </div>
                                             <div style="padding-left: 450px">
                                                 <input type="submit" name="keluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">

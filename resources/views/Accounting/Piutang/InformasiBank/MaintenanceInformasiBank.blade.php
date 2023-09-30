@@ -85,7 +85,7 @@
                                         <input type="text" id="idReferensi" name="idReferensi" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="mataUangSelect" style="margin-right: 10px;">Mata Uang</label>
                                     </div>
@@ -97,7 +97,7 @@
                                         <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="id" style="margin-right: 10px;">Total Nilai</label>
                                     </div>
@@ -105,7 +105,7 @@
                                         <input type="number" id="totalNilai" name="totalNilai" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="id" style="margin-right: 10px;">Keterangan</label>
                                     </div>
@@ -113,7 +113,7 @@
                                         <input type="text" id="keterangan" name="keterangan" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2"></div>
                                         <div class="col-md-6">
                                             <input type="radio" name="radiogrup1" value="T" id="radiogrup1" readonly>
@@ -124,7 +124,7 @@
                                             <label for="radio_2">Hasil Kliring</label>
                                         </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="jenisPembayaranSelect" style="margin-right: 10px;">Jenis Pembayaran</label>
                                     </div>
@@ -137,7 +137,7 @@
                                         <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <div class="d-flex">
+                                <p><div class="d-flex">
                                     <div class="col-md-2">
                                         <label for="id" style="margin-right: 10px;">No. Bukti</label>
                                     </div>
@@ -145,22 +145,19 @@
                                         <input type="text" id="noBukti" name="noBukti" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                <br><div class="mb-3">
+                                <p><br><div class="mb-3">
                                     <div class="row">
-                                        <div class="col-1">
+                                        <div class="col-2">
                                             <input type="submit" id="btnIsi" name="btnIsi" value="Isi" class="btn btn-primary">
-                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-primary" style="display: none" onclick="clickSimpan()">
-                                            <input type="submit" id="btnSimpanKoreksi" name="btnSimpanKoreksi" value="Simpan" class="btn btn-primary" style="display: none" onclick="clickSimpanKoreksi()">
+                                            <input type="submit" id="btnSimpan" name="btnSimpan" value="Simpan" class="btn btn-success" style="display: none" onclick="clickSimpan()">
+                                            <input type="submit" id="btnSimpanKoreksi" name="btnSimpanKoreksi" value="Simpan" class="btn btn-success" style="display: none" onclick="clickSimpanKoreksi()">
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-primary">
-                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-primary" style="display: none">
+                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="Koreksi" class="btn btn-warning">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-warning" style="display: none">
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-primary">
-                                        </div>
-                                        <div class="col-7">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnHapus" name="btnHapus" value="Hapus" class="btn btn-danger">
                                         </div>
                                     </div>
                                 </div>
