@@ -41,6 +41,11 @@ class BalJadiPaletController extends Controller
             // dd($dataDivisi);
             // Return the options as JSON data
             return response()->json($dataDivisi);
+        } else if ($crExplode[$lasindex] == "getBarcode") {
+            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_5409_INV_SimpanPermohonanRepress @kodebarang = ?, @noindeks = ?, @status = ?', [$crExplode[0], $crExplode[1], "0"]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
         }
     }
 

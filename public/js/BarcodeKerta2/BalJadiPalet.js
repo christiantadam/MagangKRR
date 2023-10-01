@@ -75,8 +75,8 @@ $(document).ready(function() {
         var rowData = $("#TableType").DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $("#IdType").val(rowData[0]);
-        $("#NamaType").val(rowData[1]);
+        $("#IdType").val(rowData[1]);
+        $("#NamaType").val(rowData[0]);
 
         // var txtIdDivisi = document.getElementById(rowData[0]);
         // Hide the modal immediately after populating the data
@@ -91,6 +91,46 @@ $(document).ready(function() {
     var ButtonType = document.getElementById('ButtonType')
     ButtonType.addEventListener("click", function (event) {
         event.preventDefault();
+    });
+
+    var BarcodeInput = document.getElementById('BarcodeInput');
+    BarcodeInput.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var BarcodeInput = document.getElementById('BarcodeInput');
+            var str = BarcodeInput.value;
+            var parts = str.split("-");
+            console.log(parts); // Output: ["A123", "a234"]
+
+            fetch("/ABM/BalJadiPalet/" + parts[0] + "." + parts[1] + ".getBarcode")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
+                    console.log(data);
+                    // Clear the existing table rows
+                    $("#TableType1").DataTable().clear().draw();
+
+                    // Loop through the data and create table rows
+                    data.forEach((item) => {
+                        var kodebarcode = parts[0] + "-" + parts[1]
+                        var row = [kodebarcode, item.qty_primer, item.qty_sekunder, item.qty];
+                        $("#TableType1").DataTable().row.add(row);
+                        $("#primer").val(item.qty_primer)
+                        $("#sekunder").val(item.qty_sekunder)
+                        $("#tritier").val(item.qty)
+                    });
+
+                    // Redraw the table to show the changes
+                    $("#TableType1").DataTable().draw();
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
     });
 });
 

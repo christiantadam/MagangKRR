@@ -198,7 +198,7 @@
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
                                                 <input id="BarcodeInput" class="form-control" type="text"
-                                                    name="Barcode" rows="Barcode" placeholder="Barcode" readonly>
+                                                    name="BarcodeInput" rows="BarcodeInput" placeholder="Barcode" readonly>
                                             </div>
                                         </div>
 
@@ -206,7 +206,7 @@
                                             <div class="card-header">Type</div>
                                             <table id="TableType1">
                                                 <thead>
-                                                    <th>Barcode</th>
+                                                    <th style="width: 400px">Barcode</th>
                                                     <th>Jumlah Primer </th>
                                                     <th>Jumlah Sekunder</th>
                                                     <th>Jumlah Tritier</th>
@@ -228,7 +228,7 @@
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
                                     <input class="form-control" type="text" name="primer" rows="primer"
-                                        placeholder="Primer">
+                                        placeholder="Primer" id="primer">
                                     <div class="text-center col-md-auto"><button style="width: 100px"
                                             type="button">Ball</button>
                                     </div>
@@ -241,7 +241,7 @@
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
                                     <input class="form-control" type="text" name="sekunder" rows="sekunder"
-                                        placeholder="Sekunder">
+                                        placeholder="Sekunder" id="sekunder">
                                     <div class="text-center col-md-auto"><button style="width: 100px"
                                             type="button">LBR</button></div>
                                 </div>
@@ -253,7 +253,7 @@
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
                                     <input class="form-control" type="text" name="tritier" rows="tritier"
-                                        placeholder="Tritier">
+                                        placeholder="Tritier" id="tritier">
                                     <div class="text-center col-md-auto"><button style="width: 100px"
                                             type="button">KG</button></div>
                                 </div>
