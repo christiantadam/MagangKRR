@@ -85,7 +85,13 @@ class InputJadwalController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $worksts  = $request->WorkStationModalEdit;
+        $jmljam = $request->TJam;
+        $EstDate = $request->Tanggal;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-JAM-KERJA-KONSTRUKSI] @worksts = ?, @jmljam = ?, @EstDate = ?', [$worksts, $jmljam, $EstDate]);
+        return redirect()->back()->with('success', "Data sudah diSimpan.");
     }
+
 
     public function destroy($id)
     {

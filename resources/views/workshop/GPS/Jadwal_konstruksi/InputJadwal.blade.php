@@ -81,9 +81,9 @@
                   </div>
                   <div class="mb-3">
                     <label for="NamaBagian" class="form-label">Nama Bagian</label><br>
-                    <select class="custom-select" name="NamaBagian" style="width: 36vh;
-                    height: 5vh;"
-                      id="NamaBagian" disabled>
+                    <select class="custom-select" name="NamaBagian"
+                      style="width: 36vh;
+                    height: 5vh;" id="NamaBagian" disabled>
                     </select>
                   </div>
                   <div class="mb-3">
@@ -144,9 +144,13 @@
     </div>
   </div>
 
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit">
+    Launch demo modal
+  </button>
 
-{{-- //modal form_edit --}}
-<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="ModalEditLabel" aria-hidden="true">
+  {{-- //modal form_edit --}}
+  <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="ModalEditLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -156,25 +160,28 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="container">
-            <h5>Konstruksi</h5>
-            <div class="row">
-                <div class="col-3">
-                    <span>Tanggal</span>
+          <form id="ForminputJadwalModalEdit" action="{{ url('InputJadwalKonstruksi') }}" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="_method" id="methodFormModalEdit">
+            <div class="container">
+              <h5>Konstruksi</h5>
+              <div class="row" style="align-items: center;padding: 2%;">
+                <div class="col-5">
+                  <span>Tanggal</span>
                 </div>
                 <div class="col-5">
-                    <input type="Date" class="form-control" name="Tanggal" id="Tanggal">
+                  <input type="Date" class="form-control" name="Tanggal" id="Tanggal">
                 </div>
-                <div class="col-4">
-                    <input type="text" class="form-control" name="TNoWorkSts" id="TNoWorkSts" style="display: none">
+                <div class="col-2">
+                  <input type="text" class="form-control" name="TNoWorkSts" id="TNoWorkSts" style="display: none">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <span>Work Station</span>
+              </div>
+              <div class="row" style="align-items: center;padding: 2%;">
+                <div class="col-5">
+                  <span>Work Station</span>
                 </div>
-                <div class="col-9">
-                    <select class="custom-select" name="WorkStationModalEdit"
+                <div class="col-7">
+                  <select class="custom-select" name="WorkStationModalEdit"
                     style="width: 36vh;
                   height: 5vh;" id="WorkStationModalEdit" disabled>
                     <option disabled selected>Pilih Work Station</option>
@@ -183,23 +190,49 @@
                     @endforeach
                   </select>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <span>Jml Jam Kerja</span>
+              </div>
+              <div class="row" style="align-items: center;padding: 2%;">
+                <div class="col-5">
+                  <span>Jml Jam Kerja</span>
                 </div>
                 <div class="col-3">
-                    <input type="number" class="form-control" name="TJam" id="TJam">
+                  <input type="number" class="form-control" name="TJam" id="TJam">
                 </div>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnprosesmodaledit">Proses</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+          <button type="button" class="btn btn-primary" id="btnprosesmodaledit" onclick="ProsesModalEdit()">Proses</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
         </div>
       </div>
     </div>
-</div>
+  </div>
+
+
+  {{-- modal form list  --}}
+  <div class="modal fade" id="ModalList" tabindex="-1" role="dialog" aria-labelledby="ModalListLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalListLabel">Edit Jam Kerja Optimal - Konstruksi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="btnprosesModalList">Proses</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/InputJadwal.js') }}"></script>
 @endsection

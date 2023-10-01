@@ -30,6 +30,12 @@ let ModalEdit = document.getElementById("ModalEdit");
 let Tanggalmodaledit = document.getElementById("Tanggal");
 let WorkStationModalEdit = document.getElementById("WorkStationModalEdit");
 let TNoWorkSts = document.getElementById("TNoWorkSts");
+let ForminputJadwalModalEdit = document.getElementById(
+    "ForminputJadwalModalEdit"
+);
+let methodFormModalEdit = document.getElementById("methodFormModalEdit");
+let Tanggal = document.getElementById("Tanggal");
+let TJam = document.getElementById("TJam");
 //#region no order on enter
 
 NoOrder.addEventListener("keypress", function (event) {
@@ -485,9 +491,12 @@ function prosesdiklik() {
                                                 //open modal
                                                 ModalEdit.style.display =
                                                     "block";
-                                                Tanggalmodaledit.value = tglStart.value;
-                                                WorkStationModalEdit.value = WorkStation.value;
-                                                TNoWorkSts.value =  WorkStation.value;
+                                                Tanggalmodaledit.value =
+                                                    tglStart.value;
+                                                WorkStationModalEdit.value =
+                                                    WorkStation.value;
+                                                TNoWorkSts.value =
+                                                    WorkStation.value;
                                             } else {
                                                 tglStart.focus();
                                             }
@@ -522,6 +531,7 @@ function prosesdiklik() {
             }
             if (pilih_que == 2) {
                 //modal open
+
             }
         });
 }
@@ -549,5 +559,58 @@ function clearText1() {
 function clearText() {
     Bataldiklik();
 }
+
+//#endregion
+
+//#region proses modal edit
+
+function ProsesModalEdit() {
+    methodFormModalEdit.value = "PUT";
+    ForminputJadwalModalEdit.action = "/InputJadwalKonstruksi/" + NoOrder.value;
+    ForminputJadwalModalEdit.submit();
+}
+
+//#endregion
+
+//#region tanggal modal edit on enter
+
+Tanggal.addEventListener('keypress', function(event){
+    let tglSrv;
+    let tglEst;
+    if (event.key = "Enter") {
+        tglSrv = formattedCurrentDate;
+        tglEst = Tanggal.value;
+        WorkStationModalEdit.disabled = false;
+        WorkStationModalEdit.focus();
+    }
+});
+
+//#endregion
+
+//#region WorkStationModalEdit on change
+
+WorkStationModalEdit.addEventListener('change', function(){
+    let jam;
+    fetch(
+        "/GetJamKerjaInputJadwal/" +
+            WorkStationModalEdit.value +
+            "/" +
+            Tanggal.value
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas.length > 0) {
+                TJam.value = datas[0].JmlJamKerja;
+                jam = datas[0].JmlJamKerja;
+                TJam.focus();
+            }
+            else{
+                alert("Tidak ada jadwal konstruksi u/ WorkStation: " + WorkStationModalEdit.value + ", pada tanggal: " + Tanggal.value);
+                return;
+            }
+        });
+
+});
 
 //#endregion
