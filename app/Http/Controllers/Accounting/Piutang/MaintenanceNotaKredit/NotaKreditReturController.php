@@ -26,6 +26,13 @@ class NotaKreditReturController extends Controller
         return response()->json($tabel);
     }
 
+    public function getLihat_PenagihanNotaKredit($idCustomer, $MIdRetur)
+    {
+        //dd($idCustomer, $MIdRetur);
+        $tabel =  DB::connection('ConnSales')->select('exec [SP_LIST_RETUR_NOTAKREDIT] @IdCust = ?, @IdRetur = ?', [$idCustomer, $MIdRetur]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

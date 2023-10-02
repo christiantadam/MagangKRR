@@ -6,6 +6,7 @@ let suratJalanSelect = document.getElementById('suratJalanSelect');
 let namaBarang = document.getElementById('namaBarang');
 let noPenagihan = document.getElementById('noPenagihan');
 let mataUang = document.getElementById('mataUang');
+let idMataUang = document.getElementById('idMataUang');
 let nilaiKurs = document.getElementById('nilaiKurs');
 let jumlahRetur = document.getElementById('jumlahRetur');
 let satuan = document.getElementById('satuan');
@@ -20,13 +21,17 @@ let tabelNotaKreditRetur = $('#tabelNotaKreditRetur').DataTable();
 //HIDDEN
 let suratjalan = document.getElementById('suratjalan');
 let idbarang = document.getElementById('idbarang');
+let jenisPPN = document.getElementById('jenisPPN');
+let statusPPN = document.getElementById('statusPPN');
 
 let proses = 1;
+let MIdRetur = document.getElementById('MIdRetur');
 
 let btnSimpan = document.getElementById('btnSimpan');
 let btnIsi = document.getElementById('btnIsi');
 let btnBatal = document.getElementById('btnBatal');
 let btnKoreksi = document.getElementById('btnKoreksi');
+let btnTambahItem = document.getElementById('btnTambahItem');
 
 const tanggal = new Date();
 const formattedDate = tanggal.toISOString().substring(0, 10);
@@ -121,11 +126,19 @@ fetch("/getCustNotaKredit/")
                     if (selectedOption) {
                         const selectedValue = selectedOption.textContent; // Atau selectedOption.innerText
                         const bagiansatu = selectedValue.split("|");
-                        const sj = bagiansatu[0];
-                        const idbrg = bagiansatu[1];
+                        const idpengiriman = bagiansatu[0];
+                        const namabarang = bagiansatu[1];
 
-                        idbarang.value = idbrg.slice(0, -22);
-                        suratjalan.value = sj.slice(0, -11);
+                        idbarang.value = namabarang.slice(-20);
+                        suratjalan.value = idpengiriman.slice(-10);
+                        namaBarang.value = namabarang.substring(0, namabarang.length - 22);
+
+                        MIdRetur.value = idpengiriman.substring(0, idpengiriman.length - 11).trim();
+                        console.log(MIdRetur.value);
+                    }
+
+                    if (suratJalanSelect.selectedIndex != 0) {
+                        Lihat_Penagihan();
                     }
                 });
             } else {
@@ -135,7 +148,55 @@ fetch("/getCustNotaKredit/")
 });
 
 function Lihat_Penagihan() {
+    fetch("/getLihat_PenagihanNotaKredit/" + idCustomer.value + "/" + MIdRetur.value)
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        // console.log("masuk");
 
-}
+        harga.value = options[0].HargaSatuan;
+        mataUang.value = options[0].MataUang;
+        if (mataUang.value.toUpperCase() == "RUPIAH") {
+            idMataUang.value = 1;
+        } else if (mataUang.value.toUpperCase() == "US DOLLAR") {
+            idMataUang.value == 2;
+        } else if (mataUang.value.toUpperCase() == "YEN") {
+            idMataUang.value == 3;
+        }
+        nilaiKurs.value = options[0].NilaiKurs;
+        noPenagihan.value = options[0].IdPenagihan;
+        jenisPPN.value = options[0].Jns_PPN;
+        satuan.value = options[0].SatuanJual;
+        statusPPN.value = options[0].Status_PPN;
+        discount.value = options[0].Discount;
+        statusPelunasan.value = options[0].Lunas;
+        if (options[0].Lunas == 'Y') {
+            statusPelunasan.value = "Lunas";
+        } else {
+            statusPelunasan.value = "Belum";
+            alert("Harap Dibuatkan BKK");
+        };
+
+        if (options[0].SatuanJual == options[0].SatuanPrimer) {
+            total.value = (options[0].QtyPrimer * options[0].HargaSatuan) - (options[0].QtyPrimer * options[0].HargaSatuan * options[0].Discount);
+            jumlahRetur.value = options[0].QtyPrimer;
+        } else if (options[0].SatuanJual == options[0].SatuanSekunder) {
+            total.value = (options[0].QtySekunder * options[0].HargaSatuan) - (options[0].QtySekunder * options[0].HargaSatuan * options[0].Discount);
+            jumlahRetur.value = options[0].QtySekunder;
+        } else if (options[0].SatuanJual == options[0].SatuanTritier) {
+            total.value = (options[0].QtyTritier * options[0].HargaSatuan) - (options[0].QtyTritier * options[0].HargaSatuan * options[0].Discount);
+            jumlahRetur.value = options[0].QtyTritier;
+        } else {
+            total.value == (options[0].QTyKonversi * options[0].HargaSatuan) - (options[0].QTyKonversi * options[0].HargaSatuan * options[0].Discount);
+            umlahRetur.value = options[0].QTyKonversi;
+        }
+
+        btnTambahItem.focus();
+    });
+};
+
+btnTambahItem.addEventListener('click', function(event) {
+    event.preventDefault();
+})
 
 

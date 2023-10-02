@@ -24,6 +24,12 @@
                                     <div class="col-md-3">
                                         <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%" readonly>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="jenisPPN" name="jenisPPN" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="statusPPN" name="statusPPN" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-3">
@@ -74,6 +80,9 @@
                                     <div class="col-md-7">
                                         <input type="text" id="namaBarang" name="namaBarang" value="" class="form-control" style="width: 100%" readonly>
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="MIdRetur" name="MIdRetur" class="form-control" style="width: 100%" readonly>
+                                    </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-3">
@@ -95,6 +104,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <input type="text" id="nilaiKurs" name="nilaiKurs" class="form-control" style="width: 100%" readonly>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">

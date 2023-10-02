@@ -72,22 +72,22 @@
                                     <div class="col-md-5">
                                         <input type="text" id="nilaiBKM" name="nilaiBKM" class="form-control" style="width: 100%">
                                     </div>
-                                    </div>
                                 </div>
                                 <p><div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="alasan">Alasan</label>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-5">
                                         <input type="text" id="alasan" name="alasan" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
+
                                 <p><div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="alasan">Tgl. Batal</label>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" id="tanggalBatal" name="tanggalBatal" class="form-control" style="width: 100%">
+                                    <div class="col-md-4">
+                                        <input type="date" id="tanggalBatal" name="tanggalBatal" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <p><div class="mb-3">

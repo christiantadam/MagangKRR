@@ -12,10 +12,18 @@ let tanggalBatal = document.getElementById('tanggalBatal');
 let methodkoreksi = document.getElementById("methodkoreksi");
 let formkoreksi = document.getElementById("formkoreksi");
 
+const tgl = new Date();
+const formattedDate = tgl.toISOString().substring(0, 10);
+tanggalBatal.value = formattedDate;
 
 bulanTahun.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         event.preventDefault();
+        if (kasBesar.checked) {
+            fetchData("/getIdBKMBatal4/" + bulanTahun.value);
+        } else if (kasKecil.checked) {
+            fetchData("/getIdBKMBatal3/" + bulanTahun.value);
+        }
     }
 });
 
@@ -42,19 +50,7 @@ function fetchData(endpoint) {
         .then((options) => {
             populateOptions(options);
         });
-}
-
-kasBesar.addEventListener("change", function() {
-    if (kasBesar.checked) {
-        fetchData("/getIdBKMBatal4/" + bulanTahun.value);
-    }
-});
-
-kasKecil.addEventListener("change", function() {
-    if (kasKecil.checked) {
-        fetchData("/getIdBKMBatal3/" + bulanTahun.value);
-    }
-});
+};
 
 idBKMSelect.addEventListener('change', function(event) {
     event.preventDefault();
