@@ -18,6 +18,11 @@ const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 const btnDetail = document.getElementById("btn_detail");
 
+const namaGedung =
+    document.getElementById("nama_gedung").value == ""
+        ? "default"
+        : document.getElementById("nama_gedung").value;
+
 const listOrder = [];
 /* ISI LIST ORDER
     0 NamaType
@@ -133,8 +138,9 @@ txtNoOrder.addEventListener("change", function () {
                 listOrder[i].QtyTritier +
                 "/0/0/0",
             () => {
+                let id_divisi = namaGedung == "B" ? "MEX" : "EXT";
                 // SP_5298_EXT_UPDATE_COUNTER_ORDER
-                fetchStmt("/Order/updCounterOrder/EXT");
+                fetchStmt("/Order/updCounterOrder/" + id_divisi);
             }
         );
     }
@@ -150,18 +156,28 @@ btnProses.addEventListener("click", function () {
     if (listOrder.length < 1) {
         alert("Data order masih kosong!");
     } else {
-        // SP_5298_EXT_INSERT_ORDER_BENANG
+        // SP_5298_EXT_INSERT_ORDER_BENANG; namaGedung = "default"
+        // SP_1273_MEX_INSERT_ORDER_BENANG; namaGedung = "B"
         fetchStmt(
             "/Order/insOrderBenang/" +
+                namaGedung +
+                "/" +
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
                 "/4384",
             () => {
-                fetchSelect("/Order/getNoOrder", (data) => {
-                    txtNoOrder.value = data.NoOrder;
-                    txtNoOrder.dispatchEvent(new Event("change"));
-                });
+                if (namaGedung == "B") {
+                    fetchSelect("/Order/getNoOrderMjs", (data) => {
+                        txtNoOrder.value = data.NoOrder;
+                        txtNoOrder.dispatchEvent(new Event("change"));
+                    });
+                } else {
+                    fetchSelect("/Order/getNoOrder", (data) => {
+                        txtNoOrder.value = data.NoOrder;
+                        txtNoOrder.dispatchEvent(new Event("change"));
+                    });
+                }
             }
         );
     }

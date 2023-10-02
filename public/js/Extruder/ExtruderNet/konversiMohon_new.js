@@ -94,16 +94,22 @@ const colKomposisi = [
 const posKonversi = $("#table_konversi").offset().top - 125;
 const posKomposisi = $("#table_komposisi").offset().top - 125;
 const listOfDetail = document.querySelectorAll(".card input, .card span");
+const listOfButtonDetail = document.querySelectorAll(".card button");
 const listOfMaster = document.querySelectorAll("input:not(.card input)");
 const listOfSelect = document.querySelectorAll("select");
 
 var refetchKomposisi = false;
 var refetchSpek = false;
 var refetchNomor = false;
+var refetchOrder = false;
 var pilKomposisi = -1;
 var pilKonversi = -1;
 var modeProses = "";
 var koreksiDetail = false;
+
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
+const kodeDivisi = namaGedung == "B" ? "2" : "1";
 //#endregion
 
 //#region Events
@@ -119,7 +125,7 @@ slcNomor.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_LIST_KONVERSI
         fetchSelect(
-            "/Konversi/getListKonversi/EXT",
+            "/Konversi/getListKonversi/" + idDivisi,
             (data) => {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
@@ -144,7 +150,7 @@ slcNomor.addEventListener("keydown", function (event) {
 
             // SP_5298_EXT_LIST_KONVERSI
             fetchSelect(
-                "/Konversi/getListKonversi/EXT",
+                "/Konversi/getListKonversi/" + idDivisi,
                 (data) => {
                     if (data.length > 0) {
                         addOptions(this, data, optionKeys);
@@ -263,6 +269,56 @@ slcMesin.addEventListener("change", function () {
     refetchKomposisi = true;
 });
 
+slcNomor.addEventListener("mousedown", function () {
+    if (refetchOrder) {
+        refetchOrder = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IDOrder",
+            textKey: "Identifikasi",
+        };
+
+        // SP_5298_EXT_ORDER_ACC_BLM_SELESAI
+        fetchSelect(
+            "/Konversi/getOrdAccBlmSelesai/" + idDivisi,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchOrder = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcNomor.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        if (refetchOrder) {
+            refetchOrder = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IDOrder",
+                textKey: "Identifikasi",
+            };
+
+            // SP_5298_EXT_ORDER_ACC_BLM_SELESAI
+            fetchSelect(
+                "/Konversi/getOrdAccBlmSelesai/" + idDivisi,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchOrder = true;
+                },
+                errorOption
+            );
+        }
+    }
+});
+
 slcOrder.addEventListener("change", function () {
     clearDataDetail();
     slcSpek.selectedIndex = 0;
@@ -286,7 +342,7 @@ slcKomposisi.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_LIST_KOMPOSISI
         fetchSelect(
-            "/Konversi/getListKomposisi/1/" + slcMesin.value,
+            "/Konversi/getListKomposisi/" + kodeDivisi + "/" + slcMesin.value,
             (data) => {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
@@ -310,7 +366,7 @@ slcKomposisi.addEventListener("keydown", function (event) {
 
         // SP_5298_EXT_LIST_KOMPOSISI
         fetchSelect(
-            "/Konversi/getListKomposisi/1/" + slcMesin.value,
+            "/Konversi/getListKomposisi/" + kodeDivisi + "/" + slcMesin.value,
             (data) => {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
@@ -1251,6 +1307,7 @@ function prosesIsiFetch() {
                                 modeProses = "";
                                 btnTambahDetail.disabled = true;
                                 refetchNomor = true;
+                                refetchOrder = true;
                                 slcNomor.disabled = true;
 
                                 alert("Data berhasil tersimpan!");
@@ -1309,6 +1366,7 @@ function prosesKoreksiFetch(id_konversi_ext) {
                                 disableDetail();
                                 modeProses = "";
                                 refetchNomor = true;
+                                refetchOrder = true;
                                 slcNomor.disabled = true;
 
                                 alert("Data berhasil dikoreksi!");
@@ -1330,6 +1388,7 @@ function prosesHapusFetch(id_konversi_ext) {
         clearDataDetail();
         modeProses = "";
         refetchNomor = true;
+        refetchOrder = true;
         slcNomor.disabled = true;
 
         listKonversi.length = 0;

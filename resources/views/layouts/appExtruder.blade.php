@@ -78,18 +78,42 @@
                 <h1><a href="#">Master KITE</a></h1>
             @elseif($formName == 'formKiteEstimasi')
                 <h1><a href="#">Estimasi KITE</a></h1>
+            @elseif($formName == 'formOrderMaintenance' && $formData['namaGedung'] == 'B')
+                <h1><a href="#">Maintenance Order Mojosari Gedung B</a></h1>
+            @elseif($formName == 'formOrderMaintenance' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">Maintenance Order Mojosari Gedung D</a></h1>
             @elseif($formName == 'formOrderMaintenance')
                 <h1><a href="#">Maintenance Order</a></h1>
+            @elseif($formName == 'formOrderACC' && $formData['namaGedung'] == 'B')
+                <h1><a href="#">ACC Order Mojosari Gedung B</a></h1>
+            @elseif($formName == 'formOrderACC' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">ACC Order Mojosari Gedung D</a></h1>
             @elseif($formName == 'formOrderACC')
                 <h1><a href="#">ACC Order</a></h1>
+            @elseif($formName == 'formOrderStatus' && $formData['namaGedung'] == 'B')
+                <h1><a href="#">Pembatalan Order Mojosari Gedung B</a></h1>
+            @elseif($formName == 'formOrderStatus' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">Pembatalan Order Mojosari Gedung D</a></h1>
             @elseif($formName == 'formOrderStatus')
                 <h1><a href="#">Pembatalan Order</a></h1>
+            @elseif($formName == 'formKonversiMohon' && $formData['namaGedung'] == 'B')
+                <h1><a href="#">Permohonan Konversi Mojosari Gedung B</a></h1>
+            @elseif($formName == 'formKonversiMohon' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">Permohonan Konversi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKonversiMohon')
                 <h1><a href="#">Permohonan Konversi</a></h1>
+            @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'B')
+                <h1><a href="#">ACC Konversi Mojosari Gedung B</a></h1>
+            @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">ACC Konversi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKonversiACC')
                 <h1><a href="#">ACC Konversi</a></h1>
+            @elseif($formName == 'formBenangMohon' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">Permohonan Konversi NG Mojosari Gedung D</a></h1>
             @elseif($formName == 'formBenangMohon')
                 <h1><a href="#">Permohonan Konversi NG</a></h1>
+            @elseif($formName == 'formBenangACC' && $formData['namaGedung'] == 'D')
+                <h1><a href="#">ACC Konversi NG Mojosari Gedung D</a></h1>
             @elseif($formName == 'formBenangACC')
                 <h1><a href="#">ACC Konversi NG</a></h1>
             @elseif($formName == 'formCatatGangguan')
@@ -100,38 +124,14 @@
                 <h1><a href="#">Pencatatan Effisiensi</a></h1>
             @elseif($formName == 'formCatatPerawatan')
                 <h1><a href="#">Pencatatan Perawatan</a></h1>
-            @elseif($formName == 'formMojosariOrderMaintenance')
-                <h1><a href="#">Maintenance Order Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formMojosariOrderACC')
-                <h1><a href="#">ACC Order Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formMojosariOrderStatus')
-                <h1><a href="#">Pembatalan Order Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formMojosariKonversiMohon')
-                <h1><a href="#">Permohonan Konversi Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formMojosariKonversiACC')
-                <h1><a href="#">ACC Konversi Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formMojosariD_OrderMaintenance')
-                <h1><a href="#">Maintenance Order Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_OrderACC')
-                <h1><a href="#">ACC Order Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_OrderStatus')
-                <h1><a href="#">Pembatalan Order Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_KonversiMohon')
-                <h1><a href="#">Permohonan Konversi Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_KonversiACC')
-                <h1><a href="#">ACC Konversi Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_BenangMohon')
-                <h1><a href="#">Permohonan Konversi NG Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_BenangACC')
-                <h1><a href="#">ACC Konversi NG Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_GangguanProduksi')
+                {{-- @elseif($formName == 'formMojosariD_GangguanProduksi')
                 <h1><a href="#">Gangguan Produksi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formMojosariD_Daya')
                 <h1><a href="#">Daya Produksi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formMojosariD_Efisiensi')
                 <h1><a href="#">Efisiensi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formMojosariD_Perawatan')
-                <h1><a href="#">Perawatan Mojosari Gedung D</a></h1>
+                <h1><a href="#">Perawatan Mojosari Gedung D</a></h1> --}}
             @elseif($formName == 'formScanGelondongan')
                 <h1><a href="#">Scan Kirim Barcode Gelondongan</a></h1>
             @elseif($formName == 'formBatalGelondongan')
@@ -278,10 +278,10 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariOrderMaintenance">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/B">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariOrderACC">ACC Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariOrderStatus">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/B">ACC Order</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/B">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -290,10 +290,11 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariKonversiMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/B">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariKonversiACC">ACC Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/B">ACC
+                                                    Permohonan
                                                     Konversi</a></li>
                                         </ul>
                                     </li>
@@ -306,11 +307,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_OrderMaintenance">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/D">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_OrderACC">ACC Order</a>
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/D">ACC Order</a>
                                             </li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_OrderStatus">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/D">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -319,10 +320,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_KonversiMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/D">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_KonversiACC">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/D">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>
@@ -331,21 +332,18 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_BenangMohon">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon/D">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/formMojosariD_BenangACC">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC/D">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/formMojosariD_GangguanProduksi">Pencatatan
-                                            Gangguan
-                                            Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formMojosariD_Daya">Pencatatan KwaH Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formMojosariD_Efisiensi">Pencatatan
-                                            Efisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/formMojosariD_Perawatan">Perawatan</a>
+                                    <li><a href="#">Pencatatan Gangguan Produksi</a>
+                                    <li><a href="#">Pencatatan KwaH Produksi</a>
+                                    <li><a href="#">Pencatatan Efisiensi</a>
+                                    <li><a href="#">Perawatan</a>
                                 </ul>
                             </li>
                             <li><a href="/Extruder">Keluar</a></li>

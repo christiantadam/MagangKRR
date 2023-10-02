@@ -13,6 +13,9 @@ const btnKeluar = document.getElementById("btn_keluar");
 const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
+
 const listOrder = [];
 /* ISI LIST ORDER
     0 TanggalOrder
@@ -33,38 +36,37 @@ var terpilih = -1;
 
 //#region Events
 slcOrder.addEventListener("change", function () {
-    if (this.value != "-- Pilih Nomor Order --") {
-        listOfInput.forEach((input) => (input.value = ""));
+    listOfInput.forEach((input) => (input.value = ""));
+    clearTable_DataTable("table_order", tableOrderCol.length, "Memuat data...");
+    fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
+        listOrder.length = 0;
+        for (let i = 0; i < data.length; i++) {
+            listOrder.push({
+                TanggalOrder: dateTimeToDate(data[i].TanggalOrder),
+                TypeBenang: data[i].TypeBenang,
+                JumlahTritier: data[i].JumlahTritier,
+                JumlahProduksiTritier: data[i].JumlahProduksiTritier,
+            });
+        }
 
-        clearTable_DataTable(
-            "table_order",
-            tableOrderCol.length,
-            "Memuat data..."
-        );
-
-        fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
-            listOrder.length = 0;
-            for (let i = 0; i < data.length; i++) {
-                listOrder.push({
-                    TanggalOrder: dateTimeToDate(data[i].TanggalOrder),
-                    TypeBenang: data[i].TypeBenang,
-                    JumlahTritier: data[i].JumlahTritier,
-                    JumlahProduksiTritier: data[i].JumlahProduksiTritier,
-                });
-            }
-
+        if (data.length > 0) {
             addTable_DataTable(
                 "table_order",
                 listOrder,
                 tableOrderCol,
                 rowClicked
             );
+        } else
+            clearTable_DataTable(
+                "table_order",
+                tableOrderCol,
+                "Tidak ditemukan data untuk <b>Order " + slcOrder + "</b>."
+            );
 
-            window.scrollTo(0, document.body.scrollHeight);
-        });
+        window.scrollTo(0, document.body.scrollHeight);
+    });
 
-        slcStatus.focus();
-    }
+    slcStatus.focus();
 });
 
 slcStatus.addEventListener("change", function () {
@@ -102,16 +104,25 @@ btnProses.addEventListener("click", function () {
         btnProses.disabled = true;
         clearData();
 
-        // SP_5298_EXT_LIST_BATAL_ORDER
-        fetchSelect("/Order/getListBatalOrd/EXT", (data) => {
-            const optionKeys = {
-                valueKey: "IdOrder",
-                textKey: "Identifikasi",
-            };
+        // Memperbarui data pada slcOrder
+        clearOptions(slcOrder);
+        const errorOption = addLoadingOption(slcOrder);
+        const optionKeys = {
+            valueKey: "IdOrder",
+            textKey: "Identifikasi",
+        };
 
-            clearOptions(slcOrder);
-            addOptions(slcOrder, data, optionKeys);
-        });
+        // SP_5298_EXT_LIST_BATAL_ORDER
+        fetchSelect(
+            "/Order/getListBatalOrd/" + idDivisi,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(slcOrder, data, optionKeys);
+                    slcOrder.removeChild(errorOption);
+                }
+            },
+            errorOption
+        );
 
         alert("Data telah diproses!");
     }

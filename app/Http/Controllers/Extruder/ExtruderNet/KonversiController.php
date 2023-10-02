@@ -10,17 +10,32 @@ use Illuminate\Support\Str;
 
 class KonversiController extends Controller
 {
-    public function index($form_name)
+    public function index($form_name, $nama_gedung = null)
     {
         $view_name = 'extruder.ExtruderNet.' . $form_name;
         $form_data = [];
 
+        $id_divisi = "";
+        $kode_mesin = "";
+        switch ($nama_gedung) {
+            case 'B':
+                $id_divisi = 'MEX';
+                $kode_mesin = 2;
+                break;
+
+            default:
+                $id_divisi = 'EXT';
+                $kode_mesin = 1;
+                break;
+        }
+
         switch ($form_name) {
             case 'formKonversiMohon':
                 $form_data = [
-                    'listKonversi' => $this->getListKonversi('EXT'),
-                    'listMesin' => $this->getListMesin(1),
-                    'listNoOrder' => $this->getOrdAccBlmSelesai('EXT'),
+                    'listKonversi' => $this->getListKonversi($id_divisi),
+                    'listMesin' => $this->getListMesin($kode_mesin),
+                    'listNoOrder' => $this->getOrdAccBlmSelesai($id_divisi),
+                    'namaGedung' => $nama_gedung
                 ];
                 break;
 
@@ -33,11 +48,6 @@ class KonversiController extends Controller
             'formName' => $form_name,
             'formData' => $form_data,
         ];
-
-        // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
-        // dd($this->getTransaksiKonv('KONV0003'));
-        // $result = $this->getNoKonversiCounter();
-        // dd($result);
 
         return view($view_name, $view_data);
     }
@@ -97,6 +107,7 @@ class KonversiController extends Controller
 
         // @idType char(20), @subKel char(6), @shift char(1), @tgl varchar(10)
         // dd($this->getJumlahHutang('5', 'sub1', 'P', '07-09-23'));
+        // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
     }
 
     public function updProsesACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)

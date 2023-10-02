@@ -1,5 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
+
     <div id="order_maintenance" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-2 aligned-text">Tanggal:</div>

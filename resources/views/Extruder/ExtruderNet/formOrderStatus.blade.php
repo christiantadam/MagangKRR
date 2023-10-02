@@ -1,14 +1,20 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
+
     <div id="order_status" class="form" data-aos="fade-up">
         <div class="form-group mt-3 row">
             <div class="col-lg-2"><span class="aligned-text">No. Order:</span></div>
             <div class="col-lg-9">
                 <select id="select_order" class="form-select">
                     <option selected disabled>-- Pilih Nomor Order --</option>
-                    @foreach ($formData['listBatalOrder'] as $d)
-                        <option value="{{ $d->IdOrder }}">{{ $d->IdOrder . ' | ' . $d->Identifikasi }}</option>
-                    @endforeach
+                    @if (count($formData['listBatalOrder']) > 0)
+                        @foreach ($formData['listBatalOrder'] as $d)
+                            <option value="{{ $d->IdOrder }}">{{ $d->IdOrder . ' | ' . $d->Identifikasi }}</option>
+                        @endforeach
+                    @else
+                        <option disabled>Data order tidak ditemukan.</option>
+                    @endif
                 </select>
             </div>
         </div>

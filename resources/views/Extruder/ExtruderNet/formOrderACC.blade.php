@@ -1,5 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
+
     <div id="order_acc" class="form" data-aos="fade-up">
         <table id="table_order" class="hover cell-border">
             <thead>

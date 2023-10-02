@@ -8,20 +8,40 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function index($form_name)
+    public function index($form_name, $nama_gedung = null)
     {
         $view_name = 'extruder.ExtruderNet.' . $form_name;
         $form_data = [];
 
+        $id_divisi = "";
+        $kode_benang = "";
+        switch ($nama_gedung) {
+            case 'B':
+                $id_divisi = "MEX";
+                $kode_benang = 3;
+                break;
+
+            default:
+                $id_divisi = "EXT";
+                $kode_benang = 2;
+                break;
+        }
+
         switch ($form_name) {
             case 'formOrderMaintenance':
-                $form_data = ['listBenang' => $this->getListBenang(2)];
+                $form_data = [
+                    'listBenang' => $this->getListBenang($kode_benang),
+                    'namaGedung' => $nama_gedung
+                ];
                 break;
             case 'formOrderACC':
-                $form_data = ['listOrderBlmAcc' => $this->getOrderBlmAcc('EXT')];
+                $form_data = ['namaGedung' => $nama_gedung];
                 break;
             case 'formOrderStatus':
-                $form_data = ['listBatalOrder' => $this->getListBatalOrd('EXT')];
+                $form_data = [
+                    'listBatalOrder' => $this->getListBatalOrd($id_divisi),
+                    'namaGedung' => $nama_gedung
+                ];
                 break;
 
             default:
@@ -46,6 +66,21 @@ class OrderController extends Controller
         );
     }
 
+    public function insOrderBenang($gedung, $tanggal, $identifikasi = null, $user, $kode = null)
+    {
+        if ($gedung == 'B') {
+            return DB::connection('ConnExtruder')->statement(
+                'exec SP_1273_MEX_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = ?',
+                [$tanggal, $identifikasi, $user]
+            );
+        } else {
+            return DB::connection('ConnExtruder')->statement(
+                'exec SP_5298_EXT_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = ?, @kode = ?',
+                [$tanggal, $identifikasi, $user, $kode]
+            );
+        }
+    }
+
     public function getNoOrder($kode = null)
     {
         $divisi = $kode == 'D'
@@ -64,12 +99,18 @@ class OrderController extends Controller
         // *Query SELECT pada SP_5298_EXT_INSERT_ORDER_BENANG
     }
 
-    public function insOrderBenang($tanggal, $identifikasi = null, $user, $kode = null)
+    public function getNoOrderMjs()
     {
-        return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = ?, @kode = ?',
-            [$tanggal, $identifikasi, $user, $kode]
-        );
+        $mCounterResult = DB::connection('ConnExtruder')
+            ->select('SELECT IdOrder + 1 AS mCounter FROM CounterTrans WHERE divisi = ?', ['MEX']);
+
+        $mCounter = $mCounterResult[0]->mCounter;
+        $mCode = '000000000' . $mCounter;
+        $mCode = 'MEX' . substr($mCode, -7);
+
+        return response()->json(['NoOrder' => $mCode]);
+
+        // *Query SELECT pada SP_1273_MEX_INSERT_ORDER_BENANG
     }
 
     public function insOrderDetail($id_order, $type_benang, $jmlh_primer, $jmlh_sekunder, $jmlh_tritier, $prod_primer, $prod_sekunder, $prod_tritier)

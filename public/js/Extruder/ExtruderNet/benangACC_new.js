@@ -111,6 +111,10 @@ btnProses.addEventListener("click", function () {
         alert("Pilih dulu data konversi yang ingin di-ACC.");
     } else cekPenyesuaianFetch();
 });
+
+btnKeluar.addEventListener("click", function () {
+    window.location.href = "/Extruder/ExtruderNet";
+});
 //#endregion
 
 //#region Functions

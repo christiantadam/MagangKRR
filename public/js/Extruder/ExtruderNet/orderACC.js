@@ -2,6 +2,9 @@
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
+
 const listOrder = [];
 const listDetailOrder = [];
 
@@ -46,7 +49,7 @@ btnKeluar.addEventListener("click", function () {
 //#region Functions
 function showOrder() {
     // SP_5298_EXT_ORDER_BLM_ACC
-    fetchSelect("/Order/getOrderBlmAcc/EXT", (data) => {
+    fetchSelect("/Order/getOrderBlmAcc/" + idDivisi, (data) => {
         listOrder.length = 0;
         const strCheckBox = `<input class="form-check-input" type="checkbox" id="`;
         for (let i = 0; i < data.length; i++) {
@@ -56,14 +59,22 @@ function showOrder() {
             });
         }
 
-        addTable_DataTable("table_order", listOrder, null, rowClicked);
+        if (data.length > 0) {
+            addTable_DataTable("table_order", listOrder, null, rowClicked);
 
-        checkboxes = document.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach((checkbox) => {
-            checkbox.addEventListener("click", function (event) {
-                event.stopPropagation(); // *untuk menghentikan click event pada row saat checkbox diklik
+            checkboxes = document.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener("click", function (event) {
+                    event.stopPropagation(); // *untuk menghentikan click event pada row saat checkbox diklik
+                });
             });
-        });
+        } else {
+            clearTable_DataTable(
+                "table_order",
+                2,
+                "<b>Tidak ditemukan Order yang belum di-ACC.</b>"
+            );
+        }
     });
 }
 

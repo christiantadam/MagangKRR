@@ -42,10 +42,14 @@ Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}/{namaGedung?}', [MasterController::class, 'index']);
-Route::get('/Extruder/ExtruderNet/Order/{formName?}', [OrderController::class, 'index']);
-Route::get('/Extruder/ExtruderNet/Konversi/{formName?}', [KonversiController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Order/{formName?}/{namaGedung?}', [OrderController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Konversi/{formName?}/{namaGedung?}', [KonversiController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Benang/{formName?}', [BenangController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::class, 'index']);
+
+#region BeratKomposisi
+Route::get('/beratWoven/{fun_str}/{fun_data}', [MasterController::class, 'beratWoven']);
+#endregion
 
 #region ExtruderNet - Master (KITE)
 Route::get('/Master/getCekBahanKite/{kode}', [MasterController::class, 'getCekBahanKite']);
@@ -93,8 +97,9 @@ Route::get('/Master/delKomposisiBahanMjs/{id_komposisi}', [MasterController::cla
 
 #region ExtruderNet - Form Bagian Order
 Route::get('/Order/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
+Route::get('/Order/insOrderBenang/{gedung}/{tanggal}/{identifikasi?}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
 Route::get('/Order/getNoOrder/{kode?}', [OrderController::class, 'getNoOrder']);
-Route::get('/Order/insOrderBenang/{tanggal}/{identifikasi?}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
+Route::get('/Order/getNoOrderMjs/', [OrderController::class, 'getNoOrderMjs']);
 Route::get('/Order/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tritier}/{prod_primer}/{prod_sekunder}/{prod_tritier}', [OrderController::class, 'insOrderDetail']);
 Route::get('/Order/updCounterOrder/{id_divisi}', [OrderController::class, 'updCounterOrder']);
 

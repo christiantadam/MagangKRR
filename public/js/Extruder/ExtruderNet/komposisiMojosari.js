@@ -94,19 +94,13 @@ const listAfalan = [];
     1 NamaType
 */
 
-const idDivisi =
-    document.getElementById("nama_gedung").value == "D" ? "DEX" : "MEX";
-const idKelompok =
-    document.getElementById("nama_gedung").value == "D" ? "8569" : "7227";
-
-const idBahanBaku =
-    document.getElementById("nama_gedung").value == "D" ? "2248" : "1977";
-const idBahanPembantu =
-    document.getElementById("nama_gedung").value == "D" ? "2249" : "1978";
-const idHasilProduksi =
-    document.getElementById("nama_gedung").value == "D" ? "2250" : "1994";
-const idAfalan =
-    document.getElementById("nama_gedung").value == "D" ? "2251" : "1976";
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "D" ? "DEX" : "MEX";
+const idKelompok = namaGedung == "D" ? "8569" : "7227";
+const idBahanBaku = namaGedung == "D" ? "2248" : "1977";
+const idBahanPembantu = namaGedung == "D" ? "2249" : "1978";
+const idHasilProduksi = namaGedung == "D" ? "2250" : "1994";
+const idAfalan = namaGedung == "D" ? "2251" : "1976";
 
 var jumlah = 0;
 var modeProses = "";
