@@ -28,11 +28,32 @@ $(document).ready(function () {
         // Anda dapat menambahkan logika atau tindakan lain yang Anda inginkan di sini
     });
     prosesButton.addEventListener("click", function () {
+        var selectElement = document.getElementById("Periode");
+        var dtTanggalAwal = document.getElementById("TglMulai").value; // Dapatkan nilai tanggal awal dari elemen input
+        var dtTanggalAkhir = document.getElementById("TglSelesai").value; // Dapatkan nilai tanggal akhir dari elemen input
+
+        if (
+            window.confirm(
+                "Anda yakin akan memproses data tanggal " +
+                    dtTanggalAwal +
+                    " - " +
+                    dtTanggalAkhir +
+                    "?"
+            )
+        ) {
+            // Jika pengguna menekan OK (Yes)
+            // Lakukan tindakan yang sesuai di sini
+            console.log("Data akan diproses");
+        } else {
+            // Jika pengguna menekan Batal (No)
+            // Lakukan tindakan yang sesuai di sini atau abaikan
+            console.log("Pemrosesan data dibatalkan");
+            return;
+        }
         const TglTutup = document.getElementById("TglTutup").value;
         const data = {
             Periode: selectElement.value,
             tgl_tutup: TglTutup,
-
         };
         console.log(data);
 

@@ -15,6 +15,9 @@ $(document).ready(function () {
     });
     $("#tabel_Pelatihan").DataTable({
         order: [[0, "asc"]],
+        select: {
+            style: "single",
+        },
     });
     divisiButton.addEventListener("click", function () {
         fetch("/MaintenancePelatihan/" + ".getDivisi")

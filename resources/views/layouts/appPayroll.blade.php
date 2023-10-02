@@ -125,7 +125,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('AgendaMasuk/Jam') }}">Pakai Jam</a>
+                                                    tabindex="-1" href="{{ url('AgendaMasuk/Jam') }}">Pakai Jam ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Shift') }}">Pakai Shift</a>
@@ -150,7 +150,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('GantiShift/Aturan1_3') }}">Aturan 1_3</a></li>
+                                                    tabindex="-1" href="{{ url('GantiShift/Aturan1_3') }}">Aturan 1_3 ✓</a></li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan2') }}">Aturan 2</a>
                                             </li>
@@ -159,7 +159,7 @@
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('KoreksiShift') }}">Koreksi Shift Per Periode</a>
+                                            tabindex="-1" href="{{ url('KoreksiShift') }}">Koreksi Shift Per Periode ✓ (Tombol Proses VB kosong)</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('InsertPegawaiBaru') }}">Insert Agenda Pegawai Baru</a>
@@ -187,10 +187,10 @@
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/VerifikasiAbsen') }}">Verifikasi Absen</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('AbsenSimpang') }}">Absen Simpang</a>
+                                            tabindex="-1" href="{{ url('AbsenSimpang') }}">Absen Simpang ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('Kontrak') }}">Perpanjangan/Pembaharuan Kontrak</a>
+                                            tabindex="-1" href="{{ url('Kontrak') }}">Perpanjangan/Pembaharuan Kontrak ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('KoreksiAbsen') }}">Koreksi Absen</a>
@@ -202,22 +202,22 @@
                                             tabindex="-1" href="{{ url('InputRange') }}">Input Range</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('Lembur') }}">Lembur</a>
+                                            tabindex="-1" href="{{ url('Lembur') }}">Lembur ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('CheckClockError') }}">Check Clock Error</a>
+                                            tabindex="-1" href="{{ url('CheckClockError') }}">Check Clock Error ✓ (SP error saat mengambil vw karena Kd_Manager)</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('CheckClockInOut') }}">Check Clock Masuk Keluar</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('MaintenancePelatihan') }}">Maintenance Pelatihan</a>
+                                            tabindex="-1" href="{{ url('MaintenancePelatihan') }}">Maintenance Pelatihan ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('MaintenanceKoreksi') }}">Koreksi</a>
+                                            tabindex="-1" href="{{ url('MaintenanceKoreksi') }}">Koreksi ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('Koperasi') }}">Koperasi</a>
+                                            tabindex="-1" href="{{ url('Koperasi') }}">Koperasi ✓</a>
                                     </li>
 
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
@@ -240,7 +240,7 @@
                                             tabindex="-1" href="{{ url('MaintenanceResign') }}">Resign</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('KenaikanUpah') }}">Kenaikan Upah</a>
+                                            tabindex="-1" href="{{ url('KenaikanUpah') }}">Kenaikan Upah ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Absen1') }}">Absen > 1</a>
@@ -250,7 +250,7 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('Skorsing/Permohonan') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('Skorsing/Permohonan') }}">Permohonan ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                     tabindex="-1" href="{{ url('Skorsing/AccBayar') }}">ACC Bayar</a>
@@ -264,29 +264,29 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('Peringatan/Permohonan') }}">Permohonan</a>
+                                                    tabindex="-1" href="{{ url('Peringatan/Permohonan') }}">Permohonan ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/AccPermohonan') }}">Acc Permohonan</a>
+                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/AccPermohonan') }}">Acc Permohonan ✓</a>
                                             </li>
 
 
                                         </ul>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProsesGajiStaff') }}">Proses Gaji Staff</a>
+                                        tabindex="-1" href="{{ url('ProsesGajiStaff') }}">Proses Gaji Staff ✓</a>
                                 </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1">Copy Gaji To. TXT</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('Rekap') }}">Proses Rekap Absen & Lembur</a>
+                                            tabindex="-1" href="{{ url('Rekap') }}">Proses Rekap Absen & Lembur ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('EstimasiGaji') }}">Estimasi Gaji</a>
+                                            tabindex="-1" href="{{ url('EstimasiGaji') }}">Estimasi Gaji ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('HitGajiHarian') }}">Hit Gaji Harian</a>
+                                            tabindex="-1" href="{{ url('HitGajiHarian') }}">Hit Gaji Harian ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('HitTHRHarian') }}">Hit THR Harian</a>

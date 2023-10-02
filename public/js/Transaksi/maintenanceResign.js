@@ -74,7 +74,7 @@ $(document).ready(function () {
         const Alasan = document.getElementById("Keterangan");
         const txtKeterangan = document.getElementById("Keterangan");
         if ((a = 1)) {
-            fetch("/MaintenanceResign/" + idpeg + ".cekProses")
+            fetch("/MaintenanceResign/" + kd_peg + ".cekProses")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

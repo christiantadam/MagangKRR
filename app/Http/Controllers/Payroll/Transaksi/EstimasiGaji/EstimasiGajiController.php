@@ -50,7 +50,12 @@ class EstimasiGajiController extends Controller
             $data['MaxDate'],
             $data['AwalAkhirMinggu'],
         ]);
-        return redirect()->route('Rekap.index')->with('alert', 'Hitung Gaji Selesai...');
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_HITUNG_ESTIMASI_GAJI_2 @MinDate = ?, @MaxDate = ?, @AwalAkhirMinggu = ?', [
+            $data['MinDate'],
+            $data['MaxDate'],
+            $data['AwalAkhirMinggu'],
+        ]);
+        return redirect()->route('EstimasiGaji.index')->with('alert', 'Hitung Gaji Selesai...');
     }
 
     //Remove the specified resource from storage.

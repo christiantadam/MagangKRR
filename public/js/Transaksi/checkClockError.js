@@ -55,9 +55,9 @@ $(document).ready(function () {
                             var row = [
                                 // `<input type="checkbox" name="selectRow" value="${item.Kd_Pegawai}">` +
                                 //     " " +
-                                item.nama_Div,
-                                item.Kd_pegawai,
-                                item.nama_peg,
+                                item.Nama_Div,
+                                item.Kd_Pegawai,
+                                item.Nama_Peg,
                                 item.Jam,
                                 item.No_Clock,
                                 item.No_Error,

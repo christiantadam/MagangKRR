@@ -1,24 +1,68 @@
 $(document).ready(function () {
-    const cekSemua = document.getElementById('cekSemua');
-    const cekPilih = document.getElementById('cekPilih');
-    const selectDivisi = document.getElementById('divisi');
-    const namaDivisi = document.getElementById('namaDivisi');
-    function prosesShift() {
+    const cekSemua = document.getElementById("cekSemua");
+    const cekPilih = document.getElementById("cekPilih");
+    const selectDivisi = document.getElementById("divisi");
+    const namaDivisi = document.getElementById("namaDivisi");
+    const buttonNomor = document.getElementById("buttonNomor");
+    $("#table_Nomor").DataTable({
+        order: [[0, "asc"]],
+    });
+    $("#table_Shift").DataTable({
+        order: [[0, "asc"]],
+    });
+    buttonNomor.addEventListener("click", function () {
+        console.log("Masuk jir");
+        fetch("/GantiShift/Aturan1_3/" + ".getDataNomor")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                $("#table_Nomor").DataTable().clear().draw();
 
-        var mindate = document.getElementById('TglAwal').value;
-        var maxdate =document.getElementById('TglAkhir').value;
-        var cekPilihChecked = document.getElementById('cekPilih').checked;
-        var cekSemuaChecked = document.getElementById('cekSemua').checked;
-        let data =[];
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [
+                        // `<input type="checkbox" name="selectRow" value="${item.Kd_Pegawai}">` +
+                        //     " " +
+                        item.Kd_Pegawai,
+                        item.Nama_Peg,
+                        item.Id_Div,
+                    ];
+                    $("#table_Nomor").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#table_Nomor").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+        showModalNomor();
+    });
+    function prosesShift() {
+        var mindate = document.getElementById("TglAwal").value;
+        var maxdate = document.getElementById("TglAkhir").value;
+        var cekPilihChecked = document.getElementById("cekPilih").checked;
+        var cekSemuaChecked = document.getElementById("cekSemua").checked;
+        let data = [];
         if (cekPilihChecked) {
-            var selectedIdDiv = $("#divisi").find("option:selected").text();
+            var selectElement = document.getElementById("divisi");
+            // Mendapatkan indeks opsi terpilih
+            var selectedIndex = selectElement.selectedIndex;
+
+            var selectedIdDiv = selectElement.options[selectedIndex].text;
+            console.log(selectedIdDiv);
+            return;
             data = {
                 mindate: mindate,
                 maxdate: maxdate,
                 id_Div: selectedIdDiv,
                 opsi: 0,
             };
-        } else if(cekSemuaChecked){
+        } else if (cekSemuaChecked) {
             data = {
                 mindate: mindate,
                 maxdate: maxdate,
@@ -67,147 +111,150 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
     }
-    selectDivisi.addEventListener('change', function() {
+    selectDivisi.addEventListener("change", function () {
         // Mengambil nilai yang dipilih dari select
-        var selectedValue = selectDivisi.options[selectDivisi.selectedIndex].value;
+        var selectedValue =
+            selectDivisi.options[selectDivisi.selectedIndex].value;
 
         // Mengisikan nilai ke input
         namaDivisi.value = selectedValue;
     });
-    cekSemua.addEventListener('change', () => {
+    cekSemua.addEventListener("change", () => {
         if (cekSemua.checked) {
             selectDivisi.disabled = true;
             namaDivisi.disabled = true;
         }
     });
 
-    cekPilih.addEventListener('change', () => {
+    cekPilih.addEventListener("change", () => {
         if (cekPilih.checked) {
             selectDivisi.disabled = false;
-            namaDivisi.disabled = false;
+
         }
     });
-    $("#table_Divisi").DataTable({
-        order: [[0, "asc"]],
-    });
-    $("#table_Pegawai").DataTable({
-        order: [[0, "asc"]],
-    });
-    $("#table_Divisi tbody").on("click", "tr", function () {
+
+    $("#table_Nomor tbody").on("click", "tr", function () {
         // Get the data from the clicked row
-        var rowData = $("#table_Divisi").DataTable().row(this).data();
+        var rowData = $("#table_Nomor").DataTable().row(this).data();
         // Populate the input fields with the data
-        $("#Id_Div").val(rowData[0]);
-        $("#Nama_Div").val(rowData[1]);
-        fetch("/MasterKartu/" + rowData[0] + ".getPegawai")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
+        $("#kd_Pegawai").val(rowData[0]);
+        $("#namaDivisi2").val(rowData[2]);
 
-                // Clear the existing table rows
-                $("#table_Pegawai").DataTable().clear().draw();
+        if ($("#kd_Pegawai").val() !== "") {
+            var mindate = document.getElementById("TglAwal2").value;
+            var maxdate = document.getElementById("TglAkhir2").value;
+            fetch(
+                "/GantiShift/Aturan1_3/" +
+                    $("#kd_Pegawai").val() +
+                    "." +
+                    mindate +
+                    "." +
+                    maxdate +
+                    ".getShift"
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    $("#table_Shift").DataTable().clear().draw();
 
-                // Loop through the data and create table rows
-                data.forEach((item) => {
-                    var row = [item.Kd_Pegawai, item.Nama_Peg];
-                    $("#table_Pegawai").DataTable().row.add(row);
+                    // Loop through the data and create table rows
+                    data.forEach((item) => {
+                        var row = [
+                            // `<input type="checkbox" name="selectRow" value="${item.Kd_Pegawai}">` +
+                            //     " " +
+                            item.tanggal,
+                            item.kd_pegawai,
+                            item.shift,
+                            item.id_user,
+                        ];
+                        $("#table_Shift").DataTable().row.add(row);
+                    });
+
+                    // Redraw the table to show the changes
+                    $("#table_Shift").DataTable().draw();
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
                 });
-
-                // Redraw the table to show the changes
-                $("#table_Pegawai").DataTable().draw();
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        }
         // var idDivValue = rowData[0];
         // submitFormWithIdDiv(idDivValue);
         // Hide the modal immediately after populating the data
-        hideModalDivisi();
+        hideModalNomor();
+        showModalShift();
     });
-    $("#table_Pegawai tbody").on("click", "tr", function () {
-        // Get the data from the clicked row
-        var rowData = $("#table_Pegawai").DataTable().row(this).data();
-        // Populate the input fields with the data
-        $("#Id_Pegawai").val(rowData[0]);
-        $("#Nama_Pegawai").val(rowData[1]);
-        fetch("/MasterKartu/" + rowData[0] + ".getDataPegawai")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                console.log(data);
-                data.forEach((item) => {
-                    document.getElementById(
-                        "Kd_Pegawai"
-                    ).textContent = `KODE   : ${item.Kd_Pegawai}`;
-                    document.getElementById(
-                        "No_Kartu"
-                    ).textContent = `NOMOR : ${item.No_Kartu}`;
-                    document.getElementById(
-                        "Nama_Divisi"
-                    ).textContent = `DEPT   : ${item.Nama_Div}`;
-                    document.getElementById(
-                        "Nama_Peg"
-                    ).textContent = `NAMA  : ${item.Nama_Peg}`;
-                });
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-        document.getElementById("printSection").hidden = false;
-            // var idDivValue = rowData[0];
-            // submitFormWithIdDiv(idDivValue);
-            // Hide the modal immediately after populating the data
-            hideModalPegawai();
-    });
-    document.getElementById('prosesButton').addEventListener('click', function() {
-        var tglAwalValue = new Date(document.getElementById('TglAwal').value);
-        var tglAkhirValue = new Date(document.getElementById('TglAkhir').value);
+    var inputElement = document.getElementById("kd_Pegawai");
 
-        if (tglAwalValue < tglAkhirValue) {
-            var cekSemuaChecked = document.getElementById('cekSemua').checked;
-            var cekPilihChecked = document.getElementById('cekPilih').checked;
-
-            if (cekSemuaChecked) {
-                var confirmation = confirm("Anda akan melakukan proses pergantian shift untuk karyawan harian pada semua bagian dengan aturan shift 1 dan 3 ?");
-                if (confirmation === false) return;
-                prosesShift();
-            } else if (cekPilihChecked) {
-                var divisiValue = document.getElementById('divisi').value;
-                console.log(divisiValue);
-
-                if (divisiValue === "") {
-                    alert("Anda belum menentukan bagian / divisi.");
-                } else {
-                    var namaDivisiValue = document.getElementById('namaDivisi').value;
-                    var confirmation = confirm("Anda akan melakukan proses pergantian shift untuk karyawan pada bagian " + namaDivisiValue + " ?");
-                    if (confirmation === false) return;
-                    prosesShift();
-                }
-            }
+    // Menambahkan event listener untuk mendeteksi perubahan nilai pada input
+    inputElement.addEventListener("input", function () {
+        // Memeriksa apakah nilai input kosong atau tidak
+        if (inputElement.value === "") {
+            console.log("Nilai input kosong.");
         } else {
-            alert("Tanggal sampai dengan harus lebih besar dari tanggal mulai.");
+            console.log("Nilai input: " + inputElement.value);
         }
     });
+    document
+        .getElementById("prosesButton")
+        .addEventListener("click", function () {
+            var tglAwalValue = new Date(
+                document.getElementById("TglAwal").value
+            );
+            var tglAkhirValue = new Date(
+                document.getElementById("TglAkhir").value
+            );
+
+            if (tglAwalValue < tglAkhirValue) {
+                var cekSemuaChecked =
+                    document.getElementById("cekSemua").checked;
+                var cekPilihChecked =
+                    document.getElementById("cekPilih").checked;
+
+                if (cekSemuaChecked) {
+                    var confirmation = confirm(
+                        "Anda akan melakukan proses pergantian shift untuk karyawan harian pada semua bagian dengan aturan shift 1 dan 3 ?"
+                    );
+                    if (confirmation === false) return;
+                    prosesShift();
+                } else if (cekPilihChecked) {
+                    var divisiValue = document.getElementById("divisi").value;
+                    console.log(divisiValue);
+
+                    if (divisiValue === "") {
+                        alert("Anda belum menentukan bagian / divisi.");
+                    } else {
+                        var namaDivisiValue =
+                            document.getElementById("namaDivisi").value;
+                        var confirmation = confirm(
+                            "Anda akan melakukan proses pergantian shift untuk karyawan pada bagian " +
+                                namaDivisiValue +
+                                " ?"
+                        );
+                        if (confirmation === false) return;
+                        prosesShift();
+                    }
+                }
+            } else {
+                alert(
+                    "Tanggal sampai dengan harus lebih besar dari tanggal mulai."
+                );
+            }
+        });
 });
 
-function showModalDivisi() {
-    $("#modalDivisi").modal("show");
+function showModalNomor() {
+    $("#modalNomor").modal("show");
 }
-function hideModalDivisi() {
-    $("#modalDivisi").modal("hide");
+function hideModalNomor() {
+    $("#modalNomor").modal("hide");
 }
-function showModalPegawai() {
-    $("#modalPegawai").modal("show");
+function showModalShift() {
+    $("#modalShift").modal("show");
 }
-function hideModalPegawai() {
-    $("#modalPegawai").modal("hide");
+function hideModalShift() {
+    $("#modalShift").modal("hide");
 }

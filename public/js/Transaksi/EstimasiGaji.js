@@ -9,7 +9,11 @@ $(document).ready(function () {
         OptAwal.checked = false;
         OptAkhir.checked = false;
     });
-    function checkDateDifference() {
+
+
+    prosesButton.addEventListener("click", function () {
+        const Mulai = document.getElementById("TglMulai");
+        const Akhir = document.getElementById("TglSelesai");
         const dateDifference =
             Math.abs(new Date(Mulai.value) - new Date(Akhir.value)) /
             (1000 * 60 * 60 * 24);
@@ -43,11 +47,6 @@ $(document).ready(function () {
         );
 
         if (confirmation === false) return;
-    }
-    const Mulai = document.getElementById("TglMulai");
-    const Akhir = document.getElementById("TglSelesai");
-    prosesButton.addEventListener("click", function () {
-        checkDateDifference();
         if (OptAwal.checked) {
             AwalAkhirMinggu = 0;
         } else if (OptAkhir.checked) {

@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/Transaksi/prosesGajiStaff.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Transaksi/prosesGajiStaff.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -28,9 +28,9 @@
                                     <select class="form-control" id="Periode" name="Periode"
                                         style="resize: none;height: 40px; max-width:450px;" placeholder="LOL">
                                         <option>Pilih Periode</option>
-                                        @for ($i = 1; $i <= 12; $i++)
+                                        {{-- @for ($i = 1; $i <= 12; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
+                                        @endfor --}}
                                     </select>
 
                                 </div>
@@ -43,13 +43,11 @@
                                     <label for="TglMulai" class="aligned-text">Tanggal:</label>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input class="form-control" type="date" id="TglMulai" name="TglMulai"
-                                        value="" required disabled
-                                        style="max-width: 200px;">
+                                    <input class="form-control" type="date" id="TglMulai" name="TglMulai" value=""
+                                        required disabled style="max-width: 200px;">
                                     <span class="aligned-text" style="margin-left: 15px;">s/d</span>
                                     <input class="form-control" type="date" id="TglSelesai" name="TglSelesai"
-                                        value="" required disabled
-                                        style="max-width: 200px;">
+                                        value="" required disabled style="max-width: 200px;">
 
                                 </div>
 
@@ -60,9 +58,8 @@
                                     <label for="TglMulai" class="aligned-text">Penutupan Tgl:</label>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input class="form-control" type="date" id="TglTutup" name="TglTutup"
-                                        required
-                                        style="max-width: 169px;">
+                                    <input class="form-control" type="date" id="TglTutup" name="TglTutup" required
+                                        style="max-width: 169px;" value="{{ now()->format('Y-m-d') }}">
 
 
                                 </div>
@@ -92,11 +89,10 @@
                         </div>
                         <div class="col-6" style="text-align: right; ">
 
-                            <button type="button" class="btn"
-                                style="margin-left: 10px;width:100px;" id="prosesButton">Proses</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;"
+                                id="prosesButton">Proses</button>
 
-                            <button type="button" class="btn"
-                                style="margin-left: 10px;width:100px;">Keluar</button>
+                            <button type="button" class="btn" style="margin-left: 10px;width:100px;">Keluar</button>
                         </div>
                     </div>
                 </div>
@@ -132,4 +128,22 @@
     </div>
     </div>
     </div>
+    <script>
+        var cmbPeriode = document.getElementById("Periode"); // Dapatkan elemen dropdown
+
+        // Loop untuk menambahkan opsi bulan-bulan ke elemen dropdown
+        for (var i = 1; i <= 12; i++) {
+            var date = new Date(i + "/1/" + new Date().getFullYear());
+            var options = {
+                year: 'numeric',
+                month: 'long'
+            };
+            var formattedDate = date.toLocaleDateString('id-ID', options); // Gunakan 'id-ID' untuk format bahasa Indonesia
+
+            var option = document.createElement("option"); // Buat elemen option
+            option.text = formattedDate; // Tentukan teks opsi
+            option.value = i; // Tentukan nilai opsi (jika diperlukan)
+            cmbPeriode.add(option); // Tambahkan opsi ke elemen dropdown
+        }
+    </script>
 @endsection

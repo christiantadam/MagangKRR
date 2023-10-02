@@ -62,7 +62,7 @@
                                 <div class="form-group col-md-4">
                                     <input class="form-control" type="date" id="TglMulai" name="TglMulai"
                                         value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
-                                        style="max-width: 169px;">
+                                        style="max-width: 169px;" disabled>
 
 
                                 </div>

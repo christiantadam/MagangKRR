@@ -38,7 +38,7 @@ class GantiShift1Controller extends Controller
                 $data['mindate']
             ]);
             return redirect()->route('Aturan1_3.index')->with('alert', 'Selesai Ganti Shift !');
-        } else if($data['opsi'] == 1){
+        } else if ($data['opsi'] == 1) {
             DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_CONFIGURESHIFT @mindate = ?, @maxdate = ?', [
                 $data['mindate'],
                 $data['maxdate'],
@@ -49,14 +49,27 @@ class GantiShift1Controller extends Controller
             ]);
             return redirect()->route('Aturan1_3.index')->with('alert', 'Selesai Ganti Shift !');
         }
-
-
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        //getDivisi
+        if ($crExplode[$lastIndex] == "getDataNomor") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PRG_PAY_look_harian');
+            // dd($dataPegawai);
+            return response()->json($dataPegawai);
+        } else if ($crExplode[$lastIndex] == "getShift") {
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_GETSHIFTKARY @kd_pegawai = ? , @mindate = ?, @maxdate = ?', [
+                $crExplode[0],
+                $crExplode[1],
+                $crExplode[2],
+            ]);
+            // dd($dataPegawai);
+            return response()->json($dataShift);
+        };
     }
 
     // Show the form for editing the specified resource.
