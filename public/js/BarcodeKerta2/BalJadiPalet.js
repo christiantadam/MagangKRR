@@ -132,6 +132,68 @@ $(document).ready(function() {
                 });
         }
     });
+
+    var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
+    ButtonPrintBarcode.addEventListener("click", function (event) {
+        // Mengatur tombol menjadi tidak dapat diakses (disabled)
+        ButtonPrintBarcode.disabled = true;
+
+        // Lakukan operasi pencetakan barcode
+        var idtype = '0016';
+        var tanggal = document.getElementById('tanggalOutput').value;
+        var primer = document.getElementById('Primer').value;
+        var sekunder = document.getElementById('SekunderOutput').value;
+        var tritier = document.getElementById('tritier').value;
+        var UserID = 'U001';
+        var asalidsubkelompok = 'SKL01';
+        var kodebarang = '00000KB02';
+        var uraian = document.getElementById('shift').value;
+        var idsubkontraktor = '00000KB02';
+
+        // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+        fetch("/ABM/BalJadiPalet/" + idtype + UserID + tanggal +
+            primer + sekunder + tritier + asalidsubkelompok +
+            idsubkontraktor + kodebarang + uraian + ".buatBarcode")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data === true) {
+                    // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
+                    console.log("Barcode berhasil dibuat.");
+                    alert('Barcode berhasil dibuat.');
+
+                    // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
+                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            // Handle data yang diterima dari fetch kedua di sini
+                            console.log("Data dari fetch kedua:", data);
+                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                            console.log(kodebarcode);
+                            // Show an alert for each 'kodebarang'
+                            alert('Kode Barang: ' + kodebarcode);
+                        })
+                        .catch((error) => {
+                            console.error("Error dalam fetch kedua:", error);
+                        });
+                } else {
+                    console.error("Unexpected response data:", data);
+                    // Handle other unexpected responses here
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
 });
 
 function openModal() {

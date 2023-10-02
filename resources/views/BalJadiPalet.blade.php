@@ -95,7 +95,7 @@
                                                     style="width:180px; height: 50px" disabled>Pilih Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
-                                                <div class="modal-content">
+                                                <div class="modal-content" style="width: 1750px">
                                                     <span class="close-btn" onclick="closeModal2()">&times;</span>
                                                     <h2>Table Type</h2>
                                                     <p>Id Type & Type</p>
@@ -103,7 +103,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Id Type</th>
-                                                                <th>Nama Type</th>
+                                                                <th style="width: 500px">Nama Type</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -127,7 +127,7 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    id="PrintBarcodeButton" style="width: 180px; height: 50px"
+                                                    id="ButtonPrintBarcode" style="width: 180px; height: 50px"
                                                     disabled>Print Barcode</button>
                                             </div>
                                         </div>

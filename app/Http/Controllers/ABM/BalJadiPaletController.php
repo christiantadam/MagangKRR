@@ -46,6 +46,27 @@ class BalJadiPaletController extends Controller
             // dd($dataDivisi);
             // Return the options as JSON data
             return response()->json($dataDivisi);
+        } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->statement(
+                'exec SP_5409_INV_SimpanPermohonanBarcode
+                @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
+                @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?,
+                @uraian = ?, @noindeks = ?, @hasil = ?',
+                [
+                    "0016",
+                    "U001",
+                    "2023-09-22",
+                    "1",
+                    "10",
+                    "12",
+                    "SKL01",
+                    "00000KB02",
+                    "00000KB02",
+                    "Pagi",
+                    " ",
+                    " "
+                ]
+            );
         }
     }
 

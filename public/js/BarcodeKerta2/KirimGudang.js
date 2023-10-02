@@ -6,12 +6,14 @@ $(document).ready(function () {
     });
 
     $('#RekapKirim').DataTable({
+        "scrollX" : true,
         order: [
             [0, 'desc']
         ],
     });
 
     $('#DaftarKirim').DataTable({
+        "scrollX" : true,
         order: [
             [0, 'desc']
         ],

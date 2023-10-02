@@ -136,7 +136,7 @@
                                             <th>SubKelompok </th>
                                             <th>Kelompok </th>
                                             <th>Kode Barang</th>
-                                            <th>Noln...</th>
+                                            <th>NoIndeks</th>
                                             <th>Primer</th>
                                             <th>Sekunder</th>
                                             <th>Tritier</th>
