@@ -49,7 +49,6 @@ class InputJadwalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-SISA-JAM-KRJ-KONSTRUKSI] @EstDate = ?, @worksts = ?', [$EstDate,  $worksts]);
         return response()->json($data);
     }
-
     public function create()
     {
         //

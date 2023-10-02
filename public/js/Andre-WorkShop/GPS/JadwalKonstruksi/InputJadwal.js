@@ -36,6 +36,9 @@ let ForminputJadwalModalEdit = document.getElementById(
 let methodFormModalEdit = document.getElementById("methodFormModalEdit");
 let Tanggal = document.getElementById("Tanggal");
 let TJam = document.getElementById("TJam");
+let btnprosesmodaledit = document.getElementById('btnprosesmodaledit');
+let keluarmodaledit = document.getElementById('keluarmodaledit');
+let batalmodaledit = document.getElementById('batalmodaledit');
 //#region no order on enter
 
 NoOrder.addEventListener("keypress", function (event) {
@@ -577,7 +580,7 @@ function ProsesModalEdit() {
 Tanggal.addEventListener('keypress', function(event){
     let tglSrv;
     let tglEst;
-    if (event.key = "Enter") {
+    if (event.key == "Enter") {
         tglSrv = formattedCurrentDate;
         tglEst = Tanggal.value;
         WorkStationModalEdit.disabled = false;
@@ -589,28 +592,98 @@ Tanggal.addEventListener('keypress', function(event){
 
 //#region WorkStationModalEdit on change
 
-WorkStationModalEdit.addEventListener('change', function(){
-    let jam;
-    fetch(
-        "/GetJamKerjaInputJadwal/" +
-            WorkStationModalEdit.value +
-            "/" +
-            Tanggal.value
-    )
-        .then((response) => response.json())
-        .then((datas) => {
-            console.log(datas);
-            if (datas.length > 0) {
-                TJam.value = datas[0].JmlJamKerja;
-                jam = datas[0].JmlJamKerja;
-                TJam.focus();
-            }
-            else{
-                alert("Tidak ada jadwal konstruksi u/ WorkStation: " + WorkStationModalEdit.value + ", pada tanggal: " + Tanggal.value);
-                return;
-            }
-        });
+WorkStationModalEdit.addEventListener('keypress', function(event){
+    if (event.key == "Enter") {
+        let jam;
+        fetch(
+            "/GetJamKerjaInputJadwal/" +
+                WorkStationModalEdit.value +
+                "/" +
+                Tanggal.value
+        )
+            .then((response) => response.json())
+            .then((datas) => {
+                // console.log(datas);
+                if (datas.length > 0) {
+                    TJam.value = datas[0].JmlJamKerja;
+                    jam = datas[0].JmlJamKerja;
+                    batalmodaledit.style.display = "";
+                    keluarmodaledit.style.display = "none";
+                    TJam.focus();
+                }
+                else{
+                    alert("Tidak ada jadwal konstruksi u/ WorkStation: " + WorkStationModalEdit.value + ", pada tanggal: " + Tanggal.value);
+                    return;
+                }
+            });
+    }
 
 });
 
 //#endregion
+
+//#region clear text modal edit
+
+function clearTextEdit() {
+    WorkStationModalEdit.value = "Pilih Work Station";
+    TJam.value = "0";
+    btnprosesmodaledit.disabled = true;
+    keluarmodaledit.style.display = "";
+    batalmodaledit.style.display = "none";
+    Tanggal.focus();
+}
+
+//#endregion
+
+//#region batal on click
+
+batalmodaledit.addEventListener('click', function(){
+    clearTextEdit();
+});
+
+//#endregion
+
+//#region Tjam On Enter
+
+TJam.addEventListener('keypress', function(event){
+    if (event.key == "Enter") {
+        let hasil_bagi;
+        let hasil_bagi_car;
+        let jam_pk;
+        let menit_pk;
+        let TotalMenitKrj;
+        let TotalMenitPk;
+        fetch(
+            "/HitungSisaJamInputJadwalKons/" +
+                Tanggal.value +
+                "/" +
+                WorkStationModalEdit.value
+        )
+            .then((response) => response.json())
+            .then((datas) => {
+                console.log(datas);
+                if (datas.length > 0) {
+                    TotalMenitKrj = datas[0].TotalMenitKrj;
+                    TotalMenitPk = datas[0].TotalMenitPk;
+
+                    hasil_bagi = TotalMenitPk / 60;
+                    hasil_bagi_car = hasil_bagi.toString();
+                    hasil_bagi = parseFloat(hasil_bagi_car);
+                    jam_pk = hasil_bagi;
+                    menit_pk = TotalMenitPk - (60 * hasil_bagi)
+                    if (TJam.value * 60 < TotalMenitPk) {
+                        alert("Jml jam kerja harus lebih besar dari jml jam yg sdh terpakai (" + jam_pk + " jam " + menit_pk + " menit).");
+                        return;
+                    }
+                    else{
+                        btnproses.disabled = false;
+                        btnproses.focus();
+                    }
+                }
+            });
+    }
+});
+
+//#endregion
+
+

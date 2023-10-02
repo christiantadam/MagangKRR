@@ -144,7 +144,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalList">
     Launch demo modal
   </button>
 
@@ -203,8 +203,10 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="btnprosesmodaledit" onclick="ProsesModalEdit()">Proses</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+          <button type="button" class="btn btn-primary" id="btnprosesmodaledit"
+            onclick="ProsesModalEdit()">Proses</button>
+          <button type="button" class="btn btn-danger" id="batalmodaledit">Batal</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="keluarmodaledit">Keluar</button>
         </div>
       </div>
     </div>
@@ -214,22 +216,115 @@
   {{-- modal form list  --}}
   <div class="modal fade" id="ModalList" tabindex="-1" role="dialog" aria-labelledby="ModalListLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalListLabel">Edit Jam Kerja Optimal - Konstruksi</h5>
+          <h5 class="modal-title" id="ModalListLabel">Jadwal Pengerjaan Konstruksi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="container">
+            <div class="row">
+              <div class="col-8">
+                <div class="row">
+                  <div class="col-4">
+                    <span>WORK STATION</span>
+                  </div>
+                  <div class="col-6">
+                    <span id="WorkStsModalList"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <span>TANGGAL</span>
+                  </div>
+                  <div class="col-4">
+                    <span id="TanggalModalList"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <span>JAM KERJA OPTIMAL</span>
+                  </div>
+                  <div class="col-4">
+                    <span id="JmlJamModalList"></span>
+                  </div>
+                  <div class="col-2">
+                    <span>TERPAKAI</span>
+                  </div>
+                  <div class="col-2">
+                    <span id="PakaiModalList"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <span>SISA JAM KERJA</span>
+                  </div>
+                  <div class="col-4">
+                    <span id="SisaJamModalList"></span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-4">
+                <input type="hidden" name="TNoOdModalList" id="TNoOdModalList">
+                <input type="hidden" name="TIdBagianModalList" id="TIdBagianModalList">
+                <input type="hidden" name="THariModalList" id="THariModalList">
+                <div class="keterangan " style="padding-left: 12%;">
+                  <div class="row">
+                    <span style="color: blue">xxxxx-></span>
+                    <span style="color: blue">:Finish</span>
+                  </div>
+                  <div class="row">
+                    <span style="color:red">xxxxx-></span>
+                    <span style="color: red">:Finish</span>
+                  </div>
+                  <div class="row">
+                    <span style="color: pink">xxxxx-></span>
+                    <span style="color: pink">Edit EstDate/DiDelete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="margin-top: 36px;">
+              <table class="table mt-3" style="width: max-content" id="TableModalList">
+                <thead class="table-dark">
+                  <tr>
+                    <th>No.Antrian</th>
+                    <th>No.Order</th>
+                    <th>Divisi</th>
+                    <th>Nama Barang</th>
+                    <th>Nama Bagian</th>
+                    <th>Est.Time</th>
+                    <th>Hari Ke-</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+            <input type="hidden" name="TNoWorkStsModalList" id="TNoWorkStsModalList">
+            <input type="hidden" name="TEstTimeModalList" id="TEstTimeModalList">
+            <input type="hidden" name="TEstTime1ModalList" id="TEstTime1ModalList">
 
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="btnprosesModalList">Proses</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+          <div class="row">
+            <div class="col-8">
+              <span style="color: maroon">Pilih dimana pengerjaan akan disisipkan, dengan memberi cek diantara nomor antrian. Jika ingin
+                diletakan di posisi teratas, cek nomor antrian yang pertama saja.</span>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-primary" id="btnprosesModalList">Proses</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
