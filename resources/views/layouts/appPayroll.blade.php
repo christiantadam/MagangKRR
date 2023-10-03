@@ -128,7 +128,7 @@
                                                     tabindex="-1" href="{{ url('AgendaMasuk/Jam') }}">Pakai Jam ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Agenda/AgendaMasuk/Shift') }}">Pakai Shift</a>
+                                                    tabindex="-1" href="{{ url('AgendaMasuk/AgendaShift') }}">Pakai Shift</a>
                                             </li>
 
                                         </ul>
