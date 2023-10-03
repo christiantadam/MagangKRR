@@ -670,7 +670,7 @@ TJam.addEventListener('keypress', function(event){
                     hasil_bagi_car = hasil_bagi.toString();
                     hasil_bagi = parseFloat(hasil_bagi_car);
                     jam_pk = hasil_bagi;
-                    menit_pk = TotalMenitPk - (60 * hasil_bagi)
+                    menit_pk = TotalMenitPk - (60 * hasil_bagi);
                     if (TJam.value * 60 < TotalMenitPk) {
                         alert("Jml jam kerja harus lebih besar dari jml jam yg sdh terpakai (" + jam_pk + " jam " + menit_pk + " menit).");
                         return;
