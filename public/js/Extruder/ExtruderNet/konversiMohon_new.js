@@ -639,17 +639,7 @@ btnKoreksiDetail.addEventListener("click", function () {
                 disableDetail();
                 addTable_DataTable(
                     "table_konversi",
-                    listKonversi.map((item) => {
-                        const newItem = Object.fromEntries(
-                            Object.entries(item).map(([key, value]) => [
-                                key,
-                                value === undefined ? "NULL" : value,
-                            ])
-                        );
-                        const { ["IdType"]: _, ...finalItem } = newItem;
-
-                        return finalItem;
-                    }),
+                    listKonversi,
                     colKonversi,
                     rowClickedKonversi
                 );
@@ -680,17 +670,7 @@ btnHapusDetail.addEventListener("click", function () {
                     disableDetail();
                     addTable_DataTable(
                         "table_konversi",
-                        listKonversi.map((item) => {
-                            const newItem = Object.fromEntries(
-                                Object.entries(item).map(([key, value]) => [
-                                    key,
-                                    value === undefined ? "NULL" : value,
-                                ])
-                            );
-                            const { ["IdType"]: _, ...finalItem } = newItem;
-
-                            return finalItem;
-                        }),
+                        listKonversi,
                         colKonversi,
                         rowClickedKonversi
                     );
@@ -1465,7 +1445,7 @@ function rowClickedKomposisi(row, data, _) {
                 listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
                 listKomposisi[pilKomposisi].StatusType.trim() == "BP"
             ) {
-                if (numStokTritier.value == 0) {
+                if (parseFloat(numStokTritier.value) == 0) {
                     alert(
                         txtNamaProd.value +
                             " tidak dapat digunakan untuk transaksi karena stok telah habis."

@@ -1,10 +1,9 @@
 //#region Variables
-const txtWoven = document.getElementById("kode_woven");
+const txtKode = document.getElementById("kode_barang");
 const txtType = document.getElementById("txt_type");
 const numKarung = document.getElementById("berat_karung");
-const numInner = document.getElementById("berat_inner");
 const numLami = document.getElementById("berat_lami");
-const numLain = document.getElementById("berat_lain");
+const numKertas = document.getElementById("berat_kertas");
 const numTotal = document.getElementById("berat_total");
 
 const btnKoreksi = document.getElementById("btn_koreksi");
@@ -18,16 +17,18 @@ const listOfTxt = document.querySelectorAll("input, textarea");
 btnKoreksi.addEventListener("click", function () {
     listOfTxt.forEach((ele) => (ele.value = ""));
     this.disabled = true;
-    txtWoven.disabled = false;
-    txtWoven.select();
+    txtKode.disabled = false;
+    txtKode.select();
     btnProses.disabled = false;
     btnBatal.disabled = false;
 });
 
-txtWoven.addEventListener("keypress", function (event) {
+txtKode.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
-            let kode = ("000000000" + this.value.trim()).slice(-9);
+            let kode = ("000000000" + this.value.trim().toUpperCase()).slice(
+                -9
+            );
             this.value = kode;
             loadDataFetch(kode);
         } else this.focus();
@@ -41,28 +42,20 @@ numKarung.addEventListener("keypress", function (event) {
     }
 });
 
-numInner.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        if (this.value == "") this.value = "0";
-        numLami.select();
-    }
-});
-
 numLami.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
-        numLain.select();
+        numKertas.select();
     }
 });
 
-numLain.addEventListener("keypress", function (event) {
+numKertas.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
         numTotal.value =
             parseFloat(numKarung.value) +
-            parseFloat(numInner.value) +
             parseFloat(numLami.value) +
-            parseFloat(numLain.value);
+            parseFloat(numKertas.value);
         btnProses.focus();
     }
 });
@@ -71,38 +64,33 @@ btnProses.addEventListener("click", function () {
     formWait(true);
     numTotal.value =
         parseFloat(numKarung.value) +
-        parseFloat(numInner.value) +
         parseFloat(numLami.value) +
-        parseFloat(numLain.value);
+        parseFloat(numKertas.value);
 
     fetchSelect(
-        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtWoven.value,
+        "/beratWoven/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtKode.value,
         (data) => {
             const koreksiBerat = () => {
                 let ket =
                     numKarung.value +
                     "-" +
-                    numInner.value +
-                    "-" +
                     numLami.value +
                     "-" +
-                    numLain.value +
+                    numKertas.value +
                     "-" +
                     numTotal.value;
 
                 fetchStmt(
-                    "/beratStandar/SP_7775_PBL_UPDATE_BERAT_WOVEN/" +
-                        txtWoven.value +
+                    "/beratWoven/SP_1003_PBL_UPDATE_BERAT_JUMBO_1/" +
+                        txtKode.value +
                         "~" +
                         ket +
                         "~" +
                         numKarung.value +
                         "~" +
-                        numInner.value +
-                        "~" +
                         numLami.value +
                         "~" +
-                        numLain.value +
+                        numKertas.value +
                         "~" +
                         numTotal.value +
                         "~4384",
@@ -146,15 +134,14 @@ btnKeluar.addEventListener("click", function () {
 function loadDataFetch(s_kode_brg) {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN/" + s_kode_brg,
+        "/beratWoven/SP_1003_PBL_SELECT_JUMBO/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                txtWoven.value = s_kode_brg;
+                txtKode.value = s_kode_brg;
                 txtType.value = data[0].NAMA_BRG;
                 numKarung.value = data[0].BERAT_KARUNG;
-                numInner.value = data[0].BERAT_INNER;
                 numLami.value = data[0].BERAT_LAMI;
-                numLain.value = data[0].BERAT_LAIN;
+                numKertas.value = data[0].BERAT_CONDUCTIVE;
                 numTotal.value = data[0].BERAT_TOTAL;
                 enableForm(true);
                 numKarung.select();

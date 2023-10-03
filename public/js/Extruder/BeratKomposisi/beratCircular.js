@@ -1,10 +1,10 @@
 //#region Variables
-const txtWoven = document.getElementById("kode_woven");
+const txtGelondongan = document.getElementById("kode_gelondongan");
 const txtType = document.getElementById("txt_type");
 const numKarung = document.getElementById("berat_karung");
-const numInner = document.getElementById("berat_inner");
+const numReinforced = document.getElementById("berat_reinforced");
 const numLami = document.getElementById("berat_lami");
-const numLain = document.getElementById("berat_lain");
+const numConductive = document.getElementById("berat_kertas");
 const numTotal = document.getElementById("berat_total");
 
 const btnKoreksi = document.getElementById("btn_koreksi");
@@ -18,13 +18,13 @@ const listOfTxt = document.querySelectorAll("input, textarea");
 btnKoreksi.addEventListener("click", function () {
     listOfTxt.forEach((ele) => (ele.value = ""));
     this.disabled = true;
-    txtWoven.disabled = false;
-    txtWoven.select();
+    txtGelondongan.disabled = false;
+    txtGelondongan.select();
     btnProses.disabled = false;
     btnBatal.disabled = false;
 });
 
-txtWoven.addEventListener("keypress", function (event) {
+txtGelondongan.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
             let kode = ("000000000" + this.value.trim()).slice(-9);
@@ -37,11 +37,11 @@ txtWoven.addEventListener("keypress", function (event) {
 numKarung.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
-        numInner.select();
+        numReinforced.select();
     }
 });
 
-numInner.addEventListener("keypress", function (event) {
+numReinforced.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
         numLami.select();
@@ -51,18 +51,18 @@ numInner.addEventListener("keypress", function (event) {
 numLami.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
-        numLain.select();
+        numConductive.select();
     }
 });
 
-numLain.addEventListener("keypress", function (event) {
+numConductive.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
         numTotal.value =
             parseFloat(numKarung.value) +
-            parseFloat(numInner.value) +
+            parseFloat(numReinforced.value) +
             parseFloat(numLami.value) +
-            parseFloat(numLain.value);
+            parseFloat(numConductive.value);
         btnProses.focus();
     }
 });
@@ -71,38 +71,38 @@ btnProses.addEventListener("click", function () {
     formWait(true);
     numTotal.value =
         parseFloat(numKarung.value) +
-        parseFloat(numInner.value) +
+        parseFloat(numReinforced.value) +
         parseFloat(numLami.value) +
-        parseFloat(numLain.value);
+        parseFloat(numConductive.value);
 
     fetchSelect(
-        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtWoven.value,
+        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtGelondongan.value,
         (data) => {
             const koreksiBerat = () => {
                 let ket =
                     numKarung.value +
                     "-" +
-                    numInner.value +
+                    numReinforced.value +
                     "-" +
                     numLami.value +
                     "-" +
-                    numLain.value +
+                    numConductive.value +
                     "-" +
                     numTotal.value;
 
                 fetchStmt(
-                    "/beratStandar/SP_7775_PBL_UPDATE_BERAT_WOVEN/" +
-                        txtWoven.value +
+                    "/beratStandar/SP_1273_BCD_UPDATE_BERAT_CIRCULAR/" +
+                        txtGelondongan.value +
                         "~" +
                         ket +
                         "~" +
                         numKarung.value +
                         "~" +
-                        numInner.value +
+                        numReinforced.value +
                         "~" +
                         numLami.value +
                         "~" +
-                        numLain.value +
+                        numConductive.value +
                         "~" +
                         numTotal.value +
                         "~4384",
@@ -146,15 +146,15 @@ btnKeluar.addEventListener("click", function () {
 function loadDataFetch(s_kode_brg) {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN/" + s_kode_brg,
+        "/beratStandar/SP_1273_BCD_DATA_CIRCULAR/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                txtWoven.value = s_kode_brg;
+                txtGelondongan.value = s_kode_brg;
                 txtType.value = data[0].NAMA_BRG;
                 numKarung.value = data[0].BERAT_KARUNG;
-                numInner.value = data[0].BERAT_INNER;
+                numReinforced.value = data[0].BERAT_KARUNG_FORCE;
                 numLami.value = data[0].BERAT_LAMI;
-                numLain.value = data[0].BERAT_LAIN;
+                numConductive.value = data[0].BERAT_CONDUCTIVE;
                 numTotal.value = data[0].BERAT_TOTAL;
                 enableForm(true);
                 numKarung.select();

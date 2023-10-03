@@ -1,15 +1,13 @@
 @extends('layouts.appExtruder')
 @section('content')
-
-<div id="berat_jumbo" class="form" data-aos="fade-up">
-    <form action="#" method="post" role="form">
+    <div id="berat_jumbo" class="form" data-aos="fade-up">
 
         <div class="row mt-3">
             <div class="form-group col-md-2 d-flex justify-content-end">
                 <span class="aligned-text">Kode Jumbo:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="text" class="form-control" name="kode_jumbo" placeholder="Kode Jumbo" required>
+                <input type="text" id="kode_jumbo" class="form-control">
             </div>
         </div>
 
@@ -18,7 +16,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="form-group col-md-10 mt-3 mt-md-0">
-                <textarea class="form-control" name="berat_type" rows="3" placeholder="Type" required></textarea>
+                <textarea id="txt_type" class="form-control" rows="3"></textarea>
             </div>
         </div>
 
@@ -27,7 +25,7 @@
                 <span class="aligned-text">Berat Karung:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" name="berat_karung" placeholder="Berat Karung" required>
+                <input type="number" min="0" id="berat_karung" class="form-control">
             </div>
         </div>
 
@@ -36,7 +34,7 @@
                 <span class="aligned-text">Berat Inner:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" name="berat_inner" placeholder="Berat Inner" required>
+                <input type="number" min="0" id="berat_inner" class="form-control">
             </div>
         </div>
 
@@ -45,7 +43,7 @@
                 <span class="aligned-text">Berat Lami:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" name="berat_lami" placeholder="Berat Lami" required>
+                <input type="number" min="0" id="berat_lami" class="form-control">
             </div>
         </div>
 
@@ -54,7 +52,7 @@
                 <span class="aligned-text">Berat Conductive:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" name="berat_conductive" placeholder="Berat Conductive" required>
+                <input type="number" min="0" id="berat_conductive" class="form-control">
             </div>
         </div>
 
@@ -64,7 +62,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" name="berat_total" placeholder="Berat Standar Total" required>
+                    <input type="number" min="0" id="berat_total" class="form-control" Total">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -72,15 +70,19 @@
 
         <div class="row mt-3">
             <div class="col-9 row justify-content-md-center">
-                <div class="text-center col-md-auto"><button type="submit">Koreksi</button></div>
-                <div class="text-center col-md-auto"><button type="submit">Batal</button></div>
-                <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
+                <div class="text-center col-md-auto"><button type="button" id="btn_koreksi"
+                        class="btn btn-outline-warning">Koreksi</button></div>
+                <div class="text-center col-md-auto"><button type="button" id="btn_batal"
+                        class="btn btn-outline-danger">Batal</button></div>
+                <div class="text-center col-md-auto"><button type="button" id="btn_proses"
+                        class="btn btn-outline-success">Proses</button></div>
             </div>
 
-            <div class="text-center col-3"><button type="submit">Keluar</button></div>
+            <div class="text-center col-3"><button type="button" id="btn_keluar"
+                    class="btn btn-outline-secondary">Keluar</button></div>
         </div>
 
-    </form>
-</div>
+    </div>
 
+    <script src="{{ asset('js/Extruder/BeratKomposisi/beratJumbo.js') }}"></script>
 @endsection

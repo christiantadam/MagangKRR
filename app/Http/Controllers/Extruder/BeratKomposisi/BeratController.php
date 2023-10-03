@@ -4,50 +4,53 @@ namespace App\Http\Controllers\Extruder\BeratKomposisi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BeratController extends Controller
 {
     public function index($form_name)
     {
         $view_name = 'extruder.BeratKomposisi.' . $form_name;
-        $form_data = [];
-
-        switch ($form_name) {
-            case 'formBeratWoven':
-                $current_date = Carbon::now();
-                $formatted_date = $current_date->format('Y-m-d');
-
-                $form_data = [
-                    'listNomor' => $this->getKoreksiSortirNGBlmAcc($formatted_date),
-                    'listKelut' => $this->getKelompokUtama_IdObjek('032', '3'),
-                ];
-                break;
-
-            default:
-                break;
-        }
-
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,
-            'formData' => $form_data,
         ];
 
         return view($view_name, $view_data);
     }
 
-    #region Berat Woven
-    public function beratWoven($fun_str, $fun_data)
+    public function beratStandar($fun_str, $fun_data)
     {
+        $param_data = explode('~', $fun_data);
+
         switch ($fun_str) {
             case 'SP_7775_PBL_SELECT_WOVEN':
-                return $this->getSelectWoven($fun_str, $fun_data);
-
             case 'SP_1273_PRG_CEK_KOMPOSISI_1':
-                return $this->getCekKomposisi($fun_str, $fun_data);
+            case 'SP_1003_PBL_SELECT_JUMBO':
+            case 'SP_1273_BCD_DATA_ADSTAR':
+            case 'SP_1273_BCD_DATA_CIRCULAR':
+                $param_str = '@KD_BRG = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_7775_PBL_UPDATE_BERAT_WOVEN':
-                return $this->updBeratWoven($fun_str, $fun_data);
+                $param_str = '@KD_BRG = ?, @ket = ?, @brt_karung = ?, @brt_inner = ?, @brt_lami = ?, @brt_lain = ?, @brt_total = ?, @UserId = ?';
+                $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1003_PBL_UPDATE_BERAT_JUMBO_1':
+                $param_str = '@KD_BRG = ?, @ket = ?, @brt_cloth = ?, @brt_inner = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = ?';
+                $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_ADSTAR':
+                $param_str = '@KD_BRG = ?, @ket = ?, @brt_cloth = ?, @brt_lami = ?, @brt_kertas = ?, @brt_total = ?, @UserId = ?';
+                $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_CIRCULAR':
+                $param_str = '@KD_BRG = ?, @ket = ?, @brt_karung = ?, @brt_reinforced = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = ?';
+                $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
             default:
                 dd("SP tidak ditemukan.");
@@ -55,37 +58,18 @@ class BeratController extends Controller
         }
     }
 
-    private function updBeratWoven($fun_str, $fun_data)
+    private function executeSP($action_str, $sp_str, $param_str, $param_data)
     {
-        $data = explode('~', $fun_data);
-        $data[1] = str_replace('-', '/', $data[1]); // @ket
-
-        return DB::connection('ConnPurchase')->statement(
-            'exec ' . $fun_str . ' @KD_BRG = ?, @ket = ?, @brt_karung = ?, @brt_inner = ?, @brt_lami = ?, @brt_lain = ?, @brt_total = ?, @UserId = ?',
-            $data
-        );
-
-        // @KD_BRG CHAR(9), @ket VARCHAR(100), @brt_karung numeric(10,2), @brt_inner numeric(10,2), @brt_lami numeric(10,2), @brt_lain numeric(10,2), @brt_total numeric(10,2),  @UserId char(4)
+        if ($action_str == 'statement') {
+            return DB::connection('ConnPurchase')->statement(
+                'exec ' . $sp_str . ' ' . $param_str,
+                $param_data
+            );
+        } else if ($action_str == 'select') {
+            return DB::connection('ConnPurchase')->select(
+                'exec ' . $sp_str . ' ' . $param_str,
+                $param_data
+            );
+        }
     }
-
-    private function getCekKomposisi($fun_str, $fun_data)
-    {
-        return DB::connection('ConnPurchase')->select(
-            'exec ' . $fun_str . ' @KD_BRG = ?',
-            explode('~', $fun_data)
-        );
-
-        // @KD_BRG CHAR(9)
-    }
-
-    private function getSelectWoven($fun_str, $fun_data)
-    {
-        return DB::connection('ConnPurchase')->select(
-            'exec ' . $fun_str . ' @KD_BRG = ?',
-            explode('~', $fun_data)
-        );
-
-        // @KD_BRG CHAR(9)
-    }
-    #endregion
 }

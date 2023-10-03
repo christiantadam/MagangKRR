@@ -102,9 +102,9 @@
                 <h1><a href="#">Permohonan Konversi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKonversiMohon')
                 <h1><a href="#">Permohonan Konversi</a></h1>
-            @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'B')
+                {{-- @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'B') --}}
                 <h1><a href="#">ACC Konversi Mojosari Gedung B</a></h1>
-            @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'D')
+                {{-- @elseif($formName == 'formKonversiACC' && $formData['namaGedung'] == 'D') --}}
                 <h1><a href="#">ACC Konversi Mojosari Gedung D</a></h1>
             @elseif($formName == 'formKonversiACC')
                 <h1><a href="#">ACC Konversi</a></h1>

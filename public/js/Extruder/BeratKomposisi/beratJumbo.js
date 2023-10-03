@@ -1,10 +1,10 @@
 //#region Variables
-const txtWoven = document.getElementById("kode_woven");
+const txtJumbo = document.getElementById("kode_jumbo");
 const txtType = document.getElementById("txt_type");
 const numKarung = document.getElementById("berat_karung");
 const numInner = document.getElementById("berat_inner");
 const numLami = document.getElementById("berat_lami");
-const numLain = document.getElementById("berat_lain");
+const numConductive = document.getElementById("berat_conductive");
 const numTotal = document.getElementById("berat_total");
 
 const btnKoreksi = document.getElementById("btn_koreksi");
@@ -18,13 +18,13 @@ const listOfTxt = document.querySelectorAll("input, textarea");
 btnKoreksi.addEventListener("click", function () {
     listOfTxt.forEach((ele) => (ele.value = ""));
     this.disabled = true;
-    txtWoven.disabled = false;
-    txtWoven.select();
+    txtJumbo.disabled = false;
+    txtJumbo.select();
     btnProses.disabled = false;
     btnBatal.disabled = false;
 });
 
-txtWoven.addEventListener("keypress", function (event) {
+txtJumbo.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
             let kode = ("000000000" + this.value.trim()).slice(-9);
@@ -51,18 +51,18 @@ numInner.addEventListener("keypress", function (event) {
 numLami.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
-        numLain.select();
+        numConductive.select();
     }
 });
 
-numLain.addEventListener("keypress", function (event) {
+numConductive.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = "0";
         numTotal.value =
             parseFloat(numKarung.value) +
             parseFloat(numInner.value) +
             parseFloat(numLami.value) +
-            parseFloat(numLain.value);
+            parseFloat(numConductive.value);
         btnProses.focus();
     }
 });
@@ -73,10 +73,10 @@ btnProses.addEventListener("click", function () {
         parseFloat(numKarung.value) +
         parseFloat(numInner.value) +
         parseFloat(numLami.value) +
-        parseFloat(numLain.value);
+        parseFloat(numConductive.value);
 
     fetchSelect(
-        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtWoven.value,
+        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtJumbo.value,
         (data) => {
             const koreksiBerat = () => {
                 let ket =
@@ -86,13 +86,13 @@ btnProses.addEventListener("click", function () {
                     "-" +
                     numLami.value +
                     "-" +
-                    numLain.value +
+                    numConductive.value +
                     "-" +
                     numTotal.value;
 
                 fetchStmt(
                     "/beratStandar/SP_7775_PBL_UPDATE_BERAT_WOVEN/" +
-                        txtWoven.value +
+                        txtJumbo.value +
                         "~" +
                         ket +
                         "~" +
@@ -102,7 +102,7 @@ btnProses.addEventListener("click", function () {
                         "~" +
                         numLami.value +
                         "~" +
-                        numLain.value +
+                        numConductive.value +
                         "~" +
                         numTotal.value +
                         "~4384",
@@ -149,12 +149,12 @@ function loadDataFetch(s_kode_brg) {
         "/beratStandar/SP_7775_PBL_SELECT_WOVEN/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                txtWoven.value = s_kode_brg;
+                txtJumbo.value = s_kode_brg;
                 txtType.value = data[0].NAMA_BRG;
                 numKarung.value = data[0].BERAT_KARUNG;
                 numInner.value = data[0].BERAT_INNER;
                 numLami.value = data[0].BERAT_LAMI;
-                numLain.value = data[0].BERAT_LAIN;
+                numConductive.value = data[0].BERAT_LAIN;
                 numTotal.value = data[0].BERAT_TOTAL;
                 enableForm(true);
                 numKarung.select();

@@ -449,12 +449,12 @@ function rowClickedGangguan(row, data, _) {
         findClickedRowInList(listGangguan, "NoTrans", data.NoTrans)
     ) {
         row.style.background = "white";
+        checkboxesGangguan[pilGangguan].checked = false;
         pilGangguan = -1;
-        checkboxesGangguan[index].checked = false;
         clearAll();
     } else {
         clearSelection_DataTable("table_gangguan");
-        clearCheckedBoxes(checkboxesGangguan, checkboxesGangguan[index]);
+        clearCheckedBoxes(checkboxesGangguan, checkboxesGangguan[pilGangguan]);
 
         row.style.background = "aliceblue";
         checkboxesGangguan[index].checked = true;

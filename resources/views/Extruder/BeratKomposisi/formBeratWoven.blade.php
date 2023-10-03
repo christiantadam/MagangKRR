@@ -25,7 +25,7 @@
                 <span class="aligned-text">Berat Karung:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" id="berat_karung" class="form-control" required>
+                <input type="number" min="0" id="berat_karung" class="form-control" required>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                 <span class="aligned-text">Berat Inner:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" id="berat_inner" class="form-control" required>
+                <input type="number" min="0" id="berat_inner" class="form-control" required>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
                 <span class="aligned-text">Berat Lami:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" id="berat_lami" class="form-control" required>
+                <input type="number" min="0" id="berat_lami" class="form-control" required>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
                 <span class="aligned-text">Berat Lain:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" id="berat_lain" class="form-control" required>
+                <input type="number" min="0" id="berat_lain" class="form-control" required>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" id="berat_total" class="form-control" required>
+                    <input type="number" min="0" id="berat_total" class="form-control" required>
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>

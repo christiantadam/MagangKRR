@@ -32,7 +32,7 @@ const colRawat = [
     { width: "100px" }, // Waktu
     { width: "150px" }, // Bagian
     { width: "100px" }, // Mesin
-    { width: "100px" }, // No. Winder
+    { width: "150px" }, // No. Winder
     { width: "150px" }, // Gangguan
     { width: "150px" }, // Penyebab
     { width: "150px" }, // Penyelesaian
@@ -85,12 +85,9 @@ function RW_showData() {
             pushedData.push({
                 Tanggal: dateTimeToDate(data[i].Tanggal),
                 NamaUser: data[i].NamaUser,
-                // UserId: data[i].UserId,
                 Shift: data[i].Shift,
                 Waktu: data[i].Waktu,
-                // IdPerawatan: data[i].IdPerawatan,
                 NamaPerawatan: data[i].NamaPerawatan,
-                // IdMesin: data[i].IdMesin,
                 TypeMesin: data[i].TypeMesin,
                 NoWinder: data[i].NoWinder,
                 Gangguan: data[i].Gangguan,
@@ -99,19 +96,24 @@ function RW_showData() {
                 WaktuMulai: dateTimetoTime(data[i].WaktuMulai).slice(0, 5),
                 WaktuSelesai: dateTimetoTime(data[i].WaktuSelesai).slice(0, 5),
                 Kode: data[i].Kode,
-                // IdGangguan:
-                //     data[i].IdGangguan !== undefined ? data[i].IdGangguan : "",
-                // Winder: data[i].Winder,
             });
         }
 
-        if (data.length > 0)
+        if (data.length > 0) {
             addTable_DataTable(
                 "table_perawatan",
                 pushedData,
                 colRawat,
                 rowClickedRawat
             );
+        } else {
+            clearTable_DataTable("table_perawatan", colRawat.length, [
+                "padding=100px",
+                "Tidak ditemukan data perawatan pada <b>" +
+                    RW_tanggal +
+                    "</b>.",
+            ]);
+        }
     });
 }
 
@@ -134,7 +136,7 @@ function rowClickedRawat(row, data, _) {
 
 function init_rw() {
     pilRawat = -1;
-    RW_tanggal = getCurrentDate();
+    // RW_tanggal = getCurrentDate();
     RW_clickedData = null;
 
     spnLoading.classList.add("hidden");
@@ -165,6 +167,28 @@ function init_rw() {
             },
         });
     }
+
+    addTable_DataTable(
+        "table_perawatan",
+        [
+            {
+                Tanggal: " ",
+                NamaUser: " ",
+                Shift: " ",
+                Waktu: " ",
+                NamaPerawatan: " ",
+                TypeMesin: " ",
+                NoWinder: " ",
+                Gangguan: " ",
+                Penyebab: " ",
+                Penyelesaian: " ",
+                WaktuMulai: " ",
+                WaktuSelesai: " ",
+                Kode: " ",
+            },
+        ],
+        colRawat
+    );
 
     listRawat.length = 0;
     clearTable_DataTable("table_perawatan", colRawat.length, [
