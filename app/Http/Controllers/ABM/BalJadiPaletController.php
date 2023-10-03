@@ -55,7 +55,7 @@ class BalJadiPaletController extends Controller
                 [
                     "0016",
                     "U001",
-                    "2023-09-22",
+                    "2023-10-3",
                     "1",
                     "10",
                     "12",
@@ -67,6 +67,15 @@ class BalJadiPaletController extends Controller
                     " "
                 ]
             );
+        } else if ($crExplode[$lasindex] == "getIndex") {
+            $dataNoIndex = DB::connection('ConnInventory')
+                ->table('Dispresiasi')
+                ->where('Kode_Barang', $crExplode[0]) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
+                ->first(); // Ambil data dari baris pertama yang sesuai
+
+            // Mengembalikan dataNoIndex sebagai respons JSON
+            return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
         }
     }
 

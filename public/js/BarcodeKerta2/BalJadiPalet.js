@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    $('.dropdown-submenu a.test').on("click", function(e) {
+$(document).ready(function () {
+    $('.dropdown-submenu a.test').on("click", function (e) {
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
@@ -133,34 +133,123 @@ $(document).ready(function() {
         }
     });
 
+    // var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
+    // ButtonPrintBarcode.addEventListener("click", function (event) {
+    //     // Mengatur tombol menjadi tidak dapat diakses (disabled)
+    //     ButtonPrintBarcode.disabled = true;
+
+    //     // Lakukan operasi pencetakan barcode
+    //     var idtype = '0016';
+    //     var tanggal = document.getElementById('tanggalOutput').value;
+    //     var primer = document.getElementById('Primer').value;
+    //     var sekunder = document.getElementById('SekunderOutput').value;
+    //     var tritier = document.getElementById('tritier').value;
+    //     var UserID = 'U001';
+    //     var asalidsubkelompok = 'SKL01';
+    //     var kodebarang = '00000KB02';
+    //     var uraian = document.getElementById('shift').value;
+    //     var idsubkontraktor = '00000KB02';
+
+    //     // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+    //     fetch("/ABM/BalJadiPalet/" + idtype + UserID + tanggal +
+    //         primer + sekunder + tritier + asalidsubkelompok +
+    //         idsubkontraktor + kodebarang + uraian + ".buatBarcode")
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error("Network response was not ok");
+    //             }
+    //             return response.json();
+    //         })
+    //         .then((data) => {
+    //             if (data === true) {
+    //                 // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
+    //                 console.log("Barcode berhasil dibuat.");
+    //                 alert('Barcode berhasil dibuat.');
+
+    //                 // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
+    //                 fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+    //                     .then((response) => {
+    //                         if (!response.ok) {
+    //                             throw new Error("Network response was not ok");
+    //                         }
+    //                         return response.json();
+    //                     })
+    //                     .then((data) => {
+    //                         // Handle data yang diterima dari fetch kedua di sini
+    //                         console.log("Data dari fetch kedua:", data);
+    //                         var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+    //                         console.log(kodebarcode);
+    //                         // Show an alert for each 'kodebarang'
+    //                         alert('Kode Barang: ' + kodebarcode);
+    //                     })
+    //                     .catch((error) => {
+    //                         console.error("Error dalam fetch kedua:", error);
+    //                     });
+    //             } else {
+    //                 console.error("Unexpected response data:", data);
+    //                 // Handle other unexpected responses here
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error:", error);
+    //         });
+    // });
+
     var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
-    ButtonPrintBarcode.addEventListener("click", function (event) {
-        // Mengatur tombol menjadi tidak dapat diakses (disabled)
-        ButtonPrintBarcode.disabled = true;
+ButtonPrintBarcode.addEventListener("click", function (event) {
+    // Mengatur tombol menjadi tidak dapat diakses (disabled)
+    ButtonPrintBarcode.disabled = true;
 
-        // Lakukan operasi pencetakan barcode
-        var idtype = '0016';
-        var tanggal = document.getElementById('tanggalOutput').value;
-        var primer = document.getElementById('Primer').value;
-        var sekunder = document.getElementById('SekunderOutput').value;
-        var tritier = document.getElementById('tritier').value;
-        var UserID = 'U001';
-        var asalidsubkelompok = 'SKL01';
-        var kodebarang = '00000KB02';
-        var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = '00000KB02';
+    // Mendapatkan tanggal paling baru setiap hari
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    var day = currentDate.getDate().toString().padStart(2, '0');
+    var tanggal = year + '-' + month + '-' + day;
 
-        // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/ABM/BalJadiPalet/" + idtype + UserID + tanggal +
+    // Lakukan operasi pencetakan barcode
+    var idtype = document.getElementById('IdType').value;
+    var primer = document.getElementById('primer').value;
+    var sekunder = document.getElementById('sekunder').value;
+    var tritier = document.getElementById('tritier').value;
+    var UserID = 'U001';
+    var asalidsubkelompok = 'SKL01';
+    var kodebarang = '00000KB02';
+    var uraian = document.getElementById('shiftInput').value;
+    var idsubkontraktor = '00000KB02';
+
+    // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+    fetch("/ABM/BalJadiPalet/" + idtype + UserID + tanggal +
             primer + sekunder + tritier + asalidsubkelompok +
             idsubkontraktor + kodebarang + uraian + ".buatBarcode")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
+        .then((response) => {
+            console.log("Response Status:", response.status);
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            // Check for empty response
+            if (response.status === 204 || response.headers.get('content-length') === '0') {
+                console.error("Empty response received");
+                alert("Empty response received. Check server logs for details.");
+                return null;
+            }
+
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Data:", data);
+
+            if (data === null) {
+                // Handle empty response
+                console.error("Empty response data");
+                alert("Empty response data. Check server logs for details.");
+                return;
+            }
+
+            try {
+                // Attempt to parse the JSON response
                 if (data === true) {
                     // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
                     console.log("Barcode berhasil dibuat.");
@@ -172,28 +261,42 @@ $(document).ready(function() {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
                             }
+
                             return response.json();
                         })
                         .then((data) => {
                             // Handle data yang diterima dari fetch kedua di sini
                             console.log("Data dari fetch kedua:", data);
-                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
-                            console.log(kodebarcode);
-                            // Show an alert for each 'kodebarang'
-                            alert('Kode Barang: ' + kodebarcode);
+
+                            if (data.NoIndeks) {
+                                var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                                console.log(kodebarcode);
+                                // Show an alert for each 'kodebarang'
+                                alert('Kode Barang: ' + kodebarcode);
+                            } else {
+                                console.error("NoIndeks not found in the response");
+                                alert("NoIndeks not found in the response. Check server logs for details.");
+                            }
                         })
                         .catch((error) => {
                             console.error("Error dalam fetch kedua:", error);
+                            alert("Error in second fetch. Check server logs for details.");
                         });
                 } else {
                     console.error("Unexpected response data:", data);
                     // Handle other unexpected responses here
+                    alert("Unexpected response data. Check server logs for details.");
                 }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    });
+            } catch (jsonError) {
+                console.error("Error parsing JSON response:", jsonError);
+                alert("Error parsing JSON response. Check server logs for details.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error. Check console logs and server logs for details.");
+        });
+});
 });
 
 function openModal() {
@@ -253,20 +356,20 @@ function setShiftValue() {
 }
 
 function scanBarcode() {
-    // Dapatkan elemen input "No Barcode" berdasarkan ID
+    // Get the "No Barcode" input element based on its ID
     var barcodeInput = document.getElementById('BarcodeInput');
 
-    // Setel atribut readonly menjadi false
+    // Set the readonly attribute to false
     barcodeInput.readOnly = false;
 
-    // Fokuskan kursor ke dalam input "No Barcode"
+    // Focus the cursor on the "No Barcode" input
     barcodeInput.focus();
 
     // Enable the "Print Barcode" button
-    var printBarcodeButton = document.getElementById('PrintBarcodeButton');
+    var printBarcodeButton = document.getElementById('ButtonPrintBarcode');
     if (printBarcodeButton) {
         printBarcodeButton.disabled = false;
     } else {
-        console.error('PrintBarcodeButton element not found');
+        console.error('ButtonPrintBarcode element not found');
     }
 }

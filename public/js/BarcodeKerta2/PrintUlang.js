@@ -21,17 +21,16 @@ $(document).ready(function () {
                     return response.json(); // Assuming the response is in JSON format
                 })
                 .then((data) => {
-
                     // Loop through the data and create table rows
                     data.forEach((item) => {
                         var row = [item.NoIndeks, item.Kode_barang, item.NamaType, item.Qty_Sekunder, item.Qty, item.SatSekunder, item.SatTritier];
-                        $("#Item").val(item.NoIndeks)
-                        $("#Kode").val(item.Kode_barang)
-                        $("#nama_type").val(item.NamaType)
-                        $("#Sekunder").val(item.Qty_Sekunder + " " + item.SatSekunder)
-                        $("#Tritier").val(item.Qty + " " + item.SatTritier)
-                    });
 
+                        $("#Item").val(item.NoIndeks);
+                        $("#Kode").val(item.Kode_barang);
+                        $("#nama_type").val(item.NamaType);
+                        $("#Sekunder").val((item.Qty_Sekunder && item.SatSekunder) ? item.Qty_Sekunder + " " + item.SatSekunder : "");
+                        $("#Tritier").val((item.Qty && item.SatTritier) ? item.Qty + " " + item.SatTritier : "");
+                    });
                 })
                 .catch((error) => {
                     console.error("Error:", error);
@@ -88,8 +87,8 @@ $(document).ready(function () {
                 var getBarcodePrintUlang = document.getElementById('Barcode');
                 var str = getBarcodePrintUlang.value
                 var parts = str.split("-");
-
-                if (parts.length !== 2) {
+                // parts.length !== 2
+                if (str.length !== 19) {
                     // Tampilkan alert jika format barcode salah
                     alert('Barcode Tidak Bisa Di Print Ulang.');
                     return;

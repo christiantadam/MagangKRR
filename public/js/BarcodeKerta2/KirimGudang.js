@@ -6,17 +6,37 @@ $(document).ready(function () {
     });
 
     $('#RekapKirim').DataTable({
-        "scrollX" : true,
         order: [
             [0, 'desc']
         ],
+        "scrollX": true,
+        columns: [{ width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },]
     });
 
     $('#DaftarKirim').DataTable({
-        "scrollX" : true,
         order: [
             [0, 'desc']
         ],
+        "scrollX": true,
+        columns: [{ width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },]
     });
 
     $('#TableProcess').DataTable({
