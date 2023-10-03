@@ -143,7 +143,7 @@ $("#tabelListRincian tbody").on("click", "tr", function () {
     let selectedRows = table.rows(".selected").data().toArray();
     console.log(selectedRows[0]);
     console.log(rincianPelunasan);
-    rincianPembayaran.value = selectedRows[0].rincianPelunasan;
+    rincianPembayaran.value = selectedRows[0].Expr1;
     nilaiRincian.value = selectedRows[0].Nilai_Lunas;
     idDetail.value = selectedRows[0].ID_Detail_Pelunasan;
     idBayar.value = selectedRows[0].Id_Pelunasan;

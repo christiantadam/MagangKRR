@@ -1,6 +1,7 @@
 let tahun = document.getElementById('tahun');
 let bulan = document.getElementById('bulan');
 let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
+// let tabelDataPelunasan = $('#tabelDataPelunasan').DataTable();
 let btnInputTanggalBKM = document.getElementById('btnInputTanggalBKM');
 let tanggalInput = document.getElementById('tanggalInput');
 let btnProsesss = document.getElementById("btnProsesss");
@@ -27,11 +28,22 @@ let methodTampilBKM = document.getElementById("methodTampilBKM");
 let formTampilBKM = document.getElementById("formTampilBKM");
 let btnCetakBKM = document.getElementById('btnCetakBKM');
 
+const tglInput = new Date();
+const formattedDate2 = tglInput.toISOString().substring(0, 10);
+tanggalInput.value = formattedDate2;
 
 btnTampilBkm.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
+
+    const tglTampilBKM = new Date();
+    const formattedDate3 = tglTampilBKM.toISOString().substring(0, 10);
+    tanggalInputTampil.value = formattedDate3;
+
+    const tglTampilBKM2 = new Date();
+    const formattedDate4 = tglTampilBKM2.toISOString().substring(0, 10);
+    tanggalInputTampil2.value = formattedDate4;
 });
 
 btnTutupModal.addEventListener('click', function(event) {
@@ -51,8 +63,14 @@ btnOkTampil.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
@@ -138,14 +156,21 @@ btnOK.addEventListener('click', function (event) {
             .then((response) => response.json())
             .then((optionss) => {
                 console.log(optionss);
-                dataTable3 = $("#tabelDataPelunasan").DataTable({
+                tabelDataPelunasan = $("#tabelDataPelunasan").DataTable({
                     data: optionss,
                     columns: [
                         {
-                            title: "Tgl Pelunasan", data: "Tgl_Pelunasan",
+                            title: "Tgl. Pelunasan",
+                            data: "Tgl_Pelunasan",
                             render: function (data) {
-                                return `<input type="checkbox" name="dataPelunasanCheckbox" value="${data}" /> ${data}`;
-                            },
+                                var date = new Date(data);
+                                var formattedDate = date.toLocaleDateString();
+
+                                return `<div>
+                                            <input type="checkbox" name="dataPelunasanCheckbox" value="${formattedDate}" />
+                                            <span>${formattedDate}</span>
+                                        </div>`;
+                            }
                         },
                         { title: "Id. Pelunasan", data: "Id_Pelunasan" },
                         { title: "Id. Bank", data: "Id_bank" },
@@ -153,7 +178,12 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Mata Uang", data: "Nama_MataUang" },
                         { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
                         { title: "No. Bukti", data: "No_Bukti" },
-                        { title: "Tgl. Input", data: "TglInput" },
+                        { title: "Tgl. Input", data: "TglInput",
+                            render: function (data) {
+                                var date = new Date(data);
+                                return date.toLocaleDateString();
+                            }
+                        },
                         { title: "Kode Perkiraan", data: "KodePerkiraan" },
                     ],
                 });

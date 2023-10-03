@@ -47,7 +47,6 @@ let jmlUang;
 let id_bkm = document.getElementById('id_bkm');
 let id_bkk = document.getElementById('id_bkk');
 
-
 let total1;
 let total2;
 let nilai = document.getElementById('nilai');
@@ -73,6 +72,26 @@ let btnOkTampilBKM = document.getElementById('btnOkTampilBKM');
 let tanggalTampilBKM = document.getElementById('tanggalTampilBKM');
 let tanggalTampilBKM2 = document.getElementById('tanggalTampilBKM2');
 let tabelTampilBKM = document.getElementById('tabelTampilBKM');
+
+const tanggalPenagihan = new Date();
+const formattedDate2 = tanggalPenagihan.toISOString().substring(0, 10);
+tanggal.value = formattedDate2;
+
+const tglTampilBKM = new Date();
+const formattedDate3 = tglTampilBKM.toISOString().substring(0, 10);
+tanggalTampilBKM.value = formattedDate3;
+
+const tglTampilBKM2 = new Date();
+const formattedDate4 = tglTampilBKM2.toISOString().substring(0, 10);
+tanggalTampilBKM2.value = formattedDate4;
+
+const tglTampilBKK = new Date();
+const formattedDate5 = tglTampilBKK.toISOString().substring(0, 10);
+tanggalTampilBKK.value = formattedDate5;
+
+const tglTampilBKK2 = new Date();
+const formattedDate6 = tglTampilBKK2.toISOString().substring(0, 10);
+tanggalTampilBKK2.value = formattedDate6;
 
 tanggal.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
@@ -102,7 +121,12 @@ fetch("/getTabelNotaKredit/")
                         return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
                     },
                 },
-                { title: "Tgl. Nota Kredit", data: "Tanggal" },
+                { title: "Tgl. Nota Kredit", data: "Tanggal",
+                    render: function (data) {
+                        var date = new Date(data);
+                        return date.toLocaleDateString();
+                    }
+                },
                 { title: "No. Nota Kredit", data: "Id_NotaKredit" },
                 { title: "No. Penagihan", data: "Id_Penagihan" },
                 { title: "Jenis Nota Kredit ", data: "NamaNotaKredit" },
@@ -136,7 +160,7 @@ document.getElementById('tabelNotaKredit').addEventListener('change', function(e
             if (idPenagihan) {
                 idPenagihan.value = noPenagihan;
             }
-            if (noNota) {
+            if (noNotaKredit) {
                 noNotaKredit.value = noNota;
             }
         } else {
@@ -144,11 +168,12 @@ document.getElementById('tabelNotaKredit').addEventListener('change', function(e
                 idCustomer.value = '';
             }
             if (idPenagihan) {
-                noNotaKredit.value = '';
-            }
-            if (noNota) {
                 idPenagihan.value = '';
             }
+            if (noNotaKredit) {
+                noNotaKredit.value = '';
+            }
+
         }
     }
 });
@@ -172,6 +197,11 @@ btnPilihNotaKredit.addEventListener('click', function(event) {
         }
 
         const dateObject = new Date(tglNota);
+
+        const tglInput = new Date(rowData['Tanggal']);
+        tglInput.setDate(tglInput.getDate() + 1);  // Mengurangi 1 hari
+        const formattedDate = tglInput.toISOString().substr(0, 10);
+        tanggal.value = formattedDate;
 
         // Get month and year separately
         bulan.value = dateObject.getMonth() + 1; // +1 karena bulan dimulai dari 0 (Januari) - 11 (Desember)
@@ -590,8 +620,14 @@ btnOkTampilBKM.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
@@ -644,8 +680,14 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKK", data: "Id_BKK" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },

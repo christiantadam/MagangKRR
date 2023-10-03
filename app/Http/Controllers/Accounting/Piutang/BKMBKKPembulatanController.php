@@ -28,6 +28,19 @@ class BKMBKKPembulatanController extends Controller
         return response()->json($tabel);
     }
 
+    public function getBankPembulatan()
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK]');
+        return response()->json($tabel);
+    }
+
+    public function getJenisBankPembulatan($idBank)
+    {
+        //dd($idBKM);
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK_1] @idBank = ?', [$idBank]);
+        return response()->json($tabel);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

@@ -62,13 +62,16 @@
                                                 <label for="radio_1">Rincian Data</label>
                                             </div>
                                             <div style="overflow-x: auto;">
-                                                <table style="width: 180%; table-layout: fixed;" id="tabelRincianData">
+                                                <table style="width: 240%; table-layout: fixed;" id="tabelRincianData">
                                                     <colgroup>
                                                     <col style="width: 40%;">
                                                     <col style="width: 35%;">
                                                     <col style="width: 35%;">
                                                     <col style="width: 30%;">
                                                     <col style="width: 40%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
+                                                    <col style="width: 20%;">
                                                     </colgroup>
                                                     <thead class="table-dark">
                                                         <tr>
@@ -77,6 +80,9 @@
                                                             <th>Invoice</th>
                                                             <th>Mata Uang</th>
                                                             <th>Nilai Rincian</th>
+                                                            <th>Id. Bank</th>
+                                                            <th>Id. Jenis</th>
+                                                            <th>Id. Uang</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -92,7 +98,23 @@
                                     <div class="card" style="width: 60%;">
                                         <div class="card-body">
                                             <b>BKK</b>
-                                            <div class="row">
+                                            <p><div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="kodePerkiraan">Bank</label>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <select id="namaBankSelect" name="namaBankSelect" class="form-control">
+s
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                                </div>
+                                            </div>
+                                            <p><div class="row">
                                                 <div class="col-md-3">
                                                     <label for="tanggal">Tanggal</label>
                                                 </div>
@@ -113,7 +135,7 @@
                                                     <label for="jumlahUang">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="jumlahUang" class="form-control" style="width: 100%">
+                                                    <input type="number" id="jumlahUang" name="jumlahUang" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <p><div class="row">
@@ -121,7 +143,7 @@
                                                     <label for="kodePerkiraan">Kode Perkiraan</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" id="idKodePerkiraan" name="kode_sidKodePerkiraanelect" class="form-control" style="width: 100%">
+                                                    <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <select id="kodePerkiraanSelect" name="kodePerkiraanSelect" class="form-control">
@@ -144,21 +166,21 @@ s
                                     <div style="width: 40%;">
                                         <div class="card-body">
                                             <div style="display: flex; justify-content: center;">
-                                                <input type="submit" name="pilihbkm" value="Pilih BKM" class="btn btn-primary">
+                                                <input type="submit" id="btnPilihBKM" name="btnPilihBKM" value="Pilih BKM" class="btn btn-primary">
                                             </div>
                                             <br>
                                             <div class="row" style="display: flex; justify-content: center;">
                                                 <div>
-                                                    <button type="submit" name="proses" class="btn btn-success">PROSES</button>
+                                                    <button type="submit" id="btnProses" name="btnProses" class="btn btn-success">PROSES</button>
                                                 </div>
                                                 <div style="display: flex; justify-content: center;">
-                                                    <input type="submit" name="batal" value="Batal" class="btn btn-danger">
+                                                    <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-danger">
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row" style="display: flex; justify-content: center;">
                                                 <div >
-                                                    <button type="submit" name="tampilbkk" class="btn btn-primary">Tampil BKK</button>
+                                                    <button type="submit" id="btnTampilBKK" name="btnTampilBKK" class="btn btn-primary">Tampil BKK</button>
                                                 </div>
                                                 <div >
                                                     <input type="submit" name="tutup" value="TUTUP" class="btn btn-secondary">
@@ -168,7 +190,6 @@ s
                                     </div>
                                 </div>
                             </form>
-                            <br>
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,10 @@ let radiogrup1 = document.getElementById('radiogrup1');
 
 let dataTable;
 
+const tgl = new Date();
+const formattedDate = tgl.toISOString().substring(0, 10);
+tanggal.value = formattedDate;
+
 //#region untuk ambil LIST BANK BKM
 fetch("/getbank/")
     .then((response) => response.json())

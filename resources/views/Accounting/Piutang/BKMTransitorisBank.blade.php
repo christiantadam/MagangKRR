@@ -319,9 +319,6 @@
                                         <div class="col-md-1" style="padding-left: 30px">
                                             <input type="submit" id="btnTampilBKK" name="btnTampilBKK" value="TampilBKK" class="btn btn-primary d-flex ml-auto">
                                         </div>
-                                        <div class="col-md-1" style="padding-left: 40px">
-                                            <input type="submit" id="btnTutup" name="btnTutup" value="TUTUP" class="btn btn-primary d-flex ml-auto">
-                                        </div>
                                     </div>
                                 </div>
                             </form>

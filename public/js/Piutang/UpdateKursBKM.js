@@ -30,8 +30,14 @@ btnOK.addEventListener('click', function (event) {
                         {
                             title: "Tgl Input", data: "Tgl_Input",
                             render: function (data) {
-                                return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
-                            },
+                                var date = new Date(data);
+                                var formattedDate = date.toLocaleDateString();
+
+                                return `<div>
+                                            <input type="checkbox" name="divisiCheckbox" value="${formattedDate}" />
+                                            <span>${formattedDate}</span>
+                                        </div>`;
+                            }
                         },
                         { title: "Id. BKM", data: "Id_BKM" },
                         { title: "Id. Bank", data: "Id_bank" },

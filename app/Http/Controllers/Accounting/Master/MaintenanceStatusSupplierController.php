@@ -12,20 +12,22 @@ class MaintenanceStatusSupplierController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $maintenanceStatusSupplier = DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_SUPP_NOSTATUS]');
-        //dd($maintenanceStatusSupplier);
-        return view('Accounting.Master.MaintenanceStatusSupplier', compact(['maintenanceStatusSupplier']));
+        $data = 'Accounting';
+        return view('Accounting.Master.MaintenanceStatusSupplier', compact('data'));
     }
 
-    // function getDataMataUang($request)
-    // {
-    //     dd($request->all());
-    //     $idSupplier = $request->idSupplier;
-    //     $status = $request->status;
+    public function getTabel()
+    {
+        // dd("masuk");
+        $tabel =  DB::connection('ConnAccounting')->select('exec [Sp_1273_ACC_LIST_SUPP_NOSTATUS]');
+        return response()->json($tabel);
+    }
 
-    //     $detailstatussupplier =  DB::connection('ConnPurchase')->select('exec [Sp_1273_ACC_UDT_STATUS_YSUPPLIER] @IDSupplier = ?, @Status = ?', [$idSupplier, $status]);
-    //     return response()->json($detailstatussupplier);
-    // }
+    public function getDataMataUang($idSupplier)
+    {
+        $detailstatussupplier =  DB::connection('ConnAccounting')->select('exec [Sp_1273_ACC_LIST_IDSUPP_NOSTATUS] @IDSupplier = ?', [$idSupplier]);
+        return response()->json($detailstatussupplier);
+    }
 
     //Show the form for creating a new resource.
     public function create()

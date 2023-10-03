@@ -37,6 +37,7 @@ Route::resource('MaintenanceMataUang', App\Http\Controllers\Accounting\Master\Ma
 #region Maintenance Status Supplier
 Route::get('detailStatusSupplier/{idSupplier}', 'App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController@getDataMataUang');
 Route::resource('MaintenanceStatusSupplier', App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController::class);
+Route::get('getTabelStatusSupplier', 'App\Http\Controllers\Accounting\Master\MaintenanceStatusSupplierController@getTabel');
 #endregion
 
 #region Maintenance Penagihan
@@ -140,6 +141,8 @@ Route::delete('deletedata/{idBKM}/{alasan}', 'App\Http\Controllers\Accounting\Pi
 Route::resource('BKMBKKPembulatan', App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController::class);
 Route::get('tabeldetailbkmbkk/{bulan}/{tahun}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getTabelPelunasan');
 Route::get('tabeldetbiayabkmbkk/{idBKM}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getTabelDetailBiaya');
+Route::get('getBankPembulatan', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getBankPembulatan');
+Route::get('getJenisBankPembulatan/{idBank}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getJenisBankPembulatan');
 #endregion
 
 #region BKM DP Pelunasan

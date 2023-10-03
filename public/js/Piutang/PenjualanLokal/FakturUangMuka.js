@@ -492,7 +492,7 @@ uangMasuk.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         event.preventDefault();
 
-        if (idJenisCustomer.value == "NPX") {
+        if (idJenisCustomer.value == "PNX") {
             nilaiSblmPPN.value = uangMasuk.value;
             if (Ppn.value == 11) {
                 nilaiPpn.value = uangMasuk.value * 0.11;

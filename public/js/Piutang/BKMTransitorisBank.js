@@ -92,6 +92,18 @@ let tglCetakBKK = document.getElementById('tglCetakBKK');
 let formTampilBKK = document.getElementById('formTampilBKK');
 let methodTampilBKK = document.getElementById('methodTampilBKK');
 
+const tgl = new Date();
+const formattedDate = tgl.toISOString().substring(0, 10);
+tanggal.value = formattedDate;
+
+const tglbkm = new Date();
+const formattedDate2 = tglbkm.toISOString().substring(0, 10);
+tanggalBKM.value = formattedDate2;
+
+const tgljatuhtempo = new Date();
+const formattedDate3 = tgljatuhtempo.toISOString().substring(0, 10);
+jatuhTempo.value = formattedDate3;
+
 btnBatal.addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -950,6 +962,14 @@ btnTampilBKM.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
+
+    const tglbkm = new Date();
+    const formattedDate4 = tglbkm.toISOString().substring(0, 10);
+    tanggalInputTampilBKM.value = formattedDate4;
+
+    const tglbkm2 = new Date();
+    const formattedDate5 = tglbkm2.toISOString().substring(0, 10);
+    tanggalInputTampilBKM2.value = formattedDate5;
 });
 
 btnOkTampilBKM.addEventListener('click', function(event) {
@@ -964,8 +984,14 @@ btnOkTampilBKM.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
@@ -1009,6 +1035,14 @@ btnTampilBKK.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKK = $("#modalTampilBKK");
     modalTampilBKK.modal('show');
+
+    const tglbkk = new Date();
+    const formattedDate4 = tglbkk.toISOString().substring(0, 10);
+    tanggalInputTampilBKK.value = formattedDate4;
+
+    const tglbkk2 = new Date();
+    const formattedDate5 = tglbkk2.toISOString().substring(0, 10);
+    tanggalInputTampilBKK2.value = formattedDate5;
 });
 
 btnOkTampilBKK.addEventListener('click', function(event) {
@@ -1023,8 +1057,14 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKK", data: "Id_BKK" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },

@@ -20,7 +20,7 @@
                                 <div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="radio" name="radiogrup1" value="besar" id="kasBesar">
+                                            <input type="radio" name="radiogrup1" value="besar" id="kasBesar" checked>
                                             <label for="kasBesar">Kas Besar</label>
                                         </div>
                                         <div class="col-md-5">

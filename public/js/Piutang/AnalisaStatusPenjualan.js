@@ -33,7 +33,12 @@ btnOk.addEventListener('click', function(event) {
             tabelSuratJalan = $("#tabelSuratJalan").DataTable({
                 data: options,
                 columns: [
-                    { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan" },
+                    { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan",
+                        render: function (data) {
+                            var date = new Date(data);
+                            return date.toLocaleDateString();
+                        }
+                    },
                     { title: "Customer", data: "NamaCust" },
                     { title: "No. Faktur", data: "Id_Penagihan" },
                     { title: "Pembayaran", data: "Jenis_Pembayaran" },
@@ -44,8 +49,6 @@ btnOk.addEventListener('click', function(event) {
                     { title: "BKM", data: "Id_BKM" }
                 ]
             });
-
-
         })
 });
 

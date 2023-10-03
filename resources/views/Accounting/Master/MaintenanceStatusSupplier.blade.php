@@ -30,22 +30,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($maintenanceStatusSupplier as $mss)
-                                        <tr>
-                                            <td><input type="checkbox" class="checkbox-item" data-id-supplier="{{ $mss->NO_SUP }}" data-nama-supplier="{{ $mss->NM_SUP }}" data-id-jenis-supplier="{{ $mss->ID_MATAUANG }}" data-nama-jenis-supplier="{{ $mss->Nama_MataUang }}">{{ $mss->NO_SUP }}</td>
-                                            <td>{{ $mss->NM_SUP }}</td>
-                                            <td>{{ $mss->SALDO_HUTANG }}</td>
-                                            <td>{{ $mss->SALDO_HUTANG_Rp }}</td>
-                                            <td>{{ $mss->Nama_MataUang }}</td>
-                                            <td>{{ $mss->STATUS }}</td>
-                                        </tr>
-                                    @endforeach
                                     </tbody>
                                     </table>
                                 </div>
 
                                 <p><div class="container fluid">
-                                    <p><div class="row" onchange="fillColumns()">
+                                    <p><div class="row">
                                         <div class="col-md-2 ">
                                             <label for="idSupplier">ID/Nm.Supplier</label>
                                         </div>
@@ -56,7 +46,7 @@
                                             <input type="text" name="namaSupplier" id="namaSupplier" class="form-control" style="width: 100%">
                                         </div>
                                         <div>
-                                            <select name="nama_select" id="idMataUang" name="idMataUang" class="form-control">
+                                            <select id="idMataUang" name="idMataUang" class="form-control">
                                                 {{-- <option disabled selected>-- Pilih Id/Nm. Supp --</option>
                                                 @foreach ($maintenanceStatusSupplier as $mss)
                                                 <option value="{{ $mss->NO_SUP }}">{{ $mss->NO_SUP }} | {{ $mss->NM_SUP }}</option>

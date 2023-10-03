@@ -44,48 +44,49 @@ fetch("/getDisplayHeader/")
     });
 });
 
-$("#tabelListHeader tbody").off("click", "tr");
-$("#tabelListHeader tbody").on("click", "tr", function () {
-    let checkSelectedRows = $("#tabelListHeader tbody tr.selected");
+if (tabelListHeader.rows().count() != 0) {
+    $("#tabelListHeader tbody").off("click", "tr");
+    $("#tabelListHeader tbody").on("click", "tr", function () {
+        let checkSelectedRows = $("#tabelListHeader tbody tr.selected");
 
-    if (checkSelectedRows.length > 0) {
-        // Remove "selected" class from previously selected rows
-        checkSelectedRows.removeClass("selected");
-    }
-    $(this).toggleClass("selected");
-    const table = $("#tabelListHeader").DataTable();
-    let selectedRows = table.rows(".selected").data().toArray();
-    console.log(selectedRows[0]);
+        if (checkSelectedRows.length > 0) {
+            // Remove "selected" class from previously selected rows
+            checkSelectedRows.removeClass("selected");
+        }
+        $(this).toggleClass("selected");
+        const table = $("#tabelListHeader").DataTable();
+        let selectedRows = table.rows(".selected").data().toArray();
+        console.log(selectedRows[0]);
 
-    idPenagihan.value = selectedRows[0].Id_Penagihan;
-    fakturPajak.value = selectedRows[0].IdFakturPajak;
-    idMataUang.value = selectedRows[0].Id_MataUang;
-    jenisCustomer.value = selectedRows[0].JnsCust;
-    namaNPWP.value = selectedRows[0].NamaNPWP;
-    idCustomer.value = selectedRows[0].Id_Customer;
-    nilaiTagihan.value = selectedRows[0].Nilai_Penagihan;
-    kurs.value = selectedRows[0].NilaiKurs;
+        idPenagihan.value = selectedRows[0].Id_Penagihan;
+        fakturPajak.value = selectedRows[0].IdFakturPajak;
+        idMataUang.value = selectedRows[0].Id_MataUang;
+        jenisCustomer.value = selectedRows[0].JnsCust;
+        namaNPWP.value = selectedRows[0].NamaNPWP;
+        idCustomer.value = selectedRows[0].Id_Customer;
+        nilaiTagihan.value = selectedRows[0].Nilai_Penagihan;
+        kurs.value = selectedRows[0].NilaiKurs;
 
-    id_Penagihan.value = idPenagihan.value.replace(/\//g, '.');
+        id_Penagihan.value = idPenagihan.value.replace(/\//g, '.');
 
-    fetch("/getDisplayDetail/" + id_Penagihan.value)
-    .then((response) => response.json())
-    .then((options) => {
-        console.log(options);
+        fetch("/getDisplayDetail/" + id_Penagihan.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
 
-        surat = options[0].Tgl_Surat_jalan;
-        // let sp = options[0].Surat_Jalan;
+            surat = options[0].Tgl_Surat_jalan;
+            // let sp = options[0].Surat_Jalan;
 
-        tabelDisplayDetail = $("#tabelDisplayDetail").DataTable({
-            data: options,
-            columns: [
-                { title: "Surat Jalan", data: "Surat_Jalan" },
-                { title: "Tanggal Terima Barang", data: "Tgl_Surat_jalan" }
-            ]
+            tabelDisplayDetail = $("#tabelDisplayDetail").DataTable({
+                data: options,
+                columns: [
+                    { title: "Surat Jalan", data: "Surat_Jalan" },
+                    { title: "Tanggal Terima Barang", data: "Tgl_Surat_jalan" }
+                ]
+            });
         });
-
     });
-});
+}
 
 btnProses.addEventListener('click', function(event) {
     event.preventDefault();

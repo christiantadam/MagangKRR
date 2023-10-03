@@ -62,7 +62,6 @@ let formTampilBKM = document.getElementById("formTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let modalTampilBKM = document.getElementById("modalTampilBKM")
 
-
 btnTutupModal.addEventListener('click', function(event) {
     event.preventDefault();
     $('#pilihBank').modal('hide')
@@ -79,10 +78,17 @@ btnOK.addEventListener('click', function (event) {
                     data: options,
                     columns: [
                         {
-                            title: "Tgl Pelunasan", data: "Tgl_Pelunasan",
+                            title: "Tgl. Pelunasan",
+                            data: "Tgl_Pelunasan",
                             render: function (data) {
-                                return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
-                            },
+                                var date = new Date(data);
+                                var formattedDate = date.toLocaleDateString();
+
+                                return `<div>
+                                            <input type="checkbox" name="divisiCheckbox" value="${formattedDate}" />
+                                            <span>${formattedDate}</span>
+                                        </div>`;
+                            }
                         },
                         { title: "Id. Pelunasan", data: "Id_Pelunasan" },
                         { title: "Id. Bank", data: "Id_bank" },

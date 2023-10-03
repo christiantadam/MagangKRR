@@ -17,6 +17,13 @@ let idCustomer = document.getElementById('idCustomer');
 let radiogrup2 = document.getElementById('radiogrup2');
 let radiobtn = document.getElementsByName('radiogrup2');
 
+const tgl = new Date();
+const formattedDate = tgl.toISOString().substring(0, 10);
+tanggal.value = formattedDate;
+
+const tgl2 = new Date();
+const formattedDate2 = tgl2.toISOString().substring(0, 10);
+tanggal2.value = formattedDate2;
 
 fetch("/detailcustomer/")
     .then((response) => response.json())

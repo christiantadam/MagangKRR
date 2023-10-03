@@ -70,7 +70,7 @@ class CreateBKMController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $idBKMNew = $request->idBKMNew;
         $tglInputNew = $request->tglInputNew;
         $userInput = $request->userInput;

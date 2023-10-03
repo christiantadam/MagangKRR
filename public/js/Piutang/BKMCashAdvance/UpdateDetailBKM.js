@@ -69,6 +69,14 @@ btnTampilBKM.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
+
+    const tglTampilBKM = new Date();
+    const formattedDate3 = tglTampilBKM.toISOString().substring(0, 10);
+    tanggalInputTampil.value = formattedDate3;
+
+    const tglTampilBKM2 = new Date();
+    const formattedDate4 = tglTampilBKM2.toISOString().substring(0, 10);
+    tanggalInputTampil2.value = formattedDate4;
 });
 
 btnOkTampil.addEventListener('click', function(event) {
@@ -83,8 +91,14 @@ btnOkTampil.addEventListener('click', function(event) {
                     {
                         title: "Tgl. Input", data: "Tgl_Input",
                         render: function (data) {
-                            return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
-                        },
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
                     { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
@@ -149,7 +163,12 @@ $("#tabelDataPelunasan tbody").on("click", "input[type='checkbox']", function (e
                             { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                             { title: "Customer", data: "NamaCust" },
                             { title: "Id. Detail", data: "ID_Detail_Pelunasan" },
-                            { title: "Tgl Penagihan", data: "Tgl_Penagihan" },
+                            { title: "Tgl Penagihan", data: "Tgl_Penagihan",
+                                render: function (data) {
+                                    var date = new Date(data);
+                                    return date.toLocaleDateString();
+                                }
+                            },
                             { title: "Id. Pelunasan", data: "ID_Pelunasan" }
                         ],
                     });
@@ -511,11 +530,22 @@ function initializeDataTable(data) {
             {
                 title: "Tgl Input", data: "Tgl_Input",
                 render: function (data) {
-                    return `<input type="checkbox" name="divisiCheckbox" value="${data}" /> ${data}`;
-                },
+                    var date = new Date(data);
+                    var formattedDate = date.toLocaleDateString();
+
+                    return `<div>
+                                <input type="checkbox" name="divisiCheckbox" value="${formattedDate}" />
+                                <span>${formattedDate}</span>
+                            </div>`;
+                }
             },
             { title: "Id. BKM", data: "Id_BKM" },
-            { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan" },
+            { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan",
+                render: function (data) {
+                    var date = new Date(data);
+                    return date.toLocaleDateString();
+                }
+            },
             { title: "Id. Pelunasan", data: "Id_Pelunasan" },
             { title: "Id. Bank", data: "Id_bank" },
             { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
