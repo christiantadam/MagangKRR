@@ -1,19 +1,19 @@
- // Mengambil semua elemen input tanggal
- const inputTanggalElements = document.querySelectorAll('input[type="date"]');
+// Mengambil semua elemen input tanggal
+const inputTanggalElements = document.querySelectorAll('input[type="date"]');
 
- // Mengatur nilai awal input tanggal ke tanggal hari ini
- const tanggalHariIni = new Date().toISOString().slice(0, 10);
- inputTanggalElements.forEach(function(inputElement) {
-     inputElement.value = tanggalHariIni;
- });
+// Mengatur nilai awal input tanggal ke tanggal hari ini
+const tanggalHariIni = new Date().toISOString().slice(0, 10);
+inputTanggalElements.forEach(function (inputElement) {
+    inputElement.value = tanggalHariIni;
+});
 
- // Mengizinkan pengguna untuk mengubah tanggal secara manual
- inputTanggalElements.forEach(function(inputElement) {
-     inputElement.addEventListener('change', function() {
-         // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
-         // Contoh: const tanggalYangDiubah = inputElement.value;
-     });
- });
+// Mengizinkan pengguna untuk mengubah tanggal secara manual
+inputTanggalElements.forEach(function (inputElement) {
+    inputElement.addEventListener('change', function () {
+        // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
+        // Contoh: const tanggalYangDiubah = inputElement.value;
+    });
+});
 
 //--------------------------------------------------------------------------------------//
 
@@ -34,10 +34,10 @@
 //       });
 //   });
 
-  //--------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------//
 
 // // Click event handler for table customer
-$('#tbl_customer tbody').on('click', 'tr', function() {
+$('#tbl_customer tbody').on('click', 'tr', function () {
     // Get the data from the clicked row
     var idcust = $(this).data('idcust');
     var namacust = $(this).data('namacust');
@@ -59,13 +59,97 @@ $('#tbl_srtpsn tbody').on('click', 'tr', function () {
     var rowData = $("#tbl_srtpsn").DataTable().row(this).data();
     $('#idsurat').val(rowData[0]);
     $('#qty_ordr').val(rowData[1]);
+    var NoSP = document.getElementById('idsurat').value;
+    fetch("/MaintOrder/" + NoSP + ".dataSrtPsn2")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                $('#no_psn').val(item.IdPesanan);
+                $('#qty_ordr').val(item.Qty);
+                var IDPESANAN = document.getElementById('no_psn').value;
+                fetch("/MaintOrder/" + IDPESANAN + ".dataJmlhPress")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+
+                        // Loop through the data and create table rows
+                        data.forEach((item) => {
+                            $('#qty_prs').val(item.Hasil);
+                        });
+
+                        // Redraw the table to show the changes
+
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+                console.log();
+
+
+            });
+
+            // Redraw the table to show the changes
+
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+    // var idbrng = $(this).data('idbrng');
+    // console.log(GrupMesinOrder);
+    // Populate the form fields with the data
+
 });
 
 // // Click event handler for table no order kerja
-$('#tbl_noordkrj tbody').on('click', 'tr', function() {
+$('#tbl_noordkrj tbody').on('click', 'tr', function () {
     // Get the data from the clicked row
     var rowData = $("#tbl_noordkrj").DataTable().row(this).data();
     $('#inputNoOrder').val(rowData[1]);
+});
+
+// // Click event handler for table stock order sebelumnya
+$('#tbl_stkordsblm tbody').on('click', 'tr', function () {
+    // Get the data from the clicked row
+    var rowData = $("#tbl_stkordsblm").DataTable().row(this).data();
+    $('#inputtnglstpordprs').val(rowData[1]);
+    $('#inputidstpordprs').val(rowData[0]);
+    var KD_BRG = document.getElementById('kd_brng').value;
+    var nosp = document.getElementById('inputidstpordprs').value;
+    var tglorder = document.getElementById('inputtnglstpordprs').value;
+    var parts = tglorder.split("/");
+    var newtgl = parts[2] + '-' + parts[0] + '-' + parts[1]
+    console.log();
+    fetch("/MaintOrder/" + KD_BRG + "." + nosp + "." + newtgl + ".datasisastok")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                $('#sisa_stock').val(item.bufferstok);
+            });
+
+            // Redraw the table to show the changes
+
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
 });
 
 //--------------------------------------------------------------------------------------//
@@ -109,7 +193,7 @@ const ld_srtpsn = document.getElementById('ld_srtpsn')
 ld_srtpsn.addEventListener("click", function () {
     var kd_brng = document.getElementById('kd_brng');
     var idcust = document.getElementById('idcust');
-    fetch("/MaintOrder/" + idcust.value +"."+ kd_brng.value + ".dataSrtPsn")
+    fetch("/MaintOrder/" + idcust.value + "." + kd_brng.value + ".dataSrtPsn")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -183,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // var ld_transaksi = document.getElementById("ld-transaksi");
     var btn_inputNoOrder = document.getElementById("btn_inputNoOrder");
 
-
     function toggleInputEditing(enable) {
         inputElements.forEach(function (input) {
             input.readOnly = !enable;
@@ -218,6 +301,7 @@ document.addEventListener("DOMContentLoaded", function () {
             updateButton.style.display = "block";
             cancelButton.style.display = "none";
             deleteButton.disabled = false; // Enable the Delete button
+            btn_inputNoOrder.disabled = false;
             // Reset form values if needed
         }
     });
@@ -269,33 +353,32 @@ document.addEventListener("DOMContentLoaded", function () {
     saveButton.addEventListener("click", function () {
 
         // toggleInputEditing(false);
-        // var Tanggal = document.getElementById('tanggal').value;
+        // var Tgl_Order = document.getElementById('tgl-order').value;
         // var kode = 1;
-        // var IDLOG = document.getElementById('no-transaksi').value;
-        // var No_Order = document.getElementById('noorder').value;
-        // var IDMESIN = document.getElementById('kdmesin').value;
-        // var selectElement = document.getElementById("grup-pelaksana-dropdown");
-        // var selectedOption = selectElement.options[selectElement.selectedIndex];
-        // var Group = selectedOption.textContent;
-        // var AWALSHIFT = document.getElementById('jammulai').value;
-        // var AKHIRSHIFT = document.getElementById('jamakhir').value;
-        // var JMLPRIMER = document.getElementById('jml-ball').value;
-        // var JMLSEKUNDER = document.getElementById('no-transaksi').value;
-        // var JMLTRITIER = document.getElementById('jml-lembar').value;
+        // var No_Order = document.getElementById('inputNoOrder').value;
+        // var No_Sp = document.getElementById('idsurat').value;
+        // var Kd_Brg = document.getElementById("kd_brng");
+        // // var selectedOption = selectElement.options[selectElement.selectedIndex];
+        // // var Group = selectedOption.textContent;
+        // var Jml_Order = document.getElementById('qty_ordr').value;
+        // var A_Order = document.getElementById('hasil').value;
+        // var R_Tgl_Start = document.getElementById('tanggalstart').value;
+        // var R_Tgl_Finish = document.getElementById('tanggalfinish').value;
+        // var IdPesanan = document.getElementById('no_psn').value;
 
 
         // if (kodeSave == 1) {
         //     let data = {
-        //         Tanggal: Tanggal,
+        //         Tgl_Order: Tgl_Order,
         //         kode: kodeSave,
         //         No_Order: No_Order,
-        //         IDMESIN: IDMESIN,
-        //         Group: Group,
-        //         AWALSHIFT: AWALSHIFT,
-        //         AKHIRSHIFT: AKHIRSHIFT,
-        //         JMLPRIMER: JMLPRIMER,
-        //         JMLSEKUNDER: JMLSEKUNDER,
-        //         JMLTRITIER: JMLTRITIER,
+        //         No_Sp: No_Sp,
+        //         Kd_Brg: Kd_Brg,
+        //         Jml_Order: Jml_Order,
+        //         A_Order: A_Order,
+        //         R_Tgl_Start: R_Tgl_Start,
+        //         R_Tgl_Finish: R_Tgl_Finish,
+        //         IdPesanan: IdPesanan,
         //     };
 
 

@@ -1,3 +1,40 @@
+var a=0
+const btn_noorder = document.getElementById('btn_noorder')
+btn_noorder.addEventListener("click", function () {
+    var Kode=""
+    if (a==1) {
+        Kode = 3
+    }
+    else if (a==2) {
+        Kode = 1
+    } else
+    fetch("/Schedule/" + Kode + ".dataOrder")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#tabel_noorder").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.NAMA_BRG, item.No_Order];
+                $("#tabel_noorder").DataTable().row.add(row);
+            });
+
+            // Redraw the table to show the changes
+            $("#tabel_noorder").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+});
+
 const IdDiv = document.getElementById("IdDivisi").value;
 var modal = document.getElementById("myModal1");
 fetch("/Schedule/" + IdDiv + ".getKelut")

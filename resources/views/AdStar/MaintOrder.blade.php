@@ -17,7 +17,7 @@
                     <div class="input-group mb-3">
                         <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
                         <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" disabled>
+                        <button type="button" id="btncustomer" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" disabled>
                             ...
                         </button>
                     </div>
@@ -40,8 +40,7 @@
                 <div class="col-lg-2">
                     <input type="number" id="no_psn" class="" required min="0" placeholder="lbr" readonly>
                 </div>
-            </div>
-            <div class="row mt-3">
+
                 <div class="col-lg-2 aligned-text">Surat Pesanan:</div>
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
@@ -90,8 +89,8 @@
                 <div class="col-lg-2 aligned-text">Stock Order Sebelumnya:</div>
                 <div class="col-lg-5">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="" aria-label="" readonly>
-                        <input type="text" class="form-control" placeholder="" aria-label="" readonly>
+                        <input type="text" id="inputtnglstpordprs" class="form-control" placeholder="" aria-label="" readonly>
+                        <input type="text" id="inputidstpordprs" class="form-control" placeholder="" aria-label="" readonly>
                         <button type="button" id='id-stkordsblm' class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_stkordsblm" disabled>
                             ...
                         </button>
@@ -101,7 +100,7 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Sisa Stock:</div>
                 <div class="col-lg-2">
-                    <input type="number" id="sisa-stock" class="input-small" required min="0" placeholder="lbr" readonly>
+                    <input type="number" id="sisa_stock" class="input-small" required min="0" placeholder="lbr" readonly>
                 </div>
             </div>
             <div class="row mt-3">
@@ -113,13 +112,13 @@
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Tanggal Dikerjakan:</div>
                 <div class="col-lg-2">
-                    <input type="date" id="tanggal" class="form-control" required readonly>
+                    <input type="date" id="tanggalstart" class="form-control" required readonly>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-2 aligned-text">Tanggal Finish:</div>
                 <div class="col-lg-2">
-                    <input type="date" id="tanggal" class="form-control" required readonly>
+                    <input type="date" id="tanggalfinish" class="form-control" required readonly>
                 </div>
             </div>
         </div>

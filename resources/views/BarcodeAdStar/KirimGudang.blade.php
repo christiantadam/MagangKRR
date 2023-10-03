@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group col-md-9 mt-3 mt-md-0">
                         <input type="text" class="form-control" name="No_sp" id="No_sp" placeholder="No SP" required>
-                        <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                        <div class="text-center col-md-auto"><button id="btn_nosp" type="submit" data-bs-target="#mdl_nosp">...</button></div>
                     </div>
                 </div>
 
@@ -76,6 +76,39 @@
         </div>
     </div>
 </div>
+</div>
+
+<!-- Modal customer tujuan-->
+<div class="modal fade" id="mdl_nosp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_nosp" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No. SP</th>
+                        <th>Jenis Barang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($dataCust2 as $data)
+                    <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCust }}">
+                        <td>{{ $data->NAMACUST }}</td>
+                        <td>{{ $data->IDCust }}</td>
+                    </tr>
+                @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
 </div>
 
 <script src="{{ asset('js\AdStar\KirimGudang.js')}}"></script>

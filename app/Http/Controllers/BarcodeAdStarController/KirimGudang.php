@@ -38,9 +38,17 @@ class KirimGudang extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+
+        //getDivisi
+        ($crExplode[$lasindex] == "getSP") {
+            $dataSP = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekDataSP @kode = ?, @KodeBarang = ?', ["2", $crExplode[0]]);
+            // dd($dataSP);
+            // Return the options as JSON data
+            return response()->json($dataSP);
     }
 
     /**
