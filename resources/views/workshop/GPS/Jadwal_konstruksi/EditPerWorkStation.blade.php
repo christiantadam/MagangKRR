@@ -13,22 +13,34 @@
                 <div class="col-6">
                   {{-- width: 110vh;
                         height: 7vh; --}}
-                  <label for="WorkStation" class="form-label">Work Station</label><br>
-                  <select class="form-select" name="WorkStation" style="width: 36vh;
-                  height: 5vh;">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                  <br>
-                  <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
                   <div class="row">
-                    <div class="col-6">
-                        <input type="Date" class="form-control" name="tgl">
+                    <div class="col-4">
+                      <label for="WorkStation" class="form-label">Work Station</label><br>
                     </div>
                     <div class="col-6">
-                        <a href="" class="btn btn-primary">OK</a>
+                      <select class="custom-select" name="WorkStation"
+                        style="width: 36vh;
+                          height: 5vh;" id="WorkStation">
+                        <option disabled selected>Pilih Work Station</option>
+                        @foreach ($data as $d)
+                          <option value="{{ $d->NoWrkSts }}">{{ $d->NoWrkSts }} -- {{ $d->NamaWorkStation }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top: 1%">
+                    <div class="col-4">
+                      <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
+                    </div>
+                    <div class="col-6">
+                      <div class="row">
+                        <div class="col-8">
+                          <input type="Date" class="form-control" name="tgl" id="tgl">
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-light" id="btnok" disabled>OK</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -39,7 +51,7 @@
                   <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
                 </div>
               </div>
-              <table class="table" style="padding-top: 15px">
+              <table class="table" style="padding-top: 15px" id="TableEditPerWorkstation">
                 <thead class="table-dark">
                   <tr>
                     <th>Nomor</th>
@@ -53,24 +65,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>wdwadw</td>
-                    <td>wdawdawd</td>
-                    <td>wdawdawd</td>
-                    <td>wdawd</td>
-                    <td>wadawdaw</td>
-                  </tr>
                 </tbody>
               </table>
               <div class="mb-3">
                 <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
               </div>
               <div class="mb-3">
-                <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
-                <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
+                <div class="row">
+                  <div class="col-6">
+                    <button type="button" class="btn btn-light" id="refresh">Refresh</button>
+                  </div>
+                  <div class="col-6" style="text-align-last: right;">
+                    <button type="button" class="btn btn-primary" id="proses">Proses</button>
+                    <button type="button" class="btn btn-danger" id="batal" style="display: none">Batal</button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -78,5 +87,5 @@
       </div>
     </div>
   </div>
-  </div>
+  <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/EditJadwaLPerWorkStation.js') }}"></script>
 @endsection
