@@ -174,6 +174,11 @@ $(document).ready(function () {
         // Mengatur tombol menjadi tidak dapat diakses (disabled)
         ButtonPrintBarcode.disabled = true;
 
+        var getBarcodePrintUlang = document.getElementById('BarcodeInput');
+        var str = getBarcodePrintUlang.value
+        var parts = str.split("-");
+        console.log(parts);
+
         // Lakukan operasi pencetakan barcode
         var idtype = '0016';
         var tanggal = document.getElementById('tanggalOutput').value;
@@ -182,14 +187,14 @@ $(document).ready(function () {
         var tritier = document.getElementById('tritier').value;
         var UserID = 'U001';
         var asalidsubkelompok = 'SKL01';
-        var kodebarang = '00000KB02';
+        var kodebarang = parts[0];
         var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = '00000KB02';
+        var idsubkontraktor = parts[0];
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/BuatBarcode/" + idtype + UserID + tanggal +
-            primer + sekunder + tritier + asalidsubkelompok +
-            idsubkontraktor + kodebarang + uraian + ".buatBarcode")
+        fetch("/PaletJadiBal/" + idtype + "." + UserID + "." + tanggal + "." +
+            primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
+            idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

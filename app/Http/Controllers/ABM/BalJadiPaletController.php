@@ -53,20 +53,22 @@ class BalJadiPaletController extends Controller
                 @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?,
                 @uraian = ?, @noindeks = ?, @hasil = ?',
                 [
-                    "0016",
-                    "U001",
-                    "2023-10-3",
-                    "1",
-                    "10",
-                    "12",
-                    "SKL01",
-                    "00000KB02",
-                    "00000KB02",
-                    "Pagi",
+                    $crExplode[0],
+                    $crExplode[1],
+                    $crExplode[2],
+                    $crExplode[3],
+                    $crExplode[4],
+                    $crExplode[5],
+                    $crExplode[6],
+                    $crExplode[7],
+                    $crExplode[8],
+                    $crExplode[9],
                     " ",
                     " "
                 ]
             );
+            // dd($dataBarcode);
+            return response()->json($dataBarcode);
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')
                 ->table('Dispresiasi')

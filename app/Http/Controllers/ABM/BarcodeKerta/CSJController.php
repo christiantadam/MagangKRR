@@ -45,15 +45,24 @@ class CSJController extends Controller
             // dd($dataKirimKRR);
             // Return the options as JSON data
             return response()->json($dataKirimKRR);
+        } else if ($crExplode[$lasindex] == "getListSJ2") {
+            $dataKirimKRR = DB::connection('ConnInventory')->select('exec SP_1273_INV_DataKirim_KRR @Divisi = ?, @NoSJ = ?, @Tanggal = ?', ["ADR", $crExplode[0], $crExplode[1]]);
+            // dd($dataKirimKRR);
+            // Return the options as JSON data
+            return response()->json($dataKirimKRR);
+        } else if ($crExplode[$lasindex] == "getListSJ3") {
+            $dataKirimKRR = DB::connection('ConnInventory')->select('exec SP_1273_INV_DataKirim_KRR @Divisi = ?, @NoSJ = ?, @Tanggal = ?', ["WBR", $crExplode[0], $crExplode[1]]);
+            // dd($dataKirimKRR);
+            // Return the options as JSON data
+            return response()->json($dataKirimKRR);
         } else if ($crExplode[$lasindex] == "getCetak") {
             $dataPrint = DB::connection('ConnInventory')->table('VW_BCD_1273_KIRIMKRR')
-            // ->where('Tanggal',$crExplode[0])
-            ->get();
+                // ->where('Tanggal',$crExplode[0])
+                ->get();
             // dd($dataPrint);
             // dd($dataPegawai);
             return response()->json($dataPrint);
         }
-
     }
 
     // Show the form for editing the specified resource.

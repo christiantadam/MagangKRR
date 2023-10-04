@@ -196,60 +196,46 @@ $(document).ready(function () {
     // });
 
     var ButtonPrintBarcode = document.getElementById('ButtonPrintBarcode');
-ButtonPrintBarcode.addEventListener("click", function (event) {
-    // Mengatur tombol menjadi tidak dapat diakses (disabled)
-    ButtonPrintBarcode.disabled = true;
+    ButtonPrintBarcode.addEventListener("click", function (event) {
+        // Mengatur tombol menjadi tidak dapat diakses (disabled)
+        ButtonPrintBarcode.disabled = true;
 
-    // Mendapatkan tanggal paling baru setiap hari
-    var currentDate = new Date();
-    var year = currentDate.getFullYear();
-    var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    var day = currentDate.getDate().toString().padStart(2, '0');
-    var tanggal = year + '-' + month + '-' + day;
+        // Mendapatkan tanggal paling baru setiap hari
+        var currentDate = new Date();
+        var year = currentDate.getFullYear();
+        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        var day = currentDate.getDate().toString().padStart(2, '0');
+        var tanggalSekarang = year + '-' + month + '-' + day;
 
-    // Lakukan operasi pencetakan barcode
-    var idtype = document.getElementById('IdType').value;
-    var primer = document.getElementById('primer').value;
-    var sekunder = document.getElementById('sekunder').value;
-    var tritier = document.getElementById('tritier').value;
-    var UserID = 'U001';
-    var asalidsubkelompok = 'SKL01';
-    var kodebarang = '00000KB02';
-    var uraian = document.getElementById('shiftInput').value;
-    var idsubkontraktor = '00000KB02';
+        var getBarcodePrintUlang = document.getElementById('BarcodeInput');
+        var str = getBarcodePrintUlang.value
+        var parts = str.split("-");
+        console.log(parts);
 
-    // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-    fetch("/ABM/BalJadiPalet/" + idtype + UserID + tanggal +
-            primer + sekunder + tritier + asalidsubkelompok +
-            idsubkontraktor + kodebarang + uraian + ".buatBarcode")
-        .then((response) => {
-            console.log("Response Status:", response.status);
+        // Lakukan operasi pencetakan barcode
+        var idtype = document.getElementById('IdType').value;
+        var UserID = 'U001';
+        var tanggal = tanggalSekarang
+        var primer = document.getElementById('primer').value;
+        var sekunder = document.getElementById('sekunder').value;
+        var tritier = document.getElementById('tritier').value;
+        var asalidsubkelompok = 'SKL01';
+        var idsubkontraktor = parts[0];
+        var kodebarang = parts[0];
+        var uraian = document.getElementById('shiftInput').value;
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-
-            // Check for empty response
-            if (response.status === 204 || response.headers.get('content-length') === '0') {
-                console.error("Empty response received");
-                alert("Empty response received. Check server logs for details.");
-                return null;
-            }
-
-            return response.json();
-        })
-        .then((data) => {
-            console.log("Data:", data);
-
-            if (data === null) {
-                // Handle empty response
-                console.error("Empty response data");
-                alert("Empty response data. Check server logs for details.");
-                return;
-            }
-
-            try {
-                // Attempt to parse the JSON response
+        // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+        fetch("/BalJadiPalet/" + idtype + "." + UserID + "." + tanggal + "." +
+            primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
+            idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
                 if (data === true) {
                     // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
                     console.log("Barcode berhasil dibuat.");
@@ -261,42 +247,28 @@ ButtonPrintBarcode.addEventListener("click", function (event) {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
                             }
-
                             return response.json();
                         })
                         .then((data) => {
                             // Handle data yang diterima dari fetch kedua di sini
                             console.log("Data dari fetch kedua:", data);
-
-                            if (data.NoIndeks) {
-                                var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
-                                console.log(kodebarcode);
-                                // Show an alert for each 'kodebarang'
-                                alert('Kode Barang: ' + kodebarcode);
-                            } else {
-                                console.error("NoIndeks not found in the response");
-                                alert("NoIndeks not found in the response. Check server logs for details.");
-                            }
+                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                            console.log(kodebarcode);
+                            // Show an alert for each 'kodebarang'
+                            alert('Kode Barang: ' + kodebarcode);
                         })
                         .catch((error) => {
                             console.error("Error dalam fetch kedua:", error);
-                            alert("Error in second fetch. Check server logs for details.");
                         });
                 } else {
                     console.error("Unexpected response data:", data);
                     // Handle other unexpected responses here
-                    alert("Unexpected response data. Check server logs for details.");
                 }
-            } catch (jsonError) {
-                console.error("Error parsing JSON response:", jsonError);
-                alert("Error parsing JSON response. Check server logs for details.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("Error. Check console logs and server logs for details.");
-        });
-});
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
 });
 
 function openModal() {

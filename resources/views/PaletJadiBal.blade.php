@@ -217,8 +217,7 @@
                                                             </div>
                                                             <div class="text-center col-md-auto"
                                                                 style="margin-top: 15px; margin-left:350px;"><button
-                                                                    style="width: 100px; height: 50px"
-                                                                    onclick="prosesACCBarcode()"
+                                                                    style="width: 100px; height: 50px" onclick="prosesACCBarcode()"
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal4()"><button
@@ -231,8 +230,8 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="PrintUlangData()" style="width:180px; height: 50px">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button" onclick="PrintUlangData()"
+                                                    style="width:180px; height: 50px">Print
                                                     Ulang</button>
                                             </div>
                                         </div>
@@ -316,7 +315,7 @@
                                                         <label for="text" class="aligned-text">Jumlah
                                                             Barcode:</label>
                                                         <div class="textarea-container">
-                                                            <textarea class="form-control text-center" name="text" rows="5" id="JumlahBarcode" readonly>
+                                                            <textarea class="form-control text-center" name="text" rows="5" id="JumlahBarcode" readonly value="0">
                                                                 </textarea>
                                                         </div>
                                                     </div>
