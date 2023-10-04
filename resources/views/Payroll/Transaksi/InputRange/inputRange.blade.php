@@ -296,6 +296,7 @@
 
                                 </div>
                             </div>
+                            <div id="form-container"></div>
                             <div class="row" style="padding-top: 20px;">
                                 <div class="col-6" style="text-align: left; ">
                                     <button type="button" class="btn " style="" id="tambahButton">Tambah</button>
