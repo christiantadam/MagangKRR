@@ -2,13 +2,15 @@
 @section('content')
 
 <link href="{{ asset('css/Barcode/Repress.css') }}" rel="stylesheet">
-<h2>Repress</h2>
+<body onload="Greeting()">
+    <div id="app">
 
-<div class="form-wrapper mt-4">
+
+    <div class="form-wrapper mt-4">
     <div class='form-container2'>
     <div class="card">
     <div class="card-header">FrmRepress</div>
-            <div class="form-wrapper mt-4">
+            <div class="form-wrapper mt-4 ml-4 mr-4">
             <div class="form-container">
             <div class="card">
                         <div class="card-header">Process Awal</div>
@@ -17,32 +19,44 @@
                             <form action="#" method="post" role="form">
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Bon Barang</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('PermohonanPenerimaBarang')}}">
+                                                <button type="button">Bon Barang</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Scan Barcode</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('ScanBarcode')}}">
+                                                <button type="button">Scan Barcode</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="card">
                                     <div class="form-group">
-                                    <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Pilih Jenis Repress</span>
+                                        <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
+                                        <div class="text-center ml-5 mt-3">
+                                            <a href="{{url('PilihJenisRepress')}}">
+                                                <button type="button">Pilih Jenis Repress</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-wrapper mt-4">
+            <div class="form-wrapper mt-4 ml-4 mr-4">
             <div class="form-container">
             <div class="card">
                         <div class="card-header">Buat Barcode</div>
@@ -52,39 +66,72 @@
                                 <div class="card">
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Bal Jadi Balet</span>
+                                    <div class="text-center ml-5 mt-3">
+                                        <a href="{{url('BalJadiPalet')}}">
+                                            <button type="button">Bal Jadi Palet</button>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
 
                                 <div class="card">
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Palet Jadi Bal</span>
+                                    <div class="text-center ml-5 mt-3">
+                                        <a href="{{url('PaletJadiBal')}}">
+                                            <button type="button">Palet Jadi Bal</button>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
 
                                 <div class="card">
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Konversi (Ganti Type)</span>
+                                    <div class="text-center ml-5 mt-3">
+                                        <a href="{{url('Konversi')}}">
+                                            <button type="button">Konversi</button>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
 
                                 <div class="card">
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
-                                        <span class="ml-5">Print Ulang</span>
+                                    <div class="text-center ml-5 mt-3">
+                                        <a href="{{url('PrintUlang')}}">
+                                            <button type="button">Print Ulang</button>
+                                        </a>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+                <div class="row mt-3">
+                    <div class="col- row justify-content-md-center">
+                        <div class="text-center col-md-auto mb-3"><button type="submit">Keluar</button></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown-submenu a.test').on("click", function(e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
 <script src="{{ asset('js\AdStar\Repress.js')}}"></script>
 @endsection

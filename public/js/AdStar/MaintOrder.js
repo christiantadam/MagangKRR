@@ -352,206 +352,208 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add click event listener to the "Save" button
     saveButton.addEventListener("click", function () {
 
-        // toggleInputEditing(false);
-        // var Tgl_Order = document.getElementById('tgl-order').value;
-        // var kode = 1;
-        // var No_Order = document.getElementById('inputNoOrder').value;
-        // var No_Sp = document.getElementById('idsurat').value;
-        // var Kd_Brg = document.getElementById("kd_brng");
-        // // var selectedOption = selectElement.options[selectElement.selectedIndex];
-        // // var Group = selectedOption.textContent;
-        // var Jml_Order = document.getElementById('qty_ordr').value;
-        // var A_Order = document.getElementById('hasil').value;
-        // var R_Tgl_Start = document.getElementById('tanggalstart').value;
-        // var R_Tgl_Finish = document.getElementById('tanggalfinish').value;
-        // var IdPesanan = document.getElementById('no_psn').value;
+        toggleInputEditing(false);
+        var Tgl_Order = document.getElementById('tgl-order').value;
+        var kode = 1;
+        var No_Order = document.getElementById('inputNoOrder').value;
+        var No_Sp = document.getElementById('idsurat').value;
+        var Kd_Brg = document.getElementById("kd_brng");
+        // var selectedOption = selectElement.options[selectElement.selectedIndex];
+        // var Group = selectedOption.textContent;
+        var Jml_Order = document.getElementById('qty_ordr').value;
+        var A_Order = document.getElementById('hasil').value;
+        var R_Tgl_Start = document.getElementById('tanggalstart').value;
+        var R_Tgl_Finish = document.getElementById('tanggalfinish').value;
+        var IdPesanan = document.getElementById('no_psn').value;
+        var BufferStok = document.getElementById('no_psn').value;
 
 
-        // if (kodeSave == 1) {
-        //     let data = {
-        //         Tgl_Order: Tgl_Order,
-        //         kode: kodeSave,
-        //         No_Order: No_Order,
-        //         No_Sp: No_Sp,
-        //         Kd_Brg: Kd_Brg,
-        //         Jml_Order: Jml_Order,
-        //         A_Order: A_Order,
-        //         R_Tgl_Start: R_Tgl_Start,
-        //         R_Tgl_Finish: R_Tgl_Finish,
-        //         IdPesanan: IdPesanan,
-        //     };
+        if (kodeSave == 1) {
+            let data = {
+                Tgl_Order: Tgl_Order,
+                kode: kodeSave,
+                No_Order: No_Order,
+                No_Sp: No_Sp,
+                Kd_Brg: Kd_Brg,
+                Jml_Order: Jml_Order,
+                A_Order: A_Order,
+                R_Tgl_Start: R_Tgl_Start,
+                R_Tgl_Finish: R_Tgl_Finish,
+                IdPesanan: IdPesanan,
+                BufferStok: BufferStok,
+            };
 
 
-        //     console.log(data);
+            console.log(data);
 
-        //     const formContainer = document.getElementById("form-container");
-        //     const form = document.createElement("form");
-        //     form.setAttribute("action", "HslPrdPrs");
-        //     form.setAttribute("method", "POST");
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "HslPrdPrs");
+            form.setAttribute("method", "POST");
 
-        //     // Loop through the data object and add hidden input fields to the form
-        //     for (const key in data) {
-        //         const input = document.createElement("input");
-        //         input.setAttribute("type", "hidden");
-        //         input.setAttribute("name", key);
-        //         input.value = data[key]; // Set the value of the input field to the corresponding data
-        //         form.appendChild(input);
-        //     }
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
 
-        //     formContainer.appendChild(form);
+            formContainer.appendChild(form);
 
-        //     // Add CSRF token input field (assuming the csrfToken is properly fetched)
-        //     let csrfToken = document
-        //         .querySelector('meta[name="csrf-token"]')
-        //         .getAttribute("content");
-        //     let csrfInput = document.createElement("input");
-        //     csrfInput.type = "hidden";
-        //     csrfInput.name = "_token";
-        //     csrfInput.value = csrfToken;
-        //     form.appendChild(csrfInput);
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
 
-        //     // Wrap form submission in a Promise
-        //     function submitForm() {
-        //         return new Promise((resolve, reject) => {
-        //             form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-        //             form.submit();
-        //         });
-        //     }
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
 
-        //     // Call the submitForm function to initiate the form submission
-        //     submitForm()
-        //         .then(() => console.log("Form submitted successfully!"))
-        //         .catch((error) => console.error("Form submission error:", error));
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) => console.error("Form submission error:", error));
 
 
-        // } else if (kodeSave == 2) {
+        } else if (kodeSave == 2) {
 
-        //     let data = {
-        //         Tanggal: Tanggal,
-        //         kode: kodeSave,
-        //         IDLOG: IDLOG,
-        //         No_Order: No_Order,
-        //         IDMESIN: IDMESIN,
-        //         Group: Group,
-        //         AWALSHIFT: AWALSHIFT,
-        //         AKHIRSHIFT: AKHIRSHIFT,
-        //         JMLPRIMER: JMLPRIMER,
-        //         JMLSEKUNDER: JMLSEKUNDER,
-        //         JMLTRITIER: JMLTRITIER,
-        //     };
-        //     console.log(data);
+            let data = {
+                Tgl_Order: Tgl_Order,
+                kode: kodeSave,
+                No_Order: No_Order,
+                No_Sp: No_Sp,
+                Kd_Brg: Kd_Brg,
+                Jml_Order: Jml_Order,
+                A_Order: A_Order,
+                R_Tgl_Start: R_Tgl_Start,
+                R_Tgl_Finish: R_Tgl_Finish,
+                IdPesanan: IdPesanan,
+                BufferStok: BufferStok,
+            };
+            console.log(data);
 
-        //     const formContainer = document.getElementById("form-container");
-        //     const form = document.createElement("form");
-        //     form.setAttribute("action", "HslPrdPrs/{IDLOG}");
-        //     form.setAttribute("method", "POST");
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "HslPrdPrs/{IDLOG}");
+            form.setAttribute("method", "POST");
 
-        //     // Loop through the data object and add hidden input fields to the form
-        //     for (const key in data) {
-        //         const input = document.createElement("input");
-        //         input.setAttribute("type", "hidden");
-        //         input.setAttribute("name", key);
-        //         input.value = data[key]; // Set the value of the input field to the corresponding data
-        //         form.appendChild(input);
-        //     }
-        //     // Create method input with "PUT" Value
-        //     const method = document.createElement("input");
-        //     method.setAttribute("type", "hidden");
-        //     method.setAttribute("name", "_method");
-        //     method.value = "PUT"; // Set the value of the input field to the corresponding data
-        //     form.appendChild(method);
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "PUT"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
 
-        //     // Create input with "Update Keluarga" Value
-        //     const ifUpdate = document.createElement("input");
-        //     ifUpdate.setAttribute("type", "hidden");
-        //     ifUpdate.setAttribute("name", "_ifUpdate");
-        //     ifUpdate.value = "Update Hasil Produksi"; // Set the value of the input field to the corresponding data
-        //     form.appendChild(ifUpdate);
+            // Create input with "Update Keluarga" Value
+            const ifUpdate = document.createElement("input");
+            ifUpdate.setAttribute("type", "hidden");
+            ifUpdate.setAttribute("name", "_ifUpdate");
+            ifUpdate.value = "Update Hasil Produksi"; // Set the value of the input field to the corresponding data
+            form.appendChild(ifUpdate);
 
-        //     formContainer.appendChild(form);
+            formContainer.appendChild(form);
 
-        //     // Add CSRF token input field (assuming the csrfToken is properly fetched)
-        //     let csrfToken = document
-        //         .querySelector('meta[name="csrf-token"]')
-        //         .getAttribute("content");
-        //     let csrfInput = document.createElement("input");
-        //     csrfInput.type = "hidden";
-        //     csrfInput.name = "_token";
-        //     csrfInput.value = csrfToken;
-        //     form.appendChild(csrfInput);
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
 
-        //     // Wrap form submission in a Promise
-        //     function submitForm() {
-        //         return new Promise((resolve, reject) => {
-        //             form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-        //             form.submit();
-        //         });
-        //     }
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
 
-        //     // Call the submitForm function to initiate the form submission
-        //     submitForm()
-        //         .then(() => console.log("Form submitted successfully!"))
-        //         .catch((error) => console.error("Form submission error:", error));
-        // } else if (kodeSave == 3) {
-        //     let data = {
-        //         Tanggal: Tanggal,
-        //         kode: kodeSave,
-        //         IDLOG: IDLOG,
-        //         No_Order: No_Order,
-        //         IDMESIN: IDMESIN,
-        //         Group: Group,
-        //         AWALSHIFT: AWALSHIFT,
-        //         AKHIRSHIFT: AKHIRSHIFT,
-        //         JMLPRIMER: JMLPRIMER,
-        //         JMLSEKUNDER: JMLSEKUNDER,
-        //         JMLTRITIER: JMLTRITIER,
-        //     };
-        //     const formContainer = document.getElementById("form-container");
-        //     const form = document.createElement("form");
-        //     form.setAttribute("action", "HslPrdPrs/{IDLOG}");
-        //     form.setAttribute("method", "POST");
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) => console.error("Form submission error:", error));
+        } else if (kodeSave == 3) {
+            let data = {
+                Tgl_Order: Tgl_Order,
+                kode: kodeSave,
+                No_Order: No_Order,
+                No_Sp: No_Sp,
+                Kd_Brg: Kd_Brg,
+                Jml_Order: Jml_Order,
+                A_Order: A_Order,
+                R_Tgl_Start: R_Tgl_Start,
+                R_Tgl_Finish: R_Tgl_Finish,
+                IdPesanan: IdPesanan,
+                BufferStok: BufferStok,
+            };
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "HslPrdPrs/{IDLOG}");
+            form.setAttribute("method", "POST");
 
-        //     // Loop through the data object and add hidden input fields to the form
-        //     for (const key in data) {
-        //         const input = document.createElement("input");
-        //         input.setAttribute("type", "hidden");
-        //         input.setAttribute("name", key);
-        //         input.value = data[key]; // Set the value of the input field to the corresponding data
-        //         form.appendChild(input);
-        //     }
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
 
-        //     // Create method input with "PUT" Value
-        //     const method = document.createElement("input");
-        //     method.setAttribute("type", "hidden");
-        //     method.setAttribute("name", "_method");
-        //     method.value = "DELETE"; // Set the value of the input field to the corresponding data
-        //     form.appendChild(method);
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "DELETE"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
 
-        //     formContainer.appendChild(form);
+            formContainer.appendChild(form);
 
-        //     // Add CSRF token input field (assuming the csrfToken is properly fetched)
-        //     let csrfToken = document
-        //         .querySelector('meta[name="csrf-token"]')
-        //         .getAttribute("content");
-        //     let csrfInput = document.createElement("input");
-        //     csrfInput.type = "hidden";
-        //     csrfInput.name = "_token";
-        //     csrfInput.value = csrfToken;
-        //     form.appendChild(csrfInput);
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
 
-        //     // Wrap form submission in a Promise
-        //     function submitForm() {
-        //         return new Promise((resolve, reject) => {
-        //             form.onsubmit = resolve; // Resolve the Promise when the form is submitted
-        //             form.submit();
-        //         });
-        //     }
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
 
-        //     // Call the submitForm function to initiate the form submission
-        //     submitForm()
-        //         .then(() => console.log("Form submitted successfully!"))
-        //         .catch((error) => console.error("Form submission error:", error));
-        // }
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) => console.error("Form submission error:", error));
+        }
 
 
         addButton.style.display = "block";

@@ -55,8 +55,8 @@
             <div class="col-lg-2 aligned-text">Product Type :</div>
             <div class="col-lg-5">
                 <div class="input-group mb-3">
-                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
-                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='idprod1' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namaprod1' class="form-control" placeholder="" aria-label="" readonly>
                     <button type="button" id="btnprodtype" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodtype">
                         List Type
                     </button>
@@ -73,9 +73,9 @@
             <div class="col-lg-2 aligned-text">Desing For :</div>
             <div class="col-lg-5">
                 <div class="input-group mb-3">
-                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
-                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
+                    <input type="text" id='idcust2' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namacust2' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer2">
                         ...
                     </button>
                 </div>
@@ -85,9 +85,9 @@
             <div class="col-lg-2 aligned-text">Product Type :</div>
             <div class="col-lg-5">
                 <div class="input-group mb-3">
-                    <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='idprod2' class="form-control" placeholder="" aria-label="" readonly>
                         --
-                    <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namaprod2' class="form-control" placeholder="" aria-label="" readonly>
                 </div>
             </div>
         </div>
@@ -170,12 +170,12 @@
     </div>
 </div>
 
-<!-- Modal customer tujuan-->
-<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+<!-- Modal customer asal-->
+<div class="modal fade" id="mdl_customer2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer2" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <h1 class="modal-title fs-5" id="mdl_customer2">Modal title</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -188,11 +188,11 @@
                 </thead>
                 <tbody>
                     @foreach ($dataCust2 as $data)
-                    <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCust }}">
-                        <td>{{ $data->NAMACUST }}</td>
-                        <td>{{ $data->IDCust }}</td>
-                    </tr>
-                @endforeach
+                        <tr data-NAMACUST="{{ $data->NAMACUST }}" data-IDCust="{{ $data->IDCust }}">
+                            <td>{{ $data->NAMACUST }}</td>
+                            <td>{{ $data->IDCust }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

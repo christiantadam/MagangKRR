@@ -45,3 +45,9 @@ Route::resource('KirimGudang', App\Http\Controllers\BarcodeAdStarController\Kiri
 Route::resource('BatalKirim', App\Http\Controllers\BarcodeAdStarController\BatalKirim::class);
 Route::resource('KonversiGudang', App\Http\Controllers\BarcodeAdStarController\KonversiGudang::class);
 Route::resource('HasilBarcode', App\Http\Controllers\BarcodeAdStarController\HasilBarcode::class);
+
+//route form repress
+Route::resource('BalJadiPalet', App\Http\Controllers\FormRepressController\BalJadiPaletController::class);
+Route::resource('PaletJadiBal', App\Http\Controllers\FormRepressController\PaletJadiBalController::class);
+Route::resource('ScanBarcode', App\Http\Controllers\FormRepressController\ScanBarcodeController::class);
+Route::resource('PilihJenisRepress', App\Http\Controllers\FormRepressController\PilihJenisRepressController::class);

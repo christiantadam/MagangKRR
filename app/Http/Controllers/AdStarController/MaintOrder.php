@@ -28,7 +28,24 @@ class MaintOrder extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tgl_Order'],
+            $data['No_Order'],
+            $data['No_Sp'],
+            $data['Kd_Brg'],
+            $data['Jml_Order'],
+            $data['A_Order'],
+            $data['R_Tgl_Start'],
+            $data['R_Tgl_Finish'],
+            $data['IdPesanan'],
+            $data['BufferStok'],
+            1,
+        ]);
+        return redirect()->route('HasilProd.index')->with('alert', 'Berhasil Tambah Data !');
+
     }
 
     //Display the specified resource.
@@ -97,7 +114,44 @@ class MaintOrder extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tgl_Order'],
+            $data['No_Order'],
+            $data['No_Sp'],
+            $data['Kd_Brg'],
+            $data['Jml_Order'],
+            $data['A_Order'],
+            $data['R_Tgl_Start'],
+            $data['R_Tgl_Finish'],
+            $data['IdPesanan'],
+            $data['BufferStok'],
+            1,
+        ]);
+        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi Updated successfully!');
+    }
+
+    public function destroy(Request $request)
+    {
+        $data = $request->all();
+        // dd('Masuk Destroy', $data);
+        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+            $data['kode'],
+            $data['Tgl_Order'],
+            $data['No_Order'],
+            $data['No_Sp'],
+            $data['Kd_Brg'],
+            $data['Jml_Order'],
+            $data['A_Order'],
+            $data['R_Tgl_Start'],
+            $data['R_Tgl_Finish'],
+            $data['IdPesanan'],
+            $data['BufferStok'],
+            1,
+        ]);
+        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi  berhasil dihapus!');
     }
 
     //Remove the specified resource from storage.
