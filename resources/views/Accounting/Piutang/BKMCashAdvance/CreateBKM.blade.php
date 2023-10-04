@@ -36,7 +36,7 @@
                                     <div class="col-md-2">
                                         <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM" class="btn">
                                     </div>
-                                    <input type="hidden" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
+                                    <input type="text" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
                                     <input type="hidden" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
                                 </div>
 
@@ -83,6 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                 <input type="hidden" id="total1" name="total1" class="form-control" style="width: 100%">
 
                                 <!--MODAL INPUT TANGGAL BKM-->
@@ -130,16 +131,13 @@
                                                     </div>
                                                     <div class="d-flex">
                                                         <div class="col-md-3">
-                                                            <label for="bankSelect"
-                                                                style="margin-right: 10px;">Bank</label>
+                                                            <label for="bankSelect" style="margin-right: 10px;">Bank</label>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <input type="text" id="idBank" name="idBank"
-                                                                class="form-control" style="width: 100%">
+                                                            <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
                                                         </div>
                                                         <div class="col-md-7">
-                                                            <select name="namaBankSelect" id="namaBankSelect"
-                                                                class="form-control">
+                                                            <select name="namaBankSelect" id="namaBankSelect" class="form-control">
 
                                                             </select>
                                                         </div>

@@ -10,15 +10,60 @@ let btnOK = document.getElementById("btnOK");
 let dataTable;
 let dataTable2;
 let namaBankSelect = document.getElementById('namaBankSelect');
-let idBank = document.getElementById('idBank');
-let jenisBank = document.getElementById('jenisBank');
 let jumlahUang = document.getElementById('jumlahUang');
 
+//HIDDEN
+let idBank = document.getElementById('idBank');
+let jenisBank = document.getElementById('jenisBank');
+let konversi = document.getElementById('konversi');
+let idBKM = document.getElementById('idBKM');
+let id_bkk = document.getElementById('id_bkk');
+
 let btnPilihBKM = document.getElementById('btnPilihBKM');
+let btnProses = document.getElementById('btnProses');
+let btnBatal = document.getElementById('btnBatal');
+let btnTampilBKK = document.getElementById('btnTampilBKK');
+let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
+
+let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
+let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
+let idBKKTampil = document.getElementById('idBKKTampil');
+let formkoreksi = document.getElementById('formkoreksi');
+let methodkoreksi = document.getElementById('methodkoreksi');
 
 const tgl = new Date();
 const formattedDate2 = tgl.toISOString().substring(0, 10);
 tanggal.value = formattedDate2;
+
+const tglTampilBKK = new Date();
+const formattedDate5 = tglTampilBKK.toISOString().substring(0, 10);
+tanggalTampilBKK.value = formattedDate5;
+
+const tglTampilBKK2 = new Date();
+const formattedDate6 = tglTampilBKK2.toISOString().substring(0, 10);
+tanggalTampilBKK2.value = formattedDate6;
+
+btnBatal.addEventListener('click', function(event) {
+    event.preventDefault();
+    bulan.value = "";
+    tahun.value = "";
+    dataTable.clear().draw();
+    dataTable2.clear().draw();
+    idBKM.value = "";
+    id_bkk.value = "";
+    idMataUang.value = "";
+    idPembayaran.value = "";
+    namaBankSelect.selectedIndex = 0;
+    idBank.value = "";
+    jenisBank.value = "";
+    tanggal.value = "";
+    idBKK.value = "";
+    jumlahUang.value = "";
+    kodePerkiraanSelect.value = "";
+    idKodePerkiraan.value = "";
+    uraian.value = "";
+    konversi.value = "";
+});
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -65,7 +110,7 @@ $("#tabelDataBKM tbody").on("change", "input[type='checkbox']", function (event)
                 Id_BKM: cells[0].innerText,
             };
             selectedRows.push(rowData);
-
+            idBKM.value = rowData['Id_BKM'];
             fetch("/tabeldetbiayabkmbkk/" + cells[0].innerText.trim())
                 .then((response) => response.json())
                 .then((options) => {
@@ -121,7 +166,8 @@ $("#tabelRincianData tbody").on("change", "input[type='checkbox']", function (ev
                     NilaiPelunasan: dataBKMCells[1].innerText,  // Assuming NilaiPelunasan is in the second cell
                     Id_bank: cellsRincianData[5].innerText,
                     Jenis_Bank: cellsRincianData[6].innerText,
-                    Jumlah_Uang: dataBKMCells[2].innerText
+                    Jumlah_Uang: dataBKMCells[2].innerText,
+                    Id_MataUang: cellsRincianData[7].innerText
                 };
                 selectedRows.push(rowData);
             }
@@ -133,6 +179,7 @@ $("#tabelRincianData tbody").on("change", "input[type='checkbox']", function (ev
 btnPilihBKM.addEventListener('click', function(event) {
     event.preventDefault();
     jumlahUang.value = selectedRows[0].Jumlah_Uang;
+    idMataUang.value = selectedRows[0].Id_MataUang;
     tanggal.focus();
 });
 
@@ -160,7 +207,7 @@ fetch("/getBankPembulatan/")
         const defaultOption = document.createElement("option");
         defaultOption.disabled = true;
         defaultOption.selected = true;
-        defaultOption.innerText = "Pilih Cust";
+        defaultOption.innerText = "Pilih Bank";
         namaBankSelect.appendChild(defaultOption);
 
         options.forEach((entry) => {
@@ -220,6 +267,7 @@ kodePerkiraanSelect.addEventListener("change", function (event) {
         const idKode = selectedValue.split(" | ")[0];
         idKodeInput.value = idKode;
     }
+    uraian.focus();
 });
 
 uraian.addEventListener("keypress", function (event) {
@@ -228,24 +276,84 @@ uraian.addEventListener("keypress", function (event) {
         jenis = 'P';
 
         if (idBKK.value === "") {
-            if (idBankBKK.value == "KRR1") {
-                idBankBKK.value = "KI";
+            if (idBank.value == "KRR1") {
+                idBank.value = "KI";
             }
-            else if (idBankBKK.value == "KRR2") {
-                idBankBKK.value = "KKM";
+            else if (idBank.value == "KRR2") {
+                idBank.value = "KKM";
             }
         } else {
-            idBankBKK = idBankBKK.value;
+            idBank = idBank.value;
         }
 
-        fetch("/getidbkk/" + idBankBKK.value + "/" + tanggal.value)
+        fetch("/getIDBKK/" + idBank.value + "/" + tanggal.value)
             .then((response) => response.json())
             .then((options) => {
                 console.log(options);
                 idBKK.value = options;
+
+                id_bkk.value = (idBKK.value).substring(4);
             });
+
+            konversi.value = numberToWords(jumlahUang.value);
+            btnProses.focus();
     }
 });
+
+btnProses.addEventListener('click', function(event) {
+    event.preventDefault();
+    //formkoreksi.submit();
+    // methodkoreksi.value="PUT";
+    formkoreksi.action = "/insertUpdate/";
+    formkoreksi.submit();
+});
+
+btnTampilBKK.addEventListener('click', function (event) {
+    event.preventDefault();
+    modalTampilBKK = $("#modalTampilBKK");
+    modalTampilBKK.modal('show');
+});
+
+btnOkTampilBKK.addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch("/getTabelTampilBKKPembulatan/" + tanggalTampilBKK.value + "/" + tanggalTampilBKK2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            tabelTampilBKK = $("#tabelTampilBKK").DataTable({
+                data: options,
+                columns: [
+                    {
+                        title: "Tgl. Input", data: "Tgl_Input",
+                        render: function (data) {
+                            var date = new Date(data);
+                            var formattedDate = date.toLocaleDateString();
+
+                            return `<div>
+                                        <input type="checkbox" name="dataCheckbox" value="${formattedDate}" />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
+                        }
+                    },
+                    { title: "Id. BKK", data: "Id_BKK" },
+                    { title: "Nilai Pembulatan", data: "Nilai_Pembulatan" },
+                    { title: "Terjemahan", data: "Terjemahan" },
+                ]
+            });
+
+            tabelTampilBKK.on('change', 'input[name="dataCheckbox"]', function() {
+                $('input[name="dataCheckbox"]').not(this).prop('checked', false);
+
+                if ($(this).prop("checked")) {
+                    const checkedCheckbox = tabelTampilBKK.row($(this).closest('tr')).data();
+                    idBKKTampil.value = checkedCheckbox.Id_BKK;
+                } else {
+                    idBKKTampil.value = "";
+                }
+            });
+        })
+})
 
 function clickOK() {
     let bulanValue = bulan.value;
@@ -268,3 +376,53 @@ function clickOK() {
         return;
     }
 };
+
+const ones = ['', 'Satu ', 'Dua ', 'Tiga ', 'Empat ', 'Lima ', 'Enam ', 'Tujuh ', 'Delapan ', 'Sembilan ' ];
+const teens = ['Sepuluh', 'Sebelas', 'Dua Belas', 'Tiga Belas', 'Empat Belas', 'Lima Belas', 'Enam Belas', 'Tujuh Belas', 'Delapan Belas', 'Sembilan Belas'];
+const tens = ['', 'Sepuluh', 'Dua Puluh', 'Tiga Puluh', 'Empat Puluh', 'Lima Puluh', 'Enam Puluh', 'Tujuh Puluh', 'Delapan Puluh', 'Sembilan Puluh'];
+const thousands = ['', 'Ribu', 'Juta', 'Miliar', 'Triliun'];
+
+function numberToWords(number) {
+
+  if (number === 0) {
+    return 'Nol';
+  }
+
+  let result = '';
+
+  // Convert each group of three digits
+  for (let i = 0; number > 0; i++) {
+    const currentGroup = number % 1000;
+    if (currentGroup !== 0) {
+      result = convertThreeDigitsToWords(currentGroup) + thousands[i] + ' ' + result;
+    }
+    number = Math.floor(number / 1000);
+  }
+
+  // Trim trailing whitespace and return the result
+  return result.trim();
+}
+
+function convertThreeDigitsToWords(num) {
+  let result = '';
+
+  // Convert hundreds place
+  const hundredsPlace = Math.floor(num / 100);
+  if (hundredsPlace > 0) {
+    result += ones[hundredsPlace] + ' Ratus ';
+  }
+
+  // Convert tens and ones place
+  const remainder = num % 100;
+  if (remainder < 10) {
+    result += ones[remainder];
+  } else if (remainder < 20) {
+    result += teens[remainder - 10];
+  } else {
+    const tensPlace = Math.floor(remainder / 10);
+    const onesPlace = remainder % 10;
+    result += tens[tensPlace] + ' ' + ones[onesPlace];
+  }
+
+  return result;
+}

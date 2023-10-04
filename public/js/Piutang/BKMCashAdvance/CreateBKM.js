@@ -13,6 +13,7 @@ let idBankNew;
 let tglInputNew = document.getElementById("tglInputNew");
 let idBKMNew = document.getElementById("idBKMNew");
 let totalPelunasan = document.getElementById("total1");
+let konversi = document.getElementById('konversi');
 
 let selectedRows = [];
 
@@ -99,55 +100,82 @@ btnOkTampil.addEventListener('click', function(event) {
         });
 });
 
+// $.ajax({
+//     url: "/CreateBKM/" + idBKMNew.value, // Replace with your actual route
+//     type: "POST",
+//     data: {
+//         _token: $('meta[name="csrf-token"]'.attr('content')), // Required for Laravel CSRF protection
+//         key1: "idBKM",
+//         key2: "formkoreksi"
+//     },
+//     success: function(response) {
+//         $("#response").html(response);
+//     },
+//     error: function(xhr, status, error) {
+//         console.log(error);
+//     }
+// });
+
+const selectedDataArray = [];  // Deklarasikan array untuk menyimpan data yang dicentang
+
 btnGroupBKM.addEventListener('click', function(event) {
     event.preventDefault();
     const totalColumnIndex = 5;
+    let idBKMGenerated = false;
+
     $("input[name='dataPelunasanCheckbox']:checked").each(function(){
         const isChecked = $(this).prop("checked");
-        // const row = DataTable3.row($(this).closest("tr")).data();
         let rowIndex = $(this).closest("tr").index();
 
-        if (isChecked) {
-            const totalCellValue = dataTable3.cell(rowIndex, totalColumnIndex).data();
-            if (dataTable3.cell(rowIndex,8).data() == null || dataTable3.cell(rowIndex,7).data() == null || dataTable3.cell(rowIndex,2).data() == null) {
-                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+        const totalCellValue = dataTable3.cell(rowIndex, totalColumnIndex).data();
 
+        if (isChecked) {
+            if (dataTable3.cell(rowIndex,8).data() == null && dataTable3.cell(rowIndex,7).data() == null && dataTable3.cell(rowIndex,2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
             } else {
                 totalPelunasan.value += parseFloat(totalCellValue);
                 console.log(totalPelunasan.value);
             }
+            idBKMGenerated = true;
+
+            const rowData = dataTable3.row(rowIndex).data();
+            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
+            selectedDataArray.push(rowData);  // Tambahkan data ke array selectedDataArray
+
         }
-
-        // $.ajax({
-        //     url: "/CreateBKM/" + idBKMNew.value, // Replace with your actual route
-        //     type: "POST",
-        //     data: {
-        //         _token: $('meta[name="csrf-token"]'.attr('content')), // Required for Laravel CSRF protection
-        //         key1: "idBKM",
-        //         key2: "formkoreksi"
-        //     },
-        //     success: function(response) {
-        //         $("#response").html(response);
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.log(error);
-        //     }
-        // });
-
-        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
-        .then((response) => response.json())
-        .then((options) => {
-            // console.log(options);
-            idBKMNew.value = options;
-            console.log(options);
-            console.log(idBKMNew.value);
-            console.log(tglInputNew.value);
-
-        });
     });
-    console.log(idBKMNew.value);
-    formkoreksi.submit();
+
+    if (idBKM.value === "") {
+        if (idBank.value == "KRR1") {
+            idBank.value = "KI";
+        }
+        else if (idBank.value == "KRR2") {
+            idBank.value = "KKM";
+        }
+    } else {
+        idBank = idBank.value;
+    }
+
+    if (idBKMGenerated) {
+        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+            .then((response) => response.json())
+            .then((options) => {
+                idBKMNew.value = options;
+
+                // Tambahkan ID BKM ke setiap data yang dicentang
+                selectedDataArray.forEach(data => {
+                    data.idBKM = options;
+                });
+
+                alert('Id. BKM nya: ' + idBKMNew.value);
+                console.log(options);
+                console.log(idBKMNew.value);
+                console.log(tglInputNew.value);
+            });
+            console.log(selectedDataArray);
+    }
 });
+
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
@@ -156,7 +184,7 @@ btnOK.addEventListener('click', function (event) {
             .then((response) => response.json())
             .then((optionss) => {
                 console.log(optionss);
-                tabelDataPelunasan = $("#tabelDataPelunasan").DataTable({
+                dataTable3 = $("#tabelDataPelunasan").DataTable({
                     data: optionss,
                     columns: [
                         {
@@ -314,6 +342,7 @@ btnInputTanggalBKM.addEventListener('click', function (event) {
                 KodePerkiraan: cells[8].innerText
             };
             selectedRows.push(rowData);
+            console.log(selectedRows);
         }}
 })
 
@@ -330,6 +359,7 @@ $("#btnInputTanggalBKM").on("click", function (event) {
     const noBukti = $("#noBukti");
 
     const selectedData = selectedRows[0];
+    console.log(selectedRows[0]);
 
     // Isi nilai pada elemen-elemen modal berdasarkan data yang diambil
     tglPelunasan.val(selectedData.Tgl_Pelunasan);
@@ -360,13 +390,13 @@ tanggalInput.addEventListener('keypress', function(event) {
 $("#btnProsesss").on('click', function (event) {
     event.preventDefault();
 
-    const idKodePerkiraan = $("#idKodePerkiraan").val();
     const selectedRowsIndices = [];
     $("#tabelDataPelunasan tbody input[type='checkbox']:checked").each(function () {
         const row = $(this).closest("tr");
         const rowIndex = dataTable3.row(row).index();
         selectedRowsIndices.push(rowIndex);
     });
+    console.log(idKodePerkiraan);
     updateKpColumn2(idKodePerkiraan, selectedRowsIndices);
     updateBank(idBank, selectedRowsIndices);
 
@@ -392,8 +422,9 @@ function updateKpColumn2(kodePerkiraanSelect, selectedRows) {
             const rowData = row.data();
 
             // Update the "Kode Perkiraan" data in the rowData
-            rowData["Kode_Perkiraan"] = idKodePerkiraan.value; // Pastikan nama properti sesuai dengan properti dalam data
+            rowData["KodePerkiraan"] = idKodePerkiraan.value; // Pastikan nama properti sesuai dengan properti dalam data
             row.data(rowData).draw(); // Terapkan perubahan ke tampilan DataTable
+            console.log(rowData);
         }
     });
 }
@@ -430,4 +461,54 @@ function validatePilihBank() {
             modal.style.display = 'none';
         }
     }
+};
+
+const ones = ['', 'Satu ', 'Dua ', 'Tiga ', 'Empat ', 'Lima ', 'Enam ', 'Tujuh ', 'Delapan ', 'Sembilan ' ];
+const teens = ['Sepuluh', 'Sebelas', 'Dua Belas', 'Tiga Belas', 'Empat Belas', 'Lima Belas', 'Enam Belas', 'Tujuh Belas', 'Delapan Belas', 'Sembilan Belas'];
+const tens = ['', 'Sepuluh', 'Dua Puluh', 'Tiga Puluh', 'Empat Puluh', 'Lima Puluh', 'Enam Puluh', 'Tujuh Puluh', 'Delapan Puluh', 'Sembilan Puluh'];
+const thousands = ['', 'Ribu', 'Juta', 'Miliar', 'Triliun'];
+
+function numberToWords(number) {
+
+  if (number === 0) {
+    return 'Nol';
+  }
+
+  let result = '';
+
+  // Convert each group of three digits
+  for (let i = 0; number > 0; i++) {
+    const currentGroup = number % 1000;
+    if (currentGroup !== 0) {
+      result = convertThreeDigitsToWords(currentGroup) + thousands[i] + ' ' + result;
+    }
+    number = Math.floor(number / 1000);
+  }
+
+  // Trim trailing whitespace and return the result
+  return result.trim();
+}
+
+function convertThreeDigitsToWords(num) {
+  let result = '';
+
+  // Convert hundreds place
+  const hundredsPlace = Math.floor(num / 100);
+  if (hundredsPlace > 0) {
+    result += ones[hundredsPlace] + ' Ratus ';
+  }
+
+  // Convert tens and ones place
+  const remainder = num % 100;
+  if (remainder < 10) {
+    result += ones[remainder];
+  } else if (remainder < 20) {
+    result += teens[remainder - 10];
+  } else {
+    const tensPlace = Math.floor(remainder / 10);
+    const onesPlace = remainder % 10;
+    result += tens[tensPlace] + ' ' + ones[onesPlace];
+  }
+
+  return result;
 }
