@@ -51,3 +51,4 @@ Route::resource('BalJadiPalet', App\Http\Controllers\FormRepressController\BalJa
 Route::resource('PaletJadiBal', App\Http\Controllers\FormRepressController\PaletJadiBalController::class);
 Route::resource('ScanBarcode', App\Http\Controllers\FormRepressController\ScanBarcodeController::class);
 Route::resource('PilihJenisRepress', App\Http\Controllers\FormRepressController\PilihJenisRepressController::class);
+Route::resource('Konversi', App\Http\Controllers\FormRepressController\KonversiController::class);
