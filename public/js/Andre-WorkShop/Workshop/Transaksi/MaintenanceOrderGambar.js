@@ -95,8 +95,6 @@ let isi = document.getElementById("isi");
 let koreksi = document.getElementById("koreksi");
 let hapus = document.getElementById("hapus");
 
-
-
 // Get the current date
 const currentDate = new Date();
 
@@ -334,29 +332,27 @@ function cleardata() {
 }
 //#endregion
 
-Divisi.addEventListener("change", function () {
-    // const selectedValue = this.value;
-    // const selectedText = this.options[this.selectedIndex].text;
-
-    // Show a confirmation alert
-
-    const isConfirmed = confirm(`Tampilkan Semua Order??`);
-    Mesin(Divisi.value);
-    // If confirmed, proceed with the fetch operation
-    if (isConfirmed) {
-        pilih = 1;
-        cleardata();
-        // const table = $("#tableklik").DataTable();
-        table_data.clear().draw();
-        AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
-    } else {
-        console.log("masuk");
-        pilih = 2;
-        cleardata();
-        // dataTable.fnClearTable();
-        AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+Divisi.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        const isConfirmed = confirm(`Tampilkan Semua Order??`);
+        Mesin(Divisi.value);
+        // If confirmed, proceed with the fetch operation
+        if (isConfirmed) {
+            pilih = 1;
+            cleardata();
+            // const table = $("#tableklik").DataTable();
+            table_data.clear().draw();
+            AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
+        } else {
+            console.log("masuk");
+            pilih = 2;
+            cleardata();
+            // dataTable.fnClearTable();
+            AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
+        }
     }
 });
+
 function Refresh() {
     if (pilih == 1) {
         AllData(tgl_awal.value, tgl_akhir.value, Divisi.value);
@@ -447,7 +443,8 @@ function klikkoreksi() {
                 }
                 // satuanB.value = jmlh2.value;
                 // mesin.value = selectmesin;
-            } if(judulstatus.textContent == "MODIFIKASI"){
+            }
+            if (judulstatus.textContent == "MODIFIKASI") {
                 koreksi.setAttribute("data-toggle", "modal");
                 koreksi.setAttribute("data-target", "#modifikasi");
                 iddivisimodalmodif.value = Divisi.value;

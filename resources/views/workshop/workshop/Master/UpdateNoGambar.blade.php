@@ -45,8 +45,8 @@
         </div>
 
         <div class="float-end">
-            <button type="button" class="btn btn-primary" onclick="klikproses()" id="proses" disabled><u>P</u>ROSES</button>
-            <button type="button" class="btn btn-danger" onclick="klikbatal()" disabled id="batal"><u>B</u>atal</button>
+            <button type="button" class="btn btn-primary custom-btn" onclick="klikproses()" id="proses" disabled><u>P</u>ROSES</button>
+            <button type="button" class="btn btn-danger custom-btn" onclick="klikbatal()" disabled id="batal"><u>B</u>atal</button>
         </div>
     </form>
 </div>

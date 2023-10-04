@@ -144,7 +144,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalList">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit">
     Launch demo modal
   </button>
 

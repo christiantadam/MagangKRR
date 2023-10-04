@@ -40,7 +40,7 @@
           <span class="custom-alignment">Nama Mesin:</span>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
           <div class="row">
             <div class="col-5">
               <select class="form-select" name="mesin" style="width: 36vh;
@@ -50,7 +50,7 @@
               </select>
               <input type="text" name="isiMesin" class="form-control" style="display: none" id="isiMesin">
             </div>
-            <div class="col-6">
+            <div class="col-5">
               <button class="btn btn-light" onclick="tukar(event)" id="ganti" disabled>ganti</button>
             </div>
           </div>

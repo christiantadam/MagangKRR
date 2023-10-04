@@ -39,6 +39,10 @@ class PenerimaOrderGambarController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_CEK-NO-GBR] @noGbr = ?', [$nogambar]);
         return response()->json($data);
     }
+    public function GetUserDrafter($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_WRK_LOAD-DRAFTER] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
 
     public function create()
     {

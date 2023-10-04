@@ -58,11 +58,14 @@ let NoGambarModal = document.getElementById("NoGambarModal");
 let NamaGambarModal = document.getElementById("NamaGambarModal");
 let Approvemodal = document.getElementById("Approvemodal");
 
-let arraynomorgambar = document.getElementById('arraynomorgambar');
-let arraynamagambar1 = document.getElementById('arraynamagambar');
-let arraytglapprove = document.getElementById('arraytglapprove');
-let radiobox = document.getElementById('radiobox');
+let arraynomorgambar = document.getElementById("arraynomorgambar");
+let arraynamagambar1 = document.getElementById("arraynamagambar");
+let arraytglapprove = document.getElementById("arraytglapprove");
+let radiobox = document.getElementById("radiobox");
 
+let btnproses = document.getElementById("btnproses");
+let btnplus = document.getElementById("btnplus");
+let btnmin = document.getElementById("btnmin");
 //#endregion
 
 //#region set tanggal
@@ -84,6 +87,8 @@ const formattedCurrentDate = currentDate.toISOString().slice(0, 10);
 // Set the values of the input fields to the calculated dates
 tgl_awal.value = formattedFirstDay;
 tgl_akhir.value = formattedCurrentDate;
+tgl_start.value = formattedCurrentDate;
+tgl_finish.value = formattedCurrentDate;
 //#endregion
 
 //#region set warna
@@ -193,7 +198,6 @@ function AllData(tglAwal, tglAkhir) {
         });
 }
 
-
 //#endregion
 
 //#region tgl2 press enter
@@ -274,7 +278,6 @@ function klikproses() {
                             ket.push(Ket_tolak);
                             arraycheckbox.push(value);
                         }
-
                     }
                 }
             });
@@ -363,12 +366,17 @@ function koreksiklik() {
                 alert("Proses Order Untuk Diterima Dulu, baru Koreksi");
                 return;
             }
-            if (trselect.hasClass("red-color") && order_selesai.checked == true) {
+            if (
+                trselect.hasClass("red-color") &&
+                order_selesai.checked == true
+            ) {
                 alert("Proses Order Untuk Dikerjakan Dulu");
 
                 return;
-            }
-            else if (order_kerja.checked == true || order_selesai.checked == true) {
+            } else if (
+                order_kerja.checked == true ||
+                order_selesai.checked == true
+            ) {
                 btnkoreksi.setAttribute("data-toggle", "modal");
                 btnkoreksi.setAttribute("data-target", "#modalkoreksi");
             } else {
@@ -389,12 +397,26 @@ function koreksiklik() {
                 JumlahModal.value = table_data.cell(index, 5).data();
                 lblstatus.textContent = table_data.cell(index, 6).data();
                 TuserOd.value = table_data.cell(index, 11).data();
+                fetch("/GetUserDrafterPenerimaOrderGambar/" + noOrder.value)
+                    .then((response) => response.json())
+                    .then((datas) => {
+                        // panjangdata = datas[0].ada;
+                        console.log(datas);
+                        DrafterModal.value = datas[0].User_Pembuat;
+                        tgl_finish.focus();
+                    });
                 Tsts.value = 1;
             }
             if (
                 trselect.hasClass("blue-color") &&
                 order_selesai.checked == true
             ) {
+                tgl_finish.disabled = false;
+                NoGambarModal.disabled = false;
+                NamaGambarModal.disabled = false;
+                Approvemodal.disabled = false;
+                btnplus.disabled = false;
+                btnmin.disabled = false;
                 tglOrder.value = table_data.cell(index, 1).data();
                 noOrder.value = table_data.cell(index, 0).data();
                 Divisimodal.value = table_data.cell(index, 7).data();
@@ -405,6 +427,14 @@ function koreksiklik() {
                 lblstatus.textContent = table_data.cell(index, 6).data();
                 TuserOd.value = table_data.cell(index, 11).data();
                 Tsts.value = 2;
+                fetch("/GetUserDrafterPenerimaOrderGambar/" + noOrder.value)
+                    .then((response) => response.json())
+                    .then((datas) => {
+                        // panjangdata = datas[0].ada;
+                        console.log(datas);
+                        DrafterModal.value = datas[0].User_Pembuat;
+                        tgl_finish.focus();
+                    });
             }
             if (
                 trselect.hasClass("blue-color") &&
@@ -430,11 +460,8 @@ function koreksiklik() {
                             "/PenerimaOrderGambar/" + no_orderkoreksi.value;
                         formPemerimaGambar.submit();
                     }
-
                 }
             }
-
-
         }
     }
 }
@@ -463,7 +490,9 @@ NoGambarModal.addEventListener("keypress", function (event) {
 
 //#region button plus
 function klikplus() {
-    tableModal.row.add([NoGambarModal.value,NamaGambarModal.value,Approvemodal.value]).draw(false);
+    tableModal.row
+        .add([NoGambarModal.value, NamaGambarModal.value, Approvemodal.value])
+        .draw(false);
 }
 //#endregion
 
@@ -510,7 +539,7 @@ function prosesmodalklik() {
                 tgl_finish.value = "";
                 var arraynogambar = [];
                 var arraynamabarang = [];
-                var arraytgl = []
+                var arraytgl = [];
                 var data = tableModal.rows().data().toArray();
                 console.log(data[0]);
                 for (let index = 0; index < data.length; index++) {
@@ -523,7 +552,7 @@ function prosesmodalklik() {
                 var arrayStringapprove = arraytgl.join(",");
                 arraynomorgambar.value = arrayStringnogambar;
                 arraynamagambar1.value = arrayStringnamabarang;
-                arraytglapprove.value  = arrayStringapprove;
+                arraytglapprove.value = arrayStringapprove;
                 methodFormProses.value = "PUT";
                 ModalProsesPembeliGambar.action =
                     "/PenerimaOrderGambar/" + noOrder.value;
@@ -531,7 +560,7 @@ function prosesmodalklik() {
             } else {
                 var arraynogambar = [];
                 var arraynamabarang = [];
-                var arraytgl = []
+                var arraytgl = [];
                 var data = tableModal.rows().data().toArray();
                 console.log(data[0]);
                 for (let index = 0; index < data.length; index++) {
@@ -544,7 +573,7 @@ function prosesmodalklik() {
                 var arrayStringapprove = arraytgl.join(",");
                 arraynomorgambar.value = arrayStringnogambar;
                 arraynamagambar1.value = arrayStringnamabarang;
-                arraytglapprove.value  = arrayStringapprove;
+                arraytglapprove.value = arrayStringapprove;
 
                 methodFormProses.value = "PUT";
                 ModalProsesPembeliGambar.action =
@@ -554,4 +583,36 @@ function prosesmodalklik() {
         }
     }
 }
+//#endregion
+
+//#region set button
+
+acc_order.addEventListener("click", function () {
+    btnproses.disabled = false;
+    btnkoreksi.disabled = true;
+});
+
+batal_acc.addEventListener("click", function () {
+    btnproses.disabled = false;
+    btnkoreksi.disabled = true;
+});
+
+order_tolak.addEventListener("click", function () {
+    btnproses.disabled = false;
+    btnkoreksi.disabled = true;
+});
+
+order_kerja.addEventListener("click", function () {
+    btnproses.disabled = true;
+    btnkoreksi.disabled = false;
+});
+
+order_selesai.addEventListener("click", function () {
+    btnproses.disabled = true;
+    btnkoreksi.disabled = false;
+});
+order_batal.addEventListener("click", function () {
+    btnproses.disabled = true;
+    btnkoreksi.disabled = false;
+});
 //#endregion

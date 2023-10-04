@@ -15,15 +15,15 @@
   </div>
 
   <div class="card-body">
-    <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo">
+    {{-- <img src="{{ asset('images/Workshop.png') }}" alt="logo" class="workshop-logo"> --}}
     <form id="formAccDirektur" action="{{ url('ACCDirekturGambar') }}" method="post">
       {{ csrf_field() }}
       <input type="hidden" name="_method" id="methodForm">
       <div class="row">
-        <div class="col-lg-7 row">
+        <div class="col-7 row">
 
-          <div class="col-lg-3">
-            <span class="custom-alignment">Tgl. Order:</span>
+          <div class="col-lg-2">
+            <span class="custom-alignment" style="white-space: nowrap">Tgl. Order:</span>
           </div>
 
           <div class="col-lg-8">
@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <div class="col-lg-1">
+          <div class="col-lg-2">
             <button type="button" class="btn btn-primary" id="ok"><b><u>O</u>K</b></button>
           </div>
 
@@ -79,7 +79,7 @@
       </div>
       <div class="table-responsive" style="margin-top: 36px;">
         <table class="table mt-3" style="width: max-content" id="tableDirektur">
-          <thead class="table-dark">
+          <thead class="table-dark" style="white-space: nowrap">
             <tr>
               <th>No. Order</th>
               <th>Tgl. Order</th>
@@ -123,8 +123,8 @@
 
         <div class="col-lg-6 mt-3">
           <div class="float-start">
-            <button type="button" class="btn btn-light" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-info" id="pilihsemua">Pilih Semua</button>
+            <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
+            <button type="button" class="btn btn-info custom-btn" id="pilihsemua">Pilih Semua</button>
           </div>
 
           <div class="float-end">
@@ -132,7 +132,7 @@
             <input type="hidden" name="radiobox" id="radiobox">
             <input type="hidden" name="KetTdkS" id="KetTdkS">
             <input type="hidden" name="idorder" id="idorder">
-            <button type="button" class="btn btn-primary" style="width: 10em;" onclick="klikproses()"><b><u>P</u>ROSES</b></button>
+            <button type="button" class="btn btn-primary custom-btn" style="width: 10em;" onclick="klikproses()"><b><u>P</u>ROSES</b></button>
             {{-- <button type="button" class="btn btn-secondary"><u>K</u>ELUAR</button> --}}
           </div>
         </div>

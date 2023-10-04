@@ -28,13 +28,13 @@
           <div class="col-lg-9">
             <div class="row">
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal">
+                <input type="Date" class="form-control" name="tgl_awal" id="tgl_awal" style="width: 106%">
               </div>
               <div class="col-lg-2 d-flex justify-content-center">
                 <span style="margin-top: 5px;">s/d</span>
               </div>
               <div class="col-lg-5">
-                <input type="Date" class="form-control" name="tgl_akhir" id="tgl_akhir">
+                <input type="Date" class="form-control" name="tgl_akhir" id="tgl_akhir" style="width: ">
               </div>
             </div>
           </div>
@@ -173,7 +173,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-5">
-              <span class="custom-alignment">Tgl. tdk disetujui Manager:</span>
+              <span class="custom-alignment" style="white-space: nowrap">Tgl. tdk disetujui Manager:</span>
             </div>
 
             <div class="col-lg-6">
@@ -183,7 +183,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-5">
-              <span class="custom-alignment">Ket. tdk disetujui Manager:</span>
+              <span class="custom-alignment" style="white-space: nowrap">Ket. tdk disetujui Manager:</span>
             </div>
 
             <div class="col-lg-6">
@@ -193,7 +193,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-5">
-              <span class="custom-alignment">Tgl. tdk disetujui Direktur:</span>
+              <span class="custom-alignment" style="white-space: nowrap">Tgl. tdk disetujui Direktur:</span>
             </div>
 
             <div class="col-lg-6">
@@ -203,7 +203,7 @@
 
           <div class="row mt-3">
             <div class="col-lg-5">
-              <span class="custom-alignment">Ket. tdk disetujui Direktur:</span>
+              <span class="custom-alignment" style="white-space: nowrap">Ket. tdk disetujui Direktur:</span>
             </div>
 
             <div class="col-lg-6">

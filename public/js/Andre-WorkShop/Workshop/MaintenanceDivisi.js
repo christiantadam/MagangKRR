@@ -54,7 +54,7 @@ function bataldiklik() {
     inputIdDivisi.value = "";
     inputnameDiv.value = "";
     selectdiv.disabled = true;
-    selectdiv.value = "";
+    selectdiv.value = "Pilih Divisi";
     isi = false;
     koreksi = false;
     hapus = false;

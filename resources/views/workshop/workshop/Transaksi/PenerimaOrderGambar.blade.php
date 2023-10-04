@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-lg-6 row">
 
-          <div class="col-lg-4">
+          <div class="col-lg-4  ">
             <span class="custom-alignment">Tgl. ACC Direktur:</span>
           </div>
 
@@ -108,7 +108,7 @@
 
       <div class="table-responsive">
         <table class="table mt-3" style="width: max-content" id="tablepenerimagambar">
-          <thead class="table-dark">
+          <thead class="table-dark" style="white-space: nowrap">
             <tr>
               <th>No. Order</th>
               <th>Tgl. Order</th>
@@ -163,9 +163,9 @@
             <input type="hidden" name="ketbatal" id="ketbatal">
             <input type="hidden" name="no_order" id="no_order">
             <button type="button" class="btn btn-primary" style="width: 7.5em;"
-              onclick="klikproses()"><b>PROSES</b></button>
+              onclick="klikproses()" disabled id="btnproses"><b>PROSES</b></button>
             <button type="button" class="btn btn-warning" id="btnkoreksi"
-              onclick="koreksiklik()">KOREKSI</button>
+              onclick="koreksiklik()" disabled>KOREKSI</button>
 
           </div>
         </div>
@@ -321,7 +321,7 @@
                   </div>
 
                   <div class="col-lg-7">
-                    <input type="date" name="tgl_finish" class="form-control" id="tgl_finish">
+                    <input type="date" name="tgl_finish" class="form-control" id="tgl_finish" disabled>
                   </div>
                 </div>
 
@@ -333,10 +333,10 @@
                   <div class="col-lg-7">
                     <div class="row">
                       <div class="col">
-                        <input type="text" name="IdUser" class="form-control" id="IdUser">
+                        <input type="text" name="IdUser" class="form-control" id="IdUser" disabled>
                       </div>
                       <div class="col">
-                        <input type="text" name="NamaUser" class="form-control" id="NamaUser">
+                        <input type="text" name="NamaUser" class="form-control" id="NamaUser" disabled>
                       </div>
                     </div>
                   </div>
@@ -347,7 +347,7 @@
                     <input type="hidden" name="arraynomorgambar" id="arraynomorgambar">
                     <input type="hidden" name="arraynamagambar" id="arraynamagambar">
                     <input type="hidden" name="arraytglapprove" id="arraytglapprove">
-                  <button type="button" class="btn btn-secondary" style="float: right;margin-top:10px" onclick="prosesmodalklik()">Proses</button>
+                  <button type="button" class="btn btn-primary" style="float: right;margin-top:10px" onclick="prosesmodalklik()">Proses</button>
                 </div>
               </form>
             </div>
@@ -359,7 +359,7 @@
                 </div>
 
                 <div class="col-lg-7">
-                  <input type="text" name="NoGambarModal" class="form-control" id="NoGambarModal">
+                  <input type="text" name="NoGambarModal" class="form-control" id="NoGambarModal" disabled>
                 </div>
               </div>
 
@@ -369,7 +369,7 @@
                 </div>
 
                 <div class="col-lg-7">
-                  <input type="text" name="NamaGambarModal" class="form-control" id="NamaGambarModal">
+                  <input type="text" name="NamaGambarModal" class="form-control" id="NamaGambarModal" disabled>
                 </div>
               </div>
 
@@ -379,16 +379,16 @@
                 </div>
 
                 <div class="col-lg-7">
-                  <input type="date" name="Approvemodal" class="form-control" id="Approvemodal">
+                  <input type="date" name="Approvemodal" class="form-control" id="Approvemodal" disabled>
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="col-9" style="text-align-last: right;">
-                  <button type="button" class="btn btn-outline-success" onclick="klikplus()">+</button>
+                  <button type="button" class="btn btn-outline-success" onclick="klikplus()" id="btnplus" disabled>+</button>
                 </div>
                 <div class="col-3">
-                  <button type="button" class="btn btn-outline-danger" onclick="klikmin()">-</button>
+                  <button type="button" class="btn btn-outline-danger" onclick="klikmin()" id="btnmin" disabled>-</button>
                 </div>
               </div>
 
@@ -406,7 +406,7 @@
                 </div>
               </div>
               <div>
-                <button type="button" class="btn btn-secondary"
+                <button type="button" class="btn btn-danger"
                   data-dismiss="modal"style="float: right">Batal</button>
               </div>
 
