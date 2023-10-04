@@ -18,9 +18,10 @@ class MasterController extends Controller
                 $form_data = [
                     'listKomposisi' => $this->getListKomposisi('EXT'),
                     'listMesin' => $this->getListMesin(1),
-                    'listObjek' => $this->getIdDivisiObjek('EXT'),
+                    'listObjek' => $this->getIdDivisiObjek('EXT')
                 ];
                 break;
+
             case 'formKomposisiMojosari':
                 $id_hasil = $nama_gedung == "D" ? 2250 : 1994;
                 $id_afalan = $nama_gedung == "D" ? 2251 : 1976;
@@ -32,9 +33,10 @@ class MasterController extends Controller
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
                     'listHP' => $this->getPrgTypeProduksi(2, $id_hasil),
                     'listNG' => $this->getPrgTypeProduksi(3, $id_hasil),
-                    'namaGedung' => $nama_gedung,
+                    'namaGedung' => $nama_gedung
                 ];
                 break;
+
             case 'formKiteEstimasi':
                 $form_data = ['listBarang' => $this->getKiteExtruder(2)];
                 break;

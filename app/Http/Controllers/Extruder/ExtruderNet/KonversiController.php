@@ -39,6 +39,10 @@ class KonversiController extends Controller
                 ];
                 break;
 
+            case 'formKonversiACC':
+                $form_data = ['namaGedung' => $nama_gedung];
+                break;
+
             default:
                 break;
         }

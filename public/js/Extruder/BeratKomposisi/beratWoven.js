@@ -27,7 +27,9 @@ btnKoreksi.addEventListener("click", function () {
 txtWoven.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
-            let kode = ("000000000" + this.value.trim()).slice(-9);
+            let kode = "000000000";
+            kode += this.value.toUpperCase();
+            kode = kode.slice(-9);
             this.value = kode;
             loadDataFetch(kode);
         } else this.focus();
@@ -104,8 +106,7 @@ btnProses.addEventListener("click", function () {
                         "~" +
                         numLain.value +
                         "~" +
-                        numTotal.value +
-                        "~4384",
+                        numTotal.value,
                     () => {
                         formWait(false);
                         alert("Berat karung berhasil dikoreksi.");

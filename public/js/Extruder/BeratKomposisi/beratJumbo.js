@@ -27,7 +27,9 @@ btnKoreksi.addEventListener("click", function () {
 txtJumbo.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
-            let kode = ("000000000" + this.value.trim()).slice(-9);
+            let kode = "000000000";
+            kode += this.value.toUpperCase();
+            kode = kode.slice(-9);
             this.value = kode;
             loadDataFetch(kode);
         } else this.focus();
@@ -91,7 +93,7 @@ btnProses.addEventListener("click", function () {
                     numTotal.value;
 
                 fetchStmt(
-                    "/beratStandar/SP_7775_PBL_UPDATE_BERAT_WOVEN/" +
+                    "/beratStandar/SP_1003_PBL_UPDATE_BERAT_JUMBO_1/" +
                         txtJumbo.value +
                         "~" +
                         ket +
@@ -104,8 +106,7 @@ btnProses.addEventListener("click", function () {
                         "~" +
                         numConductive.value +
                         "~" +
-                        numTotal.value +
-                        "~4384",
+                        numTotal.value,
                     () => {
                         formWait(false);
                         alert("Berat karung berhasil dikoreksi.");
@@ -146,7 +147,7 @@ btnKeluar.addEventListener("click", function () {
 function loadDataFetch(s_kode_brg) {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN/" + s_kode_brg,
+        "/beratStandar/SP_1003_PBL_SELECT_JUMBO/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
                 txtJumbo.value = s_kode_brg;

@@ -74,7 +74,6 @@ const colKomposisi = [
 ];
 
 var modeProses = "";
-var [unitPrimer, unitSekunder, unitTritier] = ["", "", "", ""];
 var refetchKelut = false;
 var refetchKelompok = false;
 var refetchSubkel = false;
@@ -137,7 +136,6 @@ slcKomposisi.addEventListener("change", function () {
     // SP_5298_EXT_LIST_KOMPOSISI_1
     fetchSelect("/Master/getListKomposisi/EXT/" + this.value, (data) => {
         addOptionIfNotExists(slcMesin, data[0].IdMesin);
-
         getDataKomposisiFetch(this.value, () => {
             if (modeProses == "koreksi") {
                 slcObjek.disabled = false;
@@ -154,13 +152,10 @@ slcKomposisi.addEventListener("change", function () {
 
 txtNamaKomposisi.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        if (this.value == "") {
-            alert("Masukan nama komposisi terlebih dahulu.");
-            this.focus();
-        } else {
+        if (this.value != "") {
             slcMesin.disabled = false;
             slcMesin.focus();
-        }
+        } else this.focus();
     }
 });
 
@@ -172,12 +167,11 @@ slcMesin.addEventListener("change", function () {
             colKomposisi.length,
             "padding=250px"
         );
+
         listOfDetail.forEach((ele) => {
             if (ele.tagName == "INPUT") ele.value = "";
         });
 
-        // listOfDetail.forEach((ele) => (ele.disabled = false));
-        // listOfButtonDetail.forEach((ele) => (ele.disabled = false));
         slcObjek.disabled = false;
         slcObjek.focus();
     }
@@ -831,7 +825,6 @@ btnKeluar.addEventListener("click", function () {
 
         pilKomposisi = -1;
         clearSelection_DataTable();
-
         btnTambahDetail.focus();
     } else window.location.href = "/Extruder/ExtruderNet";
 });
@@ -964,18 +957,20 @@ btnProses.addEventListener("click", function () {
             "/Master/getCekKomposisi/" + slcKomposisi.value.trim(),
             (data) => {
                 if (data[0].ada <= 0) {
-                    // SP_5298_EXT_DELETE_MASTER_KOMPOSISI
-                    fetchStmt(
-                        "/Master/delMasterKomposisi/" +
-                            slcKomposisi.value.trim(),
-                        () => {
-                            toggleButtons(1);
-                            disableDetail();
-                            modeProses = "";
-                            refetchKomposisi = true;
-                            alert("Komposisi berhasil dihapus.");
-                        }
-                    );
+                    deleteDetailFetch(slcKomposisi.value, () => {
+                        // SP_5298_EXT_DELETE_MASTER_KOMPOSISI
+                        fetchStmt(
+                            "/Master/delMasterKomposisi/" +
+                                slcKomposisi.value.trim(),
+                            () => {
+                                toggleButtons(1);
+                                disableDetail();
+                                modeProses = "";
+                                refetchKomposisi = true;
+                                alert("Komposisi berhasil dihapus.");
+                            }
+                        );
+                    });
                 } else
                     alert(
                         "Komposisi tidak dapat dihapus, karena telah terpakai untuk konversi."
@@ -1029,6 +1024,7 @@ function clearDataDetail(exception_ele) {
 function clearDataMaster() {
     slcKomposisi.selectedIndex = 0;
     slcMesin.selectedIndex = 0;
+    txtNamaKomposisi.value = "";
 }
 
 function disableDetail() {
@@ -1128,9 +1124,6 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
 function getSatuanFetch(id_type) {
     // SP_5298_EXT_DETAIL_BAHAN
     fetchSelect("/Master/getDetailBahan/" + id_type, (data) => {
-        unitPrimer = data[0].UnitPrimer;
-        unitSekunder = data[0].UnitSekunder;
-        unitTritier = data[0].UnitTritier;
         txtSatPrimer.value = data[0].satPrimer;
         txtSatSekunder.value = data[0].satSekunder;
         txtSatTritier.value = data[0].nama_satuan;

@@ -467,9 +467,7 @@ function getCurrentDate(monthYearOnly = false, extraParam = null) {
 
     if (monthYearOnly) {
         return `${month}/${year}`;
-    } else {
-        return `${year}-${month}-${day}`;
-    }
+    } else return `${year}-${month}-${day}`;
 }
 
 function formatDateToDDMMYY(inputDate) {
@@ -488,28 +486,18 @@ function getCurrentTime(timeStr = "") {
 
     if (timeStr === "hh:mm") {
         return `${hours}:${minutes}`;
-    } else {
-        return `${hours}:${minutes}:${seconds}`;
-    }
+    } else return `${hours}:${minutes}:${seconds}`;
 }
 
 function calculateTimeDifference(dt_ele1, dt_ele2) {
-    // Get the values of the datetime inputs
     const datetime1 = new Date(dt_ele1.value);
     const datetime2 = new Date(dt_ele2.value);
 
-    // Calculate the time difference in milliseconds
     const timeDifference = Math.abs(datetime1 - datetime2);
-
-    // Calculate hours and minutes
     const hoursDifference = Math.floor(timeDifference / (60 * 60 * 1000));
     const minutesDifference = Math.floor(
         (timeDifference % (60 * 60 * 1000)) / (60 * 1000)
     );
-
-    // Display the difference
-    // console.log(`Hour Difference: ${hoursDifference} hours`);
-    // console.log(`Minute Difference: ${minutesDifference} minutes`);
 
     return [hoursDifference, minutesDifference];
 }

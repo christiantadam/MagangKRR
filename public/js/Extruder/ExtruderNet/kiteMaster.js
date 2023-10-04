@@ -25,6 +25,12 @@ var refetchKode = true;
 //#region Events
 rdoPembebasan.addEventListener("change", function () {
     refetchKode = true;
+    clearAll();
+});
+
+rdoPengembalian.addEventListener("change", function () {
+    refetchKode = true;
+    clearAll();
 });
 
 slcKodeBarang.addEventListener("mousedown", function () {
@@ -188,7 +194,9 @@ btnCekKode.addEventListener("click", function () {
                     btnSimpan.disabled = true;
                 } else
                     alert(
-                        "Tidak ditemukan data Kode Barang " + kodeBarang + "."
+                        "Tidak ditemukan data Kode Barang " +
+                            kodeBarang.trim() +
+                            "."
                     );
             }
         );
@@ -233,7 +241,6 @@ btnKeluar.addEventListener("click", function () {
 function clearAll() {
     listOfTxt.forEach((txt) => (txt.value = ""));
     dateStart.value = getCurrentDate();
-    rdoPembebasan.checked = true;
     slcKodeBarang.selectedIndex = 0;
 }
 //#endregion

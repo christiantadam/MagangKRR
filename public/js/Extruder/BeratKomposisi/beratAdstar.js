@@ -26,9 +26,9 @@ btnKoreksi.addEventListener("click", function () {
 txtKode.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
-            let kode = ("000000000" + this.value.trim().toUpperCase()).slice(
-                -9
-            );
+            let kode = "000000000";
+            kode += this.value.toUpperCase();
+            kode = kode.slice(-9);
             this.value = kode;
             loadDataFetch(kode);
         } else this.focus();
@@ -68,7 +68,7 @@ btnProses.addEventListener("click", function () {
         parseFloat(numKertas.value);
 
     fetchSelect(
-        "/beratWoven/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtKode.value,
+        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtKode.value,
         (data) => {
             const koreksiBerat = () => {
                 let ket =
@@ -81,7 +81,7 @@ btnProses.addEventListener("click", function () {
                     numTotal.value;
 
                 fetchStmt(
-                    "/beratWoven/SP_1003_PBL_UPDATE_BERAT_JUMBO_1/" +
+                    "/beratStandar/SP_1273_BCD_UPDATE_BERAT_ADSTAR/" +
                         txtKode.value +
                         "~" +
                         ket +
@@ -92,8 +92,7 @@ btnProses.addEventListener("click", function () {
                         "~" +
                         numKertas.value +
                         "~" +
-                        numTotal.value +
-                        "~4384",
+                        numTotal.value,
                     () => {
                         formWait(false);
                         alert("Berat karung berhasil dikoreksi.");
@@ -134,7 +133,7 @@ btnKeluar.addEventListener("click", function () {
 function loadDataFetch(s_kode_brg) {
     formWait(true);
     fetchSelect(
-        "/beratWoven/SP_1003_PBL_SELECT_JUMBO/" + s_kode_brg,
+        "/beratStandar/SP_1273_BCD_DATA_ADSTAR/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
                 txtKode.value = s_kode_brg;
