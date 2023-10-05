@@ -27,6 +27,12 @@ class CreateBKMController extends Controller
         return response()->json($bank);
     }
 
+    function getJenisBankCreateBKM($idBank)
+    {
+        $bank =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BANK_1] @idBank = ?', [$idBank] );
+        return response()->json($bank);
+    }
+
     function getKodePerkiraan()
     {
         $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_KODE_PERKIRAAN] @Kode = ?', 1);

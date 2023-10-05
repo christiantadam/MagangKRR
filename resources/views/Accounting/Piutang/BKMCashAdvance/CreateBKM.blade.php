@@ -85,6 +85,7 @@
                                 </div>
                                 <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                 <input type="text" id="total1" name="total1" class="form-control" style="width: 100%">
+                                <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
 
                                 <!--MODAL INPUT TANGGAL BKM-->
                                 <div class="modal fade" id="pilihInputTanggal" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">

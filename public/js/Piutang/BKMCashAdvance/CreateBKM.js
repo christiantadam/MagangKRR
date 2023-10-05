@@ -14,6 +14,7 @@ let tglInputNew = document.getElementById("tglInputNew");
 let idBKMNew = document.getElementById("idBKMNew");
 let totalPelunasan = document.getElementById("total1");
 let konversi = document.getElementById('konversi');
+let jenisBank = document.getElementById('jenisBank');
 
 let selectedRows = [];
 let totalNilaiPelunasan = 0;
@@ -124,7 +125,6 @@ let nilaipelunasan = [];
 btnGroupBKM.addEventListener('click', function (event) {
     const selectedDataArray = [];
     event.preventDefault();
-    const totalColumnIndex = 5;
     let idBKMGenerated = false;
 
     nilaipelunasan = [];
@@ -150,7 +150,7 @@ btnGroupBKM.addEventListener('click', function (event) {
             // Remove data from bankArray and tanggalArray when unchecked
             const dataToRemove = dataTable3.cell(rowIndex, 2).data();
             const tanggalToRemove = dataTable3.cell(rowIndex, 7).data();
-            const pelunasanToRemove = dataTable3.cell(rowIndex, 7).data();
+            const pelunasanToRemove = dataTable3.cell(rowIndex, 5).data();
 
             const bankIndex = bankArray.indexOf(dataToRemove, tanggalToRemove, pelunasanToRemove);
             if (bankIndex !== -1) {
@@ -258,11 +258,20 @@ function Check(bankArray, tanggalArray) {
         }
 
         const totalPembayaran = nilaipelunasan.reduce((total, value) => total + value, 0);
-        totalPelunasan.value = totalPembayaran;
+        const formattedNumber = formatToCurrency(totalPembayaran);
+        totalPelunasan.value = formattedNumber;
         konversi.value = numberToWords(totalPembayaran);
         console.log(totalPelunasan.value);
+        console.log(idBank.value);
     }
-    return false;
+
+    fetch("/getJenisBankCreateBKM/" + idBank.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            jenisBank.value = options[0].jenis;
+    });
 }
 
 btnOK.addEventListener('click', function (event) {
@@ -553,6 +562,11 @@ function validatePilihBank() {
     }
 };
 
+function formatToCurrency(number) {
+    const formattedNumber = new Intl.NumberFormat('en-US').format(number);
+    return formattedNumber;
+};
+
 const ones = ['', 'Satu ', 'Dua ', 'Tiga ', 'Empat ', 'Lima ', 'Enam ', 'Tujuh ', 'Delapan ', 'Sembilan '];
 const teens = ['Sepuluh', 'Sebelas', 'Dua Belas', 'Tiga Belas', 'Empat Belas', 'Lima Belas', 'Enam Belas', 'Tujuh Belas', 'Delapan Belas', 'Sembilan Belas'];
 const tens = ['', 'Sepuluh', 'Dua Puluh', 'Tiga Puluh', 'Empat Puluh', 'Lima Puluh', 'Enam Puluh', 'Tujuh Puluh', 'Delapan Puluh', 'Sembilan Puluh'];
@@ -599,6 +613,5 @@ function convertThreeDigitsToWords(num) {
         const onesPlace = remainder % 10;
         result += tens[tensPlace] + ' ' + ones[onesPlace];
     }
-
     return result;
 }
