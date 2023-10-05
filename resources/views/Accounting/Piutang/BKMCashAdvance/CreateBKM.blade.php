@@ -24,7 +24,7 @@
                                     <div class="col-md-1">
                                         <input type="text" id="bulan" class="form-control" style="width: 100%">
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <input type="text" id="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                                 <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
-                                <input type="hidden" id="total1" name="total1" class="form-control" style="width: 100%">
+                                <input type="text" id="total1" name="total1" class="form-control" style="width: 100%">
 
                                 <!--MODAL INPUT TANGGAL BKM-->
                                 <div class="modal fade" id="pilihInputTanggal" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
