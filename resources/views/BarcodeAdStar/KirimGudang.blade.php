@@ -111,5 +111,5 @@
     </div>
 </div>
 
-<script src="{{ asset('js\AdStar\KirimGudang.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\KirimGudang.js')}}"></script>
 @endsection

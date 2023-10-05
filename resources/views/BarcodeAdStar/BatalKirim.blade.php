@@ -203,5 +203,5 @@
         </div>
     </div>
 
-<script src="{{ asset('js\AdStar\BatalKirim.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\BatalKirim.js')}}"></script>
 @endsection

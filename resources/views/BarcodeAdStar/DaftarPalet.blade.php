@@ -88,5 +88,5 @@
 </div>
 </div>
 
-<script src="{{ asset('js\AdStar\DaftarPalet.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\DaftarPalet.js')}}"></script>
 @endsection

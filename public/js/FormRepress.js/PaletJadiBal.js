@@ -24,7 +24,7 @@ $(document).ready(function () {
         var rowData = $('#TableDivisi').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        fetch("/PaletJadiBal/" + rowData[0] + ".txtIdDivisi")
+        fetch("/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -174,6 +174,11 @@ $(document).ready(function () {
         // Mengatur tombol menjadi tidak dapat diakses (disabled)
         ButtonPrintBarcode.disabled = true;
 
+        var getBarcodePrintUlang = document.getElementById('BarcodeInput');
+        var str = getBarcodePrintUlang.value
+        var parts = str.split("-");
+        console.log(parts);
+
         // Lakukan operasi pencetakan barcode
         var idtype = '0016';
         var tanggal = document.getElementById('tanggalOutput').value;
@@ -182,14 +187,14 @@ $(document).ready(function () {
         var tritier = document.getElementById('tritier').value;
         var UserID = 'U001';
         var asalidsubkelompok = 'SKL01';
-        var kodebarang = '00000KB02';
+        var kodebarang = parts[0];
         var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = '00000KB02';
+        var idsubkontraktor = parts[0];
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/PaletJadiBal/" + idtype + UserID + tanggal +
-            primer + sekunder + tritier + asalidsubkelompok +
-            idsubkontraktor + kodebarang + uraian + ".buatBarcode")
+        fetch("/PaletJadiBal/" + idtype + "." + UserID + "." + tanggal + "." +
+            primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
+            idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -203,7 +208,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/PaletJadiBal/" + kodebarang + ".getIndex")
+                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -501,7 +506,7 @@ function prosesACCBarcode(data) {
     console.log(formData);
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "PaletJadiBal/dua");
+    form.setAttribute("action", "BuatBarcode/dua");
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form
@@ -570,7 +575,7 @@ function PrintUlangData(data) {
 
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "PaletJadiBal/{noindeks}"); // Replace with the correct action URL
+    form.setAttribute("action", "BuatBarcode/{noindeks}"); // Replace with the correct action URL
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form

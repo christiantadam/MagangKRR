@@ -32,5 +32,5 @@
 </div>
 </div>
 
-<script src="{{ asset('js\AdStar\CetakBarcodeRusak.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\CetakBarcodeRusak.js')}}"></script>
 @endsection

@@ -199,5 +199,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js\AdStar\HangusBarcode.js')}}"></script>
+    <script src="{{ asset('js\Barcode.js\HangusBarcode.js')}}"></script>
 @endsection

@@ -317,5 +317,5 @@
     </div>
 </div>
 
-<script src="{{ asset('js\AdStar\Schedule.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\Schedule.js')}}"></script>
 @endsection

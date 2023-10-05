@@ -16,7 +16,7 @@ class PaletJadiBalController extends Controller
         $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype =?, @divisi =?', ["", "JBJ"]);
 
         //  dd($dataType);
-        return view('FormRepress.PaletJadiBal', compact('dataDivisi', 'dataType'));
+        return view('FormRepress.BuatBarcode', compact('dataDivisi', 'dataType'));
     }
 
     //Show the form for creating a new resource.
@@ -43,22 +43,22 @@ class PaletJadiBalController extends Controller
             // dd($dataType);
             // Return the options as JSON data
             return response()->json($dataType);
-        } else if ($crExplode[$lasindex] == "PaletJadiBal") {
+        } else if ($crExplode[$lasindex] == "buatBarcode") {
             $dataBarcode = DB::connection('ConnInventory')->statement(
                 'exec SP_5409_INV_SimpanPermohonanBarcode
         @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
         @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
                 [
-                    "0016",
-                    "U001",
-                    "2023-09-22",
-                    "1",
-                    "10",
-                    "12",
-                    "SKL01",
-                    "00000KB02",
-                    "00000KB02",
-                    "Pagi",
+                    $crExplode[0],
+                    $crExplode[1],
+                    $crExplode[2],
+                    $crExplode[3],
+                    $crExplode[4],
+                    $crExplode[5],
+                    $crExplode[6],
+                    $crExplode[7],
+                    $crExplode[8],
+                    $crExplode[9],
                     " ",
                     " "
                 ]
@@ -101,7 +101,7 @@ class PaletJadiBalController extends Controller
                 $data['noindeks'],
                 'U001'
             ]);
-            return redirect()->route('PaletJadiBal.index')->with('alert', 'Data Updated successfully!');
+            return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
 
 
         } else if ($data['opsi'] == "dua") {
@@ -109,7 +109,7 @@ class PaletJadiBalController extends Controller
                 $data['kodebarang'],
                 $data['noindeks']
             ]);
-            return redirect()->route('PaletJadiBal.index')->with('alert', 'Data Updated successfully!');
+            return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
 
         }
     }

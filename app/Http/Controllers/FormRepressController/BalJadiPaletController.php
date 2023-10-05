@@ -54,7 +54,6 @@ class BalJadiPaletController extends Controller
                 @uraian = ?, @noindeks = ?, @hasil = ?',
                 [
                     $crExplode[0],
-                    "U001",
                     $crExplode[1],
                     $crExplode[2],
                     $crExplode[3],
@@ -63,10 +62,13 @@ class BalJadiPaletController extends Controller
                     $crExplode[6],
                     $crExplode[7],
                     $crExplode[8],
+                    $crExplode[9],
                     " ",
                     " "
                 ]
             );
+            // dd($dataBarcode);
+            return response()->json($dataBarcode);
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')
                 ->table('Dispresiasi')

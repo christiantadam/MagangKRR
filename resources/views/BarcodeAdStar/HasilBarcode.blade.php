@@ -51,5 +51,5 @@
 </div>
 </div>
 
-<script src="{{ asset('js\AdStar\HasilBarcode.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\HasilBarcode.js')}}"></script>
 @endsection

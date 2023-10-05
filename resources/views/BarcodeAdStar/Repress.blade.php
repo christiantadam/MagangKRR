@@ -133,5 +133,5 @@
         });
     </script>
 </body>
-<script src="{{ asset('js\AdStar\Repress.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\Repress.js')}}"></script>
 @endsection

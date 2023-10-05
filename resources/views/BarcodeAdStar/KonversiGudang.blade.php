@@ -125,5 +125,5 @@
 </div>
 </div>
 
-<script src="{{ asset('js\AdStar\BuatBarcode.js')}}"></script>
+<script src="{{ asset('js\Barcode.js\BuatBarcode.js')}}"></script>
 @endsection
