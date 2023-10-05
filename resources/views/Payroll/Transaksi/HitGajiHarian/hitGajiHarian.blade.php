@@ -17,9 +17,9 @@
                                   <label for="TglMulai" class="aligned-text">Periode:</label>
                                 </div>
                                 <div class="form-group col-md-4">
-                                  <input class="form-control" type="date" id="TglMulai" name="TglMulai" value="" required style="max-width: 200px;">
+                                  <input class="form-control" type="date" id="TglMulai" name="TglMulai" required style="max-width: 200px;" value="{{ old('TglMulai', now()->format('Y-m-d')) }}">
                                   <span class="aligned-text" style="margin-left: 15px;">s/d</span>
-                                  <input class="form-control" type="date" id="TglSelesai" name="TglSelesai" value="" required style="max-width: 200px;">
+                                  <input class="form-control" type="date" id="TglSelesai" name="TglSelesai" required style="max-width: 200px;" value="{{ old('TglSelesai', now()->format('Y-m-d')) }}">
 
                                 </div>
 

@@ -1,6 +1,5 @@
 @extends('layouts.appPayroll')
 @section('content')
-
     <script type="text/javascript" src="{{ asset('js/Master/karyawanHarian.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -15,9 +14,9 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="text" id="Kd_Posisi" readonly
+                                <input class="form-control" type="text" id="Kd_Posisi" disabled
                                     style="resize: none; height: 40px; max-width: 100px;">
-                                <input class="form-control" type="text" id="Nama_Posisi" readonly
+                                <input class="form-control" type="text" id="Nama_Posisi" disabled
                                     style="resize: none; height: 40px; max-width: 450px;">
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                     style="resize: none; height: 40px; max-width: 250px;">
@@ -26,8 +25,8 @@
                                         <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                     @endforeach
                                 </select> --}}
-                                <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    onclick="showModalPosisi()">...</button>
+                                <button type="button" class="btn" style="margin-left: 10px; " id="posisiButton"
+                                    onclick="showModalPosisi()" disabled>...</button>
 
                                 <div class="modal fade" id="modalPosisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -73,9 +72,9 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="text" id="Id_Div" readonly
+                                <input class="form-control" type="text" id="Id_Div" disabled
                                     style="resize: none; height: 40px; max-width: 100px;">
-                                <input class="form-control" type="text" id="Nama_Div" readonly
+                                <input class="form-control" type="text" id="Nama_Div" disabled
                                     style="resize: none; height: 40px; max-width: 450px;">
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                     style="resize: none; height: 40px; max-width: 250px;">
@@ -85,7 +84,7 @@
                                     @endforeach
                                 </select> --}}
                                 <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                    onclick="showModalDivisi()">...</button>
+                                    onclick="showModalDivisi()" disabled>...</button>
 
                                 <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -123,9 +122,9 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                <input class="form-control" type="text" id="Id_Peg" readonly
+                                <input class="form-control" type="text" id="Id_Peg" disabled
                                     style="resize: none; height: 40px; max-width: 100px;">
-                                <input class="form-control" type="text" id="Nama_Peg" readonly
+                                <input class="form-control" type="text" id="Nama_Peg" disabled
                                     style="resize: none; height: 40px; max-width: 450px;">
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                     style="resize: none; height: 40px; max-width: 250px;">
@@ -134,8 +133,8 @@
                                         <option value="{{ $data->Id_Div }}">{{ $data->Nama_Div }}</option>
                                     @endforeach
                                 </select> --}}
-                                <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                onclick="showModalPegawai()">...</button>
+                                <button type="button" class="btn" style="margin-left: 10px; " id="pegawaiButton"
+                                    onclick="showModalPegawai()" disabled>...</button>
 
                                 <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
@@ -176,7 +175,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="induk" id="NomorInduk"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -188,7 +187,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Kartu" id="NomorKartu"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -212,7 +211,7 @@
                                             @endforeach
                                         </select> --}}
                                         <button type="button" class="btn" style="margin-left: 10px; "
-                                            id="divisiButton"  onclick="showModalShift()">...</button>
+                                            id="divisiButton" onclick="showModalShift()">...</button>
 
                                         <div class="modal fade" id="modalShift" role="dialog"
                                             arialabelledby="modalLabel" area-hidden="true" style="">
@@ -261,7 +260,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                 <input type="text" class="form-control" name="Alamat" id="Alamat" placeholder=""
-                                    required>
+                                    disabled>
 
                             </div>
                         </div>
@@ -274,7 +273,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="kota" id="namaKota"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -284,7 +283,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="NIK" id="NIK"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -294,10 +293,9 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="tempat" id="tempatLahir"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
                                         <input class="form-control" type="date" id="TglLahir" name="TglLahir"
-                                             style="width: 150px;"
-                                            required>
+                                            style="width: 150px;" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -306,7 +304,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Agama" id="Agama"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -316,7 +314,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Pendidikan" id="Pendidikan"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -326,7 +324,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Rek" id="NomorRek"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -336,12 +334,10 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
-                                             style="width: 150px;"
-                                            required>
+                                            style="width: 150px;" disabled>
                                         <span class="aligned-text" style="margin-left: 13px;">Tgl Masuk Awal:</span>
                                         <input class="form-control" type="date" id="TglMasukAwal" name="TglMasukAwal"
-
-                                            style="width: 150px;margin-left:20px;" required>
+                                            style="width: 150px;margin-left:20px;" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -350,8 +346,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAwalKontrak" name="TglLahir"
-                                             style=""
-                                            required>
+                                            style="" disabled>
 
                                     </div>
                                 </div>
@@ -361,7 +356,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Jabatan" id="Jabatan"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -371,7 +366,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="Koperasi" id="NomorKop"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -381,7 +376,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="NPWP" id="NPWP"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -396,10 +391,10 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="width:480px;">
                                         <input type="text" class="form-control" name="badan" id="TinggiBadan"
-                                            placeholder="" style="width:125px;" required>
+                                            placeholder="" style="width:125px;" disabled>
                                         <span class="aligned-text" style="margin-left: 45px">Berat Badan:</span>
                                         <input type="text" class="form-control" name="badan" id="BeratBadan"
-                                            placeholder="" style="width:125px;margin-left: 20px;" required>
+                                            placeholder="" style="width:125px;margin-left: 20px;" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -408,7 +403,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="width:480px;">
                                         <input type="text" class="form-control" name="kelamin" id="JenisKelamin"
-                                            placeholder="" style="width:125px;" required>
+                                            placeholder="" style="width:125px;" disabled>
 
                                     </div>
                                 </div>
@@ -418,10 +413,10 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="width:480px;">
                                         <input type="text" class="form-control" name="kawin" id="StatusKawin"
-                                            placeholder="" style="width:125px;" required>
+                                            placeholder="" style="width:125px;" disabled>
                                         <span class="aligned-text" style="margin-left: 20px">Jml Tanggungan:</span>
                                         <input type="text" class="form-control" name="tanggungan" id="JmlTanggungan"
-                                            placeholder="" style="width:125px;margin-left: 20px;" required>
+                                            placeholder="" style="width:125px;margin-left: 20px;" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -430,7 +425,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="astek" id="NomorAstek"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -440,7 +435,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="RBH" id="NomorRBH"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -450,8 +445,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasukKop" name="Koperasi"
-                                             style=""
-                                            required>
+                                            style="" disabled>
 
                                     </div>
                                 </div>
@@ -461,8 +455,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAkhirKontrak" name="Kontrak"
-                                            style=""
-                                            required>
+                                            style="" disabled>
 
                                     </div>
                                 </div>
@@ -472,7 +465,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                         <input type="text" class="form-control" name="golongan" id="Golongan"
-                                            placeholder="" required>
+                                            placeholder="" disabled>
 
                                     </div>
                                 </div>
@@ -487,7 +480,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                             <input type="text" class="form-control" name="upah" id="upahPokok"
-                                                placeholder="" required>
+                                                placeholder="" disabled>
 
                                         </div>
                                     </div>
@@ -497,7 +490,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                             <input type="text" class="form-control" name="upah" id="upahJenjang"
-                                                placeholder="" required>
+                                                placeholder="" disabled>
 
                                         </div>
                                     </div>
@@ -508,8 +501,8 @@
                                             <span class="aligned-text">Tunj.&nbsp;Jabatan:</span>
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                            <input type="text" class="form-control" name="upah" id="TunjanganJabatan"
-                                                placeholder="" required>
+                                            <input type="text" class="form-control" name="upah"
+                                                id="TunjanganJabatan" placeholder="" disabled>
 
                                         </div>
                                     </div>
@@ -519,7 +512,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
                                             <input type="text" class="form-control" name="upah" id="upahGolongan"
-                                                placeholder="" required>
+                                                placeholder="" disabled>
 
                                         </div>
                                     </div>
@@ -532,11 +525,15 @@
 
 
                         <button type="button" class="btn " style="width:75px;" id="isiButton">Isi</button>
-                        <button type="button" class="btn " style="width:75px;" id="SimpanIsiButton" hidden>SIMPAN</button>
-                        <button type="button" class="btn " style="width:75px;" id="SimpanKoreksiButton" hidden>SIMPAN</button>
+                        <button type="button" class="btn " style="width:75px;" id="SimpanIsiButton"
+                            hidden>SIMPAN</button>
+                        <button type="button" class="btn " style="width:75px;" id="SimpanKoreksiButton"
+                            hidden>SIMPAN</button>
                         <button type="button" class="btn " style="width:75px;" id="KoreksiButton">Koreksi</button>
-                        <button type="button" class="btn " style="width:75px;" id="BatalIsiButton" hidden>BATAL</button>
-                        <button type="button" class="btn " style="width:75px;" id="BatalKoreksiButton" hidden>BATAL</button>
+                        <button type="button" class="btn " style="width:75px;" id="BatalIsiButton"
+                            hidden>BATAL</button>
+                        <button type="button" class="btn " style="width:75px;" id="BatalKoreksiButton"
+                            hidden>BATAL</button>
                         <button type="button" class="btn " style="width:75px;" id="HapusButton">Hapus</button>
                         <button type="button" class="btn " style="width:75px;" id="keluarButton">Keluar</button>
                     </div>

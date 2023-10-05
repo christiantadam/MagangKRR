@@ -12,7 +12,7 @@
                         <div style="display: flex; align-items: center;">
                             <label for="TglLapor" style="margin-right: 10px;">Tanggal</label>
                             <input class="form-control" type="date" id="TglAgenda" name="TglAgenda" required
-                                style="max-width: 200px;" value="2022-12-25">
+                                style="max-width: 200px;" value="{{ old('TglAgenda', now()->format('Y-m-d')) }}">
                         </div>
                     </div>
 

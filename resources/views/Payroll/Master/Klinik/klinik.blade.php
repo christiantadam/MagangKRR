@@ -100,7 +100,7 @@
                         </div>
                         <div class="row" style="">
                             <div class="form-group col-md-1 d-flex justify-content-end">
-                                <span class="aligned-text">No. Telepon:</span>
+                                <span class="aligned-text">No.&nbsp;Telepon:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input class="form-control" type="text" id="NomorTelepon" readonly
