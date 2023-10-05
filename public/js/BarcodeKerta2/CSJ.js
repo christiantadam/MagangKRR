@@ -153,6 +153,109 @@ $(document).ready(function () {
         }
     });
 
+    var Truk_pol = document.getElementById('Truk_pol');
+    Truk_pol.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var txtNoUrut = document.getElementById('Surat_jalan');
+            var txtTgl = document.getElementById('tgl');
+
+            // Cek apakah nilai txtNoUrut dimulai dengan "J" atau "j"
+            if (txtNoUrut.value.startsWith("J") || txtNoUrut.value.startsWith("j")) {
+                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+                        // Handle the data retrieved from the server (data should be an object or an array)
+                        console.log(data);
+                        // Clear the existing table rows
+                        $("#TypeTable").DataTable().clear().draw();
+                        $("#TableSJPrint").DataTable().clear().draw();
+
+                        // Loop through the data and create table rows
+                        data.forEach((item) => {
+                            var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            $("#TypeTable").DataTable().row.add(row);
+                            $("#TableSJPrint").DataTable().row.add(row2);
+                        });
+
+                        // Redraw the table to show the changes
+                        $("#TypeTable").DataTable().draw();
+                        $("#TableSJPrint").DataTable().draw();
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+
+            } else if (txtNoUrut.value.startsWith("A") || txtNoUrut.value.startsWith("a")) {
+                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+                        // Handle the data retrieved from the server (data should be an object or an array)
+                        console.log(data);
+                        // Clear the existing table rows
+                        $("#TypeTable").DataTable().clear().draw();
+                        $("#TableSJPrint").DataTable().clear().draw();
+
+                        // Loop through the data and create table rows
+                        data.forEach((item) => {
+                            var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            $("#TypeTable").DataTable().row.add(row);
+                            $("#TableSJPrint").DataTable().row.add(row2);
+                        });
+
+                        // Redraw the table to show the changes
+                        $("#TypeTable").DataTable().draw();
+                        $("#TableSJPrint").DataTable().draw();
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+
+            } else  if (txtNoUrut.value.startsWith("W") || txtNoUrut.value.startsWith("w")) {
+                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+                        // Handle the data retrieved from the server (data should be an object or an array)
+                        console.log(data);
+                        // Clear the existing table rows
+                        $("#TypeTable").DataTable().clear().draw();
+                        $("#TableSJPrint").DataTable().clear().draw();
+
+                        // Loop through the data and create table rows
+                        data.forEach((item) => {
+                            var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
+                            $("#TypeTable").DataTable().row.add(row);
+                            $("#TableSJPrint").DataTable().row.add(row2);
+                        });
+
+                        // Redraw the table to show the changes
+                        $("#TypeTable").DataTable().draw();
+                        $("#TableSJPrint").DataTable().draw();
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            }
+        }
+    });
+
     // var Cetak = document.getElementById('Cetak');
     // Cetak.addEventListener("click", function (event) {
     //     fetch("/CSJ/" + ".getCetak")

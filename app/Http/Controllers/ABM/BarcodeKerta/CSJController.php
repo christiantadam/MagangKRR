@@ -74,7 +74,23 @@ class CSJController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        if ($data['opsi'] == "satu") {
+            DB::connection('ConnInventory')->statement('exec SP_1273_INV_ambil_counter_sj_mojosari @mode = ?', [
+                '5'
+            ]);
+            return redirect()->route('CSJ.index')->with('alert', 'Data Updated successfully!');
+
+
+        } else if ($data['opsi'] == "dua") {
+            DB::connection('ConnInventory')->statement('exec SP_1273_INV_ambil_counter_sj_mojosari @mode = ? ', [
+                '6'
+            ]);
+            return redirect()->route('CSJ.index')->with('alert', 'Data Updated successfully!');
+
+        }
     }
 
     //Remove the specified resource from storage.

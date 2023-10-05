@@ -5,6 +5,8 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+    var dataPrint = 0;
+
     var Barcode = document.getElementById('Barcode');
     Barcode.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
@@ -21,9 +23,23 @@ $(document).ready(function () {
                     return response.json(); // Assuming the response is in JSON format
                 })
                 .then((data) => {
-                    // Loop through the data and create table rows
+                    console.log(data[2]);
                     data.forEach((item) => {
-                        var row = [item.NoIndeks, item.Kode_barang, item.NamaType, item.Qty_Sekunder, item.Qty, item.SatSekunder, item.SatTritier];
+                        var row = [item.NamaType, str, item.Qty_Primer, item.Qty_Sekunder, item.SatSekunder, item.Qty, item.SatTritier];
+
+                        // Menggabungkan elemen array menjadi string dengan spasi, kecuali pada pasangan tertentu
+                        dataPrint = row.reduce((result, item, index) => {
+                            if ((index === 3 || index === 5) && row[index + 1] !== undefined) {
+                                // Jika index adalah 3 atau 5 dan elemen selanjutnya tidak undefined, gunakan separator kosong
+                                result.push(item + row[index + 1]);
+                            } else if (index !== 4 && index !== 6) {
+                                // Jika bukan pasangan yang perlu dipisahkan, gunakan spasi sebagai separator default
+                                result.push(item);
+                            }
+                            return result;
+                        }, []).join(' ');
+
+                        console.log(dataPrint);
 
                         $("#Item").val(item.NoIndeks);
                         $("#Kode").val(item.Kode_barang);
@@ -105,6 +121,19 @@ $(document).ready(function () {
         var printUlangButton = document.getElementById('printUlangBtn');
         printUlangButton.addEventListener("click", function () {
             // Lakukan tindakan yang diperlukan saat tombol "Print Ulang" ditekan
+            const IdBarcode = dataPrint;
+
+            // Memeriksa apakah input masih kosong saat Enter ditekan
+            if (IdBarcode.trim() === "") {
+                // Menampilkan alert jika input masih kosong
+                alert("Input barcode masih kosong. Mohon isi terlebih dahulu.");
+            } else {
+                // Jika input tidak kosong, maka proses pencetakan barcode
+                const card = document.getElementById("card");
+                console.log(IdBarcode);
+                JsBarcode("#barcode", IdBarcode);
+                card.hidden = true;
+            }
 
             // Aktifkan tombol "Scan Barcode" setelah tombol "Print Ulang" ditekan
             scanBarcodeButton.removeAttribute('disabled');
@@ -222,11 +251,11 @@ function PrintUlangData() {
             _method: "PUT",
             _ifUpdate: "Update Barcode"
         },
-        success: function(response) {
+        success: function (response) {
             console.log("Form submitted successfully!");
             // Handle the server's response if needed
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Form submission error:", error);
             // Handle the error if needed
         }

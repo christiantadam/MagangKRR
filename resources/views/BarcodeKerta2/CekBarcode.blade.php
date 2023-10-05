@@ -24,9 +24,11 @@
 
                                     <div class="row mt-3">
                                         <div class="col- row justify-content-md-center">
-                                            <div class="text-center col-md-auto"><button style="width: 100px" type="button">Keluar</button>
+                                            <div class="text-center col-md-auto"><button style="width: 100px"
+                                                    type="button">Keluar</button>
                                             </div>
-                                            <div class="text-center col-md-auto"><button id="CekBarcode" style="width: 100px" type="button">Cek</button>
+                                            <div class="text-center col-md-auto"><button id="CekBarcode"
+                                                    style="width: 100px" type="button">Cek</button>
                                             </div>
                                         </div>
                                     </div>

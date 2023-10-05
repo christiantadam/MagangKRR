@@ -1,13 +1,14 @@
 @extends('layouts.appABM')
 @section('content')
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PrintUlang.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <body onload="Greeting()">
         <div id="app">
             <div class="form-wrapper mt-4">
                 <div class="form-container">
-                    <div class="card">
+                    <div class="card" id="card">
                         <div class="card-header">Print Ulang</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
@@ -128,6 +129,11 @@
                                     </div>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row mr-5" id="printSection">
+                        <div class="row justify-content-md-center">
+                            <svg id="barcode"></svg>
                         </div>
                     </div>
                 </div>
