@@ -73,7 +73,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 },
             },
             //{ title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
-            { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
+            { title: "Tanggal Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
             { title: "Nama Barang", data: "Nama_Brg" },
             {
                 title: "Jumlah",
@@ -87,12 +87,12 @@ function AllData(tglawal,tglakhir,idDivisi) {
             { title: "Mesin", data: "Mesin" },
             { title: "Keterangan Order", data: "Ket_Order" },
             { title: "PengOrder", data: "NmUserOd" },
-            { title: "Diterima", data: "Tgl_Rcv_Gbr"},
-            { title: "Diserahkan", data: "Tgl_Beri_Gbr"},
+            { title: "Tanggal Diterima", data: "Tgl_Rcv_Gbr"},
+            { title: "Tanggal Diserahkan", data: "Tgl_Beri_Gbr"},
             { title: "NoGambar", data: "No_Gambar"},
             { title: "NamaGambar", data: "Nm_Brg"},
             { title: "KdBrg", data: "KodeBrg"},
-            { title: "TglFinish", data: "Tgl_Finish"},
+            { title: "Tanggal Finish", data: "Tgl_Finish"},
         ],
     });
 

@@ -94,10 +94,10 @@ function AllData(tglawal, tglakhir, idDivisi) {
                     return row.Manager !== null ? `${row.Manager} , ${row.AccMng}` : " ";
                 },
             },
-            { title: "ACC Dir", data : "AccDir"},
+            { title: "Tanggal ACC Dir", data : "AccDir"},
             { title: "ACC D.Teknik", data: "AccTek"},
-            { title: "Start", data: "Start"},
-            { title: "Finish", data: "Finish"},
+            { title: "Tanggal Start", data: "Start"},
+            { title: "Tanggal Finish", data: "Finish"},
             {
                 title: "TdkStj Mngr",
                 data: function (row) {
@@ -109,7 +109,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 data : "Ref1"
             },
             {
-                title: "TdkStj Dir",
+                title: "Tanggal TdkStj Dir",
                 data: "TdStj2"
             },
             { title: "Ket. TdkStj Dir", data:"Ref2"},

@@ -73,7 +73,7 @@
         <thead class="table-dark">
           <tr>
             <th>No. Order</th>
-            <th>Tgl. Order</th>
+            <th>Tanggal Order</th>
             <th>Nama Barang</th>
             <th>Jumlah</th>
             <th>Status Order</th>
@@ -81,12 +81,12 @@
             <th>Mesin</th>
             <th>Keterangan Order</th>
             <th>PengOrder</th>
-            <th>Diterima</th>
-            <th>Diserahkan</th>
+            <th>Tanggal Diterima</th>
+            <th>Tanggal Diserahkan</th>
             <th>NoGambar</th>
             <th>NamaGambar</th>
             <th>KdBrg</th>
-            <th>TglFinish</th>
+            <th>Tanggal Finish</th>
           </tr>
         </thead>
         <tbody>

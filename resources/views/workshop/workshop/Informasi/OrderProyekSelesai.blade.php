@@ -71,7 +71,7 @@
         <thead class="table-dark">
             <tr>
                 <th>No. Order</th>
-                <th>Tgl. Order</th>
+                <th>Tanggal Order</th>
                 <th>Nama Proyek</th>
                 <th>JmlOrder</th>
                 <th>Status Order</th>
@@ -80,7 +80,7 @@
                 <th>Keterangan Order</th>
                 <th>PengOrder</th>
                 <th>JmlOrderFinish</th>
-                <th>TglFinish</th>
+                <th>Tanggal Finish</th>
             </tr>
         </thead>
         <tbody>

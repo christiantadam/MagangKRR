@@ -106,7 +106,7 @@ function tukar(event) {
 function Isidiklik() {
 
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -118,7 +118,7 @@ function Isidiklik() {
 }
 function bataldiklik() {
 
-    btnhapus.style.display = "block";
+    btnhapus.style.display = "";
     btnbatal.style.display = "none";
     btnproses.disabled = true;
     btnisi.disabled = false;
@@ -130,9 +130,11 @@ function bataldiklik() {
     mesin.value = mesinAwal;
     mesin.style.display = "block";
     isimesin.style.display = "none";
+    mesin.value = "Pilih Mesin";
     select = true;
     input = false;
     isimesin.value = "";
+    divisi.value = "Pilih Divisi";
     isi = false;
     koreksi = false;
     hapus = false;
@@ -142,7 +144,7 @@ function bataldiklik() {
 function koreksidiklik() {
 
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -155,7 +157,7 @@ function koreksidiklik() {
 
 function hapusdiklik() {
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
     btnproses.disabled = false;

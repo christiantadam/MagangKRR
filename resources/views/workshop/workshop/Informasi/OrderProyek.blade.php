@@ -81,10 +81,10 @@
             <th>Ket. Order</th>
             <th>PengOrder</th>
             <th>ACC Mngr</th>
-            <th>ACC Dir</th>
+            <th>Tanggal ACC Dir</th>
             <th>ACC D.Teknik</th>
-            <th>Start</th>
-            <th>Finish</th>
+            <th>Tanggal Start</th>
+            <th>Tanggal Finish</th>
             <th>JmlFinish</th>
             <th>Tdk Stj Mngr</th>
             <th>Ket.Tdk Stj Mng</th>

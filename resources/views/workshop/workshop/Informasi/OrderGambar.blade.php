@@ -80,13 +80,13 @@
             <th>Ket. Order</th>
             <th>PengOrder</th>
             <th>ACC Mngr</th>
-            <th>ACC Dir</th>
+            <th>Tanggal ACC Dir</th>
             <th>ACC D.Teknik</th>
-            <th>Start</th>
-            <th>Finish</th>
+            <th>Tanggal Start</th>
+            <th>Tanggal Finish</th>
             <th>TdkStj Mngr</th>
             <th>Ket. TdkStj Mngr</th>
-            <th>TdkStj Dir</th>
+            <th>Tanggal TdkStj Dir</th>
             <th>Ket. TdkStj Dir</th>
             <th>Ditolak D.Teknik</th>
             <th>Ket.Ditolak D.Teknik</th>

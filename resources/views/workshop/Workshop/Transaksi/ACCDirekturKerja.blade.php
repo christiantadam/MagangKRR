@@ -14,25 +14,30 @@
   <div class="card-body RDZOverflow RDZMobilePaddingLR0">
     {{-- harus sama name nya dengan nama colom tabel yang di isi --}}
 
-    <label for="tgl" class="form-label">Tanggal</label>
     <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col-3">
-            <input type="Date" class="form-control" name="tgl" id="tgl_awal">
-          </div>
-          <div class="col-2">
-            <p style="padding-top: 8px">s/d</p>
-          </div>
-          <div class="col-3">
-            <input type="Date" class="form-control" name="tgl" id="tgl_akhir">
-          </div>
-          <div class="col-3">
-            <button href="" class="btn btn-primary" id="OkACCDirekturKerja">OK</button>
+      <div class="col-8">
+        <div class="col-12">
+          <div class="row" style="align-items: center;">
+
+            <div class="col-2">
+              <label for="tgl" class="form-label">Tanggal</label>
+            </div>
+            <div class="col-3">
+              <input type="Date" class="form-control" name="tgl" id="tgl_awal">
+            </div>
+            <div class="col-1">
+              <p style="padding-top: 8px">s/d</p>
+            </div>
+            <div class="col-3">
+              <input type="Date" class="form-control" name="tgl" id="tgl_akhir">
+            </div>
+            <div class="col-2">
+              <button href="" class="btn btn-primary" id="OkACCDirekturKerja">OK</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <input type="radio" name="pilihan" value="ACC" checked id="acc">
         <label for="ACC">ACC</label>
         <input type="radio" name="pilihan" value="BatalACC" id="batal_acc">
@@ -67,8 +72,8 @@
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-success" id="refresh">Refresh</button>
-        <button class="btn btn-success" id="pilihsemua">Pilih Semua</button>
+        <button class="btn btn-light custom-btn" id="refresh">Refresh</button>
+        <button class="btn btn-primary custom-btn" id="pilihsemua">Pilih Semua</button>
         <input type="hidden" name="radiobox" id="radiobox">
         <input type="hidden" name="semuacentang" id="semuacentang">
         <input type="hidden" name="KetTdkS" id="KetTdkS">
@@ -96,7 +101,7 @@
           </div>
         </div>
         <div class="col-2">
-          <button class="btn btn-primary" onclick="klikproses()"><u>P</u>roses</button>
+          <button class="btn btn-primary custom-btn" onclick="klikproses()"><u>P</u>roses</button>
         </div>
         <div class="col-4">
           <div class="saldo">

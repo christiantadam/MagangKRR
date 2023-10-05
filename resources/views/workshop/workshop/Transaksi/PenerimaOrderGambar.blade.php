@@ -151,8 +151,8 @@
 
         <div class="col-lg-6 mt-3">
           <div class="float-start">
-            <button type="button" class="btn btn-light" id="refresh">Refresh</button>
-            <button type="button" class="btn btn-info" id="pilihsemua">Pilih Semua</button>
+            <button type="button" class="btn btn-light custom-btn" id="refresh">Refresh</button>
+            <button type="button" class="btn btn-primary custom-btn" id="pilihsemua">Pilih Semua</button>
           </div>
 
           <div class="float-end">

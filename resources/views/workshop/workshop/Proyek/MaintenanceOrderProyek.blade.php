@@ -223,7 +223,7 @@
 
         <div class="row mt-3 d-flex justify-content-center">
           <div class="col-lg-12 content-center">
-            <div class="input-group">
+            <div>
               <button type="button" class="btn btn-success custom-btn" id="isi"
                 onclick="isiklik()">ISI</button>
               <button type="button" class="btn btn-warning custom-btn" id="koreksi" onclick="klikkoreksi()">KOREKSI</button>
@@ -292,7 +292,7 @@
                   <span>Tanggal</span>
                 </div>
                 <div class="col-4">
-                  <input type="date" name="Tanggalmodal" class="form-control" id="Tanggalmodal">
+                  <input type="date" name="Tanggalmodal" class="form-control" id="Tanggalmodal" readonly>
                 </div>
                 <div class="col-2">
                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="BuatModal"
@@ -353,7 +353,7 @@
                 </div>
                 <div class="col-4">
                   <input type="text" name="PengOrderModal" class="form-control" id="PengOrderModal"
-                    style="color: blue">
+                    style="color: blue" readonly>
                 </div>
               </div>
             </div>

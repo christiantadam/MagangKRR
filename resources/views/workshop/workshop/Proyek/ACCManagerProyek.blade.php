@@ -81,7 +81,7 @@
             <div class="col-lg-3 content-center">
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="radio-acc-manager-gambar" id="batal_acc">
-                <label class="form-check-label" for="radio-acc-manager-gambar">
+                <label class="form-check-label" for="radio-acc-manager-gambar" style="white-space: nowrap">
                   Batal ACC
                 </label>
               </div>

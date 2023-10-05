@@ -101,6 +101,11 @@ function AllData(tglAwal, tglAkhir, divisi) {
                         const [tanggalfinish, waktufinish] = tglfinish.split(" ");
                         data.Tgl_Finish = tanggalfinish;
                     }
+                    if(data.Tgl_Acc_Mng !== null){
+                        const tglfinish = data.Tgl_Acc_Mng;
+                        const [tanggalfinish, waktufinish] = tglfinish.split(" ");
+                        data.Tgl_Acc_Mng = tanggalfinish;
+                    }
                 });
                 console.log(datas); // Optional: Check the data in the console
                 table_data = $("#TableStatusOrderProyek").DataTable({
@@ -114,7 +119,7 @@ function AllData(tglAwal, tglAkhir, divisi) {
                                 return `<input type="checkbox" name="StatusCheckbox" value="${data}" /> ${data}`;
                             },
                         },
-                        { title: "Tgl.Order", data: "Tgl_Order" },
+                        { title: "Tanggal Order", data: "Tgl_Order" },
                         { title: "Nama Proyek", data: "Nama_Proyek" },
                         {
                             title: "JmlOrder",
@@ -128,7 +133,7 @@ function AllData(tglAwal, tglAkhir, divisi) {
                         { title: "Keterangan Order", data: "Ket_Order" },
                         { title: "PengOrder", data: "NmUserOd" },
                         { title: "Acc Bpk. Peter", data: "Tgl_Acc_Mng" },
-                        { title: "TglFinish", data: "Tgl_Finish" },
+                        { title: "Tanggal Finish", data: "Tgl_Finish" },
                     ],
                 });
                 table_data.draw();

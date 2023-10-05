@@ -54,8 +54,8 @@
           </table>
         </div>
         <div class="div" style="margin-top: 12px">
-          <button class="btn btn-light" type="button" id="refresh">Refresh</button>
-          <button class="btn btn-light" type="button" id="pilihsemua">Pilih Semua</button>
+          <button class="btn btn-light custom-btn" type="button" id="refresh">Refresh</button>
+          <button class="btn btn-primary custom-btn" type="button" id="pilihsemua">Pilih Semua</button>
 
         </div>
 
@@ -221,7 +221,6 @@
               <input type="hidden" name="semuacentang" id="semuacentang">
               <input type="hidden" name="radiobox" id="radiobox">
               <input type="hidden" name="KetTdkS" id="KetTdkS">
-              <button type="button" class="btn btn-secondary custom-btn"><u>K</u>ELUAR</button>
             </div>
           </div>
         </form>

@@ -36,7 +36,7 @@ function Isidiklik() {
     InputNamaDrafter.style.display = "block";
     InputidUser.style.display = "block";
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -46,7 +46,7 @@ function Isidiklik() {
 function bataldiklik() {
     UserDrafter.style.display = "block";
     InputidUser.style.display = "none";
-    btnhapus.style.display = "block";
+    btnhapus.style.display = "";
     btnbatal.style.display = "none";
     btnproses.disabled = true;
     btnisi.disabled = false;
@@ -54,8 +54,8 @@ function bataldiklik() {
     InputNamaDrafter.readOnly = true;
     InputidUser.value = "";
     InputNamaDrafter.value = "";
+    UserDrafter.value = "Pilih Drafter";
     UserDrafter.disabled = true;
-    UserDrafter.value = "";
     isi = false;
     koreksi = false;
     hapus = false;
@@ -65,7 +65,7 @@ function koreksidiklik() {
     UserDrafter.style.display = "block";
     //inputIdDivisi.style.display = "block";
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -78,7 +78,7 @@ function hapusdiklik() {
     UserDrafter.disabled = false;
     InputNamaDrafter.readOnly = true;
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnisi.disabled = true;
     UserDrafter.style.display = "block";
     InputidUser.style.display = "none";

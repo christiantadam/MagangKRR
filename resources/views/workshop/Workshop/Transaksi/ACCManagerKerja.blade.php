@@ -17,9 +17,9 @@
     <div class="row">
       <div class="col-6">
         <div class="mb-3">
-          <div class="row">
-            <div class="col">
-              <label for="divisi">Divisi</label>
+          <div class="row" style="align-items: center;">
+            <div class="col-2">
+              <label for="divisi">Divisi :</label>
             </div>
             <div class="col">
               <select class="form-select" name="KodeDivisi" style="width: 36vh;
@@ -63,8 +63,8 @@
           </table>
         </div>
         <div class="mb-3">
-          <button class="btn btn-success" id="btnrefresh">Refresh</button>
-          <button class="btn btn-success" id="btnpilihsemua">Pilih Semua</button>
+          <button class="btn btn-light custom-btn" id="btnrefresh">Refresh</button>
+          <button class="btn btn-primary custom-btn" id="btnpilihsemua">Pilih Semua</button>
 
         </div>
         <div class="saldo">
@@ -233,8 +233,8 @@
 
           <div class="row mt-3 d-flex justify-content-center">
             <div class="col-lg-8 content-center">
-              <div class="input-group">
-                <button type="button" class="btn btn-success custom-btn" onclick="klikproses()">Proses</button>
+              <div>
+                <button type="button" class="btn btn-primary custom-btn" onclick="klikproses()" style="padding: 6% 56%;">Proses</button>
                 <input type="hidden" name="radiobox" id="radiobox">
                 <input type="hidden" name="semuacentang" id="semuacentang">
                 <input type="hidden" name="KetTdkS" id="KetTdkS">
@@ -258,7 +258,7 @@
 
               <div class="col-lg-6">
                 <span style="color: blue;">xxxxx -></span>
-                <span>ACC Direktur</span><br>
+                <span>Sudah diACC</span><br>
 
                 <span style="color: grey;">xxxxx -></span>
                 <span>Tdk disetujui Direktur</span><br>

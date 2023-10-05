@@ -380,3 +380,14 @@ function formatDate(date) {
     return `${day}/${month}/${year}`;
 }
 //#endregion
+
+//#region set focus
+
+tgl_awal.focus();
+tgl_awal.addEventListener("keypress", function(event){
+    if (event.key == "Enter") {
+        tgl_akhir.focus();
+    }
+});
+
+//#endregion

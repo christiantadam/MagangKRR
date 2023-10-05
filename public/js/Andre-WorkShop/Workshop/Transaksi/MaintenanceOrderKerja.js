@@ -64,6 +64,7 @@ let formMaintenanceOrderGambar = document.getElementById(
     "formMaintenanceOrderGambar"
 );
 let methodForm = document.getElementById('methodForm');
+let ProsesModal = document.getElementById('ProsesModal');
 
 //#endregion
 
@@ -113,7 +114,7 @@ Divisi.addEventListener("keypress", function (event) {
             AllDataUser(tgl_awal.value, tgl_akhir.value, user, Divisi.value);
         }
         Mesin(Divisi.value);
-        btnisi.focus();
+        // btnisi.focus();
     }
 });
 //#region warna
@@ -800,5 +801,33 @@ function hapusklik() {
         }
     }
 }
+
+//#endregion
+
+//#region uppercase keterangan
+
+KeteranganModal.addEventListener('keypress', function(event){
+    if (event.key == "Enter") {
+        KeteranganModal.value = KeteranganModal.value.toUpperCase();
+        JumlahModal.focus();
+    }
+})
+
+//#endregion
+
+//#region set focus
+
+JumlahModal.addEventListener('keypress', function(event){
+    if(event.key == "Enter"){
+        MesinModal.focus();
+    }
+});
+// MesinModal.addEventListener('keydown', function(event){
+//     // event.preventDefault();
+//     if (event.key === "Enter") {
+//         // console.log("masuk enter");
+//         ProsesModal.focus();
+//     }
+// });
 
 //#endregion

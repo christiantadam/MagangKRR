@@ -93,10 +93,10 @@ function AllData(tglawal, tglakhir, idDivisi) {
                         : " ";
                 },
             },
-            { title: "ACC Dir", data: "AccDir" },
+            { title: "Tanggal ACC Dir", data: "AccDir" },
             { title: "ACC D.Teknik", data: "AccTek" },
-            { title: "Start", data: "Start" },
-            { title: "Finish", data: "Finish" },
+            { title: "Tanggal Start", data: "Start" },
+            { title: "Tanggal Finish", data: "Finish" },
 
             {
                 title: "JmlFinish",
@@ -115,7 +115,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 },
             },
             { title: "Ket. TdkStj Mngr", data: "Ref1" },
-            { title: "TdkStj Dir", data: "TdStj2" },
+            { title: "Tanggal TdkStj Dir", data: "TdStj2" },
             { title: "Ket. TdkStj Dir", data: "Ref2" },
             { title: "Ditunda D.Teknik", data: "Ditunda" },
             { title: "Ket. Ditunda D.Teknik", data: "RefDitunda" },

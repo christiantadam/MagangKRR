@@ -243,7 +243,7 @@
 
           <div class="row mt-3 d-flex justify-content-center">
             <div class="col-lg-8 content-center">
-              <div class="input-group">
+              <div>
                 <button type="button" class="btn btn-success custom-btn" id="isi"
                   onclick="klikisi()">ISI</button>
                 <button type="button" class="btn btn-warning custom-btn" onclick="koreksiklik()" id="koreksi">KOREKSI</button>
@@ -446,7 +446,7 @@
                 <div class="col-6">
                   <div class="row" style="margin-top: 10px;">
                     <div class="col-5" style="text-align-last: right;display:flex">
-                      <button type="button" class="btn btn-primary" onclick="prosesmodalklik()">Proses</button>
+                      <button type="button" class="btn btn-primary" onclick="prosesmodalklik()" id="ProsesModal">Proses</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
                     </div>
 

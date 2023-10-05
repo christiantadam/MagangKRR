@@ -35,7 +35,7 @@ function Isidiklik() {
     selectdiv.style.display = "none";
     inputIdDivisi.style.display = "block";
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -45,7 +45,7 @@ function Isidiklik() {
 function bataldiklik() {
     selectdiv.style.display = "block";
     inputIdDivisi.style.display = "none";
-    btnhapus.style.display = "block";
+    btnhapus.style.display = "";
     btnbatal.style.display = "none";
     btnproses.disabled = true;
     btnisi.disabled = false;
@@ -64,7 +64,7 @@ function koreksidiklik() {
     selectdiv.style.display = "block";
     //inputIdDivisi.style.display = "block";
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnproses.disabled = false;
     btnisi.disabled = true;
     btnkoreksi.disabled = true;
@@ -77,7 +77,7 @@ function hapusdiklik() {
     selectdiv.disabled = false;
     inputnameDiv.readOnly = true;
     btnhapus.style.display = "none";
-    btnbatal.style.display = "block";
+    btnbatal.style.display = "";
     btnisi.disabled = true;
     selectdiv.style.display = "block";
     inputIdDivisi.style.display = "none";

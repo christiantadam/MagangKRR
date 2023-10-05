@@ -91,10 +91,10 @@ function AllData(tglawal, tglakhir, idDivisi) {
                         : " ";
                 },
             },
-            { title: "ACC Dir", data: "AccDir" },
+            { title: "Tanggal ACC Dir", data: "AccDir" },
             { title: "ACC D.Teknik", data: "AccTek" },
-            { title: "Start", data: "Start" },
-            { title: "Finish", data: "Finish" },
+            { title: "Tanggal Start", data: "Start" },
+            { title: "Tanggal Finish", data: "Finish" },
 
             {
                 title: "JmlFinish",

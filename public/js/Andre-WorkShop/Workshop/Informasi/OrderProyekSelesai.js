@@ -68,7 +68,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
                     return `<input type="checkbox" name="ManagerCheckbox" value="${data}" /> ${data}`;
                 },
             },
-            { title: "Tgl. Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
+            { title: "Tanggal Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data
             { title: "Nama Proyek", data: "Nama_Proyek" },
             {
                 title: "JmlOrder",
@@ -80,14 +80,14 @@ function AllData(tglawal,tglakhir,idDivisi) {
             { title: "Divisi", data: "NamaDivisi" },
             { title: "Mesin", data: "Mesin" },
             { title: "Keterangan Order", data: "Ket_Order" },
-            { title: "PengOrder", data: "NmUserOd" },
+            { title: "PengOrder", data: "UserOd" },
             {
                 title: "JmlOderFinish",
                 data: function (row) {
                     return `${row.Jml_Finish} ${row.Nama_satuan}`;
                 },
             },
-            { title: "TglFinish", data: "Tgl_Finish"},
+            { title: "Tanggal Finish", data: "Finish"},
         ],
     });
 
@@ -111,6 +111,11 @@ function AllData(tglawal,tglakhir,idDivisi) {
                     const tglmanager = data.Tgl_Finish;
                     const [tanggal1, waktu1] = tglmanager.split(" ");
                     data.Tgl_Finish = tanggal1;
+                }
+                if (data.Finish != null) {
+                    const tglmanager = data.Finish;
+                    const [tanggal1, waktu1] = tglmanager.split(" ");
+                    data.Finish = tanggal1;
                 }
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)
@@ -138,6 +143,11 @@ function AllData(tglawal,tglakhir,idDivisi) {
                     const tglmanager = data.Tgl_Finish;
                     const [tanggal1, waktu1] = tglmanager.split(" ");
                     data.Tgl_Finish = tanggal1;
+                }
+                if (data.Finish != null) {
+                    const tglmanager = data.Finish;
+                    const [tanggal1, waktu1] = tglmanager.split(" ");
+                    data.Finish = tanggal1;
                 }
             });
             table_data.clear(); // Bersihkan data saat ini (jika ada)

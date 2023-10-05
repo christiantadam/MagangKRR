@@ -76,7 +76,7 @@
           </table>
         </div>
         <div class="div" style="margin-top: 12px">
-          <button class="btn btn-light" type="button" onclick="Refresh()">Refresh</button>
+          <button class="btn btn-light custom-btn" type="button" onclick="Refresh()">Refresh</button>
         </div>
 
       </div>
@@ -233,7 +233,7 @@
 
           <div class="row mt-3 d-flex justify-content-center">
             <div class="col-lg-12 content-center">
-              <div class="input-group">
+              <div>
                 <button type="button" class="btn btn-success custom-btn" onclick="klikisi()"
                   id="isi">ISI</button>
                 <button type="button" class="btn btn-warning custom-btn" onclick="klikkoreksi()"

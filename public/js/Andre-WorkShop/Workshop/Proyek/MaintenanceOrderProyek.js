@@ -44,6 +44,7 @@ let Jumlah = document.getElementById("Jumlah");
 let SatuanModal = document.getElementById("SatuanModal");
 var selectmesin;
 let hapus = document.getElementById("hapus");
+let isFirstEnter = true;
 
 //#region set warna
 
@@ -87,7 +88,6 @@ table_data.on("draw", function () {
     });
 });
 
-
 //#endregion
 
 //#region set tanggal
@@ -112,22 +112,36 @@ Tanggalmodal.value = formattedCurrentDate;
 //#endregion
 
 //#region divisi di ubah
-
-kddivisi.addEventListener("change", function () {
-    const isConfirmed = confirm(`Tampilkan Semua Order??`);
-    // Mesin(kddivisi.value);
-    Mesin(kddivisi.value);
-    if (isConfirmed) {
-        pilih = 1;
-        // cleardata();
-        // const table = $("#tableklik").DataTable();
-        table_data.clear().draw();
-        AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
-    } else {
-        console.log("masuk");
-        pilih = 2;
-        table_data.clear().draw();
-        AllDataUser(tgl_awal.value, tgl_akhir.value, user, kddivisi.value);
+kddivisi.focus();
+kddivisi.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (isFirstEnter) {
+            // event.preventDefault(); // Mencegah aksi bawaan dari tombol Enter
+            kddivisi.click();
+            isFirstEnter = false;
+        } else {
+            isFirstEnter = true;
+            const isConfirmed = confirm(`Tampilkan Semua Order??`);
+            // Mesin(kddivisi.value);
+            Mesin(kddivisi.value);
+            if (isConfirmed) {
+                pilih = 1;
+                // cleardata();
+                // const table = $("#tableklik").DataTable();
+                table_data.clear().draw();
+                AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
+            } else {
+                console.log("masuk");
+                pilih = 2;
+                table_data.clear().draw();
+                AllDataUser(
+                    tgl_awal.value,
+                    tgl_akhir.value,
+                    user,
+                    kddivisi.value
+                );
+            }
+        }
     }
 });
 //#endregion
@@ -454,5 +468,56 @@ hapus.addEventListener("click", function (event) {
         }
     }
 });
+
+//#endregion
+
+//#region uppercase
+
+NamaProyekModal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        NamaProyekModal.value = NamaProyekModal.value.toUpperCase();
+        KeteranganModal.focus();
+    }
+});
+
+KeteranganModal.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        KeteranganModal.value = KeteranganModal.value.toUpperCase();
+        Jumlah.focus();
+    }
+});
+
+Jumlah.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        SatuanModal.focus();
+    }
+});
+// let isFirstEnterStatuanmodal = true;
+// SatuanModal.addEventListener("keypress", function (event) {
+//     if (event.key == "Enter") {
+//         if (isFirstEnterStatuanmodal) {
+//             SatuanModal.click();
+//             isFirstEnterStatuanmodal = false;
+//             // console.log("gak masuk nih");
+//         } else {
+//             // console.log("masuk nih");
+//             MesinModal.focus();
+//             isFirstEnterStatuanmodal = true;
+//         }
+//     }
+// });
+// let isFirstEnterMesinModal = true;
+// let ProsesModal = document.getElementById("ProsesModal");
+// MesinModal.addEventListener("keypress", function (event) {
+//     if (event.key == "Enter") {
+//         if (isFirstEnterMesinModal) {
+//             MesinModal.click();
+//             isFirstEnterMesinModal = false;
+//         } else {
+//             isFirstEnterMesinModal = true;
+//             ProsesModal.focus();
+//         }
+//     }
+// });
 
 //#endregion

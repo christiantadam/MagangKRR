@@ -1,6 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
-<link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
   <div class="card-header">
     Status Order Proyek
   </div>
@@ -67,26 +67,27 @@
 
       </div>
     </div>
+    <div class="table-responsive">
+      <table class="table mt-3" id="TableStatusOrderProyek">
+        <thead class="table-dark" style="white-space: nowrap">
+          <tr>
+            <th>No.Order</th>
+            <th>Tanggal Order</th>
+            <th>Nama Proyek</th>
+            <th>JmlOrder</th>
+            <th>Mesin</th>
+            <th>Status Order</th>
+            <th>Keterangan Order</th>
+            <th>PengOrder</th>
+            <th>ACC Bpk. Peter</th>
+            <th>Tanggal Finish</th>
+          </tr>
+        </thead>
+        <tbody>
 
-    <table class="table mt-3" id="TableStatusOrderProyek">
-      <thead class="table-dark">
-        <tr>
-          <th>No.Order</th>
-          <th>Tgl.Order</th>
-          <th>Nama Proyek</th>
-          <th>JmlOrder</th>
-          <th>Mesin</th>
-          <th>Status Order</th>
-          <th>Keterangan Order</th>
-          <th>PengOrder</th>
-          <th>ACC Bpk. Peter</th>
-          <th>TglFinish</th>
-        </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <div class="mt-3">
       <div class="float-start" style="margin-left: 12.5px;">
@@ -96,5 +97,4 @@
   </div>
 
   <script src="{{ asset('js/Andre-WorkShop/Workshop/Proyek/StatusOrderProyek.js') }}"></script>
-
 @endsection

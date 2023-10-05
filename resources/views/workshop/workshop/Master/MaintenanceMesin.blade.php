@@ -58,8 +58,8 @@
       </div>
 
       <div class="row mt-4">
-        <div class="col-lg-8">
-          <div class="input-group d-flex justify-content-center">
+        <div class="col-lg-8" style="text-align-last: center;">
+          <div class="justify-content-center">
             <button type="button" class="btn btn-success custom-btn" id="isi"
               onclick="Isidiklik()"><u>I</u>SI</button>
             <button type="button" class="btn btn-warning custom-btn" id="koreksi"

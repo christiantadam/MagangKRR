@@ -616,3 +616,14 @@ order_batal.addEventListener("click", function () {
     btnkoreksi.disabled = false;
 });
 //#endregion
+
+//#region set fokus
+
+tgl_awal.focus();
+tgl_awal.addEventListener("keypress", function(event){
+    if (event.key == "Enter") {
+        tgl_akhir.focus();
+    }
+});
+
+//#endregion

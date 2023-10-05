@@ -14,6 +14,9 @@ let nomorOrder = document.getElementById('nomorOrder');
 let noGambarForm = document.getElementById('noGambarForm');
 //#endregion
 
+// kddivisi.focus();
+
+
 //#region warna text
 table_data.on("draw", function () {
     table_data.rows().every(function () {
@@ -131,8 +134,10 @@ function AllData(tglAwal, tglAkhir, divisi) {
 //#endregion
 
 //#region select
-kddivisi.addEventListener("change", function () {
-    AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
+kddivisi.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
+    }
 });
 //#endregion
 
@@ -178,3 +183,4 @@ function klikterima() {
 }
 
 //#endregion
+
