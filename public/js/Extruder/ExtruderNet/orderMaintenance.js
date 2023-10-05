@@ -138,7 +138,20 @@ txtNoOrder.addEventListener("change", function () {
                 listOrder[i].QtyTritier +
                 "/0/0/0",
             () => {
-                let id_divisi = namaGedung == "B" ? "MEX" : "EXT";
+                let id_divisi = "";
+                switch (namaGedung) {
+                    case "B":
+                        id_divisi = "MEX";
+                        break;
+
+                    case "D":
+                        id_divisi = "DEX";
+                        break;
+
+                    default:
+                        id_divisi = "EXT";
+                        break;
+                }
                 // SP_5298_EXT_UPDATE_COUNTER_ORDER
                 fetchStmt("/Order/updCounterOrder/" + id_divisi);
             }
@@ -156,8 +169,9 @@ btnProses.addEventListener("click", function () {
     if (listOrder.length < 1) {
         alert("Data order masih kosong!");
     } else {
-        // SP_5298_EXT_INSERT_ORDER_BENANG; namaGedung = "default"
+        // SP_5298_EXT_INSERT_ORDER_BENANG; namaGedung = "default" / "D"
         // SP_1273_MEX_INSERT_ORDER_BENANG; namaGedung = "B"
+        let kode_ins = namaGedung == "D" ? "D" : "";
         fetchStmt(
             "/Order/insOrderBenang/" +
                 namaGedung +
@@ -165,7 +179,8 @@ btnProses.addEventListener("click", function () {
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
-                "/4384",
+                "/4384/" +
+                kode_ins,
             () => {
                 if (namaGedung == "B") {
                     fetchSelect("/Order/getNoOrderMjs", (data) => {

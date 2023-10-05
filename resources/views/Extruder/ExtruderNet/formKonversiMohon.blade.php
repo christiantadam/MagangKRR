@@ -179,7 +179,7 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_primer">Stok Primer:</label>
-                                <input type="text" id="stok_primer" class="form-control" disabled>
+                                <input type="number" id="stok_primer" class="form-control" disabled>
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
@@ -194,7 +194,7 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_sekunder">Stok Sekunder:</label>
-                                <input type="text" id="stok_sekunder" class="form-control" disabled>
+                                <input type="number" id="stok_sekunder" class="form-control" disabled>
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">
@@ -209,7 +209,7 @@
                         <div class="row mt-3">
                             <div class="col-lg-6">
                                 <label for="stok_tritier">Stok Tritier:</label>
-                                <input type="text" id="stok_tritier" class="form-control" disabled>
+                                <input type="number" id="stok_tritier" class="form-control" disabled>
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-5">

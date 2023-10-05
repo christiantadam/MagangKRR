@@ -21,6 +21,11 @@ class OrderController extends Controller
                 $kode_benang = 3;
                 break;
 
+            case 'D':
+                $id_divisi = "DEX";
+                $kode_benang = 5;
+                break;
+
             default:
                 $id_divisi = "EXT";
                 $kode_benang = 2;
@@ -29,25 +34,18 @@ class OrderController extends Controller
 
         switch ($form_name) {
             case 'formOrderMaintenance':
-                $form_data = [
-                    'listBenang' => $this->getListBenang($kode_benang),
-                    'namaGedung' => $nama_gedung
-                ];
+                $form_data = ['listBenang' => $this->getListBenang($kode_benang)];
                 break;
-            case 'formOrderACC':
-                $form_data = ['namaGedung' => $nama_gedung];
-                break;
+
             case 'formOrderStatus':
-                $form_data = [
-                    'listBatalOrder' => $this->getListBatalOrd($id_divisi),
-                    'namaGedung' => $nama_gedung
-                ];
+                $form_data = ['listBatalOrder' => $this->getListBatalOrd($id_divisi)];
                 break;
 
             default:
                 break;
         }
 
+        $form_data['namaGedung'] = $nama_gedung;
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,
@@ -66,7 +64,7 @@ class OrderController extends Controller
         );
     }
 
-    public function insOrderBenang($gedung, $tanggal, $identifikasi = null, $user, $kode = null)
+    public function insOrderBenang($gedung, $tanggal, $identifikasi, $user, $kode = null)
     {
         if ($gedung == 'B') {
             return DB::connection('ConnExtruder')->statement(

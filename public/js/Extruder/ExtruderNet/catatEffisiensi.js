@@ -65,7 +65,17 @@ timeAwal.addEventListener("keypress", function (event) {
 });
 
 timeAkhir.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") slcKodeKonv.focus();
+    let waktuAwal = new Date(timeAwal.value);
+    let waktuAkhir = new Date(timeAkhir.value);
+
+    if (event.key == "Enter") {
+        if (this.value == timeAwal.value || waktuAkhir > waktuAwal) {
+            this.focus();
+            alert(
+                "Akhir Produksi tidak bisa lebih awal atau sama dengan Awal Produksi."
+            );
+        } else slcKodeKonv.focus();
+    }
 });
 
 slcWaktu.addEventListener("keydown", function (event) {
@@ -259,7 +269,7 @@ txtRelax.addEventListener("keypress", function (event) {
 
 txtDenier.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        if (parseFloat(this.value) < 100) {
+        if (parseFloat(this.value) < 100 || this.value == "") {
             alert("Denier tidak boleh kurang dari 100.");
             this.select();
         } else {
@@ -349,8 +359,12 @@ btnProses.addEventListener("click", function () {
             "/" +
             slcShift.value +
             "/" +
+            dateInput.value +
+            "T" +
             timeAwal.value +
             "/" +
+            dateInput.value +
+            "T" +
             timeAkhir.value +
             "/" +
             slcKodeKonv.value,
@@ -400,8 +414,12 @@ btnProses.addEventListener("click", function () {
                         "/" +
                         slcShift.value +
                         "/" +
+                        dateInput.value +
+                        "T" +
                         timeAwal.value +
                         "/" +
+                        dateInput.value +
+                        "T" +
                         timeAkhir.value +
                         "/" +
                         slcKodeKonv.value +
@@ -447,8 +465,12 @@ btnProses.addEventListener("click", function () {
                         "/" +
                         slcShift.value +
                         "/" +
+                        dateInput.value +
+                        "T" +
                         timeAwal.value +
                         "/" +
+                        dateInput.value +
+                        "T" +
                         timeAkhir.value,
                     () => {
                         alert("Data berhasil dihapus.");
@@ -521,6 +543,8 @@ function getDataEffisiensi(post_action = null) {
             "/" +
             slcShift.value +
             "/" +
+            dateInput.value +
+            "T" +
             timeAwal.value,
         (data) => {
             if (data.length > 0) {

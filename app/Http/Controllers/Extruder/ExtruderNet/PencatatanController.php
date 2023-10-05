@@ -183,7 +183,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_CEK_DATA_EFF @tgl = ?, @mesin = ?, @shift = ?, @awal = ?, @akhir = ?, @idkonv = ?',
-            [$tgl, $mesin, $shift, $awal, $akhir, $id_konversi]
+            [$tgl, $mesin, $shift, str_replace('T', ' ', $awal), str_replace('T', ' ', $akhir), $id_konversi]
         );
 
         // @tgl datetime, @mesin char(5), @shift char(2), @awal datetime, @akhir datetime, @idkonv varchar(14)
@@ -193,7 +193,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
-            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
         );
 
         // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
@@ -203,7 +203,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_UPDATE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
-            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
         );
 
         // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
@@ -213,7 +213,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_DELETE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?',
-            [$Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi]
+            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi)]
         );
 
         // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime

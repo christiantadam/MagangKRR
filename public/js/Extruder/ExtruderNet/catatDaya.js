@@ -265,9 +265,9 @@ function rowClickedDaya(row, data, index) {
     }
 }
 
-function loadDataKwahMesin() {
+function loadDataKwahMesin(w_alert = true) {
     listDaya.length = 0;
-    clearTable_DataTable("table_daya", 8);
+    clearTable_DataTable("table_daya", 8, "Memuat data...");
 
     // SP_5298_EXT_KWAH_MESIN_PERBULAN
     fetchSelect(
@@ -305,10 +305,18 @@ function loadDataKwahMesin() {
                 checkboxesDaya = document.querySelectorAll(
                     'input[name="checkbox_daya"]'
                 );
-            } else
-                alert(
-                    "Tidak ditemukan Data KWaH Mesin pada bulan dan tahun tersebut. \nMohon coba masukkan bulan dan tahun lain."
+            } else {
+                if (w_alert)
+                    alert(
+                        "Tidak ditemukan Data KWaH Mesin pada bulan dan tahun tersebut. \nMohon coba masukkan bulan dan tahun lain."
+                    );
+
+                clearTable_DataTable(
+                    "table_daya",
+                    8,
+                    "Tidak ditemukan Data KWaH Mesin.<br>Mohon pilih Bulan/Tahun lain."
                 );
+            }
         }
     );
 }
@@ -343,7 +351,7 @@ function init() {
     clearTable_DataTable("table_daya", 8);
     toggleButtons(1);
     setEnable(false);
-    loadDataKwahMesin();
+    loadDataKwahMesin(false);
     btnIsi.focus();
 }
 

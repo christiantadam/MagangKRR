@@ -15,6 +15,7 @@ const btnKeluar = document.getElementById("btn_keluar");
 
 //#region Events
 btnKoreksi.addEventListener("click", function () {
+    listOfTxt.forEach((ele) => (ele.value = ""));
     enableForm(true);
     txtKodeBarang.select();
 });
@@ -63,6 +64,7 @@ btnProses.addEventListener("click", function () {
                 "~" +
                 getCurrentDate(),
             () => {
+                enableForm(false);
                 alert("Data berhasil tersimpan.");
             }
         );

@@ -30,6 +30,7 @@ class BeratController extends Controller
             case 'SP_1003_PBL_SELECT_JUMBO':
             case 'SP_1273_BCD_DATA_ADSTAR':
             case 'SP_1273_BCD_DATA_CIRCULAR':
+            case 'SP_7775_PBL_SELECT_WOVEN_1':
                 $param_str = '@KD_BRG = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
@@ -72,8 +73,24 @@ class BeratController extends Controller
         }
     }
 
-    public function konversiKomposisi()
+    public function komposisiKonversi($fun_str, $fun_data)
     {
+        $param_data = explode('~', $fun_data);
+
+        switch ($fun_str) {
+            case 'SP_1273_ABM_BERAT_STANDART_1':
+            case 'SP_1273_PRG_DATA_KOMPOSISI_1':
+                $param_str = '@KD_BRG = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_PRG_UPDATE_KOMPOSISI_KONVERSI_1':
+                $param_str = '@KD_BRG = ?, @PP = ?, @PE = ?, @CaCO3 = ?, @Masterbatch = ?, @UV = ?, @AntiStatic = ?, @Conductive = ?, @LDPE = ?, @LLDPE = ?, @HDPE = ?, @UserId = 4384';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            default:
+                dd("SP tidak ditemukan.");
+                break;
+        }
     }
 
     private function executeSP($action_str, $sp_str, $param_str, $param_data)

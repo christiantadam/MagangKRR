@@ -3,7 +3,20 @@ const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
 const namaGedung = document.getElementById("nama_gedung").value;
-const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
+var idDivisi = "";
+switch (namaGedung) {
+    case "B":
+        idDivisi = "MEX";
+        break;
+
+    case "D":
+        idDivisi = "DEX";
+        break;
+
+    default:
+        idDivisi = "EXT";
+        break;
+}
 
 const listOrder = [];
 const listDetailOrder = [];

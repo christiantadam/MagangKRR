@@ -1,6 +1,8 @@
 //#region Variables
 const dateInput = document.getElementById("tanggal");
 const hidInput = document.getElementById("hidden_input");
+const listOfInputTxt = document.querySelectorAll("input[type='text']");
+const listOfInputTime = document.querySelectorAll("input[type='time']");
 
 const txtShift = document.getElementById("shift");
 const timeAwal = document.getElementById("shift_awal");
@@ -26,8 +28,8 @@ const txtAfalan = document.getElementById("afalan");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 
-const listOfInputTxt = document.querySelectorAll("input[type='text']");
-const listOfInputTime = document.querySelectorAll("input[type='time']");
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
 
 const listKonversi = [];
 /* ISI LIST KONVERSI
@@ -175,7 +177,7 @@ function daftarKonversiBelumACCFetch() {
     clearTable_DataTable("table_konversi", 2, "Memuat data...");
 
     // SP_5298_EXT_LIST_KONV_BLM_ACC
-    fetchSelect("/Konversi/getListKonvBlmAcc/EXT", (data) => {
+    fetchSelect("/Konversi/getListKonvBlmAcc/" + idDivisi, (data) => {
         if (data.length == 0) {
             clearTable_DataTable(
                 "table_konversi",

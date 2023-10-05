@@ -15,7 +15,7 @@
             <div class="form-group col-md-2 d-flex justify-content-end">
                 <span class="aligned-text">Type:</span>
             </div>
-            <div class="form-group col-md-10 mt-3 mt-md-0">
+            <div class="form-group col-md-9 mt-3 mt-md-0">
                 <textarea id="txt_type" class="form-control" rows="3" required></textarea>
             </div>
         </div>

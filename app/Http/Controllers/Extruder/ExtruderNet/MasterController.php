@@ -32,8 +32,7 @@ class MasterController extends Controller
                     'listAfalan' => $this->getPrgTypeProduksi(1, $id_afalan),
                     'listObjek' => $this->getIdDivisiObjek('MEX'),
                     'listHP' => $this->getPrgTypeProduksi(2, $id_hasil),
-                    'listNG' => $this->getPrgTypeProduksi(3, $id_hasil),
-                    'namaGedung' => $nama_gedung
+                    'listNG' => $this->getPrgTypeProduksi(3, $id_hasil)
                 ];
                 break;
 
@@ -45,6 +44,7 @@ class MasterController extends Controller
                 break;
         }
 
+        $form_data['namaGedung'] = $nama_gedung;
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,

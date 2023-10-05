@@ -1441,11 +1441,16 @@ function rowClickedKomposisi(row, data, _) {
         numTritier.value = "";
         txtJenis.value = listKomposisi[pilKomposisi].StatusType;
         getSaldoFetch(listKomposisi[pilKomposisi].IdType, () => {
+            /**
+             * Pengecekkan stok dilakukan terhadap Komposisi jenis "BB" & "BP",
+             * Hanya dilakukan pada stok tritier saja.
+             */
+
             if (
                 listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
                 listKomposisi[pilKomposisi].StatusType.trim() == "BP"
             ) {
-                if (parseFloat(numStokTritier.value) == 0) {
+                if (numStokTritier.value == 0) {
                     alert(
                         txtNamaProd.value +
                             " tidak dapat digunakan untuk transaksi karena stok telah habis."

@@ -1,7 +1,9 @@
 @extends('layouts.appExtruder')
 @section('content')
+    <input type="hidden" id="hidden_input">
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
+
     <div id="tropodo_konversi_acc" class="form" data-aos="fade-up">
-        <input type="hidden" id="hidden_input">
 
         <div class="card mt-3">
             <div class="card-header">Daftar Konversi</div>

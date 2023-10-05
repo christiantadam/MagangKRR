@@ -14,7 +14,20 @@ const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
 const namaGedung = document.getElementById("nama_gedung").value;
-const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
+var idDivisi = "";
+switch (namaGedung) {
+    case "B":
+        idDivisi = "MEX";
+        break;
+
+    case "D":
+        idDivisi = "DEX";
+        break;
+
+    default:
+        idDivisi = "EXT";
+        break;
+}
 
 const listOrder = [];
 /* ISI LIST ORDER

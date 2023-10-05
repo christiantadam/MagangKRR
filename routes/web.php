@@ -10,8 +10,8 @@ use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 
 /**
- * DOKUMENTASI  : Form Benang Mohon & ACC
- * MIGRASI      : loadDataKwaH() | FrmDaya.vb
+ * TESTING      : Form Catat Efisiensi
+ * MIGRASI      : LoadData() | frmBeratWoven2.vb
  *
  * User_id = 4384
  *
@@ -45,11 +45,12 @@ Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'ind
 Route::get('/Extruder/ExtruderNet/Master/{formName?}/{namaGedung?}', [MasterController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Order/{formName?}/{namaGedung?}', [OrderController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Konversi/{formName?}/{namaGedung?}', [KonversiController::class, 'index']);
-Route::get('/Extruder/ExtruderNet/Benang/{formName?}', [BenangController::class, 'index']);
+Route::get('/Extruder/ExtruderNet/Benang/{formName?}/{namaGedung?}', [BenangController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::class, 'index']);
 
 #region BeratKomposisi
 Route::get('/beratStandar/{fun_str}/{fun_data}', [BeratController::class, 'beratStandar']);
+Route::get('/komposisiKonversi/{fun_str}/{fun_data}', [BeratController::class, 'komposisiKonversi']);
 #endregion
 
 #region ExtruderNet - Master (KITE)
@@ -98,7 +99,7 @@ Route::get('/Master/delKomposisiBahanMjs/{id_komposisi}', [MasterController::cla
 
 #region ExtruderNet - Form Bagian Order
 Route::get('/Order/getListBenang/{kode}', [OrderController::class, 'getListBenang']);
-Route::get('/Order/insOrderBenang/{gedung}/{tanggal}/{identifikasi?}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
+Route::get('/Order/insOrderBenang/{gedung}/{tanggal}/{identifikasi}/{user}/{kode?}', [OrderController::class, 'insOrderBenang']);
 Route::get('/Order/getNoOrder/{kode?}', [OrderController::class, 'getNoOrder']);
 Route::get('/Order/getNoOrderMjs/', [OrderController::class, 'getNoOrderMjs']);
 Route::get('/Order/insOrderDetail/{id_order}/{type_benang}/{jmlh_primer}/{jmlh_sekunder}/{jmlh_tritier}/{prod_primer}/{prod_sekunder}/{prod_tritier}', [OrderController::class, 'insOrderDetail']);

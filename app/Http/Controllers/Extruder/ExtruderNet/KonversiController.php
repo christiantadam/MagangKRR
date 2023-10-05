@@ -34,19 +34,15 @@ class KonversiController extends Controller
                 $form_data = [
                     'listKonversi' => $this->getListKonversi($id_divisi),
                     'listMesin' => $this->getListMesin($kode_mesin),
-                    'listNoOrder' => $this->getOrdAccBlmSelesai($id_divisi),
-                    'namaGedung' => $nama_gedung
+                    'listNoOrder' => $this->getOrdAccBlmSelesai($id_divisi)
                 ];
-                break;
-
-            case 'formKonversiACC':
-                $form_data = ['namaGedung' => $nama_gedung];
                 break;
 
             default:
                 break;
         }
 
+        $form_data['namaGedung'] = $nama_gedung;
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,

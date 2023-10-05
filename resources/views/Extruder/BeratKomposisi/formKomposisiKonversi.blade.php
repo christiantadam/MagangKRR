@@ -36,7 +36,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="pp_gram">
+                    <input type="number" min="0" class="form-control txt txt_gram" id="pp_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="pp_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="pp_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="pe_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="pe_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="pe_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="pe_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="caco3_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="caco3_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -87,7 +87,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="caco3_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="caco3_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -99,7 +99,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="masterbatch_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="masterbatch_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -108,7 +108,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="masterbatch_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="masterbatch_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="UV_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="UV_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -129,7 +129,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="UV_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="UV_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -141,7 +141,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="anti_static_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="anti_static_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -150,7 +150,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="anti_static_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="anti_static_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -162,7 +162,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="kertas_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="kertas_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -171,7 +171,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="kertas_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="kertas_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -183,7 +183,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="ldpe_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="ldpe_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -192,7 +192,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="ldpe_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="ldpe_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -204,7 +204,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="lldpe_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="lldpe_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -213,7 +213,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="lldpe_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="lldpe_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -225,7 +225,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="hdpe_gram">
+                    <input type="number" min="0" class="form-control txt_gram" id="hdpe_gram">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -234,7 +234,7 @@
             </div>
             <div class="form-group col-md-3 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="hdpe_persen">
+                    <input type="number" min="0" class="form-control txt_persen" id="hdpe_persen">
                     <span class="input-group-text lbl_persen">%</span>
                 </div>
             </div>
@@ -276,4 +276,6 @@
         </div>
 
     </div>
+
+    <script src="{{ asset('js/Extruder/BeratKomposisi/komposisiKonversi.js') }}"></script>
 @endsection

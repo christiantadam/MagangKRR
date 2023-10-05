@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class BenangController extends Controller
 {
-    public function index($form_name)
+    public function index($form_name, $nama_gedung = null)
     {
         $view_name = 'extruder.ExtruderNet.' . $form_name;
         $form_data = [];
@@ -30,6 +30,7 @@ class BenangController extends Controller
                 break;
         }
 
+        $form_data['namaGedung'] = $nama_gedung;
         $view_data = [
             'pageName' => 'ExtruderNet',
             'formName' => $form_name,
