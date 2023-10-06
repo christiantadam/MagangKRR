@@ -29,14 +29,14 @@ $(document).ready(function () {
         var dataDipilih = tabel.rows(".selected").data();
         const DateTimePicker1 = document.getElementById("TglAwal");
         const DateTimePicker2 = document.getElementById("TglAkhir");
-        const kd_pegawai = document.getElementById("PegawaiSelect").value;
+        // const kd_pegawai = document.getElementById("PegawaiSelect").value;
         const startDate = new Date(DateTimePicker1.value);
         const endDate = new Date(DateTimePicker2.value);
-        const startJam = document.getElementById("masuk").value;
-        const endJam = document.getElementById("pulang").value;
-        const awalIstirahat = document.getElementById("masuk_istirahat").value;
-        const akhirIstirahat =
-            document.getElementById("pulang_istirahat").value;
+        // const startJam = document.getElementById("masuk").value;
+        // const endJam = document.getElementById("pulang").value;
+        // const awalIstirahat = document.getElementById("masuk_istirahat").value;
+        // const akhirIstirahat =
+            // document.getElementById("pulang_istirahat").value;
         // Mencetak data yang dipilih ke console
         var gabungData = "";
         for (var i = 0; i < dataDipilih.length; i++) {
@@ -49,13 +49,13 @@ $(document).ready(function () {
         // return;
         if (
             !DateTimePicker1.value ||
-            !DateTimePicker2.value ||
-            !startJam ||
-            !endJam ||
-            !awalIstirahat ||
-            !akhirIstirahat
+            !DateTimePicker2.value
+            // !startJam ||
+            // !endJam ||
+            // !awalIstirahat ||
+            // !akhirIstirahat
         ) {
-            alert("Masih ada form yang kosong !");
+            alert("Tanggalnya masih kosong !");
             return; // Stop executing the function
         }
         if (!dataDipilih[0]) {
@@ -67,27 +67,27 @@ $(document).ready(function () {
             return;
         }
 
-        console.log(dataDipilih[i]);
-        const tanggal = new Date(startDate);
+        // console.log(dataDipilih[i]);
+        // const tanggal = new Date(startDate);
 
-        tanggalString = tanggal.toISOString().slice(0, 10);
-        const jamMasuk = new Date(`${tanggalString}T${startJam}:00`);
-        const jamPulang = new Date(`${tanggalString}T${endJam}:00`);
+        // tanggalString = tanggal.toISOString().slice(0, 10);
+        // const jamMasuk = new Date(`${tanggalString}T${startJam}:00`);
+        // const jamPulang = new Date(`${tanggalString}T${endJam}:00`);
         // var Jam_Masuk = tanggalString + " " + startJam;
         // var Jam_Keluar = tanggalString + " " + endJam;
         // var awal_Jam_istirahat = tanggalString + " " + awalIstirahat;
         // var akhir_Jam_istirahat = tanggalString + " " + akhirIstirahat;
         // Hitung selisih jam antara "Masuk" dan "Pulang" untuk tanggal ini
-        const Jml_Jam = Math.round((jamPulang - jamMasuk) / (1000 * 60 * 60));
+        // const Jml_Jam = Math.round((jamPulang - jamMasuk) / (1000 * 60 * 60));
         const data = {
             id_divisi: gabungData,
             Tanggal1: DateTimePicker1.value,
             Tanggal2: DateTimePicker2.value,
-            Jam_Masuk: startJam,
-            Jam_Keluar: endJam,
-            Jml_Jam: Jml_Jam,
-            awal_Jam_istirahat: awalIstirahat,
-            akhir_Jam_istirahat: akhirIstirahat,
+            // Jam_Masuk: startJam,
+            // Jam_Keluar: endJam,
+            // Jml_Jam: Jml_Jam,
+            // awal_Jam_istirahat: awalIstirahat,
+            // akhir_Jam_istirahat: akhirIstirahat,
             User_Input: "U001",
             opsi: "insertDivisi",
         };
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "Jam");
+        form.setAttribute("action", "AgendaShift");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form

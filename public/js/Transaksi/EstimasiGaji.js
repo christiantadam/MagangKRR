@@ -17,7 +17,8 @@ $(document).ready(function () {
         const dateDifference =
             Math.abs(new Date(Mulai.value) - new Date(Akhir.value)) /
             (1000 * 60 * 60 * 24);
-
+        console.log(dateDifference);
+        console.log((new Date(Akhir.value) - new Date()) / (1000 * 60 * 60 * 24));
         if (
             dateDifference < 6 ||
             dateDifference > 6 ||

@@ -67,6 +67,7 @@ $(document).ready(function () {
             })
             .then((data) => {
                 $("#NomorKoperasiLama").val(data[0].no_koperasi);
+                $("#NomorKoperasiBaru").val(data[0].no_koperasi);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -289,6 +290,12 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
 
+    });
+    var inputNomorKoperasiLama = document.getElementById("NomorKoperasiLama");
+
+    // Membuat event listener untuk input
+    inputNomorKoperasiLama.addEventListener("input", function() {
+        $("#NomorKoperasiBaru").val(document.getElementById("NomorKoperasiLama").value);
     });
 });
 function showModalDivisi() {

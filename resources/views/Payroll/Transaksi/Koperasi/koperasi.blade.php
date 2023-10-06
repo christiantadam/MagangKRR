@@ -132,7 +132,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
                                 <input type="text" class="form-control" name="Nama_PegawaiLama" id="Nama_PegawaiLama"
-                                    placeholder="" required>
+                                    placeholder="" disabled>
 
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
                                 <input type="text" class="form-control" name="NomorKoperasiLama"
-                                    id="NomorKoperasiLama" placeholder="" required>
+                                    id="NomorKoperasiLama" placeholder="" disabled>
 
                             </div>
                         </div>
@@ -277,7 +277,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
                                 <input type="text" class="form-control" name="Nama_PegawaiBaru2"
-                                    id="Nama_PegawaiBaru2" placeholder="" required>
+                                    id="Nama_PegawaiBaru2" placeholder="" disabled>
 
                             </div>
                         </div>
@@ -287,7 +287,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:450px;">
                                 <input type="text" class="form-control" name="NomorKoperasiBaru"
-                                    id="NomorKoperasiBaru" placeholder="" required>
+                                    id="NomorKoperasiBaru" placeholder="" disabled>
 
                             </div>
                         </div>

@@ -32,7 +32,7 @@
                                         @endforeach
                                     </select> --}}
                                     <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                        onclick="showModalDivisi()">...</button>
+                                        onclick="showModalDivisi()" disabled>...</button>
 
                                     <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                         area-hidden="true" style="">
@@ -91,9 +91,9 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <input class="form-control" type="date" id="TglLembur" name="TglMulai"
-                                        value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                        value="{{ old('TglMulai', now()->format('Y-m-d')) }}" disabled
                                         style="max-width: 200px;">
-                                    <button type="button" class="btn btn-info" style="margin-left:10px;" id="tampilButton">Tampilkan</button>
+                                    <button type="button" class="btn btn-info" style="margin-left:10px;" id="tampilButton" disabled>Tampilkan</button>
                                 </div>
 
                             </div>

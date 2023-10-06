@@ -87,14 +87,16 @@ class InputRangeController extends Controller
                 }
             };
         } else if ($data['Tanggal1'] != $data['Tanggal2']) {
+            // dd($data);
             foreach ($daterange as $tanggal) {
+                // dd($tanggal);
                 $dataLembur = DB::connection('ConnPayroll')->select('exec SP_5409_LBR_SLC_JML_LEMBUR @tanggal = ?, @kdpegawai = ?', [$tanggal->format('Y-m-d'), $data['kdpegawai'],]);
                 if ($dataLembur[0]->ada >= 1) {
                     return redirect()->route('InputRange.index')->with('alert', 'ada lembur pada tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kdpegawai']);
                 } else {
                     $dataAgenda = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_CEK_AGENDA @kdPegawai = ? , @tanggal = ?', [$data['kdpegawai'], $tanggal->format('Y-m-d')]);
 
-
+                    // dd($dataAgenda);
 
                     if (count($dataAgenda) >= 1) {
 
@@ -117,7 +119,7 @@ class InputRangeController extends Controller
                         }
 
                     } else {
-                        if ($data['ketabsensi'] = 'S') {
+                        if ($data['ketabsensi'] === 'S') {
                             DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_AGENDA_BARU @kdPegawai = ?, @tanggal = ?, @userid = ?, @alasan = ?, @ketabsensi= ?, @kdklinik= ?', [
                                 $data['kdpegawai'],
                                 $tanggal->format('Y-m-d'),
@@ -127,6 +129,7 @@ class InputRangeController extends Controller
                                 $data['kdklinik'],
                             ]);
                         } else {
+                            dd($tanggal);
                             DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_AGENDA_BARU @kdPegawai = ?, @tanggal = ?, @userid = ?, @alasan = ?, @ketabsensi= ?', [
                                 $data['kdpegawai'],
                                 $tanggal->format('Y-m-d'),

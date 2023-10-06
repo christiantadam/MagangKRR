@@ -4,7 +4,9 @@ $(document).ready(function () {
     const hapusButton = document.getElementById("hapusButton");
     const prosesButton = document.getElementById("prosesButton");
     const batalButton = document.getElementById("batalButton");
-
+    const divisiButton = document.getElementById("divisiButton");
+    const TglLembur = document.getElementById("TglLembur");
+    // const batalButton = document.getElementById("batalButton");
     var proses = 0;
     koreksiButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -13,6 +15,9 @@ $(document).ready(function () {
         hapusButton.disabled = true;
         batalButton.disabled = false;
         prosesButton.disabled = false;
+        divisiButton.disabled = false;
+        TglLembur.disabled = false;
+        tampilButton.disabled = false;
     });
     hapusButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -21,6 +26,9 @@ $(document).ready(function () {
         hapusButton.disabled = true;
         batalButton.disabled = false;
         prosesButton.disabled = false;
+        divisiButton.disabled = false;
+        TglLembur.disabled = false;
+        tampilButton.disabled = false;
     });
     batalButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -29,6 +37,9 @@ $(document).ready(function () {
         hapusButton.disabled = false;
         batalButton.disabled = true;
         prosesButton.disabled = true;
+        divisiButton.disabled = true;
+        TglLembur.disabled = true;
+        tampilButton.disabled = true;
     });
     var table = $("#table_Pegawai").DataTable({
         order: [[0, "asc"]],

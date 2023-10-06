@@ -342,9 +342,10 @@ $(document).ready(function () {
                                 .then((data) => {
                                     // Loop through the data and create table rows
                                     if (data.length > 0) {
-                                        console.log(
-                                            "Sudah ada data koreksi yang diinputkan untuk tanggal & kode pegawai yang sama.Silakan menggunakan modul KOREKSI"
+                                        alert("Sudah ada data koreksi yang diinputkan untuk tanggal & kode pegawai yang sama.Silakan menggunakan modul KOREKSI"
                                         );
+
+
                                         return;
                                     } else {
                                         if (
