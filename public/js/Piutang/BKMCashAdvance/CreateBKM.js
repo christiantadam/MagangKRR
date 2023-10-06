@@ -15,6 +15,7 @@ let idBKMNew = document.getElementById("idBKMNew");
 let totalPelunasan = document.getElementById("total1");
 let konversi = document.getElementById('konversi');
 let jenisBank = document.getElementById('jenisBank');
+let uang = document.getElementById('uang');
 
 let selectedRows = [];
 let totalNilaiPelunasan = 0;
@@ -102,83 +103,103 @@ btnOkTampil.addEventListener('click', function (event) {
         });
 });
 
-// $.ajax({
-//     url: "/CreateBKM/" + idBKMNew.value, // Replace with your actual route
-//     type: "POST",
-//     data: {
-//         _token: $('meta[name="csrf-token"]'.attr('content')), // Required for Laravel CSRF protection
-//         key1: "idBKM",
-//         key2: "formkoreksi"
-//     },
-//     success: function(response) {
-//         $("#response").html(response);
-//     },
-//     error: function(xhr, status, error) {
-//         console.log(error);
-//     }
-// });
- // Deklarasikan array untuk menyimpan data yang dicentang
+// Deklarasikan array untuk menyimpan data yang dicentang
 let bankArray = [];  // Array untuk menyimpan data bank
 let tanggalArray = [];
 let nilaipelunasan = [];
+let mataUang = [];
 
 btnGroupBKM.addEventListener('click', function (event) {
     const selectedDataArray = [];
     event.preventDefault();
     let idBKMGenerated = false;
-
+    bankArray = [];
+    tanggalArray = [];
+;
     nilaipelunasan = [];
-
+    let count = 0;
+    var arrayindex = [];
     $("input[name='dataPelunasanCheckbox']:checked").each(function () {
-        const isChecked = $(this).prop("checked");
+        // const isChecked = $(this).prop("checked");
         let rowIndex = $(this).closest("tr").index();
-
-        if (isChecked) {
-            bankArray.push(dataTable3.cell(rowIndex, 2).data());
-            tanggalArray.push(dataTable3.cell(rowIndex, 7).data());
-            nilaipelunasan.push(parseFloat(dataTable3.cell(rowIndex, 5).data()));
-            if (dataTable3.cell(rowIndex, 8).data() == null && dataTable3.cell(rowIndex, 7).data() == null && dataTable3.cell(rowIndex, 2).data() == null) {
-                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
-            }
-
-            idBKMGenerated = true;
-
-            rowData = dataTable3.row(rowIndex).data();
-            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
-            selectedDataArray.push(rowData);  // Tambahkan data ke array selectedDataArray
-        } else {
-            // Remove data from bankArray and tanggalArray when unchecked
-            const dataToRemove = dataTable3.cell(rowIndex, 2).data();
-            const tanggalToRemove = dataTable3.cell(rowIndex, 7).data();
-            const pelunasanToRemove = dataTable3.cell(rowIndex, 5).data();
-
-            const bankIndex = bankArray.indexOf(dataToRemove, tanggalToRemove, pelunasanToRemove);
-            if (bankIndex !== -1) {
-                bankArray.splice(bankIndex, 1);
-                tanggalArray.splice(bankIndex, 1);
-                tanggalSajaArray.splice(bankIndex, 1);
-            }
-        }
+        arrayindex.push(rowIndex);
+        count += 1;
     });
 
-    let cek = Check(bankArray, tanggalArray);
-    if (cek == true) {
-        return;
+    if (count > 1) {
+        // console.log("mmmmmmmmmmmmm");
+        console.log(arrayindex);
+        for (let i = 0; i < arrayindex.length; i++) {
+            bankArray.push(dataTable3.cell(arrayindex[i], 2).data());
+            tanggalArray.push(dataTable3.cell(arrayindex[i], 7).data());
+            nilaipelunasan.push(parseFloat(dataTable3.cell(arrayindex[i], 5).data()));
+            mataUang.push(dataTable3.cell(arrayindex[i], 4).data());
+            if (dataTable3.cell(arrayindex[i], 8).data() == null && dataTable3.cell(arrayindex[i], 7).data() == null && dataTable3.cell(arrayindex[i], 2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+                return;
+            }
+            idBKMGenerated = true;
+
+            rowData = dataTable3.row(arrayindex[i]).data();
+            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
+            selectedDataArray.push(rowData);
+        }
+        console.log(bankArray);
+        // console.log(tanggalArray);
+        let cek = Check();
+        if (cek == true) {
+            return;
+        };
+    }
+    if (count == 1) {
+        for (let i = 0; i < arrayindex.length; i++) {
+            bankArray.push(dataTable3.cell(arrayindex[i], 2).data());
+            tanggalArray.push(dataTable3.cell(arrayindex[i], 7).data());
+            nilaipelunasan.push(parseFloat(dataTable3.cell(arrayindex[i], 5).data()));
+            mataUang.push(dataTable3.cell(arrayindex[i], 4).data());
+            if (dataTable3.cell(arrayindex[i], 8).data() == null && dataTable3.cell(arrayindex[i], 7).data() == null && dataTable3.cell(arrayindex[i], 2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+                return;
+            }
+            idBKMGenerated = true;
+
+            rowData = dataTable3.row(arrayindex[i]).data();
+            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
+            selectedDataArray.push(rowData);
+        }
+
+        if (idBKM.value === "") {
+            if (idBank.value == "KRR1") {
+                idBank.value = "KI";
+            }
+            else if (idBank.value == "KRR2") {
+                idBank.value = "KKM";
+            }
+        } else {
+            idBank = idBank.value;
+        }
+
+        // console.log("nnnnnnnnnnnnnnnnn");
+        fetch("/getJenisBankCreateBKM/" + bankArray[0])
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            jenisBank.value = options[0].jenis;
+        });
     }
 
-    if (idBKM.value === "") {
-        if (idBank.value == "KRR1") {
-            idBank.value = "KI";
-        }
-        else if (idBank.value == "KRR2") {
-            idBank.value = "KKM";
-        }
-    } else {
-        idBank = idBank.value;
-    }
+    uang.value = mataUang[mataUang.length -1];
+    console.log(nilaipelunasan);
+    let totalPembayaran = nilaipelunasan[0];
+    const formattedCurrency = formatToCurrency(totalPembayaran);
+    totalPelunasan.value = formattedCurrency;
+    const words = numberToWords(nilaipelunasan[0]);
+    konversi.value = words;
+
 
     if (idBKMGenerated) {
-        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+        fetch("/getidbkm/" + bankArray[0] + "/" + tglInputNew.value)
             .then((response) => response.json())
             .then((options) => {
                 idBKMNew.value = options;
@@ -195,57 +216,30 @@ btnGroupBKM.addEventListener('click', function (event) {
     }
 });
 
-let k = 0; // variabel untuk menyimpan nilai k
-let l = 0; // variabel untuk menyimpan nilai l
-
-function Check(bankArray, tanggalArray) {
-    let newK = 0; // Initialize newK
-    let newL = 0; // Initialize newL
-
-    let newBankArray = []; // Initialize a new array for the updated bankArray
-    let newTanggalArray = []; // Initialize a new array for the updated tanggalArray
+function Check() {
+    let k = 1; // variabel untuk menyimpan nilai k
+    let l = 1;
 
     let tanggalSajaArray = tanggalArray.map(dateTimeString => {
         const tanggalSaja = dateTimeString.split(' ')[0];
         return tanggalSaja;
     });
 
-    $("input[name='dataPelunasanCheckbox']:checked").each(function () {
-        const isChecked = $(this).prop("checked");
-        let rowIndex = $(this).closest("tr").index();
-
-        if (isChecked) {
-            if (bankArray[l] === bankArray[rowIndex]) {
-                newK += 1;
-            }
-
-            if (tanggalSajaArray[l] === tanggalSajaArray[rowIndex]) {
-                newL += 1;
-            }
-
-            l = rowIndex;
-
-            // Add the corresponding bank and tanggal to the new arrays
-            newBankArray.push(bankArray[rowIndex]);
-            newTanggalArray.push(tanggalSajaArray[rowIndex]);
+    for (let i = 1; i < bankArray.length; i++) {
+        // const element = array[i];
+        if (bankArray[0] == bankArray[i]) {
+                k += 1;
         }
-    });
-
-    // Update k and l
-    k = newK;
-    l = newL;
-
-    // Update bankArray and tanggalArray
-    bankArray = newBankArray;
-    tanggalArray = newTanggalArray;
-
-    console.log(k);
-    console.log(l);
-    console.log(bankArray);
-    console.log(tanggalArray);
-    console.log(nilaipelunasan);
+        if (tanggalSajaArray[0] == tanggalSajaArray[i]) {
+            l += 1;
+            console.log(tanggalSajaArray[0]);
+        }
+    }
 
     if (k !== bankArray.length || l !== bankArray.length) {
+        console.log(k);
+        console.log(l);
+        console.log(bankArray);
         alert('Nama Bank & Tgl Pembuatan Harus SAMA!');
         return true;
     } else if (k == bankArray.length && l == bankArray.length) {
@@ -256,22 +250,22 @@ function Check(bankArray, tanggalArray) {
         } else {
             idBank.value = bankArray[1];
         }
-
-        const totalPembayaran = nilaipelunasan.reduce((total, value) => total + value, 0);
-        const formattedNumber = formatToCurrency(totalPembayaran);
-        totalPelunasan.value = formattedNumber;
-        konversi.value = numberToWords(totalPembayaran);
-        console.log(totalPelunasan.value);
-        console.log(idBank.value);
+        console.log(bankArray);;
     }
 
-    fetch("/getJenisBankCreateBKM/" + idBank.value)
+    console.log(k);
+    console.log(l);
+    console.log(bankArray);
+    console.log(tanggalArray);
+    console.log(nilaipelunasan);
+
+    fetch("/getJenisBankCreateBKM/" + bankArray[0])
         .then((response) => response.json())
         .then((options) => {
             console.log(options);
 
             jenisBank.value = options[0].jenis;
-    });
+        });
 }
 
 btnOK.addEventListener('click', function (event) {
@@ -570,40 +564,55 @@ function formatToCurrency(number) {
 const ones = ['', 'Satu ', 'Dua ', 'Tiga ', 'Empat ', 'Lima ', 'Enam ', 'Tujuh ', 'Delapan ', 'Sembilan '];
 const teens = ['Sepuluh', 'Sebelas', 'Dua Belas', 'Tiga Belas', 'Empat Belas', 'Lima Belas', 'Enam Belas', 'Tujuh Belas', 'Delapan Belas', 'Sembilan Belas'];
 const tens = ['', 'Sepuluh', 'Dua Puluh', 'Tiga Puluh', 'Empat Puluh', 'Lima Puluh', 'Enam Puluh', 'Tujuh Puluh', 'Delapan Puluh', 'Sembilan Puluh'];
-const thousands = ['', 'Ribu', 'Juta', 'Miliar', 'Triliun'];
+const thousands = ['', 'Seribu', 'Juta', 'Miliar', 'Triliun'];
 
 function numberToWords(number) {
-
     if (number === 0) {
         return 'Nol';
     }
 
     let result = '';
+    let isThousands = false;
 
-    // Convert each group of three digits
+    if (number === 1000) {
+        result = 'Seribu';
+        return result.trim();
+    }
+
     for (let i = 0; number > 0; i++) {
         const currentGroup = number % 1000;
         if (currentGroup !== 0) {
-            result = convertThreeDigitsToWords(currentGroup) + thousands[i] + ' ' + result;
+            result = convertThreeDigitsToWords(currentGroup, isThousands) + thousands[i] + ' ' + result;
         }
         number = Math.floor(number / 1000);
+        isThousands = true;
     }
 
-    // Trim trailing whitespace and return the result
     return result.trim();
 }
 
-function convertThreeDigitsToWords(num) {
+function convertThreeDigitsToWords(num, isThousands) {
     let result = '';
 
     // Convert hundreds place
     const hundredsPlace = Math.floor(num / 100);
     if (hundredsPlace > 0) {
-        result += ones[hundredsPlace] + ' Ratus ';
+        if (hundredsPlace === 1) {
+            result += 'Seratus ';
+        } else {
+            result += ones[hundredsPlace] + ' Ratus ';
+        }
     }
 
-    // Convert tens and ones place
+    // Calculate the remainder for further conversion
     const remainder = num % 100;
+
+    // Check if the remainder is zero (e.g., 200, 300, etc.)
+    if (remainder === 0) {
+        return result.trim();
+    }
+
+    // Check if the remainder is less than 10 or greater than or equal to 10
     if (remainder < 10) {
         result += ones[remainder];
     } else if (remainder < 20) {
@@ -611,7 +620,21 @@ function convertThreeDigitsToWords(num) {
     } else {
         const tensPlace = Math.floor(remainder / 10);
         const onesPlace = remainder % 10;
-        result += tens[tensPlace] + ' ' + ones[onesPlace];
+        result += tens[tensPlace];
+        if (onesPlace > 0) {
+            result += ' ' + ones[onesPlace];
+        }
     }
-    return result;
+
+    // Handle "Seribu" for thousands if applicable
+    if (isThousands && num === 1) {
+        result = 'Seribu ';
+    } else if (isThousands) {
+        const thousandsPlace = Math.floor(num / 1000);
+        result = ones[thousandsPlace] + ' Ribu ';
+    }
+
+    return result.trim();
 }
+
+

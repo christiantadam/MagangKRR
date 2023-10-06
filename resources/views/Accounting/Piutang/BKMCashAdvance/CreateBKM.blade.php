@@ -83,6 +83,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" id="uang" name="uang" class="form-control" style="width: 100%">
                                 <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                 <input type="text" id="total1" name="total1" class="form-control" style="width: 100%">
                                 <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
