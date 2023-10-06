@@ -1,5 +1,8 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
+<link href="{{ asset('css/GPS/Color.css') }}" rel="stylesheet">
+
+
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
@@ -38,7 +41,7 @@
                           <input type="Date" class="form-control" name="tgl" id="tgl">
                         </div>
                         <div class="col-4">
-                            <button type="button" class="btn btn-light" id="btnok" disabled>OK</button>
+                            <button type="button" class="btn btn-primary" id="btnok" disabled>OK</button>
                         </div>
                       </div>
                     </div>
@@ -51,22 +54,25 @@
                   <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
                 </div>
               </div>
-              <table class="table" style="padding-top: 15px" id="TableEditPerWorkstation">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Nomor</th>
-                    <th>No Order</th>
-                    <th>Tanggal Start</th>
-                    <th>Divisi</th>
-                    <th>Nama Barang</th>
-                    <th>Nama Bagian</th>
-                    <th>Est. Time</th>
-                    <th>Hari ke-</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                  <table class="table" style="padding-top: 15px; white-space:nowrap" id="TableEditPerWorkstation">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>Nomor</th>
+                        <th>No Order</th>
+                        <th>Tanggal Start</th>
+                        <th>Divisi</th>
+                        <th>Nama Barang</th>
+                        <th>Nama Bagian</th>
+                        <th>Est. Time</th>
+                        <th>Hari ke-</th>
+                        <th>IdBagian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+              </div>
               <div class="mb-3">
                 <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
               </div>

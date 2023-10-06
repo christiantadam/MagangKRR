@@ -15,6 +15,14 @@ class EditJadwalPerWorkStationController extends Controller
         return view('workshop.GPS.Jadwal_konstruksi.EditPerWorkStation', compact(['data']));
 
     }
+    public function NoAntri($worksts, $date1) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_NOANTRI-KONSTRUKSI-NOFINISH] @worksts = ?, @date1 = ?', [$worksts, $date1]);
+        return response()->json($data);
+    }
+    public function getdatatable($noAntri, $date , $worksts) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ?', [1,$noAntri,$date, $worksts]);
+        return response()->json($data);
+    }
 
 
     public function create()
