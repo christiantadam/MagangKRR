@@ -1,17 +1,17 @@
 //#region Variables
-const txtWoven = document.getElementById("kode_woven");
+const txtJumbo = document.getElementById("kode_jumbo");
 const txtType = document.getElementById("berat_type");
 const numStandar1 = document.getElementById("berat_standar1");
 const numStandar2 = document.getElementById("berat_standar2");
-const numKarung = document.getElementById("berat_karung");
+const numCloth = document.getElementById("berat_cloth");
 const numInner = document.getElementById("berat_inner");
 const numLami = document.getElementById("berat_lami");
-const numLain = document.getElementById("berat_lain");
+const numConductive = document.getElementById("berat_conductive");
 
-const hidKarung = document.getElementById("hid_karung");
+const hidCloth = document.getElementById("hid_cloth");
 const hidInner = document.getElementById("hid_inner");
 const hidLami = document.getElementById("hid_lami");
-const hidLain = document.getElementById("hid_lain");
+const hidConductive = document.getElementById("hid_conductive");
 
 const btnKoreksi = document.getElementById("btn_koreksi");
 const btnBatal = document.getElementById("btn_batal");
@@ -23,7 +23,7 @@ var userId = "1001";
 //#endregion
 
 //#region Events
-txtWoven.addEventListener("keypress", function (event) {
+txtJumbo.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
             let kode = "000000000";
@@ -37,8 +37,8 @@ txtWoven.addEventListener("keypress", function (event) {
 
 numStandar2.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        numKarung.value = (
-            (parseFloat(hidKarung.value) / parseFloat(numStandar1.value)) *
+        numCloth.value = (
+            (parseFloat(hidCloth.value) / parseFloat(numStandar1.value)) *
             parseFloat(numStandar2.value)
         ).toFixed(2);
 
@@ -52,8 +52,8 @@ numStandar2.addEventListener("keypress", function (event) {
             parseFloat(numStandar2.value)
         ).toFixed(2);
 
-        numLain.value = (
-            (parseFloat(hidLain.value) / parseFloat(numStandar1.value)) *
+        numConductive.value = (
+            (parseFloat(hidConductive.value) / parseFloat(numStandar1.value)) *
             parseFloat(numStandar2.value)
         ).toFixed(2);
 
@@ -65,7 +65,7 @@ numStandar2.addEventListener("keypress", function (event) {
 btnProses.addEventListener("click", function () {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtWoven.value,
+        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtJumbo.value,
         (data) => {
             if (data.length > 0) {
                 if (
@@ -79,8 +79,8 @@ btnProses.addEventListener("click", function () {
                         "Maaf Berat Standart Tidak Bisa diKoreksi, Karena Sudah Memiliki Komposisi Konversi !!!"
                     );
 
-                    txtWoven.value = "";
-                    txtWoven.focus();
+                    txtJumbo.value = "";
+                    txtJumbo.focus();
                     formWait(false);
                     return;
                 }
@@ -88,15 +88,15 @@ btnProses.addEventListener("click", function () {
 
             fetchStmt(
                 "/beratStandar/SP_1273_BCD_UPDATE_BERAT_WOVEN_1/" +
-                    txtWoven.value +
+                    txtJumbo.value +
                     "~" +
-                    numKarung.value +
+                    numCloth.value +
                     "~" +
                     numInner.value +
                     "~" +
                     numLami.value +
                     "~" +
-                    numLain.value +
+                    numConductive.value +
                     "~" +
                     numStandar2.value,
                 () => {
@@ -112,8 +112,8 @@ btnProses.addEventListener("click", function () {
 
 btnKoreksi.addEventListener("click", function () {
     listOfTxt.forEach((ele) => (ele.value = ""));
-    txtWoven.disabled = false;
-    txtWoven.focus();
+    txtJumbo.disabled = false;
+    txtJumbo.focus();
     btnBatal.disabled = false;
 });
 
@@ -139,30 +139,30 @@ function enableForm(bool_state) {
 
 function loadDataFetch(s_kode_brg) {
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN_1/" + s_kode_brg,
+        "/beratStandar/SP_1003_PBL_SELECT_JUMBO_1/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                txtWoven.value = s_kode_brg;
+                txtJumbo.value = s_kode_brg;
                 txtType.value = data[0].NAMA_BRG;
                 numStandar2.value = data[0].BERAT_TOTAL2;
-                numKarung.value = data[0].BERAT_KARUNG2;
+                numCloth.value = data[0].BERAT_CLOTH2;
                 numInner.value = data[0].BERAT_INNER2;
                 numLami.value = data[0].BERAT_LAMI2;
-                numLain.value = data[0].BERAT_LAIN2;
+                numConductive.value = data[0].BERAT_CONDUCTIVE2;
                 numStandar1.value = data[0].BERAT_TOTAL;
-                hidKarung.value = data[0].BERAT_KARUNG;
+                hidCloth.value = data[0].BERAT_CLOTH;
                 hidInner.value = data[0].BERAT_INNER;
                 hidLami.value = data[0].BERAT_LAMI;
-                hidLain.value = data[0].BERAT_LAIN;
+                hidConductive.value = data[0].BERAT_CONDUCTIVE;
 
                 if (
                     numStandar1.value == "" ||
                     parseFloat(numStandar1.value) == 0
                 ) {
                     alert("Inputkan Berat Standart 1 Terlebih Dahulu");
-                    txtWoven.value = "";
+                    txtJumbo.value = "";
                     listOfTxt.forEach((ele) => (ele.value = ""));
-                    txtWoven.focus();
+                    txtJumbo.focus();
                     return;
                 }
 
@@ -176,26 +176,23 @@ function loadDataFetch(s_kode_brg) {
                                 );
 
                                 listOfTxt.forEach((ele) => (ele.value = ""));
-                                txtWoven.focus();
+                                txtJumbo.focus();
                                 return;
-                            } else {
-                                enableForm(true);
-                                numStandar2.select();
-                            }
+                            } else numStandar2.select();
                         } else {
                             alert(
                                 "Kode Barang Ini Belum Input Komposisi Konversi !"
                             );
 
                             listOfTxt.forEach((ele) => (ele.value = ""));
-                            txtWoven.focus();
+                            txtJumbo.focus();
                             return;
                         }
                     }
                 );
             } else {
                 alert("Kode barang tidak ditemukan.");
-                txtWoven.select();
+                txtJumbo.select();
             }
         }
     );
@@ -205,7 +202,7 @@ function enableForm(bool_state) {
     btnKoreksi.disabled = bool_state;
     btnProses.disabled = !bool_state;
     btnBatal.disabled = !bool_state;
-    txtWoven.disabled = !bool_state;
+    txtJumbo.disabled = !bool_state;
     numStandar2.disabled = !bool_state;
 }
 

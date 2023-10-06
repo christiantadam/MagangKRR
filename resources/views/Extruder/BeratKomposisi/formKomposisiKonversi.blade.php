@@ -263,12 +263,12 @@
 
         <div class="row mt-3">
             <div class="col-9 row justify-content-md-center">
-                <div class="text-center col-md-auto"><button type="button" id="btn_koreksi"
-                        class="btn btn-outline-warning">Koreksi</button></div>
+                <div class="text-center col-md-auto"><button type="button" id="btn_isi"
+                        class="btn btn-outline-success">Isi</button></div>
                 <div class="text-center col-md-auto"><button type="button" id="btn_batal"
                         class="btn btn-outline-danger">Batal</button></div>
                 <div class="text-center col-md-auto"><button type="button" id="btn_proses"
-                        class="btn btn-outline-success">Proses</button></div>
+                        class="btn btn-outline-primary">Proses</button></div>
             </div>
 
             <div class="text-center col-3"><button type="button" id="btn_keluar"

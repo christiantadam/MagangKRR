@@ -7,7 +7,7 @@
                 <span class="aligned-text">Kode Barang:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="text" class="form-control" id="kode_barang">
+                <input type="text" class="form-control" id="kode_barang" disabled>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar1">
+                    <input type="number" class="form-control" id="berat_standar1" disabled>
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar2">
+                    <input type="number" class="form-control" id="berat_standar2" disabled>
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -49,7 +49,10 @@
                 <span class="aligned-text">Berat Cloth:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_cloth">
+                <input type="number" class="form-control" id="berat_cloth" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_cloth">
             </div>
         </div>
 
@@ -58,7 +61,10 @@
                 <span class="aligned-text">Berat Lami:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_lami">
+                <input type="number" class="form-control" id="berat_lami" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_lami">
             </div>
         </div>
 

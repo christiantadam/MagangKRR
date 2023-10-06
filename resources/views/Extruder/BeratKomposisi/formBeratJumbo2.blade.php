@@ -7,7 +7,7 @@
                 <span class="aligned-text">Kode Jumbo:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="text" class="form-control" id="kode_jumbo">
+                <input type="text" class="form-control" id="kode_jumbo" disabled>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="form-group col-md-9 mt-3 mt-md-0">
-                <textarea class="form-control" id="berat_type" rows="3"></textarea>
+                <textarea class="form-control" id="berat_type" rows="3" disabled></textarea>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar1">
+                    <input type="number" class="form-control" id="berat_standar1" disabled>
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar2">
+                    <input type="number" class="form-control" id="berat_standar2" disabled>
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -49,7 +49,10 @@
                 <span class="aligned-text">Berat Cloth:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_cloth">
+                <input type="number" class="form-control" id="berat_cloth" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_cloth" disabled>
             </div>
         </div>
 
@@ -58,7 +61,10 @@
                 <span class="aligned-text">Berat Inner:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_inner">
+                <input type="number" class="form-control" id="berat_inner" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_inner" disabled>
             </div>
         </div>
 
@@ -67,7 +73,10 @@
                 <span class="aligned-text">Berat Lami:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_lami">
+                <input type="number" class="form-control" id="berat_lami" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_lami" disabled>
             </div>
         </div>
 
@@ -76,7 +85,10 @@
                 <span class="aligned-text">Berat Conductive:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_conductive">
+                <input type="number" class="form-control" id="berat_conductive" disabled>
+            </div>
+            <div class="col-md-3">
+                <input disabled type="number" class="form-control hidden" id="hid_conductive" disabled>
             </div>
         </div>
 
@@ -95,4 +107,5 @@
         </div>
 
     </div>
+    <script src="{{ asset('js/Extruder/BeratKomposisi/beratJumbo2.js') }}"></script>
 @endsection

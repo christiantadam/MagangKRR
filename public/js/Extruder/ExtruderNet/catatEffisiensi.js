@@ -236,35 +236,59 @@ slcKodeKonv.addEventListener("change", function () {
 });
 
 txtScrew.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtMotor.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtMotor.select();
+    }
 });
 
 txtMotor.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtSlitter.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtSlitter.select();
+    }
 });
 
 txtSlitter.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtNoYam.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtNoYam.select();
+    }
 });
 
 txtNoYam.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtWater.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtWater.select();
+    }
 });
 
 txtWater.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtRoll.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtRoll.select();
+    }
 });
 
 txtRoll.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtStretch.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtStretch.select();
+    }
 });
 
 txtStretch.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtRelax.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtRelax.select();
+    }
 });
 
 txtRelax.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") txtDenier.select();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        txtDenier.select();
+    }
 });
 
 txtDenier.addEventListener("keypress", function (event) {
@@ -315,7 +339,10 @@ txtDenier.addEventListener("keypress", function (event) {
 });
 
 txtRata.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") btnProses.focus();
+    if (event.key == "Enter") {
+        if (this.value == "") this.value = 0;
+        btnProses.focus();
+    }
 });
 
 btnIsi.addEventListener("click", function () {

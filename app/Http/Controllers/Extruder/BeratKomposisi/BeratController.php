@@ -22,7 +22,6 @@ class BeratController extends Controller
     public function beratStandar($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
-        // dd($param_data);
 
         switch ($fun_str) {
             case 'SP_1273_PRG_CEK_KOMPOSISI_1':
@@ -31,6 +30,8 @@ class BeratController extends Controller
             case 'SP_1273_BCD_DATA_ADSTAR':
             case 'SP_1273_BCD_DATA_CIRCULAR':
             case 'SP_7775_PBL_SELECT_WOVEN_1':
+            case 'SP_1003_PBL_SELECT_JUMBO_1':
+            case 'SP_1273_BCD_DATA_ADSTAR_1':
                 $param_str = '@KD_BRG = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
@@ -39,14 +40,26 @@ class BeratController extends Controller
                 $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
+            case 'SP_1273_BCD_UPDATE_BERAT_WOVEN_1':
+                $param_str = '@KD_BRG = ?, @brt_karung = ?, @brt_inner = ?, @brt_lami = ?, @brt_lain = ?, @brt_total = ?, @UserId = 4384';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
             case 'SP_1003_PBL_UPDATE_BERAT_JUMBO_1':
                 $param_str = '@KD_BRG = ?, @ket = ?, @brt_cloth = ?, @brt_inner = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = 4384';
                 $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
+            case 'SP_1273_BCD_UPDATE_BERAT_JUMBO_1':
+                $param_str = '@KD_BRG = ?, @brt_cloth = ?, @brt_inner = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = 4384';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
             case 'SP_1273_BCD_UPDATE_BERAT_ADSTAR':
                 $param_str = '@KD_BRG = ?, @ket = ?, @brt_cloth = ?, @brt_lami = ?, @brt_kertas = ?, @brt_total = ?, @UserId = 4384';
                 $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_ADSTAR2_1':
+                $param_str = '@KD_BRG = ?, @brt_cloth = ?, @brt_lami = ?, @brt_kertas = ?, @brt_total = ?, @UserId = 4384';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_BCD_UPDATE_BERAT_CIRCULAR':
@@ -65,26 +78,6 @@ class BeratController extends Controller
                 $param_data[2] = intval($param_data[2]); // @pa
                 $param_data[3] = intval($param_data[3]); // @pb
                 $param_str = '@kd = 2, @KodeBarang = ?, @alasan = ?, @pa = ?, @pb = ?, @userApp = 4384, @tanggal = ?';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
-
-            default:
-                dd("SP tidak ditemukan.");
-                break;
-        }
-    }
-
-    public function komposisiKonversi($fun_str, $fun_data)
-    {
-        $param_data = explode('~', $fun_data);
-
-        switch ($fun_str) {
-            case 'SP_1273_ABM_BERAT_STANDART_1':
-            case 'SP_1273_PRG_DATA_KOMPOSISI_1':
-                $param_str = '@KD_BRG = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
-
-            case 'SP_1273_PRG_UPDATE_KOMPOSISI_KONVERSI_1':
-                $param_str = '@KD_BRG = ?, @PP = ?, @PE = ?, @CaCO3 = ?, @Masterbatch = ?, @UV = ?, @AntiStatic = ?, @Conductive = ?, @LDPE = ?, @LLDPE = ?, @HDPE = ?, @UserId = 4384';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
             default:

@@ -8,7 +8,7 @@
                     <span class="aligned-text">Kode Assesoris:</span>
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                    <input type="text" class="form-control" id="kode_assesoris">
+                    <input type="text" class="form-control" id="kode_assesoris" disabled>
                 </div>
             </div>
 
@@ -17,7 +17,7 @@
                     <span class="aligned-text">Type:</span>
                 </div>
                 <div class="form-group col-md-9 mt-3 mt-md-0">
-                    <textarea class="form-control" id="berat_type" rows="3"></textarea>
+                    <textarea class="form-control" id="berat_type" rows="3" disabled></textarea>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
                     <div class="input-group">
-                        <input type="number" class="form-control" id="berat_standar1">
+                        <input type="number" class="form-control" id="berat_standar1" disabled>
                         <span class="input-group-text">Gram</span>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
                     <div class="input-group">
-                        <input type="number" class="form-control" id="berat_standar2">
+                        <input type="number" class="form-control" id="berat_standar2" disabled>
                         <span class="input-group-text">Gram</span>
                     </div>
                 </div>
@@ -50,7 +50,10 @@
                     <span class="aligned-text">Berat Conductive:</span>
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                    <input type="number" class="form-control" id="berat_conductive">
+                    <input type="number" class="form-control" id="berat_conductive" disabled>
+                </div>
+                <div class="col-md-3">
+                    <input disabled type="number" class="form-control hidden" id="hid_conductive">
                 </div>
             </div>
 
@@ -59,7 +62,10 @@
                     <span class="aligned-text">Berat Lain:</span>
                 </div>
                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                    <input type="number" class="form-control" id="berat_lain">
+                    <input type="number" class="form-control" id="berat_lain" disabled>
+                </div>
+                <div class="col-md-3">
+                    <input disabled type="number" class="form-control hidden" id="hid_lain">
                 </div>
             </div>
 

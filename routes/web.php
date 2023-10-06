@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Extruder\BeratKomposisi\BeratController;
+use App\Http\Controllers\Extruder\BeratKomposisi\KomposisiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Extruder\ExtruderController;
 use App\Http\Controllers\Extruder\ExtruderNet\BenangController;
@@ -50,7 +51,7 @@ Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::cla
 
 #region BeratKomposisi
 Route::get('/beratStandar/{fun_str}/{fun_data}', [BeratController::class, 'beratStandar']);
-Route::get('/komposisiKonversi/{fun_str}/{fun_data}', [BeratController::class, 'komposisiKonversi']);
+Route::get('/komposisiKonversi/{fun_str}/{fun_data}', [KomposisiController::class, 'komposisiKonversi']);
 #endregion
 
 #region ExtruderNet - Master (KITE)

@@ -30,7 +30,7 @@ const numHdpePersen = document.getElementById("hdpe_persen");
 const numTotal = document.getElementById("total_gram");
 const numJumlah = document.getElementById("total_persen");
 
-const btnKoreksi = document.getElementById("btn_koreksi");
+const btnIsi = document.getElementById("btn_isi");
 const btnBatal = document.getElementById("btn_batal");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
@@ -47,6 +47,7 @@ txtKodeBarang.addEventListener("keypress", function (event) {
             kode = kode.slice(-9);
             this.value = kode;
             loadDataFetch(kode);
+            enableForm(true);
         } else this.select();
     }
 });
@@ -54,7 +55,7 @@ txtKodeBarang.addEventListener("keypress", function (event) {
 btnBatal.addEventListener("click", function () {
     clearForm();
     enableForm(false);
-    btnKoreksi.focus();
+    btnIsi.focus();
 });
 
 btnProses.addEventListener("click", function () {
@@ -93,7 +94,7 @@ btnProses.addEventListener("click", function () {
                         numHdpeGram.value,
                     () => {
                         enableForm(false);
-                        btnKoreksi.focus();
+                        btnIsi.focus();
                         alert("Komposisi Konversi berhasil tersimpan.");
                     }
                 );
@@ -108,8 +109,9 @@ btnProses.addEventListener("click", function () {
     } else alert("Isi Komposisi Terlebih Dahulu");
 });
 
-btnKoreksi.addEventListener("click", function () {
-    enableForm(true);
+btnIsi.addEventListener("click", function () {
+    listOfInput.forEach((ele) => (ele.value = ""));
+    txtKodeBarang.disabled = false;
     txtKodeBarang.focus();
 });
 
@@ -146,7 +148,12 @@ function enableForm(bool_state) {
     listOfInput.forEach((input) => (input.disabled = !bool_state));
     btnBatal.disabled = !bool_state;
     btnProses.disabled = !bool_state;
-    btnKoreksi.disabled = bool_state;
+    btnIsi.disabled = bool_state;
+    numJumlah.disabled = true;
+    numTotal.disabled = true;
+    txtType.disabled = true;
+    listOfPersen.forEach((ele) => (ele.disabled = true));
+    numBerat.disabled = true;
 }
 
 function clearForm() {
@@ -185,7 +192,7 @@ function loadDataFetch(s_kode_brg) {
                                 jualKg = data2[0].JualKg;
 
                                 hitungSemuaPersen();
-                                numPpGram.focus();
+                                numPpGram.select();
                             } else {
                                 enableForm(false);
                                 alert(
@@ -195,14 +202,17 @@ function loadDataFetch(s_kode_brg) {
                         }
                     );
                 }
-            } else alert("Kode Barang " + s_kode_brg + " tidak ditemukan.");
+            } else {
+                txtKodeBarang.select();
+                alert("Kode Barang " + s_kode_brg + " tidak ditemukan.");
+            }
         }
     );
 }
 
 function hitungSemuaPersen() {
     let list_input = [];
-    listOfGram.forEach((ele) => list_input.push(ele.value));
+    listOfGram.forEach((ele) => list_input.push(parseFloat(ele.value)));
     if (jualKg == "Y") {
         listOfLabel.forEach((ele) => (ele.textContent = "Gram"));
         listOfPersen.forEach(function (ele, i) {
@@ -211,6 +221,7 @@ function hitungSemuaPersen() {
                 1000
             ).toFixed(2);
 
+            if (isNaN(parseFloat(numJumlah.value))) numJumlah.value = 0;
             numJumlah.value =
                 parseFloat(numJumlah.value) + parseFloat(ele.value);
         });
@@ -222,6 +233,7 @@ function hitungSemuaPersen() {
                 100
             ).toFixed(2);
 
+            if (isNaN(parseFloat(numJumlah.value))) numJumlah.value = 0;
             numJumlah.value =
                 parseFloat(numJumlah.value) + parseFloat(ele.value);
         });
@@ -250,7 +262,8 @@ function hitungPersenSatuan(ele_gram, ele_persen, ele_target) {
 
 function init() {
     enableForm(false);
-    btnKoreksi.focus();
+    btnIsi.focus();
+    numJumlah.value = 0;
     hitungPersenSatuan(numPpGram, numPpPersen, numPeGram);
     hitungPersenSatuan(numPeGram, numPePersen, numCaco3Gram);
     hitungPersenSatuan(numCaco3Gram, numCac03Persen, numMasterGram);

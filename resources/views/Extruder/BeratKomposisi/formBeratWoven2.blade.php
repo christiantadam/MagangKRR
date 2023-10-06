@@ -7,7 +7,7 @@
                 <span class="aligned-text">Kode Woven:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="text" class="form-control" id="kode_woven">
+                <input disabled type="text" class="form-control" id="kode_woven">
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="form-group col-md-9 mt-3 mt-md-0">
-                <textarea class="form-control" id="berat_type" rows="3"></textarea>
+                <textarea disabled class="form-control" id="berat_type" rows="3"></textarea>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar1">
+                    <input disabled type="number" class="form-control" id="berat_standar1">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
                 <div class="input-group">
-                    <input type="number" class="form-control" id="berat_standar2">
+                    <input disabled type="number" class="form-control" id="berat_standar2">
                     <span class="input-group-text">Gram</span>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                 <span class="aligned-text">Berat Karung:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_karung">
+                <input disabled type="number" class="form-control" id="berat_karung">
             </div>
             <div class="col-md-3">
-                <input type="number" class="form-control hidden" id="hid_karung">
+                <input disabled type="number" class="form-control hidden" id="hid_karung">
             </div>
         </div>
 
@@ -61,10 +61,10 @@
                 <span class="aligned-text">Berat Inner:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_inner">
+                <input disabled type="number" class="form-control" id="berat_inner">
             </div>
             <div class="col-md-3">
-                <input type="number" class="form-control hidden" id="hid_inner">
+                <input disabled type="number" class="form-control hidden" id="hid_inner">
             </div>
         </div>
 
@@ -73,10 +73,10 @@
                 <span class="aligned-text">Berat Lami:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_lami">
+                <input disabled type="number" class="form-control" id="berat_lami">
             </div>
             <div class="col-md-3">
-                <input type="number" class="form-control hidden" id="hid_lami">
+                <input disabled type="number" class="form-control hidden" id="hid_lami">
             </div>
         </div>
 
@@ -85,10 +85,10 @@
                 <span class="aligned-text">Berat Lain:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_lain">
+                <input disabled type="number" class="form-control" id="berat_lain">
             </div>
             <div class="col-md-3">
-                <input type="number" class="form-control hidden" id="hid_lain">
+                <input disabled type="number" class="form-control hidden" id="hid_lain">
             </div>
         </div>
 
@@ -110,4 +110,6 @@
         </div>
 
     </div>
+
+    <script src="{{ asset('js/Extruder/BeratKomposisi/beratWoven2.js') }}"></script>
 @endsection

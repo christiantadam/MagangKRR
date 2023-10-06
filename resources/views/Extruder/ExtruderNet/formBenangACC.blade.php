@@ -1,6 +1,7 @@
 @extends('layouts.appExtruder')
 @section('content')
     <input type="hidden" id="hiddenKu">
+    <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
 
     <div id="tropodo_benang_acc" class="form" data-aos="fade-up">
         <div class="row mt-3">
