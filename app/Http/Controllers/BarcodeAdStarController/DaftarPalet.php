@@ -5,11 +5,11 @@ namespace App\Http\Controllers\BarcodeAdStarController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DftPlt extends Controller
+class DaftarPalet extends Controller
 {
     public function index()
     {
-        return view('BarcodeAdStar.DftPlt');//
+        return view('BarcodeAdStar.DaftarPalet');//
     }
      /**
      * Show the form for creating a new resource.
