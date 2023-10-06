@@ -1,17 +1,13 @@
 //#region Variables
-const txtWoven = document.getElementById("kode_woven");
+const txtKodeBarang = document.getElementById("kode_barang");
 const txtType = document.getElementById("berat_type");
 const numStandar1 = document.getElementById("berat_standar1");
 const numStandar2 = document.getElementById("berat_standar2");
-const numKarung = document.getElementById("berat_karung");
-const numInner = document.getElementById("berat_inner");
+const numCloth = document.getElementById("berat_cloth");
 const numLami = document.getElementById("berat_lami");
-const numLain = document.getElementById("berat_lain");
 
-const hidKarung = document.getElementById("hid_karung");
-const hidInner = document.getElementById("hid_inner");
+const hidCloth = document.getElementById("hid_cloth");
 const hidLami = document.getElementById("hid_lami");
-const hidLain = document.getElementById("hid_lain");
 
 const btnKoreksi = document.getElementById("btn_koreksi");
 const btnBatal = document.getElementById("btn_batal");
@@ -23,7 +19,7 @@ var userId = "1001";
 //#endregion
 
 //#region Events
-txtWoven.addEventListener("keypress", function (event) {
+txtKodeBarang.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value.trim() != "") {
             let kode = "000000000";
@@ -37,23 +33,13 @@ txtWoven.addEventListener("keypress", function (event) {
 
 numStandar2.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        numKarung.value = (
-            (parseFloat(hidKarung.value) / parseFloat(numStandar1.value)) *
-            parseFloat(numStandar2.value)
-        ).toFixed(2);
-
-        numInner.value = (
-            (parseFloat(hidInner.value) / parseFloat(numStandar1.value)) *
+        numCloth.value = (
+            (parseFloat(hidCloth.value) / parseFloat(numStandar1.value)) *
             parseFloat(numStandar2.value)
         ).toFixed(2);
 
         numLami.value = (
             (parseFloat(hidLami.value) / parseFloat(numStandar1.value)) *
-            parseFloat(numStandar2.value)
-        ).toFixed(2);
-
-        numLain.value = (
-            (parseFloat(hidLain.value) / parseFloat(numStandar1.value)) *
             parseFloat(numStandar2.value)
         ).toFixed(2);
 
@@ -65,7 +51,7 @@ numStandar2.addEventListener("keypress", function (event) {
 btnProses.addEventListener("click", function () {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtWoven.value,
+        "/beratStandar/SP_1273_PRG_CEK_KOMPOSISI_1/" + txtKodeBarang.value,
         (data) => {
             if (data.length > 0) {
                 if (
@@ -79,24 +65,20 @@ btnProses.addEventListener("click", function () {
                         "Maaf Berat Standart Tidak Bisa diKoreksi, Karena Sudah Memiliki Komposisi Konversi !!!"
                     );
 
-                    txtWoven.value = "";
-                    txtWoven.focus();
+                    txtKodeBarang.value = "";
+                    txtKodeBarang.focus();
                     formWait(false);
                     return;
                 }
             }
 
             fetchStmt(
-                "/beratStandar/SP_1273_BCD_UPDATE_BERAT_WOVEN_1/" +
-                    txtWoven.value +
+                "/beratStandar/SP_1273_BCD_UPDATE_BERAT_ADSTAR2_1/" +
+                    txtKodeBarang.value +
                     "~" +
-                    numKarung.value +
-                    "~" +
-                    numInner.value +
+                    numCloth.value +
                     "~" +
                     numLami.value +
-                    "~" +
-                    numLain.value +
                     "~" +
                     numStandar2.value,
                 () => {
@@ -112,8 +94,8 @@ btnProses.addEventListener("click", function () {
 
 btnKoreksi.addEventListener("click", function () {
     listOfTxt.forEach((ele) => (ele.value = ""));
-    txtWoven.disabled = false;
-    txtWoven.focus();
+    txtKodeBarang.disabled = false;
+    txtKodeBarang.focus();
     btnBatal.disabled = false;
 });
 
@@ -139,30 +121,26 @@ function enableForm(bool_state) {
 
 function loadDataFetch(s_kode_brg) {
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN_1/" + s_kode_brg,
+        "/beratStandar/SP_1273_BCD_DATA_ADSTAR_1/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                txtWoven.value = s_kode_brg;
+                txtKodeBarang.value = s_kode_brg;
                 txtType.value = data[0].NAMA_BRG;
                 numStandar2.value = data[0].BERAT_TOTAL2;
-                numKarung.value = data[0].BERAT_KARUNG2;
-                numInner.value = data[0].BERAT_INNER2;
+                numCloth.value = data[0].BERAT_CLOTH2;
                 numLami.value = data[0].BERAT_LAMI2;
-                numLain.value = data[0].BERAT_LAIN2;
                 numStandar1.value = data[0].BERAT_TOTAL;
-                hidKarung.value = data[0].BERAT_KARUNG;
-                hidInner.value = data[0].BERAT_INNER;
+                hidCloth.value = data[0].BERAT_CLOTH;
                 hidLami.value = data[0].BERAT_LAMI;
-                hidLain.value = data[0].BERAT_LAIN;
 
                 if (
                     numStandar1.value == "" ||
                     parseFloat(numStandar1.value) == 0
                 ) {
                     alert("Inputkan Berat Standart 1 Terlebih Dahulu");
-                    txtWoven.value = "";
+                    txtKodeBarang.value = "";
                     listOfTxt.forEach((ele) => (ele.value = ""));
-                    txtWoven.focus();
+                    txtKodeBarang.focus();
                     return;
                 }
 
@@ -176,7 +154,7 @@ function loadDataFetch(s_kode_brg) {
                                 );
 
                                 listOfTxt.forEach((ele) => (ele.value = ""));
-                                txtWoven.focus();
+                                txtKodeBarang.focus();
                                 return;
                             } else {
                                 enableForm(true);
@@ -188,14 +166,14 @@ function loadDataFetch(s_kode_brg) {
                             );
 
                             listOfTxt.forEach((ele) => (ele.value = ""));
-                            txtWoven.focus();
+                            txtKodeBarang.focus();
                             return;
                         }
                     }
                 );
             } else {
                 alert("Kode barang tidak ditemukan.");
-                txtWoven.select();
+                txtKodeBarang.select();
             }
         }
     );
@@ -205,7 +183,7 @@ function enableForm(bool_state) {
     btnKoreksi.disabled = bool_state;
     btnProses.disabled = !bool_state;
     btnBatal.disabled = !bool_state;
-    txtWoven.disabled = !bool_state;
+    txtKodeBarang.disabled = !bool_state;
     numStandar2.disabled = !bool_state;
 }
 

@@ -37,6 +37,9 @@ const dateInput = document.getElementById("tanggal");
 const hidRincianKonv = document.getElementById("form_rk_return");
 const listOfSlc = document.querySelectorAll("select");
 
+const namaGedung = document.getElementById("nama_gedung").value;
+const idDivisi = namaGedung == "D" ? "DEX" : "EXT";
+
 const listAsal = [];
 const listTujuan = [];
 /* ISI LIST ASAL & TUJUAN
@@ -199,7 +202,9 @@ slcNoKonversi.addEventListener("mousedown", function () {
 
         // SP_5298_EXT_LIST_IDKONV
         fetchSelect(
-            "/Benang/getListIdKonv1/EXT/" +
+            "/Benang/getListIdKonv1/" +
+                idDivisi +
+                "/" +
                 dateInput.value +
                 "/" +
                 txtShift.value,
@@ -229,7 +234,9 @@ slcNoKonversi.addEventListener("keydown", function (event) {
 
         // SP_5298_EXT_LIST_IDKONV
         fetchSelect(
-            "/Benang/getListIdKonv1/EXT/" +
+            "/Benang/getListIdKonv1/" +
+                idDivisi +
+                "/" +
                 dateInput.value +
                 "/" +
                 txtShift.value,

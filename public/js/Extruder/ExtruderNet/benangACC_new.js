@@ -6,6 +6,7 @@ const hidInput = document.getElementById("hiddenKu");
 const btnOK = document.getElementById("btn_ok");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
+const namaGedung = document.getElementById("nama_gedung").value;
 
 const listKonversi = [];
 /* ISI LIST KONVERSI
@@ -119,9 +120,16 @@ btnKeluar.addEventListener("click", function () {
 
 //#region Functions
 function daftarKonversiBelumACCFetch() {
+    let kode_ins = namaGedung == "D" ? "D" : "";
+
     // SP_5298_EXT_LIST_IDKONVERSI_NG
     fetchSelect(
-        "/Benang/getListIdKonversiNG/" + dateAwal.value + "/" + dateAkhir.value,
+        "/Benang/getListIdKonversiNG/" +
+            dateAwal.value +
+            "/" +
+            dateAkhir.value +
+            "/" +
+            kode_ins,
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 const strRdo = `<input class="form-check-input" type="radio" name="rdo_konversi" id="`;

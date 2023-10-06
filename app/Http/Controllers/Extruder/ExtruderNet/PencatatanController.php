@@ -154,7 +154,7 @@ class PencatatanController extends Controller
     {
         return DB::connection('ConnExtruder')->select(
             'exec SP_5298_EXT_LIST_EFFISIENSI @Tanggal = ?, @NoMesin = ?, @Shift = ?, @AwalProduksi = ?',
-            [$tanggal, $no_mesin, $shift, $awal_produksi]
+            [$tanggal, $no_mesin, $shift, str_replace('T', ' ', $awal_produksi)]
         );
 
         // @Tanggal datetime, @NoMesin char(5), @Shift char(2), @AwalProduksi datetime

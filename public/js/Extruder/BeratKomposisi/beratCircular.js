@@ -12,6 +12,8 @@ const btnBatal = document.getElementById("btn_batal");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
 const listOfTxt = document.querySelectorAll("input, textarea");
+
+var userId = "1001";
 //#endregion
 
 //#region Events
@@ -120,8 +122,9 @@ btnProses.addEventListener("click", function () {
             };
 
             if (data.length > 0) {
-                if (data[0].Total > 0) {
-                    // User_id <> "1001" And User_id <> "1703"
+                if (data[0].Total > 0 && userId != "1001" && userId != "1703") {
+                    formWait(false);
+                    enableForm(false);
                     alert(
                         "Berat Standard tidak bisa dikoreksi, \nkarena sudah memiliki Komposisi Konversi."
                     );
