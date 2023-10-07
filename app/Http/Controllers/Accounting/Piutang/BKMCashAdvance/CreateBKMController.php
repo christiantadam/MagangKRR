@@ -73,15 +73,40 @@ class CreateBKMController extends Controller
         //
     }
 
-    //Store a newly created resource in storage.
-    public function store(Request $request)
+    public function insertUpdateCreateBKM(Request $request)
     {
         //dd($request->all());
         $idBKMNew = $request->idBKMNew;
         $tglInputNew = $request->tglInputNew;
-        $userInput = $request->userInput;
-        $terjemahan = $request->total1;
-        $nilaiPelunasan = $request->total1;
+        $tanggal = $request->tanggal;
+        $konversi = $request->konversi;
+        $total1 = $request->total1;
+
+        $idbkm = $request->idbkm;
+        $idBank = $request->idBank;
+        $jenisBank = $request->jenisBank;
+        $idKodePerkiraan = $request->idKodePerkiraan;
+        $idPelunasan = $request->idPelunasan;
+
+        list($hari, $bulan, $tahun) = explode('-', $tglInputNew);
+
+        // Mengambil bulan dan tahun sebagai integer
+        $bulan = (int)$bulan;
+        $tahun = (int)$tahun;
+        $tgl = $bulan . $tahun;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_IDBKM]
+        @month = ?,
+        @year = ?,
+        @IdBank = ?,
+        @jenis = ?,
+        @tgl = ?', [
+            $bulan,
+            $tahun,
+            $idBank,
+            $jenisBank,
+            $tgl,
+        ]);
 
         DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN]
         @idBKM = ?,
@@ -90,12 +115,41 @@ class CreateBKMController extends Controller
         @terjemahan = ?,
         @nilaipelunasan = ?', [
             $idBKMNew,
-            $tglInputNew,
-            $userInput,
-            $terjemahan,
-            $nilaiPelunasan,
+            $tanggal,
+            1,
+            $konversi,
+            $total1,
         ]);
-        return redirect()->back()->with('Success', 'Sudah berhasil disimpan!');
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_IDBKM_1]
+        @idpelunasan = ?,
+        @idBKM = ?,
+        @idBank = ?,
+        @kode = ?', [
+            $idPelunasan,
+            $idBKMNew,
+            $idBank,
+            $idKodePerkiraan,
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_COUNTER_IDBKM]
+        @idbkm = ?,
+        @idBank = ?,
+        @jenis = ?,
+        @tgl = ?', [
+            $idbkm,
+            $idBank,
+            $jenisBank,
+            $tgl
+        ]);
+
+        return redirect()->back()->with('Success', 'Data BKM Dengan No. ' .$idBKMNew. ' TerSimpan');
+    }
+
+    //Store a newly created resource in storage.
+    public function store(Request $request)
+    {
+
     }
 
     //Display the specified resource.

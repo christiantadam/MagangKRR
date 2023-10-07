@@ -16,6 +16,7 @@ let totalPelunasan = document.getElementById("total1");
 let konversi = document.getElementById('konversi');
 let jenisBank = document.getElementById('jenisBank');
 let uang = document.getElementById('uang');
+let tanggal = document.getElementById('tanggal');
 
 let selectedRows = [];
 let totalNilaiPelunasan = 0;
@@ -25,8 +26,8 @@ let btnTampilBkm = document.getElementById("btnTampilBkm");
 let btnGroupBKM = document.getElementById("btnGroupBKM");
 let btnTutupModal = document.getElementById("btnTutupModal");
 
-let modalkoreksi = document.getElementById("formkoreksi");
-let methodform = document.getElementById("methodkoreksi");
+let formkoreksi = document.getElementById("formkoreksi");
+let methodkoreksi = document.getElementById("methodkoreksi");
 let modalTampilBKM = document.getElementById("modalTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let formTampilBKM = document.getElementById("formTampilBKM");
@@ -169,14 +170,16 @@ btnGroupBKM.addEventListener('click', function (event) {
         }
 
         if (idBKM.value === "") {
-            if (idBank.value == "KRR1") {
+            console.log(idBank.value);
+            if (idBank.value === "KRR1") {
+                console.log("masuk krr1");
                 idBank.value = "KI";
             }
-            else if (idBank.value == "KRR2") {
+            else if (idBank.value === "KRR2") {
                 idBank.value = "KKM";
             }
         } else {
-            idBank = idBank.value;
+            idBank.value = bankArray[0];
         }
 
         // console.log("nnnnnnnnnnnnnnnnn");
@@ -188,6 +191,16 @@ btnGroupBKM.addEventListener('click', function (event) {
             jenisBank.value = options[0].jenis;
         });
     }
+    let tanggalSajaArray = tanggalArray.map(dateTimeString => {
+        const tanggalSaja = dateTimeString.split(' ')[0];
+        return tanggalSaja;
+    });
+
+    // tanggal.value = selectedDataArray[0].TglInput;
+    const tglInput = selectedDataArray[0].TglInput;
+    const [tanggal1, waktu] = tglInput.split(" ");
+    selectedDataArray[0].TglInput = tanggal1;
+    tanggal.value = tanggal1;
 
     uang.value = mataUang[mataUang.length -1];
     console.log(nilaipelunasan);
@@ -199,7 +212,7 @@ btnGroupBKM.addEventListener('click', function (event) {
 
 
     if (idBKMGenerated) {
-        fetch("/getidbkm/" + bankArray[0] + "/" + tglInputNew.value)
+        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
             .then((response) => response.json())
             .then((options) => {
                 idBKMNew.value = options;
@@ -211,6 +224,18 @@ btnGroupBKM.addEventListener('click', function (event) {
 
                 alert('Id. BKM nya: ' + idBKMNew.value);
                 console.log(options);
+
+                const id1 = (idBKMNew.value).slice(0, 3);
+                console.log(id1); // Mengambil tiga karakter pertama
+
+                // Mengonversi ke bilangan jika mungkin
+                const idbkm = parseInt(id1);
+                idbkm.value = idbkm;
+
+                console.log(idbkm);
+
+                formkoreksi.action = "/insertUpdateCreateBKM/";
+                formkoreksi.submit();
             });
         console.log(selectedDataArray);
     }
@@ -248,7 +273,7 @@ function Check() {
         } else if (bankArray[1] == "KRR1") {
             idBank.value = "KKM";
         } else {
-            idBank.value = bankArray[1];
+            idBank.value = bankArray[0];
         }
         console.log(bankArray);;
     }
@@ -259,7 +284,7 @@ function Check() {
     console.log(tanggalArray);
     console.log(nilaipelunasan);
 
-    fetch("/getJenisBankCreateBKM/" + bankArray[0])
+    fetch("/getJenisBankCreateBKM/" + idBank.value)
         .then((response) => response.json())
         .then((options) => {
             console.log(options);

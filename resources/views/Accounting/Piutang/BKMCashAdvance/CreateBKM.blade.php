@@ -37,7 +37,7 @@
                                         <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM" class="btn">
                                     </div>
                                     <input type="text" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
-                                    <input type="hidden" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
+                                    <input type="text" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br><div>
@@ -87,6 +87,8 @@
                                 <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                 <input type="text" id="total1" name="total1" class="form-control" style="width: 100%">
                                 <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
+                                <input type="text" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
 
                                 <!--MODAL INPUT TANGGAL BKM-->
                                 <div class="modal fade" id="pilihInputTanggal" tabindex="-1" role="dialog" aria-labelledby="pilihBankModal" aria-hidden="true">
