@@ -92,7 +92,26 @@ class KonversiController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        if ($data['opsi'] == "satu") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+                'U001'
+            ]);
+            return redirect()->route('Konversi.index')->with('alert', 'Data Updated successfully!');
+
+
+        } else if ($data['opsi'] == "dua") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_DataPrintUlang @kodebarang = ?, @noindeks = ?', [
+                $data['kodebarang'],
+                $data['noindeks']
+            ]);
+            return redirect()->route('Konversi.index')->with('alert', 'Data Updated successfully!');
+
+        }
     }
 
     //Remove the specified resource from storage.

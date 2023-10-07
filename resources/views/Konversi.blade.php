@@ -90,35 +90,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal1()" id="ButtonDivisi"
-                                                    style="width:180px;" disabled>Divisi</button>
-                                            </div>
-                                            <div class="modal" id="myModal1">
-                                                <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
-                                                    <h2>Table Divisi</h2>
-                                                    <p>Id Divisi & Divisi</p>
-                                                    <table id="TableDivisi">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>ID Divisi</th>
-                                                                <th>Divisi</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <!-- Add more rows as needed -->
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="text-center col-md-auto mt-3">
-                                                        <button type="button" onclick="enableButtonType()">Process</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
-
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal2()" id="ButtonType"
@@ -222,7 +193,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px;"><button style="width: 100px"
+                                                                style="margin-top: 15px;"><button style="width: 100px" onclick="prosesACCBarcode()"
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal4()"><button style="width: 100px"
@@ -234,7 +205,7 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                            <div class="text-center col-md-auto mt-3"><button type="button" onclick="PrintUlangData()"
                                                     style="width:180px; height: 50px">Print
                                                     Ulang</button>
                                             </div>
@@ -284,7 +255,7 @@
                                                 <span class="aligned-text">Type Asal:</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="asal" rows="asal" placeholder="Asal" style="height: 100px" readonly></textarea>
+                                                <textarea class="form-control" name="asal" id="TypeAsal" rows="asal" placeholder="Asal" style="height: 100px" readonly></textarea>
                                             </div>
                                         </div>
 
@@ -305,7 +276,7 @@
                                                         <span class="aligned-text">Divisi:</span>
                                                     </div>
                                                     <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                        <input class="form-control" type="text" name="Divisi"
+                                                        <input class="form-control" type="text" name="Divisi" id="Divisi"
                                                             rows="Divisi" placeholder="Divisi" readonly>
                                                     </div>
                                                 </div>

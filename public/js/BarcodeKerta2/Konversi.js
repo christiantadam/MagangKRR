@@ -50,17 +50,14 @@ $(document).ready(function () {
                 .then((data) => {
                     // Handle the data retrieved from the server (data should be an object or an array)
                     console.log(data);
-                    // Clear the existing table rows
-                    $("#TableType1").DataTable().clear().draw();
 
                     // Loop through the data and create table rows
                     data.forEach((item) => {
                         var kodebarcode = parts[0] + "-" + parts[1]
-                        var row = [kodebarcode, item.qty_primer, item.qty_sekunder, item.qty];
-                        $("#TableType1").DataTable().row.add(row);
-                        $("#Primer").val(item.qty_primer)
-                        $("#Sekunder").val(item.qty_sekunder)
-                        $("#Tritier").val(item.qty)
+                        var row = [kodebarcode, item.qty_primer, item.Id_type_tujuan, item.IdDivisi_Objek];
+                        $("#BarcodeKonversi").val(kodebarcode)
+                        $("#Divisi").val(item.IdDivisi_Objek)
+                        $("#TypeAsal").val(item.Id_type_tujuan)
                     });
 
                     // Redraw the table to show the changes
@@ -210,6 +207,141 @@ function setShiftValue() {
 
     closeModal();
 }
-// Rest of your JavaScript code for handling modals and other functionality can be placed here
-// Make sure you have already defined the functions: openModal, closeModal, etc.
 
+function prosesACCBarcode(data) {
+    var str = BarcodeACC.value;
+    var parts = str.split("-");
+    var noindeks = parts[1];
+    var kodebarang = parts[0];
+    var userid = 'U001';
+    var opsi = 'satu';
+
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        userid: userid,
+        opsi: opsi
+    };
+    console.log(formData);
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "Konversi/dua");
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding data
+        form.appendChild(input);
+    }
+    // Create method input with "PUT" Value
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding data
+    form.appendChild(method);
+
+    // Create input with "Update Keluarga" Value
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
+}
+
+function PrintUlangData(data) {
+    var str = BarcodeACC.value;
+    var parts = str.split("-");
+    var noindeks = parts[1];
+    var kodebarang = parts[0];
+    var opsi = 'dua';
+
+    // Create a data object to hold the values
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        opsi: opsi
+    };
+
+    console.log(formData);
+
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "Konversi/{noindeks}"); // Replace with the correct action URL
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding formData
+        form.appendChild(input);
+    }
+
+    // Create input with "_method" field set to "PUT" (if you need to override the HTTP method)
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding formData
+    form.appendChild(method);
+
+    // Create input with "_ifUpdate" field set to "Update Barcode"
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
+}
