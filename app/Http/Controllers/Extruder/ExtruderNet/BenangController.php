@@ -59,27 +59,28 @@ class BenangController extends Controller
         );
 
         // @IdKonversiNG int
-
         // IdKonversiNG = 1, 2, 3, 4, 5
 
-        // *VW_PRG_5298_EXT_DETAILDATA_BENANG_NG
-        // - INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
-        // - INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
-        // - INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
-        // - VW_PRG_5298_EXT_KONVERSI_SORTIR
-        // => WHERE VW_PRG_5298_EXT_KONVERSI_SORTIR.SaatLog IS NULL
-
-        // **INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
-        // Divisi - Objek - KelompokUtama - Kelompok - SubKelompok
-
-        // **INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
-        // Type
-
-        // **INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
-        // Tmp_Transaksi (FK | IdType - Type, IdTypeTransaksi - TypeTransaksi)
-
-        // **VW_PRG_5298_EXT_KONVERSI_SORTIR
-        // DetailKonversiNG - IdKonversiNG(MasterKonversiNG)
+        /**
+         * VW_PRG_5298_EXT_DETAILDATA_BENANG_NG
+         * - INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
+         * - INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
+         * - INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
+         * - VW_PRG_5298_EXT_KONVERSI_SORTIR
+         * => WHERE VW_PRG_5298_EXT_KONVERSI_SORTIR.SaatLog IS NULL
+         *
+         * INVENTORY.dbo.VW_PRG_5298_EXT_SUBKEL
+         * Divisi - Objek - KelompokUtama - Kelompok - SubKelompok
+         *
+         * INVENTORY.dbo.VW_PRG_5298_EXT_TYPE
+         * Type
+         *
+         * INVENTORY.dbo.VW_PRG_5298_EXT_TMPTRANSAKSI
+         * Tmp_Transaksi (FK | IdType - Type, IdTypeTransaksi - TypeTransaksi)
+         *
+         * VW_PRG_5298_EXT_KONVERSI_SORTIR
+         * DetailKonversiNG - IdKonversiNG(MasterKonversiNG)
+         */
     }
 
     public function getPenyesuaianTransaksi($id_type, $id_type_transaksi)
@@ -106,21 +107,21 @@ class BenangController extends Controller
         // @idkonvNG  varchar(14)
     }
 
-    public function updProsesACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc = null, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
+    public function updProsesACCKonversi($id_transaksi, $id_type, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
     {
         return DB::connection('ConnInventory')->statement(
-            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = ?, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
-            [$id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier]
+            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = 4384, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
+            [$id_transaksi, $id_type, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier]
         );
 
         // @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
     }
 
-    public function updACCKonversiNG($id_konversi_ng, $user_acc)
+    public function updACCKonversiNG($id_konversi_ng)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_ACC_KONVERSI_NG @IdKonversiNG = ?, @UserAcc = ?',
-            [$id_konversi_ng, $user_acc]
+            'exec SP_5298_EXT_ACC_KONVERSI_NG @IdKonversiNG = ?, @UserAcc = 4384',
+            [$id_konversi_ng]
         );
 
         // @IdKonversiNG int, @UserAcc char(7)
@@ -231,11 +232,11 @@ class BenangController extends Controller
         // dd($this->getListIdKonv(3, 'KONV0001', 'type1'));
     }
 
-    public function insMasterKonvNG($tanggal, $user_input, $id_konversi_ext)
+    public function insMasterKonvNG($tanggal, $id_konversi_ext)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_MASTERKONV_NG @Tanggal = ?, @UserInput = ?, @IdKonversiEXT = ?',
-            [$tanggal, $user_input, $id_konversi_ext]
+            'exec SP_5298_EXT_INSERT_MASTERKONV_NG @Tanggal = ?, @UserInput = 4384, @IdKonversiEXT = ?',
+            [$tanggal, $id_konversi_ext]
         );
 
         // LAST Belum di-cek
@@ -269,21 +270,21 @@ class BenangController extends Controller
         // @IdKonversiNG int, @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @IdKonv_Inv varchar(10) = null
     }
 
-    public function insAsalTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $asal_sub_kel, $id_konversi)
+    public function insAsalTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $asal_sub_kel, $id_konversi)
     {
         return DB::connection('ConnInventory')->statement(
-            'exec SP_5298_EXT_INSERT_04_ASALTMPTRANSAKSI @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XSaatawalTransaksi = ?, @XJumlahKeluarPrimer = ?, @XJumlahKeluarSekunder = ?, @XJumlahKeluarTritier = ?, @XAsalsubKel = ?, @XIdKonversi = ?',
-            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $asal_sub_kel, $id_konversi]
+            'exec SP_5298_EXT_INSERT_04_ASALTMPTRANSAKSI @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = 4384, @XSaatawalTransaksi = ?, @XJumlahKeluarPrimer = ?, @XJumlahKeluarSekunder = ?, @XJumlahKeluarTritier = ?, @XAsalsubKel = ?, @XIdKonversi = ?',
+            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $asal_sub_kel, $id_konversi]
         );
 
         // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XAsalsubKel  char(6), @XIdKonversi  char(9)
     }
 
-    public function insTujuanTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $tujuan_sub_kel, $id_konversi)
+    public function insTujuanTmpTrans($id_type_transaksi, $uraian_detail_transaksi, $id_type, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $tujuan_sub_kel, $id_konversi)
     {
         return DB::connection('ConnInventory')->statement(
-            'exec SP_5298_EXT_INSERT_04_TUJUANTMPTRANSAKSI @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XSaatawalTransaksi = ?, @XJumlahMasukPrimer = ?, @XJumlahMasukSekunder = ?, @XJumlahMasukTritier = ?, @XTujuansubKel = ?, @XIdKonversi = ?',
-            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $tujuan_sub_kel, $id_konversi]
+            'exec SP_5298_EXT_INSERT_04_TUJUANTMPTRANSAKSI @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = 4384, @XSaatawalTransaksi = ?, @XJumlahMasukPrimer = ?, @XJumlahMasukSekunder = ?, @XJumlahMasukTritier = ?, @XTujuansubKel = ?, @XIdKonversi = ?',
+            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $saat_awal_transaksi, $jumlah_primer, $jumlah_sekunder, $jumlah_tritier, $tujuan_sub_kel, $id_konversi]
         );
 
         // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahMasukPrimer  numeric(15,2), @XJumlahMasukSekunder numeric(15,2), @XJumlahMasukTritier numeric(15,2), @XtujuansubKel  char(6), @XIdKonversi  char(9)

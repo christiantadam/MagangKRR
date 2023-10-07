@@ -69,7 +69,7 @@ btnProses.addEventListener("click", function () {
                     numTotal.value;
 
                 fetchStmt(
-                    "/beratStandar/SP_7775_PBL_UPDATE_BERAT_WOVEN/" +
+                    "/beratStandar/SP_1273_BCD_UPDATE_BERAT_BELT_1/" +
                         txtAssesoris.value +
                         "~" +
                         ket +
@@ -122,7 +122,8 @@ btnKeluar.addEventListener("click", function () {
 function loadDataFetch(s_kode_brg) {
     formWait(true);
     fetchSelect(
-        "/beratStandar/SP_7775_PBL_SELECT_WOVEN/" + s_kode_brg,
+        "/beratStandar/SP_1273_BCD_DATA_BeratStandart_Assesoris_1/" +
+            s_kode_brg,
         (data) => {
             if (data.length > 0) {
                 txtAssesoris.value = s_kode_brg;

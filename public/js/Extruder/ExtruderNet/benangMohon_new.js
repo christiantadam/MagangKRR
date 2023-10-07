@@ -650,7 +650,7 @@ function prosesIsiFetch() {
     fetchStmt(
         "/Benang/insMasterKonvNG/" +
             dateMohon.value +
-            "/4384/" +
+            "/" +
             slcNoKonversi.value,
         () => {
             fetchSelect("/Benang/getMasterKonversiNG", (data) => {
@@ -741,7 +741,7 @@ function createTmpTransaksiInventoryFetch(
         fetchStmt(
             "/Benang/insAsalTmpTrans/04/asal_konversi/" +
                 listAsal[i].IdType.trim() +
-                "/4384/" +
+                "/" +
                 dateMohon.value +
                 "/" +
                 listAsal[i].JumlahPrimer +
@@ -762,7 +762,7 @@ function createTmpTransaksiInventoryFetch(
         fetchStmt(
             "/Benang/insTujuanTmpTrans/04/tujuan_konversi/" +
                 listAsal[i].IdType.trim() +
-                "/4384/" +
+                "/" +
                 dateMohon.value +
                 "/" +
                 listAsal[i].JumlahPrimer +

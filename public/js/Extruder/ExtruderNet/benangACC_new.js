@@ -294,7 +294,7 @@ function prosesInventoryFetch() {
                     listTmpTrans[i].IdTransaksi +
                     "/" +
                     listTmpTrans[i].IdType.trim() +
-                    "/4384/" +
+                    "/" +
                     getCurrentDate() +
                     "/" +
                     listTmpTrans[i].JumlahPengeluaranPrimer +
@@ -326,7 +326,7 @@ function prosesInventoryFetch() {
 function prosesExtruderFetch() {
     // SP_5298_EXT_ACC_KONVERSI_NG
     fetchStmt(
-        "/Benang/updACCKonversiNG/" + idKonversiNG + "/4384",
+        "/Benang/updACCKonversiNG/" + idKonversiNG,
         () => {
             hidInput.value = "prosesExtruder | true";
             hidInput.dispatchEvent(new Event("change"));

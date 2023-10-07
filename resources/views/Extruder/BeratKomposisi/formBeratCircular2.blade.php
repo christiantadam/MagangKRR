@@ -61,10 +61,10 @@
                 <span class="aligned-text">Berat Reinforced:</span>
             </div>
             <div class="form-group col-md-6 mt-3 mt-md-0">
-                <input type="number" class="form-control" id="berat_inner" disabled>
+                <input type="number" class="form-control" id="berat_reinforced" disabled>
             </div>
             <div class="col-md-3">
-                <input disabled type="number" class="form-control hidden" id="hid_inner">
+                <input disabled type="number" class="form-control hidden" id="hid_reinforced">
             </div>
         </div>
 
@@ -107,4 +107,6 @@
         </div>
 
     </div>
+
+    <script src="{{ asset('js/Extruder/BeratKomposisi/beratCircular2.js') }}"></script>
 @endsection

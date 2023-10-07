@@ -32,6 +32,8 @@ class BeratController extends Controller
             case 'SP_7775_PBL_SELECT_WOVEN_1':
             case 'SP_1003_PBL_SELECT_JUMBO_1':
             case 'SP_1273_BCD_DATA_ADSTAR_1':
+            case 'SP_1273_BCD_DATA_CIRCULAR_1':
+            case 'SP_1273_BCD_DATA_BeratStandart_Assesoris_1':
                 $param_str = '@KD_BRG = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
@@ -65,6 +67,19 @@ class BeratController extends Controller
             case 'SP_1273_BCD_UPDATE_BERAT_CIRCULAR':
                 $param_str = '@KD_BRG = ?, @ket = ?, @brt_karung = ?, @brt_reinforced = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = 4384';
                 $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_CIRCULAR2_1':
+                $param_str = '@KD_BRG = ?, @brt_karung = ?, @brt_reinforced = ?, @brt_lami = ?, @brt_conductive = ?, @brt_total = ?, @UserId = 4384';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_BELT_1':
+                $param_str = '@KD_BRG = ?, @ket = ?, @brt_conductive = ?, @brt_lain = ?, @brt_total = ?, @UserId = 4384';
+                $param_data[1] = str_replace('-', '/', $param_data[1]); // @ket
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_BCD_UPDATE_BERAT_BELT2_1':
+                $param_str = '@KD_BRG = ?, @brt_conductive = ?, @brt_lain = ?, @brt_total = ?, @UserId = 4384';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_PRG_BERAT_STANDART~1':
