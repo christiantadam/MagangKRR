@@ -50,7 +50,7 @@ class MaintenanceBankController extends Controller
         $Rekening = $request->norekening;
         $Aktif = $request->Aktif;
         $Saldo = $request->saldoBank;
-        $kodePerkiraan = $request->kodePerkiraan;
+        $ketKodePerkiraan = $request->ketKodePerkiraan;
 
         if ($request->statusAktif == "on") {
             $Aktif = 'Y';
@@ -85,7 +85,7 @@ class MaintenanceBankController extends Controller
             $Rekening,
             $Aktif,
             $Saldo,
-            $kodePerkiraan
+            $ketKodePerkiraan
         ]);
         return redirect()->back()->with('success', 'Data sudah diSIMPAN');
     }

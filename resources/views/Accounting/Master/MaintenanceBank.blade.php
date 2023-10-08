@@ -70,10 +70,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <select name="kodePerkiraanSelect" id="kodePerkiraanSelect" class="form-control" disabled>
-                                            <option disabled selected>-- Pilih KdPerkiraan --</option>
-                                            @foreach ($maintenanceBank as $kp)
-                                            <option value="{{ $kp->KodePerkiraan }}">{{ $kp->KodePerkiraan }}</option>
-                                            @endforeach
+
                                         </select>
                                     </div>
                                 </div>

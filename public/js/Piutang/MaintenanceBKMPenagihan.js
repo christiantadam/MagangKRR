@@ -42,6 +42,7 @@ let btnTutupModal = document.getElementById("btnTutupModal");
 let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 let btnProsesKurangLebih = document.getElementById("btnProsesKurangLebih");
 let btnTampilBKM = document.getElementById("btnTampilBKM");
+let btnGroupBKM = document.getElementById('btnGroupBKM');
 //let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 
 let modalkoreksi = document.getElementById("formkoreksi");
@@ -297,7 +298,7 @@ $("#btnProses").on("click", function (event) {
         }
       });
     $('#pilihBank').modal('hide');
-})
+});
 
 kodePerkiraanSelect.addEventListener("change", function (event) {
     event.preventDefault();
@@ -320,6 +321,194 @@ kodePerkiraanKrgLbhSelect.addEventListener("change", function (event) {
         idKodeInput.value = idKode;
     }
 });
+
+let bankArray = [];  // Array untuk menyimpan data bank
+let tanggalArray = [];
+let nilaipelunasan = [];
+let mataUangArr = [];
+
+btnGroupBKM.addEventListener('click', function (event) {
+    const selectedDataArray = [];
+    event.preventDefault();
+    let idBKMGenerated = false;
+    bankArray = [];
+    tanggalArray = [];
+;
+    nilaipelunasan = [];
+    let count = 0;
+    var arrayindex = [];
+    $("input[name='divisiCheckbox']:checked").each(function () {
+        // const isChecked = $(this).prop("checked");
+        let rowIndex = $(this).closest("tr").index();
+        arrayindex.push(rowIndex);
+        count += 1;
+    });
+
+    if (count > 1) {
+        // console.log("mmmmmmmmmmmmm");
+        console.log(arrayindex);
+        for (let i = 0; i < arrayindex.length; i++) {
+            bankArray.push(dataTable3.cell(arrayindex[i], 2).data());
+            tanggalArray.push(dataTable3.cell(arrayindex[i], 7).data());
+            nilaipelunasan.push(parseFloat(dataTable3.cell(arrayindex[i], 5).data()));
+            mataUangArr.push(dataTable3.cell(arrayindex[i], 4).data());
+            if (dataTable3.cell(arrayindex[i], 8).data() == null && dataTable3.cell(arrayindex[i], 7).data() == null && dataTable3.cell(arrayindex[i], 2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+                return;
+            }
+            idBKMGenerated = true;
+
+            rowData = dataTable3.row(arrayindex[i]).data();
+            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
+            selectedDataArray.push(rowData);
+        }
+        console.log(bankArray);
+        // console.log(tanggalArray);
+        let cek = Check();
+        if (cek == true) {
+            return;
+        };
+    }
+    if (count == 1) {
+        for (let i = 0; i < arrayindex.length; i++) {
+            bankArray.push(dataTable3.cell(arrayindex[i], 2).data());
+            tanggalArray.push(dataTable3.cell(arrayindex[i], 7).data());
+            nilaipelunasan.push(parseFloat(dataTable3.cell(arrayindex[i], 5).data()));
+            mataUangArr.push(dataTable3.cell(arrayindex[i], 4).data());
+            if (dataTable3.cell(arrayindex[i], 8).data() == null && dataTable3.cell(arrayindex[i], 7).data() == null && dataTable3.cell(arrayindex[i], 2).data() == null) {
+                alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
+                return;
+            }
+            idBKMGenerated = true;
+
+            rowData = dataTable3.row(arrayindex[i]).data();
+            rowData.idBKM = '';  // Menambahkan placeholder untuk idBKM pada setiap data
+            selectedDataArray.push(rowData);
+        }
+
+        if (idBKM.value === "") {
+            console.log(idBank.value);
+            if (idBank.value === "KRR1") {
+                console.log("masuk krr1");
+                idBank.value = "KI";
+            }
+            else if (idBank.value === "KRR2") {
+                idBank.value = "KKM";
+            }
+        } else {
+            idBank.value = bankArray[0];
+        }
+
+        // console.log("nnnnnnnnnnnnnnnnn");
+        fetch("/getJenisBankCreateBKM/" + bankArray[0])
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            jenisBank.value = options[0].jenis;
+        });
+    }
+    let tanggalSajaArray = tanggalArray.map(dateTimeString => {
+        const tanggalSaja = dateTimeString.split(' ')[0];
+        return tanggalSaja;
+    });
+
+    // tanggal.value = selectedDataArray[0].TglInput;
+    const tglInput = selectedDataArray[0].TglInput;
+    const [tanggal1, waktu] = tglInput.split(" ");
+    selectedDataArray[0].TglInput = tanggal1;
+    tanggal.value = tanggal1;
+
+    uang.value = mataUangArr[mataUangArr.length -1];
+    console.log(nilaipelunasan);
+    let totalPembayaran = nilaipelunasan[0];
+    const formattedCurrency = formatToCurrency(totalPembayaran);
+    totalPelunasan.value = formattedCurrency;
+    const words = numberToWords(nilaipelunasan[0]);
+    konversi.value = words;
+
+
+    if (idBKMGenerated) {
+        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+            .then((response) => response.json())
+            .then((options) => {
+                idBKMNew.value = options;
+
+                // Tambahkan ID BKM ke setiap data yang dicentang
+                selectedDataArray.forEach(data => {
+                    data.idBKM = options;
+                });
+
+                alert('Id. BKM nya: ' + idBKMNew.value);
+                console.log(options);
+
+                const id1 = (idBKMNew.value).slice(0, 3);
+                console.log(id1); // Mengambil tiga karakter pertama
+
+                // Mengonversi ke bilangan jika mungkin
+                const idbkm = parseInt(id1);
+                idbkm.value = idbkm;
+
+                console.log(idbkm);
+
+                formkoreksi.action = "/insertUpdateCreateBKM/";
+                formkoreksi.submit();
+            });
+        console.log(selectedDataArray);
+    }
+});
+
+function Check() {
+    let k = 1; // variabel untuk menyimpan nilai k
+    let l = 1;
+
+    let tanggalSajaArray = tanggalArray.map(dateTimeString => {
+        const tanggalSaja = dateTimeString.split(' ')[0];
+        return tanggalSaja;
+    });
+
+    for (let i = 1; i < bankArray.length; i++) {
+        // const element = array[i];
+        if (bankArray[0] == bankArray[i]) {
+                k += 1;
+        }
+        if (tanggalSajaArray[0] == tanggalSajaArray[i]) {
+            l += 1;
+            console.log(tanggalSajaArray[0]);
+        }
+    }
+
+    if (k !== bankArray.length || l !== bankArray.length) {
+        console.log(k);
+        console.log(l);
+        console.log(bankArray);
+        alert('Nama Bank & Tgl Pembuatan Harus SAMA!');
+        return true;
+    } else if (k == bankArray.length && l == bankArray.length) {
+        if (bankArray[1] == "KRR2") {
+            idBank.value = "KI";
+        } else if (bankArray[1] == "KRR1") {
+            idBank.value = "KKM";
+        } else {
+            idBank.value = bankArray[0];
+        }
+        console.log(bankArray);;
+    }
+
+    console.log(k);
+    console.log(l);
+    console.log(bankArray);
+    console.log(tanggalArray);
+    console.log(nilaipelunasan);
+
+    fetch("/getJenisBankCreateBKM/" + idBank.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            jenisBank.value = options[0].jenis;
+        });
+};
 
 $("#btnProsesDetail").on("click", function (event) {
     event.preventDefault();

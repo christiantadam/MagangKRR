@@ -98,6 +98,18 @@ function clickBatal() {
     btnHapus.disabled = false;
     btnProses.disabled = true;
     btnBatal.style.display = "none";
+
+    idBank.disabled = true;
+    namaBankselect.disabled = true;
+    kodePerkiraanSelect.disabled = true;
+    ketKodePerkiraan.disabled = true;
+    noRekening.disabled = true;
+    saldoBank.disabled = true;
+    alamat.disabled = true;
+    kota.disabled = true;
+    telp.disabled = true;
+    person.disabled = true;
+    hp.disabled = true;
 }
 
 function clickKoreksi() {
@@ -148,36 +160,35 @@ function clickHapus() {
     proses = 3;
 }
 
-namaBankselect.addEventListener("change", function () {
-    if (this.selectedIndex !== 0) {
-        this.classList.add("input-error");
-        this.setCustomValidity("Tekan Enter!");
-        this.reportValidity();
-    }
-});
+fetch("/getkodeperkiraan/")
+    .then((response) => response.json())
+    .then((options) => {
+        console.log(options);
+        kodePerkiraanSelect.innerHTML = "";
 
-kodePerkiraanSelect.addEventListener("change", function () {
-    if (this.selectedIndex !== 0) {
-        this.classList.add("input-error");
-        this.setCustomValidity("Tekan Enter!");
-        this.reportValidity();
-    }
-});
+        const defaultOption = document.createElement("option");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.innerText = "Kode Perkiraan";
+        kodePerkiraanSelect.appendChild(defaultOption);
 
-kodePerkiraanSelect.addEventListener("keypress", function (event) {
-    fetch("/detailkodeperkiraan/" + kodePerkiraanSelect.value)
-        .then((response) => response.json())
-        .then((kodePerkiraanOptions) => {
-            // Cari data yang sesuai dengan kodePerkiraanSelect.value
-            var selectedKodePerkiraan = kodePerkiraanOptions.find(option => option.NoKodePerkiraan === kodePerkiraanSelect.value);
-            if (selectedKodePerkiraan) {
-                ketKodePerkiraan.value = selectedKodePerkiraan.Keterangan;
-            } else {
-                // Jika tidak ada data yang sesuai, kosongkan nilai kodePerkiraan dan ketKodePerkiraan
-                ketKodePerkiraan.value = "";
-            }
+        options.forEach((entry) => {
+            const option = document.createElement("option");
+            option.value = entry.NoKodePerkiraan;
+            option.innerText = entry.NoKodePerkiraan + "|" + entry.Keterangan;
+            kodePerkiraanSelect.appendChild(option);
         });
-})
+});
+
+kodePerkiraanSelect.addEventListener("change", function (event) {
+    event.preventDefault();
+    const selectedOption = kodePerkiraanSelect.options[kodePerkiraanSelect.selectedIndex];
+    if (selectedOption) {
+        const selectedValue = selectedOption.value; // Nilai dari opsi yang dipilih (format: "id | nama")
+        const idkp = selectedValue.split(" | ")[0];
+        ketKodePerkiraan.value = idkp;
+    }
+});
 
 namaBankselect.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
@@ -202,17 +213,17 @@ namaBankselect.addEventListener("keypress", function (event) {
                 person.value = options[0].Nama_Person;
                 telp.value = options[0].No_Telp;
                 hp.value = options[0].No_HP;
-                kodePerkiraanSelect.value = options[0].KodePerkiraan;
+                ketKodePerkiraan.value = options[0].KodePerkiraan;
 
-                // nomor_spSelect.innerHTML =
-                //     "<option disabled selected value>-- Pilih Nomor Surat Pesanan --</option>";
-                // options.forEach((option) => {
-                //     let optionTag = document.createElement("option");
-                //     optionTag.value = option.IDSuratPesanan;
-                //     optionTag.text =
-                //         option.IDSuratPesanan + " | " + option.JnsSuratPesanan;
-                //     nomor_spSelect.appendChild(optionTag);
-                // });
+                const USERPENAGIH = options[0].KodePerkiraan;
+                const options2 = kodePerkiraanSelect.options;
+                for (let i = 0; i < options2.length; i++) {
+                    if (options2[i].value === USERPENAGIH) {
+                        // Setel select option jenisPembayaranSelect sesuai dengan opsi yang cocok
+                        kodePerkiraanSelect.selectedIndex = i;
+                        break;
+                    }
+                };
 
                 var statusAktifCheckbox = document.getElementById("statusAktif");
                 if (options[0].Aktif === "Y") {

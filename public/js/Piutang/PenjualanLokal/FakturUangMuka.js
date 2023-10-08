@@ -509,7 +509,9 @@ uangMasuk.addEventListener("keypress", function (event) {
             nilaiSblmPPN.value = Math.round(uangMasuk.value / 1.11 * 100) / 100;
             nilaiPpn.value =    nilaiSblmPPN.value * 0.1;
         }
-        total.value = Math.round(nilaiSblmPPN.value + nilaiPpn.value);
+        console.log(nilaiSblmPPN.value);
+        console.log(nilaiPpn.value);
+        total.value = parseFloat(nilaiSblmPPN.value + nilaiPpn.value);
     }
 
     if (idMataUang.value == 1) {
