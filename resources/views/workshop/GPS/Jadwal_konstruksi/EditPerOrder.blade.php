@@ -13,42 +13,49 @@
                 <div class="col-6">
                   <div class="mb-3">
                     <label for="NoOrder" class="form-label">Nomor Order</label>
-                    <input type="text" class="form-control" name="NoOrder">
+                    <div class="row">
+                      <div class="col-8">
+                        <input type="text" class="form-control" name="NoOrder" id="NoOrder">
+                      </div>
+                      <div class="col-4">
+                        <span style="color: crimson" id="OdSts"></span>
+                      </div>
+                    </div>
                   </div>
                   <div class="mb-3">
                     <label for="divisi" class="form-label">Divisi</label>
-                    <input type="text" class="form-control" name="divisi">
+                    <input type="text" class="form-control" name="divisi" id="divisi">
                   </div>
                   <div class="mb-3">
                     <div class="row">
                       <div class="col-6">
                         <p for="Kode_Barang" class="form-label">Kode Barang</p>
-                        <input type="text" class="form-control" name="Kode_Barang">
+                        <input type="text" class="form-control" name="Kode_Barang" id="Kode_Barang">
                       </div>
                       <div class="col-6">
                         <p for="NoGambarRev" class="form-label">Nomor Gambar Revisi</p>
-                        <input type="text" class="form-control" name="NoGambarRev">
+                        <input type="text" class="form-control" name="NoGambarRev" id="NoGambarRev">
                       </div>
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="NamaBarang" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" name="NamaBarang">
+                    <input type="text" class="form-control" name="NamaBarang" id="NamaBarang">
                   </div>
 
                 </div>
                 <div class="col-6">
                   <div class="mb-3">
                     <label for="Mesin" class="form-label">Mesin</label>
-                    <input type="text" class="form-control" name="Mesin">
+                    <input type="text" class="form-control" name="Mesin" id="Mesin">
                   </div>
                   <div class="mb-3">
                     <label for="Pengorder" class="form-label">Pengorder</label>
-                    <input type="text" class="form-control" name="Pengorder">
+                    <input type="text" class="form-control" name="Pengorder" id="Pengorder">
                   </div>
                   <div class="mb-3">
                     <label for="KetOrder" class="form-label">Keterangan Order</label>
-                    <input type="text" class="form-control" name="KetOrder">
+                    <input type="text" class="form-control" name="KetOrder" id="KetOrder">
                   </div>
                   <div class="mb-3">
                     {{-- width: 110vh;
@@ -102,17 +109,18 @@
                   </div>
                 </div>
                 <div class="col-6">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
-                            <label class="form-check-label" for="radio1">Tukar Posisi</label><br>
-                            <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-                            <label class="form-check-label" for="radio2">Susun Posisi</label>
-                        </div>
-                        <div class="ol-6">
-                            <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
-                        </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"
+                        checked>
+                      <label class="form-check-label" for="radio1">Tukar Posisi</label><br>
+                      <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
+                      <label class="form-check-label" for="radio2">Susun Posisi</label>
                     </div>
+                    <div class="col-6">
+                      <input type="submit" name="proses" value="Proses" class="btn btn-primary " disabled>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -121,4 +129,5 @@
       </div>
     </div>
   </div>
+  <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/EditPerOrder.js') }}"></script>
 @endsection
