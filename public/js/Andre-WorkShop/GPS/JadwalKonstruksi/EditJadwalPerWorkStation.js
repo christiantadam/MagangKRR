@@ -195,14 +195,112 @@ btnbatal.addEventListener('click', function(){
 function prosesklik() {
     let jml = 0 ;
     let j = 0;
-    $("input[name='EditJadwalPerWorkstationCheck']").each(function () {
+    var indexarray = [];
+    let noAntri = [];
+    let k ;
+    let m ;
+
+    $("input[name='EditJadwalPerWorkstationCheck']:checked").each(function () {
         // Ambil nilai 'value' dan status 'checked' dari checkbox
         let value = $(this).val();
-        let isChecked = $(this).prop("checked");
-        let closestTd = $(this).closest("tr");
-
-
+        // let isChecked = $(this).prop("checked");
+        // let closestTd = $(this).closest("tr");
+        let rowindex = $(this).closest("tr").index();
+        jml += 1;
+        indexarray.push(rowindex);
     });
+    if (jml == 2) {
+        for (let i = 0; i < indexarray.length; i++) {
+            j += 1;
+            // const element = indexarray[i];\
+            // console.log(indexarray[i]);
+            // console.log(table_data.cell(indexarray[i],0).data());
+            noAntri.push(table_data.cell(indexarray[i],0).data());
+        }
+        // console.log(noAntri);
+        // console.log(indexarray);
+
+        k = noAntri[0];
+        m = noAntri[1];
+
+        let mycode  = "0010000" + k;
+        // console.log(mycode);
+        let posisiBaru = mycode.slice(-7).trim();
+        // console.log(posisiBaru);
+        let posisiGanti = noAntri[1];
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': csrfToken
+        //     }
+        // });
+        $.ajax({
+            url: 'EditPerWorkStation/'+ noAntri[0],
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                _token: csrfToken,
+                _method: "PUT",
+                noAntri : noAntri[0],
+                noBantu : posisiBaru,
+                worksts : WorkStation.value,
+                tgl : tgl.value
+            },
+            success: function(response) {
+                console.log(response.message);
+                // console.log(response.data);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+        $.ajax({
+            url: 'EditPerWorkStation/'+ noAntri[0],
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                _token: csrfToken,
+                _method: "PUT",
+                noAntri : noAntri[1],
+                noBantu : noAntri[0],
+                worksts : WorkStation.value,
+                tgl : tgl.value
+            },
+            success: function(response) {
+                console.log(response.message);
+                // console.log(response.data);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+        $.ajax({
+            url: 'EditPerWorkStation/'+ noAntri[0],
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                _token: csrfToken,
+                _method: "PUT",
+                noAntri : posisiBaru,
+                noBantu : noAntri[1],
+                worksts : WorkStation.value,
+                tgl : tgl.value
+            },
+            success: function(response) {
+                console.log(response.message);
+                // console.log(response.data);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+        alert("Proses selesai.");
+        refresh.click();
+    }
+    else{
+        alert("Pilih 2 data.");
+        return;
+    }
 }
 
 //#endregion

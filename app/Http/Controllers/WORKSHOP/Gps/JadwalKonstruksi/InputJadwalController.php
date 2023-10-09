@@ -45,7 +45,8 @@ class InputJadwalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTDATE-KONSTRUKSI] @EstDate = ?, @worksts = ?', [$EstDate,  $worksts]);
         return response()->json($data);
     }
-    public function HitungSisaJam($EstDate , $worksts) {
+    public function HitungSisaJam($EstDate, $worksts)
+    {
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-SISA-JAM-KRJ-KONSTRUKSI] @EstDate = ?, @worksts = ?', [$EstDate,  $worksts]);
         return response()->json($data);
     }
@@ -67,7 +68,7 @@ class InputJadwalController extends Controller
         $user = 4384;
         $idBag = $request->NamaBagian;
         $hari = $request->hariKe;
-        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_INSERT-NEWQUE-KONSTRUKSI] @estDate = ?, @estHour = ?, @estMinute = ?, @worksts = ?, @jamKrj = ?, @status = ?, @user = ?, @idBag = ?, @hari = ?', [$estDate,$estHour,$estMinute,$worksts,$jamKrj,$status,$user,$idBag,$hari]);
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_INSERT-NEWQUE-KONSTRUKSI] @estDate = ?, @estHour = ?, @estMinute = ?, @worksts = ?, @jamKrj = ?, @status = ?, @user = ?, @idBag = ?, @hari = ?', [$estDate, $estHour, $estMinute, $worksts, $jamKrj, $status, $user, $idBag, $hari]);
         return redirect()->back()->with('success', "Data telah diSimpan.");
     }
 
@@ -83,12 +84,7 @@ class InputJadwalController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
-        $worksts  = $request->WorkStationModalEdit;
-        $jmljam = $request->TJam;
-        $EstDate = $request->Tanggal;
-        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-JAM-KERJA-KONSTRUKSI] @worksts = ?, @jmljam = ?, @EstDate = ?', [$worksts, $jmljam, $EstDate]);
-        return redirect()->back()->with('success', "Data sudah diSimpan.");
+
     }
 
 

@@ -75,6 +75,7 @@
               </div>
               <div class="mb-3">
                 <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
+
               </div>
               <div class="mb-3">
                 <div class="row">
@@ -82,7 +83,7 @@
                     <button type="button" class="btn btn-light" id="refresh">Refresh</button>
                   </div>
                   <div class="col-6" style="text-align-last: right;">
-                    <button type="button" class="btn btn-primary" id="proses">Proses</button>
+                    <button type="button" class="btn btn-primary" id="proses" onclick="prosesklik()">Proses</button>
                     <button type="button" class="btn btn-danger" id="batal" style="display: none">Batal</button>
                   </div>
                 </div>

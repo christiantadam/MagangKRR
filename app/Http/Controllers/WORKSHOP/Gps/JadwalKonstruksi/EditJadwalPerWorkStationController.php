@@ -49,6 +49,18 @@ class EditJadwalPerWorkStationController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($request->all());
+         //
+        // $worksts  = $request->WorkStationModalEdit;
+        // $jmljam = $request->TJam;
+        // $EstDate = $request->Tanggal;
+        $noAntri = $request->noAntri;
+        $noBantu = $request->noBantu;
+        $worksts = $request->worksts;
+        $tgl = $request->tgl;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_UPDATE-NOANTRI-KONSTRUKSI] @noAntri = ?, @noBantu = ?, @worksts = ?, @tgl = ?', [$noAntri,$noBantu,$worksts,$tgl]);
+        // return redirect()->back()->with('success', "Data sudah diSimpan.");
+        return response()->json(['message' => 'Data telah diperbarui.']);
     }
 
     public function destroy($id)
