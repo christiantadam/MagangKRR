@@ -357,7 +357,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel konversi...",
             search: "",
-            info: "",
         },
     });
 
@@ -371,7 +370,6 @@ function init() {
         language: {
             searchPlaceholder: " Tabel detail...",
             search: "",
-            info: "Menampilkan _TOTAL_ data",
         },
 
         initComplete: () => {

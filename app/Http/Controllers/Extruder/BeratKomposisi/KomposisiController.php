@@ -22,8 +22,6 @@ class KomposisiController extends Controller
     public function komposisiKonversi($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
-        // dd($param_data);
-        // dd(count($param_data));
 
         switch ($fun_str) {
             case 'SP_1273_ABM_BERAT_STANDART_1':
@@ -47,19 +45,19 @@ class KomposisiController extends Controller
 
             case 'SP_1273_PRG_UPDATE_KONVERSI_1':
                 $param_str = '@Kode = ?, @KodeBarang = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_Cek_KonversiKomposisi_1~1':
             case 'SP_1273_INV_Cek_KonversiKomposisi_1~2':
             case 'SP_1273_INV_Cek_KonversiKomposisi_1~4':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = ' . explode('~', $fun_str)[1] . ', @KodeBarang = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+                return $this->executeSP('select', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Cek_KonversiKomposisi_1~3':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 3, @Tanggal = ?, @NoKonversi = ?, @UserId = 4384';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+                return $this->executeSP('select', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Insert_KonversiKomposisi_1~1':
                 $fun_str = explode('~', $fun_str)[0];
@@ -91,15 +89,15 @@ class KomposisiController extends Controller
         }
     }
 
-    private function executeSP($action_str, $sp_str, $param_str, $param_data)
+    private function executeSP($action_str, $sp_str, $param_str, $param_data, $conn_str = 'ConnPurchase')
     {
         if ($action_str == 'statement') {
-            return DB::connection('ConnPurchase')->statement(
+            return DB::connection($conn_str)->statement(
                 'exec ' . $sp_str . ' ' . $param_str,
                 $param_data
             );
         } else if ($action_str == 'select') {
-            return DB::connection('ConnPurchase')->select(
+            return DB::connection($conn_str)->select(
                 'exec ' . $sp_str . ' ' . $param_str,
                 $param_data
             );

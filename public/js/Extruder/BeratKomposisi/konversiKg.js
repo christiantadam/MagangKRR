@@ -23,7 +23,7 @@ btnProses.addEventListener("click", function () {
 
     if (rdoKg.checked) {
         fetchStmt(
-            "/komposisiKonversi/SP_1273_PRG_UPDATE_KONVERSI_1/1/" +
+            "/komposisiKonversi/SP_1273_PRG_UPDATE_KONVERSI_1/1~" +
                 txtKode.value,
             () => {
                 alert("Konversi dalam Kg Sukses diSimpan");
@@ -33,7 +33,7 @@ btnProses.addEventListener("click", function () {
         );
     } else {
         fetchStmt(
-            "/komposisiKonversi/SP_1273_PRG_UPDATE_KONVERSI_1/2/" +
+            "/komposisiKonversi/SP_1273_PRG_UPDATE_KONVERSI_1/2~" +
                 txtKode.value,
             () => {
                 alert("Konversi dalam Yard Sukses diSimpan");

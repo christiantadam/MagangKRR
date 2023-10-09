@@ -117,7 +117,7 @@ function addTable_DataTable(
                         row.onclick = () => {
                             rowFun(row, data, index);
                         };
-                    }
+                    } else row.style.cursor = "default";
                 }
             },
         });
@@ -149,7 +149,7 @@ function addTable_DataTable(
                         row.onclick = () => {
                             rowFun(row, data, index);
                         };
-                    }
+                    } else row.style.cursor = "default";
                 }
             },
         });
@@ -180,7 +180,7 @@ function addTable_DataTable(
                         row.onclick = () => {
                             rowFun(row, data, index);
                         };
-                    }
+                    } else row.style.cursor = "default";
                 }
             },
         });
