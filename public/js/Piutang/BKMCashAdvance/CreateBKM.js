@@ -8,7 +8,7 @@ let btnProsesss = document.getElementById("btnProsesss");
 let kodePerkiraanSelect = document.getElementById("kodePerkiraanSelect");
 let idKodePerkiraan = document.getElementById("idKodePerkiraan");
 let tabelTampilBKM = document.getElementById("tabelTampilBKM");
-let dataTable3;
+// let dataTable3 = $("#tabelDataPelunasan").DataTable();
 let idBankNew;
 let tglInputNew = document.getElementById("tglInputNew");
 let idBKMNew = document.getElementById("idBKMNew");
@@ -109,14 +109,14 @@ let bankArray = [];  // Array untuk menyimpan data bank
 let tanggalArray = [];
 let nilaipelunasan = [];
 let mataUang = [];
+let selectedDataArray = [];
 
 btnGroupBKM.addEventListener('click', function (event) {
-    const selectedDataArray = [];
     event.preventDefault();
     let idBKMGenerated = false;
     bankArray = [];
     tanggalArray = [];
-;
+    ;
     nilaipelunasan = [];
     let count = 0;
     var arrayindex = [];
@@ -131,11 +131,11 @@ btnGroupBKM.addEventListener('click', function (event) {
         // console.log("mmmmmmmmmmmmm");
         console.log(arrayindex);
         for (let i = 0; i < arrayindex.length; i++) {
-            bankArray.push(tabelTampilBKM.cell(arrayindex[i], 2).data());
-            tanggalArray.push(tabelTampilBKM.cell(arrayindex[i], 7).data());
-            nilaipelunasan.push(parseFloat(tabelTampilBKM.cell(arrayindex[i], 5).data()));
-            mataUang.push(tabelTampilBKM.cell(arrayindex[i], 4).data());
-            if (tabelTampilBKM.cell(arrayindex[i], 8).data() == null && tabelTampilBKM.cell(arrayindex[i], 7).data() == null && tabelTampilBKM.cell(arrayindex[i], 2).data() == null) {
+            bankArray.push(dataTable3.cell(arrayindex[i], 2).data());
+            tanggalArray.push(dataTable3.cell(arrayindex[i], 7).data());
+            nilaipelunasan.push(parseFloat(dataTable3.cell(arrayindex[i], 5).data()));
+            mataUang.push(dataTable3.cell(arrayindex[i], 4).data());
+            if (dataTable3.cell(arrayindex[i], 8).data() == null && dataTable3.cell(arrayindex[i], 7).data() == null && dataTable3.cell(arrayindex[i], 2).data() == null) {
                 alert("Input Tgl Pembuatan BKM & Id.Bank, Klik Tombol Pilih Bank");
                 return;
             }
@@ -184,66 +184,82 @@ btnGroupBKM.addEventListener('click', function (event) {
 
         // console.log("nnnnnnnnnnnnnnnnn");
         fetch("/getJenisBankCreateBKM/" + bankArray[0])
-        .then((response) => response.json())
-        .then((options) => {
-            console.log(options);
-
-            jenisBank.value = options[0].jenis;
-        });
-    }
-    let tanggalSajaArray = tanggalArray.map(dateTimeString => {
-        const tanggalSaja = dateTimeString.split(' ')[0];
-        return tanggalSaja;
-    });
-
-    // tanggal.value = selectedDataArray[0].TglInput;
-    const tglInput = selectedDataArray[0].TglInput;
-    const [tanggal1, waktu] = tglInput.split(" ");
-    selectedDataArray[0].TglInput = tanggal1;
-    tanggal.value = tanggal1;
-
-    uang.value = mataUang[mataUang.length -1];
-    console.log(nilaipelunasan);
-    let totalPembayaran = nilaipelunasan[0];
-    const formattedCurrency = formatToCurrency(totalPembayaran);
-    totalPelunasan.value = formattedCurrency;
-    const words = numberToWords(nilaipelunasan[0]);
-    konversi.value = words;
-
-
-    if (idBKMGenerated) {
-        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
             .then((response) => response.json())
             .then((options) => {
-                idBKMNew.value = options;
-
-                // Tambahkan ID BKM ke setiap data yang dicentang
-                selectedDataArray.forEach(data => {
-                    data.idBKM = options;
-                });
-
-                alert('Id. BKM nya: ' + idBKMNew.value);
                 console.log(options);
 
-                const id1 = (idBKMNew.value).slice(0, 3);
-                console.log(id1); // Mengambil tiga karakter pertama
-
-                // Mengonversi ke bilangan jika mungkin
-                const idbkm = parseInt(id1);
-                idbkm.value = idbkm;
-
-                console.log(idbkm);
-
-                formkoreksi.action = "/insertUpdateCreateBKM/";
-                formkoreksi.submit();
+                jenisBank.value = options[0].jenis;
             });
-        console.log(selectedDataArray);
+
+        let tanggalSajaArray = tanggalArray.map(dateTimeString => {
+            const tanggalSaja = dateTimeString.split(' ')[0];
+            return tanggalSaja;
+        });
+
+        // tanggal.value = selectedDataArray[0].TglInput;
+        const tglInput = selectedDataArray[0].TglInput;
+        const [tanggal1, waktu] = tglInput.split(" ");
+        selectedDataArray[0].TglInput = tanggal1;
+        tanggal.value = tanggal1;
+
+        uang.value = mataUang[mataUang.length - 1];
+        console.log(nilaipelunasan);
+        let totalPembayaran = nilaipelunasan[0];
+        const formattedCurrency = formatToCurrency(totalPembayaran);
+        totalPelunasan.value = formattedCurrency;
+        const words = numberToWords(nilaipelunasan[0]);
+        konversi.value = words;
+
+
+        if (idBKMGenerated) {
+            fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+                .then((response) => response.json())
+                .then((options) => {
+                    idBKMNew.value = options;
+
+                    // Tambahkan ID BKM ke setiap data yang dicentang
+                    selectedDataArray.forEach(data => {
+                        data.Id_BKM = options;
+                    });
+
+                    alert('Id. BKM nya: ' + idBKMNew.value);
+                    console.log(options);
+
+                    const id1 = (idBKMNew.value).slice(0, 3);
+                    console.log(id1); // Mengambil tiga karakter pertama
+
+                    // Mengonversi ke bilangan jika mungkin
+                    const idbkm = parseInt(id1);
+                    idbkm.value = idbkm;
+
+                    console.log(idbkm);
+
+                    // formkoreksi.action = "/insertUpdateCreateBKM/";
+                    // formkoreksi.submit();
+
+                    $.ajax({
+                        url: "insertUpdateCreateBKM",
+                        method: "POST",
+                        data: new FormData(formkoreksi),
+                        dataType: "JSON",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            alert(response);
+                        },
+                    });
+                    btnOK.click();
+                });
+            console.log(selectedDataArray);
+        }
     }
 });
 
 function Check() {
     let k = 1; // variabel untuk menyimpan nilai k
     let l = 1;
+    idBKMGenerated = true;
 
     let tanggalSajaArray = tanggalArray.map(dateTimeString => {
         const tanggalSaja = dateTimeString.split(' ')[0];
@@ -253,7 +269,7 @@ function Check() {
     for (let i = 1; i < bankArray.length; i++) {
         // const element = array[i];
         if (bankArray[0] == bankArray[i]) {
-                k += 1;
+            k += 1;
         }
         if (tanggalSajaArray[0] == tanggalSajaArray[i]) {
             l += 1;
@@ -290,18 +306,80 @@ function Check() {
             console.log(options);
 
             jenisBank.value = options[0].jenis;
-        });
+    });
+
+    // tanggal.value = selectedDataArray[0].TglInput;
+    const tglInput = selectedDataArray[0].TglInput;
+    const [tanggal1, waktu] = tglInput.split(" ");
+    selectedDataArray[0].TglInput = tanggal1;
+    tanggal.value = tanggal1;
+
+    uang.value = mataUang[mataUang.length - 1];
+    console.log(nilaipelunasan);
+    let totalPembayaran = nilaipelunasan[0];
+    const formattedCurrency = formatToCurrency(totalPembayaran);
+    totalPelunasan.value = formattedCurrency;
+    const words = numberToWords(nilaipelunasan[0]);
+    konversi.value = words;
+
+
+    if (idBKMGenerated) {
+        fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
+            .then((response) => response.json())
+            .then((options) => {
+                idBKMNew.value = options;
+
+                // Tambahkan ID BKM ke setiap data yang dicentang
+                selectedDataArray.forEach(data => {
+                    data.Id_BKM = options;
+                });
+
+                alert('Id. BKM nya: ' + idBKMNew.value);
+                console.log(options);
+
+                console.log(selectedDataArray);
+
+                const id1 = (idBKMNew.value).slice(0, 3);
+                console.log(id1); // Mengambil tiga karakter pertama
+
+                // Mengonversi ke bilangan jika mungkin
+                const idbkm = parseInt(id1);
+                idbkm.value = idbkm;
+
+                console.log(idbkm);
+
+                // formkoreksi.action = "/insertUpdateCreateBKM/";
+                // formkoreksi.submit();
+
+                $.ajax({
+                    url: "insertUpdateCreateBKM2",
+                    method: "POST",
+                    data: new FormData(formkoreksi),
+                    dataType: "JSON",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (response) {
+                        alert(response);
+                    },
+                });
+                btnOK.click();
+            });
+    }
 }
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
+    console.log("masuk OK");
     clickOK();
     fetch("/detailtabelpelunasan2/" + bulan.value + "/" + tahun.value)
         .then((response) => response.json())
         .then((optionss) => {
             console.log(optionss);
             dataTable3 = $("#tabelDataPelunasan").DataTable({
+                destroy : true,
                 data: optionss,
+
                 columns: [
                     {
                         title: "Tgl. Pelunasan",

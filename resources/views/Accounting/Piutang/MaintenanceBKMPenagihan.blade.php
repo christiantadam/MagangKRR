@@ -21,10 +21,10 @@
                                         <label for="bulanTahun" style="margin-right: 10px;">Bulan/Tahun</label>
                                     </div>
                                     <div class="col-md-1">
-                                        <input type="text" id="bulan" class="form-control" style="width: 100%">
+                                        <input type="text" id="bulan" name="bulan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="tahun" class="form-control" style="width: 100%">
+                                        <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnOK" value="OK" class="btn btn-outline-dark"
@@ -38,19 +38,28 @@
                                         <input type="submit" id="btnGroupBKM" name="btnGroupBKM" value="Group BKM"
                                             class="btn btn-outline-dark">
                                     </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <input type="text" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br>
                                 <div>
                                     Data Pelunasan
                                     <div style="overflow-y: auto; max-height: 400px;">
-                                        <table style="width: 140%; table-layout: fixed;" id="tabelDataPelunasan">
+                                        <table style="width: 180%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                                 <col style="width: 15%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 15%;">
+                                                <col style="width: 20%;">
+                                                <col style="width: 20%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
                                                 <col style="width: 20%;">
@@ -65,12 +74,19 @@
                                                     <th>Total Pelunasan</th>
                                                     <th>No. Bukti</th>
                                                     <th>Tgl Pembuatan</th>
+                                                    <th>IdCust</th>
+                                                    <th>Jenis Bayar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                             </tbody>
                                         </table>
+                                        <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                        <input type="text" id="total" name="total" class="form-control" style="width: 100%">
+                                        <input type="text" id="uang" name="uang" class="form-control" style="width: 100%">
+                                        <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                        <input type="text" id="sisa" name="sisa" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
@@ -232,7 +248,7 @@
                                                             Tagih</label>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <input type="text" id="tanggalTagih" class="form-control"
+                                                        <input type="date" id="tanggalTagih" name="tanggalTagih" class="form-control"
                                                             style="width: 100%">
                                                     </div>
                                                 </div>

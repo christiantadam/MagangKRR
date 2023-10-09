@@ -60,6 +60,121 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($kode);
     }
 
+    function cekNoPelunasanBKMPenagihan($idPelunasan, $idCustomer)
+    {
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_CEK_NO_PELUNASAN]
+        @idpelunasan = ?,
+        @idcust = ?',
+        [
+            $idPelunasan,
+            $idCustomer
+        ]);
+        return response()->json($kode);
+    }
+
+    public function cekJumlahRincianBKMPenagihan($idPelunasan)
+    {
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_CEK_JML_RINCIAN]
+        @idpelunasan = ?',
+        [
+            $idPelunasan
+        ]);
+        return response()->json($kode);
+    }
+
+    function getIDBKMPenagihan($id, $tanggal)
+    {
+        $idBank = $id;
+        $tanggalInput = $tanggal;
+        $jenis = 'R';
+
+        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+            $jenis,
+            $tanggalInput,
+            $idBank,
+            null
+            // Pass by reference for output parameter
+        ]);
+
+        $tahun = substr($tanggalInput, -10, 4);
+        $x = DB::connection('ConnAccounting')->table('T_Counter_BKM')->where('Periode', '=', $tahun)->first();
+        $nomorIdBKM = '00000' . str_pad($x->Id_BKM_E_Rp, 5, '0', STR_PAD_LEFT);
+        $idBKM = $idBank . '-R' . substr($tahun, -2) . substr($nomorIdBKM, -5);
+
+        return response()->json($idBKM);
+    }
+
+    public function insertUpdateBKMPenagihan(Request $request)
+    {
+        //dd($request->all());
+        $idPelunasan = $request->idPelunasan;
+        $sisa = $request->sisa;
+        $jenisBayar = $request->jenisBayar;
+        $tanggalTagih = $request->tanggalTagih;
+
+        $idBKMNew = $request->idBKMNew;
+        $tglInputNew = $request->tglInputNew;
+        $konversi = $request->konversi;
+        $total = $request->total;
+
+        $idBank = $request->idBank;
+        $jenisBank = $request->jenisBank;
+        $idPelunasan = $request->idPelunasan;
+
+        list($hari, $bulan, $tahun) = explode('-', $tglInputNew);
+
+        // Mengambil bulan dan tahun sebagai integer
+        $bulan = (int)$bulan;
+        $tahun = (int)$tahun;
+        $tgl = $bulan . $tahun;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TDETAILPEL]
+        @idpelunasan = ?,
+        @sisa = ?,
+        @jenisBayar = ?', [
+            $idPelunasan,
+            $sisa,
+            $jenisBayar
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5409_ACC_COUNTER_BKM_BKK]
+        @bank = ?,
+        @jenis = ?,
+        @tgl = ?,
+        @id = ?', [
+            $idBank,
+            'R',
+            $jenisBank,
+            $idBKMNew
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKM_TPELUNASAN]
+        @idBKM = ?,
+        @tglinput = ?,
+        @userinput = ?,
+        @terjemahan = ?,
+        @nilaipelunasan = ?,
+        @IdBank = ?', [
+            $idBKMNew,
+            $tanggalTagih,
+            1,
+            $konversi,
+            $total,
+            $idBank,
+        ]);
+
+        DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_UPDATE_IDBKM_1]
+        @idpelunasan = ?,
+        @idBKM = ?,
+        @idBank = ?', [
+            $idPelunasan,
+            $idBKMNew,
+            $idBank
+        ]);
+
+        return redirect()->back()->with('Success', 'Data BKM Dengan No. ' .$idBKMNew. ' TerSimpan');
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
