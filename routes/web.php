@@ -59,8 +59,10 @@ Route::resource('/ABM/PilihJenisRepress', App\Http\Controllers\ABM\PilihJenisRep
 
 Route::resource('/ABM/BalJadiPalet', App\Http\Controllers\ABM\BalJadiPaletController::class);
 // Route::get('/ABM/BalJadiPalet', 'App\Http\Controllers\ABM\BalJadiPaletController@index');
-Route::get('/ABM/PaletJadiBal', 'App\Http\Controllers\ABM\PaletJadiBalController@index');
-Route::get('/ABM/Konversi', 'App\Http\Controllers\ABM\KonversiController@index');
+Route::resource('/ABM/PaletJadiBal', App\Http\Controllers\ABM\PaletJadiBalController::class);
+// Route::get('/ABM/PaletJadiBal', 'App\Http\Controllers\ABM\PaletJadiBalController@index');
+Route::resource('/ABM/Konversi', App\Http\Controllers\ABM\KonversiController::class);
+// Route::get('/ABM/Konversi', 'App\Http\Controllers\ABM\KonversiController@index');
 Route::resource('/ABM/PrintUlang', App\Http\Controllers\ABM\PrintUlangController::class);
 // Route::get('/ABM/PrintUlang', 'App\Http\Controllers\ABM\PrintUlangController@index');
 

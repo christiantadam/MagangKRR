@@ -41,16 +41,29 @@ class KonversiController extends Controller
             // Return the options as JSON data
             return response()->json($dataDivisi);
         } else if ($crExplode[$lasindex] == "getBarcode") {
-            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_5409_INV_SLC_BarcodeKonversi @kodebarang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
-            // dd($dataDivisi);
+            $dataBarcodeKonversi = DB::connection('ConnInventory')->select('exec SP_5409_INV_SLC_BarcodeKonversi @kode_barang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataBarcodeKonversi);
             // Return the options as JSON data
-            return response()->json($dataDivisi);
+            return response()->json($dataBarcodeKonversi);
         } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $crExplode = explode("~", $cr);
             $dataBarcode = DB::connection('ConnInventory')->statement(
                 'exec SP_5409_INV_SimpanPermohonanBarcodeKonversi
-                @idtypeasal = ?, @idtypetujuan = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
-                @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @tujuanidsubkelompok = ?, @kodebarangasal = ?, @kodebarangtujuan = ?,
-                @noindeksasal = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
+                @idtypeasal = ?,
+                @idtypetujuan = ?,
+                @userid = ?,
+                @tanggal = ?,
+                @jumlahmasukprimer = ?,
+                @jumlahmasuksekunder = ?,
+                @jumlahmasuktertier = ?,
+                @asalidsubkelompok = ?,
+                @tujuanidsubkelompok = ?,
+                @kodebarangasal = ?,
+                @kodebarangtujuan = ?,
+                @noindeksasal = ?,
+                @uraian = ?,
+                @noindeks = ?,
+                @hasil = ?',
                 [
                     $crExplode[0],
                     $crExplode[1],
@@ -69,7 +82,7 @@ class KonversiController extends Controller
                     " "
                 ]
             );
-            // dd($dataBarcode);
+            // dd($crExplode);
             return response()->json($dataBarcode);
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')

@@ -26,7 +26,7 @@
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto">
                                                 <button type="button" onclick="openModal()" id="ButtonShift"
-                                                    style="width:180px; height: 50px">Pilih
+                                                    style="width:180px; height: 50px" disabled>Pilih
                                                     Shift</button>
                                             </div>
                                             <div class="modal" id="myModal">
@@ -66,8 +66,8 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    onclick="openModal1()" style="width:180px; height: 50px">Scan
+                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonScanBarcode"
+                                                    onclick="openModal1()" style="width:180px; height: 50px" disabled>Scan
                                                     Barcode</button>
                                             </div>
                                             <div class="modal" id="myModal1">
@@ -81,7 +81,7 @@
                                                             placeholder="Barcode">
                                                         <button
                                                             style="margin-left: 20px;width: 100px;position: absolute;right: -105px;"
-                                                            type="button" onclick="closeModal1()" id="ButtonPrintBarcodeKonversi">Ok</button>
+                                                            type="button" onclick="closeModal1()">Ok</button>
                                                         <button
                                                             style="margin-left: 20px;width: 100px;position: absolute;right: -231px;"
                                                             type="button" onclick="closeModal1()">Cancel</button>
@@ -93,7 +93,7 @@
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
                                                 <button type="button" onclick="openModal2()" id="ButtonType"
-                                                    style="width:180px; height: 50px">Pilih Type</button>
+                                                    style="width:180px; height: 50px" disabled>Pilih Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
                                                 <div class="modal-content">
@@ -119,54 +119,15 @@
                                             </div>
                                         </div>
 
-                                        {{-- <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
-                                            <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal3()" id="ButtonJumlahBarang"
-                                                    style="width:180px;" disabled>Isi Jumlah Barang</button>
-                                            </div>
-                                            <div class="modal" id="myModal3">
-                                                <div class="modal-content">
-                                                    <span class="close-btn" onclick="closeModal3()">&times;</span>
-                                                    <div class="card col-md-auto"
-                                                        style="margin-left:50px; margin-right:50px; margin-top:50px; margin-bottom:50px;">
-                                                        <div class="row form-group">
-                                                            <div class="col-md-3 d-flex justify-content-end">
-                                                                <span class="aligned-text mt-3">Jumlah Sekunder:</span>
-                                                            </div>
-                                                            <div class="mt-4">
-                                                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                                    <input type="text" class="form-control"
-                                                                        name="Sekunder" id="Sekunder"
-                                                                        placeholder="Sekunder">
-                                                                </div>
-                                                            </div>
-                                                            <div class="text-center col-md-auto"
-                                                                style="margin-top: 15px; margin-left:200px">
-                                                                <button type="button"
-                                                                    onclick="setSekunderValue()">Ok</button>
-                                                            </div>
-                                                            <div class="text-center col-md-auto" style="margin-top: 15px;"
-                                                                onclick="closeModal3()">
-                                                                <button type="button">Cancel</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-center">
-                                                            <h6>Masukan Jumlah Pcs, lembar, atau meter<br>Barang</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px; height: 50px">Timbang</button>
+                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonTimbang"
+                                                    style="width:180px; height: 50px" disabled>Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px; height: 50px">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonPrintBarcodeKonversi"
+                                                    style="width:180px; height: 50px" disabled>Print
                                                     Barcode Konversi</button>
                                             </div>
                                         </div>
@@ -174,7 +135,7 @@
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
                                                     onclick="openModal4()" id="ButtonJumlahBarang"
-                                                    style="width:180px; height: 50px">Acc Barcode</button>
+                                                    style="width:180px; height: 50px" >Acc Barcode</button>
                                             </div>
                                             <div class="modal" id="myModal4">
                                                 <div class="modal-content">
@@ -206,7 +167,7 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button" onclick="PrintUlangData()"
-                                                    style="width:180px; height: 50px">Print
+                                                    style="width:180px; height: 50px" >Print
                                                     Ulang</button>
                                             </div>
                                         </div>
@@ -225,7 +186,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Tanggal:</span>
                                             </div>
-                                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                            <div class="form-group col-md-4 mt-3 mt-md-0">
                                                 <input class="form-control" type="date" name="tanggal"
                                                     id="tanggalOutput" placeholder="Tanggal" readonly>
                                             </div>
@@ -234,7 +195,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Shift:</span>
                                             </div>
-                                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                            <div class="form-group col-md-4 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="shift" id="shift"
                                                     placeholder="Shift" readonly>
                                             </div>
@@ -244,7 +205,7 @@
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Barcode:</span>
                                             </div>
-                                            <div class="form-group col-md-3 mt-3 mt-md-0">
+                                            <div class="form-group col-md-4 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="BarcodeKonversi"
                                                     id="BarcodeKonversi" placeholder="Barcode Konversi" readonly>
                                             </div>
@@ -264,7 +225,8 @@
                                                 <span class="aligned-text">Type Tujuan:</span>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <textarea class="form-control" name="tujuan" rows="tujuan" placeholder="Tujuan" style="height: 100px" readonly></textarea>
+                                                <textarea class="form-control" name="tujuan" rows="tujuan" placeholder="Tujuan"
+                                                id="tujuan" style="height: 100px" readonly></textarea>
                                             </div>
                                         </div>
 
