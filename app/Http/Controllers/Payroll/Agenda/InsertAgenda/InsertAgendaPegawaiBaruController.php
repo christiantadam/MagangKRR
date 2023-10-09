@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class InsertAgendaPegawaiBaruController extends Controller
 {
@@ -26,7 +29,168 @@ class InsertAgendaPegawaiBaruController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $arrayPegawai = explode(".", $data['pegawai']);
+        // dd($data, $arrayPegawai);
+        $tanggal_awal = new DateTime($data['Tanggal1']);
+        $tanggal_akhir = new DateTime($data['Tanggal2']);
+        dd($tanggal_awal->format('N'));
+        $selisih = $tanggal_awal->diff($tanggal_akhir);
+        $selisih_hari = $selisih->days;
+        $tanggal_akhir->modify('+1 day');
+        // dd($selisih_hari, $data);
+        $interval = new DateInterval('P1D'); // P1D mewakili interval 1 hari
+        $daterange = new DatePeriod($tanggal_awal, $interval, $tanggal_akhir);
+        // dd($data);
+
+        $divAturan = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_CEK_ATURAN @id_div = ?', [
+            $data['id_div']
+        ]);
+        // dd($divAturan[0]->Aturan,'mantap');
+
+        if ($data['Tanggal1'] === $data['Tanggal2']) {
+            if ($divAturan[0]->Aturan === '2') {
+                if ($selisih_hari > 7) {
+                    return redirect()->route('InsertPegawaiBaru.index')->with('alert', 'Range tanggal tidak boleh lebih dari 7 hari');
+                }
+            }
+            // dd($tanggal_awal->format('N'));
+            if ($tanggal_awal->format('N') == 6) { // 6 adalah kode untuk hari Sabtu di PHP
+                switch ((int)$data['Kd_Shift']) {
+                    case 0:
+                    case 1:
+                    case 7:
+                        $shiftbaru = 14;
+                        break;
+                    case 2:
+                    case 8:
+                    case 13:
+                        $shiftbaru = 15;
+                        break;
+                    case 3:
+                    case 12:
+                        $shiftbaru = 16;
+                        break;
+                    case 4:
+                    case 9:
+                        $shiftbaru = 17;
+                        break;
+                    case 5:
+                        $shiftbaru = 18;
+                        break;
+                    case 6:
+                        $shiftbaru = 19;
+                        break;
+                }
+                // dd($shiftbaru);
+                $jmljam = 5;
+                $keterangan = "M";
+            } else if ($tanggal_awal->format('N') != 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                $shiftbaru = (int)$data['Kd_Shift'];
+                $jmljam = 7;
+                $keterangan = "M";
+            } else if ($tanggal_awal->format('N') == 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                $shiftbaru = (int)$data['Kd_Shift'];
+                $keterangan = "B";
+            }
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ?, @shift = ?', [
+                2,
+                $shiftbaru,
+            ]);
+            dd($dataShift);
+            if (count($dataShift) > 0) {
+                $masuk = $dataShift[0]->masuk;
+                $pulang = $dataShift[0]->pulang;
+                $istirahat1 = $dataShift[0]->awal_jam_istirahat;
+                $istirahat2 = $dataShift[0]->akhir_jam_istirahat;
+                $jam_masuk = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $masuk)[1]);
+                $jam_keluar = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $pulang)[1]);
+                if ($jam_keluar->format('H') < $jam_masuk->format('H')) {
+                    $jam_keluar->modify('+1 day');
+                }
+                if ($jam_keluar < $jam_masuk) {
+                    $jam_keluar->modify('+1 day');
+                }
+                if ($jam_masuk->format('G') >= 0 && $jam_masuk->format('H') < 7 && $jam_masuk->format('A') == 'AM') {
+                    // Menambahkan 1 hari ke jam_masuk dan jam_keluar
+                    $jam_masuk->modify('+1 day');
+                    $jam_keluar->modify('+1 day');
+                }
+            }
+        } else if ($data['Tanggal1'] != $data['Tanggal2']) {
+            foreach ($daterange as $tanggal) {
+                foreach ($arrayPegawai as $pegawai) {
+                    if ($divAturan[0]->Aturan === '2') {
+                        if ($selisih_hari > 7) {
+                            return redirect()->route('InsertPegawaiBaru.index')->with('alert', 'Range tanggal tidak boleh lebih dari 7 hari');
+                        }
+                    }
+                    // dd($tanggal_awal->format('N'));
+                    if ($tanggal_awal->format('N') == 6) { // 6 adalah kode untuk hari Sabtu di PHP
+                        switch ((int)$data['Kd_Shift']) {
+                            case 0:
+                            case 1:
+                            case 7:
+                                $shiftbaru = 14;
+                                break;
+                            case 2:
+                            case 8:
+                            case 13:
+                                $shiftbaru = 15;
+                                break;
+                            case 3:
+                            case 12:
+                                $shiftbaru = 16;
+                                break;
+                            case 4:
+                            case 9:
+                                $shiftbaru = 17;
+                                break;
+                            case 5:
+                                $shiftbaru = 18;
+                                break;
+                            case 6:
+                                $shiftbaru = 19;
+                                break;
+                        }
+                        // dd($shiftbaru);
+                        $jmljam = 5;
+                        $keterangan = "M";
+                    } else if ($tanggal_awal->format('N') != 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                        $shiftbaru = (int)$data['Kd_Shift'];
+                        $jmljam = 7;
+                        $keterangan = "M";
+                    } else if ($tanggal_awal->format('N') == 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                        $shiftbaru = (int)$data['Kd_Shift'];
+                        $keterangan = "B";
+                    }
+                    $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ?, @shift = ?', [
+                        2,
+                        $shiftbaru,
+                    ]);
+                    dd($dataShift);
+                    if (count($dataShift) > 0) {
+                        $masuk = $dataShift[0]->masuk;
+                        $pulang = $dataShift[0]->pulang;
+                        $istirahat1 = $dataShift[0]->awal_jam_istirahat;
+                        $istirahat2 = $dataShift[0]->akhir_jam_istirahat;
+                        $jam_masuk = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $masuk)[1]);
+                        $jam_keluar = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $pulang)[1]);
+                        if ($jam_keluar->format('H') < $jam_masuk->format('H')) {
+                            $jam_keluar->modify('+1 day');
+                        }
+                        if ($jam_keluar < $jam_masuk) {
+                            $jam_keluar->modify('+1 day');
+                        }
+                        if ($jam_masuk->format('G') >= 0 && $jam_masuk->format('H') < 7 && $jam_masuk->format('A') == 'AM') {
+                            // Menambahkan 1 hari ke jam_masuk dan jam_keluar
+                            $jam_masuk->modify('+1 day');
+                            $jam_keluar->modify('+1 day');
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //Display the specified resource.

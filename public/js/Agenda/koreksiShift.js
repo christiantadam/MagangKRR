@@ -216,7 +216,7 @@ $(document).ready(function () {
         }
     });
     $("#saveButton").on("click", function () {
-        var selectedRows = tables.rows(".selected").nodes();
+        var selectedRows = tables.rows(".selected").data();
 
         var selectedData = [];
 
@@ -327,6 +327,13 @@ $(document).ready(function () {
             console.log(data[0]);
             // Lakukan operasi lain pada data, jika diperlukan
         });
+    });
+    $("#selectAll").on("click", function () {
+        if (this.checked) {
+            $("#table_Shift").DataTable().rows().select();
+        } else {
+            $("#table_Shift").DataTable().rows().deselect();
+        }
     });
 });
 function showModalDivisi() {

@@ -130,8 +130,8 @@
                             <div style="flex: 1; margin-right: 10px;">
                                 <label style="margin-right: 10px;">Tanggal</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                    <input class="form-control" type="date" id="TglAwal" name="TglAwal"
+                                        value="{{ old('TglAwal', now()->format('Y-m-d')) }}" required>
 
 
                                 </div>
@@ -140,8 +140,8 @@
                             <div style="flex: 1; margin-right: 10px;">
                                 <label style="margin-right: 10px;">S/D</label>
                                 <div style="display: flex; align-items: center;">
-                                    <input class="form-control" type="date" id="TglLapor" name="TglLapor"
-                                        value="{{ old('TglLapor', now()->format('Y-m-d')) }}" required>
+                                    <input class="form-control" type="date" id="TglAkhir" name="TglAkhir"
+                                        value="{{ old('TglAkhir', now()->format('Y-m-d')) }}" required>
 
 
                                 </div>
@@ -245,7 +245,7 @@
 
                     </div>
 
-
+                    <div id="form-container"></div>
                     <div style="text-align: right; margin: 25px;">
                         <button type="button" class="btn btn-primary" id="buttonProses">Proses</button>
                         <button type="button" class="btn btn-dark">Keluar</button>
