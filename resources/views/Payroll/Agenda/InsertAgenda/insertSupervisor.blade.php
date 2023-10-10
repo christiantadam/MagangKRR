@@ -11,7 +11,7 @@
                         <div style="display: flex; align-items: center;">
                             <label for="TglLapor" style="margin-right: 10px;">Tanggal</label>
                             <input class="form-control" type="date" id="TglAgenda" name="TglAgenda" required
-                                style="max-width: 200px;" value="2022-12-25">
+                                style="max-width: 200px;" value="{{ old('TglAgenda', now()->format('Y-m-d')) }}">
                         </div>
                         <br>
                         <div class="card-body"
@@ -213,7 +213,7 @@
                         <div class="time-form" style="justify-content: left;">
 
                             <label for="masuk">Masuk:</label>
-                            <input type="time" id="masuk" name="masuk">
+                            <input type="time" id="masuk" name="masuk" >
                             <label for="pulang_istirahat">Istirahat Awal:</label>
                             <input type="time" id="istirahat_awal" name="istirahat_awal">
                         </div>
@@ -231,7 +231,7 @@
 
                     </div>
 
-
+                    <div id="form-container"></div>
                     <div style="text-align: right; margin: 25px;">
                         <button type="button" class="btn btn-primary" id="buttonUpdate">Update</button>
                         <button type="button" class="btn btn-dark" id="buttonKeluar">Keluar</button>

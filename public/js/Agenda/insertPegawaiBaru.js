@@ -183,7 +183,7 @@ $(document).ready(function () {
             Tanggal1: tanggal1,
             Tanggal2: tanggal2,
             Kd_Shift: shift,
-            User_Input: "U001",
+            User_Input: "4384",
             id_div: id_div,
         };
         console.log(data);
