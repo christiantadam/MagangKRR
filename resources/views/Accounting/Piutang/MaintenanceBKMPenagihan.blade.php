@@ -87,6 +87,7 @@
                                         <input type="text" id="uang" name="uang" class="form-control" style="width: 100%">
                                         <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                         <input type="text" id="sisa" name="sisa" class="form-control" style="width: 100%">
+                                        <input type="text" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 

@@ -69,6 +69,7 @@ checkbox.addEventListener("change", function(event) {
     } else {
       // Jika checkbox tidak dicentang, atur nilai value menjadi 0
       this.value = "0";
+      noPenagihanUM.setAttribute("readonly", true)
     }
   });
 
@@ -251,9 +252,6 @@ namaCustomerSelect.addEventListener("change", function (event) {
         idJenisCustomer.value  = jenis;
 
         lihatCustomer();
-
-        // noPenagihanSelect.removeAttribute("readonly");
-        // noPenagihanSelect.focus();
     }
 
     fetch("/getNoSP/" + idCustomer.value)
@@ -348,29 +346,28 @@ function lihatCustomer() {
     .then((response) => response.json())
     .then((options) => {
         console.log(options);
-        jenisCustomer.value = options[0].NamaJnsCust;
-    });
+        jenisCustomer.value = options[0].IDJnsCust;
 
-    if (jenisCustomer.value == "NPX") {
-        fetch("/getAlamatCust/" + idCustomer.value)
-        .then((response) => response.json())
-        .then((options) => {
-            console.log(options);
-            alamat.value = options[0].Alamat + " " + options[0].Kota;
-        });
-        jenisPajakSelect.setAttribute("readonly", true);
-    } else {
-        fetch("/getAlamatCust/" + idCustomer.value)
-        .then((response) => response.json())
-        .then((options) => {
-            console.log(options);
-            alamat.value = options[0].AlamatNPWP;
-        });
-        jenisPajakSelect.removeAttribute("readonly");
-    }
+        if (jenisCustomer.value === "NPX") {
+            fetch("/getAlamatCust/" + idCustomer.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                alamat.value = options[0].Alamat + " " + options[0].Kota;
+            });
+            jenisPajakSelect.setAttribute("readonly", true);
+        } else {
+            fetch("/getAlamatCust/" + idCustomer.value)
+            .then((response) => response.json())
+            .then((options) => {
+                console.log(options);
+                alamat.value = options[0].AlamatNPWP;
+            });
+            jenisPajakSelect.removeAttribute("readonly");
+        }
+    });
     nomorSPSelect.focus();
 }
-
 
 function HitungPesanan() {
     var checkboxValue = document.getElementById("potongUM").value;
@@ -405,6 +402,12 @@ function HitungPesanan() {
         console.log(options);
 
         j = j + options[0].Total;
+        nilaiSP.value = parseFloat(nilaiSP.value + j);
+
+        tabelSuratPesanan.row.add([
+            noSP.value, // Isi kolom pertama dengan noSP
+            j // Isi kolom kedua dengan j
+        ]).draw().node();
 
 
     });

@@ -72,6 +72,7 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($kode);
     }
 
+
     public function cekJumlahRincianBKMPenagihan($idPelunasan)
     {
         $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_CEK_JML_RINCIAN]
@@ -104,9 +105,19 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($idBKM);
     }
 
-    public function insertUpdateBKMPenagihan(Request $request)
+    public function prosesSisaPiutang($idPelunasan)
     {
-        //dd($request->all());
+        $kode =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_GET_IDPENAGIHAN_PIUTANG]
+        @idpelunasan = ?',
+        [
+            $idPelunasan
+        ]);
+        return response()->json($kode);
+    }
+
+    function insertUpdateBKMPenagihan(Request $request)
+    {
+        dd('masuk');
         $idPelunasan = $request->idPelunasan;
         $sisa = $request->sisa;
         $jenisBayar = $request->jenisBayar;
@@ -144,7 +155,7 @@ class MaintenanceBKMPenagihanController extends Controller
         @id = ?', [
             $idBank,
             'R',
-            $jenisBank,
+            $tgl,
             $idBKMNew
         ]);
 
@@ -172,7 +183,8 @@ class MaintenanceBKMPenagihanController extends Controller
             $idBank
         ]);
 
-        return redirect()->back()->with('Success', 'Data BKM Dengan No. ' .$idBKMNew. ' TerSimpan');
+        return response()->json('ok');
+        // return redirect()->back()->with('Success', 'Data BKM Dengan No. ' .$idBKMNew. ' TerSimpan');
     }
 
     //Show the form for creating a new resource.

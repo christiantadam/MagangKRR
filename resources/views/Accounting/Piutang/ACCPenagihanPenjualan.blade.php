@@ -122,9 +122,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
                                         </tbody>
                                     </table>
                                 </div>

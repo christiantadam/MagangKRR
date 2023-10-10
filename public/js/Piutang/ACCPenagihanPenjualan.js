@@ -44,7 +44,6 @@ fetch("/getDisplayHeader/")
     });
 });
 
-if (tabelListHeader.rows().count() != 0) {
     $("#tabelListHeader tbody").off("click", "tr");
     $("#tabelListHeader tbody").on("click", "tr", function () {
         let checkSelectedRows = $("#tabelListHeader tbody tr.selected");
@@ -86,7 +85,7 @@ if (tabelListHeader.rows().count() != 0) {
             });
         });
     });
-}
+
 
 btnProses.addEventListener('click', function(event) {
     event.preventDefault();

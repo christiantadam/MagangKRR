@@ -4,7 +4,8 @@ let tabelDataPelunasan = document.getElementById('tabelDataPelunasan');
 let tabelDetailPelunasan = document.getElementById('tabelDetailPelunasan');
 let tabelDetailKurangLebih = document.getElementById('tabelDetailKurangLebih');
 let tabelDetailBiaya = document.getElementById('tabelDetailBiaya');
-let detpelunasan = document.getElementById('detpelunasan').value;
+let detpelunasan = document.getElementById('detpelunasan');
+let idbkm = document.getElementById('idbkm');
 
 let pilihBank = document.getElementById('pilihBank');
 let selectedRows = [];
@@ -52,7 +53,7 @@ let btnTampilBKM = document.getElementById("btnTampilBKM");
 let btnGroupBKM = document.getElementById('btnGroupBKM');
 //let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 
-let modalkoreksi = document.getElementById("formkoreksi");
+let formkoreksi = document.getElementById("formkoreksi");
 let methodform = document.getElementById("methodkoreksi");
 
 let formDetailPelunasan = document.getElementById("formDetailPelunasan");
@@ -509,17 +510,30 @@ btnGroupBKM.addEventListener('click', function (event) {
                     alert('Id. BKM nya: ' + idBKMNew.value);
                     console.log(options);
 
-        //             const id1 = (idBKMNew.value).slice(0, 3);
-        //             console.log(id1); // Mengambil tiga karakter pertama
+                    const id1 = (idBKMNew.value).substring(0, 3);
+                    console.log(id1); // Mengambil tiga karakter pertama
+                    idbkm.value = id1;
 
-        //             // Mengonversi ke bilangan jika mungkin
-        //             const idbkm = parseInt(id1);
-        //             idbkm.value = idbkm;
-
-        //             console.log(idbkm);
-
-        //             formkoreksi.action = "/insertUpdateCreateBKM/";
-        //             formkoreksi.submit();
+                    console.log(idbkm);
+                    // methodform.value = "POST";
+                    // fetch("/prosesSisaPiutang/" + idPelunasan.value)
+                    //     .then((response) => response.json())
+                    //     .then((options) => {
+                    //         console.log(options);
+                    // });
+                    $.ajax({
+                        url: "insertUpdateBKMPenagihan/groupbkm",
+                        method: "post",
+                        data: new FormData(formkoreksi),
+                        dataType: "JSON",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            alert(response);
+                        }
+                    });
+                    // btnOK.click();
                 });
         console.log(selectedDataArray);
         }
