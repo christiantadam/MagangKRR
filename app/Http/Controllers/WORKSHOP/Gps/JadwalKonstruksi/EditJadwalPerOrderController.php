@@ -17,6 +17,14 @@ class EditJadwalPerOrderController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-ORDER-GAMBAR] @kode = ?, @noOd = ?', [1,$noOd]);
         return response()->json($data);
     }
+    public function cekEstimasiKonstruksi($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
+    public function getDataTable($noOd, $idBag) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_INF-KONSTRUKSI-PER-ORDER] @kode = ?, @noOd = ?, @idBag = ?', [4,$noOd,$idBag]);
+        return response()->json($data);
+    }
 
     public function create()
     {

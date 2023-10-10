@@ -46,6 +46,8 @@ Route::get('getdatatableEditPerWorkstation/{noAntri}/{date}/{worksts}', 'App\Htt
 
 Route::resource('EditPerOrderkonstruksi', App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EditJadwalPerOrderController::class);
 Route::get('LoadDataEditPerOrderKonstruksi/{noOd}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EditJadwalPerOrderController@LoadData');
+Route::get('cekEstimasiKonstruksiEditPerOrderKonstruksi/{noOd}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EditJadwalPerOrderController@cekEstimasiKonstruksi');
+Route::get('getDataTableEditPerOrderKonstruksi/{noOd}/{idBag}', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi\EditJadwalPerOrderController@getDataTable');
 
 
 Route::get('EditEstimasiTanggal', 'App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksiController@EditEstimasiTanggal');

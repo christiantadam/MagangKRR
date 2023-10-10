@@ -1,5 +1,7 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
+  <link href="{{ asset('css/GPS/Color.css') }}" rel="stylesheet">
+
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
@@ -61,13 +63,7 @@
                     {{-- width: 110vh;
             height: 7vh; --}}
                     <label for="NamaBagian" class="form-label">Nama Bagian</label><br>
-                    <select class="form-select" name="NamaBagian"
-                      style="width: 36vh;
-                        height: 5vh;">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <select class="custom-select" name="NamaBagian" id="NamaBagian">
                     </select>
                   </div>
                 </div>
@@ -77,48 +73,48 @@
                 <p style="color:red">xxxxx -> : Emergency</p>
                 <p style="color:#fa8599">xxxxx -> : Edit EstDate/ Didelete</p>
               </div>
-              <table class="table" style="padding-top: 15px">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Nomor</th>
-                    <th>Tanggal Start</th>
-                    <th>WorkStation</th>
-                    <th>Est. Time</th>
-                    <th>Hari ke-</th>
-                    <th>Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>wdwadw</td>
-                    <td>wdawdawd</td>
-                    <td>wdawdawd</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                  <table class="table" style="padding-top: 15px" id="tableEditPerOrder">
+                    <thead class="table-dark" style="white-space: nowrap">
+                      <tr>
+                        <th>Nomor</th>
+                        <th>Tanggal Start</th>
+                        <th>WorkStation</th>
+                        <th>Est. Time</th>
+                        <th>Hari ke-</th>
+                        <th>Keterangan</th>
+                        <th>TimeInput</th>
+                        <th>NoWorkSts</th>
+                        <th>NoAntri</th>
+                        <th>IdTrans</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+              </div>
+
               <div class="mb-3">
                 <p style="color: red">Cek nomor yang mau diedit posisinya, dan cek posisi barunya.</p>
               </div>
               <div class="row">
                 <div class="col-6">
                   <div class="mb-3">
-                    <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" id="refresh">Refresh</button>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="row">
                     <div class="col-6">
-                      <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1"
-                        checked>
-                      <label class="form-check-label" for="radio1">Tukar Posisi</label><br>
-                      <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
-                      <label class="form-check-label" for="radio2">Susun Posisi</label>
+                      <input type="radio" class="form-check-input" id="Tukarposisi" name="optradio" value="Tukar">
+                      <label class="form-check-label" for="Tukarposisi">Tukar Posisi</label><br>
+                      <input type="radio" class="form-check-input" id="Susunposisi" name="optradio" value="Susun">
+                      <label class="form-check-label" for="Susunposisi">Susun Posisi</label>
                     </div>
                     <div class="col-6">
-                      <input type="submit" name="proses" value="Proses" class="btn btn-primary " disabled>
+                      <button type="button" class="btn btn-primary" id="proses">Proses</button>
+                      <button type="button" class="btn btn-danger" id="batal"
+                        style="display: none">Batal</button>
                     </div>
                   </div>
                 </div>

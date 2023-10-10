@@ -5,8 +5,31 @@ let NamaBarang = document.getElementById("NamaBarang");
 let NoGambarRev = document.getElementById("NoGambarRev");
 let OdSts = document.getElementById("OdSts");
 let KetOrder = document.getElementById("KetOrder");
-let Mesin = document.getElementById('Mesin');
-let Pengorder = document.getElementById('Pengorder');
+let Mesin = document.getElementById("Mesin");
+let Pengorder = document.getElementById("Pengorder");
+let btnbatal = document.getElementById("batal");
+let NamaBagian = document.getElementById("NamaBagian");
+
+let table_data = $("#tableEditPerOrder").DataTable();
+
+//#region set warna
+
+table_data.on("draw", function () {
+    table_data.rows().every(function () {
+        let data = this.data();
+        if (data.Status == 1) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("red-color");
+        }
+        if (data.Cancel == 1) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("hotpink-color");
+        }
+    });
+});
+
+//#endregion
+
 //#region NoOrder on enter
 
 NoOrder.addEventListener("keypress", function (event) {
@@ -29,10 +52,11 @@ NoOrder.addEventListener("keypress", function (event) {
 //#region load data
 
 function loaddata() {
+    let status = true;
     fetch("/LoadDataEditPerOrderKonstruksi/" + NoOrder.value)
         .then((response) => response.json())
         .then((datas) => {
-            console.log(datas);
+            // console.log(datas);
             if (datas.length > 0) {
                 divisi.value = datas[0].NamaDivisi;
                 Kode_Barang.value = datas[0].Kd_Brg;
@@ -42,9 +66,168 @@ function loaddata() {
                 KetOrder.value = datas[0].Ket_Order;
                 Mesin.value = datas[0].Mesin;
                 Pengorder.value = datas[0].Pengorder;
+            } else {
+                alert(
+                    "Nomer order gambar: " +
+                        NoOrder.value +
+                        ", tidak ada, blm diACC, ditolak, atau sudah finish."
+                );
+                return;
             }
-            else{
-                alert("Nomer order gambar: " + NoOrder.value + ", tidak ada, blm diACC, ditolak, atau sudah finish.");
+        });
+
+    fetch("/cekEstimasiKonstruksiEditPerOrderKonstruksi/" + NoOrder.value)
+        .then((response) => response.json())
+        .then((datas) => {
+            // console.log(datas);
+            if (datas[0].ada == 0) {
+                alert(
+                    "Nomer order: " +
+                        NoOrder.value +
+                        ", belum ada estimasi jadwalnya. Hubungi PPIC."
+                );
+                status = false;
+            } else {
+                //muncul btn batal
+                btnbatal.style.display = "";
+                loadnamabagian(NoOrder.value);
+                NamaBagian.focus();
+                //select bagian focus
+            }
+            if (status == false) {
+                //clear text
+                //noorder focus
+                cleartext();
+                NoOrder.focus();
+            }
+        });
+}
+
+//#endregion
+
+//#region isi bagian
+
+function loadnamabagian(NomorOrder) {
+    fetch("/GetdatabagianInputJadwal/" + NomorOrder)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            NamaBagian.innerHTML = "";
+            //
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.innerText = "Pilih Bagian";
+            NamaBagian.appendChild(defaultOption);
+            //
+            options.forEach((entry) => {
+                const option = document.createElement("option");
+                option.value = entry.IdBagian;
+                option.innerText = entry.NamaBagian + "--" + entry.IdBagian;
+                NamaBagian.appendChild(option);
+            });
+        });
+}
+
+//#endregion
+
+//#region cleartext
+
+function cleartext() {
+    NoOrder.value = "";
+    divisi.value = "";
+    OdSts.textContent = "";
+    Kode_Barang.value = "";
+    NoGambarRev.value = "";
+    NamaBarang.value = "";
+    Mesin.value = "";
+    Pengorder.value = "";
+    KetOrder.value = "";
+    NamaBagian.value = "";
+    //ListOpr.Items.Clear() table clear??
+}
+
+//#endregion
+
+//#region nama bagian on enter
+
+NamaBagian.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (NamaBagian.value != "Pilih Bagian") {
+            LoadOpr();
+        }
+    }
+});
+
+//#endregion
+
+//#region LoadOpr func table
+
+function LoadOpr() {
+    table_data.clear().draw();
+    fetch(
+        "/getDataTableEditPerOrderKonstruksi/" +
+            NoOrder.value +
+            "/" +
+            NamaBagian.value
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            // console.log(datas);
+            if (datas.length > 0) {
+                datas.forEach((data) => {
+                    const tglOrder = data.EstDate;
+
+                    const [tanggal, waktu] = tglOrder.split(" ");
+
+                    data.EstDate = tanggal;
+                });
+                table_data = $("#tableEditPerOrder").DataTable({
+                    destroy: true, // Destroy any existing DataTable before reinitializing
+                    data: datas,
+                    columns: [
+                        {
+                            title: "Nomor",
+                            data: null,
+                            render: function (data, type, row, meta) {
+                                return `<input type="checkbox" name="EditJadwalPerWorkstationCheck" value="${
+                                    meta.row + 1
+                                }" /> ${meta.row + 1}`;
+                            },
+                        },
+                        {
+                            title: "Tanggal Start",
+                            data: "EstDate",
+                        },
+                        {
+                            title: "WorkStation",
+                            data: "NamaWorkStation",
+                        },
+                        {
+                            title: "Est. Time",
+                            data: function (row) {
+                                return `${row.EstTimeHour} jam ${row.EstTimeMinute} menit`;
+                            },
+                        },
+                        { title: "Hari ke-", data: "HariKe" },
+
+                        { title: "Keterangan", data: "KetCancel" },
+                        {
+                            title: "TimeInput",
+                            data: "TimeInput",
+                        },
+                        {
+                            title: "NoWorkSts",
+                            data: "NoWrkSts",
+                        },
+                        { title: "NoAntri", data: "NoAntrian" },
+                        { title: "IdTrans", data: "IdTrans" },
+                    ],
+                });
+                table_data.draw();
+            }
+            else {
+                alert("Tidak ada jadwal konstruksi u/ nomer order: " + NoOrder.value + ", dgn bagian: " + NamaBagian.value + ".");
                 return;
             }
         });
