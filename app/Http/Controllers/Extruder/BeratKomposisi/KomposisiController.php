@@ -33,25 +33,26 @@ class KomposisiController extends Controller
                 $param_str = '@KD_BRG = ?, @PP = ?, @PE = ?, @CaCO3 = ?, @Masterbatch = ?, @UV = ?, @AntiStatic = ?, @Conductive = ?, @LDPE = ?, @LLDPE = ?, @HDPE = ?, @UserId = 4384';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
+            case 'SP_1273_INV_Cek_KonversiKomposisi_1':
+            case 'SP_1273_PRG_ListKonversi_1':
+            case 'SP_1273_PRG_UPDATE_KONVERSI_1':
+                $action_str = 'select';
+                if ($fun_str == 'SP_1273_PRG_UPDATE_KONVERSI_1') $action_str = 'statement';
+
+                $conn_str = 'ConnPurchase';
+                if ($fun_str == 'SP_1273_INV_Cek_KonversiKomposisi_1') $conn_str = 'ConnInventory';
+
+                $param_str = '@Kode = ?, @KodeBarang = ?';
+                return $this->executeSP($action_str, $fun_str, $param_str, $param_data, $conn_str);
+
             case 'SP_1273_PRG_ListKonversi_1~1':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 1';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
-            case 'SP_1273_PRG_ListKonversi_1~2':
+            case 'SP_1273_INV_Cek_KonversiKomposisi_1~NoKonversi':
                 $fun_str = explode('~', $fun_str)[0];
-                $param_str = '@Kode = 2, @KodeBarang = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
-
-            case 'SP_1273_PRG_UPDATE_KONVERSI_1':
-                $param_str = '@Kode = ?, @KodeBarang = ?';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
-
-            case 'SP_1273_INV_Cek_KonversiKomposisi_1~1':
-            case 'SP_1273_INV_Cek_KonversiKomposisi_1~2':
-            case 'SP_1273_INV_Cek_KonversiKomposisi_1~4':
-                $fun_str = explode('~', $fun_str)[0];
-                $param_str = '@Kode = ' . explode('~', $fun_str)[1] . ', @KodeBarang = ?';
+                $param_str = '@Kode = 3, @NoKonversi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Cek_KonversiKomposisi_1~3':

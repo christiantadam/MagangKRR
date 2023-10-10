@@ -78,21 +78,21 @@ class PencatatanController extends Controller
         // @IdPerawatan int
     }
 
-    public function insPerawatan($tanggal, $user_id, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $user_input, $id_gangguan = null)
+    public function insPerawatan($tanggal, $shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $id_gangguan = null)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_PERAWATAN @tanggal = ?, @userId = ?, @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @userinput = ?',
-            [$tanggal, $user_id, $shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai, $user_input]
+            'exec SP_5298_EXT_INSERT_PERAWATAN @tanggal = ?, @userId = 4384, @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @userinput = 4384',
+            [$tanggal, $shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai]
         );
 
         // @tanggal datetime, @userId char(4), @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @userinput varchar(7)
     }
 
-    public function updPerawatan($shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $user_koreksi, $id_gangguan = null)
+    public function updPerawatan($shift, $waktu, $id_perawatan, $id_mesin, $no_winder, $gangguan, $sebab, $solusi, $mulai, $selesai, $kode, $id_gangguan = null)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_UPDATE_PERAWATAN @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @Kode = ?, @userkoreksi = ?',
-            [$shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai, $kode, $user_koreksi]
+            'exec SP_5298_EXT_UPDATE_PERAWATAN @shift = ?, @waktu = ?, @IdPerawatan = ?, @idmesin = ?, @nowinder = ?, @idGangguan = ?, @gangguan = ?, @sebab = ?, @solusi = ?, @mulai = ?, @selesai = ?, @Kode = ?, @userkoreksi = 4384',
+            [$shift, str_replace('_', ' ', $waktu), $id_perawatan, $id_mesin, $no_winder, $id_gangguan, str_replace('_', ' ', $gangguan), str_replace('_', ' ', $sebab), str_replace('_', ' ', $solusi), $mulai, $selesai, $kode]
         );
 
         // @shift char(1), @waktu varchar(15), @IdPerawatan int, @idmesin char(5), @nowinder char(5), @idGangguan int=null, @gangguan varchar(200), @sebab varchar(200), @solusi varchar(200), @mulai datetime, @selesai datetime, @Kode int, @userkoreksi char(4) = null
@@ -189,21 +189,21 @@ class PencatatanController extends Controller
         // @tgl datetime, @mesin char(5), @shift char(2), @awal datetime, @akhir datetime, @idkonv varchar(14)
     }
 
-    public function insEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput)
+    public function insEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
-            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+            'exec SP_5298_EXT_INSERT_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = 4384',
+            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser]
         );
 
         // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
     }
 
-    public function updEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput)
+    public function updEff($Tanggal, $IdMesin, $Shift, $AwalProduksi, $AkhirProduksi, $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_UPDATE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = ?',
-            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser, $UserInput]
+            'exec SP_5298_EXT_UPDATE_EFF @Tanggal = ?, @IdMesin = ?, @Shift = ?, @AwalProduksi = ?, @AkhirProduksi = ?, @IdKonversi = ?, @ScrewRevolution = ?, @MotorCurrent = ?, @SlitterWidth = ?, @NoOfYarn = ?, @WaterGap = ?, @RollSpeed3 = ?, @StretchingRatio = ?, @Relax = ?, @Denier = ?, @DenierRata = ?, @JamUser = ?, @UserInput = 4384',
+            [$Tanggal, $IdMesin, $Shift, str_replace('T', ' ', $AwalProduksi), str_replace('T', ' ', $AkhirProduksi), $IdKonversi, $ScrewRevolution, $MotorCurrent, $SlitterWidth, $NoOfYarn, $WaterGap, $RollSpeed3, $StretchingRatio, $Relax, $Denier, $DenierRata, $JamUser]
         );
 
         // @Tanggal datetime, @IdMesin char(5), @Shift char(2), @AwalProduksi datetime, @AkhirProduksi datetime, @IdKonversi varchar(14), @ScrewRevolution numeric(9,2), @MotorCurrent numeric(9,2), @SlitterWidth numeric(9,2), @NoOfYarn numeric(9,2), @WaterGap numeric(9,2), @RollSpeed3 numeric(9,2), @StretchingRatio numeric(9,2), @Relax numeric(9,2), @Denier numeric(9,2), @DenierRata numeric(9,2), @JamUser datetime, @UserInput char(7)
@@ -241,11 +241,11 @@ class PencatatanController extends Controller
         // @bulan  varchar(2), @tahun varchar(4)
     }
 
-    public function insKwahMesin($tanggal, $id_mesin, $jam, $counter, $kali, $jam_user, $user)
+    public function insKwahMesin($tanggal, $id_mesin, $jam, $counter, $kali, $jam_user)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_KWAH_MESIN @tanggal = ?, @idmesin = ?, @jam = ?, @counter = ?, @kali = ?, @jamuser = ?, @user = ?',
-            [$tanggal, $id_mesin, $jam, $counter, $kali, $jam_user, $user]
+            'exec SP_5298_EXT_INSERT_KWAH_MESIN @tanggal = ?, @idmesin = ?, @jam = ?, @counter = ?, @kali = ?, @jamuser = ?, @user = 4384',
+            [$tanggal, $id_mesin, $jam, $counter, $kali, $jam_user]
         );
 
         // @tanggal  datetime, @idmesin  varchar(5), @jam datetime, @counter  numeric(10,2), @kali  numeric(10,2), @jamuser datetime, @user  varchar(7)
@@ -362,11 +362,11 @@ class PencatatanController extends Controller
         );
     }
 
-    public function insGangguanProd($tanggal, $id_mesin, $id_gangguan, $id_konversi = null, $shift, $awal, $akhir, $awal_gangguan, $akhir_gangguan, $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user, $user)
+    public function insGangguanProd($tanggal, $id_mesin, $id_gangguan, $id_konversi = null, $shift, $awal, $akhir, $awal_gangguan, $akhir_gangguan, $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_GANGGUAN_PROD @Tanggal = ?, @IdMesin = ?, @IdGangguan = ?, @IdKonversi = ?, @Shift = ?, @Awal = ?, @Akhir = ?, @AwalGangguan = ?, @AkhirGangguan = ?, @JumlahJam = ?, @JumlahMenit = ?, @Status = ?, @Keterangan = ?, @JamUser = ?, @User = ?',
-            [$tanggal, $id_mesin, $id_gangguan, $id_konversi, $shift, str_replace('T', ' ', $awal), str_replace('T', ' ', $akhir), str_replace('T', ' ', $awal_gangguan), str_replace('T', ' ', $akhir_gangguan), $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user, $user]
+            'exec SP_5298_EXT_INSERT_GANGGUAN_PROD @Tanggal = ?, @IdMesin = ?, @IdGangguan = ?, @IdKonversi = ?, @Shift = ?, @Awal = ?, @Akhir = ?, @AwalGangguan = ?, @AkhirGangguan = ?, @JumlahJam = ?, @JumlahMenit = ?, @Status = ?, @Keterangan = ?, @JamUser = ?, @User = 4384',
+            [$tanggal, $id_mesin, $id_gangguan, $id_konversi, $shift, str_replace('T', ' ', $awal), str_replace('T', ' ', $akhir), str_replace('T', ' ', $awal_gangguan), str_replace('T', ' ', $akhir_gangguan), $jumlah_jam, $jumlah_menit, $status, $keterangan, $jam_user]
         );
 
         // @Tanggal Datetime, @IdMesin Char(5), @IdGangguan Char(5), @IdKonversi Char(14)=null, @Shift Char(2), @Awal datetime, @Akhir datetime, @AwalGangguan datetime, @AkhirGangguan datetime, @JumlahJam numeric(9, @JumlahMenit numeric(9, @Status Char(1), @Keterangan Varchar(100), @JamUser datetime, @User Char(7)

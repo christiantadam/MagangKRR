@@ -913,7 +913,7 @@ btnProses.addEventListener("click", function () {
                     nama_komposisi +
                     "/" +
                     slcMesin.value +
-                    "/EXT/4384",
+                    "/EXT",
                 () => {
                     fetchSelect("/Master/getMasterKomposisi/EXT", (data) => {
                         addOptionIfNotExists(slcKomposisi, data.NoKomposisi);

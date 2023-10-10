@@ -471,8 +471,7 @@ btnProses.addEventListener("click", function () {
                         "/" +
                         txtRata.value +
                         "/" +
-                        getCurrentTime() +
-                        "/4384",
+                        getCurrentTime(),
                     () => {
                         if (modeProses == "isi") {
                             alert("Data berhasil disimpan.");

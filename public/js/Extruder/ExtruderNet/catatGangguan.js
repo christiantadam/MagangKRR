@@ -537,8 +537,7 @@ function prosesIsi() {
             "/" +
             txtKeterangan.value +
             "/" +
-            getCurrentTime() +
-            "/4384",
+            getCurrentTime(),
         () => {
             // SP_5298_EXT_NO_TRANS
             fetchSelect("/Catat/getNoTrans", (data) => {

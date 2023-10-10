@@ -564,7 +564,7 @@ function prosesInventoryFetch() {
                                         listTmpTrans[j].IdTransaksi +
                                         "/" +
                                         listTmpTrans[j].IdType.trim() +
-                                        "/4384/" +
+                                        "/" +
                                         dateInput.value +
                                         "/" +
                                         listTmpTrans[j]
@@ -613,7 +613,7 @@ function lunasiHutangFetch(jmlh_hutang) {
                         listTmpTrans[j].IdTransaksi +
                         "/" +
                         listTmpTrans[j].IdType.trim() +
-                        "/4384/" +
+                        "/" +
                         dateInput.value +
                         "/" +
                         listTmpTrans[j].JumlahPengeluaranPrimer +
@@ -660,7 +660,7 @@ function lunasiHutangFetch(jmlh_hutang) {
                                             fetchStmt(
                                                 "/Konversi/updProsesHutang/" +
                                                     arrIdType[k].trim() +
-                                                    "/4384/" +
+                                                    "/" +
                                                     arrSubKel[k].trim() +
                                                     "/" +
                                                     listHutangExt[l].Trans,
@@ -701,9 +701,7 @@ function lunasiHutangFetch(jmlh_hutang) {
 function prosesExtruderFetch() {
     // SP_5298_EXT_ACC_MASTER_KONVERSI
     fetchStmt(
-        "/Konversi/updACCMasterKonv/" +
-            listKonversi[konversiPil].IdKonversi +
-            "/4384",
+        "/Konversi/updACCMasterKonv/" + listKonversi[konversiPil].IdKonversi,
         () => {
             for (let i = 0; i < listHasil.length; i++) {
                 // SP_5298_EXT_UPDATE_SALDO_ORDER_DETAIL

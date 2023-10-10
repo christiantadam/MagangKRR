@@ -67,7 +67,20 @@ const btnKeluar = document.getElementById("btn_keluar");
 
 const listKonversi = [];
 /** ISI LIST KONVERSI
- * 0 ...
+ * 0 Tanggal
+ * 1 NoKonversi
+ * 2 BeratStandart
+ * 3 KoefPP
+ * 4 KoefPE
+ * 5 KoefCaCO3
+ * 6 KoefMB
+ * 7 KoefUV
+ * 8 KoefAS
+ * 9 KoefConductive
+ * 10 KoefLDPE
+ * 11 KoefLLDPE
+ * 12 KoefHDPE
+ * 13 Tgl_LoadingBC
  */
 
 const posKonversi = $("#table_konversi").offset().top - 125;
@@ -655,12 +668,35 @@ btnProses.addEventListener("click", function () {
         txtKodeBarang.focus();
     }
 });
+
+btnKoreksi.addEventListener("click", function () {
+    txtKodeBarang.disabled = false;
+    groupKomposisi.forEach((ele) => (ele.disabled = false));
+    btnKeluar.textContent = "Batal";
+    proses = "2";
+    btnProses.disabled = false;
+    btnPrint.disabled = false;
+    btnIsi.disabled = true;
+    btnHapus.disabled = true;
+    clearForm();
+    txtKodeBarang.focus();
+});
+
+btnHapus.addEventListener("click", function () {
+    txtKodeBarang.disabled = false;
+    btnKeluar.textContent = "Batal";
+    proses = "3";
+    btnProses.disabled = false;
+    btnKoreksi.disabled = true;
+    clearForm();
+    txtKodeBarang.focus();
+});
 //#endregion
 
 //#region Functions
 function clearForm() {
     listKonversi.length = 0;
-    clearTable_DataTable("table_konversi", colKonversi.length);
+    clearTable_DataTable("table_konversi", colKonversi.length, "padding=250px");
     allTxt.forEach((ele) => (ele.value = ""));
 }
 
@@ -685,10 +721,186 @@ function formWait(bool_state) {
     allBtn.forEach((ele) => (ele.style.cursor = cursor_state));
 }
 
-function loadDataKonversiFetch(s_kode_brg) {
+function loadDataKoreksiFetch(s_kode_brg) {
+    /**
+     * Saat ingin menjalankan fungsi ini lakukan pengecekkan terhadap:
+     * - txtKodeBarang
+     */
+
     formWait(true);
     listKonversi.length = 0;
 
+    // Tested
+    const cek_komposisi = (post_action = null) => {
+        fetchSelect(
+            "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1/1~" +
+                s_kode_brg,
+            (data) => {
+                let ada = 0;
+                if (data.length > 0) ada = data[0].Ada;
+
+                if (ada == 0) {
+                    formWait(false);
+                    alert("Kode Barang Tersebut Belum Pernah Input Konversi!");
+                    txtKodeBarang.value = "";
+                    txtJenisBarang.value = "";
+                    txtSubKategori.value = "";
+                    spnBeratStandar.textContent = "";
+                    txtType.value = "";
+                    btnProses.disabled = true;
+                    txtKodeBarang.focus();
+                    return;
+                } else if (ada != 1) {
+                    ada = parseFloat(ada) - 1;
+                    txtNoKonversi.value = txtKodeBarang.value + "-" + ada;
+                } else txtNoKonversi.value = txtKodeBarang.value; // Jika ada == 1
+
+                if (post_action != null) post_action();
+            }
+        );
+    };
+
+    // Tested
+    const load_komposisi = (post_action = null) => {
+        fetchSelect(
+            "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1~NoKonversi/" +
+                txtNoKonversi.value,
+            (data) => {
+                if (data.length > 0) {
+                    numBeratStandar.value = data[0].BeratStandart;
+                    dateInput.value = dateTimeToDate(data[0].Tanggal);
+
+                    num_PP_kg.value = data[0].PP;
+                    num_PE_kg.value = data[0].PE;
+                    num_CaCO3_kg.value = data[0].CaCO3;
+                    num_Masterbatch_kg.value = data[0].Masterbatch;
+                    num_UV_kg.value = data[0].UV;
+                    num_AntiStatic_kg.value = data[0].AntiStatic;
+                    num_Conductive_kg.value = data[0].Conductive;
+                    num_LDPE_kg.value = data[0].LDPELami;
+                    num_LLDPE_kg.value = data[0].LLDPEInner;
+                    num_HDPE_kg.value = data[0].HDPEInner;
+                    num_Total_kg.value =
+                        parseFloat(num_PP_kg.value) +
+                        parseFloat(num_PE_kg.value) +
+                        parseFloat(num_CaCO3_kg.value) +
+                        parseFloat(num_Masterbatch_kg.value) +
+                        parseFloat(num_UV_kg.value) +
+                        parseFloat(num_AntiStatic_kg.value) +
+                        parseFloat(num_Conductive_kg.value) +
+                        parseFloat(num_LDPE_kg.value) +
+                        parseFloat(num_LLDPE_kg.value) +
+                        parseFloat(num_HDPE_kg.value);
+
+                    num_PP_persen.value = data[0].PersenPP;
+                    num_PE_persen.value = data[0].PersenPE;
+                    num_CaCO3_persen.value = data[0].PersenCaCO3;
+                    num_Masterbatch_persen.value = data[0].PersenMB;
+                    num_UV_persen.value = data[0].PersenUV;
+                    num_AntiStatic_persen.value = data[0].PersenAS;
+                    num_Conductive_persen.value = data[0].PersenConductive;
+                    num_LDPE_persen.value = data[0].PersenLDPELami;
+                    num_LLDPE_persen.value = data[0].PersenLLDPEInner;
+                    num_HDPE_persen.value = data[0].PersenHDPEInner;
+                    num_Total_persen.value =
+                        parseFloat(num_PP_persen.value) +
+                        parseFloat(num_PE_persen.value) +
+                        parseFloat(num_CaCO3_persen.value) +
+                        parseFloat(num_Masterbatch_persen.value) +
+                        parseFloat(num_UV_persen.value) +
+                        parseFloat(num_AntiStatic_persen.value) +
+                        parseFloat(num_Conductive_persen.value) +
+                        parseFloat(num_LDPE_persen.value) +
+                        parseFloat(num_LLDPE_persen.value) +
+                        parseFloat(num_HDPE_persen.value);
+
+                    num_PP_koef.value = data[0].KoefPP;
+                    num_PE_koef.value = data[0].KoefPE;
+                    num_CaCO3_koef.value = data[0].KoefCaCO3;
+                    num_Masterbatch_koef.value = data[0].KoefMB;
+                    num_UV_koef.value = data[0].KoefUV;
+                    num_AntiStatic_koef.value = data[0].KoefAS;
+                    num_Conductive_koef.value = data[0].KoefConductive;
+                    num_LDPE_koef.value = data[0].KoefLDPE;
+                    num_LLDPE_koef.value = data[0].KoefLLDPE;
+                    num_HDPE_koef.value = data[0].KoefHDPE;
+                    num_Total_koef.value =
+                        parseFloat(num_PP_koef.value) +
+                        parseFloat(num_PE_koef.value) +
+                        parseFloat(num_CaCO3_koef.value) +
+                        parseFloat(num_Masterbatch_koef.value) +
+                        parseFloat(num_UV_koef.value) +
+                        parseFloat(num_AntiStatic_koef.value) +
+                        parseFloat(num_Conductive_koef.value) +
+                        parseFloat(num_LDPE_koef.value) +
+                        parseFloat(num_LLDPE_koef.value) +
+                        parseFloat(num_HDPE_koef.value);
+
+                    if (post_action != null) post_action();
+                } else {
+                    formWait(false);
+                    alert(
+                        "Data Konversi Tidak Ditemukan." +
+                            "\nPeriksa Kembali Bagian Kode Barang."
+                    );
+
+                    enableForm(false);
+                    clearForm();
+                }
+            }
+        );
+    };
+
+    // Tested
+    const load_konversi = () => {
+        fetchSelect(
+            "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1/2~" +
+                s_kode_brg,
+            (data) => {
+                for (let i = 0; i < data.length; i++) {
+                    listKonversi.push({
+                        Tanggal: dateTimeToDate(data[i].Tanggal),
+                        NoKonversi: data[i].NoKonversi,
+                        BeratStandart: data[i].BeratStandart,
+                        KoefPP: data[i].KoefPP,
+                        KoefPE: data[i].KoefPE,
+                        KoefCaCO3: data[i].KoefCaCO3,
+                        KoefMB: data[i].KoefMB,
+                        KoefUV: data[i].KoefUV,
+                        KoefAS: data[i].KoefAS,
+                        KoefConductive: data[i].KoefConductive,
+                        KoefLDPE: data[i].KoefLDPE,
+                        KoefLLDPE: data[i].KoefLLDPE,
+                        KoefHDPE: data[i].KoefHDPE,
+                        Tgl_LoadingBC:
+                            data[i].Tgl_LoadingBC !== null
+                                ? data[i].Tgl_LoadingBC
+                                : "",
+                    });
+                }
+
+                addTable_DataTable("table_konversi", listKonversi, colKonversi);
+                formWait(false);
+                if (proses != "2" && proses != "4") {
+                    showModal(
+                        "Hapus",
+                        "Apakah Anda Yakin Ingin Menghapus Konversi Tersebut?",
+                        () => {
+                            btnProses.focus();
+                        },
+                        () => {
+                            enableForm(false);
+                            clearForm();
+                        },
+                        null,
+                        () => {}
+                    );
+                } else dateLoading.focus();
+            }
+        );
+    };
+
+    // Tested
     fetchSelect(
         "/komposisiKonversi/SP_1273_PRG_DATA_BarangEksport_1/" + s_kode_brg,
         (data) => {
@@ -712,193 +924,265 @@ function loadDataKonversiFetch(s_kode_brg) {
                     numWaste.value = "0";
                 }
 
+                cek_komposisi(() => {
+                    load_komposisi(() => {
+                        load_konversi();
+                    });
+                });
+            } else {
+                formWait(false);
+                alert("Kode Barang Ini Belum Terdaftar Sebagai Barang Ekspor!");
+                txtKodeBarang.value = "";
+                btnProses.disabled = true;
+                txtKodeBarang.focus();
+                return;
+            }
+        }
+    );
+}
+
+function loadDataFetch(s_kode_brg) {
+    formWait(true);
+    listKonversi.length = 0;
+
+    const cek_komposisi = (post_action = null) => {
+        fetchSelect(
+            "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1/1~" +
+                s_kode_brg,
+            (data) => {
+                let ada = 0;
+                if (data.length > 0) ada = data[0].Ada;
+
+                if (ada == 0) {
+                    txtNoKonversi.value = txtKodeBarang.value;
+                } else txtNoKonversi.value = txtKodeBarang.value + "-" + ada;
+
                 fetchSelect(
-                    "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1~1/" +
+                    "/komposisiKonversi/SP_1273_PRG_CEK_KOMPOSISI_1/" +
                         s_kode_brg,
                     (data) => {
-                        let ada = 0;
-                        if (data.length > 0) ada = data[0].Ada;
+                        let totalKu = 0;
+                        if (data.length > 0) totalKu = data[0].Total;
 
-                        if (ada == 0) {
+                        if (totalKu > 0) {
+                            if (post_action != null) post_action();
+                        } else if (totalKu == 0) {
                             formWait(false);
                             alert(
-                                "Kode Barang Tersebut Belum Pernah Input Konversi !"
+                                "Kode Barang Ini Belum Input Komposisi Konversi !"
                             );
                             txtKodeBarang.value = "";
-                            txtJenisBarang.value = "";
-                            txtSubKategori.value = "";
-                            spnBeratStandar.textContent = "";
-                            txtType.value = "";
-                            btnProses.disabled = true;
+                            clearForm();
                             txtKodeBarang.focus();
-                            return;
-                        } else if (ada == 1) {
-                            txtNoKonversi.value = txtKodeBarang.value;
-                        } else {
-                            ada = parseFloat(ada) - 1;
-                            txtNoKonversi.value =
-                                txtKodeBarang.value + "-" + ada;
-                        }
-
-                        fetchSelect(
-                            "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1~3/" +
-                                txtNoKonversi.value,
-                            (data) => {
-                                if (data.length > 0) {
-                                    numBeratStandar.value =
-                                        data[0].BeratStandart;
-                                    dateInput.value = data[0].Tanggal;
-                                    num_PP_kg.value = data[0].PP;
-                                    num_PE_kg.value = data[0].PE;
-                                    num_CaCO3_kg.value = data[0].CaCO3;
-                                    num_Masterbatch_kg.value =
-                                        data[0].Masterbatch;
-                                    num_UV_kg.value = data[0].UV;
-                                    num_AntiStatic_kg.value =
-                                        data[0].AntiStatic;
-                                    num_Conductive_kg.value =
-                                        data[0].Conductive;
-                                    num_LDPE_kg.value = data[0].LDPELami;
-                                    num_LLDPE_kg.value = data[0].LLDPEInner;
-                                    num_HDPE_kg.value = data[0].HDPEInner;
-                                    num_Total_kg.value =
-                                        parseFloat(numBeratStandar.value) +
-                                        parseFloat(dateInput.value) +
-                                        parseFloat(num_PP_kg.value) +
-                                        parseFloat(num_PE_kg.value) +
-                                        parseFloat(num_CaCO3_kg.value) +
-                                        parseFloat(num_Masterbatch_kg.value) +
-                                        parseFloat(num_UV_kg.value) +
-                                        parseFloat(num_AntiStatic_kg.value) +
-                                        parseFloat(num_Conductive_kg.value) +
-                                        parseFloat(num_LDPE_kg.value) +
-                                        parseFloat(num_LLDPE_kg.value) +
-                                        parseFloat(num_HDPE_kg.value);
-
-                                    num_PP_persen.value = data[0].PP;
-                                    num_PE_persen.value = data[0].PE;
-                                    num_CaCO3_persen.value = data[0].CaCO3;
-                                    num_Masterbatch_persen.value =
-                                        data[0].Masterbatch;
-                                    num_UV_persen.value = data[0].UV;
-                                    num_AntiStatic_persen.value =
-                                        data[0].AntiStatic;
-                                    num_Conductive_persen.value =
-                                        data[0].Conductive;
-                                    num_LDPE_persen.value = data[0].LDPELami;
-                                    num_LLDPE_persen.value = data[0].LLDPEInner;
-                                    num_HDPE_persen.value = data[0].HDPEInner;
-                                    num_Total_persen.value =
-                                        parseFloat(numBeratStandar.value) +
-                                        parseFloat(dateInput.value) +
-                                        parseFloat(num_PP_persen.value) +
-                                        parseFloat(num_PE_persen.value) +
-                                        parseFloat(num_CaCO3_persen.value) +
-                                        parseFloat(
-                                            num_Masterbatch_persen.value
-                                        ) +
-                                        parseFloat(num_UV_persen.value) +
-                                        parseFloat(
-                                            num_AntiStatic_persen.value
-                                        ) +
-                                        parseFloat(
-                                            num_Conductive_persen.value
-                                        ) +
-                                        parseFloat(num_LDPE_persen.value) +
-                                        parseFloat(num_LLDPE_persen.value) +
-                                        parseFloat(num_HDPE_persen.value);
-
-                                    num_PP_koef.value = data[0].PP;
-                                    num_PE_koef.value = data[0].PE;
-                                    num_CaCO3_koef.value = data[0].CaCO3;
-                                    num_Masterbatch_koef.value =
-                                        data[0].Masterbatch;
-                                    num_UV_koef.value = data[0].UV;
-                                    num_AntiStatic_koef.value =
-                                        data[0].AntiStatic;
-                                    num_Conductive_koef.value =
-                                        data[0].Conductive;
-                                    num_LDPE_koef.value = data[0].LDPELami;
-                                    num_LLDPE_koef.value = data[0].LLDPEInner;
-                                    num_HDPE_koef.value = data[0].HDPEInner;
-                                    num_Total_koef.value =
-                                        parseFloat(numBeratStandar.value) +
-                                        parseFloat(dateInput.value) +
-                                        parseFloat(num_PP_koef.value) +
-                                        parseFloat(num_PE_koef.value) +
-                                        parseFloat(num_CaCO3_koef.value) +
-                                        parseFloat(num_Masterbatch_koef.value) +
-                                        parseFloat(num_UV_koef.value) +
-                                        parseFloat(num_AntiStatic_koef.value) +
-                                        parseFloat(num_Conductive_koef.value) +
-                                        parseFloat(num_LDPE_koef.value) +
-                                        parseFloat(num_LLDPE_koef.value) +
-                                        parseFloat(num_HDPE_koef.value);
-
-                                    fetchSelect(
-                                        "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1~2/" +
-                                            s_kode_brg,
-                                        (data) => {
-                                            for (
-                                                let index = 0;
-                                                index < array.length;
-                                                index++
-                                            ) {
-                                                listKonversi.push({
-                                                    Tanggal: data[i].Tanggal,
-                                                    BeratStandart:
-                                                        data[i].BeratStandart,
-                                                    KoefPP: data[i].KoefPP,
-                                                    KoefPE: data[i].KoefPE,
-                                                    KoefCaCO3:
-                                                        data[i].KoefCaCO3,
-                                                    KoefMB: data[i].KoefMB,
-                                                    KoefUV: data[i].KoefUV,
-                                                    KoefAS: data[i].KoefAS,
-                                                    KoefConductive:
-                                                        data[i].KoefConductive,
-                                                    KoefLDPE: data[i].KoefLDPE,
-                                                    KoefLLDPE:
-                                                        data[i].KoefLLDPE,
-                                                    KoefHDPE: data[i].KoefHDPE,
-                                                    Tgl_loadingBC:
-                                                        data[i].Tgl_loadingBC,
-                                                });
-                                            }
-
-                                            formWait(false);
-                                            if (numBeratStandar.value == "") {
-                                                alert(
-                                                    "Tidak Ada Data Yang Bisa diKoreksi atau diHapus Untuk Kode Barang Tersebut !"
-                                                );
-                                                enableForm(false);
-                                                clearForm();
-                                                return;
-                                            }
-
-                                            if (
-                                                proses != "2" &&
-                                                proses != "4"
-                                            ) {
-                                                showModal(
-                                                    "Hapus",
-                                                    "Apakah Anda Yakin Ingin Menghapus Konversi Tersebut ?",
-                                                    () => {
-                                                        btnProses.focus();
-                                                    },
-                                                    () => {
-                                                        enableForm(false);
-                                                        clearForm();
-                                                    }
-                                                );
-                                            } else dateLoading.focus();
-                                        }
-                                    );
-                                }
-                            }
-                        );
+                        } else alert("Input Data Tidak Valid !");
                     }
                 );
+            }
+        );
+    };
+
+    const hit_total = () => {
+        return (
+            parseFloat(num_PP_kg.value) +
+            parseFloat(num_PE_kg.value) +
+            parseFloat(num_CaCO3_kg.value) +
+            parseFloat(num_Masterbatch_kg.value) +
+            parseFloat(num_UV_kg.value) +
+            parseFloat(num_AntiStatic_kg.value) +
+            parseFloat(num_Conductive_kg.value) +
+            parseFloat(num_LDPE_kg.value) +
+            parseFloat(num_LLDPE_kg.value) +
+            parseFloat(num_HDPE_kg.value)
+        );
+    };
+
+    const hit_a = (kom_ele, komposisi) => {
+        kom_ele.value = (
+            Math.round(
+                (((parseFloat(komposisi) / parseFloat(berat1)) *
+                    parseFloat(berat2)) /
+                    1000) *
+                    100000
+            ) / 100000
+        ).toFixed(4);
+    };
+
+    const hit_b = (kom_ele, komposisi) => {
+        if (
+            parseFloat(num_Total_kg.value) != parseFloat(numBeratStandar.value)
+        ) {
+            kom_ele.value = (
+                Math.round(
+                    ((parseFloat(komposisi) / 1000).toFixed(4) /
+                        parseFloat(spnBeratStandar.textContent)) *
+                        parseFloat(numBeratStandar.value) *
+                        100000
+                ) / 100000
+            ).toFixed(4);
+            num_Total_kg.value = hit_total();
+        }
+    };
+
+    const hit_c = (kom_ele, komposisi) => {
+        if (
+            parseFloat(num_Total_kg.value) == parseFloat(numBeratStandar.value)
+        ) {
+            if (kom_ele.value > 0) {
+                kom_ele.value = parseFloat(komposisi) - 0.0001;
+            } else kom_ele.value = parseFloat(komposisi) + 0.0001;
+            num_Total_kg.value = hit_total();
+        }
+    };
+
+    const jual_kg_y = (kom_ele, koef_ele) => {
+        koef_ele.value = (
+            parseFloat(kom_ele.value) / parseFloat(numBeratStandar.value)
+        ).toFixed(4);
+    };
+
+    const jual_kg_d = (kom_ele, koef_ele) => {
+        koef_ele.value = (parseFloat(kom_ele.value) * 0.9144).toFixed(4);
+    };
+
+    const jual_kg_e = (kom_ele, koef_ele) => {
+        koef_ele.value = (
+            parseFloat(kom_ele.value) /
+            (parseFloat(numTerkandung.value) / 100)
+        ).toFixed(4);
+    };
+
+    const load_komposisi = () => {
+        fetchSelect(
+            "komposisiKonversi/SP_1273_PRG_DATA_KOMPOSISI_1/" + s_kode_brg,
+            (data) => {
+                if (data.length > 0) {
+                    jualKg = data[0].JualKg;
+
+                    //#region Perhitungan Komposisi
+                    hit_a(num_PP_kg, data[0].PP);
+                    hit_a(num_PE_kg, data[0].PE);
+                    hit_a(num_CaCO3_kg, data[0].CaCO3);
+                    hit_a(num_Masterbatch_kg, data[0].Masterbatch);
+                    hit_a(num_UV_kg, data[0].UV);
+                    hit_a(num_AntiStatic_kg, data[0].AntiStatic);
+                    hit_a(num_Conductive_kg, data[0].Conductive);
+                    hit_a(num_LDPE_kg, data[0].LDPELami);
+                    hit_a(num_LLDPE_kg, data[0].LLDPEInner);
+                    hit_a(num_HDPE_kg, data[0].HDPEInner);
+                    num_Total_kg.value = hit_total();
+
+                    hit_b(num_PP_kg, data[0].PP);
+                    hit_b(num_PE_kg, data[0].PE);
+                    hit_b(num_CaCO3_kg, data[0].CaCO3);
+                    hit_b(num_Masterbatch_kg, data[0].Masterbatch);
+                    hit_b(num_UV_kg, data[0].UV);
+                    hit_b(num_AntiStatic_kg, data[0].AntiStatic);
+                    hit_b(num_Conductive_kg, data[0].Conductive);
+                    hit_b(num_LDPE_kg, data[0].LDPELami);
+                    hit_b(num_LLDPE_kg, data[0].LLDPEInner);
+                    hit_b(num_HDPE_kg, data[0].HDPEInner);
+
+                    hit_c(num_PP_kg, data[0].PP);
+                    hit_c(num_PE_kg, data[0].PE);
+                    hit_c(num_CaCO3_kg, data[0].CaCO3);
+                    hit_c(num_Masterbatch_kg, data[0].Masterbatch);
+                    hit_c(num_UV_kg, data[0].UV);
+                    hit_c(num_AntiStatic_kg, data[0].AntiStatic);
+                    hit_c(num_Conductive_kg, data[0].Conductive);
+                    hit_c(num_LDPE_kg, data[0].LDPELami);
+                    hit_c(num_LLDPE_kg, data[0].LLDPEInner);
+                    hit_c(num_HDPE_kg, data[0].HDPEInner);
+                    //#endregion
+
+                    //#region Perhitungan Jual KG
+                    if (jualKg == "Y") {
+                        jual_kg_y(num_PP_kg, num_PP_koef);
+                        jual_kg_y(num_PE_kg, num_PE_koef);
+                        jual_kg_y(num_CaCO3_kg, num_CaCO3_koef);
+                        jual_kg_y(num_Masterbatch_kg, num_Masterbatch_koef);
+                        jual_kg_y(num_UV_kg, num_UV_koef);
+                        jual_kg_y(num_AntiStatic_kg, num_AntiStatic_koef);
+                        jual_kg_y(num_Conductive_kg, num_Conductive_koef);
+                        jual_kg_y(num_LDPE_kg, num_LDPE_koef);
+                        jual_kg_y(num_LLDPE_kg, num_LLDPE_koef);
+                        jual_kg_y(num_HDPE_kg, num_HDPE_koef);
+                    } else if (jualKg == "D") {
+                        jual_kg_d(num_PP_kg, num_PP_koef);
+                        jual_kg_d(num_PE_kg, num_PE_koef);
+                        jual_kg_d(num_CaCO3_kg, num_CaCO3_koef);
+                        jual_kg_d(num_Masterbatch_kg, num_Masterbatch_koef);
+                        jual_kg_d(num_UV_kg, num_UV_koef);
+                        jual_kg_d(num_AntiStatic_kg, num_AntiStatic_koef);
+                        jual_kg_d(num_Conductive_kg, num_Conductive_koef);
+                        jual_kg_d(num_LDPE_kg, num_LDPE_koef);
+                        jual_kg_d(num_LLDPE_kg, num_LLDPE_koef);
+                        jual_kg_d(num_HDPE_kg, num_HDPE_koef);
+                    } else {
+                        jual_kg_e(num_PP_kg, num_PP_koef);
+                        jual_kg_e(num_PE_kg, num_PE_koef);
+                        jual_kg_e(num_CaCO3_kg, num_CaCO3_koef);
+                        jual_kg_e(num_Masterbatch_kg, num_Masterbatch_koef);
+                        jual_kg_e(num_UV_kg, num_UV_koef);
+                        jual_kg_e(num_AntiStatic_kg, num_AntiStatic_koef);
+                        jual_kg_e(num_Conductive_kg, num_Conductive_koef);
+                        jual_kg_e(num_LDPE_kg, num_LDPE_koef);
+                        jual_kg_e(num_LLDPE_kg, num_LLDPE_koef);
+                        jual_kg_e(num_HDPE_kg, num_HDPE_koef);
+                    }
+                    //#endregion
+                }
+            }
+        );
+    };
+
+    fetchSelect(
+        "/komposisiKonversi/SP_1273_PRG_DATA_BarangEksport_1/" + s_kode_brg,
+        (data) => {
+            if (data.length > 0) {
+                txtSubKategori.value = data[0].NoSubKategori;
+                txtJenisBarang.value = data[0].NamaSubKategori;
+                txtType.value = data[0].NamaBarang;
+                spnBeratStandar.textContent = data[0].BERAT_TOTAL;
+                numBeratStandar.value = data[0].BERAT_TOTAL2;
+                berat1 = data[0].BERAT_TOTAL;
+                berat2 = data[0].BERAT_TOTAL2;
+                spnBeratStandar.textContent = (
+                    parseFloat(spnBeratStandar.textContent) / 1000
+                ).toFixed(4);
+                numBeratStandar.value = (
+                    parseFloat(numBeratStandar.value) / 1000
+                ).toFixed(4);
+
+                if (parseFloat(spnBeratStandar.textContent) == 0) {
+                    formWait(false);
+                    alert(
+                        "Berat Standart 1 Untuk Kode Barang Ini Belum diInputkan !"
+                    );
+                    txtKodeBarang.value = "";
+                    txtJenisBarang.value = "";
+                    txtSubKategori.value = "";
+                    txtType.value = "";
+                    btnProses.disabled = true;
+                    clearForm();
+                    txtKodeBarang.focus();
+                    return;
+                }
+
+                if (txtSubKategori.value.trim() == "1509") {
+                    numTerkandung.value = "95"; // Jumbo
+                    numWaste.value = "5";
+                } else if (txtSubKategori.value.trim() == "2472") {
+                    numTerkandung.value = "96"; // Starpak
+                    numWaste.value = "4";
+                } else if (txtSubKategori.value.trim() == "1508") {
+                    numTerkandung.value = "97"; // Woven
+                    numWaste.value = "3";
+                } else {
+                    numTerkandung.value = "100";
+                    numWaste.value = "0";
+                }
+
+                cek_komposisi();
             } else {
                 formWait(false);
                 alert(
@@ -907,7 +1191,6 @@ function loadDataKonversiFetch(s_kode_brg) {
                 txtKodeBarang.value = "";
                 btnProses.disabled = true;
                 txtKodeBarang.focus();
-                return;
             }
         }
     );
@@ -945,6 +1228,10 @@ function init() {
     btnProses.disabled = true;
     btnPrint.disabled = true;
     clearForm();
+
+    /* DEBUG loadDataKoreksiFetch() */
+    // txtKodeBarang.value = "KONV01";
+    // loadDataKoreksiFetch("0000BAR01");
 }
 
 $(document).ready(() => init());

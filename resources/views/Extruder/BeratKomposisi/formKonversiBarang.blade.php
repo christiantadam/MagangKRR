@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="form-group col-md-2">
-                <span id="lbl_berat_standar" class="hidden">...</span>
+                <span id="lbl_berat_standar1" class="hidden">...</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="tanggal_input">Tanggal Input:</label>

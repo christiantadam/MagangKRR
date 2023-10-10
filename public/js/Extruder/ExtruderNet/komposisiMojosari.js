@@ -1375,8 +1375,7 @@ btnProses.addEventListener("click", function () {
                             "/" +
                             slcMesin.value +
                             "/" +
-                            idDivisi +
-                            "/4384",
+                            idDivisi,
                         () => {
                             fetchSelect(
                                 "/Master/getMasterKomposisi/" + idDivisi,

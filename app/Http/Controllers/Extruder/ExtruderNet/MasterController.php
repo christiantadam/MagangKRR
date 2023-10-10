@@ -323,7 +323,7 @@ class MasterController extends Controller
     public function insMasterKomposisi($nama_komposisi, $id_mesin, $id_divisi, $user = null)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_MASTER_KOMPOSISI @NamaKomposisi = ?, @idmesin = ?, @iddivisi = ?, @user = ?',
+            'exec SP_5298_EXT_INSERT_MASTER_KOMPOSISI @NamaKomposisi = ?, @idmesin = ?, @iddivisi = ?, @user = 4384',
             [$nama_komposisi, $id_mesin, $id_divisi, $user]
         );
 

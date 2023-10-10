@@ -1073,7 +1073,7 @@ function createTmpTransaksiInventoryFetch(i, id_konv_inv, post_action = null) {
             uraian +
             "/" +
             listKonversi[i].IdType.trim() +
-            "/4384/" +
+            "/" +
             dateTanggal.value +
             "/" +
             listKonversi[i].JumlahPrimer.replace(".", "_") +
@@ -1269,8 +1269,7 @@ function prosesIsiFetch() {
                 "/" +
                 timeMulai.value.replace(/:/g, "_") +
                 "/" +
-                timeSelesai.value.replace(/:/g, "_") +
-                "/4384",
+                timeSelesai.value.replace(/:/g, "_"),
             () => {
                 fetchSelect("/Konversi/getMasterKonversi", (data) => {
                     addOptionIfNotExists(slcNomor, data.NoKonversi);

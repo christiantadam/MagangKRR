@@ -187,8 +187,7 @@ function prosesIsi() {
             "/" +
             txtFaktor.value +
             "/" +
-            getCurrentTime() +
-            "/4384",
+            getCurrentTime(),
         () => {
             setEnable(false);
             toggleButtons(1);

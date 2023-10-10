@@ -179,7 +179,7 @@ btnProses.addEventListener("click", function () {
                 dateInput.value +
                 "/" +
                 txtIdentifikasi.value +
-                "/4384/" +
+                "/" +
                 kode_ins,
             () => {
                 if (namaGedung == "B") {

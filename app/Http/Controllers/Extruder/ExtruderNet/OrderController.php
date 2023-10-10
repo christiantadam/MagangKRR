@@ -64,17 +64,17 @@ class OrderController extends Controller
         );
     }
 
-    public function insOrderBenang($gedung, $tanggal, $identifikasi, $user, $kode = null)
+    public function insOrderBenang($gedung, $tanggal, $identifikasi, $kode = null)
     {
         if ($gedung == 'B') {
             return DB::connection('ConnExtruder')->statement(
-                'exec SP_1273_MEX_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = ?',
-                [$tanggal, $identifikasi, $user]
+                'exec SP_1273_MEX_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = 4384',
+                [$tanggal, $identifikasi]
             );
         } else {
             return DB::connection('ConnExtruder')->statement(
-                'exec SP_5298_EXT_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = ?, @kode = ?',
-                [$tanggal, $identifikasi, $user, $kode]
+                'exec SP_5298_EXT_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = 4384, @kode = ?',
+                [$tanggal, $identifikasi, $kode]
             );
         }
     }
@@ -145,11 +145,11 @@ class OrderController extends Controller
         );
     }
 
-    public function updAccOrder($id_order, $user_acc)
+    public function updAccOrder($id_order)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_ACC_ORDER @idorder = ?, @useracc = ?',
-            [$id_order, $user_acc]
+            'exec SP_5298_EXT_ACC_ORDER @idorder = ?, @useracc = 4384',
+            [$id_order]
         );
     }
     #endregion

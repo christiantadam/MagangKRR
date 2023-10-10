@@ -110,11 +110,11 @@ class KonversiController extends Controller
         // dd($this->getJumlahHutang('type3', '123456', 'T', 'is is a '));
     }
 
-    public function updProsesACCKonversi($id_transaksi, $id_type, $user_acc, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
+    public function updProsesACCKonversi($id_transaksi, $id_type, $waktu_acc, $keluar_primer, $keluar_sekunder, $keluar_tritier, $masuk_primer, $masuk_sekunder, $masuk_tritier)
     {
         return DB::connection('ConnInventory')->statement(
-            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = ?, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
-            [$id_transaksi, $id_type, $user_acc, $waktu_acc, str_replace("_", ".", $keluar_primer), str_replace("_", ".", $keluar_sekunder), str_replace("_", ".", $keluar_tritier), str_replace("_", ".", $masuk_primer), str_replace("_", ".", $masuk_sekunder), str_replace("_", ".", $masuk_tritier)]
+            'exec SP_5298_EXT_PROSES_ACC_KONVERSI @XIdTransaksi = ?, @XIdType = ?, @XUserACC = 4384, @XWaktuACC = ?, @XKeluarPrimer = ?, @XKeluarSekunder = ?, @XKeluarTritier = ?, @XMasukPrimer = ?, @XMasukSekunder = ?, @XMasukTritier = ?',
+            [$id_transaksi, $id_type, $waktu_acc, str_replace("_", ".", $keluar_primer), str_replace("_", ".", $keluar_sekunder), str_replace("_", ".", $keluar_tritier), str_replace("_", ".", $masuk_primer), str_replace("_", ".", $masuk_sekunder), str_replace("_", ".", $masuk_tritier)]
         );
 
         // @XIdTransaksi  integer, @XIdType  varchar(20), @XUserACC char(7), @XWaktuACC  datetime = null, @XKeluarPrimer  numeric(9,2), @XKeluarSekunder  numeric(9,2), @XKeluarTritier  numeric(9,2), @XMasukPrimer  numeric(9,2), @XMasukSekunder  numeric(9,2), @XMasukTritier  numeric(9,2)
@@ -131,21 +131,21 @@ class KonversiController extends Controller
         // dd($this->getIdTransInv(1, 123456, 'P', '07-09-23'));
     }
 
-    public function updProsesHutang($id_type, $subkel, $id_inv, $pemberi)
+    public function updProsesHutang($id_type, $subkel, $id_inv)
     {
         return DB::connection('ConnInventory')->statement(
-            'exec SP_5298_EXT_PROSES_UPDATE_HUTANG @idType = ?, @subKel = ?, @idINV = ?, @Pemberi = ?',
-            [$id_type, $subkel, $id_inv, $pemberi]
+            'exec SP_5298_EXT_PROSES_UPDATE_HUTANG @idType = ?, @subKel = ?, @idINV = ?, @Pemberi = 4384',
+            [$id_type, $subkel, $id_inv]
         );
 
         // @idType char(20), @subKel char(6), @idINV char(9), @Pemberi char(4)
     }
 
-    public function updACCMasterKonv($id_konversi, $user_acc)
+    public function updACCMasterKonv($id_konversi)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_ACC_MASTER_KONVERSI @idkonversi = ?, @useracc = ?',
-            [$id_konversi, $user_acc]
+            'exec SP_5298_EXT_ACC_MASTER_KONVERSI @idkonversi = ?, @useracc = 4384',
+            [$id_konversi]
         );
 
         // @idkonversi varchar(14), @useracc varchar(4)
@@ -319,7 +319,7 @@ class KonversiController extends Controller
         // @IdType char(20)
     }
 
-    public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $id_pemohon, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
+    public function insTmpTransaksi($id_type_transaksi, $uraian_detail_transaksi, $id_type, $saat_awal_transaksi, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $asal_sub_kel, $id_konversi)
     {
         $sp_str = '';
         $primer_str = '';
@@ -342,8 +342,8 @@ class KonversiController extends Controller
         }
 
         return DB::connection('ConnInventory')->statement(
-            'exec ' . $sp_str . ' @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = ?, @XsaatAwalTransaksi = ?, ' . $primer_str . ' = ?, ' . $sekunder_str . ' = ?, ' . $tersier_str . ' = ?, ' . $subkel_str . ' = ?, @XIdKonversi = ?',
-            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $id_pemohon, $saat_awal_transaksi, str_replace('_', '.', $jumlah_keluar_primer), str_replace('_', '.', $jumlah_keluar_sekunder), str_replace('_', '.', $jumlah_keluar_tritier), $asal_sub_kel, $id_konversi]
+            'exec ' . $sp_str . ' @XIdTypeTransaksi = ?, @XUraianDetailTransaksi = ?, @XIdType = ?, @XIdPemohon = 4384, @XsaatAwalTransaksi = ?, ' . $primer_str . ' = ?, ' . $sekunder_str . ' = ?, ' . $tersier_str . ' = ?, ' . $subkel_str . ' = ?, @XIdKonversi = ?',
+            [$id_type_transaksi, Str::title(str_replace('_', ' ', $uraian_detail_transaksi)), $id_type, $saat_awal_transaksi, str_replace('_', '.', $jumlah_keluar_primer), str_replace('_', '.', $jumlah_keluar_sekunder), str_replace('_', '.', $jumlah_keluar_tritier), $asal_sub_kel, $id_konversi]
         );
 
         // @XIdTypeTransaksi  char(2), @XUraianDetailTransaksi  varchar(50), @XIdType  varchar(20), @XIdPemohon  char(7), @XSaatawalTransaksi  datetime, @XJumlahKeluarPrimer  numeric(15,2), @XJumlahKeluarSekunder numeric(15,2), @XJumlahKeluarTritier numeric(15,2), @XAsalsubKel  char(6), @XIdKonversi  char(9)
@@ -361,11 +361,11 @@ class KonversiController extends Controller
         // @IdKonversi varchar(14), @IdType varchar(20), @JumlahPrimer numeric(9,2), @JumlahSekunder numeric(9,2), @JumlahTritier numeric(9,2), @Persentase numeric(9,2)=0, @idKonversiInv varchar(9)
     }
 
-    public function insMasterKonversi($tgl, $shift, $awal, $akhir, $mesin, $ukuran, $denier, $warna, $lot_number, $id_order, $no_urut, $id_komp, $jam1, $jam2, $user, $kode = null)
+    public function insMasterKonversi($tgl, $shift, $awal, $akhir, $mesin, $ukuran, $denier, $warna, $lot_number, $id_order, $no_urut, $id_komp, $jam1, $jam2, $kode = null)
     {
         return DB::connection('ConnExtruder')->statement(
-            'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = ?, @kode = ?',
-            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), str_replace("_", ".", $denier), $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $user, $kode]
+            'exec SP_5298_EXT_INSERT_MASTER_KONVERSI @tgl = ?, @shift = ?, @awal = ?, @akhir = ?, @mesin = ?, @ukuran = ?, @denier = ?, @warna = ?, @lotNumber = ?, @idOrder = ?, @noUrut = ?, @idKomp = ?, @jam1 = ?, @jam2 = ?, @user = 4384, @kode = ?',
+            [$tgl, $shift, str_replace("_", ":", $awal), str_replace("_", ":", $akhir), $mesin, str_replace("_", ".", $ukuran), str_replace("_", ".", $denier), $warna, str_replace("_", ".", $lot_number), $id_order, $no_urut, $id_komp, Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam1), Carbon::today()->format('Y-m-d') . ' ' . str_replace("_", ":", $jam2), $kode]
         );
 
         // @tgl datetime, @shift char(2), @awal datetime, @akhir datetime, @mesin char(5), @ukuran numeric(9,2), @denier numeric(9,2), @warna varchar(10), @lotNumber varchar(9), @idOrder varchar(10), @noUrut int, @idKomp char(9), @jam1 datetime, @jam2 datetime, @user char(7), @kode char(1) = null

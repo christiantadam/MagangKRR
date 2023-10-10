@@ -450,7 +450,7 @@ function prosesIsi() {
     fetchStmt(
         "/Catat/insPerawatan/" +
             dateInput.value +
-            "/4384/" +
+            "/" +
             txtShift.value +
             "/" +
             slcJam.value +
@@ -473,7 +473,7 @@ function prosesIsi() {
             timeMulai.value +
             "/" +
             timeSelesai.value +
-            "/4384/" +
+            "/" +
             id_gangguan,
         () => {
             showModal(
@@ -523,7 +523,7 @@ function prosesUpdate() {
             timeSelesai.value +
             "/" +
             hidKode.value +
-            "/4384/" +
+            "/" +
             id_gangguan,
         () => {
             setEnable(false);

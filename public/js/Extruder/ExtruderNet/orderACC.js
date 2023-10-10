@@ -44,7 +44,7 @@ btnProses.addEventListener("click", function () {
 
     checkedOrder.forEach((order) => {
         // SP_5298_EXT_ACC_ORDER
-        fetchStmt("/Order/updAccOrder/" + order + "/4384");
+        fetchStmt("/Order/updAccOrder/" + order);
     });
 
     listDetailOrder.length = 0;
