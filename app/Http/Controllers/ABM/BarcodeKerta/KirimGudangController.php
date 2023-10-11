@@ -59,7 +59,27 @@ class KirimGudangController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        // kodeUpd: "simpanPegawai",
+
+        DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPermohonanKirimKeKRR1
+        @userid = ?,
+        @kodebarang = ?,
+        @noindeks = ?,
+        @barcode = ?,
+        @status = ?,
+        @divisi = ?,
+        @NoSP = ?', [
+            'U001',
+            $data['kodebarang'],
+            $data['noindeks'],
+            ' ',
+            '1',
+            $data['']
+
+        ]);
+        return redirect()->route('KirimGudang.index')->with('alert', 'Data Updated successfully!');
     }
 
     //Remove the specified resource from storage.

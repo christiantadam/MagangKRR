@@ -358,3 +358,51 @@ function isTableEmpty(tableId) {
     var table = $("#" + tableId).DataTable();
     return table.rows().count() === 0;
 }
+
+function ProcessData() {
+    var UserId = "U001";
+    var selectedRows1 = document.getElementById('Kode');
+    var selectedRows2 = document.getElementById('Item');
+    var kodebarang = selectedRows1.value;
+    var noindeks = selectedRows2.value;
+    var barcode = " ";
+    var status = "1";
+    var divisi = document.getElementById('IdDivisi');
+    var NoSP = document.getElementById('NoSP');
+
+    // Create a data object to hold the values
+    const data = {
+        UserId : UserId,
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        barcode: barcode,
+        status: status,
+        divisi: divisi,
+        NoSP: NoSP,
+    };
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+
+    // Send the data to the server using AJAX
+    $.ajax({
+        url: "KirimGudang/NoSP", // Replace with the correct action URL
+        method: "POST",
+        data: {
+            ...data,
+            _token: csrfToken,
+            _method: "PUT",
+            _ifUpdate: "Update Status"
+        },
+        success: function (response) {
+            console.log("Form submitted successfully!");
+            // Handle the server's response if needed
+        },
+        error: function (error) {
+            console.error("Form submission error:", error);
+            // Handle the error if needed
+        }
+    });
+}
