@@ -103,6 +103,7 @@ class BKMPengembalianKEController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
+        dd($request->all());
         $idBKK = $request->idBKK;
         $idBKM = $request->idBKM;
         $tanggal = $request->tanggal;
@@ -141,7 +142,7 @@ class BKMPengembalianKEController extends Controller
         [
             $idBKM,
             $tanggal,
-            null,
+            1,
             $konversi,
             $nilai1,
             $idBankBKM
@@ -198,7 +199,7 @@ class BKMPengembalianKEController extends Controller
             1,
             $konversi1,
             $nilai,
-            $idBankBKK
+            $idBankBKM
         ]);
 
         DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_INSERT_BKK_TPEMBAYARAN_TAG]

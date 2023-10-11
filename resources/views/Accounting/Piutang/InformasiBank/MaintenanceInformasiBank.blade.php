@@ -11,10 +11,12 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('MaintenanceInformasiBank') }}" id="formkoreksi">
                                 {{csrf_field()}}
+
                                 <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->
                                 <div class="d-flex">
@@ -60,7 +62,6 @@
                                                     <th>Id. Jenis Bayar</th>
                                                     <th>Jenis Pembayaran</th>
                                                     <th>No Bukti</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,7 +103,7 @@
                                         <label for="id" style="margin-right: 10px;">Total Nilai</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="number" id="totalNilai" name="totalNilai" class="form-control" style="width: 100%" readonly>
+                                        <input type="text" id="totalNilai" name="totalNilai" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -117,11 +118,11 @@
                                     <div class="col-md-2"></div>
                                         <div class="col-md-6">
                                             <input type="radio" name="radiogrup1" value="T" id="radiogrup1" readonly>
-                                            <label for="radio_2">Transfer</label>
+                                            <label for="radiogrup1">Transfer</label>
                                         </div>
                                         <div class="col-md-6">
                                             <input type="radio" name="radiogrup1" value="K" id="radiogrup1" readonly>
-                                            <label for="radio_2">Hasil Kliring</label>
+                                            <label for="radiogrup1">Hasil Kliring</label>
                                         </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -139,7 +140,7 @@
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-2">
-                                        <label for="id" style="margin-right: 10px;">No. Bukti</label>
+                                        <label for="noBukti" style="margin-right: 10px;">No. Bukti</label>
                                     </div>
                                     <div class="col-md-10">
                                         <input type="text" id="noBukti" name="noBukti" class="form-control" style="width: 100%" readonly>

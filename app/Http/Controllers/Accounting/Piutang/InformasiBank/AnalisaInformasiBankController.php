@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Accounting\Piutang\InformasiBank;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AnalisaInformasiBankController extends Controller
 {
@@ -68,6 +69,7 @@ class AnalisaInformasiBankController extends Controller
     public function update(Request $request)
     {
         //dd($request->all());
+
         $noReferensi = $request->noReferensi;
         $idCustomer = $request->idCustomer;
         $radiogrup2 = $request->radiogrup2;
@@ -76,11 +78,11 @@ class AnalisaInformasiBankController extends Controller
 
         $selectedValue = $request->input('radiogrup2');
 
-        if ($selectedValue === 'T') {
+        if ($selectedValue == 'T') {
             $statusPenagihan = $statusPenagihan;
-        } elseif ($selectedValue === 'U') {
-            $ketDariBank = "Uang Titipan"; // Atau nilai yang sesuai untuk 'U'
-        }
+        } elseif ($selectedValue == 'U') {
+            $ketDariBank = 'Uang Titipan'; // Atau nilai yang sesuai untuk 'U'
+        };
 
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_LIST_REFERENSI_BANK]
         @Kode = ?,
@@ -88,7 +90,7 @@ class AnalisaInformasiBankController extends Controller
             2,
             $noReferensi
         ]);
-
+        // Log::info('Request Data: ' .json_encode($ketDariBank));
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_UPDATE_REFERENSI_BANK]
         @Kode = ?,
         @Id_Cust = ?,
@@ -102,8 +104,9 @@ class AnalisaInformasiBankController extends Controller
             $noReferensi,
             1,
             $ketDariBank
+            // Log::info('Request Data: ' .json_encode($ketDariBank));
         ]);
-        return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
+        return response()->json('Data Telah Terupdate');
     }
 
     //Remove the specified resource from storage.

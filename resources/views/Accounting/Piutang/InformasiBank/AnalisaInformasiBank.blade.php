@@ -11,6 +11,7 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('FakturUangMuka') }}" id="formkoreksi">
@@ -44,7 +45,7 @@
                                 </div>
 
                                 <br><div>
-                                    <div style="overflow-y: auto; max-height: 400px;">
+                                    <div style="overflow-x: auto;">
                                         <table style="width: 120%; table-layout: fixed;" id="tabelAnalisa">
                                             <colgroup>
                                                 <col style="width: 12%;">
@@ -86,7 +87,7 @@
                                         <label for="tanggalInput" style="margin-right: 10px;">Tanggal</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
+                                        <input type="date" id="tanggalInput" name="tanggalInput" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -149,7 +150,7 @@
                                             <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-success" disabled>
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-danger">
                                         </div>
                                     </div>
                                 </div>

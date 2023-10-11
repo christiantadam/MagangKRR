@@ -1,6 +1,6 @@
 let tanggal = document.getElementById('tanggal');
 let btnOk = document.getElementById('btnOk');
-let tabelInfoBank = document.getElementById('tabelInfoBank');
+let tabelInfoBank = $("#tabelInfoBank").DataTable();
 let formkoreksi = document.getElementById('formkoreksi');
 let methodkoreksi = document.getElementById('methodkoreksi');
 
@@ -141,7 +141,8 @@ btnOk.addEventListener('click', function (event) {
             console.log(options);
             console.log(tanggal.value);
 
-            dataTable = $("#tabelInfoBank").DataTable({
+            tabelInfoBank = $("#tabelInfoBank").DataTable({
+                destroy : true,
                 data: options,
                 columns: [
                     { title: "Id. Referensi", data: "IdReferensi" },
@@ -256,7 +257,6 @@ btnKoreksi.addEventListener("click", function (event) {
     noBukti.removeAttribute("readonly");
 });
 
-
 $('#btnSimpan').on("click", function (event) {
     event.preventDefault();
 })
@@ -280,7 +280,8 @@ function clickSimpan() {
             console.log(options);
             console.log(tanggal.value);
 
-            dataTable = $("#tabelInfoBank").DataTable({
+            tabelInfoBank = $("#tabelInfoBank").DataTable({
+                destroy : true,
                 data: options,
                 columns: [
                     { title: "Id. Referensi", data: "IdReferensi" },
@@ -300,16 +301,33 @@ function clickSimpan() {
         });
 };
 
-$('#btnSimpanKoreksi').on("click", function (event) {
+btnSimpanKoreksi.addEventListener('click', function (event) {
     event.preventDefault();
 })
+
 function clickSimpanKoreksi() {
+    // console.log(idReferensi.value);
+    // console.log(idBank.value);
+    // console.log(idMataUang.value);
+    // console.log(totalNilai.value);
+    // console.log(radiogrup1.value);
+    // console.log(keterangan.value);
+    // console.log(idJenisPembayaran.value);
+    // console.log(noBukti.value);
+    // methodkoreksi.value = "PUT";
+    // formkoreksi.action = "/MaintenanceInformasiBank/" + idcoba.value;
+    // formkoreksi.submit();
+
     methodkoreksi.value = "PUT";
+    console.log(formkoreksi);
     $.ajax({
         url: "MaintenanceInformasiBank/" + idReferensi.value,
-        method: "PUT",
+        method: "post",
         data: new FormData(formkoreksi),
         dataType: "JSON",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         contentType: false,
         cache: false,
         processData: false,
@@ -324,7 +342,8 @@ function clickSimpanKoreksi() {
             console.log(options);
             console.log(tanggal.value);
 
-            dataTable = $("#tabelInfoBank").DataTable({
+            tabelInfoBank = $("#tabelInfoBank").DataTable({
+                destroy : true,
                 data: options,
                 columns: [
                     { title: "Id. Referensi", data: "IdReferensi" },
@@ -360,9 +379,14 @@ btnBatal.addEventListener('click', function (event) {
     idMataUang.value = "";
     totalNilai.value = "";
     keterangan.value = "";
-    radiogrup1.selectedItem = null;
     jenisPembayaranSelect.selectedIndex = 0;
     idJenisPembayaran.value = "";
     noBukti.value = "";
     idReferensi.value = "";
+    var radioButtons = document.querySelectorAll('input[name="radiogrup1"]');
+    // Mengulangi semua radio button dan menghapus centang
+    radioButtons.forEach(function(radioButton) {
+        radioButton.checked = false;
+    });
+    tabelInfoBank.clear().draw();
 })

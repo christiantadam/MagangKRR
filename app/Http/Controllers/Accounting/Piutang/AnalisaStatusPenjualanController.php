@@ -48,6 +48,7 @@ class AnalisaStatusPenjualanController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
+        //dd($request->all());
         $no_Faktur = $request->no_Faktur;
         $lunas = $request->lunas;
         $idBKM = $request->idBKM;
@@ -57,13 +58,11 @@ class AnalisaStatusPenjualanController extends Controller
         @Lunas = ?,
         @Id_BKM = ?
         ', [
-            6,
             $noFaktur,
             $lunas,
             $idBKM
         ]);
-
-        return redirect()->back()->with('success', 'Data Telah Tersimpan');
+        return response()->json('Data Telah TerSimpan');;
     }
 
     //Remove the specified resource from storage.

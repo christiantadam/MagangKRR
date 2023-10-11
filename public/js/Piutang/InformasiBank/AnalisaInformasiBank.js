@@ -2,6 +2,7 @@ let tanggal = document.getElementById('tanggal');
 let tanggal2 = document.getElementById('tanggal2');
 let radiogrupElement = document.getElementsByName('radiogrup');
 let btnOk = document.getElementById('btnOk');
+let btnBatal = document.getElementById('btnBatal');
 let statusPenagihan = document.getElementById('statusPenagihan');
 
 let formkoreksi = document.getElementById('formkoreksi');
@@ -16,6 +17,7 @@ let namaCustomerSelect = document.getElementById('namaCustomerSelect');
 let idCustomer = document.getElementById('idCustomer');
 let radiogrup2 = document.getElementById('radiogrup2');
 let radiobtn = document.getElementsByName('radiogrup2');
+let tabelAnalisa = $("#tabelAnalisa").DataTable();
 
 const tgl = new Date();
 const formattedDate = tgl.toISOString().substring(0, 10);
@@ -74,7 +76,8 @@ btnOk.addEventListener('click', function (event) {
             console.log(options);
             // console.log(tanggal.value);
 
-            dataTable = $("#tabelAnalisa").DataTable({
+            tabelAnalisa = $("#tabelAnalisa").DataTable({
+                destroy : true,
                 data: options,
                 columns: [
                     { title: "Id. Referensi", data: "IdReferensi" },
@@ -104,7 +107,6 @@ $("#tabelAnalisa tbody").on("click", "tr", function () {
     const table = $("#tabelAnalisa").DataTable();
     let selectedRows = table.rows(".selected").data().toArray();
     console.log(selectedRows[0]);
-    tanggalInput.value = selectedRows[0].Tanggal;
     noReferensi.value = selectedRows[0].IdReferensi;
     ketDariBank.value = selectedRows[0].Keterangan;
     totalNilai.value = selectedRows[0].Nilai;
@@ -122,6 +124,10 @@ $("#tabelAnalisa tbody").on("click", "tr", function () {
             break;
         }
     };
+        const tglInput = selectedRows[0].Tanggal;
+        const [tanggal1, waktu] = tglInput.split(" ");
+        selectedRows[0].TglInput = tanggal1;
+        tanggalInput.value = tanggal1;
 
     for (var i = 0; i < radiobtn.length; i++) {
         if (radiobtn[i].value === selectedRows[0].TypeTransaksi) {
@@ -145,9 +151,70 @@ btnProses.addEventListener('click', function(event) {
 
     if (radioChecked) {
         methodkoreksi.value = "PUT";
-        formkoreksi.action = "/AnalisaInformasiBank/" + noReferensi.value;
-        formkoreksi.submit();
+        console.log(formkoreksi);
+        $.ajax({
+            url: "AnalisaInformasiBank/" + noReferensi.value,
+            method: "post",
+            data: new FormData(formkoreksi),
+            dataType: "JSON",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (response) {
+                alert(response);
+            },
+        });
+
+        var radiogrup;
+        for (var i = 0; i < radiogrupElement.length; i++) {
+            if (radiogrupElement[i].checked) {
+                radiogrup = radiogrupElement[i].value;
+                break;
+            }
+        }
+
+        fetch("/getTabelAnalisis/" + tanggal.value + "/" + tanggal2.value + "/" + radiogrup)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            tabelAnalisa = $("#tabelAnalisa").DataTable({
+                destroy : true,
+                data: options,
+                columns: [
+                    { title: "Id. Referensi", data: "IdReferensi" },
+                    { title: "Nama Bank", data: "Nama_Bank" },
+                    { title: "Mata Uang", data: "Nama_MataUang" },
+                    { title: "Nilai", data: "Nilai" },
+                    { title: "Keterangan", data: "Keterangan" },
+                    { title: "Nama Customer", data: "NamaCust" },
+                    { title: "Type", data: "TypeTransaksi" },
+                    { title: "Id. Pelunasan", data: "Id_Pelunasan" },
+                    { title: "Tagihan (Y/N)", data: "Status_Tagihan" },
+                    { title: "Jenis", data: "Jenis_Pembayaran" }
+                ],
+            });
+        });
     } else {
         alert("Pilih button dulu.");
     }
+});
+
+btnBatal.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    tanggalInput.value = "";
+    noReferensi.value = "";
+    totalNilai.value = "";
+    ketDariBank.value = "";
+    namaCustomerSelect.selectedIndex = 0;
+    idCustomer.value = "";
+    var radioButtons = document.querySelectorAll('input[name="radiogrup2"]');
+    // Mengulangi semua radio button dan menghapus centang
+    radioButtons.forEach(function(radioButton) {
+        radioButton.checked = false;
+    });
+    tabelAnalisa.clear().draw();
 })

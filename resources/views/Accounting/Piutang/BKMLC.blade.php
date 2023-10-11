@@ -22,7 +22,7 @@
                                         <input type="text" id="tahun" name="tahun" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="submit" id="btnOk" name="btnOk" value="OK" class="btn">
+                                        <input type="submit" id="btnOK" name="btnOK" value="OK" class="btn">
                                     </div>
                                     <div class="col-md-2">
                                         <input type="submit" id="btnPilihBank" name="pilihBank" value="Pilih Bank" class="btn">

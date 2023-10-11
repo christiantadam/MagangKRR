@@ -180,7 +180,8 @@ Route::get('getIdPelunasanNota', 'App\Http\Controllers\Accounting\Piutang\BKMBKK
 Route::get('getIdPembayaranNota', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@getIdPembayaran');
 #endregion
 
-Route::get('BKMLC', 'App\Http\Controllers\Accounting\Piutang\BKMLCController@BKMLC');
+Route::resource('BKMLC', App\Http\Controllers\Accounting\Piutang\BKMLCController::class);
+Route::get('getListPelunasanDollar/{bulan}/{tahun}', 'App\Http\Controllers\Accounting\Piutang\BKMLCController@getListPelunasanDollar');
 
 #region BKM Pengembalian KE
 Route::resource('BKMPengembalianKE', App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController::class);

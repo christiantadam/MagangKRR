@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Accounting\Piutang\InformasiBank;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class MaintenanceInformasiBankController extends Controller
 {
@@ -80,10 +82,11 @@ class MaintenanceInformasiBankController extends Controller
     }
 
     //Update the specified resource in storage.
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        //Log::info('Request Data: ' .json_encode($request->all()));
         //dd($request->all());
-        $idReferensi = $request ->idReferensi;
+        $idReferensi = $request->idReferensi;
         $idBank = $request->idBank;
         $idMataUang = $request->idMataUang;
         $totalNilai = $request->totalNilai;
@@ -91,6 +94,14 @@ class MaintenanceInformasiBankController extends Controller
         $keterangan = $request->keterangan;
         $idJenisPembayaran = $request->idJenisPembayaran;
         $noBukti = $request->noBukti;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_LIST_REFERENSI_BANK]
+        @Kode = ?,
+        @IdReferensi = ?', [
+            2,
+            $idReferensi
+        ]);
+
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_REFERENSI_BANK]
         @Kode = ?,
         @IdReferensi = ?,
@@ -109,8 +120,10 @@ class MaintenanceInformasiBankController extends Controller
             $radiogrup1,
             $keterangan,
             $idJenisPembayaran,
-            $noBukti]);
-            return response()->json('Data sudah TerKoreksi');
+            $noBukti
+        ]);
+        return response()->json('Data Telah Terupdate');
+        // return redirect()->back()->with('success', 'Detail Sudah Terkoreksi');
     }
 
     //Remove the specified resource from storage.

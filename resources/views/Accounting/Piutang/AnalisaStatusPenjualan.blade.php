@@ -11,6 +11,7 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('AnalisaStatusPenjualan') }}" id="formkoreksi">
@@ -131,7 +132,7 @@
                                             <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-success" disabled>
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="Batal" class="btn btn-danger">
                                         </div>
                                     </div>
                                 </div>

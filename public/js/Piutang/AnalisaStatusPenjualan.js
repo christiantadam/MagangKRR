@@ -1,8 +1,9 @@
 let btnOk = document.getElementById('btnOk');
 let tanggal = document.getElementById('tanggal');
 let tanggal2 = document.getElementById('tanggal2');
-let tabelSuratJalan = document.getElementById('tabelSuratJalan');
+let tabelSuratJalan = $("#tabelSuratJalan").DataTable();
 let btnProses = document.getElementById('btnProses');
+let no_Faktur = document.getElementById('no_Faktur');
 
 let noFaktur = document.getElementById('noFaktur');
 let totalPenagihan = document.getElementById('totalPenagihan');
@@ -31,6 +32,7 @@ btnOk.addEventListener('click', function(event) {
             console.log(options);
 
             tabelSuratJalan = $("#tabelSuratJalan").DataTable({
+                destroy : true,
                 data: options,
                 columns: [
                     { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan",
@@ -90,9 +92,62 @@ btnProses.addEventListener('click', function(event) {
     } else if (lunas.value !== "Y" && lunas.value !== "N") {
         alert("Pengisian kolom Lunas Salah");
     } else {
-        methodkoreksi.value="PUT";
-        formkoreksi.action = "/AnalisaStatusPenjualan/" + no_Faktur.value;
-        formkoreksi.submit();
+        methodkoreksi.value = "PUT";
+        console.log(formkoreksi);
+        $.ajax({
+            url: "AnalisaStatusPenjualan/" + no_Faktur.value,
+            method: "post",
+            data: new FormData(formkoreksi),
+            dataType: "JSON",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function (response) {
+                alert(response);
+            },
+        });
+
+        fetch("/getDisplaySuratJalan/" + tanggal.value + "/" + tanggal2.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            tabelSuratJalan = $("#tabelSuratJalan").DataTable({
+                destroy : true,
+                data: options,
+                columns: [
+                    { title: "Tgl. Pelunasan", data: "Tgl_Pelunasan",
+                        render: function (data) {
+                            var date = new Date(data);
+                            return date.toLocaleDateString();
+                        }
+                    },
+                    { title: "Customer", data: "NamaCust" },
+                    { title: "No. Faktur", data: "Id_Penagihan" },
+                    { title: "Pembayaran", data: "Jenis_Pembayaran" },
+                    { title: "Pelunasan", data: "NilaiPelunasan" },
+                    { title: "Nilai Tagihan", data: "Nilai_Penagihan" },
+                    { title: "Total Bayar", data: "Terbayar" },
+                    { title: "Lunas", data: "Lunas" },
+                    { title: "BKM", data: "Id_BKM" }
+                ]
+            });
+        })
     }
     btnProses.disabled = true;
+})
+
+btnBatal.addEventListener('click', function(event) {
+    event.preventDefault();
+    noFaktur.value = "";
+    totalPenagihan.value = "";
+    totalPembayaran.value = "";
+    notaKredit.value = "";
+    sisaTagihan.value = "";
+    idBKM.value = "";
+    tabelSuratJalan.clear().draw();
+
 })

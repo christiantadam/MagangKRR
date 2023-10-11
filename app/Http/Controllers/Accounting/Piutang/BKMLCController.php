@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class BKMLCController extends Controller
 {
-    public function BKMLC()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.BKMLC', compact('data'));
     }
 
-    public function getTabelPelunasan($bulan, $tahun)
+    public function getListPelunasanDollar($bulan, $tahun)
     {
         //dd($bulan, $tahun);
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_PELUNASAN_DOLLAR] @bln = ?, @thn = ?', [$bulan, $tahun]);
