@@ -12,7 +12,7 @@ class BeratController extends Controller
     {
         $view_name = 'extruder.BeratKomposisi.' . $form_name;
         $view_data = [
-            'pageName' => 'ExtruderNet',
+            'pageName' => 'BeratKomposisi',
             'formName' => $form_name,
         ];
 

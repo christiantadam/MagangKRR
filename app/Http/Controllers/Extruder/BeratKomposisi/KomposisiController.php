@@ -12,7 +12,7 @@ class KomposisiController extends Controller
     {
         $view_name = 'extruder.BeratKomposisi.' . $form_name;
         $view_data = [
-            'pageName' => 'ExtruderNet',
+            'pageName' => 'BeratKomposisi',
             'formName' => $form_name,
         ];
 
@@ -26,6 +26,7 @@ class KomposisiController extends Controller
         switch ($fun_str) {
             case 'SP_1273_ABM_BERAT_STANDART_1':
             case 'SP_1273_PRG_DATA_KOMPOSISI_1':
+            case 'SP_1273_PRG_CEK_KOMPOSISI_1':
                 $param_str = '@KD_BRG = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
@@ -63,22 +64,22 @@ class KomposisiController extends Controller
             case 'SP_1273_INV_Insert_KonversiKomposisi_1~1':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 1, @Tanggal = ?, @NoKonversi = ?, @KodeBarang = ?, @BeratStandart = ?, @JenisBarang = ?, @Terkandung = ?, @Waste = ?, @PP = ?, @PE = ?, @CaCO3 = ?, @Masterbatch = ?, @UV = ?, @AntiStatic = ?, @Conductive = ?, @LDPELami = ?, @LLDPEInner = ?, @HDPEInner = ?, @PersenPP = ?, @PersenPE = ?, @PersenCaCO3 = ?, @PersenMB = ?, @PersenUV = ?, @PersenAS = ?, @PersenConductive = ?, @PersenLDPE = ?, @PersenLLDPE = ?, @PersenHDPE = ?, @KoefPP = ?, @KoefPE = ?, @KoefCaCO3 = ?, @KoefMB = ?, @KoefUV = ?, @KoefAS = ?, @KoefConductive = ?, @KoefLDPE = ?, @KoefLLDPE = ?, @KoefHDPE = ?, @TglLoading = ?, @UserId = 4384';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Insert_KonversiKomposisi_1~2':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 2, @Tanggal = ?, @NoKonversi = ?, @PP = ?, @PE = ?, @CaCO3 = ?, @Masterbatch = ?, @UV = ?, @AntiStatic = ?, @Conductive = ?, @LDPELami = ?, @LLDPEInner = ?, @HDPEInner = ?, @PersenPP = ?, @PersenPE = ?, @PersenCaCO3 = ?, @PersenMB = ?, @PersenUV = ?, @PersenAS = ?, @PersenConductive = ?, @PersenLDPE = ?, @PersenLLDPE = ?, @PersenHDPE = ?, @KoefPP = ?, @KoefPE = ?, @KoefCaCO3 = ?, @KoefMB = ?, @KoefUV = ?, @KoefAS = ?, @KoefConductive = ?, @KoefLDPE = ?, @KoefLLDPE = ?, @KoefHDPE = ?, @TglLoading = ?, @UserId = 4384';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Insert_KonversiKomposisi_1~3':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 3, @Tanggal = ?, @NoKonversi = ?, @UserId = 4384';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_INV_Insert_KonversiKomposisi_1~4':
                 $fun_str = explode('~', $fun_str)[0];
                 $param_str = '@Kode = 4, @Tanggal = ?, @NoKonversi = ?, @TglLoading = ?';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data, 'ConnInventory');
 
             case 'SP_1273_PRG_DATA_BarangEksport_1':
                 $param_str = '@KodeBarang = ?';

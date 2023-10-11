@@ -1,6 +1,5 @@
 @extends('layouts.appExtruder')
 @section('content')
-    {{-- <button data-bs-toggle="modal" data-bs-target="#form_daftar_rawat">tes123</button> --}}
     <input type="hidden" id="form_rw_return">
 
     <div id="tropodo_perawatan" class="form" data-aos="fade-up">

@@ -9,6 +9,7 @@ use App\Http\Controllers\Extruder\ExtruderNet\KonversiController;
 use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
+use App\Http\Controllers\Extruder\WarehouseTerima\WarehouseController;
 
 /**
  * LAST : btnKoreksi_Click() | frmKonversi.vb
@@ -48,10 +49,9 @@ Route::get('/Extruder/ExtruderNet/Konversi/{formName?}/{namaGedung?}', [Konversi
 Route::get('/Extruder/ExtruderNet/Benang/{formName?}/{namaGedung?}', [BenangController::class, 'index']);
 Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::class, 'index']);
 
-#region BeratKomposisi
 Route::get('/beratStandar/{fun_str}/{fun_data}', [BeratController::class, 'beratStandar']);
 Route::get('/komposisiKonversi/{fun_str}/{fun_data}', [KomposisiController::class, 'komposisiKonversi']);
-#endregion
+Route::get('/warehouseTerima/{fun_str}/{fun_data}', [WarehouseController::class, 'warehouseTerima']);
 
 #region ExtruderNet - Master (KITE)
 Route::get('/Master/getCekBahanKite/{kode}', [MasterController::class, 'getCekBahanKite']);
