@@ -46,6 +46,14 @@ class KoreksiAbsenController extends Controller
             $dataAbsen = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_ABSEN_PER_KARYAWAN @kdPegawai = ?,@tglAwal = ?,@tglAkhir = ?,@divisi = ?', [$crExplode[0],$crExplode[1],$crExplode[2],$crExplode[3]]);
             // dd($dataAbsen);
             return response()->json($dataAbsen);
+        }else if ($crExplode[$lastIndex] == "getShift") {
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ?,@shift = ?', [2,$crExplode[0]]);
+            // dd($dataAbsen);
+            return response()->json($dataShift);
+        }else if ($crExplode[$lastIndex] == "getDatangPulang") {
+            $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_CEK_MASUK_KELUAR @tanggal = ?,@kdpegawai = ?', [2,$crExplode[0]]);
+            // dd($dataAbsen);
+            return response()->json($dataShift);
         }
     }
 

@@ -6,6 +6,8 @@ $(document).ready(function () {
     const batalButton = document.getElementById("batalButton");
     const tambahSection = document.getElementById("tambahSection");
     const koreksiSection = document.getElementById("koreksiSection");
+    const klinikButton = document.getElementById("klinikButton");
+    const txtLembur = document.getElementById("AlasanLemburKoreksi");
     var action = 0;
     tambahButton.addEventListener("click", function (event) {
         action = 1;
@@ -26,7 +28,7 @@ $(document).ready(function () {
     batalButton.addEventListener("click", function (event) {
         event.preventDefault();
         action = 0;
-        table_Koreksi.select.style('api');
+        table_Koreksi.select.style("api");
         tambahButton.disabled = false;
         hapusButton.disabled = false;
         koreksiButton.disabled = false;
@@ -250,7 +252,6 @@ $(document).ready(function () {
     });
     var table_Koreksi = $("#table_Koreksi").DataTable({
         order: [[0, "asc"]],
-
     });
     $("#table_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
@@ -304,7 +305,70 @@ $(document).ready(function () {
         // console.log(rowData);
         // Populate the input fields with the data
         $("#Id_Shift").val(rowData[0]);
+        if (rowData[0] != "") {
+            fetch("/KoreksiAbsen/" + rowData[0] + ".getShift")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
 
+                    // Clear the existing table rows
+                    $("#Masuk").val(data[0].masuk.split(" ")[1]);
+                    $("#Keluar").val(data[0].pulang.split(" ")[1]);
+                    $("#IstirahatAwal").val(
+                        data[0].awal_jam_istirahat.split(" ")[1]
+                    );
+                    $("#IstirahatAkhir").val(
+                        data[0].akhir_jam_istirahat.split(" ")[1]
+                    );
+                    const TglMasuk = document.getElementById("TglMasuk").value;
+                    const Kd_Peg = document.getElementById("Id_Peg").value;
+                    // Loop through the data and create table rows
+                    fetch(
+                        "/KoreksiAbsen/" +
+                            TglMasuk +
+                            "." +
+                            Kd_Peg +
+                            ".getDatangPulang"
+                    )
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json(); // Assuming the response is in JSON format
+                        })
+                        .then((data) => {
+                            // Handle the data retrieved from the server (data should be an object or an array)
+                            console.log(data[0].minjam);
+                            // Clear the existing table rows
+                            if (data[0].minjam != null && data[0].maxjam != null) {
+                                $("#Datang").val(data[0].minjam.split(" ")[1]);
+                                $("#Pulang").val(data[0].maxjam.split(" ")[1]);
+                            }else if (data[0].maxjam != null) {
+                                $("#Datang").val(data[0].maxjam.split(" ")[1]);
+                                $("#Pulang").val(data[0].maxjam.split(" ")[1]);
+                            }else if (data[0].minjam != null) {
+                                $("#Datang").val(data[0].minjam.split(" ")[1]);
+                                $("#Pulang").val(data[0].minjam.split(" ")[1]);
+                            }else{
+                                $("#Datang").val("00:00");
+                                $("#Pulang").val("00:00");
+                            }
+
+                            // Loop through the data and create table rows
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
         hideModalShift();
     });
     $("#table_Koreksi tbody").on("click", "tr", function () {
@@ -314,21 +378,35 @@ $(document).ready(function () {
 
         // Populate the input fields with the data
         $("#TglMasukKoreksi").val(TglKoreksi[0]);
-        var selectElement = document.getElementById("KeteranganKoreksi");
-
-        // Loop melalui semua opsi dalam elemen select
-        for (var i = 0; i < selectElement.options.length; i++) {
-            var option = selectElement.options[i];
-
-            // Memeriksa apakah nilai option sama dengan nilai yang Anda miliki
-            if (option.value === rowData[6]) {
-                // Mengatur atribut 'selected' jika nilainya sama
-                option.selected = true;
-            } else {
-                // Menghilangkan atribut 'selected' jika tidak sama
-                option.selected = false;
-            }
+        var ketKoreksi = document.getElementById("KeteranganKoreksi");
+        $("#KeteranganKoreksi").val(rowData[6]);
+        if (ketKoreksi.value == "L" && action == 2) {
+            klinikButton.disabled = true;
+            txtLembur.disabled = false;
+        } else if (ketKoreksi.value == "S" && action == 2) {
+            klinikButton.disabled = false;
+            txtLembur.disabled = true;
+            klinikButton.focus;
+        } else if (ketKoreksi.value == "I" && action == 2) {
+            klinikButton.disabled = true;
+            txtLembur.disabled = false;
+        } else {
+            klinikButton.disabled = false;
+            txtLembur.disabled = false;
         }
+        // Loop melalui semua opsi dalam elemen select
+        // for (var i = 0; i < selectElement.options.length; i++) {
+        //     var option = selectElement.options[i];
+
+        //     // Memeriksa apakah nilai option sama dengan nilai yang Anda miliki
+        //     if (option.value === rowData[6]) {
+        //         // Mengatur atribut 'selected' jika nilainya sama
+        //         option.selected = true;
+        //     } else {
+        //         // Menghilangkan atribut 'selected' jika tidak sama
+        //         option.selected = false;
+        //     }
+        // }
         $("#AlasanLemburKoreksi").val(rowData[7]);
         $("#jmlJamKoreksi").val(rowData[15]);
         $("#jamTerlambatKoreksi").val(rowData[8]);
@@ -343,6 +421,26 @@ $(document).ready(function () {
         // $("#Id_Peg").val(rowData[0]);
         // $("#Nama_Peg").val(rowData[1]);
     });
+    document
+        .getElementById("KeteranganKoreksi")
+        .addEventListener("change", function (e) {
+            // kode yang akan dijalankan ketika nilai select berubah
+            var ketKoreksi = document.getElementById("KeteranganKoreksi");
+            if (ketKoreksi.value == "L" && action == 2) {
+                klinikButton.disabled = true;
+                txtLembur.disabled = false;
+            } else if (ketKoreksi.value == "S" && action == 2) {
+                klinikButton.disabled = false;
+                txtLembur.disabled = true;
+                klinikButton.focus;
+            } else if (ketKoreksi.value == "I" && action == 2) {
+                klinikButton.disabled = true;
+                txtLembur.disabled = false;
+            } else {
+                klinikButton.disabled = false;
+                txtLembur.disabled = false;
+            }
+        });
     $("#buttonTampil").click(function () {
         const Kd_Peg = document.getElementById("Id_Peg").value;
         const tglAwal = document.getElementById("TglMulai").value;

@@ -514,7 +514,7 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <select class="form-control" id="KeteranganKoreksi" name="KeteranganKoreksi"
+                                            <select class="form-control" id="KeteranganIsi" name="KeteranganIsi"
                                                 style="resize: none;height: 35px; max-width:150px;" >
                                                 <option value="A">A</option>
                                                 <option value="B">B</option>
