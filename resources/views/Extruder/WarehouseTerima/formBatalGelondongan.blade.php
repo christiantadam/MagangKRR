@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Batal Kirim Barcode Gelondongan
+@endsection
+
 @section('content')
     <div id="nama_form" class="form" data-aos="fade-up">
         <form>

@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Update Persen Toleransi BS
+@endsection
+
 @section('content')
     <div id="update_persen" class="form" data-aos="fade-up">
 

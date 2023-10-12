@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Komposisi Konversi
+@endsection
+
 @section('content')
     <div id="komposisi_konversi" class="form" data-aos="fade-up">
 

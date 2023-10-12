@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    ACC Konversi
+@endsection
+
 @section('content')
     <input type="hidden" id="hidden_input">
     <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">

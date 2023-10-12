@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Komposisi Bahan Tropodo
+@endsection
+
 @section('content')
     <div id="komposisi_tropodo" class="form" data-aos="fade-up">
         <div class="row mt-3">

@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Konversi Barang
+@endsection
+
 @section('content')
     <div id="konversi_barang" class="form" data-aos="fade-up">
         <div class="row mt-3">

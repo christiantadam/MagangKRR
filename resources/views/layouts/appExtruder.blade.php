@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Extruder</title>
+    <title>
+        @yield('title')
+    </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -124,14 +126,6 @@
                 <h1><a href="#">Pencatatan Effisiensi</a></h1>
             @elseif($formName == 'formCatatPerawatan')
                 <h1><a href="#">Pencatatan Perawatan</a></h1>
-                {{-- @elseif($formName == 'formMojosariD_GangguanProduksi')
-                <h1><a href="#">Gangguan Produksi Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_Daya')
-                <h1><a href="#">Daya Produksi Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_Efisiensi')
-                <h1><a href="#">Efisiensi Mojosari Gedung D</a></h1>
-            @elseif($formName == 'formMojosariD_Perawatan')
-                <h1><a href="#">Perawatan Mojosari Gedung D</a></h1> --}}
             @elseif($formName == 'formScanGelondongan')
                 <h1><a href="#">Scan Kirim Barcode Gelondongan</a></h1>
             @elseif($formName == 'formBatalGelondongan')

@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Pencatatan Perawatan
+@endsection
+
 @section('content')
     <input type="hidden" id="form_rw_return">
 

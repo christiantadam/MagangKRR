@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Pencatatan Daya Produksi
+@endsection
+
 @section('content')
     <div id="tropodo_daya" class="form" data-aos="fade-up">
         <div class="card mt-3">

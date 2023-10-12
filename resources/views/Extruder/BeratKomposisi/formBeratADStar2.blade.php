@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Berat AD Star 2
+@endsection
+
 @section('content')
     <div id="berat_adstar2" class="form" data-aos="fade-up">
 

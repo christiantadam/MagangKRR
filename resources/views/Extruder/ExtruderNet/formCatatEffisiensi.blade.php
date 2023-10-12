@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Pencatatan Efisiensi
+@endsection
+
 @section('content')
     <div id="tropodo_efisiensi" class="form" data-aos="fade-up">
         <div id="group_box1" class="card mt-3">

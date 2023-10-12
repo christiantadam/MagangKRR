@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Komposisi Bahan Mojosari
+@endsection
+
 @section('content')
     <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
 

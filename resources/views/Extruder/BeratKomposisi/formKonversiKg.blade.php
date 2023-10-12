@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Konversi dalam Kg
+@endsection
+
 @section('content')
     <div id="konversi_kg" class="form" data-aos="fade-up">
         <form action="#">

@@ -39,6 +39,71 @@ var [noIndeks, kodeBarang] = ["", ""];
 //#endregion
 
 //#region Events
+txtNoBarcode.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        if (slcDivisi.selectedIndex == 0) {
+            this.value = "";
+            alert("Pilih Dulu Divisinya !!...");
+            slcDivisi.focus();
+        } else {
+            if (this.value.trim() != "") {
+                noIndeks = this.value.slice(0, 9).replace(/^0+/, "");
+                kodeBarang = this.value.slice(-9);
+
+                fetchSelect(
+                    "/warehouseTerima/SP_1273_INV_Cek_Barcode/" +
+                        kodeBarang +
+                        "~" +
+                        noIndeks +
+                        "~" +
+                        slcDivisi.value,
+                    (data) => {
+                        if (data.length > 0) {
+                            if (data[0].Ada != 1) {
+                                alert("Barcode Salah, Cek Barcode Anda");
+                                txtNoBarcode.value = "";
+                                txtNoBarcode.focus();
+                                return;
+                            }
+
+                            let sts = cekBarcode(kodeBarang, noIndeks);
+                            let cari = this.value.trim();
+                            let sudahTembak = -1;
+                            if (sts == "2") {
+                                for (let i = 0; i < listKirim.length; i++) {
+                                    if (listKirim.NoBarcode == cari) {
+                                        sudahTembak = 1;
+                                        break;
+                                    }
+                                }
+
+                                if (sudahTembak != 1) {
+                                    ambilDataBarang(
+                                        kodeBarang,
+                                        noIndeks,
+                                        listKirim.length
+                                    );
+                                } else
+                                    alert(
+                                        "Barcode sudah pernah ditembak, cek kembali!!!"
+                                    );
+                            } else if (sts == "1") {
+                                alert("Barcode Ini Belum Pernah Dikirimkan");
+                            } else if (sts == "3") {
+                                alert("Barcode Sudah Pernah di ACC!");
+                            } else {
+                                alert("Data Barcode Tidak Ditemukan!");
+                            }
+                        }
+                    }
+                );
+            } else alert("Scan Barcode Terlebih Dahulu");
+
+            this.value = "";
+            this.focus();
+        }
+    }
+});
 //#endregion
 
 //#region Functions
@@ -59,7 +124,7 @@ function cekBarcode(kode_barang, no_indeks) {
 
             if (data.length > 0) {
                 statusKu = data[0].statusdispresiasi;
-            } else statusKu = 4;
+            } else statusKu = "4";
 
             return statusKu;
         }

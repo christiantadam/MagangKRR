@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Terima JBN-JBK-JBJ-JBL
+@endsection
+
 @section('content')
     <div id="nama_form" class="form" data-aos="fade-up">
         <form>

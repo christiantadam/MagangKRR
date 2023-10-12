@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Scan Barcode Gelondongan
+@endsection
+
 @section('content')
     <div id="scan_gelondongan" class="form" data-aos="fade-up">
         <div class="row mt-3">

@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Pencatatan Gangguan Produksi
+@endsection
+
 @section('content')
     <div id="tropodo_gangguan_produksi" class="form" data-aos="fade-up">
         <div id="card_transaksi" class="card mt-3">

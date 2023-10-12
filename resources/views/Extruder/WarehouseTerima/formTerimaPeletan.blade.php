@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Terima Barang Peletan
+@endsection
+
 @section('content')
     <div id="scan_gelondongan" class="form" data-aos="fade-up">
         <form>

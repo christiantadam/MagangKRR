@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Estimasi KITE
+@endsection
+
 @section('content')
     <div id="kite_estimasi" class="form" data-aos="fade-up">
         <div class="card">

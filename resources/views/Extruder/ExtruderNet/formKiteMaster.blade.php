@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Master KITE
+@endsection
+
 @section('content')
     <div id="kite_master" class="form" data-aos="fade-up">
 
