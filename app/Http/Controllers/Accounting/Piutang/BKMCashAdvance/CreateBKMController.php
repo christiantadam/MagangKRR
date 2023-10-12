@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Accounting\Piutang\BKMCashAdvance;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CreateBKMController extends Controller
 {
@@ -45,6 +46,15 @@ class CreateBKMController extends Controller
         return response()->json($tabel);
     }
 
+    public function getCetak($idBKMInput)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_NOTAGIH_1')
+        ->where('Id_BKM', $idBKMInput)
+        ->get();
+        return $data;
+    }
+
     function getIDBKM($id, $tanggal)
     {
         $idBank = $id;
@@ -75,6 +85,7 @@ class CreateBKMController extends Controller
 
     public function insertUpdateCreateBKM(Request $request)
     {
+        Log::info('Request Data: ' .json_encode($request->all()));
         //dd($request->all());
         $idBKMNew = $request->idBKMNew;
         $tglInputNew = $request->tglInputNew;
@@ -84,16 +95,20 @@ class CreateBKMController extends Controller
 
         $idbkm = $request->idbkm;
         $idBank = $request->idBank;
+        $idBank2 = $request->idBank2;
         $jenisBank = $request->jenisBank;
         $idKodePerkiraan = $request->idKodePerkiraan;
         $idPelunasan = $request->idPelunasan;
 
-        list($hari, $bulan, $tahun) = explode('-', $tglInputNew);
+        list($tahun, $bulan, $hari) = explode('-', $tglInputNew);
 
         // Mengambil bulan dan tahun sebagai integer
         $bulan = (int)$bulan;
-        $tahun = (int)$tahun;
-        $tgl = $bulan . $tahun;
+        $tahun = (int)substr($tahun, -2); // Mengambil 2 digit terakhir dari tahun
+
+        $tgl = sprintf("%02d%02d", $bulan, $tahun); // Format MMYY
+
+        Log::info('Request Data: ' .json_encode($tgl));
 
         DB::connection('ConnAccounting')->statement('exec [SP_5298_ACC_IDBKM]
         @month = ?,
@@ -128,7 +143,7 @@ class CreateBKMController extends Controller
         @kode = ?', [
             $idPelunasan,
             $idBKMNew,
-            $idBank,
+            $idBank2,
             $idKodePerkiraan,
         ]);
 

@@ -17,6 +17,8 @@ let konversi = document.getElementById('konversi');
 let jenisBank = document.getElementById('jenisBank');
 let uang = document.getElementById('uang');
 let tanggal = document.getElementById('tanggal');
+let idbkm = document.getElementById('idbkm');
+let idBank2 = document.getElementById('idBank2');
 
 let selectedRows = [];
 let totalNilaiPelunasan = 0;
@@ -32,6 +34,7 @@ let modalTampilBKM = document.getElementById("modalTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let formTampilBKM = document.getElementById("formTampilBKM");
 let btnCetakBKM = document.getElementById('btnCetakBKM');
+let nomer = document.getElementById('nomer');
 
 const tglInput = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
@@ -54,7 +57,10 @@ btnTampilBkm.addEventListener('click', function (event) {
 btnTutupModal.addEventListener('click', function (event) {
     event.preventDefault();
     $('#pilihInputTanggal').modal('hide')
-})
+});
+
+
+let idBKMInput = document.getElementById("idBKM");
 
 btnOkTampil.addEventListener('click', function (event) {
     event.preventDefault();
@@ -92,7 +98,7 @@ btnOkTampil.addEventListener('click', function (event) {
                 lastCheckedCheckbox = this;
 
                 const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
-                const idBKMInput = document.getElementById("idBKM");
+                idBKMInput = document.getElementById("idBKM");
 
                 if ($(this).prop("checked")) {
                     idBKMInput.value = checkedCheckbox.Id_BKM;
@@ -174,12 +180,15 @@ btnGroupBKM.addEventListener('click', function (event) {
             if (idBank.value === "KRR1") {
                 console.log("masuk krr1");
                 idBank.value = "KI";
+                idBank2.value = "KRR1";
             }
             else if (idBank.value === "KRR2") {
                 idBank.value = "KKM";
+                idBank2.value = "KRR2";
             }
         } else {
             idBank.value = bankArray[0];
+            idBank2.value = bankArray[0];
         }
 
         // console.log("nnnnnnnnnnnnnnnnn");
@@ -228,11 +237,19 @@ btnGroupBKM.addEventListener('click', function (event) {
                     const id1 = (idBKMNew.value).slice(0, 3);
                     console.log(id1); // Mengambil tiga karakter pertama
 
-                    // Mengonversi ke bilangan jika mungkin
-                    const idbkm = parseInt(id1);
-                    idbkm.value = idbkm;
+                    const parsedId1 = parseInt(id1);
 
-                    console.log(idbkm);
+                    let idbkm2;
+                    // Mengonversi ke bilangan jika mungkin
+                    if (isNaN(parsedId1)) {
+                        idbkm2 = 0; // Set idbkm to 0 when id1 is NaN
+                    } else {
+                        idbkm2 = parsedId1; // Assign the parsed value when it's a valid number
+                    }
+
+                    idbkm.value = idbkm2;
+
+                    console.log(idbkm2);
 
                     // formkoreksi.action = "/insertUpdateCreateBKM/";
                     // formkoreksi.submit();
@@ -306,7 +323,7 @@ function Check() {
             console.log(options);
 
             jenisBank.value = options[0].jenis;
-    });
+        });
 
     // tanggal.value = selectedDataArray[0].TglInput;
     const tglInput = selectedDataArray[0].TglInput;
@@ -377,7 +394,7 @@ btnOK.addEventListener('click', function (event) {
         .then((optionss) => {
             console.log(optionss);
             dataTable3 = $("#tabelDataPelunasan").DataTable({
-                destroy : true,
+                destroy: true,
                 data: optionss,
 
                 columns: [
@@ -602,10 +619,21 @@ $("#btnProsesss").on('click', function (event) {
 btnCetakBKM.addEventListener('click', function (event) {
     event.preventDefault();
 
-    methodTampilBKM.value = "PUT";
-    formTampilBKM.action = "/CreateBKM/" + idBKM.value;
-    console.log(idBKM.value);
-    formTampilBKM.submit();
+    console.log(idBKMInput.value);
+
+    fetch("/getCetak/" + idBKMInput.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+            nomer.textContent = options[0].Id_BKM;
+
+
+        })
+
+    // methodTampilBKM.value = "PUT";
+    // formTampilBKM.action = "/CreateBKM/" + idBKM.value;
+    // console.log(idBKM.value);
+    // formTampilBKM.submit();
 });
 
 function updateKpColumn2(kodePerkiraanSelect, selectedRows) {
@@ -738,6 +766,14 @@ function convertThreeDigitsToWords(num, isThousands) {
     }
 
     return result.trim();
-}
+};
+
+
+btnCetakBKM.addEventListener('click', function(event) {
+    event.preventDefault();
+
+
+
+})
 
 

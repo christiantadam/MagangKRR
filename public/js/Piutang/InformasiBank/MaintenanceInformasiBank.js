@@ -306,18 +306,6 @@ btnSimpanKoreksi.addEventListener('click', function (event) {
 })
 
 function clickSimpanKoreksi() {
-    // console.log(idReferensi.value);
-    // console.log(idBank.value);
-    // console.log(idMataUang.value);
-    // console.log(totalNilai.value);
-    // console.log(radiogrup1.value);
-    // console.log(keterangan.value);
-    // console.log(idJenisPembayaran.value);
-    // console.log(noBukti.value);
-    // methodkoreksi.value = "PUT";
-    // formkoreksi.action = "/MaintenanceInformasiBank/" + idcoba.value;
-    // formkoreksi.submit();
-
     methodkoreksi.value = "PUT";
     console.log(formkoreksi);
     $.ajax({
