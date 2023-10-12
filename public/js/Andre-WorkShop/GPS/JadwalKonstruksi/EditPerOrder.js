@@ -11,6 +11,9 @@ let btnbatal = document.getElementById("batal");
 let NamaBagian = document.getElementById("NamaBagian");
 
 let table_data = $("#tableEditPerOrder").DataTable();
+let refresh = document.getElementById("refresh");
+let Tukarposisi = document.getElementById("Tukarposisi");
+let Susunposisi = document.getElementById("Susunposisi");
 
 //#region set warna
 
@@ -190,7 +193,7 @@ function LoadOpr() {
                             title: "Nomor",
                             data: null,
                             render: function (data, type, row, meta) {
-                                return `<input type="checkbox" name="EditJadwalPerWorkstationCheck" value="${
+                                return `<input type="checkbox" name="EditJadwalPerOrderCheck" value="${
                                     meta.row + 1
                                 }" /> ${meta.row + 1}`;
                             },
@@ -225,12 +228,101 @@ function LoadOpr() {
                     ],
                 });
                 table_data.draw();
-            }
-            else {
-                alert("Tidak ada jadwal konstruksi u/ nomer order: " + NoOrder.value + ", dgn bagian: " + NamaBagian.value + ".");
+            } else {
+                alert(
+                    "Tidak ada jadwal konstruksi u/ nomer order: " +
+                        NoOrder.value +
+                        ", dgn bagian: " +
+                        NamaBagian.value +
+                        "."
+                );
                 return;
             }
         });
+}
+
+//#endregion
+
+//#region refresh
+
+refresh.addEventListener("click", function (event) {
+    if (NamaBagian.value != "Pilih Bagian") {
+        LoadOpr();
+    }
+});
+
+//#endregion
+
+//#region proses
+
+function prosesklik() {
+    let jml = 0;
+    var indexarray = [];
+    let idkEst = 0;
+    let tglEst = [];
+    let idkInput;
+    var WktInput = [];
+    $("input[name='EditJadwalPerOrderCheck']:checked").each(function () {
+        // Ambil nilai 'value' dan status 'checked' dari checkbox
+        let value = $(this).val();
+        // let isChecked = $(this).prop("checked");
+        // let closestTd = $(this).closest("tr");
+        let rowindex = $(this).closest("tr").index();
+        jml += 1;
+        indexarray.push(rowindex);
+    });
+    if (Tukarposisi.checked == false && Susunposisi.checked == false) {
+        alert("Pilih, Tukar Posisi atau Susun Posisi...");
+        return;
+    }
+    if (jml == 2) {
+        for (let i = 0; i < indexarray.length; i++) {
+            idkEst += 1;
+            tglEst.push(table_data.cell(indexarray[i],1).data());
+        }
+        if (tglEst[0] != tglEst[1]) {
+            alert("Tanggal kerja tidak boleh berbeda.");
+            return;
+        }
+        if (Tukarposisi.checked) {
+            for (let i = 0; i < indexarray.length; i++) {
+                idkInput += 1;
+                WktInput.push(table_data.cell(indexarray[i],6).data());
+            }
+            for (let i = 0; i < WktInput.length; i++) {
+                idkInput -= 1;
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    url: 'EditPerOrderkonstruksi/' +  table_data.cell(indexarray[i],8).data(),
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        _token: csrfToken,
+                        _method: "PUT",
+                        noAntri : table_data.cell(indexarray[i],8).data(),
+                        idTrans : table_data.cell(indexarray[i],9).data(),
+                        estDate : table_data.cell(indexarray[i],1).data(),
+                        worksts : table_data.cell(indexarray[i],7).data(),
+                        idBag : NamaBagian.value,
+                        Time : WktInput[idkInput]
+                    },
+                    success: function(response) {
+                        console.log(response.message);
+                        // alert(response.message)
+                        // LoadOpr();
+                        // console.log(response.data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        }
+    }
+    else{
+        alert("Pilih 2 data.");
+        return;
+    }
 }
 
 //#endregion

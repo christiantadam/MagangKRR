@@ -112,7 +112,7 @@
                       <label class="form-check-label" for="Susunposisi">Susun Posisi</label>
                     </div>
                     <div class="col-6">
-                      <button type="button" class="btn btn-primary" id="proses">Proses</button>
+                      <button type="button" class="btn btn-primary" id="proses" onclick="prosesklik()">Proses</button>
                       <button type="button" class="btn btn-danger" id="batal"
                         style="display: none">Batal</button>
                     </div>
