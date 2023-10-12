@@ -65,15 +65,50 @@ $(document).ready(function () {
     });
     prosesButton.addEventListener("click", function (event) {
         if ((action = 1)) {
-            const Nama_Klinik = document.getElementById("Nama_Klinik");
-            const AlamatKlinik = document.getElementById("AlamatKlinik");
-            const KotaKlinik = document.getElementById("KotaKlinik");
-            const NomorTelepon = document.getElementById("NomorTelepon");
+            console.log(document.getElementById("KeteranganIsi").value + " " +document.getElementById("AlasanLembur").value );
+            if ((document.getElementById("KeteranganIsi").value === 'L' || document.getElementById("KeteranganIsi").value === 'I') && document.getElementById("AlasanLembur").value === "") {
+                alert("Alasan harus diisi");
+                return;
+            }
+            const ChkDatang = document.getElementById("ChkDatang")
+            const ChkPulang = document.getElementById("ChkPulang")
+
+
+            const Tanggal = document.getElementById("TglMasuk").value;
+            const kdpegawai = document.getElementById("Id_Peg").value;
+            const ketAbsen = document.getElementById("KeteranganIsi").value;
+            const jam_Masuk = document.getElementById("Masuk").value;
+            const jam_Keluar = document.getElementById("Keluar").value;
+            const jam_Istirahat_Awal = document.getElementById("IstirahatAwal").value;
+            const jam_Istirahat_Akhir = document.getElementById("IstirahatAkhir").value;
+            const jam_Datang = document.getElementById("Datang").value;
+            const jam_Pulang = document.getElementById("Pulang").value;
+            const ketLembur = document.getElementById("AlasanLembur").value;
+            var checkDatang,checkPulang;
+            if (ChkDatang.checked) {
+                checkDatang = 'True';
+            }else{
+                checkDatang = 'False';
+            }
+            if (ChkPulang.checked) {
+                checkPulang = 'True';
+            }else{
+                checkPulang = 'False';
+            }
             const data = {
-                nm: Nama_Klinik.value,
-                alamat: AlamatKlinik.value,
-                kota: KotaKlinik.value,
-                telp: NomorTelepon.value,
+                Tanggal: Tanggal,
+                kdpegawai: kdpegawai,
+                userid: "4384",
+                ketAbsen : ketAbsen,
+                ketLembur : ketLembur,
+                ChkDatang : checkDatang,
+                ChkPulang : checkPulang,
+                jam_Masuk : jam_Masuk,
+                jam_Keluar : jam_Keluar,
+                jam_Istirahat_Awal : jam_Istirahat_Awal,
+                jam_Istirahat_Akhir : jam_Istirahat_Akhir,
+                jam_Datang : jam_Datang,
+                jam_Pulang : jam_Pulang,
             };
             console.log(data);
 
@@ -345,16 +380,19 @@ $(document).ready(function () {
                             // Handle the data retrieved from the server (data should be an object or an array)
                             console.log(data[0].minjam);
                             // Clear the existing table rows
-                            if (data[0].minjam != null && data[0].maxjam != null) {
+                            if (
+                                data[0].minjam != null &&
+                                data[0].maxjam != null
+                            ) {
                                 $("#Datang").val(data[0].minjam.split(" ")[1]);
                                 $("#Pulang").val(data[0].maxjam.split(" ")[1]);
-                            }else if (data[0].maxjam != null) {
+                            } else if (data[0].maxjam != null) {
                                 $("#Datang").val(data[0].maxjam.split(" ")[1]);
                                 $("#Pulang").val(data[0].maxjam.split(" ")[1]);
-                            }else if (data[0].minjam != null) {
+                            } else if (data[0].minjam != null) {
                                 $("#Datang").val(data[0].minjam.split(" ")[1]);
                                 $("#Pulang").val(data[0].minjam.split(" ")[1]);
-                            }else{
+                            } else {
                                 $("#Datang").val("00:00");
                                 $("#Pulang").val("00:00");
                             }
@@ -439,6 +477,20 @@ $(document).ready(function () {
             } else {
                 klinikButton.disabled = false;
                 txtLembur.disabled = false;
+            }
+        });
+    document
+        .getElementById("KeteranganIsi")
+        .addEventListener("change", function (e) {
+            // kode yang akan dijalankan ketika nilai select berubah
+            var ketKoreksi = document.getElementById("KeteranganIsi");
+            const AlasanLembur = document.getElementById("AlasanLembur");
+
+            if (ketKoreksi.value == "L" || ketKoreksi.value == "C" || ketKoreksi.value == "D" || ketKoreksi.value == "I") {
+                AlasanLembur.disabled = false;
+
+            } else {
+                AlasanLembur.disabled = true;
             }
         });
     $("#buttonTampil").click(function () {

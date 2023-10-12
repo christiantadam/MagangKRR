@@ -264,7 +264,8 @@
                         <div class="card-container" style="display: flex; flex-wrap: nowrap; ">
                             <div>
                                 <div class="card-body"
-                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " id="koreksiSection" >
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "
+                                    id="koreksiSection">
 
                                     <div class="row" style="margin-left:-120px;">
                                         <div class="form-group col-md-3 d-flex justify-content-end">
@@ -272,7 +273,8 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <input class="form-control" type="date" id="TglMasukKoreksi" name="TglMasukKoreksi"
+                                            <input class="form-control" type="date" id="TglMasukKoreksi"
+                                                name="TglMasukKoreksi"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
                                                 style="width: 150px;" disabled>
                                         </div>
@@ -285,7 +287,8 @@
                                         </div>
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                            <select class="form-control" id="KeteranganKoreksi" name="KeteranganKoreksiName"
+                                            <select class="form-control" id="KeteranganKoreksi"
+                                                name="KeteranganKoreksiName"
                                                 style="resize: none;height: 35px; max-width:150px;"disabled>
                                                 <option value="A">A</option>
                                                 <option value="B">B</option>
@@ -413,7 +416,8 @@
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input class="form-control" type="text" id="jamTerlambatKoreksi"
+                                                        <input class="form-control" type="text"
+                                                            id="jamTerlambatKoreksi"
                                                             style="resize: none; height: 40px; max-width: 150px;" disabled>
                                                     </div>
 
@@ -493,7 +497,8 @@
 
                                 </div>
                                 <div class="card-body"
-                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "id="tambahSection" hidden >
+                                    style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; "id="tambahSection"
+                                    hidden>
 
                                     <div class="row" style="margin-left:-120px;">
                                         <div class="form-group col-md-3 d-flex justify-content-end">
@@ -503,7 +508,7 @@
 
                                             <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
                                                 value="{{ old('TglLapor', now()->format('Y-m-d')) }}"
-                                                style="width: 150px;" >
+                                                style="width: 150px;">
                                         </div>
 
 
@@ -515,19 +520,13 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
 
                                             <select class="form-control" id="KeteranganIsi" name="KeteranganIsi"
-                                                style="resize: none;height: 35px; max-width:150px;" >
-                                                <option value="A">A</option>
+                                                style="resize: none;height: 35px; max-width:150px;">
                                                 <option value="B">B</option>
-                                                <option value="C">C</option>
-                                                <option value="D">D</option>
-                                                <option value="H">H</option>
-                                                <option value="I">I</option>
-                                                <option value="K">K</option>
                                                 <option value="L">L</option>
                                                 <option value="M">M</option>
-                                                <option value="P">P</option>
-                                                <option value="S">S</option>
-                                                <option value="X">X</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="I">I</option>
                                             </select>
                                         </div>
 
@@ -563,7 +562,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="klinikButton" onclick="showModalShift()" >...</button>
+                                                id="klinikButton" onclick="showModalShift()">...</button>
 
                                             <div class="modal fade" id="modalShift" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -619,7 +618,7 @@
 
 
                                     <div class="card-body"
-                                        style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; " >
+                                        style="flex: 1; margin-right: 10px;margin-left: 10px;border:1px solid black; ">
 
                                         <div class="card-container" style="display: flex; margin-left:110px;">
                                             <div class="card-body" style="flex: 1;">
@@ -649,23 +648,25 @@
 
                                             <div class="card-body" style="flex: 1;">
                                                 <div class="row" style="">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <div class="form-group col-md-3 d-flex justify-content-end">
                                                         <span class="aligned-text">Istirahat&nbsp;Awal&nbsp;:</span>
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="IstirahatAwal" name="IstirahatAwal" disabled>
+                                                        <input type="time" id="IstirahatAwal" name="IstirahatAwal"
+                                                            disabled>
                                                     </div>
 
 
                                                 </div>
                                                 <div class="row" style="">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <div class="form-group col-md-3 d-flex justify-content-end">
                                                         <span class="aligned-text">Istirahat&nbsp;Akhir&nbsp;:</span>
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
 
-                                                        <input type="time" id="IstirahatAkhir" name="IstirahatAkhir" disabled>
+                                                        <input type="time" id="IstirahatAkhir" name="IstirahatAkhir"
+                                                            disabled>
                                                     </div>
 
 
@@ -674,7 +675,7 @@
 
                                             <div class="card-body" style="flex: 1;">
                                                 <div class="row" style="">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <div class="form-group col-md-3 d-flex justify-content-end">
                                                         <span class="aligned-text">Datang&nbsp;:</span>
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
@@ -685,7 +686,7 @@
 
                                                 </div>
                                                 <div class="row" style="">
-                                                    <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <div class="form-group col-md-3 d-flex justify-content-end">
                                                         <span class="aligned-text">Pulang&nbsp;:</span>
                                                     </div>
                                                     <div class="form-group col-md-9 mt-3 mt-md-0">
@@ -696,12 +697,39 @@
 
                                                 </div>
                                             </div>
+                                            <div class="card-body" style="flex: 1;">
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-0 d-flex justify-content-end">
+                                                        <input type="checkbox" id="ChkDatang">
+
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <span class="aligned-text">Kosong</span>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row" style="">
+                                                    <div class="form-group col-md-0 d-flex justify-content-end">
+                                                        <input type="checkbox" id="ChkPulang">
+
+                                                    </div>
+                                                    <div class="form-group col-md-9 mt-3 mt-md-0">
+
+                                                        <span class="aligned-text">Kosong</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
 
 
                                     </div>
 
                                 </div>
+                                <div id="form-container"></div>
+
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-6" style="text-align: left; ">
                                         <button type="button" class="btn" style="margin-left: 10px"
