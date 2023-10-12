@@ -44,10 +44,16 @@ class KirimGudangController extends Controller
             // Return the options as JSON data
             return response()->json($dataSP);
         } else if ($crExplode[$lasindex] == "getTampilData") {
-            $dataSP = DB::connection('ConnInventory')->select('exec SP_5409_INV_TampilDataBarang @kodebarang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
-            // dd($dataSP);
+            $dataTampil = DB::connection('ConnInventory')->select('exec SP_5409_INV_TampilDataBarang @kodebarang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataTampil);
             // Return the options as JSON data
-            return response()->json($dataSP);
+            return response()->json($dataTampil);
+        } else if ($crExplode[$lasindex] == "getDataStatus") {
+            $dataStatus = DB::connection('ConnInventory')->select('exec SP_5409_INV_CekBarcodeKirimGudang
+            @kodebarang = ?, @noindeks = ?, @statusdispresiasi = ?', [$crExplode[0], $crExplode[1], " "]);
+            dd($dataStatus);
+            // Return the options as JSON data
+            return response()->json($dataStatus);
         }
     }
     // Show the form for editing the specified resource.
@@ -71,12 +77,13 @@ class KirimGudangController extends Controller
         @status = ?,
         @divisi = ?,
         @NoSP = ?', [
-            'U001',
+            '4384',
             $data['kodebarang'],
             $data['noindeks'],
             ' ',
             '1',
-            $data['']
+            $data['divisi'],
+            $data['NoSP']
 
         ]);
         return redirect()->route('KirimGudang.index')->with('alert', 'Data Updated successfully!');

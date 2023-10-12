@@ -150,15 +150,17 @@
                             </div>
                         </div>
 
+                        <div id="form-container"></div>
+
                         <div class="text-center col-md-auto mb-3">
-                            <button id="ButtonProcess" type="button" style="width: 150px; height: 50px">Process</button>
+                            <button id="ButtonProcess" type="button" style="width: 150px; height: 50px" onclick="ProcessData()">Process</button>
                             <a href="{{ url('BatalKirim') }}">
-                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px"">Belum Dikirim</button>
+                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px">Belum Dikirim</button>
                             </a>
                             <a href="{{ url('CSJ') }}">
-                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px"">Cek S.Jalan</button>
+                                <button type="button" style="margin-left: 15px; width: 150px; height: 50px">Cek S.Jalan</button>
                             </a>
-                            <button class="btn-danger" type="button" style="margin-left: 15px; width: 150px; height: 50px"">Keluar</button>
+                            <button class="btn-danger" type="button" style="margin-left: 15px; width: 150px; height: 50px">Keluar</button>
                         </div>
                         </div>
                     </div>

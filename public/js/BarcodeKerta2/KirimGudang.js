@@ -6,6 +6,9 @@ $(document).ready(function () {
     });
 
     $('#RekapKirim').DataTable({
+        select: {
+            style: "single"
+        },
         order: [
             [0, 'desc']
         ],
@@ -216,10 +219,13 @@ $(document).ready(function () {
     var ScanBarcode = document.getElementById('No_barcode');
     ScanBarcode.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
-            var ScanBarcode = document.getElementById('No_barcode').value;
-            console.log(ScanBarcode);
+            var ScanBarcodeValue = document.getElementById('No_barcode').value;
+            console.log(ScanBarcodeValue);
 
-            fetch("/KirimGudang/" + ScanBarcode.split("-")[0] + ".getSP")
+            var parts = ScanBarcodeValue.split("-");
+            console.log(parts); // Output: ["A123", "a234"]
+
+            fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -228,27 +234,114 @@ $(document).ready(function () {
                 })
                 .then((data) => {
                     // Handle the data retrieved from the server (data should be an object or an array)
+                    console.log("Data dari server:", data);
+
+                    // Assuming sts is a property in the data object, adjust this part accordingly
+                    var sts = data.Status;
+
+                    // Handling different statuses
+                    if (sts === "1") {
+                        // Do something for status 1
+                        console.log("Barcode Sudah Pernah Ditembak, Cek Kembali!!!");
+
+                        // Additional logic or actions for sts === "1"
+                    } else if (sts === "2") {
+                        // Do something for status 2
+                        alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+
+                        // Additional logic or actions for sts === "2"
+                    } else if (sts === "3") {
+                        // Do something for status 3
+                        alert("Barcode Sudah Pernah Ditembak!");
+
+                        // Additional logic or actions for sts === "3"
+                    } else {
+                        // Do something for other statuses
+                        alert("Data Barcode Tidak Ditemukan!");
+
+                        // Additional logic or actions for other statuses
+                    }
 
                     // Clear the existing table rows
-                    $("#TableSP").DataTable().clear().draw();
-
+                    // $("#TableSP").DataTable().clear().draw();
 
                     // Loop through the data and create table rows
                     data.forEach((item) => {
-                        var row = [item.IDSuratPesanan, item.NamaJnsBrg];
-                        $("#TableSP").DataTable().row.add(row);
+                        // Additional logic for processing data and updating the table
                     });
-
-                    // Redraw the table to show the changes
-                    $("#TableSP").DataTable().draw();
                 })
                 .catch((error) => {
                     console.error("Error:", error);
                 });
         }
-
-
     });
+
+    var ScanBarcode = document.getElementById('No_barcode');
+ScanBarcode.addEventListener("keypress", function (event) {
+    if (event.key == "Enter") {
+        var ScanBarcodeValue = document.getElementById('No_barcode').value;
+        console.log(ScanBarcodeValue);
+
+        var parts = ScanBarcodeValue.split("-");
+        console.log(parts); // Output: ["A123", "a234"]
+
+        fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+                console.log("Data dari server:", data);
+
+                // Assuming sts is a property in the data object, adjust this part accordingly
+                var sts = data.Status;
+
+                // Handling different statuses
+                if (sts === 1) {
+                    // Fetch additional data for status 1
+                    fetch("/KirimGudang/" + parts[0] + ".getSP")
+                        .then((responseSP) => {
+                            if (!responseSP.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return responseSP.json(); // Assuming the response is in JSON format
+                        })
+                        .then((dataSP) => {
+                            // Clear the existing table rows
+                            $("#TableSP").DataTable().clear().draw();
+
+                            // Loop through the dataSP and create table rows
+                            dataSP.forEach((item) => {
+                                var row = [item.IDSuratPesanan, item.NamaJnsBrg];
+                                $("#TableSP").DataTable().row.add(row);
+                            });
+
+                            // Redraw the table to show the changes
+                            $("#TableSP").DataTable().draw();
+                        })
+                        .catch((error) => {
+                            console.log("Barcode Sudah Pernah Ditembak, Cek Kembali!!!");console.error("Error:", error);
+                        });
+                } else if (sts === 2) {
+                    // Do something for status 2
+                    alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+                } else if (sts === 3) {
+                    // Do something for status 3
+                    alert("Barcode Sudah Pernah Ditembak!");
+                } else {
+                    // Do something for other statuses
+                    alert("Data Barcode Tidak Ditemukan!");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+});
+
 
     // var ScanBarcode = document.getElementById('No_barcode');
     // ScanBarcode.addEventListener("keypress", function (event) {
@@ -359,50 +452,124 @@ function isTableEmpty(tableId) {
     return table.rows().count() === 0;
 }
 
-function ProcessData() {
-    var UserId = "U001";
-    var selectedRows1 = document.getElementById('Kode');
-    var selectedRows2 = document.getElementById('Item');
-    var kodebarang = selectedRows1.value;
-    var noindeks = selectedRows2.value;
-    var barcode = " ";
-    var status = "1";
-    var divisi = document.getElementById('IdDivisi');
-    var NoSP = document.getElementById('NoSP');
+// function ProcessData() {
+//     var ScanBarcode = document.getElementById('No_barcode');
+//     var str = ScanBarcode.value;
+//     var parts = str.split("-");
 
-    // Create a data object to hold the values
-    const data = {
-        UserId : UserId,
+//     var UserId = "U001";
+//     var kodebarang = parts[0];
+//     var noindeks = parts[1];
+
+//     // Extract values from form elements
+//     var divisi = document.getElementById('IdDivisi').value;
+//     var NoSP = document.getElementById('NoSP').value;
+
+//     // Create a data object to hold the values
+//     const data = {
+//         UserId: UserId,
+//         kodebarang: kodebarang,
+//         noindeks: noindeks,
+//         divisi: divisi,
+//         NoSP: NoSP,
+//     };
+
+//     // Add CSRF token input field (assuming the csrfToken is properly fetched)
+//     let csrfToken = document
+//         .querySelector('meta[name="csrf-token"]')
+//         .getAttribute("content");
+
+//     // Send the data to the server using AJAX
+//     $.ajax({
+//         url: "KirimGudang/NoSP", // Replace with the correct action URL
+//         method: "POST",  // Use either POST or PUT, not both
+//         data: {
+//             ...data,
+//             _token: csrfToken,
+//             _method: "PUT" ,
+//             // Remove _method if you are using POST
+//             _ifUpdate: "Update Status"
+//         },
+//         success: function (response) {
+//             console.log("Form submitted successfully!");
+//             // Handle the server's response if needed
+//         },
+//         error: function (error) {
+//             console.error("Form submission error:", error);
+//             // Handle the error if needed
+//         }
+//     });
+// }
+
+function ProcessData(data) {
+    var str = No_barcode.value;
+    var parts = str.split("-");
+
+    var UserId = "U001";
+    var kodebarang = parts[0];
+    var noindeks = parts[1];
+
+    // Extract values from form elements
+    var divisi = document.getElementById('IdDivisi').value;
+    var NoSP = document.getElementById('NoSP').value;
+
+    const formData = {
+        UserId: UserId,
         kodebarang: kodebarang,
         noindeks: noindeks,
-        barcode: barcode,
-        status: status,
         divisi: divisi,
         NoSP: NoSP,
     };
+    console.log(formData);
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "KirimGudang/NoSP");
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding data
+        form.appendChild(input);
+    }
+    // Create method input with "PUT" Value
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding data
+    form.appendChild(method);
+
+    // Create input with "Update Keluarga" Value
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
 
     // Add CSRF token input field (assuming the csrfToken is properly fetched)
     let csrfToken = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
 
-    // Send the data to the server using AJAX
-    $.ajax({
-        url: "KirimGudang/NoSP", // Replace with the correct action URL
-        method: "POST",
-        data: {
-            ...data,
-            _token: csrfToken,
-            _method: "PUT",
-            _ifUpdate: "Update Status"
-        },
-        success: function (response) {
-            console.log("Form submitted successfully!");
-            // Handle the server's response if needed
-        },
-        error: function (error) {
-            console.error("Form submission error:", error);
-            // Handle the error if needed
-        }
-    });
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
 }

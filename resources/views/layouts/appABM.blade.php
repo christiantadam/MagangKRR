@@ -168,7 +168,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BuatBarcode') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BuatBarcode2') }}">Buat Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
