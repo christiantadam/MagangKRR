@@ -12,7 +12,7 @@ class BalJadiPaletController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["enver"]);
         $data = 'HAPPY HAPPY HAPPY';
         return view('FormRepress.BalJadiPalet', compact('data', 'dataDivisi'));
     }

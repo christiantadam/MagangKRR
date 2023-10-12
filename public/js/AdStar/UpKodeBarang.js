@@ -1,3 +1,7 @@
+$("#tabel_Barang").DataTable();
+$("#tabel_Barang2").DataTable();
+
+
  // // Click event handler for table rows
  $('#tabel_Barang tbody').on('click', 'tr', function() {
     // Get the data from the clicked row

@@ -1,3 +1,9 @@
+$("#tbl_customer").DataTable();
+$("#tbl_nmbrng").DataTable();
+$("#tbl_srtpsn").DataTable();
+$("#tbl_noordkrj").DataTable();
+$("#tbl_stkordsblm").DataTable();
+
 // Mengambil semua elemen input tanggal
 const inputTanggalElements = document.querySelectorAll('input[type="date"]');
 
@@ -159,6 +165,7 @@ const ldBrng = document.getElementById('ld-Brng')
 
 
 ldBrng.addEventListener("click", function () {
+    $("#tbl_nmbrng").DataTable();
     var idcust = document.getElementById('idcust');
     fetch("/MaintOrder/" + idcust.value + ".dataBrng")
         .then((response) => {
@@ -289,6 +296,28 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleInputEditing(isEditing);
 
         if (isEditing) {
+
+            // Clear form inputs
+            inputElements.forEach(function (input) {
+                input.value = "";
+            });
+
+            const inputTanggalElements = document.querySelectorAll('input[type="date"]');
+
+            // Mengatur nilai awal input tanggal ke tanggal hari ini
+            const tanggalHariIni = new Date().toISOString().slice(0, 10);
+            inputTanggalElements.forEach(function (inputElement) {
+                inputElement.value = tanggalHariIni;
+            });
+
+            // Mengizinkan pengguna untuk mengubah tanggal secara manual
+            inputTanggalElements.forEach(function (inputElement) {
+                inputElement.addEventListener('change', function () {
+                    // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
+                    // Contoh: const tanggalYangDiubah = inputElement.value;
+                });
+            });
+
             addButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
             updateButton.style.display = "none";
@@ -313,6 +342,28 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleInputEditing(isEditing);
 
         if (isEditing) {
+
+            // Clear form inputs
+            inputElements.forEach(function (input) {
+                input.value = "";
+            });
+
+            const inputTanggalElements = document.querySelectorAll('input[type="date"]');
+
+            // Mengatur nilai awal input tanggal ke tanggal hari ini
+            const tanggalHariIni = new Date().toISOString().slice(0, 10);
+            inputTanggalElements.forEach(function (inputElement) {
+                inputElement.value = tanggalHariIni;
+            });
+
+            // Mengizinkan pengguna untuk mengubah tanggal secara manual
+            inputTanggalElements.forEach(function (inputElement) {
+                inputElement.addEventListener('change', function () {
+                    // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
+                    // Contoh: const tanggalYangDiubah = inputElement.value;
+                });
+            });
+
             addButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
             updateButton.style.display = "none";
@@ -334,6 +385,12 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleInputEditing(isEditing);
 
         if (isEditing) {
+
+            // Clear form inputs
+            inputElements.forEach(function (input) {
+                input.value = "";
+            });
+
             addButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
             updateButton.style.display = "none";

@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelButton = document.getElementById("cancelButton");
     const unstpButton = document.getElementById("unstpButton");
     const btn_noorder = document.getElementById("btn_noorder");
+    var inputElements = document.querySelectorAll("input[readonly]");
 
 
     function toggleInputEditing(enable) {
@@ -147,6 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toggleInputEditing(isEditing);
 
+         // Clear form inputs
+         inputElements.forEach(function (input) {
+            input.value = "";
+        });
+
+
         if (isEditing) {
             stpButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
@@ -167,6 +174,12 @@ document.addEventListener("DOMContentLoaded", function () {
         kodeSave = 2;
 
         toggleInputEditing(isEditing);
+
+         // Clear form inputs
+         inputElements.forEach(function (input) {
+            input.value = "";
+        });
+
 
         if (isEditing) {
             stpButton.style.display = "none";

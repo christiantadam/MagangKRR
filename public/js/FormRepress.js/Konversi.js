@@ -30,6 +30,86 @@ $(document).ready(function () {
 
         // Update the output/input field with the selected date
         document.getElementById('tanggalOutput').value = selectedDate;
+
+        // Aktifkan tombol ButtonShift setelah mengisi tanggal
+        document.getElementById('ButtonShift').disabled = false;
+    });
+
+    $('#ButtonScanBarcode').prop('disabled', true);
+
+    // Event listener for "Pilih Shift" button
+    document.getElementById('ButtonShift').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Enable "Scan Barcode" button
+        $('#ButtonScanBarcode').prop('disabled', false);
+    });
+
+    // ... (existing code)
+
+    // Event listener for "Scan Barcode" button
+    document.getElementById('ButtonScanBarcode').addEventListener("click", function (event) {
+        event.preventDefault();
+        // Your code for handling the "Scan Barcode" button click goes here
+    });
+
+    $('#ButtonType').prop('disabled', true);
+
+    // Event listener for "Scan Barcode" button
+    document.getElementById('ButtonScanBarcode').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Enable "Pilih Type" button
+        $('#ButtonType').prop('disabled', false);
+
+        // Your code for handling the "Scan Barcode" button click goes here
+    });
+
+    // ... (existing code)
+
+    // Event listener for "Pilih Type" button
+    document.getElementById('ButtonType').addEventListener("click", function (event) {
+        event.preventDefault();
+        // Your code for handling the "Pilih Type" button click goes here
+    });
+
+    // Disable "Timbang" button initially
+    $('#ButtonTimbang').prop('disabled', true);
+
+    // Event listener for "Pilih Type" button
+    document.getElementById('ButtonType').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Enable "Timbang" button
+        $('#ButtonTimbang').prop('disabled', false);
+
+        // Your code for handling the "Pilih Type" button click goes here
+    });
+
+    // ... (existing code)
+
+    // Event listener for "Timbang" button
+    document.getElementById('ButtonTimbang').addEventListener("click", function (event) {
+        event.preventDefault();
+        // Your code for handling the "Timbang" button click goes here
+    });
+
+    $('#ButtonTimbang, #ButtonPrintBarcodeKonversi').prop('disabled', true);
+
+    // Event listener for "Timbang" button
+    document.getElementById('ButtonTimbang').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Check if Tritier is empty
+        if ($('#Tritier').val() === '') {
+            alert('Tritier harus diisi sebelum menimbang.');
+            return;
+        }
+
+        // Enable "Print Barcode Konversi" button
+        $('#ButtonPrintBarcodeKonversi').prop('disabled', false);
+
+        // Your code for handling the "Timbang" button click goes here
     });
 
     var BarcodeInput = document.getElementById('BarcodeInput');
@@ -40,7 +120,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/BalJadiPalet/" + parts[0] + "." + parts[1] + ".getBarcode")
+            fetch("/ABM/Konversi/" + parts[0] + "." + parts[1] + ".getBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -54,35 +134,78 @@ $(document).ready(function () {
                     // Loop through the data and create table rows
                     data.forEach((item) => {
                         var kodebarcode = parts[0] + "-" + parts[1]
-                        var row = [kodebarcode, item.qty_primer, item.Id_type_tujuan, item.IdDivisi_Objek];
+                        var row = [kodebarcode, item.Qty_Primer, item.Qty_Sekunder, item.Qty, item.NamaType, item.IdDivisi_Objek];
+                        $("#Primer").val(item.Qty_Primer)
+                        $("#Sekunder").val(item.Qty_Sekunder)
+                        $("#Tritier").val(item.Qty)
+
                         $("#BarcodeKonversi").val(kodebarcode)
                         $("#Divisi").val(item.IdDivisi_Objek)
-                        $("#TypeAsal").val(item.Id_type_tujuan)
+                        $("#TypeAsal").val(item.NamaType)
                     });
 
                     // Redraw the table to show the changes
-                    $("#TableType1").DataTable().draw();
+                    $("#TableType").DataTable().draw();
+
+                    var Divisi = document.getElementById('Divisi');
+                    fetch("/ABM/Konversi/" + Divisi.value + ".getType")
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Network response was not ok");
+                            }
+                            return response.json(); // Assuming the response is in JSON format
+                        })
+                        .then((data) => {
+                            // Handle the data retrieved from the server (data should be an object or an array)
+                            console.log(data);
+
+                            // Loop through the data and create table rows
+                            data.forEach((item) => {
+                                var row = [item.NamaType, item.IdType];
+                                $("#TableType").DataTable().row.add(row);
+                            });
+
+                            // Redraw the table to show the changes
+                            $("#TableType").DataTable().draw();
+
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
                 })
                 .catch((error) => {
                     console.error("Error:", error);
                 });
+            closeModal1();
         }
     });
 
+    $("#TableType tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableType").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $("#tujuan").val(rowData[0]);
+
+        // var txtIdDivisi = document.getElementById(rowData[0]);
+        // Hide the modal immediately after populating the data
+        closeModal2();
+    });
 
     var ButtonPrintBarcodeKonversi = document.getElementById('ButtonPrintBarcodeKonversi');
     ButtonPrintBarcodeKonversi.addEventListener("click", function (event) {
         // Mengatur tombol menjadi tidak dapat diakses (disabled)
         // ButtonPrintBarcode.disabled = true;
 
-        // Mendapatkan tanggal paling baru setiap hari
-        var currentDate = new Date();
-        var year = currentDate.getFullYear();
-        var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-        var day = currentDate.getDate().toString().padStart(2, '0');
-        var tanggalSekarang = year + '-' + month + '-' + day;
+        // // Mendapatkan tanggal paling baru setiap hari
+        // var currentDate = new Date();
+        // var year = currentDate.getFullYear();
+        // var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        // var day = currentDate.getDate().toString().padStart(2, '0');
+        // var tanggalSekarang = year + '-' + month + '-' + day;
 
-        var getBarcodePrintUlang = document.getElementById('BarcodeInput');
+        var getBarcodePrintUlang = document.getElementById('BarcodeKonversi');
         var str = getBarcodePrintUlang.value
         var parts = str.split("-");
         console.log(parts);
@@ -91,7 +214,7 @@ $(document).ready(function () {
         var idtypeasal = '0011';
         var idtypetujuan = '0017';
         var userid = 'U001';
-        var tanggal = tanggalSekarang;
+        var tanggal = document.getElementById('tanggalOutput').value;
         var jumlahmasukprimer = document.getElementById('Primer').value;
         var jumlahmasuksekunder = document.getElementById('Sekunder').value;
         var jumlahmasuktertier = document.getElementById('Tritier').value;
@@ -103,10 +226,10 @@ $(document).ready(function () {
         var uraian = 'Pagi';
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/BalJadiPalet/" + idtypeasal + "." + idtypetujuan + "." + userid + "." +
-            tanggal + "." + jumlahmasukprimer + "." + jumlahmasuksekunder + "." + jumlahmasuktertier + "." +
-            asalidsubkelompok + "." + tujuanidsubkelompok + "." + kodebarangasal + "." + kodebarangtujuan + "."
-            + noindeksasal + "." + uraian + "." + ".buatBarcode")
+        fetch("/ABM/Konversi/" + idtypeasal + "~" + idtypetujuan + "~" + userid + "~" +
+            tanggal + "~" + jumlahmasukprimer + "~" + jumlahmasuksekunder + "~" + jumlahmasuktertier + "~" +
+            asalidsubkelompok + "~" + tujuanidsubkelompok + "~" + kodebarangasal + "~" + kodebarangtujuan + "~"
+            + noindeksasal + "~" + uraian + "~.buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -121,7 +244,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                    fetch("/ABM/Konversi/" + kodebarangtujuan + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -131,7 +254,7 @@ $(document).ready(function () {
                         .then((data) => {
                             // Handle data yang diterima dari fetch kedua di sini
                             console.log("Data dari fetch kedua:", data);
-                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                            var kodebarcode = kodebarangtujuan.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
                             console.log(kodebarcode);
                             // Show an alert for each 'kodebarang'
                             alert('Kode Barang: ' + kodebarcode);
