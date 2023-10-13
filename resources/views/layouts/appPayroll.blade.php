@@ -178,13 +178,13 @@
                                 </a>
                                 <ul class="dropdown-menu" style="cursor: default">
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/InputCheckClock') }}">Input Checkclock Nganjuk</a>
+                                            tabindex="-1" href="{{ url('InputCheckClock') }}">Input Checkclock Nganjuk</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/TransferAbsen') }}">Transfer Absen</a>
+                                            tabindex="-1" href="{{ url('TransferAbsen') }}">Transfer Absen</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/VerifikasiAbsen') }}">Verifikasi Absen</a>
+                                            tabindex="-1" href="{{ url('VerifikasiAbsen') }}">Verifikasi Absen</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('AbsenSimpang') }}">Absen Simpang ✓</a>
@@ -196,7 +196,7 @@
                                             tabindex="-1" href="{{ url('KoreksiAbsen') }}">Koreksi Absen</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/InputLibur') }}">Input Libur/Masuk Pegawai</a>
+                                            tabindex="-1" href="{{ url('Transaksi/InputLibur') }}">Input Libur/Masuk Pegawai</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" href="{{ url('InputRange') }}">Input Range ✓</a>
@@ -225,13 +225,13 @@
 
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Harian') }}">Harian</a>
+                                                    tabindex="-1" href="{{ url('Transaksi/Mutasi/Harian') }}">Harian</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Staff') }}">Staff</a>
+                                                    tabindex="-1" href="{{ url('Transaksi/Mutasi/Staff') }}">Staff</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Histori') }}">Histori Mutasi</a>
+                                                    tabindex="-1" href="{{ url('Transaksi/Mutasi/Histori') }}">Histori Mutasi</a>
                                             </li>
 
                                         </ul>
@@ -243,7 +243,7 @@
                                             tabindex="-1" href="{{ url('KenaikanUpah') }}">Kenaikan Upah ✓</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Absen1') }}">Absen > 1</a>
+                                            tabindex="-1" href="{{ url('Transaksi/Absen1') }}">Absen > 1</a>
                                     </li>
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                             tabindex="-1" >Skorsing &raquo;</a>
@@ -267,7 +267,7 @@
                                                     tabindex="-1" href="{{ url('Peringatan/Permohonan') }}">Permohonan ✓</a>
                                             </li>
                                             <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                    tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Peringatan/AccPermohonan') }}">Acc Permohonan ✓</a>
+                                                    tabindex="-1" href="{{ url('Peringatan/AccPermohonan') }}">Acc Permohonan ✓</a>
                                             </li>
 
 

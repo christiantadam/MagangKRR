@@ -250,9 +250,29 @@ class KoreksiAbsenController extends Controller
                 $statusAbsen = 'M';
             }
         }else if ($data['ketAbsen'] == 'L'){
-
+            $hasil = $this->hitungLembur($jamkerja, $data['Tanggal']);
+            $lebih = $hasil[0];
+            $lembur1 = $hasil[1];
+            $lembur2 = $hasil[2];
+            $lembur3 = $hasil[3];
+            $lembur4 = $hasil[4];
+            $statusAbsen = "L";
+        }else {
+            $statusAbsen = $data['ketAbsen'];
         }
-        $hasil = $this->hitungMasuk($jam_masuk, $jam_keluar, $datang, $pulang);
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_jam_istirahat = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
+            $kd_pegawai,
+            $data['Tanggal'],
+            $masuk->format('Y-m-d H:i:s'),
+            $pulang->format('Y-m-d H:i:s'),
+            $wewe3,
+            $awal_jam_istirahat,
+            $akhir_jam_istirahat,
+            'm',
+            $data['User_Input']
+        ]);
+
+
         dd($jamkerja,$hasil[1]);
     }
 
