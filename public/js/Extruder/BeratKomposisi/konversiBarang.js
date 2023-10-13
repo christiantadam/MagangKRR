@@ -822,7 +822,7 @@ function loadDataKoreksiFetch(s_kode_brg) {
                         KoefHDPE: data[i].KoefHDPE,
                         Tgl_LoadingBC:
                             data[i].Tgl_LoadingBC !== null
-                                ? data[i].Tgl_LoadingBC
+                                ? dateTimeToDate(data[i].Tgl_LoadingBC)
                                 : "",
                     });
                 }
@@ -1183,10 +1183,15 @@ function loadDataFetch(s_kode_brg) {
                         KoefHDPE: data[i].KoefHDPE,
                         Tgl_LoadingBC:
                             data[i].Tgl_LoadingBC !== null
-                                ? data[i].Tgl_LoadingBC
+                                ? dateTimeToDate(data[i].Tgl_LoadingBC)
                                 : "",
                     });
 
+                    addTable_DataTable(
+                        "table_konversi",
+                        listKonversi,
+                        colKonversi
+                    );
                     formWait(false);
                     dateLoading.focus();
                 }

@@ -10,3 +10,7 @@
 function init() {}
 
 $(document).ready(() => init());
+
+btnKeluar.addEventListener("click", function () {
+    window.location.href = "/Extruder/ExtruderNet";
+});

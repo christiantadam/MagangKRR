@@ -14,8 +14,11 @@
                         <span class="aligned-text">Divisi:</span>
                     </div>
                     <div class="col-lg-7">
-                        <select id="select_divisi" class="form-select" disabled>
-                            <option selected disabled>-- Pilih Divisi --</option>
+                        <select id="select_divisi" class="form-select">
+                            <option selected>-- Pilih Divisi --</option>
+                            @foreach ($formData['listDivisi'] as $d)
+                                <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-lg-2">
@@ -28,7 +31,7 @@
                         <span class="aligned-text">No. Barcode:</span>
                     </div>
                     <div class="col-lg-7">
-                        <input type="text" id="no_barcode" class="form-control">
+                        <input type="text" id="no_barcode" class="form-control" disabled>
                     </div>
 
                     <div class="col-lg-2">

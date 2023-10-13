@@ -9,12 +9,12 @@
         <div class="row mt-3">
             <div class="form-group col-md-4">
                 <label for="kode_barang">Kode Barang:</label>
-                <input type="text" class="form-control" id="kode_barang">
+                <input type="text" class="form-control" id="kode_barang" disabled>
             </div>
             <div class="form-group col-md-2">
                 <label for="berat_standar">Berat Standar:</label>
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="berat_standar">
+                    <input type="number" min="0" class="form-control" id="berat_standar" disabled>
                     <span class="input-group-text">Kg</span>
                 </div>
             </div>
@@ -23,14 +23,14 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="tanggal_input">Tanggal Input:</label>
-                <input type="date" class="form-control" id="tanggal_input">
+                <input type="date" class="form-control" id="tanggal_input" disabled>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="form-group col-md-5">
                 <label for="no_konversi">No Konversi:</label>
-                <input type="text" class="form-control" id="no_konversi">
+                <input type="text" class="form-control" id="no_konversi" disabled>
             </div>
             <div class="form-group col-md-3"></div>
             <div class="form-group col-md-4">
@@ -42,27 +42,27 @@
         <div class="row mt-3">
             <div class="form-group col-md-12">
                 <label for="type">Type:</label>
-                <textarea class="form-control" id="type_berat" rows="3"></textarea>
+                <textarea class="form-control" id="type_berat" rows="3" disabled></textarea>
             </div>
         </div>
 
         <div class="row mt-3">
             <div class="form-group col-md-5">
                 <label for="jenis_barang">Jenis Barang:</label>
-                <input type="text" class="form-control" id="jenis_barang">
+                <input type="text" class="form-control" id="jenis_barang" disabled>
             </div>
             <div class="form-group col-md-1"></div>
             <div class="form-group col-md-2">
                 <label for="terkandung">Terkandung:</label>
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="terkandung">
+                    <input type="number" min="0" class="form-control" id="terkandung" disabled>
                     <span class="input-group-text">%</span>
                 </div>
             </div>
             <div class="form-group col-md-2">
                 <label for="waste">Waste:</label>
                 <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="waste">
+                    <input type="number" min="0" class="form-control" id="waste" disabled>
                     <span class="input-group-text">%</span>
                 </div>
             </div>
@@ -82,21 +82,22 @@
                             <div class="form-group col-md-4">
                                 <label for="PP">PP:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control txt_komposisi" id="PP_kg">
+                                    <input type="number" min="0" class="form-control txt_komposisi" id="PP_kg"
+                                        disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="PP_persen">Persen PP:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="PP_persen">
+                                    <input type="number" min="0" class="form-control" id="PP_persen" disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_PP">Koef. PP:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_PP">
+                                    <input type="number" min="0" class="form-control" id="koef_PP" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -107,21 +108,21 @@
                                 <label for="PE">PE:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="PE_kg">
+                                        id="PE_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="PE_persen">Persen PE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="PE_persen">
+                                    <input type="number" min="0" class="form-control" id="PE_persen" disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_PE">Koef. PE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_PE">
+                                    <input type="number" min="0" class="form-control" id="koef_PE" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -132,21 +133,22 @@
                                 <label for="CaCO3">CaCO3:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="CaCO3_kg">
+                                        id="CaCO3_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="CaCO3_persen">Persen CaCO3:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="CaCO3_persen">
+                                    <input type="number" min="0" class="form-control" id="CaCO3_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_CaCO3">Koef. CaCO3:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_CaCO3">
+                                    <input type="number" min="0" class="form-control" id="koef_CaCO3" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -157,21 +159,23 @@
                                 <label for="Masterbatch">Masterbatch:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="Masterbatch_kg">
+                                        id="Masterbatch_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Masterbatch_persen">Persen Masterbatch:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="Masterbatch_persen">
+                                    <input type="number" min="0" class="form-control" id="Masterbatch_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_Masterbatch">Koef. Masterbatch:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_Masterbatch">
+                                    <input type="number" min="0" class="form-control" id="koef_Masterbatch"
+                                        disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -182,21 +186,21 @@
                                 <label for="UV">UV:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="UV_kg">
+                                        id="UV_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="UV_persen">Persen UV:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="UV_persen">
+                                    <input type="number" min="0" class="form-control" id="UV_persen" disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_UV">Koef. UV:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_UV">
+                                    <input type="number" min="0" class="form-control" id="koef_UV" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -207,21 +211,23 @@
                                 <label for="Anti_Static">Anti Static:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="Anti_Static_kg">
+                                        id="Anti_Static_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Anti_Static_persen">Persen Anti Static:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="Anti_Static_persen">
+                                    <input type="number" min="0" class="form-control" id="Anti_Static_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_Anti_Static">Koef. Anti Static:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_Anti_Static">
+                                    <input type="number" min="0" class="form-control" id="koef_Anti_Static"
+                                        disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -232,21 +238,23 @@
                                 <label for="Conductive">Conductive / Kertas:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="Conductive_kg">
+                                        id="Conductive_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Conductive_persen">Persen Conductive / Kertas:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="Conductive_persen">
+                                    <input type="number" min="0" class="form-control" id="Conductive_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_Conductive">Koef. Conductive / Kertas:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_Conductive">
+                                    <input type="number" min="0" class="form-control" id="koef_Conductive"
+                                        disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -257,21 +265,21 @@
                                 <label for="pp">LDPE:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="LDPE_kg">
+                                        id="LDPE_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="LDPE_persen">Persen LDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="LDPE_persen">
+                                    <input type="number" min="0" class="form-control" id="LDPE_persen" disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_LDPE">Koef. LDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_LDPE">
+                                    <input type="number" min="0" class="form-control" id="koef_LDPE" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -282,21 +290,22 @@
                                 <label for="LLDPE">LLDPE:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="LLDPE_kg">
+                                        id="LLDPE_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="LLDPE_persen">Persen LLDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="LLDPE_persen">
+                                    <input type="number" min="0" class="form-control" id="LLDPE_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_LLDPE">Koef. LLDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_LLDPE">
+                                    <input type="number" min="0" class="form-control" id="koef_LLDPE" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -307,21 +316,21 @@
                                 <label for="LLDPE">HDPE:</label>
                                 <div class="input-group">
                                     <input type="number" min="0" class="form-control txt_komposisi"
-                                        id="HDPE_kg">
+                                        id="HDPE_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="HDPE_persen">Persen HDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="HDPE_persen">
+                                    <input type="number" min="0" class="form-control" id="HDPE_persen" disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_HDPE">Koef. HDPE:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_HDPE">
+                                    <input type="number" min="0" class="form-control" id="koef_HDPE" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
@@ -331,21 +340,22 @@
                             <div class="form-group col-md-4">
                                 <label for="Total">Total Komposisi:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="Total_kg">
+                                    <input type="number" min="0" class="form-control" id="Total_kg" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="Total_persen">Jumlah:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="Total_persen">
+                                    <input type="number" min="0" class="form-control" id="Total_persen"
+                                        disabled>
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="koef_Total">Total Koefisien:</label>
                                 <div class="input-group">
-                                    <input type="number" min="0" class="form-control" id="koef_Total">
+                                    <input type="number" min="0" class="form-control" id="koef_Total" disabled>
                                     <span class="input-group-text">Kg</span>
                                 </div>
                             </div>

@@ -12,13 +12,14 @@ use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 use App\Http\Controllers\Extruder\WarehouseTerima\WarehouseController;
 
 /**
- * LAST : btnKoreksi_Click() | frmKonversi.vb
+ * LAST : cekbarcode() | FrmKirimGelondongan.vb
  *
  * User_id = 4384
  *
  * Dokumentasi Alur Kerja Form + Test Case terhadap database lokal
  * Bisa juga dipakai sebagai User Manual
- * https://docs.google.com/document/d/1dRO-LCljmRm9tND8NfYJJTtf_j88ZXvakePGIBnaaJA/edit?usp=sharing
+ * https://docs.google.com/document/d/1dRO-LCljmRm9tND8NfYJJTtf_j88ZXvakePGIBnaaJA/edit?usp=sharing (Extruder.Net)
+ * https://docs.google.com/document/d/1vxQOqKXhgnv6ZkSTaBGbSREuw_SvHyHKCJ64Teosxrw/edit?usp=sharing (Berat Komposisi 2)
  */
 
 /*
@@ -41,6 +42,7 @@ Route::get('Contoh', 'App\Http\Controllers\HomeController@Contoh');
 Route::get('ProgramContoh', 'App\Http\Controllers\Contoh\Transaksi\ContohController@index');
 
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
+Route::get('/Extruder/WarehouseTerima/{formName?}', [WarehouseController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
 
 Route::get('/Extruder/ExtruderNet/Master/{formName?}/{namaGedung?}', [MasterController::class, 'index']);

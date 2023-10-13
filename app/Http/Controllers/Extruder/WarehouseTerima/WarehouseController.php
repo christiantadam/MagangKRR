@@ -4,24 +4,72 @@ namespace App\Http\Controllers\Extruder\WarehouseTerima;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WarehouseController extends Controller
 {
     public function index($form_name)
     {
         $view_name = 'extruder.WarehouseTerima.' . $form_name;
+        $form_data = [];
+
+        // dd($this->getListDivisi());
+
+        switch ($form_name) {
+            case 'formScanGelondongan':
+                $form_data = ['listDivisi' => $this->getListDivisi()];
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
         $view_data = [
             'pageName' => 'WarehouseTerima',
             'formName' => $form_name,
+            'formData' => $form_data,
         ];
 
         return view($view_name, $view_data);
+    }
+
+    private function getListDivisi()
+    {
+        return $this->executeSP(
+            'select',
+            'SP_1003_INV_UserDivisi',
+            '@XKdUser = 4384',
+            []
+        );
+    }
+
+    private function getStatusDispresiasi($kode_barang, $no_indeks, $trans1, $trans2, $trans3, $trans4, $divisi)
+    {
+        // Masih terdapat kesalahan pada query builder
+        return DB::connection('ConnInventory')
+            ->table('Dispresiasi')
+            ->select('Dispresiasi.Status')
+            ->join('Type', 'Dispresiasi.Id_type_tujuan', '=', 'Type.IdType')
+            ->join('Subkelompok', 'Type.IdSubkelompok_Type', '=', 'Subkelompok.IdSubkelompok')
+            ->join('Kelompok', 'Subkelompok.IdKelompok_Subkelompok', '=', 'Kelompok.IdKelompok')
+            ->join('KelompokUtama', 'Kelompok.IdKelompok', '=', 'KelompokUtama.IdKelompok_KelompokUtama')
+            ->join('Objek', 'KelompokUtama.IdObjek_KelompokUtama', '=', 'Objek.IdObjek')
+            ->where('Dispresiasi.Kode_barang', $kode_barang)
+            ->where('Dispresiasi.NoIndeks', $no_indeks)
+            ->whereIn('type_transaksi', [$trans1, $trans2, $trans3, $trans4])
+            ->where('Objek.IdDivisi_Objek', $divisi)
+            ->get();
     }
 
     public function warehouseTerima($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_CekBarcodeGelondonganMojosari':
+                dd($this->getStatusDispresiasi($fun_data[0], $fun_data[1], $fun_data[2], $fun_data[3], $fun_data[4], $fun_data[5], $fun_data[6]));
+                return $this->getStatusDispresiasi($fun_data[0], $fun_data[1], $fun_data[2], $fun_data[3], $fun_data[4], $fun_data[5], $fun_data[6]);
+
             case 'SP_5409_INV_CekBarcodeKirimGudang':
                 $param_str = '@kodebarang = ?, @noindeks = ?, @statusdispresiasi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
@@ -52,10 +100,6 @@ class WarehouseController extends Controller
 
             case 'SP_1273_INV_ListBarcodeTerimaBahanBaku':
                 $param_str = '@status = ?, @Divisi = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
-
-            case 'SP_1273_INV_CekBarcodeGelondonganMojosari':
-                $param_str = '@kodebarang = ?, @noindeks = ?, @typetrans = ?, @typetrans1 = ?, @typetrans2 = ?, @typetrans3 = ?, @Divisi = ?, @statusdispresiasi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_TampilGelondongan_Mojo':
