@@ -260,10 +260,20 @@ class KoreksiAbsenController extends Controller
         }else {
             $statusAbsen = $data['ketAbsen'];
         }
-        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_jam_istirahat = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
-            $kd_pegawai,
+        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @awalistirahat = ?, @akhiristirahat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?', [
             $data['Tanggal'],
-            $masuk->format('Y-m-d H:i:s'),
+            $data['kdpegawai'],
+            $data['userid'],
+            $data['ketAbsen'],
+            $jam_masuk->format('Y-m-d H:i:s'),
+            $jam_keluar->format('Y-m-d H:i:s'),
+            $totalKerja-$totalIstirahat,
+            $totalIstirahat,
+            $awalistirahat,
+            $akhiristirahat,
+            $data['ketLembur'],
+            0,
+
             $pulang->format('Y-m-d H:i:s'),
             $wewe3,
             $awal_jam_istirahat,
