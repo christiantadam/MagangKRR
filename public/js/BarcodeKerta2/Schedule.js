@@ -90,7 +90,7 @@ $(document).ready(function () {
         $("#id_Kelut").val(rowData[0]);
         $("#Kelut").val(rowData[1]);
         if ($("#id_Kelut").value != "") {
-            fetch("/Schedule/" + IdDiv + ".getScheduleJBB")
+            fetch("/ABM/BarcodeKerta2/Schedule/" + IdDiv + ".getScheduleJBB")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -358,7 +358,7 @@ function closeModal() {
 function openModal1() {
     const IdDiv = document.getElementById("IdDivisi").value;
     var modal = document.getElementById("myModal1");
-    fetch("/Schedule/" + IdDiv + ".getKelut")
+    fetch("/ABM/BarcodeKerta2/Schedule/" + IdDiv + ".getKelut")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -395,7 +395,7 @@ function closeModal1() {
 function openModal2() {
     const IdKelut = document.getElementById("id_Kelut").value;
     var modal = document.getElementById("myModal2");
-    fetch("/Schedule/" + IdKelut + ".getKelompok")
+    fetch("/ABM/BarcodeKerta2/Schedule/" + IdKelut + ".getKelompok")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -431,7 +431,7 @@ function closeModal2() {
 function openModal3() {
     const IdKelompok = document.getElementById("id_Kelompok").value;
     var modal = document.getElementById("myModal3");
-    fetch("/Schedule/" + IdKelompok + ".getSubKelompok")
+    fetch("/ABM/BarcodeKerta2/Schedule/" + IdKelompok + ".getSubKelompok")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -467,7 +467,7 @@ function closeModal3() {
 function openModal4() {
     const IdSubKelompok = document.getElementById("id_SubKelompok").value;
     var modal = document.getElementById("myModal4");
-    fetch("/Schedule/" + IdSubKelompok + ".getType")
+    fetch("/ABM/BarcodeKerta2/Schedule/" + IdSubKelompok + ".getType")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

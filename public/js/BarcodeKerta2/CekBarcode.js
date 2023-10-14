@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
 
         // Membuat URL dengan menggunakan NoIndeks dan txtbarcode
-        var url = "/CekBarcode/" + NoIndeks + "." + txtbarcode + ".getBarcode";
+        var url = "/ABM/BarcodeKerta2/CekBarcode/" + NoIndeks + "." + txtbarcode + ".getBarcode";
 
         // Melakukan permintaan fetch ke URL yang baru dibuat
         fetch(url)
@@ -108,7 +108,7 @@ $(document).ready(function () {
             }
 
             // Membuat URL dengan menggunakan NoIndeks dan txtbarcode
-            var url = "/CekBarcode/" + NoIndeks + "." + txtbarcode + ".getBarcode";
+            var url = "/ABM/BarcodeKerta2/CekBarcode/" + NoIndeks + "." + txtbarcode + ".getBarcode";
 
             // Melakukan permintaan fetch ke URL yang baru dibuat
             fetch(url)

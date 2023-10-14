@@ -23,7 +23,7 @@ $(document).ready(function () {
     ButtonProcess.addEventListener("click", function (event) {
         event.preventDefault();
         var get_tgl_total_barcode = document.getElementById('tgl_total_barcode');
-        fetch("/TotalBarcode/" + get_tgl_total_barcode.value + ".get_tgl_total_barcode")
+        fetch("/ABM/BarcodeKerta2/TotalBarcode/" + get_tgl_total_barcode.value + ".get_tgl_total_barcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

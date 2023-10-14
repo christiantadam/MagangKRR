@@ -53,7 +53,7 @@ $(document).ready(function () {
         $('#Divisi').val(rowData[1]);
 
         var txtIdDivisi = document.getElementById('IdDivisi');
-        fetch("/HanguskanBarcode/" + txtIdDivisi.value + ".txtIdDivisi")
+        fetch("/ABM/BarcodeKerta2/HanguskanBarcode/" + txtIdDivisi.value + ".txtIdDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

@@ -48,10 +48,11 @@ class KirimGudangController extends Controller
             // dd($dataTampil);
             // Return the options as JSON data
             return response()->json($dataTampil);
-        } else if ($crExplode[$lasindex] == "getDataStatus") {
-            $dataStatus = DB::connection('ConnInventory')->select('exec SP_5409_INV_CekBarcodeKirimGudang
+        }
+        else if ($crExplode[$lasindex] == "getDataStatus") {
+            $dataStatus = DB::connection('ConnInventory')->statement('exec SP_5409_INV_CekBarcodeKirimGudang
             @kodebarang = ?, @noindeks = ?, @statusdispresiasi = ?', [$crExplode[0], $crExplode[1], " "]);
-            dd($dataStatus);
+            // dd($dataStatus);
             // Return the options as JSON data
             return response()->json($dataStatus);
         }

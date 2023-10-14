@@ -58,7 +58,7 @@ $(document).ready(function () {
 
             // Cek apakah nilai txtNoUrut dimulai dengan "J" atau "j"
             if (txtNoUrut.value.startsWith("J") || txtNoUrut.value.startsWith("j")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -89,7 +89,7 @@ $(document).ready(function () {
                     });
 
             } else if (txtNoUrut.value.startsWith("A") || txtNoUrut.value.startsWith("a")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -120,7 +120,7 @@ $(document).ready(function () {
                     });
 
             } else  if (txtNoUrut.value.startsWith("W") || txtNoUrut.value.startsWith("w")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -161,7 +161,7 @@ $(document).ready(function () {
 
             // Cek apakah nilai txtNoUrut dimulai dengan "J" atau "j"
             if (txtNoUrut.value.startsWith("J") || txtNoUrut.value.startsWith("j")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -192,7 +192,7 @@ $(document).ready(function () {
                     });
 
             } else if (txtNoUrut.value.startsWith("A") || txtNoUrut.value.startsWith("a")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -223,7 +223,7 @@ $(document).ready(function () {
                     });
 
             } else  if (txtNoUrut.value.startsWith("W") || txtNoUrut.value.startsWith("w")) {
-                fetch("/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
+                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -258,7 +258,7 @@ $(document).ready(function () {
 
     // var Cetak = document.getElementById('Cetak');
     // Cetak.addEventListener("click", function (event) {
-    //     fetch("/CSJ/" + ".getCetak")
+    //     fetch("/ABM/BarcodeKerta2/CSJ/" + ".getCetak")
     //         .then((response) => {
     //             if (!response.ok) {
     //                 throw new Error("Network response was not ok");
@@ -373,7 +373,7 @@ function openModal1() {
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
 
     // Fetch data from the server
-    fetch("/CSJ/" + ".getSJ")
+    fetch("/ABM/BarcodeKerta2/CSJ/" + ".getSJ")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

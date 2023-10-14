@@ -25,27 +25,27 @@ Route::get('/ABM', function () {
 });
 
 // Barcode Kerta 2
-Route::resource('Schedule', App\Http\Controllers\ABM\BarcodeKerta\ScheduleController::class);
-Route::post('Schedule/destroySelected', 'ABM\BarcodeKerta\ScheduleController@destroy')->name('Schedule.destroySelected');
+Route::resource('ABM/BarcodeKerta2/Schedule', App\Http\Controllers\ABM\BarcodeKerta\ScheduleController::class);
+Route::post('ABM/BarcodeKerta2/Schedule/destroySelected', 'ABM\BarcodeKerta\ScheduleController@destroy')->name('Schedule.destroySelected');
 // Route::get('/ABM/BarcodeKerta/Schedule', 'App\Http\Controllers\ABM\BarcodeKerta\ScheduleController@index');
-Route::resource('BuatBarcode', App\Http\Controllers\ABM\BarcodeKerta\BuatBarcodeController::class);
+Route::resource('ABM/BarcodeKerta2/BuatBarcode', App\Http\Controllers\ABM\BarcodeKerta\BuatBarcodeController::class);
 // Route::get('/ABM/BarcodeKerta/BuatBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\BuatBarcodeController@getNoIndex');
-Route::resource('Repress', App\Http\Controllers\ABM\BarcodeKerta\RepressController::class);
+Route::resource('ABM/BarcodeKerta2/Repress', App\Http\Controllers\ABM\BarcodeKerta\RepressController::class);
 // Route::get('/ABM/BarcodeKerta/Repress', 'App\Http\Controllers\ABM\BarcodeKerta\RepressController@index');
-Route::resource('CBR', App\Http\Controllers\ABM\BarcodeKerta\CBRController::class);
+Route::resource('ABM/BarcodeKerta2/CBR', App\Http\Controllers\ABM\BarcodeKerta\CBRController::class);
 // Route::get('/ABM/BarcodeKerta/CBR', 'App\Http\Controllers\ABM\BarcodeKerta\CBRController@index');
-Route::resource('HanguskanBarcode', App\Http\Controllers\ABM\BarcodeKerta\HanguskanBarcodeController::class);
+Route::resource('ABM/BarcodeKerta2/HanguskanBarcode', App\Http\Controllers\ABM\BarcodeKerta\HanguskanBarcodeController::class);
 // Route::post('HanguskanBarcode/updateStatusType', 'ABM\BarcodeKerta\HanguskanBarcodeController@updateStatusType')->name('HanguskanBarcode.updateStatusType');
 // Route::get('/ABM/BarcodeKerta/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\HanguskanBarcodeController@index');
-Route::resource('KirimGudang', App\Http\Controllers\ABM\BarcodeKerta\KirimGudangController::class);
+Route::resource('ABM/BarcodeKerta2/KirimGudang', App\Http\Controllers\ABM\BarcodeKerta\KirimGudangController::class);
 // Route::get('/ABM/BarcodeKerta/KirimGudang', 'App\Http\Controllers\ABM\BarcodeKerta\KirimGudangController@index');
-Route::resource('BatalKirim', App\Http\Controllers\ABM\BarcodeKerta\BatalKirimController::class);
+Route::resource('ABM/BarcodeKerta2/BatalKirim', App\Http\Controllers\ABM\BarcodeKerta\BatalKirimController::class);
 // Route::get('/ABM/BarcodeKerta/BatalKirim', 'App\Http\Controllers\ABM\BarcodeKerta\BatalKirimController@index');
-Route::resource('CekBarcode', App\Http\Controllers\ABM\BarcodeKerta\CekBarcodeController::class);
+Route::resource('ABM/BarcodeKerta2/CekBarcode', App\Http\Controllers\ABM\BarcodeKerta\CekBarcodeController::class);
 // Route::get('/ABM/BarcodeKerta/CekBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\CekBarcodeController@index');
-Route::resource('CSJ', App\Http\Controllers\ABM\BarcodeKerta\CSJController::class);
+Route::resource('ABM/BarcodeKerta2/CSJ', App\Http\Controllers\ABM\BarcodeKerta\CSJController::class);
 // Route::get('/ABM/BarcodeKerta/CSJ', 'App\Http\Controllers\ABM\BarcodeKerta\CSJController@index');
-Route::resource('TotalBarcode', App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController::class);
+Route::resource('ABM/BarcodeKerta2/TotalBarcode', App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController::class);
 // Route::get('/ABM/BarcodeKerta/TotalBarcode', 'App\Http\Controllers\ABM\BarcodeKerta\TotalBarcodeController@index');
 
 Route::resource('/ABM/PermohonanPenerimaBarang', App\Http\Controllers\ABM\PermohonanPenerimaBarangController::class);

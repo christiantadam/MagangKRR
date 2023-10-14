@@ -110,52 +110,52 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('Schedule') }}">Schedule </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/Schedule') }}">Schedule </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('BuatBarcode') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BuatBarcode') }}">Buat Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('Repress') }}">Repress </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/Repress') }}">Repress </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('CBR') }}">Cetak Barcode Rusak </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CBR') }}">Cetak Barcode Rusak </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('HanguskanBarcode') }}">Hanguskan Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/HanguskanBarcode') }}">Hanguskan Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('KirimGudang') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/KirimGudang') }}">Kirim Gudang </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('BatalKirim') }}">Batal Kirim </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BatalKirim') }}">Batal Kirim </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('CekBarcode') }}">Cek Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CekBarcode') }}">Cek Barcode </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('CSJ') }}">Cetak Surat Jalan </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CSJ') }}">Cetak Surat Jalan </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('TotalBarcode') }}">Total Barcode </a>
+                                        tabindex="-1" href="{{ url('/ABM/BarcodeKerta2/TotalBarcode') }}">Total Barcode </a>
                                 </li>
                             </ul>
                         </li>

@@ -157,7 +157,7 @@ $(document).ready(function () {
         var parts = str.split("-");
         console.log(parts); // Output: ["A123", "a234"]
 
-        fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getTampilData")
+        fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getTampilData")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -216,6 +216,66 @@ $(document).ready(function () {
     });
 
 
+    // var ScanBarcode = document.getElementById('No_barcode');
+    // ScanBarcode.addEventListener("keypress", function (event) {
+    //     if (event.key == "Enter") {
+    //         var ScanBarcodeValue = document.getElementById('No_barcode').value;
+    //         console.log(ScanBarcodeValue);
+
+    //         var parts = ScanBarcodeValue.split("-");
+    //         console.log(parts); // Output: ["A123", "a234"]
+
+    //         fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
+    //             .then((response) => {
+    //                 if (!response.ok) {
+    //                     throw new Error("Network response was not ok");
+    //                 }
+    //                 return response.json(); // Assuming the response is in JSON format
+    //             })
+    //             .then((data) => {
+    //                 // Handle the data retrieved from the server (data should be an object or an array)
+    //                 console.log("Data dari server:", data);
+
+    //                 // Assuming sts is a property in the data object, adjust this part accordingly
+    //                 var sts = data.Status;
+
+    //                 // Handling different statuses
+    //                 if (sts === "1") {
+    //                     // Do something for status 1
+    //                     console.log("Barcode Sudah Pernah Ditembak, Cek Kembali!!!");
+
+    //                     // Additional logic or actions for sts === "1"
+    //                 } else if (sts === "2") {
+    //                     // Do something for status 2
+    //                     alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+
+    //                     // Additional logic or actions for sts === "2"
+    //                 } else if (sts === "3") {
+    //                     // Do something for status 3
+    //                     alert("Barcode Sudah Pernah Ditembak!");
+
+    //                     // Additional logic or actions for sts === "3"
+    //                 } else {
+    //                     // Do something for other statuses
+    //                     alert("Data Barcode Tidak Ditemukan!");
+
+    //                     // Additional logic or actions for other statuses
+    //                 }
+
+    //                 // Clear the existing table rows
+    //                 // $("#TableSP").DataTable().clear().draw();
+
+    //                 // Loop through the data and create table rows
+    //                 data.forEach((item) => {
+    //                     // Additional logic for processing data and updating the table
+    //                 });
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error:", error);
+    //             });
+    //     }
+    // });
+
     var ScanBarcode = document.getElementById('No_barcode');
     ScanBarcode.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
@@ -225,7 +285,7 @@ $(document).ready(function () {
             var parts = ScanBarcodeValue.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
+            fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -237,110 +297,54 @@ $(document).ready(function () {
                     console.log("Data dari server:", data);
 
                     // Assuming sts is a property in the data object, adjust this part accordingly
-                    var sts = data.Status;
+                    var sts = data.statusdispresiasi;
 
                     // Handling different statuses
                     if (sts === "1") {
-                        // Do something for status 1
-                        console.log("Barcode Sudah Pernah Ditembak, Cek Kembali!!!");
+                        // Fetch additional data for status 1
+                        fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getSP")
+                            .then((responseSP) => {
+                                if (!responseSP.ok) {
+                                    throw new Error("Network response was not ok");
+                                }
+                                return responseSP.json(); // Assuming the response is in JSON format
+                            })
+                            .then((dataSP) => {
+                                // Clear the existing table rows
+                                $("#TableSP").DataTable().clear().draw();
 
-                        // Additional logic or actions for sts === "1"
+                                // Loop through the dataSP and create table rows
+                                if (Array.isArray(dataSP)) {
+                                    dataSP.forEach((item) => {
+                                        var row = [item.IDSuratPesanan, item.NamaJnsBrg];
+                                        $("#TableSP").DataTable().row.add(row);
+                                    });
+                                } else {
+                                    console.error("Data SP is not an array:", dataSP);
+                                }
+
+                                // Redraw the table to show the changes
+                                $("#TableSP").DataTable().draw();
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching additional data for status 1:", error);
+                            });
                     } else if (sts === "2") {
                         // Do something for status 2
                         alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
-
-                        // Additional logic or actions for sts === "2"
                     } else if (sts === "3") {
                         // Do something for status 3
                         alert("Barcode Sudah Pernah Ditembak!");
-
-                        // Additional logic or actions for sts === "3"
                     } else {
                         // Do something for other statuses
                         alert("Data Barcode Tidak Ditemukan!");
-
-                        // Additional logic or actions for other statuses
                     }
-
-                    // Clear the existing table rows
-                    // $("#TableSP").DataTable().clear().draw();
-
-                    // Loop through the data and create table rows
-                    data.forEach((item) => {
-                        // Additional logic for processing data and updating the table
-                    });
                 })
                 .catch((error) => {
-                    console.error("Error:", error);
+                    console.error("Error checking status:", error);
                 });
         }
     });
-
-    var ScanBarcode = document.getElementById('No_barcode');
-ScanBarcode.addEventListener("keypress", function (event) {
-    if (event.key == "Enter") {
-        var ScanBarcodeValue = document.getElementById('No_barcode').value;
-        console.log(ScanBarcodeValue);
-
-        var parts = ScanBarcodeValue.split("-");
-        console.log(parts); // Output: ["A123", "a234"]
-
-        fetch("/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
-                console.log("Data dari server:", data);
-
-                // Assuming sts is a property in the data object, adjust this part accordingly
-                var sts = data.Status;
-
-                // Handling different statuses
-                if (sts === 1) {
-                    // Fetch additional data for status 1
-                    fetch("/KirimGudang/" + parts[0] + ".getSP")
-                        .then((responseSP) => {
-                            if (!responseSP.ok) {
-                                throw new Error("Network response was not ok");
-                            }
-                            return responseSP.json(); // Assuming the response is in JSON format
-                        })
-                        .then((dataSP) => {
-                            // Clear the existing table rows
-                            $("#TableSP").DataTable().clear().draw();
-
-                            // Loop through the dataSP and create table rows
-                            dataSP.forEach((item) => {
-                                var row = [item.IDSuratPesanan, item.NamaJnsBrg];
-                                $("#TableSP").DataTable().row.add(row);
-                            });
-
-                            // Redraw the table to show the changes
-                            $("#TableSP").DataTable().draw();
-                        })
-                        .catch((error) => {
-                            console.log("Barcode Sudah Pernah Ditembak, Cek Kembali!!!");console.error("Error:", error);
-                        });
-                } else if (sts === 2) {
-                    // Do something for status 2
-                    alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
-                } else if (sts === 3) {
-                    // Do something for status 3
-                    alert("Barcode Sudah Pernah Ditembak!");
-                } else {
-                    // Do something for other statuses
-                    alert("Data Barcode Tidak Ditemukan!");
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    }
-});
 
 
     // var ScanBarcode = document.getElementById('No_barcode');
