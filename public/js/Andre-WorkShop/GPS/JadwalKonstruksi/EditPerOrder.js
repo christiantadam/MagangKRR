@@ -260,8 +260,12 @@ function prosesklik() {
     var indexarray = [];
     let idkEst = 0;
     let tglEst = [];
-    let idkInput;
+    let idkInput= 0;
     var WktInput = [];
+    var nomerUrut = [];
+    let idkNoUrut = 0;
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
     $("input[name='EditJadwalPerOrderCheck']:checked").each(function () {
         // Ambil nilai 'value' dan status 'checked' dari checkbox
         let value = $(this).val();
@@ -289,9 +293,10 @@ function prosesklik() {
                 idkInput += 1;
                 WktInput.push(table_data.cell(indexarray[i],6).data());
             }
+            console.log(WktInput);
+            console.log(idkInput);
             for (let i = 0; i < WktInput.length; i++) {
                 idkInput -= 1;
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     url: 'EditPerOrderkonstruksi/' +  table_data.cell(indexarray[i],8).data(),
                     type: 'POST',
@@ -316,6 +321,48 @@ function prosesklik() {
                         console.error(error);
                     }
                 });
+            }
+        }
+        if (Susunposisi.checked == true) {
+            var jawab = confirm("Susun ke atas(OK) atau ke bawah(Cancel) ??");
+            $("input[name='EditJadwalPerOrderCheck']:checked").each(function () {
+                let rowindex = $(this).closest("tr").index();
+                idkNoUrut += 1;
+                nomerUrut.push(rowindex);
+            });
+            for (let i = 0; i < indexarray.length; i++) {
+                idkInput += 1;
+                WktInput.push(table_data.cell(indexarray[i],6).data());
+            }
+            if (jawab) {
+                console.log(nomerUrut);
+                for (var i = nomerUrut[0] + 1; i <= nomerUrut[1]; i++) {
+                    console.log(table_data.cell(indexarray[i-1],6).data());
+                    $.ajax({
+                        url: 'EditPerOrderkonstruksi/' +  table_data.cell(indexarray[i],8).data(),
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            _token: csrfToken,
+                            _method: "PUT",
+                            noAntri : table_data.cell(indexarray[i],8).data(),
+                            idTrans : table_data.cell(indexarray[i],9).data(),
+                            estDate : table_data.cell(indexarray[i],1).data(),
+                            worksts : table_data.cell(indexarray[i],7).data(),
+                            idBag : NamaBagian.value,
+                            Time : table_data.cell(indexarray[i-1],6).data()
+                        },
+                        success: function(response) {
+                            console.log(response.message);
+                            // alert(response.message)
+                            // LoadOpr();
+                            // console.log(response.data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                }
             }
         }
     }

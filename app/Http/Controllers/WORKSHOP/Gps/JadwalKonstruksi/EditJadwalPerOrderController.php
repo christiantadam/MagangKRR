@@ -63,17 +63,6 @@ class EditJadwalPerOrderController extends Controller
         return response()->json(['message' => 'Data telah diperbarui.']);
 
     }
-    public function updateproses(Request $request){
-        $noAntri = $request->noAntri;
-        $idTrans = $request->idTrans;
-        $estDate = $request->estDate;
-        $worksts = $request->worksts;
-        $idBag = $request->idBag;
-        $Time = $request->Time;
-        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_UPDATE-POSISIKRJ-KONSTRUKSI] @noAntri = ?, @idTrans = ?, @estDate = ?, @worksts = ?, @idBag = ?, @Time = ?', [$noAntri,$idTrans,$estDate,$worksts,$idBag,$Time]);
-        // return redirect()->back()->with('success', "Data sudah diSimpan.");
-        return response()->json(['message' => 'Data telah diperbarui.']);
-    }
 
     public function destroy($id)
     {
