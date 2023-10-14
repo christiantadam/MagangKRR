@@ -23,13 +23,7 @@
     <script src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
     <script src="{{ asset('js/jquery-dateformat.js') }}"></script>
     <script src="{{ asset('js/RDZ.js') }}"></script>
-    <script>
-        var msg = '{{ Session::get('alert') }}';
-        var exist = '{{ Session::has('alert') }}';
-        if (exist) {
-            alert(msg);
-        }
-    </script>
+
 
     <script src="{{ asset('js/User.js') }}"></script>
 
@@ -48,6 +42,15 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
         <style>
+            .body {
+
+                font-family: Arial, sans-serif;
+                max-width: px;
+                margin: 0 auto;
+                padding: 20px;
+                height: 100VH;
+                background-image: url('images/walpaper-2.png');
+            }
 
         </style>
 </head>
@@ -65,64 +68,63 @@
                         <ul class="navbar-nav mr-auto RDZNavContenCenter">
 
                             <div class="dropdown">
-                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Order & Hasil
-                                </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-                                    <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarUpKodeBarang') }}');">Update Kd Barang</a>
-                                    </li>
-
-                                    <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarMaintOrder') }}');">Main Order Press </a>
-
-                                    </li>
-
-                                    <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarStopOrder') }}');">Stop Order Press </a>
-                                    </li>
-
-                                    <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarHasilProd') }}');">Hasil Prod Press </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Tabel Hitungan
-                                </a>
-                                <ul class="dropdown-menu" style="cursor: default">
-
-                                    <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarOpenTop') }}');">Open Top</a>
-                                    </li>
-
-                                    <li><a class="test"
-                                            style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarCloseTop') }}');">Close Top</a>
-                                    </li>
-
-                                </ul>
-                            </div>
-
-                            <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('AdStarCopyTabel') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('AdStarSchedule') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Copy Tabel
+                                    Schedule
                                 </a>
                             </div>
                             <div class="dropdown">
-                                <a onclick="OpenNewTab('{{ url('AdStarPrintTabel') }}');" class="" type="button" id="" data-toggle=""
+                                <a onclick="OpenNewTab('{{ url('AdStarBuatBarcode') }}');" class="" type="button" id="" data-toggle=""
                                 aria-haspopup="true" aria-expanded="false" style="margin: 10px">
-                                    Print
+                                    Buat Barcode
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarRepress') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Repress
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarCetakBarcodeRusak') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Cetak Barcode Rusak
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarDaftarPalet') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Daftar Palet
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarHangusBarcode') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Hanguskan Barcode
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarKirimGudang') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Kirim Gudang
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarBatalKirim') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Batal Kirim
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarKonversiGudang') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Konversi Gudang JBB
+                                </a>
+                            </div>
+                            <div class="dropdown">
+                                <a onclick="OpenNewTab('{{ url('AdStarHasilBarcode') }}');" class="" type="button" id="" data-toggle=""
+                                aria-haspopup="true" aria-expanded="false" style="margin: 10px">
+                                    Hasil Barcode
                                 </a>
                             </div>
                         </ul>

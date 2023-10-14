@@ -1,4 +1,4 @@
-@extends('layouts.appBarcode')
+@extends('layouts.appBarcodeAdStar')
 @section('content')
 
 <link href="{{ asset('css/Barcode/Repress.css') }}" rel="stylesheet">
@@ -21,7 +21,7 @@
                                     <div class="form-group">
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
-                                            <a href="{{url('PermohonanPenerimaBarang')}}">
+                                            <a href="{{url('AdStarPermohonanPenerimaBarang')}}">
                                                 <button type="button">Bon Barang</button>
                                             </a>
                                         </div>
@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
-                                            <a href="{{url('ScanBarcode')}}">
+                                            <a href="{{url('AdStarScanBarcode')}}">
                                                 <button type="button">Scan Barcode</button>
                                             </a>
                                         </div>
@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
-                                            <a href="{{url('PilihJenisRepress')}}">
+                                            <a href="{{url('AdStarPilihJenisRepress')}}">
                                                 <button type="button">Pilih Jenis Repress</button>
                                             </a>
                                         </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
-                                        <a href="{{url('BalJadiPalet')}}">
+                                        <a href="{{url('AdStarBalJadiPalet')}}">
                                             <button type="button">Bal Jadi Palet</button>
                                         </a>
                                     </div>
@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
-                                        <a href="{{url('PaletJadiBal')}}">
+                                        <a href="{{url('AdStarPaletJadiBal')}}">
                                             <button type="button">Palet Jadi Bal</button>
                                         </a>
                                     </div>
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
-                                        <a href="{{url('Konversi')}}">
+                                        <a href="{{url('AdStarKonversi')}}">
                                             <button type="button">Konversi</button>
                                         </a>
                                     </div>
@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
-                                        <a href="{{url('PrintUlang')}}">
+                                        <a href="{{url('AdStarPrintUlang')}}">
                                             <button type="button">Print Ulang</button>
                                         </a>
                                     </div>

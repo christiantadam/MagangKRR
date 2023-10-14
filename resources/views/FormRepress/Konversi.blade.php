@@ -1,4 +1,4 @@
-@extends('layouts.appBarcode')
+@extends('layouts.appBarcodeAdStar')
 @section('content')
 <link href="{{ asset('css/Barcode/Repress.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{ asset('js\FormRepress.js\Konversi.js') }}"></script>

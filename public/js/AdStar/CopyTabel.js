@@ -1,3 +1,7 @@
+$("#tbl_customer1").DataTable();
+$("#tbl_prodtype").DataTable();
+$("#tbl_customer2").DataTable();
+
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
     checkboxes.forEach(function(checkbox) {

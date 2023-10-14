@@ -27,7 +27,7 @@
                 <div class="input-group mb-3">
                     <input type="text" id='idcust' class="form-control" placeholder="" aria-label="" readonly>
                     <input type="text" id='namacust' class="form-control" placeholder="" aria-label="" readonly>
-                    <button type="button" id="btncust1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer1">
+                    <button type="button" id="btncust" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer">
                         ...
                     </button>
                 </div>
@@ -38,31 +38,131 @@
             <div class="col-lg-5">
                 <div class="input-group mb-3">
                     <input type="text" id='idukuran' class="form-control" placeholder="" aria-label="" readonly>
-                    <button type="button" id="btnukuran" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer1">
+                    <button type="button" id="btnukuran" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_ukuran">
                         ...
                     </button>
                 </div>
             </div>
         </div>
-        <div class="input-container">
-            <label for="customer">Ukuran:</label>
-            <input type="text" id="customer" required>
-            <button type="button">...</button>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Product Name :</div>
+            <div class="col-lg-5">
+                <div class="input-group mb-3">
+                    <input type="text" id='idprdnm' class="form-control" placeholder="" aria-label="" readonly>
+                    <input type="text" id='namaprdnm' class="form-control" placeholder="" aria-label="" readonly>
+                    <button type="button" id="btnprodnm" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodname">
+                        ...
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="input-container">
-            <label for="nama-barang">Product Name:</label>
-            <input type="text" id="nama-barang" required>
-            <input type="text" id="input2">
-            <button type="button">...</button>
-        </div>
-        <div class="input-container">
-            <b><label for="customer">Printing:</label></b>
-            <label for="customer">Front:</label>
-            <input type="text" id="customer" required>
+        <div class="row mt-3">
+            <div class="col-lg-2 aligned-text">Printing :</div>
+            <div class="col-lg-1 aligned-text">Front :</div>
+            <div class="col-lg-4">
+                <div class="input-group mb-3">
+                    <input type="text" id='front' class="form-control" placeholder="" aria-label="" readonly>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="button-container">
-        <button class="update">Copy</button>
+</div>
+
+    <div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tbl_customer" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Namacust</th>
+                            <th>IDCUST</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($dataTransaksi as $data)
+                            <tr data-grupmesinorder="{{ $data->GrupMesinOrder }}" data-notrans="{{ $data->IDLog }}">
+                                <td>{{ $data->GrupMesinOrder }}</td>
+                                <td>{{ $data->IDLog }}</td>
+                            </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mdl_ukuran" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_ukuran" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="mdl_ukuran">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tbl_ukuran" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Ukuran</th>
+                            <th>Front</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($dataTransaksi as $data)
+                            <tr data-grupmesinorder="{{ $data->GrupMesinOrder }}" data-notrans="{{ $data->IDLog }}">
+                                <td>{{ $data->GrupMesinOrder }}</td>
+                                <td>{{ $data->IDLog }}</td>
+                            </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="mdl_prodname" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_prodname" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="mdl_prodname">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="tbl_prodname" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Type</th>
+                            <th>ID</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($dataTransaksi as $data)
+                            <tr data-grupmesinorder="{{ $data->GrupMesinOrder }}" data-notrans="{{ $data->IDLog }}">
+                                <td>{{ $data->GrupMesinOrder }}</td>
+                                <td>{{ $data->IDLog }}</td>
+                            </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
     </div>
 
 

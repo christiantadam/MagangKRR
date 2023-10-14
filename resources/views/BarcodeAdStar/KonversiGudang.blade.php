@@ -1,4 +1,4 @@
-@extends('layouts.appBarcode')
+@extends('layouts.appBarcodeAdStar')
 @section('content')
 
 <link href="{{ asset('css/Barcode/KnvGdng.css') }}" rel="stylesheet">

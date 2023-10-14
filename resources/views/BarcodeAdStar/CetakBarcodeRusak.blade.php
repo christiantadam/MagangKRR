@@ -1,5 +1,5 @@
 
-@extends('layouts.appBarcode')
+@extends('layouts.appBarcodeAdStar')
 @section('content')
 
 <link href="{{ asset('css/Barcode/CetakBarcodeRusak.css') }}" rel="stylesheet">

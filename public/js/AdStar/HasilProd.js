@@ -1,3 +1,6 @@
+$("#tabel_Barang2").DataTable();
+$("#tabel_noorder").DataTable();
+
 // // Click event handler for table rows
  // Mengambil semua elemen input tanggal
  const inputTanggalElements = document.querySelectorAll('input[type="date"]');
@@ -109,6 +112,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toggleInputEditing(isEditing);
 
+          // Clear form inputs
+          inputElements.forEach(function (input) {
+            input.value = "";
+        });
+
         if (isEditing) {
             addButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
@@ -131,6 +139,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toggleInputEditing(isEditing);
 
+          // Clear form inputs
+          inputElements.forEach(function (input) {
+            input.value = "";
+        });
+
         if (isEditing) {
             addButton.style.display = "none";
             saveButton.style.display = "block"; // Display the Save button
@@ -151,6 +164,11 @@ document.addEventListener("DOMContentLoaded", function () {
         kodeSave = 3;
         var isEditing = (addButton.textContent === "Add");
         toggleInputEditing(isEditing);
+
+          // Clear form inputs
+          inputElements.forEach(function (input) {
+            input.value = "";
+        });
 
         if (isEditing) {
             addButton.style.display = "none";

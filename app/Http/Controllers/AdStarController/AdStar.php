@@ -29,7 +29,7 @@ class AdStar extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -51,7 +51,7 @@ class AdStar extends Controller
      */
     public function show($id)
     {
-        //
+        //return view('AdStar.AdStarHome'); //
     }
 
     /**
