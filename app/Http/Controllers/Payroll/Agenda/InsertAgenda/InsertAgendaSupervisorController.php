@@ -80,7 +80,7 @@ class InsertAgendaSupervisorController extends Controller
                     $b = 'Jam keluar kosong';
                 }
             } else {
-                return redirect()->route('InsertPegawaiBaru.index')->with('alert', "Data tidak ditemukan, Agenda untuk tanggal " . $data['Tanggal'] . " kode Pegawai  " . $kd_pegawai . " Tidak ada ");
+                return redirect()->route('InsertSupervisor.index')->with('alert', "Data tidak ditemukan, Agenda untuk tanggal " . $data['Tanggal'] . " kode Pegawai  " . $kd_pegawai . " Tidak ada ");
                 // dump("Data tidak ditemukan, Agenda untuk tanggal " . $data['Tanggal'] ." kode Pegawai  " . $kd_pegawai . " Tidak ada ");
             }
 

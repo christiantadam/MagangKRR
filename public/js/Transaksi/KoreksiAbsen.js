@@ -153,11 +153,12 @@ $(document).ready(function () {
                     console.error("Form submission error:", error)
                 );
         } else if ((action = 2)) {
-            const idklinik = document.getElementById("Id_Klinik");
-            const Nama_Klinik = document.getElementById("Nama_Klinik");
-            const AlamatKlinik = document.getElementById("AlamatKlinik");
-            const KotaKlinik = document.getElementById("KotaKlinik");
-            const NomorTelepon = document.getElementById("NomorTelepon");
+            const Tanggal = document.getElementById("TglMasuk").value;
+            const kdpegawai = document.getElementById("Id_Peg").value;
+            const ketAbsen = document.getElementById("KeteranganIsi").value;
+            const jam_Masuk = document.getElementById("Masuk").value;
+            const jam_Keluar = document.getElementById("Keluar").value;
+            const id_agenda = document.getElementById("Keluar").value;
             const data = {
                 idklinik: idklinik.value,
                 nm: Nama_Klinik.value,
@@ -169,7 +170,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "MasterKlinik/{idklinik}");
+            form.setAttribute("action", "KoreksiAbsen/" + id_agenda);
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -287,6 +288,9 @@ $(document).ready(function () {
     });
     var table_Koreksi = $("#table_Koreksi").DataTable({
         order: [[0, "asc"]],
+        select: {
+            style: "api",
+        },
     });
     $("#table_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
@@ -409,11 +413,18 @@ $(document).ready(function () {
         }
         hideModalShift();
     });
+    var selectedRows = [];
     $("#table_Koreksi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
+        if (table_Koreksi.select.style() === 'api') {
+            // Hentikan eksekusi fungsi jika fitur select tidak aktif
+            return;
+        }
         var rowData = $("#table_Koreksi").DataTable().row(this).data();
-        var TglKoreksi = rowData[1].split(" ");
 
+        var TglKoreksi = rowData[1].split(" ");
+        var selectedData = $("#table_Koreksi").DataTable().rows({selected: true}).data();
+        selectedRows = selectedData.toArray();
         // Populate the input fields with the data
         $("#TglMasukKoreksi").val(TglKoreksi[0]);
         var ketKoreksi = document.getElementById("KeteranganKoreksi");
@@ -458,6 +469,7 @@ $(document).ready(function () {
         // $("#Nama_Peg").val(rowData[1]);
         // $("#Id_Peg").val(rowData[0]);
         // $("#Nama_Peg").val(rowData[1]);
+        console.log(selectedRows);
     });
     document
         .getElementById("KeteranganKoreksi")

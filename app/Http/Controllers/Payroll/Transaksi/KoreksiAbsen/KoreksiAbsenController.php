@@ -18,7 +18,8 @@ class KoreksiAbsenController extends Controller
         $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI ');
         $dataShift = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_SLC_SHIFT @kode = ? ', [1]);
         // dd($dataShift);
-        return view('Payroll.Transaksi.KoreksiAbsen.koreksiAbsen', compact('dataDivisi', 'dataShift'));
+        $title = 'Payroll Koreksi Absen';
+        return view('Payroll.Transaksi.KoreksiAbsen.koreksiAbsen', compact('dataDivisi', 'dataShift', 'title'));
     }
 
     //Show the form for creating a new resource.
@@ -26,7 +27,8 @@ class KoreksiAbsenController extends Controller
     {
         //
     }
-    function hitungSelisihJam($jamawal, $jamakhir) {
+    function hitungSelisihJam($jamawal, $jamakhir)
+    {
         $interval = $jamawal->diff($jamakhir);
         $total_minutes = $interval->days * 24 * 60;
         $total_minutes += $interval->h * 60;
@@ -36,7 +38,8 @@ class KoreksiAbsenController extends Controller
 
         return $total_jam;
     }
-    function hitungJamKerja($jam_masuk, $datang, $pulang, $awalistirahat, $akhiristirahat) {
+    function hitungJamKerja($jam_masuk, $datang, $pulang, $awalistirahat, $akhiristirahat)
+    {
         if ($awalistirahat && $akhiristirahat) {
             $jamkerjaawal = ($datang > $jam_masuk) ? $awalistirahat->getTimestamp() - $datang->getTimestamp() : $awalistirahat->getTimestamp() - $jam_masuk->getTimestamp();
             $jamkerjaakhir = $pulang->getTimestamp() - $akhiristirahat->getTimestamp();
@@ -68,7 +71,8 @@ class KoreksiAbsenController extends Controller
 
         return $totaljam;
     }
-    function hitungMasuk($jammasuk, $jamkeluar, $datang, $pulang) {
+    function hitungMasuk($jammasuk, $jamkeluar, $datang, $pulang)
+    {
         $hasil = array_fill(0, 3, 0);
         // calculate the difference in minutes between arrival and start time
         $terlambat = ($datang->getTimestamp() - $jammasuk->getTimestamp()) / 60;
@@ -102,7 +106,8 @@ class KoreksiAbsenController extends Controller
 
         return $hasil;
     }
-    function hitungLembur($jamkerja, $tanggal) {
+    function hitungLembur($jamkerja, $tanggal)
+    {
         $hasil = array_fill(0, 5, 0);
         $actualkerja = $jamkerja * 60;
         $hari = date('w', strtotime($tanggal));
@@ -150,28 +155,28 @@ class KoreksiAbsenController extends Controller
                 $lembur2 = 0.5;
             }
         } elseif ($libur == true && $hari == 6) { // liburan hari Sabtu
-            if ($jumlahlembur % 30 >=25){
-                $jumlahlembur +=1;
+            if ($jumlahlembur % 30 >= 25) {
+                $jumlahlembur += 1;
             }
 
-            if($jumlahlembur >=2 && $jumlahlembur <=10){
-                $lembur2= $jumlahlembur*30/60;
-            }else if($jumlahlembur >10 && $jumlahlembur <=12){
-                $lembur2=5;
-                $lembur3=($jumlahlembur-10)*30/60;
-            }else if($jumlahlembur >12){
-                $lembur2=5;
-                $lembur3=1;
-                $lembur4=($jumlahlembur-12)*30/60;
+            if ($jumlahlembur >= 2 && $jumlahlembur <= 10) {
+                $lembur2 = $jumlahlembur * 30 / 60;
+            } else if ($jumlahlembur > 10 && $jumlahlembur <= 12) {
+                $lembur2 = 5;
+                $lembur3 = ($jumlahlembur - 10) * 30 / 60;
+            } else if ($jumlahlembur > 12) {
+                $lembur2 = 5;
+                $lembur3 = 1;
+                $lembur4 = ($jumlahlembur - 12) * 30 / 60;
             }
         }
 
         // Mengisi array hasil dengan nilai-nilai lebur yang telah dihitung
-        $hasil[0] = round($lebih,2);
-        $hasil[1] = round($lembur1,2);
-        $hasil[2] = round($lembur2,2);
-        $hasil[3] = round($lembur3,2);
-        $hasil[4] = round($lembur4,2);
+        $hasil[0] = round($lebih, 2);
+        $hasil[1] = round($lembur1, 2);
+        $hasil[2] = round($lembur2, 2);
+        $hasil[3] = round($lembur3, 2);
+        $hasil[4] = round($lembur4, 2);
         return $hasil; // Mengembalikan array hasil
 
     }
@@ -184,6 +189,7 @@ class KoreksiAbsenController extends Controller
         $jam_keluar = new DateTime($data['Tanggal'] . " " . $data['jam_Keluar']);
         $datang = new DateTime($data['Tanggal'] . " " . $data['jam_Datang']);
         $pulang = new DateTime($data['Tanggal'] . " " . $data['jam_Pulang']);
+        $terlambat = 0.0;$pulangawal = 0.0;
         dump($jam_masuk, $jam_keluar, $datang, $pulang);
         if ($jam_masuk->format('G') == 0 && $datang->format('G') > 15) {
             $datang->modify('-1 day');
@@ -246,10 +252,10 @@ class KoreksiAbsenController extends Controller
             $lebih = $hasil[0];
             if ($terlambat > 0.17) {
                 $statusAbsen = 'A';
-            }else {
+            } else {
                 $statusAbsen = 'M';
             }
-        }else if ($data['ketAbsen'] == 'L'){
+        } else if ($data['ketAbsen'] == 'L') {
             $hasil = $this->hitungLembur($jamkerja, $data['Tanggal']);
             $lebih = $hasil[0];
             $lembur1 = $hasil[1];
@@ -257,33 +263,206 @@ class KoreksiAbsenController extends Controller
             $lembur3 = $hasil[3];
             $lembur4 = $hasil[4];
             $statusAbsen = "L";
-        }else {
+        } else {
             $statusAbsen = $data['ketAbsen'];
         }
-        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @awalistirahat = ?, @akhiristirahat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?', [
-            $data['Tanggal'],
-            $data['kdpegawai'],
-            $data['userid'],
-            $data['ketAbsen'],
-            $jam_masuk->format('Y-m-d H:i:s'),
-            $jam_keluar->format('Y-m-d H:i:s'),
-            $totalKerja-$totalIstirahat,
-            $totalIstirahat,
-            $awalistirahat,
-            $akhiristirahat,
-            $data['ketLembur'],
-            0,
 
-            $pulang->format('Y-m-d H:i:s'),
-            $wewe3,
-            $awal_jam_istirahat,
-            $akhir_jam_istirahat,
-            'm',
-            $data['User_Input']
-        ]);
+        $idagenda = 0;
+        // dd($data['Tanggal'],
+        // $data['kdpegawai'],
+        // $data['userid'],
+        // $data['ketAbsen'],
+        // $jam_masuk->format('Y-m-d H:i:s'),
+        // $jam_keluar->format('Y-m-d H:i:s'),
+        // $totalKerja - $totalIstirahat,
+        // $totalIstirahat,
+        // $awalistirahat->format('Y-m-d H:i:s'),
+        // $akhiristirahat->format('Y-m-d H:i:s'),
+        // $data['ketLembur'],
+        // 0,
+        // $terlambat,
+        // $pulangawal,
+        // $lebih,
+        // $lembur1,
+        // $lembur2,
+        // $lembur3,
+        // $lembur4,
+        // $statusAbsen,
+        // $jamkerja,
+        // $idagenda);
+        if ($data['ChkDatang'] == 'False' && $data['ChkPulang'] == 'False') {
+            if ($awalistirahat != $akhiristirahat) {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?,
+                @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?,
+                @awalistirahat = ?, @akhiristirahat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?,
+                @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?,
+                @jamkerja = ?, @idagenda = ?, @datang = ?, @pulang = ?',
+                [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $awalistirahat->format('Y-m-d H:i:s'),
+                    $akhiristirahat->format('Y-m-d H:i:s'),
+                    $data['ketLembur'],
+                    0,
+                    $terlambat,
+                    $pulangawal,
+                    $lebih,
+                    $lembur1,
+                    $lembur2,
+                    $lembur3,
+                    $lembur4,
+                    $statusAbsen,
+                    $jamkerja,
+                    $idagenda,
+                    $datang->format('Y-m-d H:i:s'),
+                    $pulang->format('Y-m-d H:i:s'),
+                ]);
+            }else {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?, @datang = ?, @pulang = ?', [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $data['ketLembur'],
+                    0,
+                    $terlambat,
+                    $pulangawal,
+                    $lebih,
+                    $lembur1,
+                    $lembur2,
+                    $lembur3,
+                    $lembur4,
+                    $statusAbsen,
+                    $jamkerja,
+                    $idagenda,
+                    $datang->format('Y-m-d H:i:s'),
+                    $pulang->format('Y-m-d H:i:s'),
+                ]);
+            }
+
+        }else if ($data['ChkDatang'] == 'False') {
+            if ($awalistirahat != $akhiristirahat) {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @awalistirahat = ?, @akhiristirahat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?, @datang = ?', [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $awalistirahat->format('Y-m-d H:i:s'),
+                    $akhiristirahat->format('Y-m-d H:i:s'),
+                    $data['ketLembur'],
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    'A',
+                    0,
+                    $idagenda,
+                    $datang->format('Y-m-d H:i:s'),
+
+                ]);
+            } else {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?, @datang = ?', [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $data['ketLembur'],
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    'A',
+                    0,
+                    $idagenda,
+                    $datang->format('Y-m-d H:i:s'),
+
+                ]);
+            }
+        } else if ($data['ChkPulang'] == 'False') {
+            if ($awalistirahat != $akhiristirahat) {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @awalistirahat = ?, @akhiristirahat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?, @pulang = ?', [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $awalistirahat->format('Y-m-d H:i:s'),
+                    $akhiristirahat->format('Y-m-d H:i:s'),
+                    $data['ketLembur'],
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    'A',
+                    0,
+                    $idagenda,
+                    $pulang->format('Y-m-d H:i:s'),
+
+                ]);
+            } else {
+                DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_ABSEN @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketAbsen = ?, @jam_masuk= ?, @jam_keluar = ?, @jml_Jam = ?, @jml_jam_rehat = ?, @ketLembur = ?, @kdKlinik = ?, @terlambat = ?, @tinggal = ?, @lebih = ?, @lembur1 = ?, @lembur2 = ?, @lembur3 = ?, @lembur4 = ?, @ketabsensi = ?, @jamkerja = ?, @idagenda = ?, @pulang = ?', [
+                    $data['Tanggal'],
+                    $data['kdpegawai'],
+                    $data['userid'],
+                    $data['ketAbsen'],
+                    $jam_masuk->format('Y-m-d H:i:s'),
+                    $jam_keluar->format('Y-m-d H:i:s'),
+                    $totalKerja - $totalIstirahat,
+                    $totalIstirahat,
+                    $data['ketLembur'],
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    'A',
+                    0,
+                    $idagenda,
+                    $pulang->format('Y-m-d H:i:s'),
+
+                ]);
+            }
+        }
+        return redirect()->route('KoreksiAbsen.index')->with('alert', "data sudah ditambahkan");
 
 
-        dd($jamkerja,$hasil[1]);
+        dd($jamkerja, $hasil[1]);
     }
 
     //Display the specified resource.
@@ -330,5 +509,4 @@ class KoreksiAbsenController extends Controller
     {
         //
     }
-
 }
