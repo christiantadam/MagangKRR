@@ -51,6 +51,7 @@ let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 let btnProsesKurangLebih = document.getElementById("btnProsesKurangLebih");
 let btnTampilBKM = document.getElementById("btnTampilBKM");
 let btnGroupBKM = document.getElementById('btnGroupBKM');
+let btnCETAK = document.getElementById('btnCETAK');
 //let btnKoreksiDetail = document.getElementById("btnKoreksiDetail");
 
 let formkoreksi = document.getElementById("formkoreksi");
@@ -591,6 +592,11 @@ btnGroupBKM.addEventListener('click', function (event) {
 //             jenisBank.value = options[0].jenis;
 //         });
 // };
+
+btnCETAK.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log(idBKMInput.value);
+})
 
 $("#btnProsesDetail").on("click", function (event) {
     event.preventDefault();

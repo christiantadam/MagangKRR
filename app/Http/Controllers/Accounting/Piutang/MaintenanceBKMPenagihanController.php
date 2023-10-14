@@ -187,6 +187,15 @@ class MaintenanceBKMPenagihanController extends Controller
         // return redirect()->back()->with('Success', 'Data BKM Dengan No. ' .$idBKMNew. ' TerSimpan');
     }
 
+    public function getCetakBKMNoPenagihan($idBKMInput)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_NOTAGIH_1')
+        ->where('Id_BKM', $idBKMInput)
+        ->get();
+        return $data;
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

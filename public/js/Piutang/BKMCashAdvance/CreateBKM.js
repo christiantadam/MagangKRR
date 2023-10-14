@@ -35,10 +35,26 @@ let methodTampilBKM = document.getElementById("methodTampilBKM");
 let formTampilBKM = document.getElementById("formTampilBKM");
 let btnCetakBKM = document.getElementById('btnCetakBKM');
 let nomer = document.getElementById('nomer');
+let tglCetak = document.getElementById('tglCetak');
+let symbol = document.getElementById('symbol');
+let terbilangCetak = document.getElementById('terbilangCetak');
+let jumlahDiterima = document.getElementById('jumlahDiterima');
+let kodePerkiraanCetak = document.getElementById('kodePerkiraanCetak');
+let jumlah = document.getElementById('jumlah');
+let rincianPenerimaan = document.getElementById('rincianPenerimaan');
+let tglCetakForm = document.getElementById('tglCetakForm');
+let grandTotal = document.getElementById('grandTotal');
+let symbol2 = document.getElementById('symbol2');
 
 const tglInput = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
 tanggalInput.value = formattedDate2;
+
+const tglCtk = new Date();
+const formattedDate3 = tglCtk.toISOString().substring(0, 10);
+console.log(formattedDate3);
+let tgl2 = ubahFormatTanggal(formattedDate3);
+tglCetakForm.textContent = tgl2;
 
 btnTampilBkm.addEventListener('click', function (event) {
     event.preventDefault();
@@ -122,7 +138,6 @@ btnGroupBKM.addEventListener('click', function (event) {
     let idBKMGenerated = false;
     bankArray = [];
     tanggalArray = [];
-    ;
     nilaipelunasan = [];
     let count = 0;
     var arrayindex = [];
@@ -627,8 +642,22 @@ btnCetakBKM.addEventListener('click', function (event) {
             console.log(options);
             nomer.textContent = options[0].Id_BKM;
 
+            const tglInput = options[0].Tgl_Input;
+            const [tanggal1, waktu] = tglInput.split(" ");
+            options[0].TglInput = tanggal1;
+            let tgl = ubahFormatTanggal(tanggal1);
+            tglCetak.textContent = tgl;
+            symbol.textContent = options[0].Symbol;
+            jumlahDiterima.textContent = options[0].Nilai_Pelunasan;
+            terbilangCetak.textContent = options[0].Terjemahan;
+            kodePerkiraanCetak.textContent = options[0].KodePerkiraan;
+            jumlah.textContent = options[0].Nilai_Rincian;
+            rincianPenerimaan.textContent = options[0].NamaCust + " - " + options[0].Uraian;
+            symbol2.textContent = options[0].Symbol;
+            grandTotal.textContent = options[0].Nilai_Pelunasan;
 
-        })
+            window.print();
+        });
 
     // methodTampilBKM.value = "PUT";
     // formTampilBKM.action = "/CreateBKM/" + idBKM.value;
@@ -768,12 +797,11 @@ function convertThreeDigitsToWords(num, isThousands) {
     return result.trim();
 };
 
-
-btnCetakBKM.addEventListener('click', function(event) {
-    event.preventDefault();
-
-
-
-})
+function ubahFormatTanggal(tanggal) {
+    var bulanIndonesia = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    var tanggalTerpisah = tanggal.split("-");
+    var bulan = bulanIndonesia[parseInt(tanggalTerpisah[1]) - 1];
+    return tanggalTerpisah[2] + "/" + bulan + "/" + tanggalTerpisah[0];
+}
 
 
