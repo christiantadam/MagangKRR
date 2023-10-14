@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <input type="hidden" id="ambil_data_fetch">
     <div id="scan_gelondongan" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-6">
@@ -52,7 +53,7 @@
         </div>
 
         <div class="mt-4">
-            <span>Rekap Barcode yang diterima</span>
+            <span style="font-size: large"><b>Rekap Barcode Yang Diterima</b></span>
 
             <table id="table_rekap" class="hover cell-border">
                 <thead>
@@ -63,7 +64,6 @@
                         <th>Sekunder</th>
                         <th>Tritier</th>
                         <th>Id Type</th>
-                        <th>Penerima</th>
                         <th>Divisi</th>
                     </tr>
                 </thead>
@@ -71,8 +71,8 @@
             </table>
         </div>
 
-        <div class="mt-4">
-            <span>Daftar Barcode yang diterima gudang</span>
+        <div class="mt-5">
+            <span style="font-size: large"><b>Daftar Barcode Yang Diterima Gudang</b></span>
 
             <table id="table_kirim" class="hover cell-border">
                 <thead>
@@ -87,8 +87,7 @@
                         <th>Primer</th>
                         <th>Sekunder</th>
                         <th>Tritier</th>
-                        <th>Id Type</th>
-                        <th>Penerima</th>
+                        <th>Divisi</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

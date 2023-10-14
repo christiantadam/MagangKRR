@@ -1,3 +1,8 @@
+/** Catatan tambahan
+ * - Implementasi button print pada Form Konversi Barang
+ * - Perhitungan total pada komposisi, jumlah, dan koefisien dilakukan setelah format angka (cont. 0,5 + 0,5 = 0) (Form Konversi Barang)
+ */
+
 //#region Variables
 const dateInput = document.getElementById("tanggal_input");
 const dateLoading = document.getElementById("tanggal_loading_bc");

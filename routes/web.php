@@ -12,7 +12,7 @@ use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 use App\Http\Controllers\Extruder\WarehouseTerima\WarehouseController;
 
 /**
- * LAST : cekbarcode() | FrmKirimGelondongan.vb
+ * LAST : KirimGudang() | FrmKirimGelondongan.vb
  *
  * User_id = 4384
  *

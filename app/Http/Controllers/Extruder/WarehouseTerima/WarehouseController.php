@@ -46,14 +46,14 @@ class WarehouseController extends Controller
 
     private function getStatusDispresiasi($kode_barang, $no_indeks, $trans1, $trans2, $trans3, $trans4, $divisi)
     {
-        // Masih terdapat kesalahan pada query builder
+        // SP_1273_INV_CekBarcodeGelondonganMojosari
         return DB::connection('ConnInventory')
             ->table('Dispresiasi')
             ->select('Dispresiasi.Status')
             ->join('Type', 'Dispresiasi.Id_type_tujuan', '=', 'Type.IdType')
             ->join('Subkelompok', 'Type.IdSubkelompok_Type', '=', 'Subkelompok.IdSubkelompok')
             ->join('Kelompok', 'Subkelompok.IdKelompok_Subkelompok', '=', 'Kelompok.IdKelompok')
-            ->join('KelompokUtama', 'Kelompok.IdKelompok', '=', 'KelompokUtama.IdKelompok_KelompokUtama')
+            ->join('KelompokUtama', 'Kelompok.IdKelompokUtama_Kelompok', '=', 'KelompokUtama.IdKelompokUtama')
             ->join('Objek', 'KelompokUtama.IdObjek_KelompokUtama', '=', 'Objek.IdObjek')
             ->where('Dispresiasi.Kode_barang', $kode_barang)
             ->where('Dispresiasi.NoIndeks', $no_indeks)
@@ -67,8 +67,7 @@ class WarehouseController extends Controller
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
             case 'SP_1273_INV_CekBarcodeGelondonganMojosari':
-                dd($this->getStatusDispresiasi($fun_data[0], $fun_data[1], $fun_data[2], $fun_data[3], $fun_data[4], $fun_data[5], $fun_data[6]));
-                return $this->getStatusDispresiasi($fun_data[0], $fun_data[1], $fun_data[2], $fun_data[3], $fun_data[4], $fun_data[5], $fun_data[6]);
+                return $this->getStatusDispresiasi($param_data[0], $param_data[1], $param_data[2], $param_data[3], $param_data[4], $param_data[5], $param_data[6]);
 
             case 'SP_5409_INV_CekBarcodeKirimGudang':
                 $param_str = '@kodebarang = ?, @noindeks = ?, @statusdispresiasi = ?';
@@ -103,12 +102,12 @@ class WarehouseController extends Controller
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_TampilGelondongan_Mojo':
-                $param_str = '@kode_barang = ?, @noindeks = ?, @Divisi = ?';
+                $param_str = '@kodebarang = ?, @noindeks = ?, @Divisi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
-            case 'Sp_Jam_Server':
+            case 'SP_JAM_SERVER':
                 $param_str = '';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_SimpanPermohonanKirimMojosari':
                 $param_str = '@kode_barang = ?, @noindeks = ?, @Divisi = ?, @status = ?';
