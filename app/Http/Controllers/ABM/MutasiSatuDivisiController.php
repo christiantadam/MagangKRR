@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Contoh\Transaksi;
+namespace App\Http\Controllers\ABM;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ContohController extends Controller
+class MutasiSatuDivisiController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
+
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Contoh.home', compact('data'));
+
+        // dd($dataDivisi);
+        return view('MutasiSatuDivisi', compact('data', 'dataDivisi'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +33,18 @@ class ContohController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        //SP_1273_INV_CekBarcodeHangus
+        $crExplode = explode(".", $cr);
+
+        //getDivisi
+        if ($crExplode[1] == "txtIdDivisi") {
+            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekBarcodeHangus @divisi = ?', [$crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
+        }
     }
 
     // Show the form for editing the specified resource.

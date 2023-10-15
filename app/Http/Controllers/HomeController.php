@@ -34,4 +34,8 @@ class HomeController extends Controller
     public function Workshop() {
         return view('workshop.Workshop');
     }
+    public function ABM()
+    {
+        return view('Contoh.ABM');
+    }
 }

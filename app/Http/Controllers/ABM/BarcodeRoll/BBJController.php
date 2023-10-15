@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Contoh\Transaksi;
+namespace App\Http\Controllers\ABM\BarcodeRoll;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ContohController extends Controller
+class BBJController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Contoh.home', compact('data'));
+        return view('BarcodeRollWoven.BBJ', compact('data'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +29,7 @@ class ContohController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
         //
     }

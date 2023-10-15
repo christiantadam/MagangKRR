@@ -1,19 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Contoh\Transaksi;
+namespace App\Http\Controllers\ABM\BarcodeRoll;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ContohController extends Controller
+class KirimCircularController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
+
+        $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?', ["043", "6"]);
+        $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', ["0628"]);
+        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["KKL628"]);
+
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Contoh.home', compact('data'));
+        // dd($dataSubKelompok);
+        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut', 'dataKelompok', 'dataSubKelompok'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +35,7 @@ class ContohController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
         //
     }

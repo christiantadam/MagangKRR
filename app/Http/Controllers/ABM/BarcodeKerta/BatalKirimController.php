@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Contoh\Transaksi;
+namespace App\Http\Controllers\ABM\BarcodeKerta;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ContohController extends Controller
+class BatalKirimController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
-        $data = 'HAPPY HAPPY HAPPY';
-        return view('Contoh.home', compact('data'));
+        $dataKirim = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeKirim @status = ?', ["2"]);
+        // SP_1273_INV_CekDataSP
+
+        // dd($dataKirim);
+        return view('BarcodeKerta2.BatalKirim', compact('dataKirim'));
     }
 
     //Show the form for creating a new resource.
@@ -29,7 +32,7 @@ class ContohController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
         //
     }
@@ -43,7 +46,18 @@ class ContohController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        {
+            $data = $request->all();
+            // dd($data);
+            // kodeUpd: "simpanPegawai",
+
+            DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPembatalanKirimKeGudang @kodebarang = ?, @noindeks = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+
+            ]);
+            return redirect()->route('BatalKirim.index')->with('alert', 'Data Updated successfully!');
+        }
     }
 
     //Remove the specified resource from storage.

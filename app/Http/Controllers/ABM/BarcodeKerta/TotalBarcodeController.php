@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Contoh\Transaksi;
+namespace App\Http\Controllers\ABM\BarcodeKerta;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ContohController extends Controller
+class TotalBarcodeController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Contoh.home', compact('data'));
+        return view('BarcodeKerta2.TotalBarcode', compact('data'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +29,17 @@ class ContohController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[1] == "get_tgl_total_barcode") {
+            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_INV_CEK_TOTALBARCODE @tanggal = ?, @shift = ?', [$crExplode[0], "Pagi"]);
+            // dd($dataKelut);
+            // Return the options as JSON data
+            return response()->json($dataKelut);
+        }
     }
 
     // Show the form for editing the specified resource.
