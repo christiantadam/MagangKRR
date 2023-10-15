@@ -24,6 +24,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/accounting.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/appPayroll.css') }}" rel="stylesheet">
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/Rdz.css') }}" rel="stylesheet">
