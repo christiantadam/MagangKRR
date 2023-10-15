@@ -4550,7 +4550,8 @@ input[type=submit].btn-block {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, .03);
-    border-bottom: 1px solid rgba(0, 0, 0, .125)
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    font-weight: bold;
 }
 
 .card-header:first-child {
@@ -9523,4 +9524,14 @@ label.clickable:hover {
 .card.disabled {
     opacity: 0.6; /* Mengurangi kecerahan */
     pointer-events: none; /* Mencegah interaksi */
+}
+.keterangan{
+    border :solid 1px black;
+    margin-bottom: auto;
+}
+.keterangan::before{
+    content: "keterangan";
+    top: -12px;
+    position: relative;
+    background-color: white;
 }

@@ -23,4 +23,15 @@ class HomeController extends Controller
     {
         return view('layouts.appAccounting');
     }
+    public function GPS()
+    {
+        return view('layouts.WORKSHOP.GPS.appGPS');
+    }
+    public function HomeWorkshop()
+    {
+        return view('layouts.WORKSHOP.Workshop.appWorkshop');
+    }
+    public function Workshop() {
+        return view('workshop.Workshop');
+    }
 }
