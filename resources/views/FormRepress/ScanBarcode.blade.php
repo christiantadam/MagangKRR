@@ -1,0 +1,250 @@
+@extends('layouts.appBarcodeAdStar')
+@section('content')
+<link href="{{ asset('css/Barcode/Repress.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('js\FormRepress.js\ScanBarcode.js') }}"></script>
+
+    <body onload="Greeting()">
+        <style>
+            /* Gaya untuk modal */
+            .modal {
+                display: none;
+                /* Sembunyikan modal secara default */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                /* Latar belakang gelap transparan */
+            }
+
+            .modal-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: white;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                width: 700px;
+                max-height: 500px;
+                /* Atur tinggi maksimum modal di sini */
+                overflow: auto;
+                /* Aktifkan overflow untuk mengaktifkan scrollbar jika konten meluas */
+            }
+
+            .close-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+            }
+        </style>
+        <div id="app">
+            <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
+                <div class="card-body" style="flex: 1; margin-right: -20px; margin-left: 75px;">
+                    <!-- Konten Card Body Kiri -->
+                    <div class="form-wrapper mt-4">
+                        <div class="form-container">
+                            <div class="card" style="width: 1500px; margin-left:-300px">
+                                <div class="card-header">Scan Barcode</div>
+                                <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                                    <div class="form berat_woven">
+                                        <form action="#" method="post" role="form">
+                                            <div class="row">
+                                                <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <span class="aligned-text">Divisi:</span>
+                                                </div>
+                                                <div class="form-group col-md-2 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="IdDivisi"
+                                                        id="IdDivisi" placeholder="ID Divisi" readonly>
+                                                </div>
+                                                <div class="form-group col-md-6 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="Divisi" id="Divisi"
+                                                        placeholder="Divisi" readonly>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                                    <div class="modal" id="myModal">
+                                                        <div class="modal-content">
+                                                            <span class="close-btn" onclick="closeModal()">&times;</span>
+                                                            <h2>Table Divisi</h2>
+                                                            <p>Id Divisi & Divisi</p>
+                                                            <table id="TableDivisi">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID Divisi</th>
+                                                                        <th>Divisi</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($dataDivisi as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdDivisi }}</td>
+                                                                            <td>{{ $data->NamaDivisi }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-center col-md-auto">
+                                                                <button type="button"
+                                                                    onclick="closeModal()">Process</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-2 d-flex justify-content-end">
+                                                    <span class="aligned-text">Objek:</span>
+                                                </div>
+                                                <div class="form-group col-md-2 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="IdObjek" id="IdObjek"
+                                                        placeholder="ID Objek" readonly>
+                                                </div>
+                                                <div class="form-group col-md-6 mt-3 mt-md-0">
+                                                    <input type="text" class="form-control" name="NamaObjek"
+                                                        id="NamaObjek" placeholder="Objek" readonly>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            onclick="openModal1()" id="ButtonObjek">...</button></div>
+                                                    <div class="modal" id="myModal1">
+                                                        <div class="modal-content">
+                                                            <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                                            <h2>Table Objek</h2>
+                                                            <p>Id Objek & Objek</p>
+                                                            <table id="TableObjek">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID Objek</th>
+                                                                        <th>Objek</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="text-center col-md-auto">
+                                                                <button type="button"
+                                                                    onclick="closeModal1()">Process</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card mt-auto">
+                                                <div class="card-header">Type</div>
+                                                <table id="TableType">
+                                                    <thead>
+                                                        <th>Id Transaksi</th>
+                                                        <th>Kelompok Utama </th>
+                                                        <th>Kelompok </th>
+                                                        <th>Sub Kelompok</th>
+                                                        <th>Nama Type</th>
+                                                        <th>Alasan Mutasi</th>
+                                                        <th>User</th>
+                                                        <th>Primer</th>
+                                                        <th>Sekunder</th>
+                                                        <th>Tritier</th>
+                                                        <th>Tanggal Mohon</th>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col- row justify-content-md-center">
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px; margin-right: -10px" onclick="openModal2()"
+                                                            id="ButtonDivisi">Scan Barcode</button></div>
+                                                    <div class="modal" id="myModal2">
+                                                        <div class="modal-content" style="width: 1500px">
+                                                            <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                            <h2>Scan Barcode</h2>
+                                                            <p>Scan</p>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-2 d-flex justify-content-end">
+                                                                    <span class="aligned-text">Item Number / Kode
+                                                                        Barang:</span>
+                                                                </div>
+                                                                <div class="form-group col-md-7 mt-3 mt-md-0 ml-3">
+                                                                    <input type="text" class="form-control"
+                                                                        id="barcode" placeholder="Barcode">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="card">
+                                                                <div class="card-header">Barcode Yang Dikirim Ke Gudang
+                                                                </div>
+                                                                <table id="TableType1">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No. </th>
+                                                                            <th>Id Transaksi </th>
+                                                                            <th>Kode Barang </th>
+                                                                            <th>Nama Type </th>
+                                                                            <th>Jumlah Primier </th>
+                                                                            <th>Jumlah Sekunder </th>
+                                                                            <th>Jumlah Tritier </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+
+                                                            <div class="card mt-4">
+                                                                <div class="card-header">Barcode Yang Di Scan</div>
+                                                                <table id="TableType2">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No. </th>
+                                                                            <th>Id Transaksi </th>
+                                                                            <th>Kode Barang </th>
+                                                                            <th>No Indeks</th>
+                                                                            <th>Nama Type </th>
+                                                                            <th>Jumlah Primier </th>
+                                                                            <th>Jumlah Sekunder </th>
+                                                                            <th>Jumlah Tritier </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                            <div class="text-center col-md-auto mt-3">
+                                                                <button type="button" style="width: 150px"
+                                                                    disabled>Process</button>
+                                                                <button type="button" class="btn-danger" style="width: 150px"
+                                                                    onclick="closeModal2()">Keluar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px; margin-left: 15px"
+                                                            id="ButtonRefresh">Refresh</button></div>
+                                                    <div class="text-center col-md-auto"><button type="button"
+                                                            style="width: 150px">Keluar</button></div>
+                                                    <input class="form-group col-md-2 ml-5" name="type"
+                                                        rows="blank">
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+                <main class="py-4">
+                    @yield('content')
+                </main>
+            </div>
+    </body>
+@endsection
