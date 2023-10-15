@@ -29,11 +29,6 @@
                             <h2 class="acs-txt-card">WORKSHOP</h2>
                             <img src="{{ asset('/images/Workshop.png') }}" alt="" class="acs-img-card">
                         </div>
-                        <div class="acs-card" onclick="OpenNewTab('{{ url('Contoh') }}');">
-                            <h2 class="acs-txt-card">CONTOH</h2>
-                            <img src="{{ asset('/images/cat-jump.gif') }}" alt="" class="acs-img-card">
-                            <p>*boleh dihapus kok</p>
-                        </div>
                 </div>
             </div>
         </div>
