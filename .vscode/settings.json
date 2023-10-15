@@ -1,0 +1,10 @@
+{
+    "intelephense.diagnostics.undefinedProperties": false,
+    "intelephense.diagnostics.undefinedClassConstants": false,
+    "intelephense.diagnostics.undefinedConstants": false,
+    "intelephense.diagnostics.undefinedFunctions": false,
+    "intelephense.diagnostics.undefinedMethods": false,
+    "intelephense.diagnostics.undefinedTypes": false,
+    "intelephense.trace.server": "messages",
+    "intelephense.telemetry.enabled": false
+}
