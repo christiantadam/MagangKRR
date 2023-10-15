@@ -91,7 +91,6 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'ConnAccounting' => [
         'ConnPayroll' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
