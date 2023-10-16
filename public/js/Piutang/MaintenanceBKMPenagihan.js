@@ -72,6 +72,19 @@ let formTampilBKM = document.getElementById("formTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let modalTampilBKM = document.getElementById("modalTampilBKM");
 
+//BTNCETAK
+let nomer = document.getElementById('nomer');
+let tglCetak = document.getElementById('tglCetak');
+let symbol = document.getElementById('symbol');
+let terbilangCetak = document.getElementById('terbilangCetak');
+let jumlahDiterima = document.getElementById('jumlahDiterima');
+let kodePerkiraanCetak = document.getElementById('kodePerkiraanCetak');
+let jumlah = document.getElementById('jumlah');
+let rincianPenerimaan = document.getElementById('rincianPenerimaan');
+let tglCetakForm = document.getElementById('tglCetakForm');
+let grandTotal = document.getElementById('grandTotal');
+let symbol2 = document.getElementById('symbol2');
+
 const tglInput = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
 tanggalInput.value = formattedDate2;
@@ -79,6 +92,12 @@ tanggalInput.value = formattedDate2;
 const tglTagihan = new Date();
 const formattedDate = tglTagihan.toISOString().substring(0, 10);
 tanggalTagih.value = formattedDate;
+
+const tglCtk = new Date();
+const formattedDate3 = tglCtk.toISOString().substring(0, 10);
+console.log(formattedDate3);
+let tgl2 = ubahFormatTanggal(formattedDate3);
+tglCetakForm.textContent = tgl2;
 
 btnTutupModal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -596,6 +615,37 @@ btnGroupBKM.addEventListener('click', function (event) {
 btnCETAK.addEventListener('click', function (event) {
     event.preventDefault();
     console.log(idBKMInput.value);
+
+    fetch("/getCetakBKMJumlahPelunasan/" + idBKMInput.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+        })
+
+    fetch("/getCetakBKMNoPenagihan/" + idBKMInput.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            nomer.textContent = options[0].Id_BKM;
+            const tglInput = options[0].Tgl_Input;
+            const [tanggal1, waktu] = tglInput.split(" ");
+            options[0].TglInput = tanggal1;
+            let tgl = ubahFormatTanggal(tanggal1);
+            tglCetak.textContent = tgl;
+
+            symbol.textContent = options[0].Symbol;
+            jumlahDiterima.textContent = options[0].Nilai_Pelunasan;
+            terbilangCetak.textContent = options[0].Terjemahan;
+            kodePerkiraanCetak.textContent = options[0].Kode_Perkiraan;
+            symbol2.textContent = options[0].Symbol;
+            grandTotal.textContent = options[0].Nilai_Pelunasan;
+            rincianPenerimaan.textContent = options[0].NamaCust + " - " + options[0].ID_Penagihan;
+
+            if ((options[0].ID_Penagihan != null && options[0].Biaya > 0) || (options[0].ID_Penagihan != null && options[0].KurangLebih != 0)) {
+                //
+            }
+        })
 })
 
 $("#btnProsesDetail").on("click", function (event) {
@@ -664,11 +714,19 @@ btnTampilBKM.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
+
+    const tglTampilBKM = new Date();
+    const formattedDate3 = tglTampilBKM.toISOString().substring(0, 10);
+    tanggalInputTampil.value = formattedDate3;
+
+    const tglTampilBKM2 = new Date();
+    const formattedDate4 = tglTampilBKM2.toISOString().substring(0, 10);
+    tanggalInputTampil2.value = formattedDate4;
 })
 
 btnOkTampil.addEventListener('click', function(event) {
     event.preventDefault();
-    fetch("/tabeltampilbkm/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
+    fetch("/getTabelTampilBKMPenagihan/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
         .then((response) => response.json())
         .then((options) => {
             console.log(options);
@@ -687,9 +745,16 @@ btnOkTampil.addEventListener('click', function(event) {
                 ]
             });
 
-            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+            let lastCheckedCheckbox = null;
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function () {
+                if (lastCheckedCheckbox && lastCheckedCheckbox !== this) {
+                    lastCheckedCheckbox.checked = false;
+                }
+                lastCheckedCheckbox = this;
+
                 const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
-                const idBKMInput = document.getElementById("idBKM");
+                idBKMInput = document.getElementById("idBKM");
 
                 if ($(this).prop("checked")) {
                     idBKMInput.value = checkedCheckbox.Id_BKM;
@@ -1006,6 +1071,13 @@ function DetailKurangLebih() {
                 kodePerkiraanKrgLbhSelect.appendChild(option);
             });
         });
+};
+
+function ubahFormatTanggal(tanggal) {
+    var bulanIndonesia = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    var tanggalTerpisah = tanggal.split("-");
+    var bulan = bulanIndonesia[parseInt(tanggalTerpisah[1]) - 1];
+    return tanggalTerpisah[2] + "/" + bulan + "/" + tanggalTerpisah[0];
 }
 
 //#region F_RUPIAH

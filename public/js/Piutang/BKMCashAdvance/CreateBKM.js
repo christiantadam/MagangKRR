@@ -10,6 +10,7 @@ let idKodePerkiraan = document.getElementById("idKodePerkiraan");
 let tabelTampilBKM = document.getElementById("tabelTampilBKM");
 // let dataTable3 = $("#tabelDataPelunasan").DataTable();
 let idBankNew;
+let idBank = document.getElementById('idBank');
 let tglInputNew = document.getElementById("tglInputNew");
 let idBKMNew = document.getElementById("idBKMNew");
 let totalPelunasan = document.getElementById("total1");
@@ -649,7 +650,7 @@ btnCetakBKM.addEventListener('click', function (event) {
             tglCetak.textContent = tgl;
             symbol.textContent = options[0].Symbol;
             jumlahDiterima.textContent = options[0].Nilai_Pelunasan;
-            terbilangCetak.textContent = options[0].Terjemahan;
+            angCeterbiltak.textContent = options[0].Terjemahan;
             kodePerkiraanCetak.textContent = options[0].KodePerkiraan;
             jumlah.textContent = options[0].Nilai_Rincian;
             rincianPenerimaan.textContent = options[0].NamaCust + " - " + options[0].Uraian;

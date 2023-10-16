@@ -61,13 +61,13 @@ class CreateBKMController extends Controller
         $tanggalInput = $tanggal;
         $jenis = 'R';
 
-        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
-            $jenis,
-            $tanggalInput,
-            $idBank,
-            null
-            // Pass by reference for output parameter
-        ]);
+        // $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+        //     $jenis,
+        //     $tanggalInput,
+        //     $idBank,
+        //     null
+        //     // Pass by reference for output parameter
+        // ]);
 
         $tahun = substr($tanggalInput, -10, 4);
         $x = DB::connection('ConnAccounting')->table('T_Counter_BKM')->where('Periode', '=', $tahun)->first();
