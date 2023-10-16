@@ -66,7 +66,7 @@ $('#tbl_srtpsn tbody').on('click', 'tr', function () {
     $('#idsurat').val(rowData[0]);
     $('#qty_ordr').val(rowData[1]);
     var NoSP = document.getElementById('idsurat').value;
-    fetch("/MaintOrder/" + NoSP + ".dataSrtPsn2")
+    fetch("/AdStarMaintOrder/" + NoSP + ".dataSrtPsn2")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -80,7 +80,7 @@ $('#tbl_srtpsn tbody').on('click', 'tr', function () {
                 $('#no_psn').val(item.IdPesanan);
                 $('#qty_ordr').val(item.Qty);
                 var IDPESANAN = document.getElementById('no_psn').value;
-                fetch("/MaintOrder/" + IDPESANAN + ".dataJmlhPress")
+                fetch("/AdStarMaintOrder/" + IDPESANAN + ".dataJmlhPress")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -136,7 +136,7 @@ $('#tbl_stkordsblm tbody').on('click', 'tr', function () {
     var parts = tglorder.split("/");
     var newtgl = parts[2] + '-' + parts[0] + '-' + parts[1]
     console.log();
-    fetch("/MaintOrder/" + KD_BRG + "." + nosp + "." + newtgl + ".datasisastok")
+    fetch("/AdStarMaintOrder/" + KD_BRG + "." + nosp + "." + newtgl + ".datasisastok")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -167,7 +167,7 @@ const ldBrng = document.getElementById('ld-Brng')
 ldBrng.addEventListener("click", function () {
     $("#tbl_nmbrng").DataTable();
     var idcust = document.getElementById('idcust');
-    fetch("/MaintOrder/" + idcust.value + ".dataBrng")
+    fetch("/AdStarMaintOrder/" + idcust.value + ".dataBrng")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -200,7 +200,7 @@ const ld_srtpsn = document.getElementById('ld_srtpsn')
 ld_srtpsn.addEventListener("click", function () {
     var kd_brng = document.getElementById('kd_brng');
     var idcust = document.getElementById('idcust');
-    fetch("/MaintOrder/" + idcust.value + "." + kd_brng.value + ".dataSrtPsn")
+    fetch("/AdStarMaintOrder/" + idcust.value + "." + kd_brng.value + ".dataSrtPsn")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -233,7 +233,7 @@ const idstkordsblm = document.getElementById('id-stkordsblm')
 
 idstkordsblm.addEventListener("click", function () {
     var kd_brng = document.getElementById('kd_brng');
-    fetch("/MaintOrder/" + kd_brng.value + ".datastkordsblm")
+    fetch("/AdStarMaintOrder/" + kd_brng.value + ".datastkordsblm")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

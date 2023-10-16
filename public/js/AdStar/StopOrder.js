@@ -41,7 +41,7 @@ btn_noorder.addEventListener("click", function () {
     else if (a==2) {
         Kode = 14
     }
-    fetch("/StopOrder/" + Kode + ".dataOrder")
+    fetch("/AdStarStopOrder/" + Kode + ".dataOrder")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -75,7 +75,7 @@ $('#tabel_noorder tbody').on('click', 'tr', function () {
     $('#no_order').val(rowData[1]);
 
     var no_order = document.getElementById('no_order').value;
-    fetch("/StopOrder/" + no_order + ".dataOrder2")
+    fetch("/AdStarStopOrder/" + no_order + ".dataOrder2")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

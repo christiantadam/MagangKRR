@@ -49,7 +49,7 @@ var kodeSave;
 
 ldtransaksi.addEventListener("click", function () {
     var tanggal = document.getElementById('tanggal');
-    fetch("/HasilProd/" + tanggal.value + ".dataTransaksi")
+    fetch("/AdStarHasilProd/" + tanggal.value + ".dataTransaksi")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -456,7 +456,7 @@ $('#tabel_notransaksi tbody').on('click', 'tr', function () {
     var rowData = $("#tabel_notransaksi").DataTable().row(this).data();
     $('#no-transaksi').val(rowData[1]);
     var IDLOG = document.getElementById('no-transaksi').value;
-    fetch("/HasilProd/" + IDLOG + ".getDataProduksi")
+    fetch("/AdStarHasilProd/" + IDLOG + ".getDataProduksi")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

@@ -46,7 +46,7 @@ btncust1.addEventListener("click", function () {
     else if (a==2) {
         Kode = 3
     }
-    fetch("/CopyTabel/" + Kode + ".dataCust1")
+    fetch("/AdStarCopyTabel/" + Kode + ".dataCust1")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -91,7 +91,7 @@ btnprodtype.addEventListener("click", function () {
     else if (b==2) {
         Kode = 1
     }
-    fetch("/CopyTabel/" + Kode +"."+ idcust.value + ".dataProdType")
+    fetch("/AdStarCopyTabel/" + Kode +"."+ idcust.value + ".dataProdType")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
