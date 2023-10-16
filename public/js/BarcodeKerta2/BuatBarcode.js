@@ -218,7 +218,7 @@ $(document).ready(function () {
         var primer = document.getElementById('Primer').value;
         var sekunder = document.getElementById('SekunderOutput').value;
         var tritier = document.getElementById('tritier').value;
-        var UserID = 'U001';
+        var UserID = '4384';
         var asalidsubkelompok = subKelompok;
         var Kode_Barang = kodebarang;
         var uraian = document.getElementById('shift').value;

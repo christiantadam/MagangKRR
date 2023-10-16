@@ -276,6 +276,76 @@ $(document).ready(function () {
     //     }
     // });
 
+    // var ScanBarcode = document.getElementById('No_barcode');
+    // ScanBarcode.addEventListener("keypress", function (event) {
+    //     if (event.key == "Enter") {
+    //         var ScanBarcodeValue = document.getElementById('No_barcode').value;
+    //         console.log(ScanBarcodeValue);
+
+    //         var parts = ScanBarcodeValue.split("-");
+    //         console.log(parts); // Output: ["A123", "a234"]
+
+    //         fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
+    //             .then((response) => {
+    //                 if (!response.ok) {
+    //                     throw new Error("Network response was not ok");
+    //                 }
+    //                 return response.json(); // Assuming the response is in JSON format
+    //             })
+    //             .then((data) => {
+    //                 // Handle the data retrieved from the server (data should be an object or an array)
+    //                 console.log("Data dari server:", data);
+
+    //                 // Assuming sts is a property in the data object, adjust this part accordingly
+    //                 var sts = data.status;
+
+    //                 // Handling different statuses
+    //                 if (sts === "1") {
+    //                     // Fetch additional data for status 1
+    //                     fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getSP")
+    //                         .then((responseSP) => {
+    //                             if (!responseSP.ok) {
+    //                                 throw new Error("Network response was not ok");
+    //                             }
+    //                             return responseSP.json(); // Assuming the response is in JSON format
+    //                         })
+    //                         .then((dataSP) => {
+    //                             // Clear the existing table rows
+    //                             $("#TableSP").DataTable().clear().draw();
+
+    //                             // Loop through the dataSP and create table rows
+    //                             if (Array.isArray(dataSP)) {
+    //                                 dataSP.forEach((item) => {
+    //                                     var row = [item.IDSuratPesanan, item.NamaJnsBrg];
+    //                                     $("#TableSP").DataTable().row.add(row);
+    //                                 });
+    //                             } else {
+    //                                 console.error("Data SP is not an array:", dataSP);
+    //                             }
+
+    //                             // Redraw the table to show the changes
+    //                             $("#TableSP").DataTable().draw();
+    //                         })
+    //                         .catch((error) => {
+    //                             console.error("Error fetching additional data for status 1:", error);
+    //                         });
+    //                 } else if (sts === "2") {
+    //                     // Do something for status 2
+    //                     alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+    //                 } else if (sts === "3") {
+    //                     // Do something for status 3
+    //                     alert("Barcode Sudah Pernah Ditembak!");
+    //                 } else {
+    //                     // Do something for other statuses
+    //                     alert("Data Barcode Tidak Ditemukan!");
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error checking status:", error);
+    //             });
+    //     }
+    // });
+
     var ScanBarcode = document.getElementById('No_barcode');
     ScanBarcode.addEventListener("keypress", function (event) {
         if (event.key == "Enter") {
@@ -285,37 +355,37 @@ $(document).ready(function () {
             var parts = ScanBarcodeValue.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getDataStatus")
-                .then((response) => {
+            fetch(`/ABM/BarcodeKerta2/KirimGudang/${parts[0]}.${parts[1]}.getDataStatus`)
+                .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
                     }
                     return response.json(); // Assuming the response is in JSON format
                 })
-                .then((data) => {
+                .then(data => {
                     // Handle the data retrieved from the server (data should be an object or an array)
                     console.log("Data dari server:", data);
 
                     // Assuming sts is a property in the data object, adjust this part accordingly
-                    var sts = data.statusdispresiasi;
+                    var sts = data;
 
                     // Handling different statuses
                     if (sts === "1") {
                         // Fetch additional data for status 1
-                        fetch("/ABM/BarcodeKerta2/KirimGudang/" + parts[0] + "." + parts[1] + ".getSP")
-                            .then((responseSP) => {
+                        fetch(`/ABM/BarcodeKerta2/KirimGudang/${parts[0]}.${parts[1]}.getSP`)
+                            .then(responseSP => {
                                 if (!responseSP.ok) {
                                     throw new Error("Network response was not ok");
                                 }
                                 return responseSP.json(); // Assuming the response is in JSON format
                             })
-                            .then((dataSP) => {
+                            .then(dataSP => {
                                 // Clear the existing table rows
                                 $("#TableSP").DataTable().clear().draw();
 
                                 // Loop through the dataSP and create table rows
                                 if (Array.isArray(dataSP)) {
-                                    dataSP.forEach((item) => {
+                                    dataSP.forEach(item => {
                                         var row = [item.IDSuratPesanan, item.NamaJnsBrg];
                                         $("#TableSP").DataTable().row.add(row);
                                     });
@@ -326,7 +396,7 @@ $(document).ready(function () {
                                 // Redraw the table to show the changes
                                 $("#TableSP").DataTable().draw();
                             })
-                            .catch((error) => {
+                            .catch(error => {
                                 console.error("Error fetching additional data for status 1:", error);
                             });
                     } else if (sts === "2") {
@@ -340,12 +410,11 @@ $(document).ready(function () {
                         alert("Data Barcode Tidak Ditemukan!");
                     }
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error("Error checking status:", error);
                 });
         }
     });
-
 
     // var ScanBarcode = document.getElementById('No_barcode');
     // ScanBarcode.addEventListener("keypress", function (event) {
