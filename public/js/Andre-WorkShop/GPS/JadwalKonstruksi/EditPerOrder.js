@@ -260,11 +260,12 @@ function prosesklik() {
     var indexarray = [];
     let idkEst = 0;
     let tglEst = [];
-    let idkInput= 0;
+    let idkInput = 0;
     var WktInput = [];
     var nomerUrut = [];
     let idkNoUrut = 0;
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    let simpan = false;
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
     $("input[name='EditJadwalPerOrderCheck']:checked").each(function () {
         // Ambil nilai 'value' dan status 'checked' dari checkbox
@@ -282,7 +283,7 @@ function prosesklik() {
     if (jml == 2) {
         for (let i = 0; i < indexarray.length; i++) {
             idkEst += 1;
-            tglEst.push(table_data.cell(indexarray[i],1).data());
+            tglEst.push(table_data.cell(indexarray[i], 1).data());
         }
         if (tglEst[0] != tglEst[1]) {
             alert("Tanggal kerja tidak boleh berbeda.");
@@ -291,84 +292,190 @@ function prosesklik() {
         if (Tukarposisi.checked) {
             for (let i = 0; i < indexarray.length; i++) {
                 idkInput += 1;
-                WktInput.push(table_data.cell(indexarray[i],6).data());
+                WktInput.push(table_data.cell(indexarray[i], 6).data());
             }
             console.log(WktInput);
             console.log(idkInput);
             for (let i = 0; i < WktInput.length; i++) {
                 idkInput -= 1;
                 $.ajax({
-                    url: 'EditPerOrderkonstruksi/' +  table_data.cell(indexarray[i],8).data(),
-                    type: 'POST',
-                    dataType: 'json',
+                    url:
+                        "EditPerOrderkonstruksi/" +
+                        table_data.cell(indexarray[i], 8).data(),
+                    type: "POST",
+                    dataType: "json",
                     data: {
                         _token: csrfToken,
                         _method: "PUT",
-                        noAntri : table_data.cell(indexarray[i],8).data(),
-                        idTrans : table_data.cell(indexarray[i],9).data(),
-                        estDate : table_data.cell(indexarray[i],1).data(),
-                        worksts : table_data.cell(indexarray[i],7).data(),
-                        idBag : NamaBagian.value,
-                        Time : WktInput[idkInput]
+                        noAntri: table_data.cell(indexarray[i], 8).data(),
+                        idTrans: table_data.cell(indexarray[i], 9).data(),
+                        estDate: table_data.cell(indexarray[i], 1).data(),
+                        worksts: table_data.cell(indexarray[i], 7).data(),
+                        idBag: NamaBagian.value,
+                        Time: WktInput[idkInput],
                     },
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response.message);
+                        simpan = true;
                         // alert(response.message)
                         // LoadOpr();
                         // console.log(response.data);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
-                    }
+                    },
                 });
             }
+            // if (simpan == true) {
+            //     alert("Proses selesai.");
+            //     return;
+            // }
         }
         if (Susunposisi.checked == true) {
             var jawab = confirm("Susun ke atas(OK) atau ke bawah(Cancel) ??");
-            $("input[name='EditJadwalPerOrderCheck']:checked").each(function () {
-                let rowindex = $(this).closest("tr").index();
-                idkNoUrut += 1;
-                nomerUrut.push(rowindex);
-            });
+            $("input[name='EditJadwalPerOrderCheck']:checked").each(
+                function () {
+                    let rowindex = $(this).closest("tr").index();
+                    idkNoUrut += 1;
+                    nomerUrut.push(rowindex);
+                }
+            );
             for (let i = 0; i < indexarray.length; i++) {
                 idkInput += 1;
-                WktInput.push(table_data.cell(indexarray[i],6).data());
+                WktInput.push(table_data.cell(indexarray[i], 6).data());
             }
             if (jawab) {
-                console.log(nomerUrut);
+                // console.log(nomerUrut);
                 for (var i = nomerUrut[0] + 1; i <= nomerUrut[1]; i++) {
-                    console.log(table_data.cell(indexarray[i-1],6).data());
+                    // console.log(table_data.cell(indexarray[i-1],6).data());
                     $.ajax({
-                        url: 'EditPerOrderkonstruksi/' +  table_data.cell(indexarray[i],8).data(),
-                        type: 'POST',
-                        dataType: 'json',
+                        url:
+                            "EditPerOrderkonstruksi/" +
+                            table_data.cell(indexarray[i], 8).data(),
+                        type: "POST",
+                        dataType: "json",
                         data: {
                             _token: csrfToken,
                             _method: "PUT",
-                            noAntri : table_data.cell(indexarray[i],8).data(),
-                            idTrans : table_data.cell(indexarray[i],9).data(),
-                            estDate : table_data.cell(indexarray[i],1).data(),
-                            worksts : table_data.cell(indexarray[i],7).data(),
-                            idBag : NamaBagian.value,
-                            Time : table_data.cell(indexarray[i-1],6).data()
+                            noAntri: table_data.cell(indexarray[i], 8).data(),
+                            idTrans: table_data.cell(indexarray[i], 9).data(),
+                            estDate: table_data.cell(indexarray[i], 1).data(),
+                            worksts: table_data.cell(indexarray[i], 7).data(),
+                            idBag: NamaBagian.value,
+                            Time: table_data.cell(indexarray[i - 1], 6).data(),
                         },
-                        success: function(response) {
+                        success: function (response) {
                             console.log(response.message);
+                            simpan = true;
                             // alert(response.message)
                             // LoadOpr();
                             // console.log(response.data);
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             console.error(error);
-                        }
+                        },
+                    });
+                    $.ajax({
+                        url:
+                            "EditPerOrderkonstruksi/" +
+                            table_data.cell(indexarray[i], 8).data(),
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            _token: csrfToken,
+                            _method: "PUT",
+                            noAntri: table_data.cell(indexarray[1], 8).data(),
+                            idTrans: table_data.cell(indexarray[1], 9).data(),
+                            estDate: table_data.cell(indexarray[1], 1).data(),
+                            worksts: table_data.cell(indexarray[1], 7).data(),
+                            idBag: NamaBagian.value,
+                            Time: WktInput[1],
+                        },
+                        success: function (response) {
+                            console.log(response.message);
+                            simpan = true;
+                            // alert(response.message)
+                            // LoadOpr();
+                            // console.log(response.data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error(error);
+                        },
                     });
                 }
+                // if (simpan == true) {
+                //     alert("Proses selesai.");
+                //     return;
+                // }
             }
+        } else if (jawab == false) {
+            for (var i = nomerUrut[0] + 1; i <= nomerUrut[1] - 1; i++) {
+                // console.log(table_data.cell(indexarray[i-1],6).data());
+                $.ajax({
+                    url:
+                        "EditPerOrderkonstruksi/" +
+                        table_data.cell(indexarray[i], 8).data(),
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        _token: csrfToken,
+                        _method: "PUT",
+                        noAntri: table_data.cell(indexarray[i], 8).data(),
+                        idTrans: table_data.cell(indexarray[i], 9).data(),
+                        estDate: table_data.cell(indexarray[i], 1).data(),
+                        worksts: table_data.cell(indexarray[i], 7).data(),
+                        idBag: NamaBagian.value,
+                        Time: table_data.cell(indexarray[i + 1], 6).data(),
+                    },
+                    success: function (response) {
+                        console.log(response.message);
+                        simpan = true;
+                        // alert(response.message)
+                        // LoadOpr();
+                        // console.log(response.data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    },
+                });
+                $.ajax({
+                    url:
+                        "EditPerOrderkonstruksi/" +
+                        table_data.cell(indexarray[i], 8).data(),
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        _token: csrfToken,
+                        _method: "PUT",
+                        noAntri: table_data.cell(indexarray[1], 8).data(),
+                        idTrans: table_data.cell(indexarray[1], 9).data(),
+                        estDate: table_data.cell(indexarray[1], 1).data(),
+                        worksts: table_data.cell(indexarray[1], 7).data(),
+                        idBag: NamaBagian.value,
+                        Time: WktInput[0],
+                    },
+                    success: function (response) {
+                        console.log(response.message);
+                        simpan = true;
+                        // alert(response.message)
+                        // LoadOpr();
+                        // console.log(response.data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    },
+                });
+            }
+            // if (simpan == true) {
+            //     alert("Proses selesai.");
+            //     return;
+            // }
+
+        } else {
+            alert("Pilih 2 data.");
+            return;
         }
-    }
-    else{
-        alert("Pilih 2 data.");
-        return;
+
     }
 }
 
