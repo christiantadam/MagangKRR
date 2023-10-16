@@ -30,7 +30,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Manager").val(rowData[0]);
         $("#Nama_Manager").val(rowData[1]);
-        fetch("/CheckClockInOut/" + kode + "." + rowData[0] + ".getDivisi")
+        fetch("/ProgramPayroll/CheckClockInOut/" + kode + "." + rowData[0] + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -69,7 +69,7 @@ $(document).ready(function () {
         $("#Id_Divisi").val(rowData[0]);
         $("#Nama_Divisi").val(rowData[1]);
         if (staffRadio.checked) {
-            fetch("/CheckClockInOut/" + rowData[0] + ".5" + ".getPegawai")
+            fetch("/ProgramPayroll/CheckClockInOut/" + rowData[0] + ".5" + ".getPegawai")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -97,7 +97,7 @@ $(document).ready(function () {
                     console.error("Error:", error);
                 });
         } else if (harianRadio.checked)  {
-            fetch("/CheckClockInOut/" + rowData[0] + ".5" + ".getPegawai")
+            fetch("/ProgramPayroll/CheckClockInOut/" + rowData[0] + ".5" + ".getPegawai")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

@@ -108,6 +108,11 @@ class KaryawanHarianController extends Controller
             $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI ?', [$crExplode[0]]);
             // Return the options as JSON data
             return response()->json($dataPegawai);
+        }else if ($crExplode[1] == "getKodePegawai") {
+            // getPegawaiKeluarga
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_CEK_KODE_PEGAWAI @Id_div = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
         }
     }
 

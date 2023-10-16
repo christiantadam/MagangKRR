@@ -7,7 +7,7 @@ $(document).ready(function () {
     okButton.addEventListener("click", function () {
         okButton.disabled = true;
         prosesButton.disabled = false;
-        fetch("/Skorsing/AccBayar/" + ".getDataSkors")
+        fetch("/ProgramPayroll/Skorsing/AccBayar/" + ".getDataSkors")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

@@ -74,7 +74,7 @@ $(document).ready(function () {
         const Alasan = document.getElementById("Keterangan");
         const txtKeterangan = document.getElementById("Keterangan");
         if ((a = 1)) {
-            fetch("/MaintenanceResign/" + kd_peg + ".cekProses")
+            fetch("/ProgramPayroll/MaintenanceResign/" + kd_peg + ".cekProses")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -216,7 +216,7 @@ $(document).ready(function () {
         }
     });
     function DisplayData(idpeg) {
-        fetch("/MaintenanceResign/" + idpeg + ".getDataResign")
+        fetch("/ProgramPayroll/MaintenanceResign/" + idpeg + ".getDataResign")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -239,7 +239,7 @@ $(document).ready(function () {
     function MasaKerja() {
         const kd_peg = document.getElementById("Id_Pegawai").value;
         const TglResign = document.getElementById("TglResign").value;
-        fetch("/MaintenanceResign/" + kd_peg + ".getMasaKerja")
+        fetch("/ProgramPayroll/MaintenanceResign/" + kd_peg + ".getMasaKerja")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -267,7 +267,7 @@ $(document).ready(function () {
     listDataButton.addEventListener("click", function () {
         const TglResign = document.getElementById("TglResign").value;
         console.log("Masuk listdatafunc");
-        fetch("/MaintenanceResign/" + TglResign + ".getListData")
+        fetch("/ProgramPayroll/MaintenanceResign/" + TglResign + ".getListData")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -307,7 +307,7 @@ $(document).ready(function () {
         hideModalListData();
     });
     divisiButton.addEventListener("click", function () {
-        fetch("/MaintenanceResign/" + ".getDivisi")
+        fetch("/ProgramPayroll/MaintenanceResign/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -349,7 +349,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/MaintenanceResign/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/MaintenanceResign/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -390,7 +390,7 @@ $(document).ready(function () {
         hideModalPegawai();
     });
     function SaveData() {
-        fetch("/MaintenanceResign/" + idpeg + ".getDataResign")
+        fetch("/ProgramPayroll/MaintenanceResign/" + idpeg + ".getDataResign")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

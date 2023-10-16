@@ -203,7 +203,7 @@ $(document).ready(function () {
         } else if (selectedValue === "Staff") {
             kode = 2;
         }
-        fetch("/KaryawanKeluarga/" + kode + ".getDivisi")
+        fetch("/ProgramPayroll/KaryawanKeluarga/" + kode + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -234,7 +234,7 @@ $(document).ready(function () {
     karyawanButton.addEventListener("click", function () {
         var kode = document.getElementById("Id_Div").value;
         console.log(kode);
-        fetch("/KaryawanKeluarga/" + kode +".getPegawaiKeluarga")
+        fetch("/ProgramPayroll/KaryawanKeluarga/" + kode +".getPegawaiKeluarga")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -543,7 +543,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Peg").val(rowData[0]);
         $("#Nama_Peg").val(rowData[1]);
-        fetch("/KaryawanKeluarga/" + rowData[0] +".getDataPegawai")
+        fetch("/ProgramPayroll/KaryawanKeluarga/" + rowData[0] +".getDataPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -576,7 +576,7 @@ $(document).ready(function () {
             .catch((error) => {
                 console.error("Error:", error);
             });
-        fetch("/KaryawanKeluarga/" + rowData[0] + ".getDataKeluarga")
+        fetch("/ProgramPayroll/KaryawanKeluarga/" + rowData[0] + ".getDataKeluarga")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

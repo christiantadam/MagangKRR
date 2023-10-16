@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     selectElement.addEventListener("change", function () {
         const selectedValue = selectElement.value;
-        fetch("/TambahAgenda/" + selectedValue + ".getPegawai")
+        fetch("/ProgramPayroll/TambahAgenda/" + selectedValue + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -47,7 +47,7 @@ $(document).ready(function () {
         $("#Kd_Peg").val(rowData[0]);
         const tanggal = document.getElementById("TglAgenda");
         fetch(
-            "/TambahAgenda/" +
+            "/ProgramPayroll/TambahAgenda/" +
                 rowData[0] +
                 "." +
                 tanggal.value +
@@ -151,7 +151,7 @@ $(document).ready(function () {
         selectedRows.each(function (rowData) {
             // var dataGabung = rowData[0] + "." + rowData[1];
             // data.push(dataGabung);
-            fetch("/TambahAgenda/" + rowData[0] + ".getPegawaiDivisiShift")
+            fetch("/ProgramPayroll/TambahAgenda/" + rowData[0] + ".getPegawaiDivisiShift")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

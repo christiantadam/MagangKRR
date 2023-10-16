@@ -24,7 +24,7 @@ $(document).ready(function () {
         $("#Nama_Klinik").val(rowData[1]);
 
         var kode = document.getElementById("Id_Klinik").value;
-        fetch("/MasterKlinik/" + kode + ".getKlinik")
+        fetch("/ProgramPayroll/MasterKlinik/" + kode + ".getKlinik")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

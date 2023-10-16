@@ -12,7 +12,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/Kontrak/" + rowData[0])
+        fetch("/ProgramPayroll/Kontrak/" + rowData[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

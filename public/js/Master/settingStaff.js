@@ -18,7 +18,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Manager").val(rowData[0]);
         $("#Nama_Manager").val(rowData[1]);
-        fetch("/settingDivisiStaff/" + "getStaff")
+        fetch("/ProgramPayroll/settingDivisiStaff/" + "getStaff")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

@@ -30,7 +30,7 @@ $(document).ready(function () {
             jnsPeg = 1;
             console.log("Harian Checked");
             fetch(
-                "/CheckClockError/" +
+                "/ProgramPayroll/CheckClockError/" +
                     jnsPeg +
                     "." +
                     idManager +
@@ -76,7 +76,7 @@ $(document).ready(function () {
             jnsPeg = 0;
             console.log("Staff Checked");
             fetch(
-                "/CheckClockError/" +
+                "/ProgramPayroll/CheckClockError/" +
                     jnsPeg +
                     "." +
                     idManager +

@@ -29,11 +29,14 @@ $(document).ready(function () {
     const HapusButton = document.getElementById("HapusButton");
     $("#tabel_Posisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
+        clearForm();
+        $("#Id_Div").val("");
+        $("#Nama_Div").val("");
         var rowData = $("#tabel_Posisi").DataTable().row(this).data();
         // Populate the input fields with the data
         $("#Kd_Posisi").val(rowData[0]);
         $("#Nama_Posisi").val(rowData[1]);
-        fetch("/KaryawanHarian/" + rowData[0] + ".getDivisi")
+        fetch("/ProgramPayroll/KaryawanHarian/" + rowData[0] + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -65,11 +68,15 @@ $(document).ready(function () {
     });
     $("#tabel_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
+        clearForm();
+
         var rowData = $("#tabel_Divisi").DataTable().row(this).data();
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/KaryawanHarian/" + rowData[0] + ".getNamaPegawai")
+        fetch(
+            "/ProgramPayroll/KaryawanHarian/" + rowData[0] + ".getNamaPegawai"
+        )
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -81,7 +88,41 @@ $(document).ready(function () {
 
                 // Clear the existing table rows
                 $("#tabel_Pegawai").DataTable().clear().draw();
+                fetch(
+                    "/ProgramPayroll/KaryawanHarian/" + rowData[0] + ".getKodePegawai"
+                )
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+                        // Handle the data retrieved from the server (data should be an object or an array)
 
+                        // Clear the existing table rows
+
+
+                        // Loop through the data and create table rows
+
+                        if (data[0].kode != null) {
+                            let kd_peg = data[0].kode;
+                            let id_div = rowData[0];
+
+                            $("#Id_Peg").val(kd_peg);
+                            kd_peg = parseInt(kd_peg.toString().slice(-4)) + 1;
+                            kd_peg = id_div.trim() + ("0000" + kd_peg.toString()).slice(-4);
+                            $("#Id_Peg").val(kd_peg);
+                        }
+
+
+
+                        // Redraw the table to show the changes
+
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
                 // Loop through the data and create table rows
                 data.forEach((item) => {
                     var row = [item.kd_pegawai, item.nama_peg];
@@ -101,11 +142,12 @@ $(document).ready(function () {
     });
     $("#tabel_Pegawai tbody").on("click", "tr", function () {
         // Get the data from the clicked row
+        clearForm();
         var rowData = $("#tabel_Pegawai").DataTable().row(this).data();
         // Populate the input fields with the data
         $("#Id_Peg").val(rowData[0]);
         $("#Nama_Peg").val(rowData[1]);
-        fetch("/KaryawanHarian/" + rowData[0] + ".getPegawai")
+        fetch("/ProgramPayroll/KaryawanHarian/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -121,18 +163,26 @@ $(document).ready(function () {
                     $("#Alamat").val(item.Alamat);
                     $("#namaKota").val(item.Kota);
                     $("#tempatLahir").val(item.Tmp_Lahir);
-                    $("#TglLahir").val(item.Tgl_Lahir.split(" ")[0]);
+                    if (item.Tgl_Lahir != null) {
+                        $("#TglLahir").val(item.Tgl_Lahir.split(" ")[0]);
+                    }
                     $("#JenisKelamin").val(item.Jns_Kelamin);
                     $("#Agama").val(item.Agama);
                     $("#StatusKawin").val(item.Kawin);
-                    $("#TglMasuk").val(item.Tgl_Masuk.split(" ")[0]);
-                    $("#TglMasukAwal").val(item.Tgl_Masuk_Awal.split(" ")[0]);
+                    if (item.Tgl_Masuk != null) {
+                        $("#TglMasuk").val(handleEmptyValue(item.Tgl_Masuk.split(" ")[0]));
+                    }
+                    if (item.Tgl_Masuk_Awal != null) {
+                        $("#TglMasukAwal").val(handleEmptyValue(item.Tgl_Masuk_Awal.split(" ")[0]));
+                    }
                     $("#Jabatan").val(item.Jabatan);
                     $("#Golongan").val(item.Golongan);
                     $("#NomorAstek").val(item.No_Astek);
                     $("#NomorRBH").val(item.No_RBH);
                     $("#NomorKop").val(item.No_Koperasi);
-                    $("#TglMasukKop").val(item.Tgl_Agt_Kop.split(" ")[0]);
+                    if (item.Tgl_Agt_Kop != null) {
+                        $("#TglMasukKop").val(handleEmptyValue(item.Tgl_Agt_Kop.split(" ")[0]));
+                    }
                     $("#upahPokok").val(item.Gaji_Pokok);
                     $("#upahGolongan").val(item.U_Golongan);
                     $("#TunjanganJabatan").val(item.T_Jabatan);
@@ -141,11 +191,16 @@ $(document).ready(function () {
                     $("#BeratBadan").val(item.berat_badan);
                     $("#Pendidikan").val(item.Pendidikan);
                     $("#Id_Shift").val(item.shift);
-                    // $("#Kd_Posisi").val("");
-                    // $("#TglAwalKontrak").val(item.TglAwalKontrak.split(" ")[0]);
-                    // $("#TglAkhirKontrak").val(
-                    //     item.TglAkhirKontrak.split(" ")[0]
-                    // );
+                    if (item.TglAwalKontrak != null) {
+                        $("#TglAwalKontrak").val(item.TglAwalKontrak.split(" ")[0]);
+                        console.log('lol');
+                    }
+                    if (item.TglAwalKontrak != null) {
+                        $("#TglAkhirKontrak").val(
+                            item.TglAkhirKontrak.split(" ")[0]
+                        );
+                    }
+
                     $("#JmlTanggungan").val(item.Tanggungan);
                     $("#NPWP").val(item.NPWP);
                     $("#NomorRek").val(item.no_rek);
@@ -233,12 +288,13 @@ $(document).ready(function () {
             console.error("Mohon lengkapi semua input terlebih dahulu.");
         }
     }
+    function handleEmptyValue(value) {
+        return value.trim() === "" ? null : value;
+    }
     SimpanIsiPegawai.addEventListener("click", function (event) {
         event.preventDefault();
 
-        function handleEmptyValue(value) {
-            return value.trim() === "" ? null : value;
-        }
+
         let csrfToken = document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
@@ -374,17 +430,17 @@ $(document).ready(function () {
                 form.submit();
             });
         }
-        if (isComplete) {
+        // if (isComplete) {
             //Call the submitForm function to initiate the form submission
             submitForm()
                 .then(() => console.log("Form submitted successfully!"))
                 .catch((error) =>
                     console.error("Form submission error:", error)
                 );
-        } else {
-            // Ada input yang belum terisi, tampilkan pesan error.
-            alert("Mohon lengkapi semua input terlebih dahulu.");
-        }
+        // } else {
+        //     // Ada input yang belum terisi, tampilkan pesan error.
+        //     alert("Mohon lengkapi semua input terlebih dahulu.");
+        // }
         // let request = {
         //     method: "POST",
         //     headers: '_token'
@@ -414,11 +470,12 @@ $(document).ready(function () {
         // });
         // Wrap form submission in a Promise
     });
+    function handleEmptyValue(value) {
+        return value.trim() === "" ? null : value;
+    }
     SimpanKoreksiPegawai.addEventListener("click", function (event) {
         event.preventDefault();
-        function handleEmptyValue(value) {
-            return value.trim() === "" ? null : value;
-        }
+
         const id_div = document.getElementById("Id_Div").value;
         const kd_peg = document.getElementById("Id_Peg").value;
         const nama_peg = document.getElementById("Nama_Peg").value;
@@ -567,59 +624,97 @@ $(document).ready(function () {
                 form.submit();
             });
         }
-        if (isComplete) {
+        // if (isComplete) {
             // Call the submitForm function to initiate the form submission
             submitForm()
                 .then(() => console.log("Form submitted successfully!"))
                 .catch((error) =>
                     console.error("Form submission error:", error)
                 );
-        } else {
-            // Ada input yang belum terisi, tampilkan pesan error.
-            alert("Mohon lengkapi semua input terlebih dahulu.");
-        }
+        // } else {
+        //     // Ada input yang belum terisi, tampilkan pesan error.
+        //     alert("Mohon lengkapi semua input terlebih dahulu bro.");
+        //     return;
+        // }
     });
 
     const divisiButton = document.getElementById("divisiButton");
     const posisiButton = document.getElementById("posisiButton");
     const pegawaiButton = document.getElementById("pegawaiButton");
-        const kd_peg = document.getElementById("Id_Peg");
-        const nama_peg = document.getElementById("Nama_Peg");
-        const no_induk = document.getElementById("NomorInduk");
-        const no_kartu = document.getElementById("NomorKartu");
-        const jenis_peg = 1;
-        const alamat = document.getElementById("Alamat");
-        const kota = document.getElementById("namaKota");
-        const tmp_lahir = document.getElementById("tempatLahir");
-        const tgl_lahir = document.getElementById("TglLahir");
-        const jns_kelamin = document.getElementById("JenisKelamin");
-        const agama = document.getElementById("Agama");
-        const kawin = document.getElementById("StatusKawin");
-        const tgl_masuk = document.getElementById("TglMasuk");
-        const tgl_masuk_awal = document.getElementById("TglMasukAwal");
-        const jabatan = document.getElementById("Jabatan");
-        const golongan = document.getElementById("Golongan");
-        const no_astek = document.getElementById("NomorAstek");
-        const no_rbh = document.getElementById("NomorRBH");
-        const no_koperasi = document.getElementById("NomorKop");
-        const tgl_agt_kop = document.getElementById("TglMasukKop");
-        const gaji_pokok = document.getElementById("upahPokok");
-        const u_golongan = document.getElementById("upahGolongan");
-        const t_jabatan = document.getElementById("TunjanganJabatan");
-        const u_jenjang = document.getElementById("upahJenjang");
-        const Tinggi_Badan = document.getElementById("TinggiBadan");
-        const berat_Badan = document.getElementById("BeratBadan");
-        const pendidikan = document.getElementById("Pendidikan");
-        const Shift = document.getElementById("Id_Shift");
-        const pos = document.getElementById("Kd_Posisi");
-        const TglAwalKontrak = document.getElementById("TglAwalKontrak");
-        const TglAkhirKontrak =
-            document.getElementById("TglAkhirKontrak");
-        const Tanggungan = document.getElementById("JmlTanggungan");
-        const NPWP = document.getElementById("NPWP");
-        const No_rek = document.getElementById("NomorRek");
-        const NIK = document.getElementById("NIK");
+    const kd_peg = document.getElementById("Id_Peg");
+    const nama_peg = document.getElementById("Nama_Peg");
+    const no_induk = document.getElementById("NomorInduk");
+    const no_kartu = document.getElementById("NomorKartu");
+    const jenis_peg = 1;
+    const alamat = document.getElementById("Alamat");
+    const kota = document.getElementById("namaKota");
+    const tmp_lahir = document.getElementById("tempatLahir");
+    const tgl_lahir = document.getElementById("TglLahir");
+    const jns_kelamin = document.getElementById("JenisKelamin");
+    const agama = document.getElementById("Agama");
+    const kawin = document.getElementById("StatusKawin");
+    const tgl_masuk = document.getElementById("TglMasuk");
+    const tgl_masuk_awal = document.getElementById("TglMasukAwal");
+    const jabatan = document.getElementById("Jabatan");
+    const golongan = document.getElementById("Golongan");
+    const no_astek = document.getElementById("NomorAstek");
+    const no_rbh = document.getElementById("NomorRBH");
+    const no_koperasi = document.getElementById("NomorKop");
+    const tgl_agt_kop = document.getElementById("TglMasukKop");
+    const gaji_pokok = document.getElementById("upahPokok");
+    const u_golongan = document.getElementById("upahGolongan");
+    const t_jabatan = document.getElementById("TunjanganJabatan");
+    const u_jenjang = document.getElementById("upahJenjang");
+    const Tinggi_Badan = document.getElementById("TinggiBadan");
+    const berat_Badan = document.getElementById("BeratBadan");
+    const pendidikan = document.getElementById("Pendidikan");
+    const Shift = document.getElementById("Id_Shift");
+    const pos = document.getElementById("Kd_Posisi");
+    const TglAwalKontrak = document.getElementById("TglAwalKontrak");
+    const TglAkhirKontrak = document.getElementById("TglAkhirKontrak");
+    const Tanggungan = document.getElementById("JmlTanggungan");
+    const NPWP = document.getElementById("NPWP");
+    const No_rek = document.getElementById("NomorRek");
+    const NIK = document.getElementById("NIK");
+    function clearForm(){
+        kd_peg.value = "";
+        nama_peg.value = "";
+        no_induk.value = "";
+        no_kartu.value = "";
+        jenis_peg.value = "";
+        alamat.value = "";
+        kota.value = "";
+        tmp_lahir.value = "";
+        tgl_lahir.value = "";
+        jns_kelamin.value = "";
+        agama.value = "";
+        kawin.value = "";
+        tgl_masuk.value = "";
+        tgl_masuk_awal.value = "";
+        jabatan.value = "";
+        golongan.value = "";
+        no_astek.value = "";
+        no_rbh.value = "";
+        no_koperasi.value = "";
+        tgl_agt_kop.value = "";
+        gaji_pokok.value = "";
+        u_golongan.value = "";
+        t_jabatan.value = "";
+        u_jenjang.value = "";
+        Tinggi_Badan.value = "";
+        berat_Badan.value = "";
+        pendidikan.value = "";
+        Shift.value = "";
+        // pos.disabled = false;
+        TglAwalKontrak.value = "";
+        TglAkhirKontrak.value = "";
+        Tanggungan.value = "";
+        NPWP.value = "";
+        No_rek.value = "";
+        NIK.value = "";
+    }
     isiPegawai.addEventListener("click", function (event) {
+        clearForm();
         posisiButton.disabled = false;
         divisiButton.disabled = false;
         // kd_peg.disabled = false;
@@ -657,42 +752,6 @@ $(document).ready(function () {
         NPWP.disabled = false;
         No_rek.disabled = false;
         NIK.disabled = false;
-
-        kd_peg.value = "";
-        nama_peg.value = "";
-        no_induk.value = "";
-        no_kartu.value = "";
-        jenis_peg.value = "";
-        alamat.value = "";
-        kota.value = "";
-        tmp_lahir.value = "";
-        tgl_lahir.value = "";
-        jns_kelamin.value = "";
-        agama.value = "";
-        kawin.value = "";
-        tgl_masuk.value = "";
-        tgl_masuk_awal.value = "";
-        jabatan.value = "";
-        golongan.value = "";
-        no_astek.value = "";
-        no_rbh.value = "";
-        no_koperasi.value = "";
-        tgl_agt_kop.value = "";
-        gaji_pokok.value = "";
-        u_golongan.value = "";
-        t_jabatan.value = "";
-        u_jenjang.value = "";
-        Tinggi_Badan.value = "";
-        berat_Badan.value = "";
-        pendidikan.value = "";
-        Shift.value = "";
-        // pos.disabled = false;
-        TglAwalKontrak.value = "";
-        TglAkhirKontrak.value = "";
-        Tanggungan.value = "";
-        NPWP.value = "";
-        No_rek.value = "";
-        NIK.value = "";
 
         isiPegawai.hidden = true;
         koreksiPegawai.hidden = true;
@@ -841,7 +900,6 @@ $(document).ready(function () {
         SimpanKoreksiPegawai.hidden = true;
         BatalKoreksiPegawai.hidden = true;
         document.getElementById("HapusButton").disabled = false;
-
     });
     HapusButton.addEventListener("click", function (event) {
         alert("Hubungi EDP ....");

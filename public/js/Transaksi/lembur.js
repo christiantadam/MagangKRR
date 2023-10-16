@@ -82,7 +82,7 @@ $(document).ready(function () {
         const tanggalLembur = document.getElementById("TglLembur").value;
         const Id_Div = document.getElementById("Id_Divisi").value;
         if (radio1.checked) {
-            fetch("/Lembur/" + Id_Div + "." + tanggalLembur + ".getSemuaLembur")
+            fetch("/ProgramPayroll/Lembur/" + Id_Div + "." + tanggalLembur + ".getSemuaLembur")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -118,7 +118,7 @@ $(document).ready(function () {
                 });
         } else if (radio2.checked) {
             fetch(
-                "/Lembur/" + Id_Div + "." + tanggalLembur + ".getLemburDouble"
+                "/ProgramPayroll/Lembur/" + Id_Div + "." + tanggalLembur + ".getLemburDouble"
             )
                 .then((response) => {
                     if (!response.ok) {
@@ -295,7 +295,7 @@ $(document).ready(function () {
                 );
         } else if (proses == 3) {
             event.preventDefault();
-            fetch("/Lembur/" + idactual + ".cekAccSupervisor")
+            fetch("/ProgramPayroll/Lembur/" + idactual + ".cekAccSupervisor")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

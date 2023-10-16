@@ -28,3 +28,4 @@ resources/views/cobacoba.blade.php
 public/js/form.js
 public/js/cobacoba.js
 app/Http/Controllers/CobacobaController.php
+.env UserTesting

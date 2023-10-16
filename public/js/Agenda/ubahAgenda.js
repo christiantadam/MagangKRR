@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     selectElement.addEventListener("change", function () {
         const selectedValue = selectElement.value;
-        fetch("/TambahAgenda/" + selectedValue + ".getPegawai")
+        fetch("/ProgramPayroll/UbahAgenda/" + selectedValue + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -47,7 +47,7 @@ $(document).ready(function () {
         $("#Kd_Peg").val(rowData[0]);
         const tanggal = document.getElementById("TglAgenda");
         fetch(
-            "/TambahAgenda/" +
+            "/ProgramPayroll/UbahAgenda/" +
                 rowData[0] +
                 "." +
                 tanggal.value +
@@ -170,7 +170,7 @@ $(document).ready(function () {
                         // $("#table_Pegawai").DataTable().row.add(row);
                         console.log(row);
                         fetch(
-                            "/TambahAgenda/" +
+                            "/ProgramPayroll/UbahAgenda/" +
                                 item.Kd_Pegawai +
                                 "." +
                                 tanggal +

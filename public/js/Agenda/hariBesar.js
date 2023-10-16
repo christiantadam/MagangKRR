@@ -246,7 +246,7 @@ $(document).ready(function () {
     $("#tampilLibur").click(function (event) {
         const Tahun = document.getElementById("Tahun").value;
         console.log(Tahun);
-        fetch("/HariBesar/" + Tahun + ".getLibur")
+        fetch("/ProgramPayroll/HariBesar/" + Tahun + ".getLibur")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

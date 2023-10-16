@@ -20,7 +20,7 @@ $(document).ready(function () {
         },
     });
     divisiButton.addEventListener("click", function () {
-        fetch("/MaintenancePelatihan/" + ".getDivisi")
+        fetch("/ProgramPayroll/MaintenancePelatihan/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -60,7 +60,7 @@ $(document).ready(function () {
     });
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
-        fetch("/MaintenancePelatihan/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/MaintenancePelatihan/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -97,7 +97,7 @@ $(document).ready(function () {
         $("#Id_Pegawai").val(rowData[0]);
         $("#Nama_Pegawai").val(rowData[1]);
         const Kd_Peg = document.getElementById("Id_Pegawai").value;
-        fetch("/MaintenancePelatihan/" + Kd_Peg + ".getPelatihan")
+        fetch("/ProgramPayroll/MaintenancePelatihan/" + Kd_Peg + ".getPelatihan")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

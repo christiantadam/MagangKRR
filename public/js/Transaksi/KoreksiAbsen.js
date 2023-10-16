@@ -298,7 +298,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/KoreksiAbsen/" + rowData[0] + ".getPegawai")
+        fetch("/ProgramPayroll/KoreksiAbsen/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -345,7 +345,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Shift").val(rowData[0]);
         if (rowData[0] != "") {
-            fetch("/KoreksiAbsen/" + rowData[0] + ".getShift")
+            fetch("/ProgramPayroll/KoreksiAbsen/" + rowData[0] + ".getShift")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -368,7 +368,7 @@ $(document).ready(function () {
                     const Kd_Peg = document.getElementById("Id_Peg").value;
                     // Loop through the data and create table rows
                     fetch(
-                        "/KoreksiAbsen/" +
+                        "/ProgramPayroll/KoreksiAbsen/" +
                             TglMasuk +
                             "." +
                             Kd_Peg +
@@ -511,7 +511,7 @@ $(document).ready(function () {
         const tglAkhir = document.getElementById("TglSelesai").value;
         const divisi = document.getElementById("Id_Div").value;
         fetch(
-            "/KoreksiAbsen/" +
+            "/ProgramPayroll/KoreksiAbsen/" +
                 Kd_Peg +
                 "." +
                 tglAwal +

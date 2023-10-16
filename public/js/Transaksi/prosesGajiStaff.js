@@ -5,7 +5,7 @@ $(document).ready(function () {
     selectElement.addEventListener("change", function () {
         // Ambil nilai opsi yang dipilih
         var selectedValue = selectElement.value;
-        fetch("/ProsesGajiStaff/" + selectedValue + ".getData")
+        fetch("/ProgramPayroll/ProsesGajiStaff/" + selectedValue + ".getData")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

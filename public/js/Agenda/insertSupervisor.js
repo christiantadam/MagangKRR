@@ -22,7 +22,7 @@ $(document).ready(function () {
             alert("Pilih Shift Yang Mana");
             return;
         }
-        fetch("/InsertSupervisor/" + rowData[0] + ".getDataShift")
+        fetch("/ProgramPayroll/InsertSupervisor/" + rowData[0] + ".getDataShift")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -116,7 +116,7 @@ $(document).ready(function () {
         $("#Nama_Div").val(rowData[1]);
         const tanggal = document.getElementById("TglAgenda");
         fetch(
-            "/InsertSupervisor/" +
+            "/ProgramPayroll/InsertSupervisor/" +
                 rowData[0] +
                 "." +
                 tanggal.value +

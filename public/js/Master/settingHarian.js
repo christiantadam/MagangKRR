@@ -16,7 +16,7 @@ $(document).ready(function () {
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
         var kode = document.getElementById("Id_Div").value;
-        fetch("/settingDivisiHarian/" + kode + ".getData")
+        fetch("/ProgramPayroll/settingDivisiHarian/" + kode + ".getData")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
