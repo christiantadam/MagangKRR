@@ -1,3 +1,11 @@
+/**
+ * Bila ada error pada proses "Komposisi Baru" bahan,
+ * tambahkan counter secara manual pada tabel "CounterTrans".
+ * Karena proses insert terjadi sebelum penambahan counter.
+ * Ada kemungkinan terjadi error pada saat insert berhasil,
+ * namun update counter tidak terjadi.
+ */
+
 //#region Variables
 const slcKomposisi = document.getElementById("select_id_komposisi");
 const slcMesin = document.getElementById("select_mesin");
@@ -625,7 +633,10 @@ btnTambahDetail.addEventListener("click", function () {
             "Tambah Lagi",
             "Ingin input data bahan / hasil produksi lagi?",
             () => {
+                disableDetail();
                 clearDataDetail("select_objek");
+                slcObjek.disabled = false;
+                slcKelut.disabled = false;
                 slcKelut.focus();
             },
             () => {
@@ -730,6 +741,8 @@ btnKoreksiDetail.addEventListener("click", function () {
                 );
 
                 clearDataDetail("select_objek");
+                slcObjek.disabled = false;
+                slcKelut.disabled = false;
                 slcKelut.focus();
             },
             () => {}
@@ -766,7 +779,10 @@ btnHapusDetail.addEventListener("click", function () {
                                         listKomposisi[pilKomposisi].IdType,
                                     () => {
                                         listKomposisi.splice(pilKomposisi, 1);
-                                        clearDataDetail();
+                                        clearDataDetail("select_objek");
+                                        slcObjek.disabled = false;
+                                        slcKelut.disabled = false;
+                                        slcKelut.focus();
 
                                         addTable_DataTable(
                                             "table_komposisi",
@@ -1137,8 +1153,11 @@ function rowClickedFetch(row, data, _) {
     ) {
         row.style.background = "white";
         pilKomposisi = -1;
-        clearDataDetail();
+        clearDataDetail("select_objek");
         disableDetail();
+        slcObjek.disabled = false;
+        slcKelut.disabled = false;
+        slcKelut.focus();
     } else {
         if (modeProses == "baru" || modeProses == "hapus_detail") {
             pilKomposisi = findClickedRowInList(
@@ -1188,25 +1207,18 @@ function rowClickedFetch(row, data, _) {
                 data.IdSubKelompok + " | " + data.NamaSubKelompok
             );
 
-            // SP_5298_EXT_IDMESIN
-            fetchSelect("/Master/getIdMesin/" + slcKelompok.value, (data) => {
-                addOptionIfNotExists(
-                    slcMesin,
-                    data[0].IdMesin,
-                    data[0].IdMesin +
-                        " | " +
-                        slcKelompok.options[
-                            slcKelompok.selectedIndex
-                        ].text.split(" | ")[1]
-                );
-
-                if (modeProses == "baru") {
-                    numPrimer.disabled = false;
-                    numPrimer.select();
-                } else {
-                    btnHapusDetail.focus();
-                }
-            });
+            if (modeProses == "baru") {
+                disableDetail();
+                btnKoreksiDetail.disabled = false;
+                btnHapusDetail.disabled = false;
+                numPrimer.disabled = false;
+                numSekunder.disabled = false;
+                numTritier.disabled = false;
+                numPrimer.select();
+            } else {
+                btnHapusDetail.disabled = false;
+                btnHapusDetail.focus();
+            }
         }
     }
 }
@@ -1236,19 +1248,22 @@ function insertDetailFetch(jmlh_bb, post_action = null) {
                 "/" +
                 listKomposisi[i].IdKelompokUtama.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompokUtama.trim() +
+                listKomposisi[i].NamaKelompokUtama.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompok.trim() +
+                listKomposisi[i].NamaKelompok.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdSubKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaSubKelompok.trim() +
+                listKomposisi[i].NamaSubKelompok.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdType.trim() +
                 "/" +
-                listKomposisi[i].NamaType.trim() +
+                listKomposisi[i].NamaType.replace(/ /g, "_").replace(
+                    /\//g,
+                    "~"
+                ) +
                 "/null/" +
                 listKomposisi[i].JumlahPrimer +
                 "/" +

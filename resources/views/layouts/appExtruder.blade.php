@@ -410,7 +410,7 @@
     <!-- End Modal -->
 
     <!-- Template Main JS File -->
-    <script src="{{ asset('js/extruder_main.js') }}"></script>
+    <script src="{{ asset('js/Extruder/extruder_main.js') }}"></script>
 
     <main id="main">
         <div class="container">

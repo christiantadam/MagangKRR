@@ -87,7 +87,7 @@ txtNoBarcode.addEventListener("keypress", function (event) {
             cekBarcodeDispatch(
                 kode_barang,
                 no_indeks,
-                "cekBarcode_txtNoBarcode_keyPress"
+                "cekBarcode_barcodeKeyPress"
             );
         } else alert("Scan Barcode Terlebih Dahulu!");
 
@@ -102,25 +102,29 @@ btnKeluar.addEventListener("click", function () {
 });
 
 hidGetFetch.addEventListener("change", function () {
-    console.log(this.value);
-
-    if (this.value.split("~")[0] == "cekBarcode_txtNoBarcode_keyPress") {
-        let sts = this.value.split("~")[1];
-        let sudahTembak = false;
-        if (sts == 3 || sts == 1) {
-            for (let i = 0; i < listKirim.length; i++) {
-                if (listKirim[i].NoBarcode == this.value.trim()) {
-                    sudahTembak = true;
-                    break;
+    switch (this.value.split("~")[0]) {
+        case "cekBarcode_barcodeKeyPress":
+            let sts = this.value.split("~")[1];
+            let sudahTembak = false;
+            if (sts == 3 || sts == 1) {
+                for (let i = 0; i < listKirim.length; i++) {
+                    if (listKirim[i].NoBarcode == this.value.trim()) {
+                        sudahTembak = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!sudahTembak) {
-                ambilDataBarangFetch(kode_barang, no_indeks);
-            } else alert("Barcode Sudah Pernah Ditembak!");
-        } else if (sts == 2) {
-            alert("Barcode Sudah Dikirim Ke Gudang!");
-        } else alert("Data Barcode Tidak Ditemukan!");
+                if (!sudahTembak) {
+                    ambilDataBarangFetch(kode_barang, no_indeks);
+                } else alert("Barcode Sudah Pernah Ditembak!");
+            } else if (sts == 2) {
+                alert("Barcode Sudah Dikirim Ke Gudang!");
+            } else alert("Data Barcode Tidak Ditemukan!");
+            break;
+
+        default:
+            console.log(this.value);
+            break;
     }
 });
 //#endregion
@@ -253,6 +257,7 @@ function buatRekapFetch(id_type, type, tanggal, jumlah, divisi) {
     }
 }
 
+// Tested
 function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
     fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
         let fetchEmpty = true;
@@ -263,6 +268,19 @@ function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
 
         hidGetFetch.value = parent_fun + "~" + jam_server;
         hidGetFetch.dispatchEvent(new Event("change"));
+    });
+}
+
+function kirimGudang(kode_barang, no_indeks, user_id, divisi) {
+    // Ambil jam server
+    fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
+        let fetchEmpty = true;
+        if (data.length > 0) fetchEmpty = false;
+
+        let jam_server = "_";
+        if (!fetchEmpty) {
+            jam_server = data[0].jam_server;
+        }
     });
 }
 //#endregion
@@ -331,7 +349,7 @@ function init() {
     // ambilDataBarangFetch(1, 1);
 
     // Debug ambilJamServer()
-    // ambilJamServer();
+    // ambilJamServerDispatch();
 }
 
 $(document).ready(() => init());
