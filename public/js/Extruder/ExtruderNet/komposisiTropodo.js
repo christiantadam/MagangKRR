@@ -158,6 +158,27 @@ slcKomposisi.addEventListener("change", function () {
     });
 });
 
+// $("#select_id_komposisi").on("change", function () {
+//     clearDataDetail();
+//     slcMesin.selectedIndex = 0;
+
+//     // SP_5298_EXT_LIST_KOMPOSISI_1
+//     fetchSelect("/Master/getListKomposisi/EXT/" + this.value, (data) => {
+//         addOptionIfNotExists(slcMesin, data[0].IdMesin);
+//         getDataKomposisiFetch(this.value, () => {
+//             if (modeProses == "koreksi") {
+//                 slcObjek.disabled = false;
+//                 slcObjek.focus();
+//             } else if (modeProses == "hapus") {
+//                 btnProses.focus();
+//             } else if (modeProses == "hapus_detail") {
+//                 btnHapusDetail.disabled = false;
+//                 $("html, body").animate({ scrollTop: posKomposisi }, 100);
+//             }
+//         });
+//     });
+// });
+
 txtNamaKomposisi.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value != "") {
@@ -1091,17 +1112,17 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                     NamaType: data[i].NamaType,
                     JumlahPrimer: data[i].JumlahPrimer,
                     SatuanPrimer:
-                        data[i].SatuanPrimer !== undefined
+                        data[i].SatuanPrimer !== null
                             ? data[i].SatuanPrimer
                             : "Null",
                     JumlahSekunder: data[i].JumlahSekunder,
                     SatuanSekunder:
-                        data[i].SatuanSekunder !== undefined
+                        data[i].SatuanSekunder !== null
                             ? data[i].SatuanSekunder
                             : "Null",
                     JumlahTritier: data[i].JumlahTritier,
                     SatuanTritier:
-                        data[i].SatuanTritier !== undefined
+                        data[i].SatuanTritier !== null
                             ? data[i].SatuanTritier
                             : "Null",
                     Persentase: data[i].Persentase,
@@ -1330,6 +1351,8 @@ function init() {
 
     toggleButtons(1);
     btnBaruMaster.focus();
+
+    // $("#select_id_komposisi").select2();
 }
 
 $(document).ready(() => init());

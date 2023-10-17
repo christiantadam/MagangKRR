@@ -95,5 +95,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Extruder/WarehouseTerima/scanGelondongan.js') }}"></script>
+    @include('Extruder.WarehouseTerima.modalDataGelondongan')
+    <script src="{{ asset('js\Extruder\WarehouseTerima\scanGelondongan.js') }}"></script>
 @endsection

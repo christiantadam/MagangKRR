@@ -761,7 +761,7 @@ btnTambahDetail.addEventListener("click", function () {
         } else alert("Persentase harus diisi terlebih dahulu.");
 
         jumlah += parseFloat(numPersentase.value);
-        numPersentase.focus();
+        numPersentase.select();
         return;
     }
 
@@ -1716,17 +1716,17 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                     NamaType: data[i].NamaType,
                     JumlahPrimer: data[i].JumlahPrimer,
                     SatuanPrimer:
-                        data[i].SatuanPrimer !== undefined
+                        data[i].SatuanPrimer !== null
                             ? data[i].SatuanPrimer
                             : "Null",
                     JumlahSekunder: data[i].JumlahSekunder,
                     SatuanSekunder:
-                        data[i].SatuanSekunder !== undefined
+                        data[i].SatuanSekunder !== null
                             ? data[i].SatuanSekunder
                             : "Null",
                     JumlahTritier: data[i].JumlahTritier,
                     SatuanTritier:
-                        data[i].SatuanTritier !== undefined
+                        data[i].SatuanTritier !== null
                             ? data[i].SatuanTritier
                             : "Null",
                     Persentase: data[i].Persentase,
@@ -1766,9 +1766,6 @@ function getSatuanFetch(id_type) {
     // SP_5298_EXT_DETAIL_BAHAN
     fetchSelect("/Master/getDetailBahan/" + id_type, (data) => {
         txtKodeBarang.value = data[0].KodeBarang;
-        // unitPrimer = data[0].UnitPrimer;
-        // unitSekunder = data[0].UnitSekunder;
-        // unitTritier = data[0].UnitTritier;
         txtSatPrimer.value = data[0].satPrimer;
         txtSatSekunder.value = data[0].satSekunder;
         txtSatTritier.value = data[0].nama_satuan;
@@ -1839,19 +1836,19 @@ function insertDetailFetch(post_action = null) {
                 "/" +
                 listKomposisi[i].IdKelompokUtama.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompokUtama.trim() +
+                listKomposisi[i].NamaKelompokUtama.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompok.trim() +
+                listKomposisi[i].NamaKelompok.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdSubKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaSubKelompok.trim() +
+                listKomposisi[i].NamaSubKelompok.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].IdType.trim() +
                 "/" +
-                listKomposisi[i].NamaType.trim() +
+                listKomposisi[i].NamaType.trim().replace(/ /g, "_") +
                 "/" +
                 listKomposisi[i].KodeBarang +
                 "/" +
@@ -1896,7 +1893,7 @@ function insertDetailFetch(post_action = null) {
                     );
                 }
 
-                if (listKomposisi[i].Cadangan == 1) {
+                if (listKomposisi[i].Cadangan >= 1) {
                     // SP_1273_MEX_INSERT_KOMPOSISI_BAHAN Kode 1
                     fetchStmt(
                         "/Master/insKomposisiBahanMjs/1/" +
@@ -2025,25 +2022,10 @@ function rowClickedFetch(row, data, _) {
                 data.IdSubKelompok + " | " + data.NamaSubKelompok
             );
 
-            // SP_5298_EXT_IDMESIN
-            fetchSelect("/Master/getIdMesin/" + slcKelompok.value, (data) => {
-                addOptionIfNotExists(
-                    slcMesin,
-                    data[0].IdMesin,
-                    data[0].IdMesin +
-                        " | " +
-                        slcKelompok.options[slcKelompok.selectedIndex].text
-                            .split("|")[1]
-                            .trim()
-                );
-
-                if (modeProses == "baru") {
-                    numPrimer.disabled = false;
-                    numPrimer.select();
-                } else {
-                    btnHapusDetail.focus();
-                }
-            });
+            if (modeProses == "baru") {
+                numPrimer.disabled = false;
+                numPrimer.select();
+            } else btnHapusDetail.focus();
         }
     }
 }
@@ -2087,6 +2069,8 @@ function init() {
         colKomposisi.length,
         "padding=250px"
     );
+
+    btnBaruMaster.focus();
 }
 
 $(document).ready(() => init());

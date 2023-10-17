@@ -152,8 +152,11 @@ txtNoOrder.addEventListener("change", function () {
                         id_divisi = "EXT";
                         break;
                 }
-                // SP_5298_EXT_UPDATE_COUNTER_ORDER
-                fetchStmt("/Order/updCounterOrder/" + id_divisi);
+
+                if (i == listOrder.length - 1) {
+                    // SP_5298_EXT_UPDATE_COUNTER_ORDER
+                    fetchStmt("/Order/updCounterOrder/" + id_divisi);
+                }
             }
         );
     }
@@ -246,7 +249,7 @@ txtSekunderQty.addEventListener("keypress", function (event) {
 txtTritierQty.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "" || this.value == 0) {
-            alert("Kuantitas tritier tidak boleh kosong.");
+            alert("Jumlah tritier tidak boleh kosong.");
             this.focus();
         } else {
             btnDetail.disabled = false;

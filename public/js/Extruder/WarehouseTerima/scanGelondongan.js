@@ -97,6 +97,42 @@ txtNoBarcode.addEventListener("keypress", function (event) {
     }
 });
 
+btnProses.addEventListener("click", function () {
+    if (listKirim.length == 0) {
+        alert("Scan Barcode Terlebih Dahulu !!!");
+        txtNoBarcode.value = "";
+        txtNoBarcode.focus();
+        return;
+    }
+
+    addOptionIfNotExists(slcDivisi, listKirim[0].IdDivisi);
+    for (let i = 0; i < listKirim.length; i++) {
+        let no_barcode = listKirim[i].NoBarcode;
+        let no_indeks = no_barcode.substring(0, 9).replace(/^0+/, "");
+        let kode_barang = no_barcode.substring(no_barcode.length - 9);
+        let divisi = listKirim[i].IdDivisi;
+        kirimGudangFetch(kode_barang, no_indeks, divisi, () => {
+            alert("Data Sudah Selesai Diproses");
+            listKirim.length = 0;
+            listRekap.length = 0;
+            txtNoBarcode.focus();
+            txtNoBarcode.select();
+        });
+    }
+});
+
+btnLihat.addEventListener("click", function () {
+    $("#form_data_gelondongan").modal("show");
+    // if (slcDivisi.selectedIndex == 0) {
+    //     alert("Pilih Dulu Divisinya");
+    //     slcDivisi.focus();
+    // } else {
+    //     // Memanggil form lihat data
+    //     // Dim LihatData As New frmLihatDataGld
+
+    // }
+});
+
 btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/WarehouseTerima";
 });
@@ -271,7 +307,7 @@ function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
     });
 }
 
-function kirimGudang(kode_barang, no_indeks, user_id, divisi) {
+function kirimGudangFetch(kode_barang, no_indeks, divisi, post_action = null) {
     // Ambil jam server
     fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
         let fetchEmpty = true;
@@ -279,7 +315,38 @@ function kirimGudang(kode_barang, no_indeks, user_id, divisi) {
 
         let jam_server = "_";
         if (!fetchEmpty) {
-            jam_server = data[0].jam_server;
+            jam_server = new Date(data[0].jam_server);
+            const batas_awal = new Date().setHours(0, 0, 0, 0);
+            const batas_akhir = new Date().setHours(7, 0, 0, 0);
+            let status = -1;
+            if (jam_server >= batas_awal && jam_server <= batas_akhir) {
+                status = 1;
+            } else status = 0;
+
+            fetchSelect(
+                "/warehouseTerima/SP_1273_INV_SimpanPermohonanKirimMojosari/" +
+                    kode_barang +
+                    "~" +
+                    no_indeks +
+                    "~" +
+                    divisi +
+                    "~" +
+                    status,
+                (data) => {
+                    if (data != 1) {
+                        let barcode =
+                            no_indeks.toString().padStart(9, "0") +
+                            "-" +
+                            kode_barang;
+                        alert(
+                            "Barcode no. " +
+                                barcode +
+                                " tidak dapat dikirimkan, karena " +
+                                data.pesan
+                        );
+                    } else if (post_action != null) post_action();
+                }
+            );
         }
     });
 }
@@ -339,6 +406,7 @@ function init() {
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
+    spnBarcode.value = listKirim.length;
 
     // Debug cekBarcodeDispatch()
     // addOptionIfNotExists(slcDivisi, "EXT", "EXT - Extruder", true);
