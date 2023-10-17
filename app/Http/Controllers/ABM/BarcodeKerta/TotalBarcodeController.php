@@ -32,10 +32,11 @@ class TotalBarcodeController extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) -1;
         // dd($cr);
         //getDivisi
-        if ($crExplode[1] == "get_tgl_total_barcode") {
-            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_INV_CEK_TOTALBARCODE @tanggal = ?, @shift = ?', [$crExplode[0], "Pagi"]);
+        if ($crExplode[$lasindex] == "get_tgl_total_barcode") {
+            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_INV_CEK_TOTALBARCODE @tanggal = ?, @shift = ?', [$crExplode[0], $crExplode[1]]);
             // dd($dataKelut);
             // Return the options as JSON data
             return response()->json($dataKelut);

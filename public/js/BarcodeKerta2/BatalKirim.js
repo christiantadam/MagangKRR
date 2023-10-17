@@ -33,7 +33,7 @@ function prosesData() {
             const data = {
                 kodebarang: rowData[4],
                 noindeks: rowData[5],
-                userid: 'U001',
+                userid: '4384',
             };
 
             // Create a form for each selected row

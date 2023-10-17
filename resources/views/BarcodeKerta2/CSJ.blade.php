@@ -184,6 +184,8 @@
                                 </div>
                             </div>
 
+                            <div id="form-container"></div>
+
                             <div class="card mt-auto">
                                 <div class="card-header">Type</div>
                                 <table id="TypeTable">
@@ -214,11 +216,12 @@
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
                                 <div class="text-center col-md-auto">
-                                    <button type="button" style="width: 150px" onclick={window.print()} id="">Cetak
+                                    <button type="button" style="width: 150px" onclick={window.print()}
+                                        id="">Cetak
                                         Surat Jalan</button>
                                 </div>
                                 <div class="text-center col-md-auto">
-                                    <button type="button" style="width: 150px" onclick="hideCard()">Batal Cetak</button>
+                                    <button type="button" style="width: 150px" onclick="BatalCetak();">Batal Cetak</button>
                                 </div>
                                 <div class="text-center col-md-auto"><button type="button"
                                         style="width: 150px">Keluar</button></div>
@@ -227,7 +230,7 @@
                         </form>
                     </div>
 
-                    <div class="card mt-3 printme" id="cardSection" >
+                    <div class="card mt-3 printme" id="cardSection">
                         <div class="card-header">Type</div>
                         <div class="card mt-3" style="width: 200px; margin-left: 100px;">
                             <h2>tes</h2>
