@@ -18,15 +18,7 @@ class DivisiController extends Controller
         $dataPosisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_POSISI ?', [0]);
         $dataManager = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
         // dd($dataDivisi);
-        return view('Payroll.Master.Divisi.divisi', compact('dataDivisi','dataPosisi', 'dataManager'));
-    }
-    public function getPegawai($Id_Div)
-    {
-
-        $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$Id_Div], [1]);
-
-        // Return the options as JSON data
-        return response()->json($dataPegawai);
+        return view('Payroll.Master.Divisi.divisi', compact('dataDivisi', 'dataPosisi', 'dataManager'));
     }
 
     public function InsertDivisi(Request $request)
@@ -89,9 +81,15 @@ class DivisiController extends Controller
     }
 
     //Display the specified resource.
-    public function show( $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA ?', [$crExplode[0]], [1]);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

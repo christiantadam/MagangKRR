@@ -34,7 +34,7 @@ class InsertAgendaPegawaiBaruController extends Controller
         // dd($data, $arrayPegawai);
         $tanggal_awal = new DateTime($data['Tanggal1']);
         $tanggal_akhir = new DateTime($data['Tanggal2']);
-        dd($tanggal_awal->format('N'));
+        // dd($tanggal_awal->format('N'));
         $selisih = $tanggal_awal->diff($tanggal_akhir);
         $selisih_hari = $selisih->days;
         $tanggal_akhir->modify('+1 day');

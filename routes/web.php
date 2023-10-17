@@ -364,7 +364,7 @@ Route::resource('ProgramPayroll/settingDivisiHarian', App\Http\Controllers\Payro
 Route::resource('ProgramPayroll/settingDivisiStaff', App\Http\Controllers\Payroll\Master\SettingDivisi\StaffController::class);
 Route::resource('ProgramPayroll/settingShift', App\Http\Controllers\Payroll\Master\SettingShift\SettingShiftController::class);
 Route::resource('ProgramPayroll/MasterKlinik', App\Http\Controllers\Payroll\Master\Klinik\KlinikController::class);
-Route::get('ProgramPayroll/Master/Divisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@index')->name('divisi.index');
+Route::resource('ProgramPayroll/Master/Divisi', App\Http\Controllers\Payroll\Master\Divisi\DivisiController::class);
 Route::post('ProgramPayroll/Master/insertDivisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@InsertDivisi');
 Route::post('ProgramPayroll/Master/updateDivisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@UpdateDivisi');
 Route::post('ProgramPayroll/Master/deleteDivisi', 'App\Http\Controllers\Payroll\Master\Divisi\DivisiController@deleteDivisi');
