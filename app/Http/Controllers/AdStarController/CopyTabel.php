@@ -10,7 +10,7 @@ class CopyTabel extends Controller
 {
     public function index()
     {
-        $dataCust2 = DB::connection('ConnSALES')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
+        $dataCust2 = DB::connection('ConnSales')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
 
         return view('AdStar.CopyTabel', compact('dataCust2'));//
     }
@@ -45,7 +45,7 @@ class CopyTabel extends Controller
 
         //getorder
         if ($crExplode[$lastIndex] == "dataCust1") {
-            $dataCust1 = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?', [ $crExplode[0]]);
+            $dataCust1 = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?', [ $crExplode[0]]);
             // dd($dataCust1);
             // dd($dataObjek);
             // Return the options as JSON data
@@ -54,7 +54,7 @@ class CopyTabel extends Controller
             // dd($crExplode);
 
         }elseif ($crExplode[$lastIndex] == "dataProdType") {
-            $dataProdType = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?' , [ $crExplode[0], $crExplode[1]]);
+            $dataProdType = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?' , [ $crExplode[0], $crExplode[1]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataProdType);

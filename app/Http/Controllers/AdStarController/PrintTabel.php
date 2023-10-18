@@ -38,9 +38,23 @@ class PrintTabel extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) -1;
+
+
+        //getorder
+        if ($crExplode[$lastIndex] == "dataCust1") {
+            $dataCust1 = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?', [ $crExplode[0]]);
+            // dd($dataCust1);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataCust1);
+
+            // dd($crExplode);
+
+        }
     }
 
     /**

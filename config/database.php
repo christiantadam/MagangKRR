@@ -196,7 +196,7 @@ return [
             'trust_server_certificate' => true,
         ],
 
-        'ConnADSTAR' => [
+        'ConnAdstar' => [
             'driver' => 'sqlsrv',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_SEVENTH', '127.0.0.1'),

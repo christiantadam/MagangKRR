@@ -10,8 +10,8 @@ class MaintOrder extends Controller
 {
     public function index()
     {
-        $dataCust = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=1');
-        $datanoordkrj = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=10');
+        $dataCust = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=1');
+        $datanoordkrj = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=10');
 
 
 
@@ -30,7 +30,7 @@ class MaintOrder extends Controller
     {
         $data = $request->all();
         // dd($data);
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],
@@ -56,7 +56,7 @@ class MaintOrder extends Controller
         // dd($crExplode);
         //getDivisi
         if ($crExplode[$lastIndex] == "dataBrng") {
-            $dataBrng = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [2, $crExplode[0]]);
+            $dataBrng = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?', [2, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataBrng);
@@ -64,7 +64,7 @@ class MaintOrder extends Controller
             // dd($crExplode);
         }
         elseif ($crExplode[$lastIndex] == "dataSrtPsn") {
-            $dataSrtPsn = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?, @KD_BRG= ?' , [3, $crExplode[0], $crExplode[1]]);
+            $dataSrtPsn = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @idcust= ?, @KD_BRG= ?' , [3, $crExplode[0], $crExplode[1]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataSrtPsn);
@@ -72,7 +72,7 @@ class MaintOrder extends Controller
             // dd($crExplode);
         }
         elseif ($crExplode[$lastIndex] == "datastkordsblm") {
-            $datastkordsblm = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @KD_BRG= ?', [12, $crExplode[0]]);
+            $datastkordsblm = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @KD_BRG= ?', [12, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($datastkordsblm);
@@ -80,7 +80,7 @@ class MaintOrder extends Controller
             // dd($crExplode);
         }
         elseif ($crExplode[$lastIndex] == "dataSrtPsn2") {
-            $dataSrtPsn2 = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @NoSP= ?', [4, $crExplode[0]]);
+            $dataSrtPsn2 = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @NoSP= ?', [4, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataSrtPsn2);
@@ -88,7 +88,7 @@ class MaintOrder extends Controller
             // dd($crExplode);
         }
         elseif ($crExplode[$lastIndex] == "dataJmlhPress") {
-            $dataJmlhPress = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @IDPESANAN= ?', [11, $crExplode[0]]);
+            $dataJmlhPress = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @IDPESANAN= ?', [11, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataJmlhPress);
@@ -96,7 +96,7 @@ class MaintOrder extends Controller
             // dd($crExplode);
         }
         elseif ($crExplode[$lastIndex] == "datasisastok") {
-            $datasisastok = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @KD_BRG= ?, @nosp= ?, @tglorder= ?', [13, $crExplode[0], $crExplode[1], $crExplode[2]]);
+            $datasisastok = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode= ?, @KD_BRG= ?, @nosp= ?, @tglorder= ?', [13, $crExplode[0], $crExplode[1], $crExplode[2]]);
             // dd($datasisastok);
             // Return the options as JSON data
             return response()->json($datasisastok);
@@ -116,7 +116,7 @@ class MaintOrder extends Controller
     {
         $data = $request->all();
 
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],
@@ -137,7 +137,7 @@ class MaintOrder extends Controller
     {
         $data = $request->all();
         // dd('Masuk Destroy', $data);
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],

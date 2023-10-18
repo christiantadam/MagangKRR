@@ -10,9 +10,9 @@ class HasilProd extends Controller
 {
     public function index()
     {
-        $dataMesin = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_MESIN');
+        $dataMesin = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_MESIN');
         // $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode=1 @tanggal=' );
-        $dataOrder = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=5');
+        $dataOrder = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_ORDER @Kode=5');
         // dd($dataOrder);
 
         return view('AdStar.HasilProd', compact('dataMesin','dataOrder'));//
@@ -32,7 +32,7 @@ class HasilProd extends Controller
     {
         $data = $request->all();
         // dd($data);
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tanggal'],
             $data['No_Order'],
@@ -56,14 +56,14 @@ class HasilProd extends Controller
 
         //getDivisi
         if ($crExplode[1] == "dataTransaksi") {
-            $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @tanggal= ?', [1, $crExplode[0]]);
+            $dataTransaksi = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @tanggal= ?', [1, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data a
             return response()->json($dataTransaksi);
 
             // dd($crExplode);
         }else if ($crExplode[1] == "getDataProduksi") {
-            $dataTransaksi = DB::connection('ConnADSTAR')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @IDLOG= ?', [2, $crExplode[0]]);
+            $dataTransaksi = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_HASIL_PRODUKSI @Kode= ?, @IDLOG= ?', [2, $crExplode[0]]);
             // dd($dataTransaksi);
             // Return the options as JSON data a
             return response()->json($dataTransaksi);
@@ -83,7 +83,7 @@ class HasilProd extends Controller
     {
         $data = $request->all();
 
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tanggal'],
             $data['IDLOG'],
@@ -104,7 +104,7 @@ class HasilProd extends Controller
     {
         $data = $request->all();
         // dd('Masuk Destroy', $data);
-        DB::connection('ConnADSTAR')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tanggal = ?, @IDLOG = ?,@No_Order = ?, @IDMESIN = ?, @GROUP = ?, @AWALSHIFT = ?, @AKHIRSHIFT = ?, @JMLPRIMER = ?, @JMLSEKUNDER = ?, @JMLTRITIER = ?, @USERINPUT = ?', [
             $data['kode'],
             $data['Tanggal'],
             $data['IDLOG'],
