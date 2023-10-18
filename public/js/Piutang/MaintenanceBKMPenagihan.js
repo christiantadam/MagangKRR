@@ -72,6 +72,29 @@ let formTampilBKM = document.getElementById("formTampilBKM");
 let methodTampilBKM = document.getElementById("methodTampilBKM");
 let modalTampilBKM = document.getElementById("modalTampilBKM");
 
+//BTNCETAK
+let nomer = document.getElementById('nomer');
+let tglCetak = document.getElementById('tglCetak');
+let symbol = document.getElementById('symbol');
+let terbilangCetak = document.getElementById('terbilangCetak');
+let jumlahDiterima = document.getElementById('jumlahDiterima');
+let kodePerkiraanCetak = document.getElementById('kodePerkiraanCetak');
+let jum1 = document.getElementById('jum1');
+let rincianPenerimaan = document.getElementById('rincianPenerimaan');
+let tglCetakForm = document.getElementById('tglCetakForm');
+let grandTotal = document.getElementById('grandTotal');
+let symbol2 = document.getElementById('symbol2');
+let keterangan2 = document.getElementById('keterangan2');
+let biaya = document.getElementById('biaya');
+let ket = document.getElementById('ket');
+let ket1 = document.getElementById('ket1');
+let ket5 = document.getElementById('ket5');
+let totalK = document.getElementById('totalK');
+let jum = document.getElementById('jum');
+let jum2 = document.getElementById('jum2');
+let ket6 = document.getElementById('ket6');
+let ket3 = document.getElementById('ket3');
+
 const tglInput = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
 tanggalInput.value = formattedDate2;
@@ -79,6 +102,12 @@ tanggalInput.value = formattedDate2;
 const tglTagihan = new Date();
 const formattedDate = tglTagihan.toISOString().substring(0, 10);
 tanggalTagih.value = formattedDate;
+
+const tglCtk = new Date();
+const formattedDate3 = tglCtk.toISOString().substring(0, 10);
+console.log(formattedDate3);
+let tgl2 = ubahFormatTanggal(formattedDate3);
+tglCetakForm.textContent = tgl2;
 
 btnTutupModal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -541,7 +570,7 @@ btnGroupBKM.addEventListener('click', function (event) {
     }
 });
 
-// function Check() {
+function Check() {
 //     let k = 1; // variabel untuk menyimpan nilai k
 //     let l = 1;
 
@@ -591,11 +620,127 @@ btnGroupBKM.addEventListener('click', function (event) {
 
 //             jenisBank.value = options[0].jenis;
 //         });
-// };
+};
 
 btnCETAK.addEventListener('click', function (event) {
     event.preventDefault();
     console.log(idBKMInput.value);
+
+    fetch("/getCetakBKMJumlahPelunasan/" + idBKMInput.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+        })
+
+    fetch("/getCetakBKMNoPenagihan/" + idBKMInput.value)
+        .then((response) => response.json())
+        .then((options) => {
+            //console.log(options);
+
+            nomer.textContent = options[0].Id_BKM;
+            const tglInput = options[0].Tgl_Input;
+            const [tanggal1, waktu] = tglInput.split(" ");
+            options[0].TglInput = tanggal1;
+            let tgl = ubahFormatTanggal(tanggal1);
+            tglCetak.textContent = tgl;
+
+            symbol.textContent = options[0].Symbol;
+            jumlahDiterima.textContent = options[0].Nilai_Pelunasan;
+            terbilangCetak.textContent = options[0].Terjemahan;
+            kodePerkiraanCetak.textContent = options[0].Kode_Perkiraan;
+            // symbol2.textContent = options[0].Symbol;
+            // grandTotal.textContent = options[0].Nilai_Pelunasan;
+            rincianPenerimaan.textContent = options[0].NamaCust + " - " + options[0].ID_Penagihan;
+
+            let totalBiaya = options.reduce((total, option) => total + option.Biaya, "");
+            let totalKurangLebih = options.reduce((total, option) => total + option.KurangLebih, "");
+
+            if ((options[0].ID_Penagihan != null && totalBiaya > 0) || (options[0].ID_Penagihan != null && totalKurangLebih != 0)) {
+                keterangan2.textContent = "(+)";
+            } else if (options[0].ID_Penagihan == null && options[0].Biaya != 0) {
+                keterangan2.textContent = "(-)";
+            } else if (options[0].ID_Penagihan == null && options[0].KurangLebih > 0) {
+                keterangan2.textContent = "(+)";
+            } else if ((options[0].ID_Penagihan != null && totalBiaya == 0) || (options[0].ID_Penagihan != null && totalKurangLebih == 0)) {
+                keterangan2.textContent = "";
+            };
+
+
+            if (totalBiaya == 0 && totalKurangLebih == 0) {
+                biaya.textContent = 0;
+            } else if ((options[0].ID_Penagihan != null && totalBiaya != 0) || (options[0].ID_Penagihan != null && totalKurangLebih != 0)) {
+                biaya.textContent = options[0].Nilai_Rincian;
+            } else if ((options[0].ID_Penagihan == null && totalBiaya != 0) || (options[0].ID_Penagihan == null && totalKurangLebih != 0)) {
+                if (options[0].Biaya != 0 && options[0].KurangLebih == 0) {
+                    biaya.textContent = options[0].Biaya;
+                } else if (options[0].KurangLebih != 0 && options[0].Biaya == 0) {
+                    biaya.textContent = options[0].KurangLebih;
+                }
+            } else if ((options[0].ID_Penagihan == null) && options[0].Keterangan != 0) {
+                biaya.textContent = options[0].Nilai_Rincian;
+            }
+
+            if (totalBiaya == 0 && totalKurangLebih == 0) {
+                jum1.textContent = options[0].Nilai_Rincian;
+            } else {
+                jum1.textContent = '';
+            }
+
+            if (jum.textContent == 0 && jum2.textContent == 0) {
+                ket.textContent = "Jumlah Tagihan: "
+            }
+
+            if (jum.textContent > 0 || jum2.textContent != 0) {
+                totalK.textContent = options.reduce((total, option) => total + option.Nilai_Rincian, "");
+            } else {
+                totalK.textContent = 0;
+            }
+
+            if (jum.textContent == 0) {
+                ket1.textContent = "";
+            } else {
+                ket1.textContent = "Lain-lain: ";
+            }
+
+            if (jum.textContent == 0) {
+                ket3.textContent = "(-)";
+            } else {
+                ket3.textContent = "";
+            }
+
+            jum.textContent = totalBiaya;
+
+            if (jum2.textContent == 0) {
+                ket5.textContent = "";
+            } else if (jum2.textContent < 0) {
+                ket5.textContent = "Kekurangan: ";
+            } else if (jum2.textContent > 0) {
+                ket5.textContent = "Kelebihan";
+            }
+
+            if (jum2.textContent > 0) {
+                ket6.textContent = "(+)";
+            } else if (jum2.textContent < 0) {
+                ket6.textContent = "";
+            } else {
+                ket6.textContent = "";
+            }
+            jum2.textContent = totalKurangLebih;
+            console.log(options);
+            if (totalBiaya == 0 || totalKurangLebih == 0) {
+                symbol2.textContent = "";
+            } else if (totalBiaya > 0 || totalKurangLebih != 0) {
+                symbol2.textContent = options[0].Symbol;
+            }
+
+            if (jum1.textContent == 0) {
+                grandTotal.textContent = totalK.textContent - jum.textContent + jum2.textContent;
+            } else {
+                grandTotal.textContent = options.reduce((total, option) => total + option.Nilai_Rincian, "");
+            }
+
+            window.print();
+        });
 })
 
 $("#btnProsesDetail").on("click", function (event) {
@@ -664,11 +809,19 @@ btnTampilBKM.addEventListener('click', function(event) {
     event.preventDefault();
     modalTampilBKM = $("#modalTampilBKM");
     modalTampilBKM.modal('show');
+
+    const tglTampilBKM = new Date();
+    const formattedDate3 = tglTampilBKM.toISOString().substring(0, 10);
+    tanggalInputTampil.value = formattedDate3;
+
+    const tglTampilBKM2 = new Date();
+    const formattedDate4 = tglTampilBKM2.toISOString().substring(0, 10);
+    tanggalInputTampil2.value = formattedDate4;
 })
 
 btnOkTampil.addEventListener('click', function(event) {
     event.preventDefault();
-    fetch("/tabeltampilbkm/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
+    fetch("/getTabelTampilBKMPenagihan/" + tanggalInputTampil.value + "/" + tanggalInputTampil2.value)
         .then((response) => response.json())
         .then((options) => {
             console.log(options);
@@ -687,9 +840,16 @@ btnOkTampil.addEventListener('click', function(event) {
                 ]
             });
 
-            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function() {
+            let lastCheckedCheckbox = null;
+
+            tabelTampilBKM.on('change', 'input[name="dataCheckbox"]', function () {
+                if (lastCheckedCheckbox && lastCheckedCheckbox !== this) {
+                    lastCheckedCheckbox.checked = false;
+                }
+                lastCheckedCheckbox = this;
+
                 const checkedCheckbox = tabelTampilBKM.row($(this).closest('tr')).data();
-                const idBKMInput = document.getElementById("idBKM");
+                idBKMInput = document.getElementById("idBKM");
 
                 if ($(this).prop("checked")) {
                     idBKMInput.value = checkedCheckbox.Id_BKM;
@@ -1006,6 +1166,13 @@ function DetailKurangLebih() {
                 kodePerkiraanKrgLbhSelect.appendChild(option);
             });
         });
+};
+
+function ubahFormatTanggal(tanggal) {
+    var bulanIndonesia = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    var tanggalTerpisah = tanggal.split("-");
+    var bulan = bulanIndonesia[parseInt(tanggalTerpisah[1]) - 1];
+    return tanggalTerpisah[2] + "/" + bulan + "/" + tanggalTerpisah[0];
 }
 
 //#region F_RUPIAH

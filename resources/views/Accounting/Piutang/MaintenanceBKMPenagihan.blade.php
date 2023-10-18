@@ -50,7 +50,7 @@
                                 <br>
                                 <div>
                                     Data Pelunasan
-                                    <div style="overflow-y: auto; max-height: 400px;">
+                                    <div style="overflow-y: auto;">
                                         <table style="width: 180%; table-layout: fixed;" id="tabelDataPelunasan">
                                             <colgroup>
                                                 <col style="width: 15%;">
@@ -576,7 +576,7 @@
                         <div class="modal fade" id="modalTampilBKM" tabindex="-1" role="dialog"
                             aria-labelledby="pilihBankModal" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
+                                <div class="modal-content" style="padding: 25px;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" >Maintenance Kurang/Lebih BKM</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -725,22 +725,67 @@
         <div class="row">
             <div class="col-7" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
-                    <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="rincianPenerimaan" style="font-size: 18px;"></span>
+                    <div class="col-12" style="height: 4vh;">
+                        <div class="row">
+                            <div class="col-7" style="text-align-last: left;">
+                                <span id="rincianPenerimaan" style="font-size: 18px;">BB</span>
+                            </div>
+                            <div class="col-2" style="text-align-last: right;">
+                                <span id="keterangan2" style="font-size: 18px;">AA</span>
+                            </div>
+                            <div class="col-3" style="text-align-last: right;">
+                                <span id="biaya" style="font-size: 18px;">CC</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
-                    <div class="col-12" style="height: 2.5vh; text-align-last: center;">
+                    <div class="col-12" style="height: 4vh; text-align-last: center;">
                         <span id="kodePerkiraanCetak" style="font-size: 18px;"></span>
                     </div>
                 </div>
             </div>
             <div class="col-3" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
-                    <div class="col-12" style="height: 2.5vh; text-align-last: right;">
-                        <span id="jumlah" style="font-size: 18px;"></span>
+                    <div class="col-12" style="height: 4vh; text-align-last: right;">
+                        <span id="jum1" style="font-size: 18px;">jum1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <div class="row" style="border: solid 1px; border-bottom: 0px; border-right: 0px;">
+                    <div class="col-12" style="height: 4vh; text-align-last: left;">
+                        <span id="ket" style="font-size: 18px; ">KET</span><br>
+                    </div>
+                    <div class="col-12" style="height: 4vh; text-align-last: left;">
+                        <span id="ket1" style="font-size: 18px; ">KET1</span><br>
+                    </div>
+                    <div class="col-12" style="height: 4vh; text-align-last: left;">
+                        <span id="ket5" style="font-size: 18px;">KET5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" style="padding-right: 25px;">
+                <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
+                    <div class="col-12" style="height: 12vh; text-align-last: center;">
+                        <span id="kodePerkiraanCetak" style="font-size: 18px;">KD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" style="padding-right: 25px;">
+                <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
+                    <div class="col-12" style="height: 4vh; text-align-last: right;">
+                        <span id="totalK" style="font-size: 18px;">totalK</span>
+                    </div>
+                    <div class="col-12" style="height: 4vh; text-align-last: right;">
+                        <span id="ket3" style="font-size: 18px;">ket3</span><span id="jum" style="font-size: 18px;">jum</span>
+                    </div>
+                    <div class="col-12" style="height: 4vh; text-align-last: right;">
+                        <span id="ket6" style="font-size: 18px;">ket6<span id="jum2" style="font-size: 18px;">jum2</span>
                     </div>
                 </div>
             </div>

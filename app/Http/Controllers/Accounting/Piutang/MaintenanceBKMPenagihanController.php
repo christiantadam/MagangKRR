@@ -35,7 +35,7 @@ class MaintenanceBKMPenagihanController extends Controller
         return response()->json($tabel);
     }
 
-    public function getTabelTampilBKM($tanggalInputTampil, $tanggalInputTampil2)
+    public function getTabelTampilBKMPenagihan($tanggalInputTampil, $tanggalInputTampil2)
     {
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_5298_ACC_LIST_BKM_TAGIH_PERTGL] @tgl1 = ?, @tgl2 = ?', [$tanggalInputTampil, $tanggalInputTampil2]);
         return response()->json($tabel);
@@ -89,13 +89,13 @@ class MaintenanceBKMPenagihanController extends Controller
         $tanggalInput = $tanggal;
         $jenis = 'R';
 
-        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
-            $jenis,
-            $tanggalInput,
-            $idBank,
-            null
-            // Pass by reference for output parameter
-        ]);
+        // $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+        //     $jenis,
+        //     $tanggalInput,
+        //     $idBank,
+        //     null
+        //     // Pass by reference for output parameter
+        // ]);
 
         $tahun = substr($tanggalInput, -10, 4);
         $x = DB::connection('ConnAccounting')->table('T_Counter_BKM')->where('Periode', '=', $tahun)->first();
