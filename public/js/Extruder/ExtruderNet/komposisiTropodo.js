@@ -1353,6 +1353,7 @@ function init() {
     btnBaruMaster.focus();
 
     // $("#select_id_komposisi").select2();
+    // $("#select_id_komposisi").parent().hide();
 }
 
 $(document).ready(() => init());

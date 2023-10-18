@@ -8,22 +8,25 @@
             </div>
 
             <div class="modal-body">
-                {{-- <h1 id="loading_lbl">
+                <h1 id="loading_lbl">
                     <center>Memuat data...</center>
-                </h1> --}}
+                </h1>
+
                 <div class="row mb-3">
                     <div class="col-lg-3">
                         <span class="aligned-text" style="margin-top: 10px">Tanggal:</span>
                     </div>
                     <div class="col-lg-5">
                         <div class="input-group">
-                            <input type="date" name="" id="data_tanggal" class="form-control">
+                            <input type="date" name="" id="mdl_tanggal" class="form-control">
                             <button type="button" id="btn_refresh" class="btn btn-outline-secondary">Refresh</button>
                         </div>
                     </div>
                 </div>
 
-                <table id="table_data" class="hover cell-border">
+                <input type="hidden" id="hid_divisi">
+
+                <table id="mdl_table" class="hover cell-border">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -44,10 +47,12 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="rw_cancel" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                <button type="button" id="rw_confirm" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                <button type="button" id="mdl_cancel" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                <button type="button" id="mdl_confirm" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js\Extruder\WarehouseTerima\scanGelondongan.js') }}"></script>
