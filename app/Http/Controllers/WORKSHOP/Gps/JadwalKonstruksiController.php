@@ -8,12 +8,9 @@ use Illuminate\Http\Request;
 class JadwalKonstruksiController extends Controller
 {
 
-<<<<<<< Updated upstream
     public function EditEstimasiTanggal() {
         return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiTanggal');
     }
-=======
->>>>>>> Stashed changes
     public function EditEstimasiWaktu() {
         return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiWaktu');
     }

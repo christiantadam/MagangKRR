@@ -79,10 +79,5 @@
     </div>
   </div>
   </div>
-<<<<<<< Updated upstream
-=======
   <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/EditEstimasiTanggal.js') }}"></script>
-
-
->>>>>>> Stashed changes
 @endsection
