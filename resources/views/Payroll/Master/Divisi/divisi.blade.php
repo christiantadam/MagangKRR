@@ -48,7 +48,8 @@
                                         style="width: 200px;">Batal</button>
                                 </div>
                                 <div class="row" style="margin-left: 50px; margin-top: 20px;">
-                                    <button type="button" class="btn" id="deleteButton" style="width: 200px;">Hapus</button>
+                                    <button type="button" class="btn" id="deleteButton"
+                                        style="width: 200px;">Hapus</button>
                                 </div>
                             </div>
 
@@ -70,7 +71,7 @@
                                             @endforeach
                                         </select> --}}
                                         <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                            data-toggle="modal" data-target="#modalKdPeg" disabled>...</button>
+                                            onclick="showModalDivisi()" disabled>...</button>
 
                                         <div class="modal fade" id="modalKdPeg" role="dialog" arialabelledby="modalLabel"
                                             area-hidden="true" style="">
@@ -136,8 +137,7 @@
                                         <input class="form-control" type="text" id="Nama_Posisi" readonly
                                             style="resize: none; height: 40px; max-width: 450px;">
                                         <button type="button" class="btn" id="posisiButton"
-                                            style="margin-left: 10px;" data-toggle="modal" data-target="#modalPeg"
-                                            disabled>...</button>
+                                            style="margin-left: 10px;" onclick="showModalPegawai()">...</button>
                                         <div class="modal fade" id="modalPeg" role="dialog"
                                             arialabelledby="modalLabel" area-hidden="true" style="">
                                             <div class="modal-dialog " role="document">
@@ -189,7 +189,7 @@
                                         <input class="form-control" type="text" id="Nama_Manager" readonly
                                             style="resize: none; height: 40px; max-width: 450px;">
                                         <button type="button" class="btn" id="managerButton"
-                                            style="margin-left: 10px;" data-toggle="modal" data-target="#modalManager"
+                                            style="margin-left: 10px;" onclick="showModalManager()"
                                             disabled>...</button>
                                         <div class="modal fade" id="modalManager" role="dialog"
                                             arialabelledby="modalLabel" area-hidden="true" style="">
@@ -311,6 +311,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Posisi</th>
+                                        <th scope="col">IdPosisi</th>
                                         <th scope="col">Nama Divisi</th>
                                         <th scope="col">Id Div</th>
                                         <th scope="col">Manager</th>
@@ -320,16 +321,15 @@
                                         <th scope="col">Aturan</th>
                                         <th scope="col">IdGrupdiv</th>
                                         <th scope="col">KDManager</th>
-                                        <th scope="col">IDPosisi</th>
 
 
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider">
                                     @foreach ($dataDivisi as $index => $data)
-                                        <!-- Tambahkan variabel $index -->
-                                        <tr data-index="{{ $index }}"> <!-- Tambahkan atribut data-index -->
+                                        <tr value="{{ $index }}">
                                             <td>{{ $data->Nm_Posisi }}</td>
+                                            <td>{{ $data->DivPosisi }}</td>
                                             <td>{{ $data->Nama_Div }}</td>
                                             <td>{{ $data->Id_Div }}</td>
                                             <td>{{ $data->Nama_Peg }}</td>
@@ -339,7 +339,6 @@
                                             <td>{{ $data->Aturan }}</td>
                                             <td>{{ $data->Id_Group_Div }}</td>
                                             <td>{{ $data->No_Kabag }}</td>
-                                            <td>{{ $data->DivPosisi }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

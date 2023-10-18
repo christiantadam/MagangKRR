@@ -12,7 +12,7 @@ class KirimGudangController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["4384", NULL, NULL, NULL, NULL]);
         // SP_1273_INV_CekDataSP
 
         return view('BarcodeKerta2.KirimGudang', compact('dataDivisi'));
@@ -32,7 +32,7 @@ class KirimGudangController extends Controller
     }
 
     //Display the specified resource.
-    public function show($cr)
+    public function show($cr, Request $request)
     {
         $crExplode = explode(".", $cr);
         $lasindex = count($crExplode) - 1;
@@ -48,13 +48,16 @@ class KirimGudangController extends Controller
             // dd($dataTampil);
             // Return the options as JSON data
             return response()->json($dataTampil);
-        }
-        else if ($crExplode[$lasindex] == "getDataStatus") {
-            $dataStatus = DB::connection('ConnInventory')->statement('exec SP_5409_INV_CekBarcodeKirimGudang
-            @kodebarang = ?, @noindeks = ?, @statusdispresiasi = ?', [$crExplode[0], $crExplode[1], " "]);
-            // dd($dataStatus);
-            // Return the options as JSON data
-            return response()->json($dataStatus);
+        } else if ($crExplode[$lasindex] == "getDataStatus") {
+            $statusdispresiasi = DB::connection('ConnInventory')->table('Dispresiasi')
+                ->where('kode_barang', $crExplode[0])
+                ->where('noindeks', $crExplode[1])
+                ->whereNotNull('y_idtrans')
+                // ->whereNull('NoTempTrans') // Uncomment this line if needed
+                ->where('type_transaksi', '22')
+                ->value('status');
+            // dd($statusdispresiasi);
+            return response()->json($statusdispresiasi);
         }
     }
     // Show the form for editing the specified resource.

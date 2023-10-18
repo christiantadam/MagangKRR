@@ -8,7 +8,7 @@ btn_noorder.addEventListener("click", function () {
     else if (a==2) {
         Kode = 1
     } else
-    fetch("/Schedule/" + Kode + ".dataOrder")
+    fetch("/AdStarSchedule/" + Kode + ".dataOrder")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -37,7 +37,7 @@ btn_noorder.addEventListener("click", function () {
 
 const IdDiv = document.getElementById("IdDivisi").value;
 var modal = document.getElementById("myModal1");
-fetch("/Schedule/" + IdDiv + ".getKelut")
+fetch("/AdStarSchedule/" + IdDiv + ".getKelut")
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -65,7 +65,7 @@ fetch("/Schedule/" + IdDiv + ".getKelut")
 
     const IdKelut = document.getElementById("id_Kelut").value;
     var modal = document.getElementById("myModal2");
-    fetch("/Schedule/" + IdKelut + ".getKelompok")
+    fetch("/AdStarSchedule/" + IdKelut + ".getKelompok")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -93,7 +93,7 @@ fetch("/Schedule/" + IdDiv + ".getKelut")
 
         const IdKelompok = document.getElementById("id_Kelompok").value;
     var modal = document.getElementById("myModal3");
-    fetch("/Schedule/" + IdKelompok + ".getSubKelompok")
+    fetch("/AdStarSchedule/" + IdKelompok + ".getSubKelompok")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -121,7 +121,7 @@ fetch("/Schedule/" + IdDiv + ".getKelut")
 
         const IdSubKelompok = document.getElementById("id_SubKelompok").value;
     var modal = document.getElementById("myModal4");
-    fetch("/Schedule/" + IdSubKelompok + ".getType")
+    fetch("/AdStarSchedule/" + IdSubKelompok + ".getType")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

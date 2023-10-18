@@ -19,7 +19,7 @@ $(document).ready(function () {
     $("#tampilButton").on("click", function () {
         const TglSimpang = document.getElementById("TglSimpang").value;
 
-        fetch("/AbsenSimpang/" + TglSimpang + ".getDataSimpang")
+        fetch("/ProgramPayroll/AbsenSimpang/" + TglSimpang + ".getDataSimpang")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -55,7 +55,7 @@ $(document).ready(function () {
             .catch((error) => {
                 console.error("Error:", error);
             });
-        fetch("/AbsenSimpang/" + TglSimpang + ".getViewSimpang")
+        fetch("/ProgramPayroll/AbsenSimpang/" + TglSimpang + ".getViewSimpang")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

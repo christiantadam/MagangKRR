@@ -15,7 +15,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/PrintUlang/" + parts[0] + "." + parts[1] + ".getBarcodePrintUlang")
+            fetch("/AdStarPrintUlang/" + parts[0] + "." + parts[1] + ".getBarcodePrintUlang")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -62,7 +62,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/PrintUlang/" + parts[0] + "." + parts[1] + ".getBarcode")
+            fetch("/AdStarPrintUlang/" + parts[0] + "." + parts[1] + ".getBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

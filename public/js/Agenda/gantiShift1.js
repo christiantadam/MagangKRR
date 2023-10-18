@@ -144,7 +144,7 @@ $(document).ready(function () {
             var mindate = document.getElementById("TglAwal2").value;
             var maxdate = document.getElementById("TglAkhir2").value;
             fetch(
-                "/GantiShift/Aturan1_3/" +
+                "/ProgramPayroll/GantiShift/Aturan1_3/" +
                     $("#kd_Pegawai").val() +
                     "." +
                     mindate +

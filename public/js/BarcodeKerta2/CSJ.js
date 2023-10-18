@@ -149,80 +149,8 @@ $(document).ready(function () {
                     .catch((error) => {
                         console.error("Error:", error);
                     });
-            }
-        }
-    });
 
-    var Truk_pol = document.getElementById('Truk_pol');
-    Truk_pol.addEventListener("keypress", function (event) {
-        if (event.key == "Enter") {
-            var txtNoUrut = document.getElementById('Surat_jalan');
-            var txtTgl = document.getElementById('tgl');
-
-            // Cek apakah nilai txtNoUrut dimulai dengan "J" atau "j"
-            if (txtNoUrut.value.startsWith("J") || txtNoUrut.value.startsWith("j")) {
-                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ")
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-                        return response.json(); // Assuming the response is in JSON format
-                    })
-                    .then((data) => {
-                        // Handle the data retrieved from the server (data should be an object or an array)
-                        console.log(data);
-                        // Clear the existing table rows
-                        $("#TypeTable").DataTable().clear().draw();
-                        $("#TableSJPrint").DataTable().clear().draw();
-
-                        // Loop through the data and create table rows
-                        data.forEach((item) => {
-                            var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
-                            var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
-                            $("#TypeTable").DataTable().row.add(row);
-                            $("#TableSJPrint").DataTable().row.add(row2);
-                        });
-
-                        // Redraw the table to show the changes
-                        $("#TypeTable").DataTable().draw();
-                        $("#TableSJPrint").DataTable().draw();
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                    });
-
-            } else if (txtNoUrut.value.startsWith("A") || txtNoUrut.value.startsWith("a")) {
-                fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ2")
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error("Network response was not ok");
-                        }
-                        return response.json(); // Assuming the response is in JSON format
-                    })
-                    .then((data) => {
-                        // Handle the data retrieved from the server (data should be an object or an array)
-                        console.log(data);
-                        // Clear the existing table rows
-                        $("#TypeTable").DataTable().clear().draw();
-                        $("#TableSJPrint").DataTable().clear().draw();
-
-                        // Loop through the data and create table rows
-                        data.forEach((item) => {
-                            var row = [counter1++, item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
-                            var row2 = [item.NamaType, item.Kode_barang, item.Primer, item.Sekunder, item.Tritier];
-                            $("#TypeTable").DataTable().row.add(row);
-                            $("#TableSJPrint").DataTable().row.add(row2);
-                        });
-
-                        // Redraw the table to show the changes
-                        $("#TypeTable").DataTable().draw();
-                        $("#TableSJPrint").DataTable().draw();
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                    });
-
-            } else  if (txtNoUrut.value.startsWith("W") || txtNoUrut.value.startsWith("w")) {
+            } else {
                 fetch("/ABM/BarcodeKerta2/CSJ/" + txtNoUrut.value + "." + txtTgl.value + ".getListSJ3")
                     .then((response) => {
                         if (!response.ok) {
@@ -430,4 +358,133 @@ function updateTanggal() {
 function closeModal1() {
     var modal = document.getElementById('myModal1');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+// function BatalCetak(data) {
+//     var opsi = "satu";
+
+//     const formData = {
+//         opsi: opsi,
+//     };
+//     console.log(formData);
+//     const formContainer = document.getElementById("form-container");
+//     const form = document.createElement("form");
+//     form.setAttribute("action", "CSJ/opsi");
+//     form.setAttribute("method", "POST");
+
+//     // Loop through the formData object and add hidden input fields to the form
+//     for (const key in formData) {
+//         const input = document.createElement("input");
+//         input.setAttribute("type", "hidden");
+//         input.setAttribute("name", key);
+//         input.value = formData[key]; // Set the value of the input field to the corresponding data
+//         form.appendChild(input);
+//     }
+//     // Create method input with "PUT" Value
+//     const method = document.createElement("input");
+//     method.setAttribute("type", "hidden");
+//     method.setAttribute("name", "_method");
+//     method.value = "PUT"; // Set the value of the input field to the corresponding data
+//     form.appendChild(method);
+
+//     // Create input with "Update Keluarga" Value
+//     const ifUpdate = document.createElement("input");
+//     ifUpdate.setAttribute("type", "hidden");
+//     ifUpdate.setAttribute("name", "_ifUpdate");
+//     ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+//     form.appendChild(ifUpdate);
+
+//     formContainer.appendChild(form);
+
+//     // Add CSRF token input field (assuming the csrfToken is properly fetched)
+//     let csrfToken = document
+//         .querySelector('meta[name="csrf-token"]')
+//         .getAttribute("content");
+//     let csrfInput = document.createElement("input");
+//     csrfInput.type = "hidden";
+//     csrfInput.name = "_token";
+//     csrfInput.value = csrfToken;
+//     form.appendChild(csrfInput);
+
+//     // Wrap form submission in a Promise
+//     function submitForm() {
+//         return new Promise((resolve, reject) => {
+//             form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+//             form.submit();
+//         });
+//     }
+
+//     // Call the submitForm function to initiate the form submission
+//     submitForm()
+//         .then(() => console.log("Form submitted successfully!"))
+//         .catch((error) => console.error("Form submission error:", error));
+// }
+
+function BatalCetak(data) {
+    var txtNoUrutValue = document.getElementById("Surat_jalan").value;
+    var opsi;
+
+    if (txtNoUrutValue.match(/^j/i)) {
+        opsi = "satu";
+    } else {
+        opsi = "dua";
+    }
+
+    const formData = {
+        opsi: opsi,
+    };
+    console.log(formData);
+
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", opsi === "satu" ? "CSJ/opsi" : "CSJ/opsi");
+    form.setAttribute("method", "POST");
+
+    // Loop melalui objek formData dan tambahkan input field tersembunyi ke formulir
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Setel nilai input field ke data yang sesuai
+        form.appendChild(input);
+    }
+
+    // Buat input method dengan nilai "PUT"
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Setel nilai input field ke data yang sesuai
+    form.appendChild(method);
+
+    // Buat input dengan nilai "Update Barcode"
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Setel nilai input field ke data yang sesuai
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Tambahkan input field token CSRF (dengan asumsi csrfToken diambil dengan benar)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Bungkus pengiriman formulir dalam sebuah Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Selesaikan Promise ketika formulir dikirim
+            form.submit();
+        });
+    }
+
+    // Panggil fungsi submitForm untuk memulai pengiriman formulir
+    submitForm()
+        .then(() => console.log("Formulir berhasil dikirim!"))
+        .catch((error) => console.error("Kesalahan pengiriman formulir:", error));
 }

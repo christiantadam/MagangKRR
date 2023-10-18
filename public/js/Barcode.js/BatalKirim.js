@@ -1,6 +1,6 @@
 const IdDiv = document.getElementById("IdDivisi").value;
 var modal = document.getElementById("myModal1");
-fetch("/Schedule/" + IdDiv + ".getKelut")
+fetch("/AdStarSchedule/" + IdDiv + ".getKelut")
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");

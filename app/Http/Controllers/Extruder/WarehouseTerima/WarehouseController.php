@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Extruder\WarehouseTerima;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class WarehouseController extends Controller
 {
@@ -46,7 +47,7 @@ class WarehouseController extends Controller
 
     private function getStatusDispresiasi($kode_barang, $no_indeks, $trans1, $trans2, $trans3, $trans4, $divisi)
     {
-        // SP_1273_INV_CekBarcodeGelondonganMojosari
+        // [SP_1273_INV_CekBarcodeGelondonganMojosari]
         return DB::connection('ConnInventory')
             ->table('Dispresiasi')
             ->select('Dispresiasi.Status')
@@ -62,10 +63,117 @@ class WarehouseController extends Controller
             ->get();
     }
 
+    private function updKirimMojosari($kode_barang, $no_indeks, $status, $divisi)
+    {
+        // [SP_1273_INV_SimpanPermohonanKirimMojosari]
+
+        DB::beginTransaction();
+        try {
+            $select_dispresiasi = DB::connection('ConnInventory')->select(
+                'SELECT id_type_tujuan, qty, qty_primer, qty_sekunder, tgl_mutasi,  type_transaksi FROM dispresiasi WHERE kode_barang = ? AND noindeks = ?',
+                [$kode_barang, $no_indeks]
+            );
+
+            $id_type = $select_dispresiasi[0]->id_type_tujuan;
+            $jumlah_keluar_tritier = $select_dispresiasi[0]->qty;
+            $jumlah_keluar_primer = $select_dispresiasi[0]->qty_primer;
+            $jumlah_keluar_sekunder = $select_dispresiasi[0]->qty_sekunder;
+            $tgl_produksi = $select_dispresiasi[0]->tgl_mutasi;
+
+            $select_type = DB::connection('ConnInventory')->select(
+                'SELECT SaldoTritier, SaldoSekunder, SaldoPrimer FROM Type WHERE IdType = ?',
+                [$id_type]
+            );
+
+            $saldo_tritier = $select_type[0]->SaldoTritier;
+            $saldo_sekunder = $select_type[0]->SaldoSekunder;
+            $saldo_primer = $select_type[0]->SaldoPrimer;
+
+            $select_transaksi = DB::connection('ConnInventory')->select(
+                'SELECT t.uraiandetailtransaksi FROM transaksi t, dispresiasi d WHERE d.y_idtrans = t.idtransaksi and d.kode_barang = ? and d.noindeks = ?',
+                [$kode_barang, $no_indeks]
+            );
+
+            $uraian = $select_transaksi[0]->uraiandetailtransaksi;
+
+            if (doubleval($saldo_tritier) - doubleval($jumlah_keluar_tritier) >= 0) {
+                if (doubleval($saldo_sekunder) - doubleval($jumlah_keluar_sekunder) >= 0) {
+                    if (doubleval($saldo_primer) - doubleval($jumlah_keluar_primer) >= 0) {
+                        // Update dispresiasi
+                        DB::connection('ConnInventory')->update(
+                            "UPDATE dispresiasi SET type_transaksi = '27', status = '2', ditembak = '3', notemptrans = 4384 WHERE kode_barang = ? AND noindeks = ?",
+                            [$kode_barang, $no_indeks]
+                        );
+
+                        // Masukkan data dalam tmp_kirim_gudang
+                        if ($status == 0) {
+                            $tanggal = Carbon::now()->format('Y-m-d');
+                            DB::connection('ConnInventory')
+                                ->table('tmp_kirim_gudang')
+                                ->insert([
+                                    'idpemberi' => 4384,
+                                    'tglkirim' => $tanggal,
+                                    'kodebarang' => $kode_barang,
+                                    'noindeks' => $no_indeks,
+                                    'primer' => $jumlah_keluar_primer,
+                                    'sekunder' => $jumlah_keluar_sekunder,
+                                    'tritier' => $jumlah_keluar_tritier,
+                                    'idtype' => $id_type,
+                                    'tglProduksi' => $tgl_produksi,
+                                    'typetransaksi' => '27',
+                                    'status' => -1,
+                                    'divisi' => $divisi,
+                                    'uraian' => $uraian
+                                ]);
+
+                            DB::connection('ConnInventory')->update(
+                                'UPDATE dispresiasi SET tgl_tembak_keluar = ? WHERE kode_barang = ? AND noindeks = ?',
+                                [$tanggal, $kode_barang, $no_indeks]
+                            );
+                        } else if ($status == 1) {
+                            $tanggal = Carbon::now()->subDay()->format('Y-m-d');
+                            DB::connection('ConnInventory')
+                                ->table('tmp_kirim_gudang')
+                                ->insert([
+                                    'idpemberi' => 4384,
+                                    'tglkirim' => $tanggal,
+                                    'kodebarang' => $kode_barang,
+                                    'noindeks' => $no_indeks,
+                                    'primer' => $jumlah_keluar_primer,
+                                    'sekunder' => $jumlah_keluar_sekunder,
+                                    'tritier' => $jumlah_keluar_tritier,
+                                    'idtype' => $id_type,
+                                    'tglProduksi' => $tgl_produksi,
+                                    'typetransaksi' => '27',
+                                    'status' => -1,
+                                    'divisi' => $divisi,
+                                    'uraian' => $uraian
+                                ]);
+
+                            DB::connection('ConnInventory')->update(
+                                'UPDATE dispresiasi SET tgl_tembak_keluar = ? WHERE kode_barang = ? AND noindeks = ?',
+                                [$tanggal, $kode_barang, $no_indeks]
+                            );
+                        }
+                    } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
+                } else return response()->json(['pesan' => 'Saldo Sekunder tidak mencukupi.']);
+            } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
+
+            DB::commit();
+            return 1;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            DB::rollBack();
+        }
+    }
+
     public function warehouseTerima($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_SimpanPermohonanKirimMojosari':
+                return $this->updKirimMojosari($param_data[0], $param_data[1], $param_data[2], $param_data[3]);
+
             case 'SP_1273_INV_CekBarcodeGelondonganMojosari':
                 return $this->getStatusDispresiasi($param_data[0], $param_data[1], $param_data[2], $param_data[3], $param_data[4], $param_data[5], $param_data[6]);
 

@@ -87,7 +87,7 @@ txtNoBarcode.addEventListener("keypress", function (event) {
             cekBarcodeDispatch(
                 kode_barang,
                 no_indeks,
-                "cekBarcode_txtNoBarcode_keyPress"
+                "cekBarcode_barcodeKeyPress"
             );
         } else alert("Scan Barcode Terlebih Dahulu!");
 
@@ -97,30 +97,70 @@ txtNoBarcode.addEventListener("keypress", function (event) {
     }
 });
 
+btnProses.addEventListener("click", function () {
+    if (listKirim.length == 0) {
+        alert("Scan Barcode Terlebih Dahulu !!!");
+        txtNoBarcode.value = "";
+        txtNoBarcode.focus();
+        return;
+    }
+
+    addOptionIfNotExists(slcDivisi, listKirim[0].IdDivisi);
+    for (let i = 0; i < listKirim.length; i++) {
+        let no_barcode = listKirim[i].NoBarcode;
+        let no_indeks = no_barcode.substring(0, 9).replace(/^0+/, "");
+        let kode_barang = no_barcode.substring(no_barcode.length - 9);
+        let divisi = listKirim[i].IdDivisi;
+        kirimGudangFetch(kode_barang, no_indeks, divisi, () => {
+            alert("Data Sudah Selesai Diproses");
+            listKirim.length = 0;
+            listRekap.length = 0;
+            txtNoBarcode.focus();
+            txtNoBarcode.select();
+        });
+    }
+});
+
+btnLihat.addEventListener("click", function () {
+    $("#form_data_gelondongan").modal("show");
+    // if (slcDivisi.selectedIndex == 0) {
+    //     alert("Pilih Dulu Divisinya");
+    //     slcDivisi.focus();
+    // } else {
+    //     // Memanggil form lihat data
+    //     // Dim LihatData As New frmLihatDataGld
+
+    // }
+});
+
 btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/WarehouseTerima";
 });
 
 hidGetFetch.addEventListener("change", function () {
-    console.log(this.value);
-
-    if (this.value.split("~")[0] == "cekBarcode_txtNoBarcode_keyPress") {
-        let sts = this.value.split("~")[1];
-        let sudahTembak = false;
-        if (sts == 3 || sts == 1) {
-            for (let i = 0; i < listKirim.length; i++) {
-                if (listKirim[i].NoBarcode == this.value.trim()) {
-                    sudahTembak = true;
-                    break;
+    switch (this.value.split("~")[0]) {
+        case "cekBarcode_barcodeKeyPress":
+            let sts = this.value.split("~")[1];
+            let sudahTembak = false;
+            if (sts == 3 || sts == 1) {
+                for (let i = 0; i < listKirim.length; i++) {
+                    if (listKirim[i].NoBarcode == this.value.trim()) {
+                        sudahTembak = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!sudahTembak) {
-                ambilDataBarangFetch(kode_barang, no_indeks);
-            } else alert("Barcode Sudah Pernah Ditembak!");
-        } else if (sts == 2) {
-            alert("Barcode Sudah Dikirim Ke Gudang!");
-        } else alert("Data Barcode Tidak Ditemukan!");
+                if (!sudahTembak) {
+                    ambilDataBarangFetch(kode_barang, no_indeks);
+                } else alert("Barcode Sudah Pernah Ditembak!");
+            } else if (sts == 2) {
+                alert("Barcode Sudah Dikirim Ke Gudang!");
+            } else alert("Data Barcode Tidak Ditemukan!");
+            break;
+
+        default:
+            console.log(this.value);
+            break;
     }
 });
 //#endregion
@@ -253,6 +293,7 @@ function buatRekapFetch(id_type, type, tanggal, jumlah, divisi) {
     }
 }
 
+// Tested
 function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
     fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
         let fetchEmpty = true;
@@ -263,6 +304,50 @@ function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
 
         hidGetFetch.value = parent_fun + "~" + jam_server;
         hidGetFetch.dispatchEvent(new Event("change"));
+    });
+}
+
+function kirimGudangFetch(kode_barang, no_indeks, divisi, post_action = null) {
+    // Ambil jam server
+    fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
+        let fetchEmpty = true;
+        if (data.length > 0) fetchEmpty = false;
+
+        let jam_server = "_";
+        if (!fetchEmpty) {
+            jam_server = new Date(data[0].jam_server);
+            const batas_awal = new Date().setHours(0, 0, 0, 0);
+            const batas_akhir = new Date().setHours(7, 0, 0, 0);
+            let status = -1;
+            if (jam_server >= batas_awal && jam_server <= batas_akhir) {
+                status = 1;
+            } else status = 0;
+
+            fetchSelect(
+                "/warehouseTerima/SP_1273_INV_SimpanPermohonanKirimMojosari/" +
+                    kode_barang +
+                    "~" +
+                    no_indeks +
+                    "~" +
+                    divisi +
+                    "~" +
+                    status,
+                (data) => {
+                    if (data != 1) {
+                        let barcode =
+                            no_indeks.toString().padStart(9, "0") +
+                            "-" +
+                            kode_barang;
+                        alert(
+                            "Barcode no. " +
+                                barcode +
+                                " tidak dapat dikirimkan, karena " +
+                                data.pesan
+                        );
+                    } else if (post_action != null) post_action();
+                }
+            );
+        }
     });
 }
 //#endregion
@@ -321,6 +406,7 @@ function init() {
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
+    spnBarcode.value = listKirim.length;
 
     // Debug cekBarcodeDispatch()
     // addOptionIfNotExists(slcDivisi, "EXT", "EXT - Extruder", true);
@@ -331,7 +417,7 @@ function init() {
     // ambilDataBarangFetch(1, 1);
 
     // Debug ambilJamServer()
-    // ambilJamServer();
+    // ambilJamServerDispatch();
 }
 
 $(document).ready(() => init());

@@ -17,7 +17,7 @@ $(document).ready(function () {
         order: [[0, "asc"]],
     });
     divisiButton.addEventListener("click", function () {
-        fetch("/Koperasi/" + ".getDivisi")
+        fetch("/ProgramPayroll/Koperasi/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -58,7 +58,7 @@ $(document).ready(function () {
     });
     function getNomorKoperasi(idpeg) {
 
-        fetch("/Koperasi/" + idpeg +".getNoKoperasi")
+        fetch("/ProgramPayroll/Koperasi/" + idpeg +".getNoKoperasi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -75,7 +75,7 @@ $(document).ready(function () {
     }
     function getNomorKoperasiBaru(idpeg) {
 
-        fetch("/Koperasi/" + idpeg +".getNoKoperasi")
+        fetch("/ProgramPayroll/Koperasi/" + idpeg +".getNoKoperasi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -92,7 +92,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/Koperasi/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/Koperasi/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -135,7 +135,7 @@ $(document).ready(function () {
         hideModalPegawai();
     });
     divisiButtonBaru.addEventListener("click", function () {
-        fetch("/Koperasi/" + ".getDivisi")
+        fetch("/ProgramPayroll/Koperasi/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -178,7 +178,7 @@ $(document).ready(function () {
     pegawaiButtonBaru.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_DivisiBaru").value;
         // console.log("Masuk fungsi pegawai");
-        fetch("/Koperasi/" + Id_Div + ".getPegawaiBaru")
+        fetch("/ProgramPayroll/Koperasi/" + Id_Div + ".getPegawaiBaru")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

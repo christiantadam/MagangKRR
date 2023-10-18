@@ -171,6 +171,5 @@ $(document).ready(function () {
                     console.error("Error:", error);
                 });
         }
-        event.preventDefault()
     });
 });

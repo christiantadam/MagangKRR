@@ -154,7 +154,7 @@ $(document).ready(function () {
 
         // Jika divisi dipilih, lakukan fetch data pegawai
         if (selectedDivisi !== "") {
-            fetch("/AgendaMasuk/AgendaShift/" + selectedDivisi + ".getPegawai") // Ganti dengan URL yang sesuai
+            fetch("/ProgramPayroll/AgendaMasuk/AgendaShift/" + selectedDivisi + ".getPegawai") // Ganti dengan URL yang sesuai
                 .then(function (response) {
                     return response.json();
                 })

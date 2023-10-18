@@ -24,7 +24,7 @@ $(document).ready(function () {
         var rowData = $('#TableDivisi').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        fetch("/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
+        fetch("/AdStarBuatBarcode/" + rowData[0] + ".txtIdDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -192,7 +192,7 @@ $(document).ready(function () {
         var idsubkontraktor = parts[0];
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/BuatBarcode/" + idtype + "." + UserID + "." + tanggal + "." +
+        fetch("/AdStarBuatBarcode/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
             idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
@@ -208,7 +208,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                    fetch("/AdStarBuatBarcode/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");

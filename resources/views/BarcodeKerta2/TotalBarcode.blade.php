@@ -29,9 +29,9 @@
                                         </div>
                                         <div class="form-group ml-3">
                                             <select id="shift" style="width: 100px">
-                                                <option value="1">Satu</option>
-                                                <option value="2">Dua</option>
-                                                <option value="3">Tiga</option>
+                                                <option value="Pagi">Satu</option>
+                                                <option value="Sore">Dua</option>
+                                                <option value="Malam">Tiga</option>
                                             </select>
                                         </div>
                                         <div class="form-group text-center col-md-auto"><button id="ButtonProcess"

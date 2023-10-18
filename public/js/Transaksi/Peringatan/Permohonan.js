@@ -301,7 +301,7 @@ $(document).ready(function () {
 
     // Attach click event to the button to show the modal
     $("#divisiButton").on("click", function () {
-        fetch("/Peringatan/Permohonan/" + ".getDivisi")
+        fetch("/ProgramPayroll/Peringatan/Permohonan/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -330,7 +330,7 @@ $(document).ready(function () {
     });
     $("#pegawaiButton").on("click", function () {
         const id_div = document.getElementById("Id_Div").value;
-        fetch("/Peringatan/Permohonan/" + id_div + ".getPegawai")
+        fetch("/ProgramPayroll/Peringatan/Permohonan/" + id_div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -360,7 +360,7 @@ $(document).ready(function () {
     function MaxPeri(kode) {
         const kd_pegawai = document.getElementById("Id_Peg").value;
 
-        fetch("/Peringatan/Permohonan/" + kd_pegawai + ".getPeringatan")
+        fetch("/ProgramPayroll/Peringatan/Permohonan/" + kd_pegawai + ".getPeringatan")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -371,7 +371,7 @@ $(document).ready(function () {
                 if (data[0].Thn !== "") {
                     $("#Tahun_Akhir").val(data[0].Thn);
                     fetch(
-                        "/Peringatan/Permohonan/" +
+                        "/ProgramPayroll/Peringatan/Permohonan/" +
                             kd_pegawai +
                             "." +
                             data[0].Thn +
@@ -392,7 +392,7 @@ $(document).ready(function () {
                                         "Tahun_Akhir"
                                     ).value;
                                 fetch(
-                                    "/Peringatan/Permohonan/" +
+                                    "/ProgramPayroll/Peringatan/Permohonan/" +
                                         kd_pegawai +
                                         "." +
                                         Tahun_Akhir +

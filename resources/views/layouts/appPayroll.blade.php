@@ -157,7 +157,7 @@
                                                 ✓</a></li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1"
-                                                href="{{ url('ProgramPayroll/Agenda/GantiShift/Aturan2') }}">Aturan
+                                                href="{{ url('ProgramPayroll/GantiShift/Aturan2') }}">Aturan
                                                 2</a>
                                         </li>
 

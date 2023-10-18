@@ -80,7 +80,7 @@ $(document).ready(function () {
         $('#NamaObjek').val(rowData[1]);
 
         var txtIdObjek = document.getElementById('IdObjek');
-        fetch("/PilihJenisRepress/" + txtIdObjek.value + ".txtIdObjek")
+        fetch("/AdStarPilihJenisRepress/" + txtIdObjek.value + ".txtIdObjek")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -127,7 +127,7 @@ $(document).ready(function () {
 
         var rowData = $('#TableType').DataTable().row(this).data();
 
-        fetch("/PilihJenisRepress/" + rowData[0] + ".getPrintInput")
+        fetch("/AdStarPilihJenisRepress/" + rowData[0] + ".getPrintInput")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -161,7 +161,7 @@ $(document).ready(function () {
 
         var rowData = $('#TableType').DataTable().row(this).data();
 
-        fetch("/PilihJenisRepress/" + rowData[0] + ".getPrintPenerima")
+        fetch("/AdStarPilihJenisRepress/" + rowData[0] + ".getPrintPenerima")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -203,7 +203,7 @@ $(document).ready(function () {
 
         var rowData = $('#TableType').DataTable().row(this).data();
 
-        fetch("/PilihJenisRepress/" + rowData[0] + ".getTableBarcode")
+        fetch("/AdStarPilihJenisRepress/" + rowData[0] + ".getTableBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -249,7 +249,7 @@ function openModal1() {
     var modal = document.getElementById('myModal1');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
     var txtIdDivisi = document.getElementById('IdDivisi');
-    fetch("/PilihJenisRepress/" + txtIdDivisi.value + ".getXIdDivisi")
+    fetch("/AdStarPilihJenisRepress/" + txtIdDivisi.value + ".getXIdDivisi")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

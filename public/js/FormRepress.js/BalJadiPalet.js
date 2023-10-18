@@ -40,7 +40,7 @@ $(document).ready(function () {
         // $("#Divisi").val(rowData[1]);
 
         // var txtIdDivisi = document.getElementById(rowData[0]);
-        fetch("/ABM/BalJadiPalet/" + rowData[0] + ".getType")
+        fetch("AdStarBalJadiPalet/" + rowData[0] + ".getType")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -101,7 +101,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/BalJadiPalet/" + parts[0] + "." + parts[1] + ".getBarcode")
+            fetch("AdStarBalJadiPalet/" + parts[0] + "." + parts[1] + ".getBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -225,7 +225,7 @@ $(document).ready(function () {
         var uraian = document.getElementById('shiftInput').value;
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/BalJadiPalet/" + idtype + "." + UserID + "." + tanggal + "." +
+        fetch("/AdStarBalJadiPalet/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
             idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
@@ -242,7 +242,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                    fetch("/AdStarBalJadiPalet/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");

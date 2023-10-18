@@ -4,7 +4,7 @@ btn_nosp.addEventListener("keypress", function (event) {
             var ScanBarcode = document.getElementById('No_barcode').value;
             console.log(ScanBarcode);
 
-            fetch("/KirimGudang/" + ScanBarcode.split("-")[0] + ".getSP")
+            fetch("/AdStarKirimGudang/" + ScanBarcode.split("-")[0] + ".getSP")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

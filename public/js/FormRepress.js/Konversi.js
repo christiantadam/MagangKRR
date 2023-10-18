@@ -120,7 +120,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/Konversi/" + parts[0] + "." + parts[1] + ".getBarcode")
+            fetch("/AdStarKonversi/" + parts[0] + "." + parts[1] + ".getBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -148,7 +148,7 @@ $(document).ready(function () {
                     $("#TableType").DataTable().draw();
 
                     var Divisi = document.getElementById('Divisi');
-                    fetch("/ABM/Konversi/" + Divisi.value + ".getType")
+                    fetch("/AdStarKonversi/" + Divisi.value + ".getType")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -226,7 +226,7 @@ $(document).ready(function () {
         var uraian = 'Pagi';
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/ABM/Konversi/" + idtypeasal + "~" + idtypetujuan + "~" + userid + "~" +
+        fetch("/AdStarKonversi/" + idtypeasal + "~" + idtypetujuan + "~" + userid + "~" +
             tanggal + "~" + jumlahmasukprimer + "~" + jumlahmasuksekunder + "~" + jumlahmasuktertier + "~" +
             asalidsubkelompok + "~" + tujuanidsubkelompok + "~" + kodebarangasal + "~" + kodebarangtujuan + "~"
             + noindeksasal + "~" + uraian + "~.buatBarcode")
@@ -244,7 +244,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/ABM/Konversi/" + kodebarangtujuan + ".getIndex")
+                    fetch("/AdStarKonversi/" + kodebarangtujuan + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");

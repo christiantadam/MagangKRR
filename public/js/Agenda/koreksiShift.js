@@ -27,7 +27,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Shift_Baru").val(rowData[0]);
         // $("#Nama_Div").val(rowData[1]);
-        fetch("/KoreksiShift/" + rowData[0] + ".getShiftData")
+        fetch("/ProgramPayroll/KoreksiShift/" + rowData[0] + ".getShiftData")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -84,7 +84,7 @@ $(document).ready(function () {
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
         const tanggal = document.getElementById("TglAgenda");
-        fetch("/KoreksiShift/" + rowData[0] + ".getPegawai")
+        fetch("/ProgramPayroll/KoreksiShift/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -131,7 +131,7 @@ $(document).ready(function () {
 
         if ((Kd_Peg = "ALL")) {
             const gabung = Kd_Div + "." + tanggal1 + "." + tanggal2;
-            fetch("/KoreksiShift/" + gabung + ".getShiftAll")
+            fetch("/ProgramPayroll/KoreksiShift/" + gabung + ".getShiftAll")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");

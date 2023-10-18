@@ -117,7 +117,7 @@ $(document).ready(function () {
     });
 
     divisiButton.addEventListener("click", function () {
-        fetch("/Skorsing/Permohonan/" + ".getDivisi")
+        fetch("/ProgramPayroll/Skorsing/Permohonan/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -150,7 +150,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/Skorsing/Permohonan/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/Skorsing/Permohonan/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

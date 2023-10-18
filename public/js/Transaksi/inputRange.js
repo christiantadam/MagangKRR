@@ -10,7 +10,7 @@ $(document).ready(function () {
     var proses = 0;
     function ambilDataAgenda(tanggal, kd_pegawai) {
         let dataAgenda = [];
-        fetch("/InputRange/" + kd_pegawai + "." + tanggal + ".getAgenda")
+        fetch("/ProgramPayroll/InputRange/" + kd_pegawai + "." + tanggal + ".getAgenda")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -407,7 +407,7 @@ $(document).ready(function () {
         $("#Nama_Divisi").val(rowData[1]);
 
         var kode = document.getElementById("Id_Divisi").value;
-        fetch("/InputRange/" + kode + ".getPegawai")
+        fetch("/ProgramPayroll/InputRange/" + kode + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

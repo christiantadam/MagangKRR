@@ -25,7 +25,7 @@ $(document).ready(function () {
         batalButton.disabled = true;
     });
     divisiButton.addEventListener("click", function () {
-        fetch("/KenaikanUpah/" + ".getDivisi")
+        fetch("/ProgramPayroll/KenaikanUpah/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -58,7 +58,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/KenaikanUpah/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/KenaikanUpah/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -92,7 +92,7 @@ $(document).ready(function () {
     function DisplayGaji() {
         const idpeg = document.getElementById("Id_Pegawai").value;
 
-        fetch("/KenaikanUpah/" + idpeg + ".getDataGaji")
+        fetch("/ProgramPayroll/KenaikanUpah/" + idpeg + ".getDataGaji")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

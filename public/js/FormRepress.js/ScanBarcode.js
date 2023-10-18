@@ -108,7 +108,7 @@ $(document).ready(function () {
         $('#NamaObjek').val(rowData[1]);
 
         var txtIdObjek = document.getElementById('IdObjek');
-        fetch("/ScanBarcode/" + txtIdObjek.value + ".txtIdObjek")
+        fetch("/AdStarScanBarcode/" + txtIdObjek.value + ".txtIdObjek")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -161,7 +161,7 @@ $(document).ready(function () {
         var rowData = $('#TableType').DataTable().row(this).data();
         console.log(rowData[0]);
 
-        fetch("/ScanBarcode/" + rowData[0] + ".getHasilBarcode") // Perbaiki tanda titik menjadi garis miring
+        fetch("/AdStarScanBarcode/" + rowData[0] + ".getHasilBarcode") // Perbaiki tanda titik menjadi garis miring
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -242,7 +242,7 @@ $(document).ready(function () {
             // if (isitable.includes(parts[1])) alert("Data Sudah Discan")
             // else alert("Barcode Tidak Ditemukan")
 
-            fetch("/ScanBarcode/" + ".getHasilBarcode")
+            fetch("/AdStarScanBarcode/" + ".getHasilBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -300,7 +300,7 @@ function openModal1() {
     var modal = document.getElementById('myModal1');
     modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
     var txtIdDivisi = document.getElementById('IdDivisi');
-    fetch("/ScanBarcode/" + txtIdDivisi.value + ".getXIdDivisi")
+    fetch("/AdStarScanBarcode/" + txtIdDivisi.value + ".getXIdDivisi")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

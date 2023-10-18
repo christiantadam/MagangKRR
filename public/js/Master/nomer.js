@@ -88,7 +88,7 @@ $(document).ready(function () {
         event.preventDefault();
         const Id_Div = document.getElementById("Id_Div").value;
         console.log(Id_Div);
-        fetch("/MasterNomer/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/MasterNomer/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

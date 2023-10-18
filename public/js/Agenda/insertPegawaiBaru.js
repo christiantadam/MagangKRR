@@ -18,7 +18,7 @@ $(document).ready(function () {
         var rowData = $("#table_Shift").DataTable().row(this).data();
         // Populate the input fields with the data
         $("#Id_Shift_Baru").val(rowData[0]);
-        fetch("/InsertSupervisor/" + rowData[0] + ".getDataShift")
+        fetch("/ProgramPayroll/InsertPegawaiBaru/" + rowData[0] + ".getDataShift")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -111,7 +111,7 @@ $(document).ready(function () {
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
         const tanggal = document.getElementById("TglAgenda");
-        fetch("/InsertPegawaiBaru/" + rowData[0] + ".getPegawai")
+        fetch("/ProgramPayroll/InsertPegawaiBaru/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

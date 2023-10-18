@@ -12,7 +12,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/MasterKartu/" + rowData[0] + ".getPegawai")
+        fetch("/ProgramPayroll/MasterKartu/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -48,7 +48,7 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Pegawai").val(rowData[0]);
         $("#Nama_Pegawai").val(rowData[1]);
-        fetch("/MasterKartu/" + rowData[0] + ".getDataPegawai")
+        fetch("/ProgramPayroll/MasterKartu/" + rowData[0] + ".getDataPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

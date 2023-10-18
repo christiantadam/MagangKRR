@@ -214,7 +214,7 @@ $(document).ready(function () {
 
         // Lakukan operasi pencetakan barcode
         var idtype = document.getElementById('IdType').value;
-        var UserID = 'U001';
+        var UserID = '4384';
         var tanggal = tanggalSekarang
         var primer = document.getElementById('primer').value;
         var sekunder = document.getElementById('sekunder').value;
@@ -225,7 +225,7 @@ $(document).ready(function () {
         var uraian = document.getElementById('shiftInput').value;
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/BalJadiPalet/" + idtype + "." + UserID + "." + tanggal + "." +
+        fetch("/ABM/BalJadiPalet/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
             idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
@@ -242,7 +242,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                    fetch("/ABM/BalJadiPalet/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");

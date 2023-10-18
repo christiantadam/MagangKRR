@@ -185,6 +185,8 @@ btnCekKode.addEventListener("click", function () {
                         kodeBarang,
                         kodeBarang + " | " + data[0].NAMA_BRG
                     );
+
+                    txtNamaBarang.value = data[0].NAMA_BRG;
                     txtBahanPP.value = data[0].BahanPP;
                     txtBenang.value = data[0].Benang;
                     txtHasil.value = data[0].Hasil;

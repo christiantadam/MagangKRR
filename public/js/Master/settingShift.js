@@ -15,7 +15,7 @@ $(document).ready(function () {
         $("#Id_Divisi").val(rowData[0]);
         $("#Nama_Divisi").val(rowData[1]);
         var kode = document.getElementById("Id_Divisi").value;
-        fetch("/settingShift/" + kode + ".getPegawai")
+        fetch("/ProgramPayroll/settingShift/" + kode + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -47,7 +47,7 @@ $(document).ready(function () {
         $("#Id_Peg").val(rowData[0]);
         $("#Nama_Peg").val(rowData[1]);
         var kode = document.getElementById("Id_Peg").value;
-        fetch("/settingShift/" + kode + ".getShift")
+        fetch("/ProgramPayroll/settingShift/" + kode + ".getShift")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

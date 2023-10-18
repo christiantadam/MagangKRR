@@ -83,7 +83,7 @@ $(document).ready(function () {
         const kd_peg = document.getElementById("Id_Pegawai").value;
         const tanggal = document.getElementById("TglKoreksi").value;
         fetch(
-            "/MaintenanceKoreksi/" +
+            "/ProgramPayroll/MaintenanceKoreksi/" +
                 kd_peg +
                 "." +
                 tanggal +
@@ -113,7 +113,7 @@ $(document).ready(function () {
     function cekAdaKoreksi() {
         const kd_peg = document.getElementById("Id_Pegawai").value;
         const tanggal = document.getElementById("TglKoreksi").value;
-        fetch("/MaintenanceKoreksi/" + kd_peg + "." + tanggal + ".cekKoreksi")
+        fetch("/ProgramPayroll/MaintenanceKoreksi/" + kd_peg + "." + tanggal + ".cekKoreksi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -144,7 +144,7 @@ $(document).ready(function () {
         const Harian = document.getElementById("radio1");
         const Staff = document.getElementById("radio2");
         if (Harian.checked) {
-            fetch("/MaintenanceKoreksi/" + ".getDivisiHarian")
+            fetch("/ProgramPayroll/MaintenanceKoreksi/" + ".getDivisiHarian")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -172,7 +172,7 @@ $(document).ready(function () {
                     console.error("Error:", error);
                 });
         } else if (Staff.checked) {
-            fetch("/MaintenanceKoreksi/" + ".getDivisiStaff")
+            fetch("/ProgramPayroll/MaintenanceKoreksi/" + ".getDivisiStaff")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -215,7 +215,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/MaintenanceKoreksi/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/MaintenanceKoreksi/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -257,7 +257,7 @@ $(document).ready(function () {
             const kd_peg = document.getElementById("Id_Pegawai").value;
             const tanggal = document.getElementById("TglKoreksi").value;
             fetch(
-                "/MaintenanceKoreksi/" + kd_peg + "." + tanggal + ".cekKoreksi"
+                "/ProgramPayroll/MaintenanceKoreksi/" + kd_peg + "." + tanggal + ".cekKoreksi"
             )
                 .then((response) => {
                     if (!response.ok) {
@@ -309,7 +309,7 @@ $(document).ready(function () {
         }
         if (a == 1) {
             if (Harian.checked) {
-                fetch("/MaintenanceKoreksi/" + TglKoreksi + ".cekGajiHarian")
+                fetch("/ProgramPayroll/MaintenanceKoreksi/" + TglKoreksi + ".cekGajiHarian")
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error("Network response was not ok");
@@ -325,7 +325,7 @@ $(document).ready(function () {
                             // return
                         } else {
                             fetch(
-                                "/MaintenanceKoreksi/" +
+                                "/ProgramPayroll/MaintenanceKoreksi/" +
                                     kd_peg +
                                     "." +
                                     TglKoreksi +
