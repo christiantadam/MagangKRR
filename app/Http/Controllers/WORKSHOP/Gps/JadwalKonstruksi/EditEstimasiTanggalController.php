@@ -10,8 +10,8 @@ class EditEstimasiTanggalController extends Controller
 
     public function index()
     {
-        //
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-WORKSTATION]');
+        // dd($data);
         return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiTanggal',compact(['data']));
     }
     public function NOFINISH($worksts, $date1){
