@@ -23,6 +23,27 @@ class DivisiController extends Controller
 
     public function InsertDivisi(Request $request)
     {
+
+    }
+
+    public function UpdateDivisi(Request $request)
+    {
+
+    }
+
+    public function DeleteDivisi(Request $request)
+    {
+
+    }
+    //Show the form for creating a new resource.
+    public function create()
+    {
+        //
+    }
+
+    //Store a newly created resource in storage.
+    public function store(Request $request)
+    {
         $data = $request->all();
         // dd($data);
         DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_DIVISI ?, ?, ?, ?, ?, ?, ?, ?, ?', [
@@ -37,47 +58,7 @@ class DivisiController extends Controller
             $data['div_pos']
 
         ]);
-        return redirect()->route('divisi.index')->with('success', 'Data inserted successfully!');
-    }
-
-    public function UpdateDivisi(Request $request)
-    {
-        $data = $request->all();
-        // dd($data);
-        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_DIVISI ?, ?, ?, ?, ?, ?, ?, ?, ?', [
-            $data['kd_div'],
-            $data['nama_div'],
-            $data['status'],
-            $data['no_kabag'],
-            $data['jam'],
-            $data['aturan'],
-            $data['Id_Group_Div'],
-            $data['kstatus'],
-            $data['div_pos']
-        ]);
-        return redirect()->route('divisi.index')->with('success', 'Data Updated successfully!');
-    }
-
-    public function DeleteDivisi(Request $request)
-    {
-        $data = $request->all();
-        // dd($data);
-        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_DEL_DIVISI ?', [
-            $data['kd_div']
-
-        ]);
-        return redirect()->route('divisi.index')->with('success', 'Data Deleted successfully!');
-    }
-    //Show the form for creating a new resource.
-    public function create()
-    {
-        //
-    }
-
-    //Store a newly created resource in storage.
-    public function store(Request $request)
-    {
-        //
+        return redirect()->route('Divisi.index')->with('success', 'Data inserted successfully!');
     }
 
     //Display the specified resource.
@@ -101,12 +82,31 @@ class DivisiController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_UDT_DIVISI ?, ?, ?, ?, ?, ?, ?, ?, ?', [
+            $data['kd_div'],
+            $data['nama_div'],
+            $data['status'],
+            $data['no_kabag'],
+            $data['jam'],
+            $data['aturan'],
+            $data['Id_Group_Div'],
+            $data['kstatus'],
+            $data['div_pos']
+        ]);
+        return redirect()->route('Divisi.index')->with('success', 'Data Updated successfully!');
     }
 
     //Remove the specified resource from storage.
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_DEL_DIVISI ?', [
+            $data['kd_div']
+
+        ]);
+        return redirect()->route('Divisi.index')->with('success', 'Data Deleted successfully!');
     }
 }

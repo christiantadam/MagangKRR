@@ -38,31 +38,31 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
-        fetch("/ProgramPayroll/Master/Divisi/" + rowData[0] + ".getPegawai")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json(); // Assuming the response is in JSON format
-            })
-            .then((data) => {
-                // Handle the data retrieved from the server (data should be an object or an array)
+        // fetch("/ProgramPayroll/Master/Divisi/" + rowData[0] + ".getPegawai")
+        //     .then((response) => {
+        //         if (!response.ok) {
+        //             throw new Error("Network response was not ok");
+        //         }
+        //         return response.json(); // Assuming the response is in JSON format
+        //     })
+        //     .then((data) => {
+        //         // Handle the data retrieved from the server (data should be an object or an array)
 
-                // Clear the existing table rows
-                $("#table_Peg_Lama").DataTable().clear().draw();
+        //         // Clear the existing table rows
+        //         $("#table_Divisi").DataTable().clear().draw();
 
-                // Loop through the data and create table rows
-                data.forEach((item) => {
-                    var row = [item.kd_pegawai, item.nama_peg];
-                    $("#table_Peg_Lama").DataTable().row.add(row);
-                });
+        //         // Loop through the data and create table rows
+        //         data.forEach((item) => {
+        //             var row = [item.kd_pegawai, item.nama_peg];
+        //             $("#table_Divisi").DataTable().row.add(row);
+        //         });
 
-                // Redraw the table to show the changes
-                $("#table_Peg_Lama").DataTable().draw();
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+        //         // Redraw the table to show the changes
+        //         $("#table_Divisi").DataTable().draw();
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error:", error);
+        //     });
         // var idDivValue = rowData[0];
         // submitFormWithIdDiv(idDivValue);
         // Hide the modal immediately after populating the data
@@ -73,8 +73,8 @@ $(document).ready(function () {
         var rowData = $("#table_Peg_Lama").DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $("#Nama_Posisi").val(rowData[1]);
-        $("#Kd_Posisi").val(rowData[0]);
+        $("#Nama_Posisi").val(rowData[0]);
+        $("#Kd_Posisi").val(rowData[1]);
 
         // Hide the modal immediately after populating the data
         hideModalPegawai();
@@ -151,7 +151,7 @@ $(document).ready(function () {
         opsiStatusSelect.removeAttribute("disabled");
         opsiAturanSelect.removeAttribute("disabled");
         JmlJam.disabled = false;
-        divisiButton.disabled = false;
+        // divisiButton.disabled = false;
         grupDivisi.disabled = false;
     });
 
@@ -192,7 +192,7 @@ $(document).ready(function () {
         opsiAturanSelect.removeAttribute("disabled");
         JmlJam.disabled = false;
         grupDivisi.disabled = false;
-        divisiButton.disabled = false;
+        // divisiButton.disabled = false;
         //Tampil Button simpan dan batal
         simpanKoreksiButton.classList.remove("d-none");
         batalKoreksiButton.classList.remove("d-none");
@@ -245,7 +245,7 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "insertDivisi");
+        form.setAttribute("action", "Divisi");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -310,7 +310,7 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "updateDivisi");
+        form.setAttribute("action", "Divisi/" + idDivInput);
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -321,6 +321,19 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "PUT"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
+
+        // Create input with "Update Keluarga" Value
+        const ifUpdate = document.createElement("input");
+        ifUpdate.setAttribute("type", "hidden");
+        ifUpdate.setAttribute("name", "_ifUpdate");
+        ifUpdate.value = "Update Divisi"; // Set the value of the input field to the corresponding data
+        form.appendChild(ifUpdate);
 
         formContainer.appendChild(form);
 
@@ -358,7 +371,7 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "deleteDivisi");
+        form.setAttribute("action", "Divisi/" + idDivInput);
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -369,6 +382,13 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "DELETE"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
 
         formContainer.appendChild(form);
 
@@ -394,6 +414,14 @@ $(document).ready(function () {
         submitForm()
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
+    });
+    document.getElementById('opsiJenis').addEventListener('change', function() {
+        const opsi = document.getElementById("opsiJenis").value;
+        $("#id_jenis").val(opsi);
+    });
+    document.getElementById('opsiStatus').addEventListener('change', function() {
+        const opsi = document.getElementById("opsiStatus").value;
+        $("#Id_Status").val(opsi);
     });
 });
 function showModalDivisi() {
