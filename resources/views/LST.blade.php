@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Laporan Serah Terima')</title>
     <script type="text/javascript" src="{{ asset('js/LST.js') }}"></script>
     <style>
         @page {

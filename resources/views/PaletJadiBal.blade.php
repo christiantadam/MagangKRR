@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Palet Jadi Bal')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PaletJadiBal.js') }}"></script>
 
     <body onload="Greeting()">
@@ -310,13 +311,12 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div style="margin-top:-20px; margin-left:20px">
+                                                <div style="margin-left: 20px;">
                                                     <div class="d-flex flex-column align-items-center">
-                                                        <label for="text" class="aligned-text">Jumlah
-                                                            Barcode:</label>
+                                                        <label for="barcodeTextarea" class="aligned-text">Jumlah Barcode:</label>
                                                         <div class="textarea-container">
-                                                            <textarea class="form-control text-center" name="text" rows="5" id="JumlahBarcode" readonly value="0">
-                                                                </textarea>
+                                                            <textarea id="barcodeTextarea" class="form-control text-center"
+                                                            id="JumlahBarcode" name="text" rows="5" readonly></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

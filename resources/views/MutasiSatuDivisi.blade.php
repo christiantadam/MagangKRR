@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Mutasi Satu Divisi')</title>
     <script type="text/javascript" src="{{ asset('js/MutasiSatuDivisi.js') }}"></script>
 
     <style>

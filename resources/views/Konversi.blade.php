@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Konversi')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/Konversi.js') }}"></script>
 
 

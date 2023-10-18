@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Cetak Barcode Rusak')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/CBR.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
     <style>

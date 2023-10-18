@@ -12,12 +12,13 @@ class PaletJadiBalController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["4384", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
         // $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype =?, @divisi =?', ["", "JBJ"]);
 
         //  dd($dataType);
-        return view('BarcodeKerta2.BuatBarcode', compact('dataDivisi'));
+        return view('PaletJadiBal', compact('dataDivisi'));
     }
+
 
     //Show the form for creating a new resource.
     public function create()
@@ -39,10 +40,10 @@ class PaletJadiBalController extends Controller
 
         // getDivisi
         if ($crExplode[$lasindex] == "txtIdDivisi") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', ["", $crExplode[0]]);
-            // dd($dataType);
+            $dataDivisi = DB::connection('ConnInventory')->select('exec SP_5409_INV_IdType_Schedule @idtype = ?, @divisi = ?', ["", $crExplode[0]]);
+            // dd($dataDivisi);
             // Return the options as JSON data
-            return response()->json($dataType);
+            return response()->json($dataDivisi);
         } else if ($crExplode[$lasindex] == "buatBarcode") {
             $dataBarcode = DB::connection('ConnInventory')->statement(
                 'exec SP_5409_INV_SimpanPermohonanBarcode
@@ -66,11 +67,13 @@ class PaletJadiBalController extends Controller
             // dd($dataBarcode);
             // Return the options as JSON data
             return response()->json($dataBarcode);
+
         } else if ($crExplode[$lasindex] == "getJumlahBarcode") {
             $dataJumlahBarcode = DB::connection('ConnInventory')->select('exec SP_5409_INV_JumlahBarcode @tanggal = ?, @kelompokutama = ?, @shift = ?', []);
             // dd($dataJumlahBarcode);
             // Return the options as JSON data
             return response()->json($dataJumlahBarcode);
+
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')
                 ->table('Dispresiasi')
@@ -108,6 +111,14 @@ class PaletJadiBalController extends Controller
             DB::connection('ConnInventory')->statement('exec SP_5409_INV_DataPrintUlang @kodebarang = ?, @noindeks = ?', [
                 $data['kodebarang'],
                 $data['noindeks']
+            ]);
+            return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
+
+        } else if ($data['opsi'] == "tiga") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcodeOtomatis @kodebarang = ?, @noindeks = ?, userid = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+                "U001"
             ]);
             return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
 

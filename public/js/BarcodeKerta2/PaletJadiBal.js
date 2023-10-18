@@ -19,12 +19,20 @@ $(document).ready(function () {
         select: 'single'
     });
 
+    var kodebarang = null;
+    var listKodeBarang = [];
+    var subKelompok = null;
+    var listSubKelompok = [];
+    var type = null;
+    var listIdType = [];
+    var listType = [];
+
     $('#TableDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
         var rowData = $('#TableDivisi').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        fetch("/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
+        fetch("/ABM/PaletJadiBal/" + rowData[0] + ".txtIdDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -34,6 +42,14 @@ $(document).ready(function () {
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
                 console.log(data);
+                kodebarang = data;
+                // console.log(kodebarang);
+                for (let i = 0; i < data.length; i++) {
+                    listKodeBarang.push(data[i].KodeBarang)
+                    listType.push(data[i].NamaType)
+                    listSubKelompok.push(data[i].IdSubkelompok_Type)
+                    listIdType.push(data[i].IdType)
+                }
 
                 // Clear the existing table rows
                 $("#TableType").DataTable().clear().draw();
@@ -66,7 +82,24 @@ $(document).ready(function () {
         // Populate the input field with the selected type
         if (rowData) {
             const selectedType = rowData[0]; // Assuming the type is in the first column
+            console.log(rowData[0]);
             document.getElementById("Type").value = selectedType;
+            if (listType.includes(selectedType)) {
+                let index = listType.indexOf(selectedType)
+                console.log(listType.indexOf(selectedType));
+                kodebarang = listKodeBarang[index]
+            }
+            if (listType.includes(selectedType)) {
+                let index = listType.indexOf(selectedType)
+                console.log(listType.indexOf(selectedType));
+                subKelompok = listSubKelompok[index]
+            }
+            if (listType.includes(selectedType)) {
+                let index = listType.indexOf(selectedType)
+                console.log(listType.indexOf(selectedType));
+                type = listIdType[index]
+            }
+            console.log(listKodeBarang);
             closeModal2(); // Close the modal
         }
     });
@@ -174,27 +207,27 @@ $(document).ready(function () {
         // Mengatur tombol menjadi tidak dapat diakses (disabled)
         ButtonPrintBarcode.disabled = true;
 
-        var getBarcodePrintUlang = document.getElementById('BarcodeInput');
-        var str = getBarcodePrintUlang.value
-        var parts = str.split("-");
-        console.log(parts);
+        // var getBarcodePrintUlang = document.getElementById('BarcodeInput');
+        // var str = getBarcodePrintUlang.value
+        // var parts = str.split("-");
+        // console.log(parts);
 
         // Lakukan operasi pencetakan barcode
-        var idtype = '0016';
+        var idtype = type;
         var tanggal = document.getElementById('tanggalOutput').value;
         var primer = document.getElementById('Primer').value;
         var sekunder = document.getElementById('SekunderOutput').value;
         var tritier = document.getElementById('tritier').value;
-        var UserID = 'U001';
-        var asalidsubkelompok = 'SKL01';
-        var kodebarang = parts[0];
+        var UserID = '4384';
+        var asalidsubkelompok = subKelompok;
+        var Kode_Barang = kodebarang;
         var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = parts[0];
+        var idsubkontraktor = kodebarang;
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/PaletJadiBal/" + idtype + "." + UserID + "." + tanggal + "." +
+        fetch("/ABM/PaletJadiBal/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
-            idsubkontraktor + "." + kodebarang + "." + uraian + "." + ".buatBarcode")
+            idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -208,7 +241,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/BuatBarcode/" + kodebarang + ".getIndex")
+                    fetch("/ABM/PaletJadiBal/" + kodebarang + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -218,7 +251,7 @@ $(document).ready(function () {
                         .then((data) => {
                             // Handle data yang diterima dari fetch kedua di sini
                             console.log("Data dari fetch kedua:", data);
-                            var kodebarcode = kodebarang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                            var kodebarcode = Kode_Barang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
                             console.log(kodebarcode);
                             // Show an alert for each 'kodebarang'
                             alert('Kode Barang: ' + kodebarcode);
@@ -460,7 +493,7 @@ function setShiftValue() {
     document.getElementById("Jenis").value = "Barang Baru";
     document.getElementById("Satuan").value = "BALL";
     document.getElementById("Primer").value = "1";
-    document.getElementById("JumlahBarcode").value = "0";
+    // document.getElementById("JumlahBarcode").value = "0";
 
     // Enable the "Divisi" button
     enableDivisiButton();
@@ -506,7 +539,7 @@ function prosesACCBarcode(data) {
     console.log(formData);
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "BuatBarcode/dua");
+    form.setAttribute("action", "PaletJadiBal/dua");
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form
@@ -575,7 +608,7 @@ function PrintUlangData(data) {
 
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "BuatBarcode/{noindeks}"); // Replace with the correct action URL
+    form.setAttribute("action", "PaletJadiBal/{noindeks}"); // Replace with the correct action URL
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form

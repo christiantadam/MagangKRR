@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Schedule')</title>
     {{-- <script>
         // Mendapatkan nilai parameter 'status' dari URL
         var status = new URLSearchParams(window.location.search).get('status');

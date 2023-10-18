@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Permohonan Penerima Barang')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/PermohonanPenerimaBarang.js') }}"></script>
 
     <body onload="Greeting()">
