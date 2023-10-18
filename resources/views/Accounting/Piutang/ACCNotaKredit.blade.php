@@ -6,14 +6,23 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">ACC Nota Kredit</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
+                            <form method="POST" action="{{ url('ACCNotaKredit') }}" id="formkoreksi">
+                                {{ csrf_field() }}
                                 <!-- Form fields go here -->
                                 <div style="overflow-y: auto; max-height: 400px;">
-                                    <table style="width: 140%; table-layout: fixed;">
+                                    <table style="width: 220%; table-layout: fixed;" id="tabelatas">
                                         <colgroup>
+                                            <col style="width: 20%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 20%;">
                                             <col style="width: 20%;">
                                             <col style="width: 20%;">
                                             <col style="width: 20%;">
@@ -28,40 +37,42 @@
                                                 <th>Tanggal</th>
                                                 <th>Customer</th>
                                                 <th>Nota Kredit</th>
-                                                <th>Nilai Tagihan</th>
+                                                <th>No. Penagihan</th>
                                                 <th>Nilai Retur</th>
-                                                <th>...</th>
+                                                <th>Mata Uang</th>
+                                                <th>Id Customer</th>
+                                                <th>Id Mata Uang</th>
+                                                <th>Nilai Kurs</th>
+                                                <th>Status Pelunasan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
-                                                <td>Data 3</td>
-                                                <td>Data 4</td>
-                                                <td>Data 5</td>
-                                                <td>Data 6</td>
-                                                <td>Data 7</td>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+                                <input type="text" id="idNotaKredit" name="idNotaKredit" class="form-control" style="width: 100%">
+                                <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                <input type="text" id="kredit" name="kredit" class="form-control" style="width: 100%">
+                                <input type="text" id="kurs" name="kurs" class="form-control" style="width: 100%">
+                                <input type="text" id="statusP" name="statusP" class="form-control" style="width: 100%">
+
                                 <br>
                                 <div>
                                     <div class="row">
                                     <div class="col-8"></div>
                                         <div class="col-1">
-                                            <input type="submit" id="btnProses" name="proses" value="Proses" class="btn btn-primary d-flex ml-auto" >
+                                            <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-success d-flex ml-auto" >
                                         </div>
                                         <div class="col-1">
-                                            <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <br>
                                 <div style="overflow-y: auto; max-height: 400px;">
-                                    <table style="width: 100%; table-layout: fixed;">
+                                    <table style="width: 100%; table-layout: fixed;" id="tabelbawah">
                                         <colgroup>
                                             <col style="width: 20%;">
                                             <col style="width: 10%;">
@@ -81,13 +92,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2</td>
-                                                <td>3</td>
-                                                <td>4</td>
-                                                <td>5</td>
-                                                <td>6</td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -98,4 +102,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Piutang/ACCNotaKredit.js') }}"></script>
 @endsection

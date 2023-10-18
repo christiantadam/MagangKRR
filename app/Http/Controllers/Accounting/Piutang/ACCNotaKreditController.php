@@ -4,13 +4,32 @@ namespace App\Http\Controllers\Accounting\Piutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ACCNotaKreditController extends Controller
 {
-    public function ACCNotaKredit()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Piutang.ACCNotaKredit', compact('data'));
+    }
+
+    public function getTabelHeaderACCNotaKredit()
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_NOTA_KREDIT] @Kode = ?', [3]);
+        return response()->json($tabel);
+    }
+
+    public function getDetailHeaderACCNotaKredit($idNotaKredit)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_NOTA_KREDIT] @Kode = ?, @ID_NotaKredit = ?', [4, $idNotaKredit]);
+        return response()->json($tabel);
+    }
+
+    public function getDetailHeaderACCNotaKredit2($idNotaKredit)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_NOTA_KREDIT] @Kode = ?, @ID_NotaKredit = ?', [10, $idNotaKredit]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -22,7 +41,29 @@ class ACCNotaKreditController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $idNotaKredit = $request->idNotaKredit;
+        $idCustomer = $request->idCustomer;
+        $idMataUang = $request->idMataUang;
+        $kredit = $request->kredit;
+        $kurs = $request->kurs;
+        $statusP = $request->statusP;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_ACC_NOTA_KREDIT]
+        @UserAcc = ?,
+        @Id_NotaKredit = ?,
+        @IdCust = ?,
+        @IdMtUang = ?,
+        @kredit = ?,
+        @kurs = ?,
+        @status = ?', [
+            1,
+            $idNotaKredit,
+            $idCustomer,
+            $idMataUang,
+            $kredit,
+            $kurs,
+            $statusP
+        ]);
     }
 
     //Display the specified resource.

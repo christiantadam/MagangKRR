@@ -143,7 +143,7 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Mata Uang", data: "Nama_MataUang" },
                         { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
                         { title: "No. Bukti", data: "No_Bukti" },
-                        { title: "Tgl Pembuatan", data: "Tgl_Pembuatan" },
+                        { title: "Tgl Pembuatan", defaultContent: "" },
                         { title: "IdCust", data: "ID_Cust" },
                         { title: "Jenis Bayar", data: "Id_Jenis_Bayar" },
                     ],
@@ -626,16 +626,16 @@ btnCETAK.addEventListener('click', function (event) {
     event.preventDefault();
     console.log(idBKMInput.value);
 
-    fetch("/getCetakBKMJumlahPelunasan/" + idBKMInput.value)
-        .then((response) => response.json())
-        .then((options) => {
-            console.log(options);
-        })
+    // fetch("/getCetakBKMJumlahPelunasan/" + idBKMInput.value)
+    //     .then((response) => response.json())
+    //     .then((options) => {
+    //         console.log(options);
+    //     })
 
     fetch("/getCetakBKMNoPenagihan/" + idBKMInput.value)
         .then((response) => response.json())
         .then((options) => {
-            //console.log(options);
+            console.log(options);
 
             nomer.textContent = options[0].Id_BKM;
             const tglInput = options[0].Tgl_Input;

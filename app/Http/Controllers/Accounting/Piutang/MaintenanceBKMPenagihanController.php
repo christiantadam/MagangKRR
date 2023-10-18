@@ -190,7 +190,16 @@ class MaintenanceBKMPenagihanController extends Controller
     public function getCetakBKMNoPenagihan($idBKMInput)
     {
         //dd($idBKM);
-        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_NOTAGIH_1')
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_TAGIH')
+        ->where('Id_BKM', $idBKMInput)
+        ->get();
+        return $data;
+    }
+
+    public function getCetakBKMJumlahPelunasan($idBKMInput)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_JML_PELUNASAN_TAGIH')
         ->where('Id_BKM', $idBKMInput)
         ->get();
         return $data;
