@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'ACC Direktur Proyek')
   <link href="{{ asset('css/Workshop/Transaksi/ACCDirekturGambar.css') }}" rel="stylesheet">
   @if (Session::has('success'))
     <div class="alert alert-success">

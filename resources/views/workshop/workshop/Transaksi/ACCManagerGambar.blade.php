@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'ACC Manager Gambar')
   <link href="{{ asset('css/Workshop/Transaksi/ACCManagerGambar.css') }}" rel="stylesheet">
   @if (Session::has('success'))
     <div class="alert alert-success">

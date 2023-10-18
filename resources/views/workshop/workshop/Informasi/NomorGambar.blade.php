@@ -1,6 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
-
+@section('title', 'Nomor Gambar')
 <div class="card-header">
     Informasi Nomor Gambar
 </div>

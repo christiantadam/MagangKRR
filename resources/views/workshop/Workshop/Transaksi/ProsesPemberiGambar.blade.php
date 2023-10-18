@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'Proses Pemberi Gambar')
   <style>
     @media print {
       .card {

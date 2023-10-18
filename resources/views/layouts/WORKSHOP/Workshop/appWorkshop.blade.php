@@ -8,7 +8,8 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="{{ asset('/images/KRR.png') }}" type="image/gif" sizes="16x16">
-  <title style="font-size: 20px">{{ config('app.name', 'Laravel') }}</title>
+  {{-- <title style="font-size: 20px">{{ config('app.name', 'Laravel') }}</title> --}}
+  <title>@yield('title', 'Workshop')</title>
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -38,10 +39,11 @@
   <link href="{{ asset('css/appWorkshop.css') }}" rel="stylesheet">
   <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/buttons.dataTables.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/Rdz.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/RdzAndre.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
 <body onload="Greeting()">
@@ -229,7 +231,7 @@
         </div>
       </div>
     </nav>
-
+    {{-- @section('title', 'Laravel') --}}
     <main class="py-4">
       <div class="container-fluid">
         <div class="row justify-content-center">

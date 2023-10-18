@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'Order Gambar')
   <div class="card-header">
     Informasi Order Gambar
   </div>

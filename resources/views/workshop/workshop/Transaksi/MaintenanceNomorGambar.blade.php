@@ -1,5 +1,7 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'Maintenance Nomor Gambar')
+
   @if (Session::has('success'))
     <div class="alert alert-success">
       {{ Session::get('success') }}

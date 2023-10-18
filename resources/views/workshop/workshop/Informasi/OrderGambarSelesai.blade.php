@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
+@section('title', 'Order Gambar Selesai')
 <link href="{{ asset('css/Workshop/Informasi/OrderGambarSelesai.css') }}" rel="stylesheet">
 
   <div class="card-header">
