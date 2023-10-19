@@ -35,7 +35,7 @@
                                         <div class="col- row justify-content-md-center">
                                             <div class="text-center col-md-auto">
                                                 <button type="button" style="width: 100px" id="ButtonPrint"
-                                                    onclick="printDiv()">Print</button>
+                                                    >Print</button>
                                             </div>
                                             <div class="text-center col-md-auto">
                                                 <button type="button" style="width: 100px">Keluar</button>
