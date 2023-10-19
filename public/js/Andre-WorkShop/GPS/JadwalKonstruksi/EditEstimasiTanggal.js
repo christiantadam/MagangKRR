@@ -3,6 +3,14 @@ let btnok = document.getElementById("btnok");
 let table_data = $("#tableEditEstimasiTanggal").DataTable();
 let WorkStation = document.getElementById("WorkStation");
 let btnbatal = document.getElementById("batal");
+let refresh = document.getElementById("refresh");
+let keterangan;
+let MaterialNotReady = document.getElementById("MaterialNotReady");
+let MesinRusak = document.getElementById("MesinRusak");
+let SpekMesinTerbatas = document.getElementById("SpekMesinTerbatas");
+let Instruksi = document.getElementById("Instruksi");
+let Lain = document.getElementById("Lain");
+let alasanLain = document.getElementById("alasanLain");
 //#region set tanggal
 
 const currentDate = new Date();
@@ -47,6 +55,7 @@ function cleartext() {
 
 function LoadData() {
     // let idk = 0;
+    table_data.clear().draw();
     fetch("/NOFINISHEditEstimasiJadwal/" + WorkStation.value + "/" + tgl.value)
         .then((response) => response.json())
         .then((datas) => {
@@ -84,7 +93,7 @@ function LoadData() {
                                             title: "Nomor",
                                             data: "NoAntrian",
                                             render: function (data) {
-                                                return `<input type="checkbox" name="EditJadwalPerWorkstationCheck" value="${data}" /> ${data}`;
+                                                return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;
                                             },
                                         },
                                         {
@@ -143,9 +152,64 @@ btnok.addEventListener("click", function () {
 
 //#endregion
 
-//#region hitung jam
+//#region refresh
 
+refresh.addEventListener("click", function () {
+    // cleartext();
+    LoadData();
+});
 
+//#endregion
 
+//#region Proses Onclick
+
+function prosesklik() {
+    var indexarray = [];
+    let pilihAlasan = 1;
+    let jml = 0;
+
+    $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
+        // Ambil nilai 'value' dan status 'checked' dari checkbox
+        let value = $(this).val();
+        // let isChecked = $(this).prop("checked");
+        // let closestTd = $(this).closest("tr");
+        let rowindex = $(this).closest("tr").index();
+        jml += 1;
+        indexarray.push(rowindex);
+    });
+
+    if (jml == 0) {
+        alert("Pilih data yg akan di edit estimasi tanggalnya.");
+        return;
+    } else {
+        $("#modalalasan").modal("show");
+    }
+}
+
+//#endregion
+
+//#region oke modal on click
+
+function okemodal() {
+    if (pilihAlasan == 0) {
+
+    }
+    if (MaterialNotReady.checked) {
+        keterangan = MaterialNotReady.value;
+    }
+    else if(MesinRusak.checked){
+        keterangan = MesinRusak.value;
+    }
+    else if (SpekMesinTerbatas.checked) {
+        keterangan = SpekMesinTerbatas.value;
+    }
+    else if (Instruksi.checked) {
+        keterangan = Instruksi.value;
+    }
+    else if (Lain.checked) {
+        alert("Masukkan alasannya...");
+        alasanLain.focus()
+    }
+}
 
 //#endregion
