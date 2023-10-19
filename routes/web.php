@@ -346,11 +346,19 @@ Route::get('SelisihTimbang', 'App\Http\Controllers\Accounting\Piutang\Maintenanc
 
 #region ACC Nota Kredit
 Route::resource('ACCNotaKredit', App\Http\Controllers\Accounting\Piutang\ACCNotaKreditController::class);
+#endregion
+
 Route::get('getTabelHeaderACCNotaKredit', 'App\Http\Controllers\Accounting\Piutang\ACCNotaKreditController@getTabelHeaderACCNotaKredit');
 Route::get('getDetailHeaderACCNotaKredit/{idNotaKredit}', 'App\Http\Controllers\Accounting\Piutang\ACCNotaKreditController@getDetailHeaderACCNotaKredit');
 Route::get('getDetailHeaderACCNotaKredit2/{idNotaKredit}', 'App\Http\Controllers\Accounting\Piutang\ACCNotaKreditController@getDetailHeaderACCNotaKredit2');
 
-Route::get('Pengajuan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKKNotaKredit\PengajuanController@Pengajuan');
+#region Pengajuan
+Route::resource('Pengajuan', App\Http\Controllers\Accounting\Piutang\MaintenanceBKKNotaKredit\PengajuanController::class);
+Route::get('loadDataNotaK', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKKNotaKredit\PengajuanController@loadDataNotaK');
+Route::get('getJenisBayarPenagajuan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKKNotaKredit\PengajuanController@getJenisBayarPenagajuan');
+// Route::get('getBankPengajuan', 'App\Http\Controllers\Accounting\Piutang\MaintenanceBKKNotaKredit\PengajuanController@getBankPengajuan');
+#endregion
+
 Route::get('BKK', 'App\Http\Controllers\Accounting\TransBank\BKKController@BKK');
 Route::get('BKM', 'App\Http\Controllers\Accounting\TransBank\BKMController@BKM');
 
