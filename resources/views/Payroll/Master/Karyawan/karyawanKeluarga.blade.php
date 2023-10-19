@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Maintenance Keluarga Karyawan')</title>
     <script>
         $("#tabel_Divisi").DataTable({
             order: [

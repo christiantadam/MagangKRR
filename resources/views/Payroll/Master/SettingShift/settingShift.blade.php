@@ -1,11 +1,12 @@
 @extends('layouts.appPayroll')
 @section('content')
+    <title style="font-size: 20px">@yield('title', 'FrmSettingShift')</title>
     <script type="text/javascript" src="{{ asset('js/Master/settingShift.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">PEKERJA</div>
+                    <div class="card-header">FrmSettingShift</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="row" style="">
                             <div class="form-group col-md-1 d-flex justify-content-end">

@@ -75,13 +75,12 @@ $(document).ready(function () {
             .catch((error) => {
                 console.error("Error:", error);
             });
-        document.getElementById("printSection").hidden = false;
-            // var idDivValue = rowData[0];
-            // submitFormWithIdDiv(idDivValue);
-            // Hide the modal immediately after populating the data
-            hideModalPegawai();
+        // document.getElementById("printSection").hidden = false;
+        // var idDivValue = rowData[0];
+        // submitFormWithIdDiv(idDivValue);
+        // Hide the modal immediately after populating the data
+        hideModalPegawai();
     });
-
 });
 
 function showModalDivisi() {
