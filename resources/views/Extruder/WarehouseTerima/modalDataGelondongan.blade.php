@@ -34,8 +34,6 @@
                             <th>Type</th>
                             <th>Kode Barang</th>
                             <th>No. Indeks</th>
-                            <th>Bagian</th>
-                            <th>Mesin</th>
                             <th>Primer</th>
                             <th>Sekunder</th>
                             <th>Tritier</th>
@@ -55,4 +53,4 @@
     </div>
 </div>
 
-<script src="{{ asset('js\Extruder\WarehouseTerima\scanGelondongan.js') }}"></script>
+<script src="{{ asset('js\Extruder\WarehouseTerima\dataGelondongan.js') }}"></script>

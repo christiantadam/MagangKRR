@@ -509,3 +509,9 @@ function dateTimeToDate(dateTimeStr) {
 function dateTimetoTime(dateTimeStr) {
     return dateTimeStr.split(" ")[1].substr(0, 8);
 }
+
+function formCursor(cursor_str) {
+    document.querySelectorAll("*").forEach((ele) => {
+        ele.style.cursor = cursor_str;
+    });
+}

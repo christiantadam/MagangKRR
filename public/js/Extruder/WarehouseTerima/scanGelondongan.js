@@ -122,19 +122,13 @@ btnProses.addEventListener("click", function () {
 });
 
 btnLihat.addEventListener("click", function () {
-    $("#form_data_gelondongan").modal("show");
-    // if (slcDivisi.selectedIndex == 0) {
-    //     alert("Pilih Dulu Divisinya");
-    //     slcDivisi.focus();
-    // } else {
-    //     // Memanggil form lihat data
-    //     // Dim LihatData As New frmLihatDataGld
-
-    // }
-});
-
-btnKeluar.addEventListener("click", function () {
-    window.location.href = "/Extruder/WarehouseTerima";
+    if (slcDivisi.selectedIndex == 0) {
+        alert("Pilih Dulu Divisinya");
+        slcDivisi.focus();
+    } else {
+        hidDivisi.value = slcDivisi.value;
+        $("#form_data_gelondongan").modal("show");
+    }
 });
 
 hidGetFetch.addEventListener("change", function () {
@@ -363,6 +357,15 @@ function init() {
             searchPlaceholder: " Tabel rekap...",
             search: "",
         },
+
+        initComplete: () => {
+            var searchInput = $('input[type="search"]:last').addClass(
+                "form-control"
+            );
+
+            searchInput.wrap('<div class="input-group"></div>');
+            searchInput.before('<span class="input-group-text">Cari:</span>');
+        },
     });
 
     $("#table_kirim").DataTable({
@@ -378,7 +381,7 @@ function init() {
         },
 
         initComplete: () => {
-            var searchInput = $('input[type="search"]').addClass(
+            var searchInput = $('input[type="search"]:last').addClass(
                 "form-control"
             );
 
@@ -386,23 +389,6 @@ function init() {
             searchInput.before('<span class="input-group-text">Cari:</span>');
         },
     });
-
-    // addTable_DataTable(
-    //     "table_rekap",
-    //     [
-    //         {
-    //             qwe: "qwe",
-    //             wer: "wer",
-    //             ert: "ert",
-    //             qwe1: "qwe",
-    //             wer1: "wer",
-    //             ert1: "ert",
-    //             qwe2: "qwe",
-    //             wer2: "wer",
-    //         },
-    //     ],
-    //     colRekap
-    // );
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
@@ -421,3 +407,7 @@ function init() {
 }
 
 $(document).ready(() => init());
+
+btnKeluar.addEventListener("click", function () {
+    window.location.href = "/Extruder/WarehouseTerima";
+});

@@ -229,6 +229,11 @@ class WarehouseController extends Controller
                 $param_str = '@kodebarang = ?, @noindeks = ?';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
 
+            case 'SP_1273_INV_ListKirimBahanBaku':
+                $param_str = '@Kode = ?, @Divisi = ?';
+                if ($param_data[0] == '12') $param_str .= ', @Tanggal = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             default:
                 dd("SP tidak ditemukan.");
                 break;

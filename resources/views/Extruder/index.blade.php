@@ -1,4 +1,9 @@
 @extends('layouts.appExtruder')
+
+@section('title')
+    Divisi Extruder
+@endsection
+
 @section('content')
     <div class="row gy-4">
 
