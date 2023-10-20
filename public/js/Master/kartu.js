@@ -12,6 +12,8 @@ $(document).ready(function () {
         // Populate the input fields with the data
         $("#Id_Div").val(rowData[0]);
         $("#Nama_Div").val(rowData[1]);
+        $("#Id_Pegawai").val("");
+        $("#Nama_Pegawai").val("");
         fetch("/ProgramPayroll/MasterKartu/" + rowData[0] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
