@@ -1,5 +1,6 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
+  <link href="{{ aset('css/GPS/Color.css') }}" rel="stylesheet">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
@@ -95,28 +96,28 @@
               <h5>Pilih salah satu alasan di bawah ini :</h5>
             </div>
             {{-- <div class="row"> --}}
-              <input type="radio" id="MaterialNotReady" name="alasan" value="MaterialNotReady">
-              <label for="MaterialNotReady">Material not ready</label><br>
-              <input type="radio" id="MesinRusak" name="alasan" value="MesinRusak">
-              <label for="MesinRusak">Mesin rusak</label><br>
-              <input type="radio" id="SpekMesinTerbatas" name="alasan" value="SpekMesinTerbatas">
-              <label for="SpekMesinTerbatas">Spek Mesin Terbatas</label><br>
-              <input type="radio" id="Instruksi" name="alasan" value="Instruksi">
-              <label for="Instruksi">Instruksi</label><br>
-              <div class="row">
-                <div class="col-3">
-                    <input type="radio" id="Lain" name="alasan" value="Lain">
-                    <label for="Lain">Lain - lain</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" name="alasanLain" id="alasanLain">
-                </div>
+            <input type="radio" id="MaterialNotReady" name="alasan" value="MaterialNotReady">
+            <label for="MaterialNotReady">Material not ready</label><br>
+            <input type="radio" id="MesinRusak" name="alasan" value="MesinRusak">
+            <label for="MesinRusak">Mesin rusak</label><br>
+            <input type="radio" id="SpekMesinTerbatas" name="alasan" value="SpekMesinTerbatas">
+            <label for="SpekMesinTerbatas">Spek Mesin Terbatas</label><br>
+            <input type="radio" id="Instruksi" name="alasan" value="Instruksi">
+            <label for="Instruksi">Instruksi</label><br>
+            <div class="row">
+              <div class="col-3">
+                <input type="radio" id="Lain" name="alasan" value="Lain">
+                <label for="Lain">Lain - lain</label>
               </div>
+              <div class="col-6">
+                <input type="text" class="form-control" name="alasanLain" id="alasanLain">
+              </div>
+            </div>
             {{-- </div> --}}
           </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="btnokmodal">OK</button>
+          <button type="button" class="btn btn-primary" id="btnokmodal">OK</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
         </div>
       </div>

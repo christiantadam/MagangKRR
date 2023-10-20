@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('/images/KRR.png') }}" type="image/gif" sizes="16x16">
-    <title style="font-size: 20px">{{ config('app.name', 'Payroll') }}</title>
+    {{-- <title style="font-size: 20px">{{ config('app.name', 'Payroll') }}</title> --}}
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

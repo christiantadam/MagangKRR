@@ -351,15 +351,23 @@ slcKelompok.addEventListener("change", function () {
         // Pengecekkan mesin pada DB Inventory dan Extruder
         // SP_5298_EXT_CEK_KELOMPOK_MESIN
         fetchSelect("/Master/getCekKelompokMesin/" + this.value, (data) => {
-            if (data.length < 1 || slcMesin.value != data[0].IdMesin) {
+            let found = false;
+            for (let i = 0; i < data.length; i++) {
+                if (slcMesin.value != data[i].IdMesin) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (data.length < 1 || found) {
+                if (found) {
+                    alert("Mesin tidak sama.");
+                } else alert("Mesin tidak ditemukan");
+
                 slcSubkel.disabled = true;
                 refetchSubkel = false;
                 this.selectedIndex = 0;
                 this.focus();
-
-                if (data.length < 1) {
-                    alert("Mesin tidak ditemukan");
-                } else alert("Mesin tidak sama.");
             }
         });
     }

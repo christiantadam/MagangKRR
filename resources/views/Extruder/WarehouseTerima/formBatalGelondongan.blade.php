@@ -16,9 +16,9 @@
                 <div class="col-lg-8">
                     <select id="select_divisi" class="form-select">
                         <option selected>-- Pilih Divisi --</option>
-                        {{-- @foreach ($formData['listDivisi'] as $d)
+                        @foreach ($formData['listDivisi'] as $d)
                             <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
                 </div>
 
@@ -31,7 +31,6 @@
                 <table id="table_barcode" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
                             <th>Type</th>
                             <th>No. Barcode</th>
                             <th>Sub-kelompok</th>

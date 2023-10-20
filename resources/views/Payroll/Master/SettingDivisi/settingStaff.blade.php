@@ -1,12 +1,13 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Setting Divisi Staff')</title>
 <script type="text/javascript" src="{{ asset('js/Master/settingStaff.js') }}"></script>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">PEKERJA</div>
+                    <div class="card-header">Setting Divisi Staff</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="permohonan-s-p-container18" id="div_detailSuratPesanan">
                             <div class="permohonan-s-p-container20">

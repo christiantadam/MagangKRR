@@ -1,11 +1,12 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Setting Divisi Harian')</title>
     <script type="text/javascript" src="{{ asset('js/Master/settingHarian.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">PEKERJA</div>
+                    <div class="card-header">Setting Divisi Harian</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
 
 

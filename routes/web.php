@@ -768,6 +768,7 @@ Route::resource('OrderProyek', App\Http\Controllers\WORKSHOP\Workshop\Informasi\
 Route::get('GetAllDataPengorderProyek/{tgl_awal}/{tgl_akhir}/{div}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\OrderProyek@GetAllDataPengorder');
 Route::get('GetAllDataPenerimaProyek/{tgl_awal}/{tgl_akhir}', 'App\Http\Controllers\WORKSHOP\Workshop\Informasi\OrderProyek@GetAllDataPenerima');
 
+/* EXTRUDER */
 Route::get('/Extruder/{pageName?}', [ExtruderController::class, 'index']);
 Route::get('/Extruder/WarehouseTerima/{formName?}', [WarehouseController::class, 'index']);
 Route::get('/Extruder/{pageName?}/{formName?}', [ExtruderController::class, 'index']);
@@ -975,6 +976,7 @@ Route::get('/Catat/insPerawatan/{tanggal}/{shift}/{waktu}/{id_perawatan}/{id_mes
 Route::get('/Catat/updPerawatan/{shift}/{waktu}/{id_perawatan}/{id_mesin}/{no_winder}/{gangguan}/{sebab}/{solusi}/{mulai}/{selesai}/{kode}/{id_gangguan?}', [PencatatanController::class, 'updPerawatan']);
 Route::get('/Catat/delPerawatan/{kode}', [PencatatanController::class, 'delPerawatan']);
 #endregion
+
 //route adstar AdStar/
 Route::resource('AdStar', App\Http\Controllers\AdStarController\AdStar::class);
 Route::resource('AdStarAdStarHome', App\Http\Controllers\AdStarController\AdStarHome::class);
@@ -1008,7 +1010,7 @@ Route::resource('AdStarPilihJenisRepress', App\Http\Controllers\FormRepressContr
 Route::resource('AdStarKonversi', App\Http\Controllers\FormRepressController\KonversiController::class);
 Route::resource('AdStarPrintUlang', App\Http\Controllers\FormRepressController\PrintUlangController::class);
 Route::get('/ABM', function () {
-    return view ('ABM');
+    return view('ABM');
 });
 
 // Barcode Kerta 2
