@@ -11,6 +11,22 @@ let SpekMesinTerbatas = document.getElementById("SpekMesinTerbatas");
 let Instruksi = document.getElementById("Instruksi");
 let Lain = document.getElementById("Lain");
 let alasanLain = document.getElementById("alasanLain");
+var estJam = [];
+var estMenit = [];
+//#region set color
+
+table_data.on("draw", function () {
+    table_data.rows().every(function () {
+        let data = this.data();
+        if (data.Status == 1) {
+            $(this.node()).removeClass();
+            $(this.node()).addClass("red-color");
+        }
+    });
+});
+
+//#endregion
+
 //#region set tanggal
 
 const currentDate = new Date();
@@ -75,56 +91,69 @@ function LoadData() {
                             .then((response) => response.json())
                             .then((datasTable) => {
                                 console.log(datasTable);
-                                datasTable.forEach((data) => {
-                                    const tglOrder = data.EstDate;
+                                if (datasTable.length > 0) {
+                                    datasTable.forEach((data) => {
+                                        const tglOrder = data.EstDate;
 
-                                    const [tanggal, waktu] =
-                                        tglOrder.split(" ");
+                                        const [tanggal, waktu] =
+                                            tglOrder.split(" ");
 
-                                    data.EstDate = tanggal;
-                                });
-                                table_data = $(
-                                    "#tableEditEstimasiTanggal"
-                                ).DataTable({
-                                    destroy: true, // Destroy any existing DataTable before reinitializing
-                                    data: datasTable,
-                                    columns: [
-                                        {
-                                            title: "Nomor",
-                                            data: "NoAntrian",
-                                            render: function (data) {
-                                                return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;
+                                        data.EstDate = tanggal;
+                                        estJam.push(data.EstTimeHour);
+                                        estMenit.push(data.EstTimeMinute);
+                                    });
+                                    table_data = $(
+                                        "#tableEditEstimasiTanggal"
+                                    ).DataTable({
+                                        destroy: true, // Destroy any existing DataTable before reinitializing
+                                        data: datasTable,
+                                        columns: [
+                                            {
+                                                title: "Nomor",
+                                                data: "NoAntrian",
+                                                render: function (data) {
+                                                    return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;
+                                                },
                                             },
-                                        },
-                                        {
-                                            title: "No Order",
-                                            data: "NoOrder",
-                                        },
-                                        // { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
-                                        {
-                                            title: "Tanggal Start",
-                                            data: "EstDate",
-                                        }, // Sesuaikan 'age' dengan properti kolom di data
-                                        { title: "Divisi", data: "NamaDivisi" }, // Sesuaikan 'country' dengan properti kolom di data
-                                        {
-                                            title: "Nama Barang",
-                                            data: "Nama_Brg",
-                                        },
-                                        {
-                                            title: "Nama Bagian",
-                                            data: "NamaBagian",
-                                        },
-                                        {
-                                            title: "Est. Time",
-                                            data: function (row) {
-                                                return `${row.EstTimeHour} jam ${row.EstTimeMinute} menit`;
+                                            {
+                                                title: "No Order",
+                                                data: "NoOrder",
                                             },
-                                        },
-                                        { title: "Hari ke-", data: "HariKe" },
-                                        { title: "IdBagian", data: "IdBagian" },
-                                    ],
-                                });
-                                table_data.draw();
+                                            // { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
+                                            {
+                                                title: "Tanggal Start",
+                                                data: "EstDate",
+                                            }, // Sesuaikan 'age' dengan properti kolom di data
+                                            {
+                                                title: "Divisi",
+                                                data: "NamaDivisi",
+                                            }, // Sesuaikan 'country' dengan properti kolom di data
+                                            {
+                                                title: "Nama Barang",
+                                                data: "Nama_Brg",
+                                            },
+                                            {
+                                                title: "Nama Bagian",
+                                                data: "NamaBagian",
+                                            },
+                                            {
+                                                title: "Est. Time",
+                                                data: function (row) {
+                                                    return `${row.EstTimeHour} jam ${row.EstTimeMinute} menit`;
+                                                },
+                                            },
+                                            {
+                                                title: "Hari ke-",
+                                                data: "HariKe",
+                                            },
+                                            {
+                                                title: "IdBagian",
+                                                data: "IdBagian",
+                                            },
+                                        ],
+                                    });
+                                    table_data.draw();
+                                }
                             });
                     });
                     // no_Antri[idk] = datas[0].NoAntrian;
@@ -164,9 +193,14 @@ refresh.addEventListener("click", function () {
 //#region Proses Onclick
 
 function prosesklik() {
-    var indexarray = [];
+    var indeks = [];
     let pilihAlasan = 1;
     let jml = 0;
+    var move_idBagian = [];
+    var move_noAntri = [];
+    var move_estJam = [];
+    var move_estMenit = [];
+    let idk = 0;
 
     $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
         // Ambil nilai 'value' dan status 'checked' dari checkbox
@@ -175,7 +209,7 @@ function prosesklik() {
         // let closestTd = $(this).closest("tr");
         let rowindex = $(this).closest("tr").index();
         jml += 1;
-        indexarray.push(rowindex);
+        indeks.push(rowindex);
     });
 
     if (jml == 0) {
@@ -183,6 +217,15 @@ function prosesklik() {
         return;
     } else {
         $("#modalalasan").modal("show");
+        $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
+            let rowindex = $(this).closest("tr").index();
+            move_noAntri.push(table_data.cell(indexarray[i], 0).data());
+            move_idBagian.push(table_data.cell(indexarray[i], 8).data());
+            move_estJam.push(estJam[idk]);
+            move_estMenit.push(estMenit[idk]);
+            idk = idk + 1;
+        });
+        var newTgl = prompt("Inputkan estimasi tanggal yg baru", "PESAN");
     }
 }
 
@@ -192,23 +235,18 @@ function prosesklik() {
 
 function okemodal() {
     if (pilihAlasan == 0) {
-
     }
     if (MaterialNotReady.checked) {
         keterangan = MaterialNotReady.value;
-    }
-    else if(MesinRusak.checked){
+    } else if (MesinRusak.checked) {
         keterangan = MesinRusak.value;
-    }
-    else if (SpekMesinTerbatas.checked) {
+    } else if (SpekMesinTerbatas.checked) {
         keterangan = SpekMesinTerbatas.value;
-    }
-    else if (Instruksi.checked) {
+    } else if (Instruksi.checked) {
         keterangan = Instruksi.value;
-    }
-    else if (Lain.checked) {
+    } else if (Lain.checked) {
         alert("Masukkan alasannya...");
-        alasanLain.focus()
+        alasanLain.focus();
     }
 }
 
