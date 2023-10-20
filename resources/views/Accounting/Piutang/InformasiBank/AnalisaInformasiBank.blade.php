@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
 
-                                <input type="text" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
+                                <input type="hidden" id="statusPenagihan" name="statusPenagihan" class="form-control" style="width: 100%">
 
                                 <br>
                                 <div class="d-flex">

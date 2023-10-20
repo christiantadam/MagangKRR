@@ -78,7 +78,7 @@
                                         <input type="text" id="noFaktur" name="noFaktur" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="text" id="no_Faktur" name="no_Faktur" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="no_Faktur" name="no_Faktur" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -123,7 +123,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br><div class="mb-3">

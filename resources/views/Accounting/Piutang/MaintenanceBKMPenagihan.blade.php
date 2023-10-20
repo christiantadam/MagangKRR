@@ -1,6 +1,24 @@
 @extends('layouts.appAccounting')
 @section('content')
-    <div class="container-fluid">
+
+<style>
+    @media print{
+        .card {
+            display: none;
+        }
+        .print {
+            visibility: visible !important ;
+        }
+        .modal {
+            display: none !important;
+        }
+        .fade {
+            opacity: 0 !important;
+        }
+    }
+</style>
+
+    <div class="container-fluid inti">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
@@ -39,12 +57,12 @@
                                             class="btn btn-outline-dark">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idBKMNew" name="idBKMNew" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input type="text" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tglInputNew" name="tglInputNew" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br>
@@ -82,12 +100,12 @@
 
                                             </tbody>
                                         </table>
-                                        <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
-                                        <input type="text" id="total" name="total" class="form-control" style="width: 100%">
-                                        <input type="text" id="uang" name="uang" class="form-control" style="width: 100%">
-                                        <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
-                                        <input type="text" id="sisa" name="sisa" class="form-control" style="width: 100%">
-                                        <input type="text" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="total" name="total" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="uang" name="uang" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="sisa" name="sisa" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
@@ -645,9 +663,9 @@
             </div>
         </div>
     </div>
-
-
-    <div class="container">
+    {{--  --}}
+<div class="print" style="visibility: hidden;">
+    <div class="container" >
         <div class="row">
             <div class="col-5" style="padding-right: 25px;">
                 <div class="row" style="border: solid 1px; justify-content: center; border-bottom: 0px">
@@ -707,14 +725,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2" style="padding-right: 25px;">
+            <div class="col-3" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
                         <span style="font-size: 18px;">KODE PERKIRAAN</span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
                         <span style="font-size: 18px;">JUMLAH</span>
@@ -740,14 +758,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-2" style="padding-right: 25px;">
+            <div class="col-3" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 4vh; text-align-last: center;">
                         <span id="kodePerkiraanCetak" style="font-size: 18px;"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 4vh; text-align-last: right;">
                         <span id="jum1" style="font-size: 18px;">jum1</span>
@@ -759,24 +777,24 @@
             <div class="col-7">
                 <div class="row" style="border: solid 1px; border-bottom: 0px; border-right: 0px;">
                     <div class="col-12" style="height: 4vh; text-align-last: left;">
-                        <span id="ket" style="font-size: 18px; ">KET</span><br>
+                        <span id="ket" style="font-size: 18px; "></span><br> <!--KET-->
                     </div>
-                    <div class="col-12" style="height: 4vh; text-align-last: left;">
-                        <span id="ket1" style="font-size: 18px; ">KET1</span><br>
+                    <div class="col-12" style="height: 4vh; text-align-last: left;"><!--KET1-->
+                        <span id="ket1" style="font-size: 18px; "></span><br>
                     </div>
-                    <div class="col-12" style="height: 4vh; text-align-last: left;">
-                        <span id="ket5" style="font-size: 18px;">KET5</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2" style="padding-right: 25px;">
-                <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
-                    <div class="col-12" style="height: 12vh; text-align-last: center;">
-                        <span id="kodePerkiraanCetak" style="font-size: 18px;">KD</span>
+                    <div class="col-12" style="height: 4vh; text-align-last: left;"><!--KET5-->
+                        <span id="ket5" style="font-size: 18px;"></span>
                     </div>
                 </div>
             </div>
             <div class="col-3" style="padding-right: 25px;">
+                <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
+                    <div class="col-12" style="height: 12vh; text-align-last: center;">
+                        <span id="kodePerkiraanCetak" style="font-size: 18px;"></span> <!--KD-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 4vh; text-align-last: right;">
                         <span id="totalK" style="font-size: 18px;">totalK</span>
@@ -791,14 +809,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-9" style="padding-right: 25px;">
+            <div class="col-10" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: right;">
-                        <span style="font-size: 18px; font-weight: bold;">GRAND TOTAL: </span><span id="symbol2" style="display: inline; margin-top: -5px; font-size: 18px; padding-left: 15px"></span>
+                        <span style="font-size: 18px; font-weight: bold; padding-left: 45px">GRAND TOTAL: </span><span id="symbol2" style="font-size: 18px; padding-right: 20px"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: right;">
                         <span id="grandTotal" style="font-size: 18px;"></span>
@@ -832,6 +850,7 @@
             </div>
         </div>
     </div>
+</div>
 
 <script src="{{ asset('js/Piutang/MaintenanceBKMPenagihan.js') }}"></script>
 @endsection

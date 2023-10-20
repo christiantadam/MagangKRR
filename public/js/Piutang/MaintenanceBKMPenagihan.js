@@ -667,7 +667,7 @@ btnCETAK.addEventListener('click', function (event) {
 
 
             if (totalBiaya == 0 && totalKurangLebih == 0) {
-                biaya.textContent = 0;
+                biaya.textContent = null;
             } else if ((options[0].ID_Penagihan != null && totalBiaya != 0) || (options[0].ID_Penagihan != null && totalKurangLebih != 0)) {
                 biaya.textContent = options[0].Nilai_Rincian;
             } else if ((options[0].ID_Penagihan == null && totalBiaya != 0) || (options[0].ID_Penagihan == null && totalKurangLebih != 0)) {

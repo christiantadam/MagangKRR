@@ -24,12 +24,27 @@ let btnProses = document.getElementById('btnProses');
 let btnBatal = document.getElementById('btnBatal');
 let btnTampilBKK = document.getElementById('btnTampilBKK');
 let btnOkTampilBKK = document.getElementById('btnOkTampilBKK');
+let btnCetakBKK = document.getElementById('btnCetakBKK');
 
 let tanggalTampilBKK = document.getElementById('tanggalTampilBKK');
 let tanggalTampilBKK2 = document.getElementById('tanggalTampilBKK2');
 let idBKKTampil = document.getElementById('idBKKTampil');
 let formkoreksi = document.getElementById('formkoreksi');
 let methodkoreksi = document.getElementById('methodkoreksi');
+
+//UNTUK CETAK
+let nomer = document.getElementById('nomer');
+let tglCetak = document.getElementById('tglCetak');
+let symbol = document.getElementById('symbol');
+let nilaiPembulatan = document.getElementById('nilaiPembulatan');
+let terbilangCetak = document.getElementById('terbilangCetak');
+let jenispemb = document.getElementById('jenispemb');
+let jatuhtempo = document.getElementById('jatuhtempo');
+let rincianbayar = document.getElementById('rincianbayar');
+let kodeperkiraan = document.getElementById('kodeperkiraan');
+let nilairincian = document.getElementById('nilairincian');
+let idBKMAcuan = document.getElementById('idBKMAcuan');
+let tanggalBKM = document.getElementById('tanggalBKM');
 
 const tgl = new Date();
 const formattedDate2 = tgl.toISOString().substring(0, 10);
@@ -42,6 +57,12 @@ tanggalTampilBKK.value = formattedDate5;
 const tglTampilBKK2 = new Date();
 const formattedDate6 = tglTampilBKK2.toISOString().substring(0, 10);
 tanggalTampilBKK2.value = formattedDate6;
+
+const tglCtk = new Date();
+const formattedDate3 = tglCtk.toISOString().substring(0, 10);
+console.log(formattedDate3);
+let tgl2 = ubahFormatTanggal(formattedDate3);
+tglCetakForm.textContent = tgl2;
 
 btnBatal.addEventListener('click', function(event) {
     event.preventDefault();
@@ -353,6 +374,41 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                 }
             });
         })
+});;
+
+btnCetakBKK.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log(idBKKTampil.value);
+
+    fetch("/getCetakBKMBKKPembulatan/" + idBKKTampil.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+
+            const tglInput = options[0].Tgl_Input;
+            const [tanggal1, waktu] = tglInput.split(" ");
+            options[0].TglInput = tanggal1;
+            let tgl = ubahFormatTanggal(tanggal1);
+            tglCetak.textContent = tgl;
+
+            nomer.textContent = options[0].Id_BKK;
+            symbol.textContent = options[0].Symbol;
+            nilaiPembulatan.textContent = options[0].Nilai_Pembulatan;
+            terbilangCetak.textContent = options[0].Terjemahan;
+            jenispemb.textContent = options[0].No_BGCek;
+            jatuhtempo.textContent = options[0].Jatuh_Tempo;
+            rincianbayar.textContent = options[0].Rincian_Bayar;
+            kodeperkiraan.textContent = options[0].Kode_Perkiraan;
+            nilairincian.textContent = options[0].Nilai_Rincian;
+            idBKMAcuan.textContent = options[0].Id_BKM_Acuan;
+            symbol2.textContent = options[0].Symbol;
+
+            const tglBKM = options[0].Tgl_Input;
+            const [tanggal2, waktu2] = tglBKM.split(" ");
+            options[0].TglInput = tanggal2;
+            let tglbkm = ubahFormatTanggal(tanggal2);
+            tanggalBKM.textContent = tglbkm;
+        })
 })
 
 function clickOK() {
@@ -375,6 +431,13 @@ function clickOK() {
         tahun.value = "";
         return;
     }
+};
+
+function ubahFormatTanggal(tanggal) {
+    var bulanIndonesia = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    var tanggalTerpisah = tanggal.split("-");
+    var bulan = bulanIndonesia[parseInt(tanggalTerpisah[1]) - 1];
+    return tanggalTerpisah[2] + "/" + bulan + "/" + tanggalTerpisah[0];
 };
 
 const ones = ['', 'Satu ', 'Dua ', 'Tiga ', 'Empat ', 'Lima ', 'Enam ', 'Tujuh ', 'Delapan ', 'Sembilan ' ];

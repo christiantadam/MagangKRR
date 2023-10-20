@@ -81,7 +81,7 @@
                                             </div>
                                         </div>
 
-                                        <input type="text" id="BlnThn" name="BlnThn" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="BlnThn" name="BlnThn" class="form-control" style="width: 100%">
 
                                         <div class="card">
                                             <div class="card-body">
@@ -110,15 +110,15 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <input type="text" name="idDetail" id="idDetail" class="form-control" style="width: 100%">
-                                                <input type="text" name="idBayar" id="idBayar" class="form-control" style="width: 100%">
+                                                <input type="hidden" name="idDetail" id="idDetail" class="form-control" style="width: 100%">
+                                                <input type="hidden" name="idBayar" id="idBayar" class="form-control" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <input type="text" name="idBKM" id="idBKM" class="form-control" style="width: 100%">
-                                <input type="text" name="IdPelunasan" id="IdPelunasan" class="form-control" style="width: 100%">
+                                <input type="hidden" name="idBKM" id="idBKM" class="form-control" style="width: 100%">
+                                <input type="hidden" name="IdPelunasan" id="IdPelunasan" class="form-control" style="width: 100%">
 
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 60%;">

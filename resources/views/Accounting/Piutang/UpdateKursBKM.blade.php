@@ -62,8 +62,8 @@
                                             </tbody>
                                         </table>
 
-                                        <input type="text" id="IdPelunasan" name="IdPelunasan" class="form-control" style="width: 100%">
-                                        <input type="text" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="IdPelunasan" name="IdPelunasan" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idbkm" name="idbkm" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <br><div class="mb-3">

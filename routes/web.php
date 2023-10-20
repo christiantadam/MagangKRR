@@ -166,6 +166,7 @@ Route::get('getJenisBankPembulatan/{idBank}', 'App\Http\Controllers\Accounting\P
 Route::get('getIDBKK/{idBank}/{tanggal}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getIDBKK');
 Route::get('getTabelTampilBKKPembulatan/{tanggalInputTampilBKK}/{tanggalInputTampilBKK2}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getTabelTampilBKKPembulatan');
 Route::post('insertUpdate', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@insertUpdate');
+Route::get('getCetakBKMBKKPembulatan/{idBKKTampil}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKPembulatanController@getCetakBKMBKKPembulatan');
 #endregion
 
 #region BKM DP Pelunasan
@@ -190,6 +191,7 @@ Route::get('getTabelTampilBKKNota/{tanggalTampilBKK}/{tanggalTampilBKK2}', 'App\
 Route::get('getTabelTampilBKMNota/{tanggalTampilBKM}/{tanggalTampilBKM2}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@getTabelTampilBKM');
 Route::get('getIdPelunasanNota', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@getIdPelunasan');
 Route::get('getIdPembayaranNota', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@getIdPembayaran');
+Route::get('getCetakBKMBKKNotaKredit/{idBKMTampil}', 'App\Http\Controllers\Accounting\Piutang\BKMBKKNotaKreditController@getCetakBKMBKKNotaKredit');
 #endregion
 
 Route::resource('BKMLC', App\Http\Controllers\Accounting\Piutang\BKMLCController::class);

@@ -86,25 +86,25 @@
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="id_Penagihan" name="id_Penagihan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="jenisCustomer" name="jenisCustomer" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="namaNPWP" name="namaNPWP" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="namaNPWP" name="namaNPWP" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="nilaiTagihan" name="nilaiTagihan" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="nilaiTagihan" name="nilaiTagihan" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="kurs" name="kurs" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="kurs" name="kurs" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 

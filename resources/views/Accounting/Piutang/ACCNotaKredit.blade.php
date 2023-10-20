@@ -50,12 +50,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <input type="text" id="idNotaKredit" name="idNotaKredit" class="form-control" style="width: 100%">
-                                <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
-                                <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
-                                <input type="text" id="kredit" name="kredit" class="form-control" style="width: 100%">
-                                <input type="text" id="kurs" name="kurs" class="form-control" style="width: 100%">
-                                <input type="text" id="statusP" name="statusP" class="form-control" style="width: 100%">
+                                <input type="hidden" id="idNotaKredit" name="idNotaKredit" class="form-control" style="width: 100%">
+                                <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                <input type="hidden" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
+                                <input type="hidden" id="kredit" name="kredit" class="form-control" style="width: 100%">
+                                <input type="hidden" id="kurs" name="kurs" class="form-control" style="width: 100%">
+                                <input type="hidden" id="statusP" name="statusP" class="form-control" style="width: 100%">
 
                                 <br>
                                 <div>
