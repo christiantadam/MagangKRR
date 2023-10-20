@@ -18,6 +18,8 @@ class WarehouseController extends Controller
 
         switch ($form_name) {
             case 'formScanGelondongan':
+            case 'formBatalGelondongan':
+            case 'formScanAssesoris':
                 $form_data = ['listDivisi' => $this->getListDivisi()];
                 break;
 

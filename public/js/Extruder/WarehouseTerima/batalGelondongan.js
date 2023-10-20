@@ -1,17 +1,26 @@
 //#region Variables
 const slcDivisi = document.getElementById("select_divisi");
-const btnProses = document.getElementById("btn_proses");
+const btnHapus = document.getElementById("btn_hapus");
 const btnKeluar = document.getElementById("btn_keluar");
 
 const listBarcode = [];
 /** ISI LIST BARCODE
- * 0 ...
+ * 0 NamaType
+ * 1 KodeBarcode
+ * 2 NamaSubKelompok
+ * 3 NamaKelompok
+ * 4 KodeBarang
+ * 5 NoIndeks
+ * 6 QtyPrimer
+ * 7 QtySekunder
+ * 8 Qty
+ * 9 TglMutasi
+ * 10 Divisi
  */
 
 const colBarcode = [
-    { width: "1px" }, // Tanggal
     { width: "150px" }, // Type
-    { width: "125px" }, // No. Barcode
+    { width: "150px" }, // No. Barcode
     { width: "125px" }, // Sub-kelompok
     { width: "1px" }, // Kelompok
     { width: "125px" }, // Kode Barang
@@ -22,9 +31,33 @@ const colBarcode = [
     { width: "1px" }, // Tanggal
     { width: "1px" }, // Divisi
 ];
+
+var pilBarcode = -1;
+var checkboxesBatal = null;
 //#endregion
 
 //#region Events
+slcDivisi.addEventListener("change", function () {
+    showData();
+});
+
+btnHapus.addEventListener("click", function () {
+    showModal(
+        "Konfirmasi",
+        "Apakah anda yakin mau membatalkan pengiriman barcode ini?",
+        () => {
+            fetchStmt(
+                "/warehouseTerima/SP_1273_LMT_SimpanPembatalanKirimKeGudang/" +
+                    listBarcode[pilBarcode].KodeBarang +
+                    "~" +
+                    listBarcode[pilBarcode].NoIndeks,
+                () => {
+                    alert("Pengiriman Berhasil Dibatalkan");
+                }
+            );
+        }
+    );
+});
 //#endregion
 
 //#region Functions
@@ -35,6 +68,7 @@ function showData() {
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listBarcode.push({
+                    NamaType: data[i].NamaType,
                     KodeBarcode:
                         data[i].NoIndeks.padStart(9, "0") +
                         "-" +
@@ -50,8 +84,59 @@ function showData() {
                     Divisi: data[i].Divisi,
                 });
             }
+
+            if (listBarcode.length > 0) {
+                addTable_DataTable(
+                    "table_barcode",
+                    listDaya.map((item) => {
+                        return {
+                            ...item,
+                            Tanggal: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.Tanggal}`,
+                        };
+                    }),
+                    colBarcode,
+                    rowClickedBarcode
+                );
+
+                checkboxesBatal = document.querySelectorAll(
+                    'input[name="checkbox_barcode"]'
+                );
+            } else {
+                clearTable_DataTable(
+                    "table_barcode",
+                    colBarcode.length,
+                    "Tidak ditemukan Data Barcode untuk <b>Divisi " +
+                        slcDivisi.options[slcDivisi.selectedIndex].text +
+                        "</b>."
+                );
+            }
         }
     );
+}
+
+function rowClickedBarcode(row, data, index) {
+    if (
+        pilBarcode ==
+        findClickedRowInList(listBarcode, "KodeBarcode", data.KodeBarcode)
+    ) {
+        row.style.background = "white";
+        pilBarcode = -1;
+        checkboxesBatal[index].checked = false;
+        clearAll(false);
+        setEnable(false);
+        toggleButtons(1);
+    } else {
+        clearSelection_DataTable("table_barcode");
+        clearCheckedBoxes(checkboxesBatal, checkboxesBatal[index]);
+
+        row.style.background = "aliceblue";
+        checkboxesBatal[index].checked = true;
+        pilBarcode = findClickedRowInList(
+            listBarcode,
+            "KodeBarcode",
+            data.KodeBarcode
+        );
+    }
 }
 //#endregion
 
