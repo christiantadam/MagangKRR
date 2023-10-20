@@ -296,7 +296,7 @@
                                         <input type="text" class="form-control" name="tempat" id="tempatLahir"
                                             placeholder="" disabled>
                                         <input class="form-control" type="date" id="TglLahir" name="TglLahir"
-                                            style="width: 150px;" disabled>
+                                            style="width: 150px;" value="1900-01-01" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -335,10 +335,10 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasuk" name="TglMasuk"
-                                            style="width: 150px;" disabled>
+                                            style="width: 150px;" value="{{ date('Y-m-d') }}"disabled>
                                         <span class="aligned-text" style="margin-left: 13px;">Tgl Masuk Awal:</span>
                                         <input class="form-control" type="date" id="TglMasukAwal" name="TglMasukAwal"
-                                            style="width: 150px;margin-left:20px;" disabled>
+                                            style="width: 150px;margin-left:20px;" value="{{ date('Y-m-d') }}"disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -347,7 +347,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAwalKontrak" name="TglLahir"
-                                            style="" disabled>
+                                            style="" value="{{ date('Y-m-d') }}" disabled>
 
                                     </div>
                                 </div>
@@ -446,7 +446,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglMasukKop" name="Koperasi"
-                                            style="" disabled>
+                                            style="" value="{{ date('Y-m-d') }}" disabled>
 
                                     </div>
                                 </div>
@@ -456,7 +456,7 @@
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
                                         <input class="form-control" type="date" id="TglAkhirKontrak" name="Kontrak"
-                                            style="" disabled>
+                                            style="" value="{{ date('Y-m-d') }}" disabled>
 
                                     </div>
                                 </div>
