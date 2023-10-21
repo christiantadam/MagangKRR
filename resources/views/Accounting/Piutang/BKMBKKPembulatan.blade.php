@@ -75,16 +75,16 @@
                                                 </table>
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
+                                                <input type="hidden" id="idBKM" name="idBKM" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%">
+                                                <input type="hidden" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" name="idPembayaran" id="idPembayaran">
+                                                <input type="hidden" name="idPembayaran" id="idPembayaran">
                                             </div>
                                             <div class="col-md-10">
-                                                <input type="text" name="idMataUang" id="idMataUang">
+                                                <input type="hidden" name="idMataUang" id="idMataUang">
                                             </div>
                                         </div>
                                     </div>
@@ -142,10 +142,10 @@ s
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="jenisBank" name="jenisBank" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <p><div class="row">
@@ -194,7 +194,7 @@ s
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                                <input type="hidden" id="konversi" name="konversi" class="form-control" style="width: 100%">
                                             </div>
                                         </div>
                                     </div>
