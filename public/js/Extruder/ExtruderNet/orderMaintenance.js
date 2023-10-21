@@ -129,7 +129,9 @@ txtNoOrder.addEventListener("change", function () {
             "/Order/insOrderDetail/" +
                 txtNoOrder.value +
                 "/" +
-                toSnakeCase(listOrder[i].NamaType).replace(/\//g, ".") +
+                toSnakeCase(listOrder[i].NamaType)
+                    .replace(/ /g, "_")
+                    .replace(/\//g, "~") +
                 "/" +
                 listOrder[i].QtyPrimer +
                 "/" +
@@ -181,7 +183,7 @@ btnProses.addEventListener("click", function () {
                 "/" +
                 dateInput.value +
                 "/" +
-                txtIdentifikasi.value +
+                txtIdentifikasi.value.replace(/ /g, "_").replace(/\//g, "~") +
                 "/" +
                 kode_ins,
             () => {

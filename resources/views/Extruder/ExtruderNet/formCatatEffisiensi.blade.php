@@ -226,14 +226,14 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_isi" class="btn btn-outline-success">Isi</button>
-                <button type="button" id="btn_koreksi" class="btn btn-outline-warning">Koreksi</button>
-                <button type="button" id="btn_hapus" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_isi" class="btn btn-success">Isi</button>
+                <button type="button" id="btn_koreksi" class="btn btn-warning">Koreksi</button>
+                <button type="button" id="btn_hapus" class="btn btn-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-primary">Proses</button>
-                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-primary">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-secondary">Keluar</button>
             </div>
         </div>
     </div>

@@ -89,8 +89,8 @@
         </table>
 
         <div class="float-end mt-3 mb-3">
-            <button id="btn_proses" type="button" class="btn btn-outline-success" disabled>Proses</button>
-            <button id="btn_keluar" type="button" class="btn btn-outline-danger" style="margin-left: 25px">Keluar</button>
+            <button id="btn_proses" type="button" class="btn btn-success" disabled>Proses</button>
+            <button id="btn_keluar" type="button" class="btn btn-danger" style="margin-left: 25px">Keluar</button>
         </div>
     </div>
 

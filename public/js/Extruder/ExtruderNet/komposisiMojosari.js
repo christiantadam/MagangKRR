@@ -1294,15 +1294,11 @@ numSekunder.addEventListener("keypress", function (event) {
 
 numTritier.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        if (this.value == "" || this.value == 0) {
-            alert("Jumlah tritier tidak boleh kosong.");
-            this.focus();
-        } else {
-            numPersentase.disabled = false;
-            if (numPersentase.value != "") {
-                numPersentase.select();
-            } else numPersentase.focus();
-        }
+        if (this.value == "") this.value = 0;
+        numPersentase.disabled = false;
+        if (numPersentase.value != "") {
+            numPersentase.select();
+        } else numPersentase.focus();
     }
 });
 

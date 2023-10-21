@@ -324,7 +324,7 @@ class MasterController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_MASTER_KOMPOSISI @NamaKomposisi = ?, @idmesin = ?, @iddivisi = ?, @user = 4384',
-            [$nama_komposisi, $id_mesin, $id_divisi, $user]
+            [str_replace('~', '/', strtoupper(str_replace('_', ' ', $nama_komposisi))), $id_mesin, $id_divisi, $user]
         );
 
         // @NamaKomposisi varchar(100), @idmesin varchar(5), @iddivisi char(3), @user varchar(4)=null

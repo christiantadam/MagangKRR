@@ -233,12 +233,11 @@
 
                             <div class="col-lg-9">
                                 <div class="float-end">
-                                    <button type="button" id="btn_baru_detail" class="btn btn-outline-success"
-                                        disabled>Tambah
+                                    <button type="button" id="btn_baru_detail" class="btn btn-success" disabled>Tambah
                                         Item</button>
-                                    <button type="button" id="btn_koreksi_detail" class="btn btn-outline-warning"
+                                    <button type="button" id="btn_koreksi_detail" class="btn btn-warning"
                                         disabled>Koreksi</button>
-                                    <button type="button" id="btn_hapus_detail" class="btn btn-outline-danger"
+                                    <button type="button" id="btn_hapus_detail" class="btn btn-danger"
                                         disabled>Hapus</button>
                                 </div>
                             </div>
@@ -251,14 +250,14 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_baru_master" class="btn btn-outline-success">Konversi Baru</button>
-                <button type="button" id="btn_koreksi_master" class="btn btn-outline-warning">Koreksi</button>
-                <button type="button" id="btn_hapus_master" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_baru_master" class="btn btn-success">Konversi Baru</button>
+                <button type="button" id="btn_koreksi_master" class="btn btn-warning">Koreksi</button>
+                <button type="button" id="btn_hapus_master" class="btn btn-danger">Hapus</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-primary" disabled>Proses</button>
-                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-primary" disabled>Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-secondary">Keluar</button>
             </div>
         </div>
     </div>

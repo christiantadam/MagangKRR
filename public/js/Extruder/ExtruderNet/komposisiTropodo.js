@@ -896,15 +896,11 @@ numSekunder.addEventListener("keypress", function (event) {
 
 numTritier.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
-        if (this.value == "" || this.value == 0) {
-            alert("Jumlah tritier tidak boleh kosong.");
-            this.focus();
-        } else {
-            numPersentase.disabled = false;
-            if (numPersentase.value != "") {
-                numPersentase.select();
-            } else numPersentase.focus();
-        }
+        if (this.value == "") this.value = 0;
+        numPersentase.disabled = false;
+        if (numPersentase.value != "") {
+            numPersentase.select();
+        } else numPersentase.focus();
     }
 });
 
@@ -955,7 +951,7 @@ btnProses.addEventListener("click", function () {
             // SP_5298_EXT_INSERT_MASTER_KOMPOSISI
             fetchStmt(
                 "/Master/insMasterKomposisi/" +
-                    nama_komposisi +
+                    nama_komposisi.replace(/ /g, "_").replace(/\//g, "~") +
                     "/" +
                     slcMesin.value +
                     "/EXT",
@@ -997,60 +993,35 @@ btnProses.addEventListener("click", function () {
             });
         });
     } else if (modeProses == "hapus") {
-        // SP_5298_EXT_CEK_KOMPOSISI
-        fetchSelect(
-            "/Master/getCekKomposisi/" + slcKomposisi.value.trim(),
-            (data) => {
-                if (data[0].ada <= 0) {
-                    deleteDetailFetch(slcKomposisi.value, () => {
-                        // SP_5298_EXT_DELETE_MASTER_KOMPOSISI
-                        fetchStmt(
-                            "/Master/delMasterKomposisi/" +
-                                slcKomposisi.value.trim(),
-                            () => {
-                                toggleButtons(1);
-                                disableDetail();
-                                modeProses = "";
-                                refetchKomposisi = true;
-                                alert("Komposisi berhasil dihapus.");
-                            }
-                        );
-                    });
-                } else
-                    alert(
-                        "Komposisi tidak dapat dihapus, karena telah terpakai untuk konversi."
-                    );
-            }
-        );
+        deleteDetailFetch(slcKomposisi.value, () => {
+            // SP_5298_EXT_DELETE_MASTER_KOMPOSISI
+            fetchStmt(
+                "/Master/delMasterKomposisi/" + slcKomposisi.value.trim(),
+                () => {
+                    toggleButtons(1);
+                    disableDetail();
+                    modeProses = "";
+                    refetchKomposisi = true;
+                    alert("Komposisi berhasil dihapus.");
+                }
+            );
+        });
     } else if (modeProses == "hapus_detail") {
-        // SP_5298_EXT_CEK_KOMPOSISI
-        fetchSelect(
-            "/Master/getCekKomposisi/" + slcKomposisi.value.trim(),
-            (data) => {
-                if (data[0].ada <= 0) {
-                    deleteDetailFetch(slcKomposisi.value, () => {
-                        let jmlh_bb = 0;
-                        for (let j = 0; j < listKomposisi.length; j++) {
-                            if (listKomposisi[j].StatusType == "BB") {
-                                jmlh_bb += parseFloat(
-                                    listKomposisi[j].JumlahTritier
-                                );
-                            }
-                        }
-
-                        insertDetailFetch(jmlh_bb, () => {
-                            alert("Data berhasil disimpan.");
-                            toggleButtons(1);
-                            disableDetail();
-                            modeProses = "";
-                        });
-                    });
-                } else
-                    alert(
-                        "Komposisi tidak dapat dihapus, karena telah terpakai untuk konversi."
-                    );
+        deleteDetailFetch(slcKomposisi.value, () => {
+            let jmlh_bb = 0;
+            for (let j = 0; j < listKomposisi.length; j++) {
+                if (listKomposisi[j].StatusType == "BB") {
+                    jmlh_bb += parseFloat(listKomposisi[j].JumlahTritier);
+                }
             }
-        );
+
+            insertDetailFetch(jmlh_bb, () => {
+                alert("Data berhasil disimpan.");
+                toggleButtons(1);
+                disableDetail();
+                modeProses = "";
+            });
+        });
     }
 });
 //#endregion

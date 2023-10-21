@@ -440,7 +440,11 @@ function fetchSelect(
 }
 
 function encodeURL(urlString) {
-    return urlString.replace(/:/g, "%3A");
+    return urlString
+        .replace(/ /g, "%20")
+        .replace(/\(/g, "%28")
+        .replace(/\)/g, "%29")
+        .replace(/:/g, "%3A");
 }
 
 function padLeft(str, length, char) {

@@ -19,7 +19,7 @@
                     <input type="date" id="tanggal_awal" class="form-control">
                     <span class="input-group-text">s/d</span>
                     <input type="date" id="tanggal_akhir" class="form-control">
-                    <button type="button" id="btn_ok" class="btn btn-outline-primary">OK</button>
+                    <button type="button" id="btn_ok" class="btn btn-primary">OK</button>
                 </div>
             </div>
         </div>
@@ -62,8 +62,8 @@
         </div>
 
         <div class="mt-3 mb-5 float-end text-center">
-            <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
-            <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
+            <button type="button" id="btn_proses" class="btn btn-success">Proses</button>
+            <button type="button" id="btn_keluar" class="btn btn-danger">Keluar</button>
         </div>
     </div>
 

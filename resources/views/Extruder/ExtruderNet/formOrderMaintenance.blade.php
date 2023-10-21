@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <button type="button" id="btn_detail" class="btn btn-outline-info float-end"
+                        <button type="button" id="btn_detail" class="btn btn-info float-end"
                             disabled>Tambah<br>Detail</button>
                     </div>
                 </div>
@@ -104,12 +104,12 @@
 
         <div class="row mt-3">
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_baru" class="btn btn-outline-primary">Tambah</button>
+                <button type="button" id="btn_baru" class="btn btn-primary">Tambah</button>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-5 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-success" disabled>Proses</button>
-                <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-success" disabled>Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-danger">Keluar</button>
             </div>
         </div>
     </div>

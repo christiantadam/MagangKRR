@@ -69,12 +69,12 @@ class OrderController extends Controller
         if ($gedung == 'B') {
             return DB::connection('ConnExtruder')->statement(
                 'exec SP_1273_MEX_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = 4384',
-                [$tanggal, $identifikasi]
+                [$tanggal, str_replace('~', '/', strtoupper(str_replace('_', ' ', $identifikasi)))]
             );
         } else {
             return DB::connection('ConnExtruder')->statement(
                 'exec SP_5298_EXT_INSERT_ORDER_BENANG @tanggal = ?, @identifikasi = ?, @user = 4384, @kode = ?',
-                [$tanggal, $identifikasi, $kode]
+                [$tanggal, str_replace('~', '/', strtoupper(str_replace('_', ' ', $identifikasi))), $kode]
             );
         }
     }
@@ -115,7 +115,7 @@ class OrderController extends Controller
     {
         return DB::connection('ConnExtruder')->statement(
             'exec SP_5298_EXT_INSERT_ORDERDETAIL_BENANG @idorder = ?, @typebenang = ?, @jumlahprimer = ?, @jumlahsekunder = ?, @jumlahtritier = ?, @jumprodprimer = ?, @jumprodsekunder = ?, @jumprodtritier = ?',
-            [$id_order, str_replace('.', '/', strtoupper(str_replace('_', ' ', $type_benang))), $jmlh_primer, $jmlh_sekunder, $jmlh_tritier, $prod_primer, $prod_sekunder, $prod_tritier]
+            [$id_order, str_replace('~', '/', strtoupper(str_replace('_', ' ', $type_benang))), $jmlh_primer, $jmlh_sekunder, $jmlh_tritier, $prod_primer, $prod_sekunder, $prod_tritier]
         );
     }
 
