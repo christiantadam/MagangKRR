@@ -109,7 +109,7 @@ function LoadData() {
                                         data: datasTable,
                                         columns: [
                                             {
-                                                title: "Nomor",
+                                                title: "Nomor Antrian",
                                                 data: "NoAntrian",
                                                 render: function (data) {
                                                     return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;

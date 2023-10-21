@@ -55,7 +55,7 @@ function bataldiklik() {
     InputidUser.value = "";
     InputNamaDrafter.value = "";
     UserDrafter.value = "Pilih Drafter";
-    UserDrafter.disabled = true;
+    // UserDrafter.disabled = true;
     isi = false;
     koreksi = false;
     hapus = false;

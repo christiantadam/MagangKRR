@@ -25,7 +25,7 @@
 
         <div class="col-lg-4">
           <select class="form-select" name="UserDrafter" style="width: 36vh;
-                height: 6vh;" disabled
+                height: 6vh;"
             id="UserDrafter">
             <option disabled selected>Pilih Drafter</option>
             @foreach ($drafter as $d)

@@ -1,6 +1,6 @@
 @extends('layouts.WORKSHOP.GPS.appGPS')
 @section('content')
-  <link href="{{ aset('css/GPS/Color.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/GPS/Color.css') }}" rel="stylesheet">
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10 RDZMobilePaddingLR0">
@@ -44,7 +44,7 @@
                 <table class="table" id="tableEditEstimasiTanggal">
                   <thead class="table-dark" style="white-space: nowrap">
                     <tr>
-                      <th>Nomor</th>
+                      <th>Nomor Antrian</th>
                       <th>No Order</th>
                       <th>Tanggal Start</th>
                       <th>Divisi</th>
