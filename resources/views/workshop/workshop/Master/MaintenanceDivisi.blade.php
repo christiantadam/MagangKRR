@@ -24,7 +24,7 @@
 
         <div class="col-lg-4">
           <select class="form-select" name="KodeDivisi" style="width: 36vh;
-                height: 6vh;" disabled
+                height: 6vh;"
             id="kddivisi">
             <option disabled selected>Pilih Divisi</option>
             @foreach ($divisi as $d)
