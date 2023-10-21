@@ -14,8 +14,6 @@ class WarehouseController extends Controller
         $view_name = 'extruder.WarehouseTerima.' . $form_name;
         $form_data = [];
 
-        // dd($this->getListDivisi());
-
         switch ($form_name) {
             case 'formScanGelondongan':
             case 'formBatalGelondongan':

@@ -87,13 +87,14 @@ function showData() {
 
 function cekKode(kode) {
     fetchSelect(
-        "/komposisiKonversi/SP_1273_PRG_ListKonversi_1~2/" + kode,
+        "/komposisiKonversi/SP_1273_PRG_ListKonversi_1/2~" + kode,
         (data) => {
             if (data.length > 0) {
                 if (data[0].Ada == 0) {
                     alert(
                         "Maaf Kode Barang Yang Anda Inputkan Bukan Kode Barang Cloth atau Assesoris!"
                     );
+
                     txtKode.value = "";
                     txtKode.focus();
                 } else btnProses.focus();

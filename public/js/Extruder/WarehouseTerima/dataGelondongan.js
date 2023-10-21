@@ -36,7 +36,8 @@ const DT_colKirim = [
 //#region Events
 btnRefresh.addEventListener("click", function () {
     DT_listKirim.length = 0;
-    clearTable_DataTable("");
+    clearTable_DataTable("mdl_table", DT_colKirim.length, "Memuat data...");
+    // 2017-07-17 00:00:00.000  ABM
     DT_showData(12, DT_tanggal.value);
 });
 //#endregion
