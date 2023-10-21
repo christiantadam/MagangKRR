@@ -116,7 +116,7 @@ btnTutupModal.addEventListener('click', function(event) {
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
-    clickOK();
+    // clickOK();
         fetch("/detailtabelpenagihan/" + bulan.value +"/"+ tahun.value)
             .then((response) => response.json())
             .then((options) => {
@@ -874,12 +874,12 @@ function clickOK() {
     const selectedMonth = parseInt(bulanValue, 10);
     const selectedYear = parseInt(tahunValue, 10);
 
-    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
-        alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
-        bulan.value = "";
-        tahun.value = "";
-        return;
-    }
+    // if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
+    //     alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
+    //     bulan.value = "";
+    //     tahun.value = "";
+    //     return;
+    // }
 }
 
 function validatePilihBank() {
