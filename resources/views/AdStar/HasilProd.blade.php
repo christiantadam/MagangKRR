@@ -58,10 +58,10 @@
                     <div class="col-lg-2 aligned-text">Grup Pelaksana:</div>
                     <div class="col-lg-2">
                         <select id="grup-pelaksana-dropdown" name="grup-pelaksana-dropdown" required disabled>
-                            <option value="1">A</option>
-                            <option value="2">B</option>
-                            <option value="3">C</option>
-                            <option value="4">D</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
                             <!-- Add more options as needed -->
                         </select>
                     </div>

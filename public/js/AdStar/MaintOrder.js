@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HslPrdPrs");
+            form.setAttribute("action", "AdStarMaintOrder");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HslPrdPrs/{IDLOG}");
+            form.setAttribute("action", "AdStarMaintOrder/{IDLOG}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -567,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HslPrdPrs/{IDLOG}");
+            form.setAttribute("action", "AdStarMaintOrder/{IDLOG}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form

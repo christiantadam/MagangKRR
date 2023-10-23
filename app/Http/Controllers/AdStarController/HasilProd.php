@@ -45,7 +45,7 @@ class HasilProd extends Controller
             $data['JMLTRITIER'],
             1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Berhasil Tambah Data !');
+        return redirect()->route('AdStarHasilProd.index')->with('alert', 'Berhasil Tambah Data !');
 
     }
 
@@ -97,7 +97,7 @@ class HasilProd extends Controller
             $data['JMLTRITIER'],
             1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi Updated successfully!');
+        return redirect()->route('AdStarHasilProd.index')->with('alert', 'Data Produksi Updated successfully!');
     }
 
     public function destroy(Request $request)
@@ -118,7 +118,7 @@ class HasilProd extends Controller
             $data['JMLTRITIER'],
             1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi  berhasil dihapus!');
+        return redirect()->route('AdStarHasilProd.index')->with('alert', 'Data Produksi  berhasil dihapus!');
     }
     //Remove the specified resource from storage.
 //     public function destroy($id)

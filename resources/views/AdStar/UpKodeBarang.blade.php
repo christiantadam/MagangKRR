@@ -37,24 +37,9 @@
             <label for="kd-barang">Kode Barang:</label>
             <input type="text" id="kd-barang" required class="input-small">
             <input type="text" id="input2" class="input-medium">
-            {{-- <table id="tabel_Barang2" class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nama Barang</th>
-                        <th>Kode Barang</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($dataUpKdBrng as $data)
-                        <tr data-idbrng="{{ $data->id }}" data-nama="{{ $data->Nama_brg }}" data-kode="{{ $data->kd_brg }}">
-                            <td>{{ $data->Nama_brg }}</td>
-                            <td>{{ $data->kd_brg }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
+
                     <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" class="btn btn-primary" id="btclistdata" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 List Data
             </button>
         </div>
@@ -76,24 +61,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataUpKdBrng as $data)
+                            {{-- @foreach ($dataUpKdBrng as $data)
                                 <tr data-idbrng="{{ $data->id }}" data-nama="{{ $data->Nama_brg }}" data-kode="{{ $data->kd_brg }}">
                                     <td>{{ $data->Nama_brg }}</td>
                                     <td>{{ $data->kd_brg }}</td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
+                <div id="form-container"></div>
             </div>
             </div>
         </div>
 
     <div class="container">
-        <button class="btn btn-secondary" onclick="updateData()">Update</button>
+        <button id="saveButton" class="btn btn-secondary" onclick="updateData()">Update</button>
     </div>
 
     <div class="scrollable-container">

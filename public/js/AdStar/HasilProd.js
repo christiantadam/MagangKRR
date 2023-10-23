@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HasilProd");
+            form.setAttribute("action", "AdStarHasilProd");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HasilProd/{IDLOG}");
+            form.setAttribute("action", "AdStarHasilProd/{IDLOG}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", function () {
             };
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "HasilProd/{IDLOG}");
+            form.setAttribute("action", "AdStarHasilProd/{IDLOG}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -475,7 +475,7 @@ $('#tabel_notransaksi tbody').on('click', 'tr', function () {
                 // var selecteds = document.querySelector('select[name="grup-pelaksana-dropdown"]');
                 // selecteds.options[item.GROUP].selected = true;
 
-                // $('#grup-pelaksana-dropdown').val(item.GROUP);
+                $('#grup-pelaksana-dropdown').val(item.GROUP);
                 $('#jammulai').val(getTime(item.AWALSHIFT));
                 $('#jamakhir').val(getTime(item.AKHIRSHIFT));
                 $('#jml-ball').val(item.JMLPRIMER);

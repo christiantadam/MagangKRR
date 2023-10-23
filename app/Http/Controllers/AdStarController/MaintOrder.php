@@ -30,7 +30,7 @@ class MaintOrder extends Controller
     {
         $data = $request->all();
         // dd($data);
-        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_ORDER @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],
@@ -42,9 +42,8 @@ class MaintOrder extends Controller
             $data['R_Tgl_Finish'],
             $data['IdPesanan'],
             $data['BufferStok'],
-            1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Berhasil Tambah Data !');
+        return redirect()->route('AdStarMaintOrder.index')->with('alert', 'Berhasil Tambah Data !');
 
     }
 
@@ -116,7 +115,7 @@ class MaintOrder extends Controller
     {
         $data = $request->all();
 
-        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_ORDER @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],
@@ -128,16 +127,15 @@ class MaintOrder extends Controller
             $data['R_Tgl_Finish'],
             $data['IdPesanan'],
             $data['BufferStok'],
-            1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi Updated successfully!');
+        return redirect()->route('AdStarMaintOrder.index')->with('alert', 'Data Produksi Updated successfully!');
     }
 
     public function destroy(Request $request)
     {
         $data = $request->all();
         // dd('Masuk Destroy', $data);
-        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_HASIL_PRODUKSI @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?, @USERINPUT = ?', [
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_MAINT_ORDER @kode = ?, @Tgl_Order = ?, @No_Order = ?, @No_Sp = ?, @Kd_Brg = ?, @Jml_Order = ?, @A_Order = ?, @R_Tgl_Start = ?, @R_Tgl_Finish = ?, @IdPesanan = ?, @BufferStok = ?', [
             $data['kode'],
             $data['Tgl_Order'],
             $data['No_Order'],
@@ -149,9 +147,8 @@ class MaintOrder extends Controller
             $data['R_Tgl_Finish'],
             $data['IdPesanan'],
             $data['BufferStok'],
-            1,
         ]);
-        return redirect()->route('HasilProd.index')->with('alert', 'Data Produksi  berhasil dihapus!');
+        return redirect()->route('AdStarMaintOrder.index')->with('alert', 'Data Produksi  berhasil dihapus!');
     }
 
     //Remove the specified resource from storage.

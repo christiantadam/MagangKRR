@@ -45,12 +45,15 @@ class PrintTabel extends Controller
 
 
         //getorder
-        if ($crExplode[$lastIndex] == "dataCust1") {
-            $dataCust1 = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?', [ $crExplode[0]]);
-            // dd($dataCust1);
-            // dd($dataObjek);
-            // Return the options as JSON data
-            return response()->json($dataCust1);
+        if ($crExplode[$lastIndex] == "dataCust") {
+            $dataCust = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?, @idjenis ?', [4, $crExplode[0]]);
+            return response()->json($dataCust);
+
+            // dd($crExplode);
+
+        }else if ($crExplode[$lastIndex] == "dataUkuran") {
+            $dataUkuran = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?, @IDCUST= ?', [8, $crExplode[0]]);
+            return response()->json($dataUkuran);
 
             // dd($crExplode);
 

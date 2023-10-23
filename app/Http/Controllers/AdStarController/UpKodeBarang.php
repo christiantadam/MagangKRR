@@ -43,9 +43,20 @@ class UpKodeBarang extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) -1;
+        // dd($crExplode);
+        //getDivisi
+        if ($crExplode[$lastIndex] == "datakodebarang") {
+            $datakodebarang = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_KODE_BRG @Kode= ?, @nama= ?', [2, $crExplode[0]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($datakodebarang);
+
+            // dd($crExplode);
+        }
     }
 
     /**
@@ -66,9 +77,16 @@ class UpKodeBarang extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->all();
+
+        DB::connection('ConnAdstar')->statement('exec SP_1486_ADSTAR_LIST_KODE_BRG @kode = ?, @id = ?, @kd_brg = ?', [
+            3,
+            $data['id'],
+            $data['kd_brg'],
+        ]);
+        return redirect()->route('AdStarUpKodeBarang.index')->with('alert', 'Data Kode Barang Updated successfully!');
     }
 
     /**
