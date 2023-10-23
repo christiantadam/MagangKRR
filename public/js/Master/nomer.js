@@ -10,6 +10,10 @@ $(document).ready(function () {
     $("#table_ListPegawai").DataTable({
         order: [[0, "asc"]],
         scrollX: true,
+        select: {
+            style: "single",
+            toggleable: false,
+        },
     });
     $("#table_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
@@ -86,7 +90,10 @@ $(document).ready(function () {
     });
     listDataButton.addEventListener("click", function (event) {
         event.preventDefault();
-        const Id_Div = document.getElementById("Id_Div").value;
+        var Id_Div = document.getElementById("Id_Div").value;
+        // if (Id_Div == "") {
+        //     Id_Div = null;
+        // }
         console.log(Id_Div);
         fetch("/ProgramPayroll/MasterNomer/" + Id_Div + ".getPegawai")
             .then((response) => {
@@ -192,15 +199,18 @@ $(document).ready(function () {
         const tgl_lahir = document.getElementById("TglLahir").value;
         const kartumakan = document.getElementById("Kartu").value;
         const rekBCA = document.getElementById("NomorRekeningBCA").value;
-
-        if ((checkBPJS.checked = true)) {
-            console.log("masuk if");
+        if (rekBCA == "") {
+            alert("Nomor Rekening BCA tidak boleh kosong")
+            return;
+        }
+        if ((checkBPJS.checked == true)) {
+            // console.log(checkBPJS.checked);
             tgg = 1;
-        } else {
-            console.log("masuk else");
+        } else if ((checkBPJS.checked == false)) {
+            // console.log(checkBPJS.checked);
             tgg = 0;
         }
-
+        // return;
         const data = {
             kd_pegawai: kd_pegawai,
             nama: nama,

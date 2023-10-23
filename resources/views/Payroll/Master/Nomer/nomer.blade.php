@@ -160,9 +160,9 @@
                                         <div style="display: flex; flex-wrap: nowrap;">
                                             <input class="form-control" type="text" id="KdPeg" readonly
                                                 style="resize: none; height: 40px; max-width: 100px;">
-                                            <input class="form-control" type="text" id="NomorKartu" readonly
+                                            <input class="form-control" type="text" id="NomorKartu"
                                                 style="resize: none; height: 40px; max-width: 100px; margin-right:-16px;">
-                                            <input class="form-control ml-3" type="text" id="NamaPeg" readonly
+                                            <input class="form-control ml-3" type="text" id="NamaPeg"
                                                 style="resize: none; height: 40px; max-width: 900px; ">
                                         </div>
                                     </div>

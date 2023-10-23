@@ -1,10 +1,13 @@
 $(document).ready(function () {
     const isiButton = document.getElementById("isiButton");
     const simpanButton = document.getElementById("simpanButton");
+    const simpanKoreksiButton = document.getElementById("simpanKoreksiButton");
+    const simpanDeleteButton = document.getElementById("simpanDeleteButton");
     const koreksiButton = document.getElementById("koreksiButton");
+    const deleteButton = document.getElementById("deleteButton");
     const batalButton = document.getElementById("batalButton");
     const batalKoreksiButton = document.getElementById("batalKoreksiButton");
-    const deleteButton = document.getElementById("deleteButton");
+    const batalDeleteButton = document.getElementById("batalDeleteButton");
     const Id_Div = document.getElementById("Id_Div");
     const Nama_Div = document.getElementById("Nama_Div");
     const divisiButton = document.getElementById("divisiButton");
@@ -97,7 +100,7 @@ $(document).ready(function () {
         var rowData = $("#tabelDivisi").DataTable().row(this).data();
 
         // Populate the input fields with the data
-        if (opsi == 2) {
+        if (opsi == 2 || opsi == 3) {
             console.log(opsi);
             $("#Id_Div").val(rowData[3]);
             $("#Nama_Div").val(rowData[2]);
@@ -200,13 +203,55 @@ $(document).ready(function () {
 
     batalKoreksiButton.addEventListener("click", function () {
         clearForm();
-        opsi = 0
+        opsi = 0;
         tabelDivisi.rows().deselect();
         tabelDivisi.select.style("api");
         isiButton.classList.remove("d-none");
         simpanKoreksiButton.classList.add("d-none");
         koreksiButton.classList.remove("d-none");
         batalKoreksiButton.classList.add("d-none");
+        divisiButton.disabled = true;
+        Nama_Div.readOnly = true;
+        posisiButton.disabled = true;
+        managerButton.disabled = true;
+        opsiJenisSelect.setAttribute("disabled", "disabled");
+        opsiStatusSelect.setAttribute("disabled", "disabled");
+        opsiAturanSelect.setAttribute("disabled", "disabled");
+        JmlJam.disabled = true;
+        grupDivisi.disabled = true;
+    });
+    deleteButton.addEventListener("click", function () {
+        //Hide button isi dan koreksi
+        opsi = 3;
+        isiButton.classList.add("d-none");
+        koreksiButton.classList.add("d-none");
+        deleteButton.disabled = true;
+        tabelDivisi.select.style("single");
+        Nama_Div.readOnly = false;
+        posisiButton.disabled = false;
+        managerButton.disabled = false;
+        opsiJenisSelect.removeAttribute("disabled");
+        opsiStatusSelect.removeAttribute("disabled");
+        opsiAturanSelect.removeAttribute("disabled");
+        JmlJam.disabled = false;
+        grupDivisi.disabled = false;
+        // divisiButton.disabled = false;
+        //Tampil Button simpan dan batal
+        simpanDeleteButton.classList.remove("d-none");
+        batalDeleteButton.classList.remove("d-none");
+    });
+
+    batalDeleteButton.addEventListener("click", function () {
+        clearForm();
+        opsi = 0
+        tabelDivisi.rows().deselect();
+        tabelDivisi.select.style("api");
+        isiButton.classList.remove("d-none");
+        koreksiButton.classList.remove("d-none");
+        simpanDeleteButton.classList.add("d-none");
+        // deleteButton.classList.remove("d-none");
+        deleteButton.disabled = false;
+        batalDeleteButton.classList.add("d-none");
         divisiButton.disabled = true;
         Nama_Div.readOnly = true;
         posisiButton.disabled = true;
@@ -230,6 +275,35 @@ $(document).ready(function () {
         const jmlJamInput = document.getElementById("Jml_Jam").value;
         const aturanInput = document.getElementById("opsiAturan").value;
         const grupDivisiInput = document.getElementById("grup_Divisi").value;
+        if (idDivInput == "") {
+            alert("Data Belum Lengkap ");
+            return;
+        }
+        if (namaDivInput == "") {
+            alert("Data Belum Lengkap ");
+            return;
+        }
+        if (jmlJamInput == "") {
+            alert("Isi Dulu Jumlah Jamnya");
+            return;
+        }
+        console.log(jmlJamInput);
+        if (jmlJamInput != 5 && jmlJamInput != 7 ) {
+            alert("Jam hanya diisi 5 atau 7 saja ");
+            return;
+        }
+        if (aturanInput == "") {
+            alert("pilih dulu aturannya");
+            return;
+        }
+        if (posisiInput == "") {
+            alert("pilih dulu posisinya");
+            return;
+        }
+        if (grupDivisiInput == "") {
+            alert("pilih dulu grup divisinya");
+            return;
+        }
         const data = {
             kd_div: idDivInput,
             nama_div: namaDivInput,
@@ -295,6 +369,35 @@ $(document).ready(function () {
         const jmlJamInput = document.getElementById("Jml_Jam").value;
         const aturanInput = document.getElementById("opsiAturan").value;
         const grupDivisiInput = document.getElementById("grup_Divisi").value;
+        if (idDivInput == "") {
+            alert("Data Belum Lengkap ");
+            return;
+        }
+        if (namaDivInput == "") {
+            alert("Data Belum Lengkap ");
+            return;
+        }
+        if (jmlJamInput == "") {
+            alert("Isi Dulu Jumlah Jamnya");
+            return;
+        }
+        console.log(jmlJamInput);
+        if (jmlJamInput != 5 && jmlJamInput != 7 ) {
+            alert("Jam hanya diisi 5 atau 7 saja ");
+            return;
+        }
+        if (aturanInput == "") {
+            alert("pilih dulu aturannya");
+            return;
+        }
+        if (posisiInput == "") {
+            alert("pilih dulu posisinya");
+            return;
+        }
+        if (grupDivisiInput == "") {
+            alert("pilih dulu grup divisinya");
+            return;
+        }
         const data = {
             kd_div: idDivInput,
             nama_div: namaDivInput,
@@ -360,10 +463,13 @@ $(document).ready(function () {
             .then(() => console.log("Form submitted successfully!"))
             .catch((error) => console.error("Form submission error:", error));
     });
-    deleteButton.addEventListener("click", function (event) {
+    simpanDeleteButton.addEventListener("click", function (event) {
         event.preventDefault();
         const idDivInput = document.getElementById("Id_Div").value;
-
+        if (idDivInput == "") {
+            alert("Pilih dulu divisinya !");
+            return;
+        }
         const data = {
             kd_div: idDivInput,
         };

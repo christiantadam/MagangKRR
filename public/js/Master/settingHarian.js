@@ -69,6 +69,10 @@ $(document).ready(function () {
         const IdMngrLama = document.getElementById("Id_Manager_Lama").value;
         const IdSupervisor = document.getElementById("Id_Supervisor").value;
         var IdMngrFinal,IdSupervisorFinal;
+        if (idDiv == "") {
+            alert("Pilih Dulu Divisinya");
+            return;
+        }
         if (IdSupervisor !== "") {
             const IdSuper = IdSupervisor.split(" / ");
             IdSupervisorFinal = IdSuper[1];

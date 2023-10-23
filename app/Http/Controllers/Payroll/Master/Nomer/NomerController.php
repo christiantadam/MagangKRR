@@ -35,10 +35,17 @@ class NomerController extends Controller
         // dd($cr);
         //getDivisi
         if ($crExplode[1] == "getPegawai") {
-            $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @Id_Div = ?', [$crExplode[0]]);
-            // dd($dataPeg);
-            // Return the options as JSON data
+            if ($crExplode[0] == "") {
+                $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @Id_Div = ?', [NULL]);
             return response()->json($dataPeg);
+            }
+            else{
+                $dataPeg = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_PEGAWAI @Id_Div = ?', [$crExplode[0]]);
+                // dd($dataPeg);
+                // Return the options as JSON data
+                return response()->json($dataPeg);
+            }
+
         } else if ($crExplode[1] == "getNamaPegawai") {
 
             //getDataPegawai

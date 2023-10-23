@@ -91,8 +91,19 @@ $(document).ready(function () {
         NomorTelepon.readOnly = true;
         hapusButton.disabled = false;
         batalButton.disabled = true;
+        clearForm();
     });
+    clearButton.addEventListener("click", function (event) {
+        clearForm();
+    });
+    function clearForm() {
+        $("#Id_Klinik").val("");
+        $("#Nama_Klinik").val("");
+        $("#AlamatKlinik").val("");
+        $("#KotaKlinik").val("");
+        $("#NomorTelepon").val("");
 
+    }
     simpanIsiButton.addEventListener("click", function (event) {
         event.preventDefault();
 
@@ -100,10 +111,14 @@ $(document).ready(function () {
         const AlamatKlinik = document.getElementById("AlamatKlinik").value;
         const KotaKlinik = document.getElementById("KotaKlinik").value;
         const NomorTelepon = document.getElementById("NomorTelepon").value;
-        if (Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
-            // Salah satu atau lebih elemen input memiliki nilai kosong
-            alert("Mohon isi semua field yang diperlukan.");
-            return; // Menghentikan eksekusi lebih lanjut
+        // if (Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
+        //     // Salah satu atau lebih elemen input memiliki nilai kosong
+        //     alert("Mohon isi semua field yang diperlukan.");
+        //     return; // Menghentikan eksekusi lebih lanjut
+        // }
+        if (Nama_Klinik == "") {
+            alert("Mohon isi nama kliniknya.");
+         return; // Menghentikan eksekusi lebih lanjut
         }
         const data = {
             nm: Nama_Klinik,

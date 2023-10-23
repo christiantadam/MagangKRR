@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Maintenance Divisi')</title>
+    <title style="font-size: 20px">@yield('title', 'Maintenance Divisi')</title>
     <style>
         /* Gaya untuk highlight row yang dipilih */
         tr.selected {
@@ -39,6 +39,8 @@
                                         style="width: 200px;">Simpan</button>
                                     <button type="button" class="btn d-none" id="simpanKoreksiButton"
                                         style="width: 200px;">Simpan</button>
+                                    <button type="button" class="btn d-none" id="simpanDeleteButton"
+                                        style="width: 200px;">Simpan</button>
                                 </div>
                                 <div class="row" style="margin-left: 50px; margin-top: 20px;">
                                     <button type="button" class="btn" id="koreksiButton"
@@ -46,6 +48,8 @@
                                     <button type="button" class="btn d-none" id="batalButton"
                                         style="width: 200px;">Batal</button>
                                     <button type="button" class="btn d-none" id="batalKoreksiButton"
+                                        style="width: 200px;">Batal</button>
+                                    <button type="button" class="btn d-none" id="batalDeleteButton"
                                         style="width: 200px;">Batal</button>
                                 </div>
                                 <div class="row" style="margin-left: 50px; margin-top: 20px;">
@@ -190,8 +194,7 @@
                                         <input class="form-control" type="text" id="Nama_Manager" readonly
                                             style="resize: none; height: 40px; max-width: 450px;">
                                         <button type="button" class="btn" id="managerButton"
-                                            style="margin-left: 10px;" onclick="showModalManager()"
-                                            disabled>...</button>
+                                            style="margin-left: 10px;" onclick="showModalManager()" disabled>...</button>
                                         <div class="modal fade" id="modalManager" role="dialog"
                                             arialabelledby="modalLabel" area-hidden="true" style="">
                                             <div class="modal-dialog " role="document">
