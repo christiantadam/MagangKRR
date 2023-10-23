@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
+    <input type="hidden" id="hidden_ku">
     <div id="scan_gelondongan" class="form" data-aos="fade-up">
+
         <div class="row mt-3">
             <div class="col-lg-6">
 
@@ -15,14 +17,11 @@
                     </div>
                     <div class="col-lg-7">
                         <select id="select_divisi" class="form-select">
-                            <option selected>-- Pilih Divisi --</option>
+                            <option disabled selected>-- Pilih Divisi --</option>
                             @foreach ($formData['listDivisi'] as $d)
                                 <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -31,7 +30,7 @@
                         <span class="aligned-text">No. Barcode:</span>
                     </div>
                     <div class="col-lg-7">
-                        <input type="text" id="no_barcode" class="form-control">
+                        <input type="text" id="no_barcode" class="form-control" placeholder="<<no barcode>>">
                     </div>
                     <div class="col-lg-2">
                         <span class="spn_enter">Enter</span>
@@ -40,7 +39,7 @@
 
                 <div class="row mt-3">
                     <div class="col-lg-3">
-                        <span class="aligned-text">Tujuan:</span>
+                        <span id="spn_tujuan" class="aligned-text">Tujuan:</span>
                     </div>
 
                     <div class="col-lg-1"></div>
@@ -117,5 +116,9 @@
                 <tbody></tbody>
             </table>
         </div>
+
     </div>
+
+    @include('Extruder.WarehouseTerima.modalLihatDataBarcode')
+    <script src="{{ asset('js\Extruder\WarehouseTerima\scanAssesoris.js') }}"></script>
 @endsection

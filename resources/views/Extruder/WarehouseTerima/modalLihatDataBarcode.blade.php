@@ -1,13 +1,15 @@
-<div class="modal fade" id="form_data_gelondongan" tabindex="-1">
+<div class="modal fade" id="form_lihat_data" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Lihat Data Gelondongan</h1>
+                <h1 id="ld_title" class="modal-title fs-5">Lihat Data Gelondongan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
+                <input type="hidden" id="hidden_divisi">
+
                 <h1 id="loading_lbl">
                     <center>Memuat data...</center>
                 </h1>
@@ -18,7 +20,7 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="input-group">
-                            <input type="date" name="" id="mdl_tanggal" class="form-control">
+                            <input type="date" id="ld_tanggal" class="form-control">
                             <button type="button" id="btn_refresh" class="btn btn-outline-secondary">Refresh</button>
                         </div>
                     </div>
@@ -26,7 +28,7 @@
 
                 <input type="hidden" id="hid_divisi">
 
-                <table id="mdl_table" class="hover cell-border">
+                <table id="ld_table" class="hover cell-border">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -45,12 +47,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="mdl_cancel" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                <button type="button" id="mdl_confirm" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                <button type="button" id="ld_cancel" class="btn btn-secondary" data-bs-dismiss="modal">KELUAR</button>
             </div>
 
         </div>
     </div>
 </div>
 
-<script src="{{ asset('js\Extruder\WarehouseTerima\dataGelondongan.js') }}"></script>
+<script src="{{ asset('js\Extruder\WarehouseTerima\lihatDataBarcode.js') }}"></script>

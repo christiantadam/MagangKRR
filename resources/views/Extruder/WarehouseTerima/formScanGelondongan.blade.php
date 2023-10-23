@@ -16,14 +16,11 @@
                     </div>
                     <div class="col-lg-7">
                         <select id="select_divisi" class="form-select">
-                            <option selected>-- Pilih Divisi --</option>
+                            <option disabled selected>-- Pilih Divisi --</option>
                             @foreach ($formData['listDivisi'] as $d)
                                 <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="spn_enter">Enter</span>
                     </div>
                 </div>
 
@@ -32,7 +29,7 @@
                         <span class="aligned-text">No. Barcode:</span>
                     </div>
                     <div class="col-lg-7">
-                        <input type="text" id="no_barcode" class="form-control" disabled>
+                        <input type="text" id="no_barcode" class="form-control" placeholder="<<no barcode>>">
                     </div>
 
                     <div class="col-lg-2">
@@ -95,6 +92,6 @@
         </div>
     </div>
 
-    @include('Extruder.WarehouseTerima.modalDataGelondongan')
+    @include('Extruder.WarehouseTerima.modalLihatDataBarcode')
     <script src="{{ asset('js\Extruder\WarehouseTerima\scanGelondongan.js') }}"></script>
 @endsection

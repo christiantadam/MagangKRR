@@ -2,6 +2,8 @@
 const slcDivisi = document.getElementById("select_divisi");
 const btnHapus = document.getElementById("btn_hapus");
 const btnKeluar = document.getElementById("btn_keluar");
+const hidSelect = document.getElementById("hidden_get");
+const hidUpdate = document.getElementById("hidden_upd");
 
 const listBarcode = [];
 /** ISI LIST BARCODE
@@ -47,7 +49,9 @@ btnHapus.addEventListener("click", function () {
         "Apakah anda yakin mau membatalkan pengiriman barcode ini?",
         () => {
             fetchStmt(
-                "/warehouseTerima/SP_1273_LMT_SimpanPembatalanKirimKeGudang/" +
+                "/warehouseTerima/" +
+                    hidUpdate.value +
+                    "/" +
                     listBarcode[pilBarcode].KodeBarang +
                     "~" +
                     listBarcode[pilBarcode].NoIndeks,
@@ -63,8 +67,7 @@ btnHapus.addEventListener("click", function () {
 //#region Functions
 function showData() {
     fetchSelect(
-        "/warehouseTerima/SP_1273_INV_ListBarcodeBahanBaku/2~" +
-            slcDivisi.value,
+        "/warehouseTerima/" + hidSelect.value + "/2~" + slcDivisi.value,
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listBarcode.push({

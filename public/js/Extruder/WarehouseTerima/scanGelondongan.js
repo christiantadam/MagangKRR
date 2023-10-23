@@ -83,17 +83,8 @@ txtNoBarcode.addEventListener("keypress", function (event) {
         if (this.value.trim() != "") {
             let kode_barang = this.value.substring(this.value.length - 9);
             let no_indeks = this.value.substring(0, 9).replace(/^0+/, "");
-
-            cekBarcodeDispatch(
-                kode_barang,
-                no_indeks,
-                "cekBarcode_barcodeKeyPress"
-            );
+            cekBarcodeDispatch(kode_barang, no_indeks);
         } else alert("Scan Barcode Terlebih Dahulu!");
-
-        spnBarcode.textContent = listKirim.length;
-        txtNoBarcode.value = "";
-        txtNoBarcode.focus();
     }
 });
 
@@ -127,41 +118,39 @@ btnLihat.addEventListener("click", function () {
         slcDivisi.focus();
     } else {
         hidDivisi.value = slcDivisi.value;
-        $("#form_data_gelondongan").modal("show");
+        LD_formData.kode = 2;
+        LD_formData.title = "Lihat Data Gelondongan";
+        $("#form_lihat_data").modal("show");
     }
 });
 
 hidGetFetch.addEventListener("change", function () {
-    switch (this.value.split("~")[0]) {
-        case "cekBarcode_barcodeKeyPress":
-            let sts = this.value.split("~")[1];
-            let sudahTembak = false;
-            if (sts == 3 || sts == 1) {
-                for (let i = 0; i < listKirim.length; i++) {
-                    if (listKirim[i].NoBarcode == this.value.trim()) {
-                        sudahTembak = true;
-                        break;
-                    }
-                }
+    let sts = this.value;
+    let sudahTembak = false;
+    if (sts == 3 || sts == 1) {
+        for (let i = 0; i < listKirim.length; i++) {
+            if (listKirim[i].NoBarcode == this.value.trim()) {
+                sudahTembak = true;
+                break;
+            }
+        }
 
-                if (!sudahTembak) {
-                    ambilDataBarangFetch(kode_barang, no_indeks);
-                } else alert("Barcode Sudah Pernah Ditembak!");
-            } else if (sts == 2) {
-                alert("Barcode Sudah Dikirim Ke Gudang!");
-            } else alert("Data Barcode Tidak Ditemukan!");
-            break;
+        if (!sudahTembak) {
+            ambilDataBarangFetch(kode_barang, no_indeks);
+        } else alert("Barcode Sudah Pernah Ditembak!");
+    } else if (sts == 2) {
+        alert("Barcode Sudah Dikirim Ke Gudang!");
+    } else alert("Data Barcode Tidak Ditemukan!");
 
-        default:
-            console.log(this.value);
-            break;
-    }
+    spnBarcode.textContent = listKirim.length;
+    txtNoBarcode.value = "";
+    txtNoBarcode.focus();
 });
 //#endregion
 
 //#region Functions
 // Tested
-function cekBarcodeDispatch(kode_barang, no_indeks, parent_fun = "cekBarcode") {
+function cekBarcodeDispatch(kode_barang, no_indeks) {
     let statusKu = 0;
     fetchSelect(
         "/warehouseTerima/SP_1273_INV_CekBarcodeGelondonganMojosari/" +
@@ -188,7 +177,7 @@ function cekBarcodeDispatch(kode_barang, no_indeks, parent_fun = "cekBarcode") {
                 } else statusKu = data[0].Status;
             }
 
-            hidGetFetch.value = parent_fun + "~" + statusKu;
+            hidGetFetch.value = statusKu;
             hidGetFetch.dispatchEvent(new Event("change"));
         }
     );
@@ -287,20 +276,6 @@ function buatRekapFetch(id_type, type, tanggal, jumlah, divisi) {
     }
 }
 
-// Tested
-function ambilJamServerDispatch(parent_fun = "ambilJamServer") {
-    fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
-        let fetchEmpty = true;
-        if (data.length > 0) fetchEmpty = false;
-
-        let jam_server = "_";
-        if (!fetchEmpty) jam_server = data[0].jam_server;
-
-        hidGetFetch.value = parent_fun + "~" + jam_server;
-        hidGetFetch.dispatchEvent(new Event("change"));
-    });
-}
-
 function kirimGudangFetch(kode_barang, no_indeks, divisi, post_action = null) {
     // Ambil jam server
     fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
@@ -392,7 +367,6 @@ function init() {
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
-    spnBarcode.value = listKirim.length;
 
     // Debug cekBarcodeDispatch()
     // addOptionIfNotExists(slcDivisi, "EXT", "EXT - Extruder", true);
@@ -401,9 +375,6 @@ function init() {
     // Debug ambilDataBarangFetch() & buatRekapFetch()
     // addOptionIfNotExists(slcDivisi, "EXT", "EXT - Extruder", true);
     // ambilDataBarangFetch(1, 1);
-
-    // Debug ambilJamServer()
-    // ambilJamServerDispatch();
 }
 
 $(document).ready(() => init());

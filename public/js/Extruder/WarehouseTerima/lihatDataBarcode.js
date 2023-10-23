@@ -1,14 +1,14 @@
 //#region Variables
-const DT_tanggal = document.getElementById("mdl_tanggal");
-const DT_btnCancel = document.getElementById("mdl_cancel");
-const DT_btnConfirm = document.getElementById("mdl_confirm");
-const DT_table = document.getElementById("mdl_table");
+const LD_tanggal = document.getElementById("ld_tanggal");
+const LD_btnCancel = document.getElementById("ld_cancel");
+const LD_btnConfirm = document.getElementById("ld_confirm");
+const LD_table = document.getElementById("ld_table");
 
 const spnLoading = document.getElementById("loading_lbl");
 const btnRefresh = document.getElementById("btn_refresh");
-const hidDivisi = document.getElementById("hid_divisi");
+const hidDivisi = document.getElementById("hidden_divisi");
 
-const DT_listKirim = [];
+const LD_listKirim = [];
 /** ISI LIST KIRIM
  * 0 TglKirim
  * 1 NamaType
@@ -20,7 +20,7 @@ const DT_listKirim = [];
  * 7 Divisi
  */
 
-const DT_colKirim = [
+const LD_colKirim = [
     { width: "1px" }, // No.
     { width: "1px" }, // Tanggal
     { width: "1px" }, // Type
@@ -31,19 +31,21 @@ const DT_colKirim = [
     { width: "1px" }, // Tritier
     { width: "1px" }, // Divisi
 ];
+
+var LD_formData = { title: "", kode: "" };
 //#endregion
 
 //#region Events
 btnRefresh.addEventListener("click", function () {
-    DT_listKirim.length = 0;
-    clearTable_DataTable("mdl_table", DT_colKirim.length, "Memuat data...");
+    LD_listKirim.length = 0;
+    clearTable_DataTable("ld_table", LD_colKirim.length, "Memuat data...");
     // 2017-07-17 00:00:00.000  ABM
-    DT_showData(12, DT_tanggal.value);
+    LD_showData(12, LD_tanggal.value);
 });
 //#endregion
 
 //#region Functions
-function DT_showData(kode, tgl = "") {
+function LD_showData(kode, tgl = "") {
     let fetch_url =
         "/warehouseTerima/SP_1273_INV_ListKirimBahanBaku/" +
         kode +
@@ -53,7 +55,8 @@ function DT_showData(kode, tgl = "") {
 
     fetchSelect(fetch_url, (data) => {
         for (let i = 0; i < data.length; i++) {
-            DT_listKirim.push({
+            LD_listKirim.push({
+                Nomor: i + 1,
                 TglKirim: dateTimeToDate(data[i].TglKirim),
                 NamaType: data[i].NamaType,
                 KodeBarang: data[i].KodeBarang,
@@ -66,13 +69,13 @@ function DT_showData(kode, tgl = "") {
         }
 
         if (data.length > 0) {
-            addTable_DataTable("mdl_table", DT_listKirim, DT_colKirim);
+            addTable_DataTable("ld_table", LD_listKirim);
         } else {
             clearTable_DataTable(
-                "mdl_table",
-                DT_colKirim.length,
+                "ld_table",
+                LD_colKirim.length,
                 "Tidak ditemukan Data Gelondongan pada <b>" +
-                    DT_tanggal.value +
+                    LD_tanggal.value +
                     "</b>."
             );
         }
@@ -82,11 +85,11 @@ function DT_showData(kode, tgl = "") {
 
 function init_dt() {
     spnLoading.classList.add("hidden");
-    DT_table.classList.remove("hidden");
-    DT_tanggal.value = getCurrentDate();
+    LD_table.classList.remove("hidden");
+    LD_tanggal.value = getCurrentDate();
 
-    if (!$.fn.DataTable.isDataTable("#mdl_table")) {
-        $("#mdl_table").DataTable({
+    if (!$.fn.DataTable.isDataTable("#ld_table")) {
+        $("#ld_table").DataTable({
             responsive: true,
             paging: false,
             scrollY: "250px",
@@ -110,7 +113,7 @@ function init_dt() {
         });
     }
 
-    addTable_DataTable("mdl_table", [
+    addTable_DataTable("ld_table", [
         {
             Nomor: "",
             Tanggal: "",
@@ -124,16 +127,17 @@ function init_dt() {
         },
     ]);
 
-    DT_listKirim.length = 0;
-    clearTable_DataTable("mdl_table", DT_colKirim.length, "Memuat data...");
-    DT_showData(2);
+    document.getElementById("ld_title").textContent = LD_formData.title;
+    LD_listKirim.length = 0;
+    clearTable_DataTable("ld_table", LD_colKirim.length, "Memuat data...");
+    LD_showData(LD_formData.kode);
 }
 
-$("#form_data_gelondongan").on("shown.bs.modal", function () {
+$("#form_lihat_data").on("shown.bs.modal", function () {
     init_dt();
 });
 
-$("#form_data_gelondongan").on("hidden.bs.modal", function () {
-    DT_listKirim.length = 0;
-    clearTable_DataTable("mdl_table", DT_colKirim.length);
+$("#form_lihat_data").on("hidden.bs.modal", function () {
+    LD_listKirim.length = 0;
+    clearTable_DataTable("ld_table", LD_colKirim.length);
 });
