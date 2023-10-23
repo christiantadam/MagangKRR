@@ -22,6 +22,14 @@ class EditEstimasiTanggalController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ?', [1,$noAntri,$date, $worksts]);
         return response()->json($data);
     }
+    public function cekestimasi($noOd) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
+        return response()->json($data);
+    }
+    public function cekestimasikonstruksi($estDate,$worksts) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTDATE-KONSTRUKSI] @estDate = ?, @worksts = ?', [$estDate, $worksts]);
+        return response()->json($data);
+    }
 
 
 
@@ -51,7 +59,19 @@ class EditEstimasiTanggalController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $estDate = $request->estDate;
+        $noAntri = $request->noAntri;
+        $idBag = $request->idBag;
+        $estHour = $request->estHour;
+        $estMinute = $request->estMinute;
+        $worksts = $request->worksts;
+        $oldDate =  $request->oldDate;
+        $jamKrj = $request->jamKrj;
+        $user = 4384;
+        $keterangan = $request->keterangan;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-ESTDATE-KONSTRUKSI-NEW] @estDate = ?, @noAntri = ?, @idBag = ?, @estHour = ?, @estHour = ?, @worksts = ?, @oldDate = ?, @jamKrj = ?, @user = ?, @keterangan = ?',
+         [$estDate,$noAntri,$idBag,$estHour, $estMinute,$worksts, $oldDate,$jamKrj,$user,$keterangan]);
+
     }
 
 

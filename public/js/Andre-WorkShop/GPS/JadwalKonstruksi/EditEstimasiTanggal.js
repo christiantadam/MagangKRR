@@ -201,7 +201,10 @@ function prosesklik() {
     var move_estJam = [];
     var move_estMenit = [];
     let idk = 0;
-
+    let sts_jadwal;
+    let total_menit;
+    let jam_kerja;
+    let menit_jam_kerja;
     $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
         // Ambil nilai 'value' dan status 'checked' dari checkbox
         let value = $(this).val();
@@ -226,6 +229,82 @@ function prosesklik() {
             idk = idk + 1;
         });
         var newTgl = prompt("Inputkan estimasi tanggal yg baru", "PESAN");
+        let i = 0;
+        $("input[name='EditEstimasiTanggalCheck']").each(function () {
+            // Ambil nilai 'value' dan status 'checked' dari checkbox
+            let rowindex = $(this).closest("tr").index();
+            let status = Proses_cek_estimasi(
+                table_data.cell(rowindex, 1).data(),
+                newTgl
+            );
+            i += 1;
+            if (status == false) {
+                alert(
+                    "Untuk nomer order: " +
+                        table_data.cell(rowindex, 1).data() +
+                        ", tdk bisa diproses."
+                );
+                alert("Tidak terProses...");
+                return;
+            }
+        });
+        fetch("/cekestimasiEditEstimasiTanggal/" + noOrder)
+            .then((response) => response.json())
+            .then((datas) => {
+                if (datas[0].ada > 0) {
+                    sts_jadwal = true;
+                } else {
+                    sts_jadwal = false;
+                }
+            });
+        total_menit = 0;
+        for (let i = 0; i < idk - 1; i++) {
+            total_menit =
+                estJam[indeks[i]] * 60 + estMenit[indeks[i]] + total_menit;
+        }
+        if ((sts_jadwal = false)) {
+            jam_kerja = prompt(
+                "Tentukan jam kerja optimal u/ tgl: " + newTgl,
+                "PESAN"
+            );
+            menit_jam_kerja = jam_kerja * 60;
+            while (total_menit > menit_jam_kerja) {
+                alert(
+                    "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
+                );
+                jam_kerja = prompt(
+                    "Tentukan jam kerja optimal u/ tgl: " + newTgl,
+                    "PESAN"
+                );
+                menit_jam_kerja = jam_kerja * 60;
+            }
+            var csrfToken = $('meta[name="csrf-token"]').attr("content");
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': csrfToken
+            //     }
+            // });
+            $.ajax({
+                url: "EditPerWorkStation/" + noAntri[0],
+                type: "POST",
+                dataType: "json",
+                data: {
+                    _token: csrfToken,
+                    _method: "PUT",
+                    noAntri: noAntri[0],
+                    noBantu: posisiBaru,
+                    worksts: WorkStation.value,
+                    tgl: tgl.value,
+                },
+                success: function (response) {
+                    console.log(response.message);
+                    // console.log(response.data);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                },
+            });
+        }
     }
 }
 
@@ -247,6 +326,44 @@ function okemodal() {
     } else if (Lain.checked) {
         alert("Masukkan alasannya...");
         alasanLain.focus();
+    }
+}
+
+//#endregion
+
+//#region Proses_cek_estimasi
+
+function Proses_cek_estimasi(noOrder, tanggal) {
+    let tglS, tglF;
+    fetch("/cekestimasiEditEstimasiTanggal/" + noOrder)
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas.length > 0) {
+                tglS = datas[0].TglS;
+                tglF = datas[0].TglF;
+            }
+        });
+
+    if (tanggal < tglS || tanggal > tglF) {
+        if (tanggal < tglS) {
+            alert(
+                "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+                    tglS +
+                    ") yg dijadwalkan oleh PPIC."
+            );
+            return false;
+        } else if (tanggal > tglF) {
+            alert(
+                "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+                    tglF +
+                    ") yg dijadwalkan oleh PPIC."
+            );
+            return false;
+        }
+        // Proses_cek_estimasi = false;
+    } else {
+        return true;
     }
 }
 
