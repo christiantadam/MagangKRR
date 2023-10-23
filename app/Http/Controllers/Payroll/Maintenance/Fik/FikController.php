@@ -13,7 +13,8 @@ class FikController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('Payroll.Maintenance.Fik.FIK', compact('data'));
+        $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_HARIAN ? ', [1]);
+        return view('Payroll.Maintenance.Fik.FIK', compact('data','dataDivisi'));
     }
 
     //Show the form for creating a new resource.

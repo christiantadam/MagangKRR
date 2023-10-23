@@ -116,7 +116,7 @@ btnTutupModal.addEventListener('click', function(event) {
 
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
-    clickOK();
+    // clickOK();
         fetch("/detailtabelpenagihan/" + bulan.value +"/"+ tahun.value)
             .then((response) => response.json())
             .then((options) => {
@@ -667,7 +667,7 @@ btnCETAK.addEventListener('click', function (event) {
 
 
             if (totalBiaya == 0 && totalKurangLebih == 0) {
-                biaya.textContent = 0;
+                biaya.textContent = null;
             } else if ((options[0].ID_Penagihan != null && totalBiaya != 0) || (options[0].ID_Penagihan != null && totalKurangLebih != 0)) {
                 biaya.textContent = options[0].Nilai_Rincian;
             } else if ((options[0].ID_Penagihan == null && totalBiaya != 0) || (options[0].ID_Penagihan == null && totalKurangLebih != 0)) {
@@ -874,12 +874,12 @@ function clickOK() {
     const selectedMonth = parseInt(bulanValue, 10);
     const selectedYear = parseInt(tahunValue, 10);
 
-    if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
-        alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
-        bulan.value = "";
-        tahun.value = "";
-        return;
-    }
+    // if (selectedYear > currentYear || (selectedYear === currentYear && selectedMonth >= currentMonth)) {
+    //     alert('TIDAK BOLEH CREATE BKM U/ BLN INI!!!');
+    //     bulan.value = "";
+    //     tahun.value = "";
+    //     return;
+    // }
 }
 
 function validatePilihBank() {

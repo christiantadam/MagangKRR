@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Maintenance Divisi')</title>
     <style>
         /* Gaya untuk highlight row yang dipilih */
         tr.selected {

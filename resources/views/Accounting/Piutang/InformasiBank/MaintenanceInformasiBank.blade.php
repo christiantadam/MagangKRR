@@ -80,7 +80,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%" readonly>
+                                        <input type="hidden" id="idBank" name="idBank" class="form-control" style="width: 100%" readonly>
                                     </div>
                                     <div class="col-md-2">
                                         <input type="text" id="idReferensi" name="idReferensi" class="form-control" style="width: 100%" readonly>
@@ -95,7 +95,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%" readonly>
+                                        <input type="hidden" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">

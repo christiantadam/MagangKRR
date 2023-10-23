@@ -237,6 +237,7 @@ btnIsi.addEventListener("click", function (event) {
     jenisPembayaranSelect.removeAttribute("readonly");
     idJenisPembayaran.removeAttribute("readonly");
     noBukti.removeAttribute("readonly");
+
 });
 
 btnKoreksi.addEventListener("click", function (event) {
@@ -377,4 +378,21 @@ btnBatal.addEventListener('click', function (event) {
         radioButton.checked = false;
     });
     tabelInfoBank.clear().draw();
+
+    namaBankSelect.setAttribute("readonly", true);
+    idBank.setAttribute("readonly", true);
+    mataUangSelect.setAttribute("readonly", true);
+    idMataUang.setAttribute("readonly", true);
+    totalNilai.setAttribute("readonly", true);
+    keterangan.setAttribute("readonly", true);
+    jenisPembayaranSelect.setAttribute("readonly", true);
+    idJenisPembayaran.setAttribute("readonly", true);
+    noBukti.setAttribute("readonly", true);
+    idReferensi.setAttribute("readonly", true);
+
+    btnBatal.style.display = "none";
+    btnKoreksi.style.display = "block";
+    btnIsi.style.display = "block";
+    btnSimpanKoreksi.style.display = "none";
+    btnSimpan.style.display = "none";
 })

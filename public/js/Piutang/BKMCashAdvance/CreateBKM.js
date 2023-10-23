@@ -403,7 +403,6 @@ function Check() {
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
     console.log("masuk OK");
-    clickOK();
     fetch("/detailtabelpelunasan2/" + bulan.value + "/" + tahun.value)
         .then((response) => response.json())
         .then((optionss) => {
@@ -432,13 +431,7 @@ btnOK.addEventListener('click', function (event) {
                     { title: "Mata Uang", data: "Nama_MataUang" },
                     { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
                     { title: "No. Bukti", data: "No_Bukti" },
-                    {
-                        title: "Tgl. Input", data: "TglInput",
-                        render: function (data) {
-                            var date = new Date(data);
-                            return date.toLocaleDateString();
-                        }
-                    },
+                    { title: "Tgl. Input", data: "TglInput"},
                     { title: "Kode Perkiraan", data: "KodePerkiraan" },
                 ],
             });
@@ -627,6 +620,7 @@ $("#btnProsesss").on('click', function (event) {
     console.log(idKodePerkiraan);
     updateKpColumn2(idKodePerkiraan, selectedRowsIndices);
     updateBank(idBank, selectedRowsIndices);
+    updateTglPembulatan(tanggalInput, selectedRowsIndices);
 
     $('#pilihInputTanggal').modal('hide');
 });
@@ -694,6 +688,24 @@ function updateBank(namaBankSelect, selectedRows) {
             // Update the "Kode Perkiraan" data in the rowData
             rowData["Id_bank"] = idBank.value; // Pastikan nama properti sesuai dengan properti dalam data
             row.data(rowData).draw(); // Terapkan perubahan ke tampilan DataTable
+        }
+    });
+}
+
+function updateTglPembulatan(tanggalInput, selectedRows) {
+    // Loop through each selected row index and update the data for the specific column
+    selectedRows.forEach((rowIdx) => {
+        // Get the DataTable row object for the selected row index
+        const row = dataTable3.row(rowIdx);
+        if (row) {
+            // Get the current data for the row
+            const rowData = row.data();
+
+            // Update the "Kode Perkiraan" data in the rowData
+            rowData["TglInput"] = tanggalInput.value; // Pastikan nama properti sesuai dengan properti dalam data
+            row.data(rowData).draw(); // Terapkan perubahan ke tampilan DataTable
+
+            // console.log(rowData["TglInput"]);
         }
     });
 }

@@ -92,6 +92,15 @@ class BKMBKKPembulatanController extends Controller
 
     }
 
+    public function getCetakBKMBKKPembulatan($idBKKTampil)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKK_DP')
+        ->where('Id_BKK', $idBKKTampil)
+        ->get();
+        return $data;
+    }
+
     public function insertUpdate(Request $request)
     {
         $idBKK = $request->idBKK;

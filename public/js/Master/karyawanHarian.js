@@ -335,6 +335,17 @@ $(document).ready(function () {
         const NPWP = document.getElementById("NPWP").value;
         const No_rek = document.getElementById("NomorRek").value;
         const NIK = document.getElementById("NIK").value;
+        if (nama_peg == "" || gaji_pokok == "" ||u_golongan == "" ||t_jabatan == "" ||u_jenjang == ""|| gaji_pokok == 0 ||u_golongan == 0 ||t_jabatan == 0 ||u_jenjang == 0) {
+            alert("Nama/Upah Belum Terinput .....");
+            console.log(tgl_lahir);
+            return;
+        }
+        if (!isNaN(NIK) && NIK.length === 16) {
+            console.log("Input adalah 16 digit.");
+        } else {
+            alert("Jumlah digit NIK yang Anda input tidak sesuai. Harus 16 digit")
+            return;
+        }
         const data = {
             _token: csrfToken,
             id_div: id_div,
@@ -685,18 +696,18 @@ $(document).ready(function () {
         alamat.value = "";
         kota.value = "";
         tmp_lahir.value = "";
-        tgl_lahir.value = "";
+        // tgl_lahir.value = "";
         jns_kelamin.value = "";
         agama.value = "";
         kawin.value = "";
-        tgl_masuk.value = "";
-        tgl_masuk_awal.value = "";
+        // tgl_masuk.value = "";
+        // tgl_masuk_awal.value = "";
         jabatan.value = "";
         golongan.value = "";
         no_astek.value = "";
         no_rbh.value = "";
         no_koperasi.value = "";
-        tgl_agt_kop.value = "";
+        // tgl_agt_kop.value = "";
         gaji_pokok.value = "";
         u_golongan.value = "";
         t_jabatan.value = "";
@@ -706,8 +717,8 @@ $(document).ready(function () {
         pendidikan.value = "";
         Shift.value = "";
         // pos.disabled = false;
-        TglAwalKontrak.value = "";
-        TglAkhirKontrak.value = "";
+        // TglAwalKontrak.value = "";
+        // TglAkhirKontrak.value = "";
         Tanggungan.value = "";
         NPWP.value = "";
         No_rek.value = "";

@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Maintenance Keluarga Karyawan')</title>
     <script>
         $("#tabel_Divisi").DataTable({
             order: [
@@ -52,8 +53,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="divisiButton" data-toggle="modal"
-                                                data-target="#modalDivPeg">...</button>
+                                                id="divisiButton" onclick="showModalDivisi()">...</button>
 
                                             <div class="modal fade" id="modalDivPeg" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -95,8 +95,7 @@
                                             <input class="form-control" type="text" id="Nama_Peg" readonly
                                                 style="resize: none; height: 40px; max-width: 450px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                id="karyawanButton" data-toggle="modal"
-                                                data-target="#modalKaryawan">...</button>
+                                                id="karyawanButton" onclick="showModalKaryawan()">...</button>
                                             <div class="modal fade" id="modalKaryawan" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">
@@ -169,8 +168,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <button type="button" class="btn" style="margin-left: 10px; "
-                                                id="modalPisatButton" data-toggle="modal"
-                                                data-target="#modalPisat">...</button>
+                                                id="modalPisatButton" onclick="showModalPisat()">...</button>
 
                                             <div class="modal fade" id="modalPisat" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
@@ -236,7 +234,7 @@
                                             <input class="form-control" type="text" id="Kawin" readonly
                                                 style="resize: none; height: 40px; max-width: 450px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                data-toggle="modal" data-target="#modalKawin">...</button>
+                                                onclick=showModalKawin()></button>
                                             <div class="modal fade" id="modalKawin" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">
@@ -379,7 +377,7 @@
                                             <input class="form-control" type="text" id="Status_Hub_Keluarga" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                data-toggle="modal" data-target="#modalHubungan">...</button>
+                                                onclick=showModalHubungan()>...</button>
                                             <span class="aligned-text" style="margin-left:30px;">&nbsp;Kelamin:</span>
                                             <input type="radio" id="opsiKelamin1" name="opsiKelamin" value="P"
                                                  style="vertical-align: middle;">&nbsp;Perempuan (P)&nbsp;
@@ -457,7 +455,7 @@
                                             <input class="form-control" type="text" id="Nama_Pisat_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                data-toggle="modal" data-target="#modalPisat2">...</button>
+                                                onclick=showModalPisat2()>...</button>
                                             <div class="modal fade" id="modalPisat2" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">
@@ -466,7 +464,7 @@
 
                                                             <div class="row" style=";">
                                                                 <div class="table-responsive" style="margin:30px;">
-                                                                    <table id="tabel_Hubungan"
+                                                                    <table id="tabel_Pisat2"
                                                                         class="table table-bordered">
                                                                         <thead class="thead-dark">
                                                                             <tr>
@@ -507,7 +505,7 @@
                                             <input class="form-control" type="text" id="Status_Kawin_Kel" readonly
                                                 style="resize: none; height: 40px; max-width: 150px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                data-toggle="modal" data-target="#modalKawin2">...</button>
+                                                onclick=showModalKawin2()>...</button>
                                             <div class="modal fade" id="modalKawin2" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">
@@ -516,7 +514,7 @@
 
                                                             <div class="row" style=";">
                                                                 <div class="table-responsive" style="margin:30px;">
-                                                                    <table id="tabel_Hubungan"
+                                                                    <table id="tabel_Kawin2"
                                                                         class="table table-bordered">
                                                                         <thead class="thead-dark">
                                                                             <tr>

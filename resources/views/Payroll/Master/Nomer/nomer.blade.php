@@ -1,5 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Maintenance Nomer')</title>
     <script type="text/javascript" src="{{ asset('js/Master/nomer.js') }}"></script>
 
     <div class="container-fluid">
@@ -7,7 +8,7 @@
             <div class="col-md-10 RDZMobilePaddingLR0">
 
                 <div class="card">
-                    <div class="card-header">PEKERJA</div>
+                    <div class="card-header">Maintenance Nomer</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0" style="flex: 1; margin-left:10 px">
                         <div class="row" style="margin-left:;">
                             <div class="form-group col-md-1 d-flex justify-content-end">

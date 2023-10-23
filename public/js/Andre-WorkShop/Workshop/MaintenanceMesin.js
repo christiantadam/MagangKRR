@@ -163,7 +163,7 @@ function hapusdiklik() {
     btnproses.disabled = false;
     divisi.disabled = false;
     mesin.disabled = false;
-    ganti.disabled = false;
+    ganti.disabled = true;
     hapus = true;
 }
 

@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Cetak Barcode Rusak')</title>
+    <title style="font-size: 20px">@yield('title', 'Cetak Barcode Rusak')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/CBR.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
     <style>
@@ -27,15 +27,13 @@
                                         <div class="form-group col-md-9 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Masukan_nomor_barcode"
                                                 id="Masukan_nomor_barcode" placeholder="Masukan Nomor Barcode">
-                                            <h6 style="margin-left: 30px">Tekan&nbsp;Enter</h6>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col- row justify-content-md-center">
                                             <div class="text-center col-md-auto">
-                                                <button type="button" style="width: 100px" id="ButtonPrint"
-                                                    onclick="printDiv()">Print</button>
+                                                <button type="button" style="width: 100px" id="ButtonPrint">Print</button>
                                             </div>
                                             <div class="text-center col-md-auto">
                                                 <button type="button" style="width: 100px">Keluar</button>

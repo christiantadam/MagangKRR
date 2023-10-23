@@ -278,7 +278,7 @@ class BKMBKKNotaKreditController extends Controller
         return redirect()->back()->with('success', 'BKM No. '. $idBKM . ' & BKK No. ' . $idBKK . ' Tersimpan');
     }
 
-    
+
     //Display the specified resource.
     public function show($cr)
     {

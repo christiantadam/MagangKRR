@@ -36,8 +36,8 @@
         </table>
 
         <div class="float-end mt-3 mb-3">
-            <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
-            <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
+            <button type="button" id="btn_proses" class="btn btn-success">Proses</button>
+            <button type="button" id="btn_keluar" class="btn btn-danger">Keluar</button>
         </div>
     </div>
 

@@ -224,8 +224,8 @@
         </div>
 
         <div class="mt-3 mb-5 float-end text-center">
-            <button type="button" id="btn_proses" class="btn btn-outline-success" disabled>Proses</button>
-            <button type="button" id="btn_keluar" class="btn btn-outline-danger">Keluar</button>
+            <button type="button" id="btn_proses" class="btn btn-success" disabled>Proses</button>
+            <button type="button" id="btn_keluar" class="btn btn-danger">Keluar</button>
         </div>
     </div>
 

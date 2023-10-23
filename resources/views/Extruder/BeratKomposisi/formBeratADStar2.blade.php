@@ -21,7 +21,7 @@
                 <span class="aligned-text">Type:</span>
             </div>
             <div class="form-group col-md-9 mt-3 mt-md-0">
-                <textarea class="form-control" id="berat_type" rows="3"></textarea>
+                <textarea class="form-control" id="berat_type" rows="3" disabled></textarea>
             </div>
         </div>
 

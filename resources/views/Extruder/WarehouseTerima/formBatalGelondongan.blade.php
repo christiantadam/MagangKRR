@@ -14,27 +14,26 @@
                 </div>
 
                 <div class="col-lg-8">
-                    <div class="input-group">
-                        <input type="text" name="divisi1" id="divisi1" class="form-control">
-                        <input type="text" name="divisi2" id="divisi2" class="form-control" style="width: 22.5vw;">
-                        <button type="button" class="btn btn-outline-secondary">...</button>
-                    </div>
+                    <select id="select_divisi" class="form-select">
+                        <option selected>-- Pilih Divisi --</option>
+                        @foreach ($formData['listDivisi'] as $d)
+                            <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
             </div>
 
-            <div class="mt-3"></div>
+            <div class="mt-4">
+                <span style="font-size: large"><b>Beri tanda centang (√) pada bercode yang batal dikirim ke
+                        gudang</b></span>
 
-            <span>Beri tanda centang (√) pada bercode yang batal dikirim ke gudang</span>
-
-            <div class="table-responsive">
-                <table class="table table-hover" style="width: max-content">
+                <table id="table_barcode" class="hover cell-border">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
                             <th>Type</th>
                             <th>No. Barcode</th>
-                            <th>Sub-Kelompok</th>
+                            <th>Sub-kelompok</th>
                             <th>Kelompok</th>
                             <th>Kode Barang</th>
                             <th>No. Indeks</th>
@@ -45,15 +44,18 @@
                             <th>Divisi</th>
                         </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
             </div>
 
-
             <div class="mt-3 mb-5 float-end text-center">
-                <button type="submit" class="btn btn-outline-warning" style="margin-right: 10px;">Cari</button>
-                <button type="button" class="btn btn-outline-danger" style="margin-right: 10px;">Hapus</button>
-                <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;">Tutup</button>
+                <button type="button" id="btn_hapus" class="btn btn-outline-danger"
+                    style="margin-right: 10px;">Hapus</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-secondary"
+                    style="margin-right: 10px;">Keluar</button>
             </div>
         </form>
     </div>
+
+    <script src="{{ asset('js\Extruder\WarehouseTerima\batalGelondongan.js') }}"></script>
 @endsection

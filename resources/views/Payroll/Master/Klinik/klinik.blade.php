@@ -1,12 +1,13 @@
 @extends('layouts.appPayroll')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Maintenance Klinik')</title>
     <script type="text/javascript" src="{{ asset('js/Master/klinik.js') }}"></script>
 
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">PROGRAM Maintenance Karyawan Harian</div>
+                    <div class="card-header">PROGRAM Maintenance Klinik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="row" style="">
                             <div class="form-group col-md-1 d-flex justify-content-end">

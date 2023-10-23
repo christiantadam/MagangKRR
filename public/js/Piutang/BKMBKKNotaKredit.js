@@ -651,14 +651,17 @@ btnOkTampilBKM.addEventListener('click', function(event) {
 btnCetakBKM.addEventListener('click', function(event) {
     event.preventDefault();
 
-    if ($('input[name="dataCheckbox"]:checked').length === 0) {
-        alert("Pilih 1 Id.BKM Untuk DiCetak!");
-        return;
-    }
-    methodTampilBKM.value="PUT";
-    formTampilBKM.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
-    console.log(idBKM.value);
-    formTampilBKM.submit();
+    fetch("/getCetakBKMBKKNotaKredit/" + idBKMTampil.value)
+        .then((response) => response.json())
+        .then((options) => {
+            console.log(options);
+        })
+
+
+    // methodTampilBKM.value="PUT";
+    // formTampilBKM.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
+    // console.log(idBKM.value);
+    // formTampilBKM.submit();
 });
 
 //#region MODAL TAMPIL BKM

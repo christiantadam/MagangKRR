@@ -367,17 +367,20 @@ function clearOptions(selectEle, selectLbl = "") {
 //#endregion
 
 function fetchStmt(urlString, postAction = null, catchAction = null) {
+    formCursor("wait");
     fetch(encodeURL(urlString))
         .then((response) => {
             if (!response.ok) throw new Error("Network response was not ok!");
             return response.json();
         })
         .then((data) => {
+            formCursor("default");
             console.log("urlString = " + urlString);
             if (data == 1) console.log("QUERY BERHASIL KAWAN!");
             if (postAction != null) postAction();
         })
         .catch((error) => {
+            formCursor("default");
             if (catchAction != null) catchAction();
 
             alert(
@@ -385,6 +388,7 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
                     "ERROR: " +
                     urlString
             );
+
             console.error("Error: ", error);
         });
 }
@@ -395,12 +399,14 @@ function fetchSelect(
     selectOption = null,
     catchAction = null
 ) {
+    formCursor("wait");
     fetch(encodeURL(urlString))
         .then((response) => {
             if (!response.ok) throw new Error("Network response was not ok!");
             return response.json();
         })
         .then((data) => {
+            formCursor("default");
             console.log("urlString = " + urlString);
 
             if (data.length == 0) {
@@ -416,6 +422,7 @@ function fetchSelect(
             postAction(data);
         })
         .catch((error) => {
+            formCursor("default");
             if (catchAction != null) catchAction();
 
             if (selectOption != null) {
@@ -433,7 +440,11 @@ function fetchSelect(
 }
 
 function encodeURL(urlString) {
-    return urlString.replace(/:/g, "%3A");
+    return urlString
+        .replace(/ /g, "%20")
+        .replace(/\(/g, "%28")
+        .replace(/\)/g, "%29")
+        .replace(/:/g, "%3A");
 }
 
 function padLeft(str, length, char) {
@@ -508,4 +519,10 @@ function dateTimeToDate(dateTimeStr) {
 
 function dateTimetoTime(dateTimeStr) {
     return dateTimeStr.split(" ")[1].substr(0, 8);
+}
+
+function formCursor(cursor_str) {
+    document.querySelectorAll("*").forEach((ele) => {
+        ele.style.cursor = cursor_str;
+    });
 }

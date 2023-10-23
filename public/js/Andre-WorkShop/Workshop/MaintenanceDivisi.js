@@ -53,7 +53,7 @@ function bataldiklik() {
     inputnameDiv.readOnly = true;
     inputIdDivisi.value = "";
     inputnameDiv.value = "";
-    selectdiv.disabled = true;
+    // selectdiv.disabled = true;
     selectdiv.value = "Pilih Divisi";
     isi = false;
     koreksi = false;

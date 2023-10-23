@@ -17,33 +17,43 @@ $(document).ready(function () {
     $("#tabel_Klinik").DataTable({
         order: [[0, "asc"]],
     });
-    function hideModalDivisi() {
-        $("#modalDivPeg").removeClass("show");
-        $("#modalDivPeg").css("display", "none");
-        $("body").removeClass("modal-open");
-        removeBackdrop();
-    }
-    function hideModalKaryawan() {
-        $("#modalKaryawan").removeClass("show");
-        $("#modalKaryawan").css("display", "none");
-        $("body").removeClass("modal-open");
-        removeBackdrop();
-    }
-    function hideModalPISAT() {
-        $("#modalPisat").removeClass("show");
-        $("#modalPisat").css("display", "none");
-        $("body").removeClass("modal-open");
-        removeBackdrop();
-    }
-    function hideModalKawin() {
-        $("#modalKawin").removeClass("show");
-        $("#modalKawin").css("display", "none");
-        $("body").removeClass("modal-open");
-        removeBackdrop();
-    }
-    function removeBackdrop() {
-        $(".modal-backdrop").remove();
-    }
+    $("#tabel_Hubungan").DataTable({
+        order: [[0, "asc"]],
+    });
+    $("#tabel_Pisat2").DataTable({
+        order: [[0, "asc"]],
+    });
+    $("#tabel_Kawin2").DataTable({
+        order: [[0, "asc"]],
+    });
+
+    // function hideModalDivisi() {
+    //     $("#modalDivPeg").removeClass("show");
+    //     $("#modalDivPeg").css("display", "none");
+    //     $("body").removeClass("modal-open");
+    //     removeBackdrop();
+    // }
+    // function hideModalKaryawan() {
+    //     $("#modalKaryawan").removeClass("show");
+    //     $("#modalKaryawan").css("display", "none");
+    //     $("body").removeClass("modal-open");
+    //     removeBackdrop();
+    // }
+    // function hideModalPISAT() {
+    //     $("#modalPisat").removeClass("show");
+    //     $("#modalPisat").css("display", "none");
+    //     $("body").removeClass("modal-open");
+    //     removeBackdrop();
+    // }
+    // function hideModalKawin() {
+    //     $("#modalKawin").removeClass("show");
+    //     $("#modalKawin").css("display", "none");
+    //     $("body").removeClass("modal-open");
+    //     removeBackdrop();
+    // }
+    // function removeBackdrop() {
+    //     $(".modal-backdrop").remove();
+    // }
 
     const divisiButton = document.getElementById("divisiButton");
     const karyawanButton = document.getElementById("karyawanButton");
@@ -659,4 +669,70 @@ $(document).ready(function () {
         $("#Id_Klinik_Kel").val(rowData[13]);
         $("#Nama_Klinik_Kel").val(rowData[14]);
     });
+    $("#tabel_Hubungan tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#tabel_Hubungan").DataTable().row(this).data();
+        // Populate the input fields with the data
+        $("#Id_Hub_Keluarga").val(rowData[0]);
+        $("#Status_Hub_Keluarga").val(rowData[1]);
+        hideModalHubungan();
+    });
+    $("#tabel_Pisat2 tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#tabel_Pisat2").DataTable().row(this).data();
+        // Populate the input fields with the data
+        $("#Id_Pisat_Kel").val(rowData[0]);
+        $("#Nama_Pisat_Kel").val(rowData[1]);
+        hideModalPisat2();
+    });
+    $("#tabel_Kawin2 tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#tabel_Kawin2").DataTable().row(this).data();
+        // Populate the input fields with the data
+        $("#Id_Status_Kawin_Kel").val(rowData[0]);
+        $("#Status_Kawin_Kel").val(rowData[1]);
+        hideModalKawin2();
+    });
 });
+function showModalDivisi() {
+    $("#modalDivPeg").modal("show");
+}
+function hideModalDivisi() {
+    $("#modalDivPeg").modal("hide");
+}
+function showModalKaryawan() {
+    $("#modalKaryawan").modal("show");
+}
+function hideModalKaryawan() {
+    $("#modalKaryawan").modal("hide");
+}
+function showModalPisat() {
+    $("#modalPisat").modal("show");
+}
+function hideModalPisat() {
+    $("#modalPisat").modal("hide");
+}
+function showModalKawin() {
+    $("#modalKawin").modal("show");
+}
+function hideModalKawin() {
+    $("#modalKawin").modal("hide");
+}
+function showModalHubungan() {
+    $("#modalHubungan").modal("show");
+}
+function hideModalHubungan() {
+    $("#modalHubungan").modal("hide");
+}
+function showModalPisat2() {
+    $("#modalPisat2").modal("show");
+}
+function hideModalPisat2() {
+    $("#modalPisat2").modal("hide");
+}
+function showModalKawin2() {
+    $("#modalKawin2").modal("show");
+}
+function hideModalKawin2() {
+    $("#modalKawin2").modal("hide");
+}

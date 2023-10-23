@@ -137,8 +137,7 @@
                                 </div>
 
                                 <div class="text-center mt-3">
-                                    <button type="button" id="btn_proses"
-                                        class="btn btn-outline-primary">Proses</button>
+                                    <button type="button" id="btn_proses" class="btn btn-primary">Proses</button>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +163,7 @@
 
             <div class="card-footer">
                 <div class="text-end mt-3">
-                    <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
+                    <button type="button" id="btn_keluar" class="btn btn-secondary">Keluar</button>
                 </div>
             </div>
         </div>

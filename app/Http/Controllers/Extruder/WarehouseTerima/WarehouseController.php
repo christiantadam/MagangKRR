@@ -14,10 +14,10 @@ class WarehouseController extends Controller
         $view_name = 'extruder.WarehouseTerima.' . $form_name;
         $form_data = [];
 
-        // dd($this->getListDivisi());
-
         switch ($form_name) {
             case 'formScanGelondongan':
+            case 'formBatalGelondongan':
+            case 'formScanAssesoris':
                 $form_data = ['listDivisi' => $this->getListDivisi()];
                 break;
 
@@ -228,6 +228,11 @@ class WarehouseController extends Controller
             case 'SP_1273_LMT_SimpanPembatalanKirimKeGudang':
                 $param_str = '@kodebarang = ?, @noindeks = ?';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_INV_ListKirimBahanBaku':
+                $param_str = '@Kode = ?, @Divisi = ?';
+                if ($param_data[0] == '12') $param_str .= ', @Tanggal = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             default:
                 dd("SP tidak ditemukan.");

@@ -98,8 +98,8 @@
 
                 <div class="row" style="height: 80%;">
                     <div class="col-md-4 d-flex align-items-end">
-                        <button type="button" id="btn_tambah_afalan" class="btn btn-outline-secondary"
-                            style="margin-bottom: 7.5px" disabled>Tambah
+                        <button type="button" id="btn_tambah_afalan" class="btn btn-secondary" style="margin-bottom: 7.5px"
+                            disabled>Tambah
                             Afalan</button>
                     </div>
                     <div class="col-md-8">
@@ -258,16 +258,15 @@
 
                 <div class="row mt-4">
                     <div class="col-md-12 d-flex justify-content-center">
-                        <button type="button" id="btn_cadangan_detail" class="btn btn-outline-info"
-                            style="margin-right: 2em;" disabled>Tambah
+                        <button type="button" id="btn_cadangan_detail" class="btn btn-info" style="margin-right: 2em;"
+                            disabled>Tambah
                             Cadangan</button>
-                        <button type="button" id="btn_tambah_detail" class="btn btn-outline-success"
-                            style="margin-right: 2em;" disabled>Tambah
+                        <button type="button" id="btn_tambah_detail" class="btn btn-success" style="margin-right: 2em;"
+                            disabled>Tambah
                             Bahan</button>
-                        <button type="button" id="btn_koreksi_detail" class="btn btn-outline-warning"
+                        <button type="button" id="btn_koreksi_detail" class="btn btn-warning"
                             style="margin-right: 2em;" disabled>Koreksi</button>
-                        <button type="button" id="btn_hapus_detail" class="btn btn-outline-danger"
-                            disabled>Hapus</button>
+                        <button type="button" id="btn_hapus_detail" class="btn btn-danger" disabled>Hapus</button>
                     </div>
                 </div>
             </div>
@@ -275,9 +274,9 @@
 
         <div class="row mt-3">
             <div class="col-md-6 text-center">
-                <button type="button" id="btn_baru_master" class="btn btn-outline-success">Komposisi Baru</button>
-                <button type="button" id="btn_koreksi_master" class="btn btn-outline-warning">Koreksi</button>
-                <button type="button" id="btn_hapus_master" class="btn btn-outline-danger">Hapus</button>
+                <button type="button" id="btn_baru_master" class="btn btn-success">Komposisi Baru</button>
+                <button type="button" id="btn_koreksi_master" class="btn btn-warning">Koreksi</button>
+                <button type="button" id="btn_hapus_master" class="btn btn-danger">Hapus</button>
             </div>
 
             <div class="col-md-1">
@@ -289,8 +288,8 @@
             </div>
 
             <div class="col-md-4 text-center">
-                <button type="button" id="btn_proses" class="btn btn-outline-primary" disabled>Proses</button>
-                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-primary" disabled>Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-secondary">Keluar</button>
             </div>
         </div>
     </div>

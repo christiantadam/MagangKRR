@@ -933,6 +933,8 @@ function getSaldoFetch(id_type, post_action = null) {
      * Diharapkan untuk tidak dibingungkan dengan fungsi loadSaldoFetch()
      */
 
+    formCursor("wait");
+
     // SP_5298_EXT_SALDO_BARANG
     fetchSelect("/Konversi/getSaldoBarang/" + id_type.trim(), (data) => {
         numStokPrimer.value = data[0].SaldoPrimer;
@@ -1445,6 +1447,8 @@ function rowClickedKomposisi(row, data, _) {
              * Hanya dilakukan pada stok tritier saja.
              */
 
+            formCursor("default");
+
             if (
                 listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
                 listKomposisi[pilKomposisi].StatusType.trim() == "BP"
@@ -1454,12 +1458,9 @@ function rowClickedKomposisi(row, data, _) {
                         txtNamaProd.value +
                             " tidak dapat digunakan untuk transaksi karena stok telah habis."
                     );
+
+                    clearSelection_DataTable("table_komposisi");
                     clearDataDetail();
-                    listKomposisi.length = 0;
-                    clearTable_DataTable(
-                        "table_komposisi",
-                        colKomposisi.length
-                    );
                     return;
                 }
             }
