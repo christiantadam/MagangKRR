@@ -119,7 +119,7 @@
                                         <label for="rincianBKK" style="margin-right: 10px;">Rincian BKK</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="rincianBKK" class="form-control" style="width: 100%">
+                                        <input type="text" id="rincianBKK" name="rincianBKK" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <br><div>
