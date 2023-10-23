@@ -1,10 +1,11 @@
 @extends('layouts.appABM')
 @section('content')
+    <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BRS.js') }}"></script>
 
     <body onload="Greeting()">
         <div class="form-wrapper mt-4">
             <div style="width: 80%;">
-                <div class="card">
+                <div class="card" style="height: 1000px">
                     <div class="card-header">FrmPembayaranStaff</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form berat_woven">
@@ -16,15 +17,15 @@
                                                 <span class="aligned-text" style="margin-left: -70px">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                                <input type="date" class="form-control" name="tanggal" id="tanggalInput" style="margin-left: 15px; width: 255px"
-                                                    placeholder="Tanggal">
+                                                <input type="date" class="form-control" name="tanggal" id="tanggalInput"
+                                                    style="margin-left: 15px; width: 255px" placeholder="Tanggal">
                                             </div>
                                         </div>
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto">
                                                 <button type="button" onclick="openModal()" id="ButtonShift"
-                                                    style="width:180px;">Pilih
+                                                    style="width:180px; height: 50px">Pilih
                                                     Shift</button>
                                             </div>
                                             <div class="modal" id="myModal">
@@ -65,55 +66,102 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Scan
-                                                    Barcode</button></div>
-                                        </div>
-
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Pilih Sub
+                                                    style="width: 180px; height: 50px" onclick="openModal1()">Pilih Sub
                                                     Kelompok</button></div>
-                                        </div>
-
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Pilih Type</button>
+                                            <div class="modal" id="myModal1">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal1()">&times;</span>
+                                                    <h2>Table Sub Kelompok </h2>
+                                                    <p>Id Sub Kelompok & Sub Kelompok </p>
+                                                    <table id="TableSubKelompok">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID Sub Kelompok </th>
+                                                                <th>Nama Sub Kelompok </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($dataSubKelompok as $data)
+                                                                <tr>
+                                                                    <td>{{ $data->IdSubkelompok }}</td>
+                                                                    <td>{{ $data->NamaSubKelompok }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal1()">Process</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Timbang</button>
+                                                    style="width: 180px; height: 50px" onclick="openModal2()">Pilih
+                                                    Type</button>
+                                            </div>
+                                            <div class="modal" id="myModal2">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal2()">&times;</span>
+                                                    <h2>Table Type </h2>
+                                                    <p>Id Type & Type </p>
+                                                    <table id="TableType">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID Type </th>
+                                                                <th>Type </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {{-- @foreach ($dataKelut as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdKelompokUtama }}</td>
+                                                                            <td>{{ $data->NamaKelompokUtama }}</td>
+                                                                        </tr>
+                                                                    @endforeach --}}
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="text-center col-md-auto">
+                                                        <button type="button" onclick="closeModal2()">Process</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Print Barcode
-                                                    Konversi</button></div>
-                                        </div>
-
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">ACC Barcode</button>
+                                                    style="width: 180px; height: 50px">Timbang</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px">Print Ulang</button>
+                                                    style="width: 180px; height: 50px">Print Barcode
+                                                </button></div>
+                                        </div>
+
+                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    style="width: 180px; height: 50px">ACC Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    class="btn-danger" style="width: 180px">Keluar</button>
+                                                    style="width: 180px; height: 50px">Print Ulang</button>
+                                            </div>
+                                        </div>
+
+                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    class="btn-danger" style="width: 180px; height: 50px">Keluar</button>
                                             </div>
                                         </div>
                                         <div>
                                         </div>
                                     </div>
-                                    <div class="card" style="width: 100%">
+                                    <div class="card" style="width: 80%;position: absolute;right: 19px;">
                                         <div class="card-header">Data Barang</div>
                                         <div class="row mt-3">
                                             <div class="form-group col-md-2 d-flex justify-content-end">
@@ -130,8 +178,8 @@
                                                 <span class="aligned-text">Shift:</span>
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="shift" rows="shift"
-                                                    placeholder="Shift">
+                                                <input type="text" class="form-control" name="shift"
+                                                    id="shiftInput" rows="shift" placeholder="Shift" readonly>
                                             </div>
                                         </div>
 
@@ -140,12 +188,12 @@
                                                 <span class="aligned-text">Kelompok:</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="ID_Kelompok"
+                                                    rows="ID_Kelompok" placeholder="Id Kelompok" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="Kelompok"
+                                                    rows="Kelompok" placeholder="Kelompok" readonly>
                                             </div>
                                         </div>
 
@@ -154,12 +202,12 @@
                                                 <span class="aligned-text">Sub Kelompok:</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="ID_Subkelompok"
+                                                    rows="ID_Kelompok" placeholder="Id SubKelompok" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="Subkelompok"
+                                                    rows="Subkelompok" placeholder="Sub Kelompok" readonly>
                                             </div>
                                         </div>
 
@@ -168,20 +216,19 @@
                                                 <span class="aligned-text">Type:</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="IdType" rows="IdType"
+                                                    placeholder="Id Type" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="barcode" rows="barcode"
-                                                    placeholder="Barcode">
+                                                <input class="form-control" type="text" name="Type" rows="Type"
+                                                    placeholder="Type" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-
-
-                                <div class="card mt-3" style="width: 78.5%; margin-left:315px">
+                                <div class="card mt-3"
+                                    style="width: 80%;margin-left:315px;position: absolute;top: 414px;right: 19px;">
                                     <div class="card-header">Info Barang</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -189,7 +236,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="Barang" rows="Barang"
-                                                placeholder="Barang">
+                                                placeholder="Barang" id="Barang" readonly>
                                         </div>
                                     </div>
 
@@ -199,9 +246,9 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="stok_Primer"
-                                                rows="stok_Primer" placeholder="Primer">
-                                            <div class="text-center col-md-auto"><button type="button"
-                                                    style="width: 100px">NULL</button></div>
+                                                rows="stok_Primer" placeholder="Primer" id="stok_Primer" readonly>
+                                            {{-- <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">NULL</button></div> --}}
                                         </div>
                                     </div>
 
@@ -211,9 +258,9 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="stok_Sekunder"
-                                                rows="stok_Sekunder" placeholder="Sekunder">
-                                            <div class="text-center col-md-auto"><button type="button"
-                                                    style="width: 100px">DOS</button></div>
+                                                rows="stok_Sekunder" placeholder="Sekunder" id="stok_Sekunder" readonly>
+                                            {{-- <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">DOS</button></div> --}}
                                         </div>
                                     </div>
 
@@ -223,15 +270,16 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="stok_Tritier"
-                                                rows="stok_Tritier" placeholder="Tritier">
-                                            <div class="text-center col-md-auto"><button type="button"
-                                                    style="width: 100px">KG</button></div>
+                                                rows="stok_Tritier" placeholder="Tritier" id="stok_Tritier" readonly>
+                                            {{-- <div class="text-center col-md-auto"><button type="button"
+                                                    style="width: 100px">KG</button></div> --}}
                                         </div>
                                     </div>
                                 </div>
                         </div>
 
-                        <div class="card mt-3" style="width: 78.5%; margin-left:315px">
+                        <div class="card mt-3"
+                            style="width: 80%;margin-left:315px;position: absolute;right: 18px;top: 727px;">
                             <div class="card-header">Hasil Produksi</div>
                             <div class="row mt-3">
                                 <div class="form-group col-md-2 d-flex justify-content-end">
@@ -239,7 +287,7 @@
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
                                     <input class="form-control" type="text" name="primer" rows="primer"
-                                        placeholder="Primer">
+                                        placeholder="Primer" readonly>
                                     <div class="text-center col-md-auto"><button type="button"
                                             style="width: 100px">Ball</button>
                                     </div>
@@ -252,7 +300,7 @@
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
                                     <input class="form-control" type="text" name="sekunder" rows="sekunder"
-                                        placeholder="Sekunder">
+                                        placeholder="Sekunder" readonly>
                                     <div class="text-center col-md-auto"><button type="button"
                                             style="width: 100px">LBR</button></div>
                                 </div>
@@ -271,6 +319,7 @@
                             </div>
                         </div>
                     </div>
+                    <h6 style="margin-left: 10px">Lakukan Print Ulang Jika Barcode Rusak atau Printer Rusak</h6>
                     </form>
                 </div>
             </div>
@@ -281,76 +330,5 @@
             @yield('content')
         </main>
         </div>
-        <script>
-            $(document).ready(function() {
-                $('.dropdown-submenu a.test').on("click", function(e) {
-                    $(this).next('ul').toggle();
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-
-            function openModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('myModal');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal1() {
-                var modal = document.getElementById('myModal1');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            function openModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
-            }
-
-            function closeModal2() {
-                var modal = document.getElementById('myModal2');
-                modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
-            }
-
-            var ButtonShift = document.getElementById('ButtonShift')
-            ButtonShift.addEventListener("click", function(event) {
-                event.preventDefault();
-            });
-
-            // Get the input elements
-            const tanggalInput = document.getElementById("tanggalInput");
-            const tanggalOutput = document.getElementById("tanggalOutput");
-
-            // Add an event listener to the first input field to update the second input field
-            tanggalInput.addEventListener("input", function() {
-                // Get the selected date value from the first input field
-                const selectedDate = tanggalInput.value;
-
-                // Update the value of the second input field with the selected date
-                tanggalOutput.value = selectedDate;
-            });
-
-            function setShiftValue() {
-                // Get the selected shift value from the modal input
-                const selectedShift = document.getElementById("Shift").value;
-
-                // Set the selected shift value to the read-only input with the ID "shift"
-                document.getElementById("shift").value = selectedShift;
-
-                // Enable the "Divisi" button
-                enableButtonDivisi();
-
-                // Close the modal
-                closeModal();
-            }
-        </script>
     </body>
 @endsection

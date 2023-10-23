@@ -1060,7 +1060,8 @@ Route::resource('/ABM/PrintUlang', App\Http\Controllers\ABM\PrintUlangController
 // Barcode Roll Woven
 Route::resource('/ABM/BarcodeRollWoven/BuatBarcode2', App\Http\Controllers\ABM\BarcodeRoll\BuatBarcode2Controller::class);
 // Route::get('/ABM/BarcodeRollWoven/BuatBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\BuatBarcode2Controller@index');
-Route::get('/ABM/BarcodeRollWoven/BRS', 'App\Http\Controllers\ABM\BarcodeRoll\BRSController@index');
+Route::resource('/ABM/BarcodeRollWoven/BRS', App\Http\Controllers\ABM\BarcodeRoll\BRSController::class);
+// Route::get('/ABM/BarcodeRollWoven/BRS', 'App\Http\Controllers\ABM\BarcodeRoll\BRSController@index');
 Route::get('/ABM/BarcodeRollWoven/BBJ', 'App\Http\Controllers\ABM\BarcodeRoll\BBJController@index');
 Route::get('/ABM/BarcodeRollWoven/CBR', 'App\Http\Controllers\ABM\BarcodeRoll\CBR2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\HanguskanBarcode2Controller@index');

@@ -13,7 +13,10 @@ class BRSController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeRollWoven.BRS', compact('data'));
+        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["6493"]);
+
+        // dd($dataSubKelompok);
+        return view('BarcodeRollWoven.BRS', compact('data', 'dataSubKelompok'));
     }
 
     //Show the form for creating a new resource.
@@ -29,9 +32,22 @@ class BRSController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+
+        if ($crExplode[$lasindex] == "txtType") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdSubKelompok_Type @XIdSubKelompok_Type = ?', [$crExplode[0]]);
+            // dd($dataType);
+            // Return the options as JSON data
+            return response()->json($dataType);
+        } else if ($crExplode[$lasindex] == "getTampil") {
+            $dataTampil = DB::connection('ConnInventory')->select('exec SP_1003_INV_SALDO_BARANG @IdType = ?', [$crExplode[0]]);
+            // dd($dataTampil);
+            // Return the options as JSON data
+            return response()->json($dataTampil);
+        }
     }
 
     // Show the form for editing the specified resource.
