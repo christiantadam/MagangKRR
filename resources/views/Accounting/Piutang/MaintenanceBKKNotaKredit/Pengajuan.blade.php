@@ -13,7 +13,7 @@
                     @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="{{ url('ACCPenagihanPenjualan') }}" id="formkoreksi">
+                            <form method="POST" action="{{ url('Pengajuan') }}" id="formkoreksi">
                                 {{csrf_field()}}
                                 <!-- Form fields go here -->
                                 <br><div>
@@ -77,10 +77,15 @@
                                 </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
-                                        <label for="mataUang" style="margin-right: 10px;">Mata Uang</label>
+                                        <label for="mataUangSelect" style="margin-right: 10px;">Mata Uang</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="mataUangSelect" name="mataUangSelect" class="form-control">
+
+                                        </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" id="mataUang" name="mataUang" class="form-control" style="width: 100%">
+                                        <input type="text" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -96,7 +101,7 @@
                                         <label for="jenisBayarSelect" style="margin-right: 10px;">Jenis Bayar</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <select id="jenisBayarSelect" name="jenisBayarSelect" class="form-control" onchange="fillColumns()">
+                                        <select id="jenisBayarSelect" name="jenisBayarSelect" class="form-control">
 
                                         </select>
                                     </div>
@@ -106,12 +111,15 @@
                                         <label for="namaBankSelect" style="margin-right: 10px;">Bank</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <select id="namaBankSelect" name="namaBankSelect" class="form-control" onchange="fillColumns()">
+                                        <select id="namaBankSelect" name="namaBankSelect" class="form-control">
 
                                         </select>
                                     </div>
                                     <div class="col-md-2">
                                         <input type="text" id="idBank" name="idBank" class="form-control" style="width: 100%">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="namaBank" name="namaBank" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -128,16 +136,17 @@
                                             <input type="submit" id="btnIsi" name="btnIsi" value="ISI" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="KOREKSI" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKoreksi" name="btnKoreksi" value="KOREKSI" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" id="btnHapus" name="btnHapus" value="HAPUS" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnHapus" name="btnHapus" value="HAPUS" class="btn btn-primary">
                                         </div>
                                         <div class="col-md-1">
-                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary" disabled>
                                         </div>
                                         <div class="col-md-1 ">
-                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="KELUAR" class="btn btn-primary">
+                                            <input type="submit" id="btnBatal" name="btnBatal" value="BATAL" class="btn btn-primary" style="display: none">
                                         </div>
                                     </div>
                                 </div>

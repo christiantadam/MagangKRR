@@ -46,6 +46,8 @@ let tglCetakForm = document.getElementById('tglCetakForm');
 let grandTotal = document.getElementById('grandTotal');
 let symbol2 = document.getElementById('symbol2');
 
+let checkboxesToRestore = [];
+
 const tglInput = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
 tanggalInput.value = formattedDate2;
@@ -621,6 +623,10 @@ $("#btnProsesss").on('click', function (event) {
     updateKpColumn2(idKodePerkiraan, selectedRowsIndices);
     updateBank(idBank, selectedRowsIndices);
     updateTglPembulatan(tanggalInput, selectedRowsIndices);
+
+    checkboxesToRestore.forEach(function (checkbox) {
+        checkbox.prop("checked", true);
+    });
 
     $('#pilihInputTanggal').modal('hide');
 });
