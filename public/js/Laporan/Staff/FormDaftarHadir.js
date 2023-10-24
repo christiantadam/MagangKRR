@@ -8,7 +8,7 @@ $(document).ready(function () {
         order: [[0, "asc"]],
         dom: "",
     });
-    fetch("/FormDaftarHadir/" +  ".getViewHadir")
+    fetch("/ProgramPayroll/FormDaftarHadir/" +  ".getViewHadir")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

@@ -29,9 +29,35 @@ class HutangController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($crExplode);
+        if ($crExplode[$lastIndex] == "getListHutang") {
+            $dataHutang = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_HUTANG_MASTER @kode = ?', [1]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataHutang);
+        }else if ($crExplode[$lastIndex] == "getHutang") {
+            $nomorHutang = str_replace('_', '/', $crExplode[0]);
+            $dataHutang = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_HUTANG_MASTER @kode = ?,@NO_BUKTI = ?', [2,$nomorHutang]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataHutang);
+        }else if ($crExplode[$lastIndex] == "getDivisi") {
+            $nomorHutang = str_replace('_', '/', $crExplode[0]);
+            $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_STAFF @Kode = ?', [1]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataDivisi);
+        }else if ($crExplode[$lastIndex] == "getPegawai") {
+            $nomorHutang = str_replace('_', '/', $crExplode[0]);
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_NAMA @id_div = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

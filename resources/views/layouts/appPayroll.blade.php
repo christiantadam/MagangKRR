@@ -345,7 +345,7 @@
 
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('FormDaftarHadir') }}">Form Daftar
+                                                tabindex="-1" href="{{ url('ProgramPayroll/FormDaftarHadir') }}">Form Daftar
                                                 Hadir</a>
                                         </li>
                                         <li>

@@ -39,8 +39,12 @@ class FormDaftarHadirController extends Controller
             //getDataPegawai
             $records = DB::table('VW_PRG_1486_PAY_KARYAWAN_STAFF_2')
                 ->get();
-            // dd($records);
-            // dd($dataPegawai);
+            // $records = array_map(function ($record) {
+            //     return is_string($record) && mb_detect_encoding($record, 'UTF-8', true) === false
+            //         ? utf8_encode($record)
+            //         : $record;
+            // }, $records);
+            dd($records);
             return response()->json($records);
         }
     }

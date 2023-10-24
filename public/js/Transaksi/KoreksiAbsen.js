@@ -440,8 +440,8 @@ $(document).ready(function () {
             klinikButton.disabled = true;
             txtLembur.disabled = false;
         } else {
-            klinikButton.disabled = false;
-            txtLembur.disabled = false;
+            klinikButton.disabled = true;
+            txtLembur.disabled = true;
         }
         // Loop melalui semua opsi dalam elemen select
         // for (var i = 0; i < selectElement.options.length; i++) {
@@ -487,8 +487,8 @@ $(document).ready(function () {
                 klinikButton.disabled = true;
                 txtLembur.disabled = false;
             } else {
-                klinikButton.disabled = false;
-                txtLembur.disabled = false;
+                klinikButton.disabled = true;
+                txtLembur.disabled = true;
             }
         });
     document

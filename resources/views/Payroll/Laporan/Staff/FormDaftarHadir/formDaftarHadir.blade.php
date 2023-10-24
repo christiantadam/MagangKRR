@@ -74,7 +74,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            <div class="printme" style="display: block;"><strong>
+                            <div class="" style="display: block;"><strong>
                                     <div class="" id="Keterangan">
                                         &nbsp;&nbsp;Keterangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanda
                                         tangan satpam </div>
@@ -148,7 +148,7 @@
 
 
     </div>
-    <div class="" id="printSection" style="">
+    <div class="printme" id="printSection" style="">
         <div class="header">
             <h4 style="">DAFTAR HADIR STAFF</h4>
             <div class="date" id="TglCetak">Tanggal: </div>
@@ -178,7 +178,7 @@
             </tbody>
         </table>
         <br>
-        <div class="printme" style=""><strong>
+        <div class="" style=""><strong>
                 <div class="" id="Keterangan">
                     &nbsp;&nbsp;Keterangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanda
                     tangan satpam </div>

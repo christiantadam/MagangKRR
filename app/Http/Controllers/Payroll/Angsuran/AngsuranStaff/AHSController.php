@@ -29,9 +29,9 @@ class AHSController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+
     }
 
     // Show the form for editing the specified resource.
