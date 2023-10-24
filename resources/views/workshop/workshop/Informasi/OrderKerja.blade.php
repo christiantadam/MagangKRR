@@ -85,6 +85,8 @@
             <th>PengOrder</th>
             <th>ACC Mngr</th>
             <th>Tanggal ACC Dir</th>
+            <th>ACC PPIC</th>
+            <th>Ket. ACC PPIC</th>
             <th>ACC D.Teknik</th>
             <th>Tanggal Start</th>
             <th>Tanggal Finish</th>

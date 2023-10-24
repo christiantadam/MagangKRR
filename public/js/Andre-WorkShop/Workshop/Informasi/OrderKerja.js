@@ -94,6 +94,8 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 },
             },
             { title: "Tanggal ACC Dir", data: "AccDir" },
+            { title: "ACC PPIC", data: "PPIC_Apv"},
+            { title: "Ket. ACC PPIC", data: "Keterangan_PPIC_Apv"},
             { title: "ACC D.Teknik", data: "AccTek" },
             { title: "Tanggal Start", data: "Start" },
             { title: "Tanggal Finish", data: "Finish" },
