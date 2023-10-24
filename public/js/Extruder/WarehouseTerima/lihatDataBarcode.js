@@ -1,11 +1,10 @@
 //#region Variables
 const LD_tanggal = document.getElementById("ld_tanggal");
-const LD_btnCancel = document.getElementById("ld_cancel");
-const LD_btnConfirm = document.getElementById("ld_confirm");
-const LD_table = document.getElementById("ld_table");
+const table_kirim_gudang = document.getElementById("table_kirim_gudang");
 
 const spnLoading = document.getElementById("loading_lbl");
 const btnRefresh = document.getElementById("btn_refresh");
+const btnSemua = document.getElementById("btn_semua");
 const hidDivisi = document.getElementById("hidden_divisi");
 
 const LD_listKirim = [];
@@ -38,9 +37,24 @@ var LD_formData = { title: "", kode: "" };
 //#region Events
 btnRefresh.addEventListener("click", function () {
     LD_listKirim.length = 0;
-    clearTable_DataTable("ld_table", LD_colKirim.length, "Memuat data...");
-    // 2017-07-17 00:00:00.000  ABM
-    LD_showData(12, LD_tanggal.value);
+    clearTable_DataTable(
+        "table_kirim_gudang",
+        LD_colKirim.length,
+        "Memuat data..."
+    );
+
+    LD_showData(LD_formData.kode, LD_tanggal.value);
+});
+
+btnSemua.addEventListener("click", function () {
+    LD_listKirim.length = 0;
+    clearTable_DataTable(
+        "table_kirim_gudang",
+        LD_colKirim.length,
+        "Memuat data..."
+    );
+
+    LD_showData(LD_formData.kode);
 });
 //#endregion
 
@@ -69,14 +83,12 @@ function LD_showData(kode, tgl = "") {
         }
 
         if (data.length > 0) {
-            addTable_DataTable("ld_table", LD_listKirim);
+            addTable_DataTable("table_kirim_gudang", LD_listKirim);
         } else {
             clearTable_DataTable(
-                "ld_table",
+                "table_kirim_gudang",
                 LD_colKirim.length,
-                "Tidak ditemukan Data Gelondongan pada <b>" +
-                    LD_tanggal.value +
-                    "</b>."
+                "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
             );
         }
     });
@@ -85,11 +97,11 @@ function LD_showData(kode, tgl = "") {
 
 function init_dt() {
     spnLoading.classList.add("hidden");
-    LD_table.classList.remove("hidden");
+    table_kirim_gudang.classList.remove("hidden");
     LD_tanggal.value = getCurrentDate();
 
-    if (!$.fn.DataTable.isDataTable("#ld_table")) {
-        $("#ld_table").DataTable({
+    if (!$.fn.DataTable.isDataTable("#table_kirim_gudang")) {
+        $("#table_kirim_gudang").DataTable({
             responsive: true,
             paging: false,
             scrollY: "250px",
@@ -113,7 +125,7 @@ function init_dt() {
         });
     }
 
-    addTable_DataTable("ld_table", [
+    addTable_DataTable("table_kirim_gudang", [
         {
             Nomor: "",
             Tanggal: "",
@@ -129,7 +141,12 @@ function init_dt() {
 
     document.getElementById("ld_title").textContent = LD_formData.title;
     LD_listKirim.length = 0;
-    clearTable_DataTable("ld_table", LD_colKirim.length, "Memuat data...");
+    clearTable_DataTable(
+        "table_kirim_gudang",
+        LD_colKirim.length,
+        "Memuat data..."
+    );
+
     LD_showData(LD_formData.kode);
 }
 
@@ -139,5 +156,5 @@ $("#form_lihat_data").on("shown.bs.modal", function () {
 
 $("#form_lihat_data").on("hidden.bs.modal", function () {
     LD_listKirim.length = 0;
-    clearTable_DataTable("ld_table", LD_colKirim.length);
+    clearTable_DataTable("table_kirim_gudang", LD_colKirim.length);
 });

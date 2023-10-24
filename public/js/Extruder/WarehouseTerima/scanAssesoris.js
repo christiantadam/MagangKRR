@@ -49,7 +49,7 @@ const colRekap = [
 ];
 
 const colKirim = [
-    { width: "1px" }, // Tanggal
+    { width: "100px" }, // Tanggal
     { width: "200px" }, // Type
     { width: "125px" }, // No. Barcode
     { width: "125px" }, // Sub-kelompok
@@ -149,7 +149,10 @@ btnProses.addEventListener("click", function () {
         kirimGudangFetch(kode_barang, no_indeks, divisi, () => {
             alert("Data Sudah Selesai Diproses");
             listKirim.length = 0;
+            clearTable_DataTable("table_kirim", colKirim.length);
             listRekap.length = 0;
+            clearTable_DataTable("table_rekap", colRekap.length);
+
             txtNoBarcode.focus();
             txtNoBarcode.select();
         });
@@ -157,9 +160,9 @@ btnProses.addEventListener("click", function () {
 });
 
 hidData.addEventListener("change", function () {
-    let sts = this.value;
-    let sudahTembak = false;
+    let [sts, kode_barang, no_indeks] = this.value.split(",");
     if (sts == 3 || sts == 1) {
+        let sudahTembak = false;
         for (let i = 0; i < listKirim.length; i++) {
             if (listKirim[i].NoBarcode == this.value.trim()) {
                 sudahTembak = true;
@@ -168,15 +171,15 @@ hidData.addEventListener("change", function () {
         }
 
         if (!sudahTembak) {
-            ambilDataBarangFetch(kode_barang, no_indeks);
+            ambilDataBarangFetch(kode_barang, no_indeks, () => {
+                spnBarcode.textContent = listKirim.length;
+                txtNoBarcode.value = "";
+                txtNoBarcode.focus();
+            });
         } else alert("Barcode Sudah Pernah Ditembak!");
     } else if (sts == 2) {
         alert("Barcode Sudah Dikirim Ke Gudang!");
     } else alert("Data Barcode Tidak Ditemukan!");
-
-    spnBarcode.textContent = listKirim.length;
-    txtNoBarcode.value = "";
-    txtNoBarcode.focus();
 });
 //#endregion
 
@@ -222,7 +225,7 @@ function cekBarcodeDispatch(kode_barang, no_indeks) {
                     break;
             }
 
-            hidData.value = statusKu;
+            hidData.value = [statusKu, kode_barang, no_indeks];
             hidData.dispatchEvent(new Event("change"));
         }
     );
@@ -239,37 +242,42 @@ function ambilDataBarangFetch(kode_barang, no_indeks) {
             "~" +
             no_indeks,
         (data) => {
-            listKirim.push({
-                TglMutasi: dateTimeToDate(data[0].tgl_mutasi),
-                NamaType: data[0].namatype,
-                NoBarcode: txtNoBarcode.value,
-                NamaSubKelompok: data[0].namasubkelompok,
-                NamaKelompok: data[0].namakelompok,
-                KodeBarang: kode_barang,
-                NoIndeks: no_indeks,
-                QtyPrimer: data[0].qty_primer,
-                QtySekunder: data[0].qty_sekunder,
-                QtyTritier: data[0].qty,
-                IdDivisi: data[0].iddivisi_objek,
-            });
+            for (let i = 0; i < data.length; i++) {
+                listKirim.push({
+                    TglMutasi: dateTimeToDate(data[i].tgl_mutasi),
+                    NamaType: data[i].namatype,
+                    NoBarcode: txtNoBarcode.value,
+                    NamaSubKelompok: data[i].namasubkelompok,
+                    NamaKelompok: data[i].namakelompok,
+                    KodeBarang: kode_barang,
+                    NoIndeks: no_indeks,
+                    QtyPrimer: data[i].qty_primer,
+                    QtySekunder: data[i].qty_sekunder,
+                    QtyTritier: data[i].qty,
+                    IdDivisi: data[i].iddivisi_objek,
+                });
+
+                type = data[i].namatype;
+                id_type = data[i].idtype;
+                primer = data[i].qty_primer;
+                sekunder = data[i].qty_sekunder;
+                tritier = data[i].qty;
+                tanggal = dateTimeToDate(data[i].tgl_mutasi);
+                divisi = data[i].iddivisi_objek;
+
+                buatRekapFetch(
+                    id_type,
+                    type,
+                    tanggal,
+                    [primer, sekunder, tritier],
+                    divisi
+                );
+            }
 
             addTable_DataTable("table_kirim", listKirim, colKirim);
-
-            type = data[0].namatype;
-            id_type = data[0].idtype;
-            primer = data[0].qty_primer;
-            sekunder = data[0].qty_sekunder;
-            tritier = data[0].qty;
-            tanggal = dateTimeToDate(data[0].tgl_mutasi);
-            divisi = data[0].iddivisi_objek;
-
-            buatRekapFetch(
-                id_type,
-                type,
-                tanggal,
-                [primer, sekunder, tritier],
-                divisi
-            );
+            spnBarcode.textContent = listKirim.length;
+            txtNoBarcode.value = "";
+            txtNoBarcode.focus();
         }
     );
 }

@@ -1,5 +1,6 @@
 /**
- * LAST : KirimGudang() | FrmKirimGelondongan.vb
+ * LAST : implementasi SP SP_1273_INV_SimpanPermohonanKirimKerta2
+ * migrasi terakhir btnProses_Click | FrmKirimKRR2.vb
  *
  * User_id = 4384
  *

@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <input type="hidden" id="hidden_ku">
     <div id="scan_gelondongan" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-lg-7">
@@ -87,10 +88,11 @@
             </div>
 
             <div class="col-lg-5">
-                <button type="button" class="btn btn-outline-warning btn-scan-barcode">Lihat<br>Data</button>
-                <button type="button" class="btn btn-outline-success btn-scan-barcode">Proses</button>
-                <button type="button" class="btn btn-outline-danger btn-scan-barcode">Keluar</button>
-                <button type="button" class="btn btn-outline-secondary btn-scan-barcode" disabled
+                <button type="button" id="btn_lihat"
+                    class="btn btn-outline-warning btn-scan-barcode">Lihat<br>Data</button>
+                <button type="button" id="btn_proses" class="btn btn-outline-success btn-scan-barcode">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-outline-danger btn-scan-barcode">Keluar</button>
+                <button type="button" id="btn_barcode" class="btn btn-outline-secondary btn-scan-barcode" disabled
                     style="color: black; font-size: xx-large;">0</button>
             </div>
         </div>

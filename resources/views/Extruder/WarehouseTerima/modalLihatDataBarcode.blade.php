@@ -21,14 +21,18 @@
                     <div class="col-lg-5">
                         <div class="input-group">
                             <input type="date" id="ld_tanggal" class="form-control">
-                            <button type="button" id="btn_refresh" class="btn btn-outline-secondary">Refresh</button>
+                            <button type="button" id="btn_refresh" class="btn btn-outline-primary">Refresh</button>
                         </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <button type="button" id="btn_semua" class="btn btn-outline-secondary">Lihat Semua</button>
                     </div>
                 </div>
 
                 <input type="hidden" id="hid_divisi">
 
-                <table id="ld_table" class="hover cell-border">
+                <table id="table_kirim_gudang" class="hover cell-border">
                     <thead>
                         <tr>
                             <th>No.</th>
