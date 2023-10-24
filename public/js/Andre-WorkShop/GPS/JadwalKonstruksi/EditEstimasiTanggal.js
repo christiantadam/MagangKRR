@@ -220,15 +220,20 @@ function prosesklik() {
         return;
     } else {
         $("#modalalasan").modal("show");
+        let j = 0;
         $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
             let rowindex = $(this).closest("tr").index();
-            move_noAntri.push(table_data.cell(indexarray[i], 0).data());
-            move_idBagian.push(table_data.cell(indexarray[i], 8).data());
+            move_noAntri.push(table_data.cell(indeks[j], 0).data());
+            move_idBagian.push(table_data.cell(indeks[j], 8).data());
             move_estJam.push(estJam[idk]);
             move_estMenit.push(estMenit[idk]);
             idk = idk + 1;
+            j += 1;
         });
-        var newTgl = prompt("Inputkan estimasi tanggal yg baru", "PESAN");
+        var newTgl = prompt(
+            "Inputkan estimasi tanggal yg baru (Format: YYYY-MM-DD)",
+            "YYYY-MM-DD"
+        );
         let i = 0;
         $("input[name='EditEstimasiTanggalCheck']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
@@ -248,7 +253,12 @@ function prosesklik() {
                 return;
             }
         });
-        fetch("/cekestimasiEditEstimasiTanggal/" + noOrder)
+        fetch(
+            "/cekestimasikonstruksiEditEstimasiTanggal/" +
+                newTgl +
+                "/" +
+                WorkStation.value
+        )
             .then((response) => response.json())
             .then((datas) => {
                 if (datas[0].ada > 0) {
@@ -256,55 +266,67 @@ function prosesklik() {
                 } else {
                     sts_jadwal = false;
                 }
+                total_menit = 0;
+                console.log(keterangan);
+                for (let i = 0; i < idk - 1; i++) {
+                    total_menit =
+                        estJam[indeks[i]] * 60 +
+                        estMenit[indeks[i]] +
+                        total_menit;
+                }
+                if ((sts_jadwal = false)) {
+                    jam_kerja = prompt(
+                        "Tentukan jam kerja optimal u/ tgl: " + newTgl,
+                        "PESAN"
+                    );
+                    menit_jam_kerja = jam_kerja * 60;
+                    while (total_menit > menit_jam_kerja) {
+                        alert(
+                            "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
+                        );
+                        jam_kerja = prompt(
+                            "Tentukan jam kerja optimal u/ tgl: " + newTgl,
+                            "PESAN"
+                        );
+                        menit_jam_kerja = jam_kerja * 60;
+                    }
+                    var csrfToken = $('meta[name="csrf-token"]').attr(
+                        "content"
+                    );
+                    for (let i = 0; i < idk.length - 1; i++) {
+                        $.ajax({
+                            url: "EditPerWorkStation/" + noAntri[i],
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                _token: csrfToken,
+                                _method: "PUT",
+                                estDate: newTgl,
+                                noAntri: move_noAntri[i],
+                                idBag: move_idBagian[i],
+                                estHour: move_estJam[i],
+                                estMinute: move_estMenit[i],
+                                worksts: WorkStation.value,
+                                oldDate: tgl.value,
+                                jamKrj: jam_kerja,
+                                user: 4384,
+                                keterangan:
+                                    "Edit estimasi tgl, " +
+                                    keterangan +
+                                    ". Ke tgl: " +
+                                    newTgl,
+                            },
+                            success: function (response) {
+                                console.log(response.message);
+                                // console.log(response.data);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(error);
+                            },
+                        });
+                    }
+                }
             });
-        total_menit = 0;
-        for (let i = 0; i < idk - 1; i++) {
-            total_menit =
-                estJam[indeks[i]] * 60 + estMenit[indeks[i]] + total_menit;
-        }
-        if ((sts_jadwal = false)) {
-            jam_kerja = prompt(
-                "Tentukan jam kerja optimal u/ tgl: " + newTgl,
-                "PESAN"
-            );
-            menit_jam_kerja = jam_kerja * 60;
-            while (total_menit > menit_jam_kerja) {
-                alert(
-                    "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
-                );
-                jam_kerja = prompt(
-                    "Tentukan jam kerja optimal u/ tgl: " + newTgl,
-                    "PESAN"
-                );
-                menit_jam_kerja = jam_kerja * 60;
-            }
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': csrfToken
-            //     }
-            // });
-            $.ajax({
-                url: "EditPerWorkStation/" + noAntri[0],
-                type: "POST",
-                dataType: "json",
-                data: {
-                    _token: csrfToken,
-                    _method: "PUT",
-                    noAntri: noAntri[0],
-                    noBantu: posisiBaru,
-                    worksts: WorkStation.value,
-                    tgl: tgl.value,
-                },
-                success: function (response) {
-                    console.log(response.message);
-                    // console.log(response.data);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                },
-            });
-        }
     }
 }
 
@@ -313,8 +335,8 @@ function prosesklik() {
 //#region oke modal on click
 
 function okemodal() {
-    if (pilihAlasan == 0) {
-    }
+    // if (pilihAlasan == 0) {
+    // }
     if (MaterialNotReady.checked) {
         keterangan = MaterialNotReady.value;
     } else if (MesinRusak.checked) {

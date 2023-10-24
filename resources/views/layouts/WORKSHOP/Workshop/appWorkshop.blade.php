@@ -135,6 +135,10 @@
                     style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">ACC Direktur</a>
                 </li>
+                <li><a href="{{ url('') }}" class="test"
+                    style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
+                    tabindex="-1">ACC PPIC</a>
+                </li>
                 <li><a href="{{ url('PenerimaOrderKerja') }}" class="test"
                     style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">Penerima Order Kerja</a>
