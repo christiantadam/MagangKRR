@@ -13,34 +13,34 @@
                                 <form action="#" method="post" role="form">
                                     <div class="row">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
-                                            <span class="aligned-text">Divisi:</span>
+                                            <span class="aligned-text">Objek:</span>
                                         </div>
                                         <div class="form-group col-md-2 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
-                                                placeholder="ID Divisi" readonly>
+                                            <input type="text" class="form-control" name="IdObjek" id="IdObjek"
+                                                placeholder="ID Objek" readonly>
                                         </div>
                                         <div class="form-group col-md-7 mt-3 mt-md-0">
-                                            <input type="text" class="form-control" name="Divisi" id="Divisi"
-                                                placeholder="Divisi" readonly>
+                                            <input type="text" class="form-control" name="Objek" id="Objek"
+                                                placeholder="Objek" readonly>
                                             <div class="text-center col-md-auto"><button type="button"
-                                                    onclick="openModal()" id="ButtonDivisi">...</button></div>
+                                                    onclick="openModal()" id="ButtonObjek">...</button></div>
                                             <div class="modal" id="myModal">
                                                 <div class="modal-content">
                                                     <span class="close-btn" onclick="closeModal()">&times;</span>
-                                                    <h2>Table Divisi</h2>
-                                                    <p>Id Divisi & Divisi</p>
-                                                    <table id="TableDivisi">
+                                                    <h2>Table Objek</h2>
+                                                    <p>Id Objek & Objek</p>
+                                                    <table id="TableObjek">
                                                         <thead>
                                                             <tr>
-                                                                <th>ID Divisi</th>
-                                                                <th>Divisi</th>
+                                                                <th>ID Objek</th>
+                                                                <th>Objek</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataDivisi as $data)
+                                                            @foreach ($dataObjek as $data)
                                                                 <tr>
-                                                                    <td>{{ $data->IdDivisi }}</td>
-                                                                    <td>{{ $data->NamaDivisi }}</td>
+                                                                    <td>{{ $data->IdObjek }}</td>
+                                                                    <td>{{ $data->NamaObjek }}</td>
                                                                 </tr>
                                                             @endforeach
                                                             <!-- Add more rows as needed -->
@@ -70,7 +70,6 @@
                                                     <th>Jumlah Sekunder </th>
                                                     <th>Jumlah Tritier </th>
                                                     <th>Tanggal </th>
-                                                    <th>IdType </th>
                                                 </tr>
                                             </thead>
                                             <tbody>

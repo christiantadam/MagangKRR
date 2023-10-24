@@ -5,7 +5,7 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#TableDivisi').DataTable({
+    $('#TableObjek').DataTable({
         order: [
             [0, 'desc']
         ],
@@ -33,23 +33,23 @@ $(document).ready(function () {
         ],
     });
 
-    var ButtonDivisi = document.getElementById('ButtonDivisi')
+    var ButtonObjek = document.getElementById('ButtonObjek')
 
-    ButtonDivisi.addEventListener("click", function (event) {
+    ButtonObjek.addEventListener("click", function (event) {
         event.preventDefault();
     });
 
-    $('#TableDivisi tbody').on('click', 'tr', function () {
+    $('#TableObjek tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
 
-        var rowData = $('#TableDivisi').DataTable().row(this).data();
+        var rowData = $('#TableObjek').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $('#IdDivisi').val(rowData[0]);
-        $('#Divisi').val(rowData[1]);
+        $('#IdObjek').val(rowData[0]);
+        $('#Objek').val(rowData[1]);
 
-        var txtIdDivisi = document.getElementById('IdDivisi');
-        fetch("/HanguskanBarcode/" + txtIdDivisi.value + ".txtIdDivisi")
+        var txtIdObjek = document.getElementById('IdObjek');
+        fetch("/ABM/BarcodeRollWoven/HanguskanBarcode/" + txtIdObjek.value + ".txtIdObjek")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

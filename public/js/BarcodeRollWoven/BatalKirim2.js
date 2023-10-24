@@ -30,8 +30,7 @@ $(document).ready(function() {
         $('#IdObjek').val(rowData[0]);
         $('#Objek').val(rowData[1]);
 
-        var getType = document.getElementById('IdObjek');
-        fetch("/ABM/BarcodeRollWoven/BatalKirim2/" + getType.value + ".getType")
+        fetch("/ABM/BarcodeRollWoven/BatalKirim2/" + rowData[0] + ".getType")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -78,7 +77,7 @@ function prosesData() {
     const data = {
         kodebarang: selectedRows[0][4],
         noindeks: selectedRows[0][5],
-        userid: 'U001',
+        userid: '4384',
 
     };
     console.log(data);

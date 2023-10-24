@@ -1069,10 +1069,13 @@ Route::resource('/ABM/BarcodeRollWoven/BuatBarcode2', App\Http\Controllers\ABM\B
 // Route::get('/ABM/BarcodeRollWoven/BuatBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\BuatBarcode2Controller@index');
 Route::resource('/ABM/BarcodeRollWoven/BRS', App\Http\Controllers\ABM\BarcodeRoll\BRSController::class);
 // Route::get('/ABM/BarcodeRollWoven/BRS', 'App\Http\Controllers\ABM\BarcodeRoll\BRSController@index');
-Route::get('/ABM/BarcodeRollWoven/BBJ', 'App\Http\Controllers\ABM\BarcodeRoll\BBJController@index');
+Route::resource('/ABM/BarcodeRollWoven/BBJ', App\Http\Controllers\ABM\BarcodeRoll\BBJController::class);
+// Route::get('/ABM/BarcodeRollWoven/BBJ', 'App\Http\Controllers\ABM\BarcodeRoll\BBJController@index');
 Route::get('/ABM/BarcodeRollWoven/CBR', 'App\Http\Controllers\ABM\BarcodeRoll\CBR2Controller@index');
-Route::get('/ABM/BarcodeRollWoven/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\HanguskanBarcode2Controller@index');
-Route::get('/ABM/BarcodeRollWoven/KirimGudang', 'App\Http\Controllers\ABM\BarcodeRoll\KirimGudang2Controller@index');
+Route::resource('/ABM/BarcodeRollWoven/HanguskanBarcode', App\Http\Controllers\ABM\BarcodeRoll\HanguskanBarcode2Controller::class);
+// Route::get('/ABM/BarcodeRollWoven/HanguskanBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\HanguskanBarcode2Controller@index');
+Route::resource('/ABM/BarcodeRollWoven/KirimGudang', App\Http\Controllers\ABM\BarcodeRoll\KirimGudang2Controller::class);
+// Route::get('/ABM/BarcodeRollWoven/KirimGudang', 'App\Http\Controllers\ABM\BarcodeRoll\KirimGudang2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/KirimCircular', 'App\Http\Controllers\ABM\BarcodeRoll\KirimCircularController@index');
 Route::resource('/ABM/BarcodeRollWoven/BatalKirim2', App\Http\Controllers\ABM\BarcodeRoll\BatalKirim2Controller::class);
 // Route::get('/ABM/BarcodeRollWoven/BatalKirim', 'App\Http\Controllers\ABM\BarcodeRoll\BatalKirim2Controller@index');

@@ -54,7 +54,7 @@ class KirimGudangController extends Controller
                 ->where('noindeks', $crExplode[1])
                 ->whereNotNull('y_idtrans')
                 // ->whereNull('NoTempTrans') // Uncomment this line if needed
-                ->where('type_transaksi', '22')
+                ->whereIn('type_transaksi', ['22', '29', '28', '26', '23'])
                 ->value('status');
             // dd($statusdispresiasi);
             return response()->json($statusdispresiasi);

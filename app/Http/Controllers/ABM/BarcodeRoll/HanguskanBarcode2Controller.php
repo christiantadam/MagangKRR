@@ -12,12 +12,12 @@ class HanguskanBarcode2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
-        $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
-        // $dataDivisi3 = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status=?, @idobjek=?', ["1", "MST"]);
-        // dd($dataDivisi3);
+        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser = ?,@XIdDivisi = ?', ["4384", "ABM"]);
+        // $dataDivisi2 = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi ?, ?, ?, ?, ?', ["U002", NULL, NULL, NULL, NULL]);
 
-        return view('BarcodeKerta2.HanguskanBarcode', compact('dataDivisi', 'dataDivisi2'));
+        // dd($dataObjek);
+
+        return view('BarcodeRollWoven.HanguskanBarcode2', compact('dataObjek'));
     }
 
     //Show the form for creating a new resource.
@@ -38,8 +38,8 @@ class HanguskanBarcode2Controller extends Controller
         $crExplode = explode(".", $cr);
 
         //getDivisi
-        if ($crExplode[1] == "txtIdDivisi") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcodeACC @status = ?, @idobjek = ?', ["1", $crExplode[0]]);
+        if ($crExplode[1] == "txtIdObjek") {
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcode_BlmKirim @Kode = ?, @status = ?, @idobjek = ?', ["1", "1", $crExplode[0]]);
             // dd($dataKelut);
             // Return the options as JSON data
             return response()->json($dataType);

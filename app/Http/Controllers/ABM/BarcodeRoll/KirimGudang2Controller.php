@@ -13,7 +13,7 @@ class KirimGudang2Controller extends Controller
     public function index()
     {
 
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta @XKdUser = ?', ["4384"]);
 
         $data = 'HAPPY HAPPY HAPPY';
         return view('BarcodeRollWoven.KirimGudang2', compact('data', 'dataDivisi'));
@@ -34,7 +34,25 @@ class KirimGudang2Controller extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+
+        if ($crExplode[$lasindex] == "getTampilData") {
+            $dataTampil = DB::connection('ConnInventory')->select('exec SP_5409_INV_TampilDataBarang @kodebarang = ?, @noindeks = ?', [$crExplode[0], $crExplode[1]]);
+            // dd($dataTampil);
+            // Return the options as JSON data
+            return response()->json($dataTampil);
+        } else if ($crExplode[$lasindex] == "getDataStatus") {
+            $statusdispresiasi = DB::connection('ConnInventory')->table('Dispresiasi')
+                ->where('kode_barang', $crExplode[0])
+                ->where('noindeks', $crExplode[1])
+                ->whereNotNull('y_idtrans')
+                // ->whereNull('NoTempTrans') // Uncomment this line if needed
+                ->whereIn('type_transaksi', ['22', '29', '28', '26', '23'])
+                ->value('status');
+            // dd($statusdispresiasi);
+            return response()->json($statusdispresiasi);
+        }
     }
 
     // Show the form for editing the specified resource.

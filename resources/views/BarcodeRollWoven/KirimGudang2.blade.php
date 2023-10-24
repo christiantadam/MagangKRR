@@ -69,7 +69,7 @@
                                     <div class="card mt-4">
                                         <div class="card-header">Type</div>
                                         <h5 class="mt-3">Rekap Barcode Yang Dikirim</h5>
-                                        <table id="TableType">
+                                        <table id="RekapKirim">
                                             <thead>
                                                 <tr>
                                                     <th>Tanggal </th>
@@ -90,7 +90,7 @@
                             <div class="card mt-4">
                                 <div class="card-header">Type</div>
                                 <h5 class="mt-3">Daftar Barcode Yang Dikirim</h5>
-                                <table id="TypeTable">
+                                <table id="DaftarKirim">
                                     <thead>
                                         <tr>
                                             <th>Tanggal </th>

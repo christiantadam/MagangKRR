@@ -12,7 +12,7 @@ class BatalKirim2Controller extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser =?, @XIdDivisi =?', ["U001", "ABN"]);
+        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser =?, @XIdDivisi =?', ["4384", "ABM"]);
 
         // dd($dataObjek);
         return view('BarcodeRollWoven.BatalKirim2', compact('dataObjek'));
@@ -37,7 +37,7 @@ class BatalKirim2Controller extends Controller
 
         //getDivisi
         if ($crExplode[1] == "getType") {
-            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcode_BlmKirim @kode = ?, @status = ?, @idobjek = ?', ["4", "2", $crExplode[0]]);
+            $dataType = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcode_BlmKirim @kode = ?, @status = ?, @idobjek = ?', ["3", "2", $crExplode[0]]);
             // dd($dataKelut);
             // Return the options as JSON data
             return response()->json($dataType);
