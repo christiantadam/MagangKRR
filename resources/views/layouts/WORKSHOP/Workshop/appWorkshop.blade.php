@@ -135,7 +135,7 @@
                     style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">ACC Direktur</a>
                 </li>
-                <li><a href="{{ url('') }}" class="test"
+                <li><a href="{{ url('ACCPPIC') }}" class="test"
                     style="padding: 10px;color: black;font-size: 15px;display: block;cursor: pointer"
                     tabindex="-1">ACC PPIC</a>
                 </li>
