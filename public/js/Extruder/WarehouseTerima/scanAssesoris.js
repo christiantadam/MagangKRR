@@ -111,7 +111,7 @@ btnLihat.addEventListener("click", function () {
         slcDivisi.focus();
     } else {
         hidDivisi.value = slcDivisi.value;
-        LD_formData.kode = 5;
+        LD_formData.kode = [3, 5];
         LD_formData.title = "Lihat Data Assesoris";
         $("#form_lihat_data").modal("show");
     }

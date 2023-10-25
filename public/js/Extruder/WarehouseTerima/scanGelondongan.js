@@ -121,7 +121,7 @@ btnLihat.addEventListener("click", function () {
         slcDivisi.focus();
     } else {
         hidDivisi.value = slcDivisi.value;
-        LD_formData.kode = 2;
+        LD_formData.kode = [2, 13];
         LD_formData.title = "Lihat Data Gelondongan";
         $("#form_lihat_data").modal("show");
     }

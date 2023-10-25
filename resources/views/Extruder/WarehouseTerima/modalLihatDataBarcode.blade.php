@@ -31,6 +31,7 @@
                 </div>
 
                 <input type="hidden" id="hid_divisi">
+                <input type="hidden" id="hid_objek">
 
                 <table id="table_kirim_gudang" class="hover cell-border">
                     <thead>

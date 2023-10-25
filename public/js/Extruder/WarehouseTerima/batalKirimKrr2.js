@@ -1,9 +1,8 @@
 //#region Variables
 const slcDivisi = document.getElementById("select_divisi");
+const slcObjek = document.getElementById("select_objek");
 const btnHapus = document.getElementById("btn_hapus");
 const btnKeluar = document.getElementById("btn_keluar");
-const hidSelect = document.getElementById("hidden_get");
-const hidUpdate = document.getElementById("hidden_upd");
 
 const listBarcode = [];
 /** ISI LIST BARCODE
@@ -39,10 +38,6 @@ var checkboxesBatal = null;
 //#endregion
 
 //#region Events
-slcDivisi.addEventListener("change", function () {
-    showData();
-});
-
 btnHapus.addEventListener("click", function () {
     showModal(
         "Konfirmasi",
@@ -69,8 +64,21 @@ function showData() {
     listBarcode.length = 0;
     clearTable_DataTable("table_barcode", colBarcode.length, "Memuat data...");
 
+    let kode_sp = -1;
+    if (
+        slcObjek.value == "162" ||
+        slcObjek.value == "078" ||
+        slcObjek.value == "192" ||
+        slcObjek.value == "107"
+    ) {
+        kode_sp = 1;
+    } else kode_sp = 2;
+
     fetchSelect(
-        "/warehouseTerima/" + hidSelect.value + "/2~" + slcDivisi.value,
+        "/warehouseTerima/SP_1273_INV_ListBarcodeKerta2/" +
+            kode_sp +
+            "~2~" +
+            slcDivisi.value,
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listBarcode.push({

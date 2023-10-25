@@ -65,75 +65,203 @@ const colKirim = [
 ];
 
 var noUrut = 0;
+var refetchObjek = false;
 //#endregion
 
 //#region Events
 slcDivisi.addEventListener("change", function () {
-    if (this.selectedIndex != 0) {
-        if (this.value == "JBB") {
-            addOptionIfNotExists(slcObjek, "078", "078 | Barang Dalam Proses");
+    if (this.value == "JBB") {
+        addOptionIfNotExists(slcObjek, "078", "078 | Barang Dalam Proses");
 
-            fetchSelect(
-                "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/6",
-                (data) => {
-                    noUrut = parseFloat(data[0].IdJumboKRR1) + 1;
-                    txtNoBarcode.focus();
-                }
-            );
-        } else if (this.value == "ABM") {
-            addOptionIfNotExists(slcObjek, "162", "162 | Hasil Setengah Jadi");
+        fetchSelect(
+            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/6",
+            (data) => {
+                noUrut = parseFloat(data[0].IdJumboKRR1) + 1;
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (this.value == "ABM") {
+        addOptionIfNotExists(slcObjek, "162", "162 | Hasil Setengah Jadi");
 
-            fetchSelect(
-                "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
-                (data) => {
-                    noUrut = parseFloat(data[0].IdWovenKRR1) + 1;
-                    txtNoBarcode.focus();
-                }
-            );
-        } else if (this.value == "ADS") {
-            addOptionIfNotExists(slcObjek, "192", "192 | Hasil Setengah Jadi");
+        fetchSelect(
+            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
+            (data) => {
+                noUrut = parseFloat(data[0].IdWovenKRR1) + 1;
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (this.value == "ADS") {
+        addOptionIfNotExists(slcObjek, "192", "192 | Hasil Setengah Jadi");
 
-            fetchSelect(
-                "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/12",
-                (data) => {
-                    noUrut = parseFloat(data[0].IdADSKRR1) + 1;
-                    txtNoBarcode.focus();
-                }
-            );
-        } else if (this.value == "INV") {
-            addOptionIfNotExists(
-                slcObjek,
-                "107",
-                "107 | Gudang produksi - Barang Jadi"
-            );
+        fetchSelect(
+            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/12",
+            (data) => {
+                noUrut = parseFloat(data[0].IdADSKRR1) + 1;
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (this.value == "INV") {
+        addOptionIfNotExists(
+            slcObjek,
+            "107",
+            "107 | Gudang produksi - Barang Jadi"
+        );
 
-            fetchSelect(
-                "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/15",
-                (data) => {
-                    noUrut = parseFloat(data[0].IdINVKRR1) + 1;
-                    txtNoBarcode.focus();
-                }
-            );
-        } else {
-            slcObjek.selectedIndex = 0;
-            slcObjek.disabled = false;
-            slcObjek.focus();
-        }
-
-        if (slcObjek.value == "162" || slcObjek.value == "192") {
-            spnTujuan.classList.remove("hidden");
-            rdoBrebek.classList.remove("hidden");
-            rdoNganjuk.classList.remove("hidden");
-            if (slcObjek.value == "192") rdoMjs.classList.remove("hidden");
-        } else {
-            spnTujuan.classList.add("hidden");
-            rdoBrebek.classList.add("hidden");
-            rdoNganjuk.classList.add("hidden");
-            rdoMjs.classList.add("hidden");
-        }
+        fetchSelect(
+            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/15",
+            (data) => {
+                noUrut = parseFloat(data[0].IdINVKRR1) + 1;
+                txtNoBarcode.focus();
+            }
+        );
     } else {
-        alert("Pilih Dulu Divisinya !!...");
-        slcDivisi.focus();
+        slcObjek.selectedIndex = 0;
+        slcObjek.disabled = false;
+        slcObjek.focus();
+    }
+
+    if (slcObjek.value == "162" || slcObjek.value == "192") {
+        spnTujuan.classList.remove("hidden");
+        rdoBrebek.classList.remove("hidden");
+        rdoNganjuk.classList.remove("hidden");
+        if (slcObjek.value == "192") rdoMjs.classList.remove("hidden");
+    } else {
+        spnTujuan.classList.add("hidden");
+        rdoBrebek.classList.add("hidden");
+        rdoNganjuk.classList.add("hidden");
+        rdoMjs.classList.add("hidden");
+    }
+
+    refetchObjek = true;
+});
+
+slcObjek.addEventListener("keydown", function (event) {
+    if (event.key == "Enter" && refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKelut = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("mousedown", function () {
+    if (refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchKelut = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("change", function () {
+    if (slcObjek.value == "162" || slcObjek.value == "192") {
+        spnTujuan.classList.remove("hidden");
+        rdoBrebek.classList.remove("hidden");
+        rdoNganjuk.classList.remove("hidden");
+        if (slcObjek.value == "192") rdoMjs.classList.remove("hidden");
+    } else {
+        spnTujuan.classList.add("hidden");
+        rdoBrebek.classList.add("hidden");
+        rdoNganjuk.classList.add("hidden");
+        rdoMjs.classList.add("hidden");
+    }
+
+    txtNoBarcode.value = "";
+    txtNoBarcode.focus();
+
+    if (slcObjek.value == "078") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/6",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = data[0].IdJumboKRR1;
+                } else noUrut = 0;
+            }
+        );
+    } else if (slcObjek.value == "162") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdWovenKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (slcObjek.value == "022") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/18",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdGWovenKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (slcObjek.value == "192") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/12",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdADSKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (slcObjek.value == "173") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/24",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdGADStarKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.focus();
+            }
+        );
+    } else if (slcDivisi.value == "INV") {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/15",
+            (data) => {
+                addOptionIfNotExists(slcObjek, 107);
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdADSKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.focus();
+            }
+        );
     }
 });
 
@@ -176,6 +304,123 @@ txtNoBarcode.addEventListener("keypress", function (event) {
                 } else alert("Barcode Sudah Pernah Ditembak!");
             });
         } else alert("Scan Barcode Terlebih Dahulu!");
+    }
+});
+
+btnProses.addEventListener("click", function () {
+    if (listKirim.length <= 0) {
+        alert("Scan Barcode Terlebih Dahulu !!!");
+        txtNoBarcode.value = "";
+        txtNoBarcode.focus();
+        return;
+    }
+
+    if (slcObjek.value == "162") {
+        if (!rdoBrebek.checked && !rdoNganjuk.checked) {
+            alert("Pilih Tujuan Pengiriman Terlebih Dahulu !");
+            txtNoBarcode.value = "";
+            return;
+        }
+    } else if (slcObjek.value == "192") {
+        if (!rdoBrebek.checked && !rdoNganjuk.checked && !rdoMjs.checked) {
+            alert("Pilih Tujuan Pengiriman Terlebih Dahulu !");
+            txtNoBarcode.value = "";
+            return;
+        }
+    }
+
+    for (let i = 0; i < listKirim.length; i++) {
+        let no_barcode = listKirim[i].NoBarcode;
+        let no_indeks = no_barcode.substring(0, 9).replace(/^0+/, "");
+        let kode_barang = no_barcode.substring(no_barcode.length - 9);
+        let divisi = listKirim[i].IdDivisi.trim();
+
+        if (divisi === "ABM") {
+            if (slcObjek.value === "162") {
+                if (rdoBrebek.checked) {
+                    noUrut = ("0000000" + noUrut).slice(-7);
+                } else if (rdoNganjuk.checked) {
+                    noUrut = "WN" + ("0000000" + noUrut).slice(-5);
+                }
+            } else if (slcObjek.value === "022") {
+                noUrut = "GW" + ("0000000" + noUrut).slice(-5);
+            }
+        } else if (divisi === "JBB") {
+            if (txtIdObjek.value === "078") {
+                noUrut = "J" + ("0000000" + noUrut).slice(-6);
+            } else if (txtIdObjek.value === "042")
+                noUrut = "GJ" + ("0000000" + noUrut).slice(-5);
+        } else if (divisi === "ADS") {
+            if (txtIdObjek.value === "192") {
+                if (rdoMojo.checked) {
+                    noUrut = "A" + ("0000000" + noUrut).slice(-6);
+                } else if (rdoKerto.checked) {
+                    noUrut = "AN" + ("0000000" + noUrut).slice(-5);
+                } else if (rdoMojosari.checked)
+                    noUrut = "AM" + ("0000000" + noUrut).slice(-5);
+            } else if (txtIdObjek.value === "173")
+                noUrut = "GA" + ("0000000" + noUrut).slice(-5);
+        } else if (divisi === "INV")
+            noUrut = "R" + ("0000000" + noUrut).slice(-6);
+
+        kirimGudangFetch(kode_barang, no_indeks, divisi, () => {
+            alert("Data Sudah Selesai Diproses");
+            listKirim.length = 0;
+            clearTable_DataTable("table_kirim", colKirim.length);
+            listRekap.length = 0;
+            clearTable_DataTable("table_rekap", colRekap.length);
+
+            txtNoBarcode.focus();
+            txtNoBarcode.select();
+        });
+    }
+});
+
+btnLihat.addEventListener("click", function () {
+    if (slcObjek.selectedIndex == 0 || slcDivisi.selectedIndex == 0) {
+        alert("Pilih Dulu Divisi dan Objeknya");
+
+        if (slcDivisi.selectedIndex == 0) {
+            slcDivisi.focus();
+        } else slcObjek.focus();
+        return;
+    }
+
+    hidDivisi.value = slcDivisi.value;
+    LD_formData.kode = [11, 15];
+    LD_formData.title = "Lihat Data Kerta 2";
+    $("#form_lihat_data").modal("show");
+});
+
+rdoBrebek.addEventListener("change", function () {
+    if (this.checked) {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdWovenKRR1) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.value = "";
+                txtNoBarcode.focus();
+            }
+        );
+    }
+});
+
+rdoNganjuk.addEventListener("change", function () {
+    if (this.checked) {
+        fetchSelect(
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/30",
+            (data) => {
+                if (data.length > 0) {
+                    noUrut = parseFloat(data[0].IdSJWovenNganjuk) + 1;
+                } else noUrut = 1;
+
+                txtNoBarcode.value = "";
+                txtNoBarcode.focus();
+            }
+        );
     }
 });
 //#endregion
@@ -313,13 +558,7 @@ function cekDataBarcodeFetch(kode_barang, post_action = null) {
     );
 }
 
-function kirimGudangFetch(
-    kode_barang,
-    no_indeks,
-    divisi,
-    no_sj,
-    post_action = null
-) {
+function kirimGudangFetch(kode_barang, no_indeks, divisi, post_action = null) {
     // Ambil jam server
     fetchSelect("/warehouseTerima/SP_JAM_SERVER/_", (data) => {
         let fetchEmpty = true;
@@ -341,11 +580,9 @@ function kirimGudangFetch(
                     "~" +
                     no_indeks +
                     "~" +
-                    divisi +
+                    status +
                     "~" +
-                    no_sj +
-                    "~" +
-                    status,
+                    divisi,
                 (data) => {
                     if (data != 1) {
                         let barcode =

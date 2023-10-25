@@ -140,5 +140,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js\Extruder\WarehouseTerima\scanKrr2.js') }}"></script>
+    <script src="{{ asset('js\Extruder\WarehouseTerima\scanKirimKrr2.js') }}"></script>
 @endsection

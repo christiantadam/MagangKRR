@@ -6,6 +6,7 @@ const spnLoading = document.getElementById("loading_lbl");
 const btnRefresh = document.getElementById("btn_refresh");
 const btnSemua = document.getElementById("btn_semua");
 const hidDivisi = document.getElementById("hidden_divisi");
+const hidObjek = document.getElementById("hidden_objek");
 
 const LD_listKirim = [];
 /** ISI LIST KIRIM
@@ -60,11 +61,20 @@ btnSemua.addEventListener("click", function () {
 
 //#region Functions
 function LD_showData(kode, tgl = "") {
-    let fetch_url =
-        "/warehouseTerima/SP_1273_INV_ListKirimBahanBaku/" +
-        kode +
-        "~" +
-        hidDivisi.value;
+    let kode_sp = tgl == "" ? kode[0] : kode[1];
+    let fetch_url = "";
+
+    if (LD_formData.title == "Lihat Data Assesoris") {
+        fetch_url =
+            "/warehouseTerima/SP_1273_INV_ListKirimBahanBaku/" + kode_sp;
+    } else {
+        fetch_url =
+            "/warehouseTerima/SP_1273_INV_ListKirimBahanBaku/" +
+            kode_sp +
+            "~" +
+            hidDivisi.value;
+    }
+
     if (tgl != "") fetch_url += "~" + tgl;
 
     fetchSelect(fetch_url, (data) => {
@@ -82,15 +92,13 @@ function LD_showData(kode, tgl = "") {
             });
         }
 
-        if (data.length > 0) {
-            addTable_DataTable("table_kirim_gudang", LD_listKirim);
-        } else {
+        if (data.length <= 0) {
             clearTable_DataTable(
                 "table_kirim_gudang",
                 LD_colKirim.length,
                 "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
             );
-        }
+        } else addTable_DataTable("table_kirim_gudang", LD_listKirim);
     });
 }
 //#endregion

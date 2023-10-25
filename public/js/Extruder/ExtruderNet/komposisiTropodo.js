@@ -350,7 +350,7 @@ slcKelompok.addEventListener("change", function () {
     ) {
         // Pengecekkan mesin pada DB Inventory dan Extruder
         // SP_5298_EXT_CEK_KELOMPOK_MESIN
-        fetchSelect("/Master/getCekKelompokMesin/" + this.value, (data) => {
+        fetchSelect("/Master/getCekKelompokMesin/" + this.value.slice(2), (data) => {
             let found = false;
             for (let i = 0; i < data.length; i++) {
                 if (slcMesin.value != data[i].IdMesin) {
