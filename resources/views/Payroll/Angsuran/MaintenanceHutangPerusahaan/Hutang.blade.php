@@ -13,10 +13,10 @@
                                 <span class="aligned-text">Tanggal:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input type="date" class="form-control" name="Divisi_pengiriman" id="Divsi_pengiriman"
-                                    placeholder="Divisi Pengiriman">
+                                <input type="date" class="form-control" name="Divisi_pengiriman" id="tanggal_Hutang"
+                                    placeholder="Divisi Pengiriman" value="{{ date('Y-m-d') }}" disabled>
                                 <div class="text-center col-md-auto"><button id="buttonListHutang"
-                                        onclick=showModalHutang()>List Hutang</button></div>
+                                        onclick=showModalHutang() disabled>List Hutang</button></div>
                                 <div class="modal fade" id="modalHutang" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -74,7 +74,7 @@
                                 <input type="text" class="form-control" name="Divisi_pengiriman" id="Nama_Divisi"
                                     placeholder="Nama Divisi" disabled>
                                 <div class="text-center col-md-auto"><button type="" id="buttonDivisi"
-                                        onclick=showModalDivisi()>...</button></div>
+                                        onclick=showModalDivisi() disabled>...</button></div>
                                 <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -117,7 +117,7 @@
                                 <input type="text" class="form-control" name="Kode" id="Nama_Pegawai"
                                     placeholder="Nama Pegawai" disabled>
                                 <div class="text-center col-md-auto"><button type="" id="button_Pegawai"
-                                        onclick=showModalPegawai()>...</button></div>
+                                        onclick=showModalPegawai() disabled>...</button></div>
                                 <div class="modal fade" id="modalPegawai" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -156,8 +156,8 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input type="text" class="form-control" name="Bukti" id="Bukti"
-                                    placeholder="Bukti">
-                                <div class="text-center col-md-auto"><button type="submit">...</button></div>
+                                    placeholder="Bukti" disabled>
+                                <div class="text-center col-md-auto"><button type="" disabled>...</button></div>
                             </div>
                         </div>
 
@@ -167,7 +167,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input type="text" class="form-control" name="Jumlah" id="Jumlah"
-                                    placeholder="Jumlah">
+                                    placeholder="Jumlah" disabled>
                             </div>
                         </div>
 
@@ -177,7 +177,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input type="text" class="form-control" name="Sisa" id="Sisa"
-                                    placeholder="Sisa">
+                                    placeholder="Sisa" disabled>
                             </div>
                         </div>
 
@@ -187,7 +187,7 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input type="text" class="form-control" name="Keterangan" id="Keterangan"
-                                    placeholder="Keterangan">
+                                    placeholder="Keterangan" disabled>
                             </div>
                         </div>
 
@@ -197,18 +197,22 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input type="text" class="form-control" name="Lunas" id="Lunas"
-                                    placeholder="Lunas">
+                                    placeholder="" disabled>
                             </div>
                         </div>
 
 
-
+                        <div id="form-container"></div>
                         <div class="row mt-3">
-                            <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="submit">Isi</button></div>
-                                <div class="text-center col-md-auto"><button type="submit">Koreksi</button></div>
-                                <div class="text-center col-md-auto"><button type="submit">Hapus</button></div>
-                                <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
+                            <div style="text-align: right; margin-top: 20px; margin-left: 20px;">
+
+                                <button type="button" class="btn" style="width: 100px" id="simpanButton" hidden>SIMPAN</button></button>
+                                <button type="button" class="btn" style="width: 100px" id="batalButton" hidden>BATAL</button></button>
+                                <button type="button" class="btn" style="width: 100px" id="isiButton">ISI</button></button>
+                                <button type="button" class="btn" style="width: 100px" id="koreksiButton">KOREKSI</button></button>
+                                <button type="button" class="btn" style="width: 100px" id="hapusButton">HAPUS</button></button>
+                                <button type="button" class="btn" style="width: 100px" id="keluarButton">KELUAR</button></button>
+
                             </div>
                         </div>
 
