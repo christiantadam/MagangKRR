@@ -1,6 +1,17 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'Order Gambar Selesai')
+<style>
+    #TableOrderGambarSelesai td{
+        padding: 1px;
+        white-space: nowrap;
+        text-align-last: center;
+    }
+    #TableOrderGambarSelesai th {
+        white-space: nowrap;
+    }
+
+</style>
 <link href="{{ asset('css/Workshop/Informasi/OrderGambarSelesai.css') }}" rel="stylesheet">
 
   <div class="card-header">

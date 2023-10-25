@@ -1,6 +1,13 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'Penerima Order Kerja')
+<style>
+    #tablePenerimaOrderKerja td{
+        padding: 1px;
+        white-space: nowrap;
+        text-align-last: center;
+    }
+</style>
   <link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
   @if (Session::has('success'))
     <div class="alert alert-success">

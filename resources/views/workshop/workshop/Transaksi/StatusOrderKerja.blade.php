@@ -1,6 +1,17 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'Status Order Kerja')
+<style>
+    #tableStaturOrderKerja td{
+        padding: 1px;
+        white-space: nowrap;
+        text-align-last: center;
+    }
+    #tableStaturOrderKerja th {
+        white-space: nowrap;
+    }
+
+</style>
 <link href="{{ asset('css/Workshop/Transaksi/PenerimaGambar.css') }}" rel="stylesheet">
   <div class="card-header">
     Status Order Kerja

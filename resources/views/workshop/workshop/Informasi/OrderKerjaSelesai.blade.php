@@ -1,6 +1,17 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'Order Kerja Selesai')
+<style>
+    #TableOrderKerjaSelesai td{
+        padding: 1px;
+        white-space: nowrap;
+        text-align-last: center;
+    }
+    #TableOrderKerjaSelesai th {
+        white-space: nowrap;
+    }
+
+</style>
   <div class="card-header">
     Lacak Order Kerja
   </div>

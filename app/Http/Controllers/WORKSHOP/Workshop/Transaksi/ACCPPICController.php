@@ -16,7 +16,6 @@ class ACCPPICController extends Controller
         return view('WORKSHOP.Workshop.Transaksi.ACCPPIC', compact(['PPIC', 'List']));
         // return view('WsORKSHOP.Workshop.Transaksi.ACCPPIC');
 
-
     }
 
 

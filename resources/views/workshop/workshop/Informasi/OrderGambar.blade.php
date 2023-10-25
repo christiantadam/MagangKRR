@@ -1,6 +1,16 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'Order Gambar')
+<style>
+    #TableOrderGambar td{
+        padding: 1px;
+        white-space: nowrap;
+        text-align-last: center;
+    }
+    #TableOrderGambar th {
+        white-space: nowrap;
+    }
+</style>
   <div class="card-header">
     Informasi Order Gambar
   </div>
