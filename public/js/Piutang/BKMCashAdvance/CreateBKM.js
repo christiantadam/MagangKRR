@@ -541,32 +541,38 @@ btnInputTanggalBKM.addEventListener('click', function (event) {
     for (let i = 1; i < rows.length; i++) {
         let cells = rows[i].cells;
         let checkbox = cells[0].getElementsByTagName("input")[0];
-        if (checkbox.checked) {
-            let tglInputFull = cells[7].innerText; // Nilai datetime lengkap dari kolom "Tgl. Input"
-            let tglInputDate = new Date(tglInputFull);
-            let tgl = tglInputDate.getDate();
-            let bulan = tglInputDate.getMonth() + 1; // Ingat, bulan dimulai dari 0
-            let tahun = tglInputDate.getFullYear();
 
-            // Format tanggal, bulan, dan tahun menjadi bentuk "YYYY-MM-DD"
-            tglInputNew.value = `${tahun}-${bulan < 10 ? '0' : ''}${bulan}-${tgl < 10 ? '0' : ''}${tgl}`;
-            // console.log(tglInputNew);
+        let tglInputFull = cells[7].innerText; // Nilai datetime lengkap dari kolom "Tgl. Input"
+        let tglInputDate = new Date(tglInputFull);
+        let tgl = tglInputDate.getDate();
+        let bulan = tglInputDate.getMonth() + 1; // Ingat, bulan dimulai dari 0
+        let tahun = tglInputDate.getFullYear();
 
-            let rowData = {
-                Tgl_Pelunasan: cells[0].innerText,
-                Id_Pelunasan: cells[1].innerText,
-                Id_bank: cells[2].innerText,
-                Jenis_Pembayaran: cells[3].innerText,
-                Nama_MataUang: cells[4].innerText,
-                Nilai_Pelunasan: cells[5].innerText,
-                No_Bukti: cells[6].innerText,
-                TglInput: cells[7].innerText,
-                KodePerkiraan: cells[8].innerText
-            };
-            selectedRows.push(rowData);
-            console.log(selectedRows);
-        }
+        // Format tanggal, bulan, dan tahun menjadi bentuk "YYYY-MM-DD"
+        tglInputNew.value = `${tahun}-${bulan < 10 ? '0' : ''}${bulan}-${tgl < 10 ? '0' : ''}${tgl}`;
+        // console.log(tglInputNew);
+
+        let rowData = {
+            Tgl_Pelunasan: cells[0].innerText,
+            Id_Pelunasan: cells[1].innerText,
+            Id_bank: cells[2].innerText,
+            Jenis_Pembayaran: cells[3].innerText,
+            Nama_MataUang: cells[4].innerText,
+            Nilai_Pelunasan: cells[5].innerText,
+            No_Bukti: cells[6].innerText,
+            TglInput: cells[7].innerText,
+            KodePerkiraan: cells[8].innerText,
+            checked: checkbox.checked
+        };
+        selectedRows.push(rowData);
+        console.log(selectedRows);
+
     }
+
+    selectedRows.forEach((rowData, index) => {
+        let checkbox = rows[index + 1].cells[0].getElementsByTagName("input")[0];
+        checkbox.checked = rowData.checked;
+    });
 })
 
 $("#btnInputTanggalBKM").on("click", function (event) {
@@ -623,10 +629,6 @@ $("#btnProsesss").on('click', function (event) {
     updateKpColumn2(idKodePerkiraan, selectedRowsIndices);
     updateBank(idBank, selectedRowsIndices);
     updateTglPembulatan(tanggalInput, selectedRowsIndices);
-
-    checkboxesToRestore.forEach(function (checkbox) {
-        checkbox.prop("checked", true);
-    });
 
     $('#pilihInputTanggal').modal('hide');
 });

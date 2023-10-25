@@ -552,17 +552,51 @@ btnOkTampilBKM.addEventListener('click', function(event) {
         });
 });
 
-btnCetakBKM.addEventListener('click', function(event) {
+// btnCetakBKM.addEventListener('click', function(event) {
+//     event.preventDefault();
+
+//     if ($('input[name="dataCheckbox"]:checked').length === 0) {
+//         alert("Pilih 1 Id.BKM Untuk DiCetak!");
+//         return;
+//     }
+
+//     methodTampilBKMKE.value="PUT";
+//     formTampilBKMKE.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
+//     console.log(idBKM.value);
+//     formTampilBKMKE.submit();
+// });
+btnCetakBKM.addEventListener('click', function (event) {
     event.preventDefault();
 
-    if ($('input[name="dataCheckbox"]:checked').length === 0) {
-        alert("Pilih 1 Id.BKM Untuk DiCetak!");
-        return;
-    }
-    methodTampilBKMKE.value="PUT";
-    formTampilBKMKE.action = "/BKMBKKNotaKredit/" + idBKMTampil.value;
-    console.log(idBKM.value);
-    formTampilBKMKE.submit();
+    console.log(idBKMTampil.value);
+
+    // fetch("/getCetak/" + idBKMTampil.value)
+    //     .then((response) => response.json())
+    //     .then((options) => {
+    //         console.log(options);
+    //         nomer.textContent = options[0].Id_BKM;
+
+    //         const tglInput = options[0].Tgl_Input;
+    //         const [tanggal1, waktu] = tglInput.split(" ");
+    //         options[0].TglInput = tanggal1;
+    //         let tgl = ubahFormatTanggal(tanggal1);
+    //         tglCetak.textContent = tgl;
+    //         symbol.textContent = options[0].Symbol;
+    //         jumlahDiterima.textContent = options[0].Nilai_Pelunasan;
+    //         terbilangCetak.textContent = options[0].Terjemahan;
+    //         kodePerkiraanCetak.textContent = options[0].KodePerkiraan;
+    //         jumlah.textContent = options[0].Nilai_Rincian;
+    //         rincianPenerimaan.textContent = options[0].NamaCust + " - " + options[0].Uraian;
+    //         symbol2.textContent = options[0].Symbol;
+    //         grandTotal.textContent = options[0].Nilai_Pelunasan;
+
+    //         window.print();
+    //     });
+
+    // methodTampilBKM.value = "PUT";
+    // formTampilBKM.action = "/CreateBKM/" + idBKM.value;
+    // console.log(idBKM.value);
+    // formTampilBKM.submit();
 });
 //#endregion
 

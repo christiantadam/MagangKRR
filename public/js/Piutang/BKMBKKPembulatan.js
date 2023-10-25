@@ -408,6 +408,8 @@ btnCetakBKK.addEventListener('click', function (event) {
             options[0].TglInput = tanggal2;
             let tglbkm = ubahFormatTanggal(tanggal2);
             tanggalBKM.textContent = tglbkm;
+
+            window.print();
         })
 })
 

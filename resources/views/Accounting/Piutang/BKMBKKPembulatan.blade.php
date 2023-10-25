@@ -308,7 +308,7 @@ s
     </div>
 
     {{-- style="visibility: hidden; --}}
-<div class="print" style="visibility: hidden">
+<div class="print" style="visibility: hidden;">
     <div class="container">
         <div class="row">
             <div class="col-5" style="padding-right: 25px;">
@@ -350,29 +350,29 @@ s
             <div class="col-12" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh;">
-                        <span style="display: inline; font-size: 18px; padding-left: 50px">Jumlah Diterima: </span><span id="symbol" style="display: inline; margin-top: -5px; font-size: 18px; padding-left: 15px"></span><span id="nilaiPembulatan" name="nilaiPembulatan" style="display: inline; margin-top: -5px; font-size: 18px; padding-left: 15px"></span>
+                        <span style="display: inline; font-size: 17px; padding-left: 50px">Jumlah Diterima: </span><span id="symbol" style="display: inline; margin-top: -5px; font-size: 17px; padding-left: 15px"></span><span id="nilaiPembulatan" name="nilaiPembulatan" style="display: inline; margin-top: -5px; font-size: 17px; padding-left: 15px"></span>
                     </div>
                     <div class="col-12">
-                        <span style="display: inline; font-size: 18px; padding-left: 50px">Terbilang: </span>
+                        <span style="display: inline; font-size: 17px; padding-left: 50px">Terbilang: </span>
                     </div>
                     <div class="col-12">
-                        <span id="terbilangCetak" style="display: inline; margin-top: -5px; font-size: 18px; padding-left: 50px"></span>
+                        <span id="terbilangCetak" style="display: inline; margin-top: -5px; font-size: 17px; padding-left: 50px"></span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-4" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px; ">BENTUK PEMBAYARAN</span>
+                        <span style="font-size: 17px; ">BENTUK PEMBAYARAN</span>
                     </div>
                 </div>
             </div>
-            <div class="col-9" style="padding-right: 25px;">
+            <div class="col-8" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px;">URAIAN PEMBAYARAN</span>
+                        <span style="font-size: 17px;">URAIAN PEMBAYARAN</span>
                     </div>
                 </div>
             </div>
@@ -381,35 +381,35 @@ s
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px; ">Jenis Pembayaran</span>
+                        <span style="font-size: 16px; ">Jenis Pembayaran</span>
                     </div>
                 </div>
             </div>
-            <div class="col-1" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px;">JATUH TEMPO</span>
+                        <span style="font-size: 16px;">JATUH TEMPO</span>
                     </div>
                 </div>
             </div>
             <div class="col-4" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px;">RINCIAN</span>
+                        <span style="font-size: 16px;">RINCIAN</span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px;">KODE PERKIRAAN</span>
+                        <span style="font-size: 16px;">KODE PERKIRAAN</span>
                     </div>
                 </div>
             </div>
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span style="font-size: 18px;">JUMLAH</span>
+                        <span style="font-size: 16px;">JUMLAH</span>
                     </div>
                 </div>
             </div>
@@ -418,35 +418,35 @@ s
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="jenispemb" style="font-size: 18px; ">jenispemb</span>
+                        <span id="jenispemb" style="font-size: 16px; ">jenispemb</span>
                     </div>
                 </div>
             </div>
-            <div class="col-1" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="jatuhtempo" style="font-size: 18px;">jatuhtempo</span>
+                        <span id="jatuhtempo" style="font-size: 16px;">jatuhtempo</span>
                     </div>
                 </div>
             </div>
             <div class="col-4" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="rincianbayar" style="font-size: 18px;">rincian</span>
+                        <span id="rincianbayar" style="font-size: 16px;">rincian</span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="padding-right: 25px;">
+            <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="kodeperkiraan" style="font-size: 18px;">kodeperkiraan</span>
+                        <span id="kodeperkiraan" style="font-size: 16px;">kodeperkiraan</span>
                     </div>
                 </div>
             </div>
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-bottom: 0px; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: center;">
-                        <span id="nilairincian" style="font-size: 18px;">jumlah</span>
+                        <span id="nilairincian" style="font-size: 16px;">jumlah</span>
                     </div>
                 </div>
             </div>
@@ -455,14 +455,14 @@ s
             <div class="col-10" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; border-right: 0px; margin-right: -3.4vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: right;">
-                        <span style="font-size: 18px; font-weight: bold; padding-left: 45px">GRAND TOTAL: </span><span id="symbol2" style="display: inline; margin-top: -5px; font-size: 18px; padding-right: 20px"></span>
+                        <span style="font-size: 16px; font-weight: bold; padding-left: 45px">GRAND TOTAL: </span><span id="symbol2" style="display: inline; margin-top: -5px; font-size: 16px; padding-right: 20px"></span>
                     </div>
                 </div>
             </div>
             <div class="col-2" style="padding-right: 25px;">
                 <div class="row"style="border: solid 1px; justify-content: left; margin-right: -2vh;">
                     <div class="col-12" style="height: 2.5vh; text-align-last: right;">
-                        <span id="grandTotal" style="font-size: 18px;"></span>
+                        <span id="grandTotal" style="font-size: 16px;"></span>
                     </div>
                 </div>
             </div>
@@ -470,51 +470,48 @@ s
 
         <br><br>
         <div class="row">
-            <div class="col-3" style="margin-right: 25px;">
+            <div class="col-2" style="margin-right: 20px;">
                 <div class="row" style="border: solid 1px; border-left: 0px; border-top: 0px; border-bottom: 0px; border-right: 0px; text-align-last: center;">
                     <div class="col-12" style="height: 10vh; ">
-                        <span id="disetujui" style="font-size: 18px;">Disetujui,</span>
+                        <span id="disetujui" style="font-size: 16px;">Disetujui,</span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="margin-left: 50px">
+            <div class="col-2" style="margin-left: 40px">
                 <div class="row" style="border: solid 1px; border-left: 0px; border-top: 0px; border-bottom: 0px; border-right: 0px; text-align-last: center;">
                     <div class="col-12" style="height: 10vh; ">
-                        <span id="kasir" style="font-size: 18px;">Kasir,</span>
+                        <span id="kasir" style="font-size: 16px;">Kasir,</span>
                     </div>
                 </div>
             </div>
-            <div class="col-4" style="margin-right: 25px;">
-                <div class="row" style="text-align-last: right;">
-                    <div class="col-6" style="height: 3vh; ">
-                        <span style="font-size: 18px;">Untuk pembulatan BKM Nomer: </span><span id="idBKMAcuan" style="font-size: 18px;">
-                    </div>
-                    <div class="col-6" style="height: 10vh; ">
-                        <span style="font-size: 18px;">Tanggal: </span><span id="tanggalBKM" style="font-size: 18px;">
+            <div class="col-7" style="margin-right: 20px;">
+                <div class="row" style="text-align-last: left;">
+                    <div class="col-12" style="height: 3vh; ">
+                        <span style="font-size: 15px;">Untuk pembulatan BKM Nomer: </span><span id="idBKMAcuan" style="font-size: 15px;"></span><span style="font-size: 15px;">, Tanggal: </span><span id="tanggalBKM" style="font-size: 15px;"></span>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-3" style="margin-right: 25px;">
+            <div class="col-2" style="margin-right: 20px;">
                 <div class="row" style="text-align-last: center; border: solid 1px; border-left: 0px; border-top: 0px; border-right: 0px;">
                     <div class="col-12" style="height: 4vh; ">
-                        <span id="disetujui" style="font-size: 18px;"></span>
+                        <span id="disetujui" style="font-size: 16px;"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-3" style="margin-left: 50px">
+            <div class="col-2" style="margin-left: 40px">
                 <div class="row" style="border: solid 1px; border-left: 0px; border-top: 0px; border-right: 0px; text-align-last: center;">
                     <div class="col-12" style="height: 4vh; ">
-                        <span id="kasir" style="font-size: 18px;"></span>
+                        <span id="kasir" style="font-size: 16px;"></span>
                     </div>
                 </div>
             </div>
-            <div class="col-4" style="margin-right: 25px;">
+            <div class="col-4" style="margin-right: 20px;">
                 <div class="row" style="text-align-last: right;">
                     <div class="col-12" style="height: 4vh; ">
-                        <span style="font-size: 18px;">Sidoarjo, </span><span id="tglCetakForm" style="font-size: 18px;"></span>
+                        <span style="font-size: 16px;">Sidoarjo, </span><span id="tglCetakForm" style="font-size: 17px;"></span>
                     </div>
                 </div>
             </div>
