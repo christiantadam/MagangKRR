@@ -112,11 +112,13 @@
                             </div>
                         </div>
 
+                        <div id="form-container"></div>
+
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="Button">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="Button">Belum Dikirim</button></div>
-                                <div class="text-center col-md-auto"><button type="Button">Keluar</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" type="Button" onclick="ProcessData()">Proses</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" type="Button">Belum Dikirim</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" type="Button">Keluar</button></div>
                             </div>
                         </div>
                         </form>

@@ -57,7 +57,31 @@ class BBJController extends Controller
             // dd($dataTampil);
             // Return the options as JSON data
             return response()->json($dataTampil);
+        } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->statement(
+                'exec SP_5409_INV_SimpanPermohonanBarcode
+        @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
+        @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
+                [
+                    $crExplode[0],
+                    $crExplode[1],
+                    $crExplode[2],
+                    $crExplode[3],
+                    $crExplode[4],
+                    $crExplode[5],
+                    $crExplode[6],
+                    $crExplode[7],
+                    $crExplode[8],
+                    $crExplode[9],
+                    " ",
+                    " "
+                ]
+            );
+            // dd($dataBarcode);
+            // Return the options as JSON data
+            return response()->json($dataBarcode);
         }
+
     }
     // Show the form for editing the specified resource.
     public function edit($id)

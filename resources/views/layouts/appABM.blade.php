@@ -194,7 +194,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimGudang') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimGudang2') }}">Kirim Gudang </a>
                                 </li>
                                 <li>
                                     <a class="test"

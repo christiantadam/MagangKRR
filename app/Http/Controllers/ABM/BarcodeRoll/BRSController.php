@@ -13,7 +13,7 @@ class BRSController extends Controller
     public function index()
     {
         $data = 'HAPPY HAPPY HAPPY';
-        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["6493"]);
+        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["006493"]);
 
         // dd($dataSubKelompok);
         return view('BarcodeRollWoven.BRS', compact('data', 'dataSubKelompok'));
@@ -47,6 +47,29 @@ class BRSController extends Controller
             // dd($dataTampil);
             // Return the options as JSON data
             return response()->json($dataTampil);
+        } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $dataBarcode = DB::connection('ConnInventory')->statement(
+                'exec SP_5409_INV_SimpanPermohonanBarcode
+        @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
+        @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
+                [
+                    $crExplode[0],
+                    $crExplode[1],
+                    $crExplode[2],
+                    $crExplode[3],
+                    $crExplode[4],
+                    $crExplode[5],
+                    $crExplode[6],
+                    $crExplode[7],
+                    $crExplode[8],
+                    $crExplode[9],
+                    " ",
+                    " "
+                ]
+            );
+            // dd($dataBarcode);
+            // Return the options as JSON data
+            return response()->json($dataBarcode);
         }
     }
 

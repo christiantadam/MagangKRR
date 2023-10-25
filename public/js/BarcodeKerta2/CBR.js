@@ -66,7 +66,7 @@ $(document).ready(function () {
         var parts = ScanBarcodeValue.split("-");
         console.log(parts); // Output: ["A123", "a234"]
 
-        fetch(`/ABM/BarcodeKerta2/KirimGudang/${parts[0]}.${parts[1]}.getDataStatus`)
+        fetch(`/ABM/BarcodeKerta2/CBR/${parts[0]}.${parts[1]}.getDataStatus`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

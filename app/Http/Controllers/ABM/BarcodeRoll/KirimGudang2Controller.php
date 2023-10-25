@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class KirimGudang2Controller extends Controller
 {
@@ -52,6 +55,11 @@ class KirimGudang2Controller extends Controller
                 ->value('status');
             // dd($statusdispresiasi);
             return response()->json($statusdispresiasi);
+        } else if ($crExplode[$lasindex] == "getWaktu") {
+            $dataWaktu = DB::connection('ConnInventory')->select('exec SP_JAM_SERVER');
+            // dd($dataWaktu);
+            // Return the options as JSON data
+            return response()->json($dataWaktu);
         }
     }
 
@@ -64,7 +72,41 @@ class KirimGudang2Controller extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        $dataWaktu = DB::connection('ConnInventory')->select('exec SP_JAM_SERVER');
+        $status = 0; // Inisialisasi status
+
+        if (!empty($dataWaktu)) {
+            $jamServer = $dataWaktu[0]->jam_server; // Pastikan nama kolom sesuai dengan hasil SP
+
+            // Ubah format jamServer ke objek DateTime
+            $jamServerObj = new DateTime($jamServer);
+
+            // Tentukan batas jam
+            $batasJamAwal = new DateTime("00:00:00");
+            $batasJamAkhir = new DateTime("07:00:00");
+
+            // Bandingkan jamServer dengan batas jam
+            if ($jamServerObj >= $batasJamAwal && $jamServerObj <= $batasJamAkhir) {
+                $status = 1;
+            }
+            // dd($status);
+        }
+
+        DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPermohonanKirimKeGudang
+        @kodebarang = ?,
+        @noindeks = ?,
+        @userid = ?,
+        @divisi = ?,
+        @status = ?', [
+            $data['kodebarang'],
+            $data['noindeks'],
+            '4384',
+            $data['divisi'],
+            $status,
+        ]);
+
+        return redirect()->route('KirimGudang2.index')->with('alert', 'Data Updated successfully!');
     }
 
     //Remove the specified resource from storage.

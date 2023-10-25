@@ -53,7 +53,7 @@ $(document).ready(function() {
             var parts = ScanBarcodeValue.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch(`/ABM/BarcodeRollWoven/KirimGudang/${parts[0]}.${parts[1]}.getDataStatus`)
+            fetch(`/ABM/BarcodeRollWoven/KirimGudang2/${parts[0]}.${parts[1]}.getDataStatus`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -70,7 +70,7 @@ $(document).ready(function() {
                     // Handling different statuses
                     if (sts === "1") {
                         // Fetch additional data for status 1
-                        fetch(`/ABM/BarcodeRollWoven/KirimGudang/${parts[0]}.${parts[1]}.getTampilData`)
+                        fetch(`/ABM/BarcodeRollWoven/KirimGudang2/${parts[0]}.${parts[1]}.getTampilData`)
                             .then(responseSP => {
                                 if (!responseSP.ok) {
                                     throw new Error("Network response was not ok");
@@ -150,4 +150,75 @@ function openModal() {
 function closeModal() {
     var modal = document.getElementById('myModal');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function ProcessData(data) {
+    var str = No_barcode.value;
+    var parts = str.split("-");
+
+    var UserId = "4384";
+    var kodebarang = parts[0];
+    var noindeks = parts[1];
+
+    // Extract values from form elements
+    var divisi = document.getElementById('IdDivisi').value;
+
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        UserId: UserId,
+        divisi: divisi,
+    };
+    console.log(formData);
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "KirimGudang2/divisi");
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding data
+        form.appendChild(input);
+    }
+    // Create method input with "PUT" Value
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding data
+    form.appendChild(method);
+
+    // Create input with "Update Keluarga" Value
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
 }
