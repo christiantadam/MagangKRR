@@ -57,6 +57,37 @@ $(document).ready(function() {
         $("#IdKelut").val(rowData[0]);
         $("#Kelut").val(rowData[1]);
 
+        fetch("/ABM/BarcodeRollWoven/KirimCircular/" + rowData[0] + ".getKelompok")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#TableKelompok").DataTable().clear().draw();
+
+                // Get the value of "No. SP" from the input field
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [
+                        item.idkelompok,
+                        item.namakelompok
+                    ];
+                    $("#TableKelompok").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableKelompok").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
         // Hide the modal immediately after populating the data
         closeModal();
     });
@@ -69,6 +100,37 @@ $(document).ready(function() {
         // Populate the input fields with the data
         $("#IdKelompok").val(rowData[0]);
         $("#Kelompok").val(rowData[1]);
+
+        fetch("/ABM/BarcodeRollWoven/KirimCircular/" + rowData[0] + ".getSubKelompok")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#TableSubKelompok").DataTable().clear().draw();
+
+                // Get the value of "No. SP" from the input field
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [
+                        item.IdSubkelompok,
+                        item.NamaSubKelompok
+                    ];
+                    $("#TableSubKelompok").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableSubKelompok").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
 
         // Hide the modal immediately after populating the data
         closeModal1();

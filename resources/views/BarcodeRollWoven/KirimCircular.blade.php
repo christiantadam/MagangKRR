@@ -81,12 +81,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataKelompok as $data)
+                                                            {{-- @foreach ($dataKelompok as $data)
                                                                 <tr>
                                                                     <td>{{ $data->idkelompok }}</td>
                                                                     <td>{{ $data->namakelompok }}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>
@@ -124,12 +124,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($dataSubKelompok as $data)
+                                                            {{-- @foreach ($dataSubKelompok as $data)
                                                                 <tr>
                                                                     <td>{{ $data->IdSubkelompok }}</td>
                                                                     <td>{{ $data->NamaSubKelompok }}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                             <!-- Add more rows as needed -->
                                                         </tbody>
                                                     </table>

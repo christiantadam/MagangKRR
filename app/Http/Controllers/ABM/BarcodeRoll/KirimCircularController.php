@@ -14,12 +14,12 @@ class KirimCircularController extends Controller
     {
 
         $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?', ["043", "6"]);
-        $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', ["0628"]);
-        $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["KKL628"]);
+        // $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', ["0628"]);
+        // $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["KKL628"]);
 
         $data = 'HAPPY HAPPY HAPPY';
         // dd($dataSubKelompok);
-        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut', 'dataKelompok', 'dataSubKelompok'));
+        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut'));
     }
 
     //Show the form for creating a new resource.
@@ -37,7 +37,20 @@ class KirimCircularController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+
+        if ($crExplode[$lasindex] == "getKelompok") {
+            $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', [$crExplode[0]]);
+            // dd($dataKelompok);
+            // Return the options as JSON data
+            return response()->json($dataKelompok);
+        } else  if ($crExplode[$lasindex] == "getSubKelompok") {
+            $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', [$crExplode[0]]);
+            // dd($dataSubKelompok);
+            // Return the options as JSON data
+            return response()->json($dataSubKelompok);
+        }
     }
 
     // Show the form for editing the specified resource.
