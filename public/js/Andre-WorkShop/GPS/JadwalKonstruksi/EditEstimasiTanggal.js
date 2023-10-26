@@ -12,7 +12,23 @@ let Instruksi = document.getElementById("Instruksi");
 let Lain = document.getElementById("Lain");
 let alasanLain = document.getElementById("alasanLain");
 var estJam = [];
+var newTgl = "";
 var estMenit = [];
+let btnokmodal = document.getElementById("btnokmodal");
+var trigger = 0;
+var idk = 0;
+var indeks = [];
+let pilihAlasan = 1;
+let jml = 0;
+var move_idBagian = [];
+var move_noAntri = [];
+var move_estJam = [];
+var move_estMenit = [];
+
+var sts_jadwal;
+var total_menit;
+var jam_kerja;
+var menit_jam_kerja;
 //#region set color
 
 table_data.on("draw", function () {
@@ -193,57 +209,53 @@ refresh.addEventListener("click", function () {
 //#region Proses Onclick
 
 function prosesklik() {
-    var indeks = [];
-    let pilihAlasan = 1;
-    let jml = 0;
-    var move_idBagian = [];
-    var move_noAntri = [];
-    var move_estJam = [];
-    var move_estMenit = [];
-    let idk = 0;
-    let sts_jadwal;
-    let total_menit;
-    let jam_kerja;
-    let menit_jam_kerja;
-    $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
-        // Ambil nilai 'value' dan status 'checked' dari checkbox
-        let value = $(this).val();
-        // let isChecked = $(this).prop("checked");
-        // let closestTd = $(this).closest("tr");
-        let rowindex = $(this).closest("tr").index();
-        jml += 1;
-        indeks.push(rowindex);
-    });
+    console.log(trigger);
 
-    if (jml == 0) {
-        alert("Pilih data yg akan di edit estimasi tanggalnya.");
-        return;
-    } else {
-        $("#modalalasan").modal("show");
-        let j = 0;
+    if (trigger == 0) {
         $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
+            // Ambil nilai 'value' dan status 'checked' dari checkbox
+            let value = $(this).val();
+            // let isChecked = $(this).prop("checked");
+            // let closestTd = $(this).closest("tr");
             let rowindex = $(this).closest("tr").index();
-            move_noAntri.push(table_data.cell(indeks[j], 0).data());
-            move_idBagian.push(table_data.cell(indeks[j], 8).data());
-            move_estJam.push(estJam[idk]);
-            move_estMenit.push(estMenit[idk]);
-            idk = idk + 1;
-            j += 1;
+            jml += 1;
+            indeks.push(rowindex);
         });
-        var newTgl = prompt(
-            "Inputkan estimasi tanggal yg baru (Format: YYYY-MM-DD)",
-            "YYYY-MM-DD"
-        );
-        let i = 0;
+
+        if (jml == 0) {
+            alert("Pilih data yg akan di edit estimasi tanggalnya.");
+            return;
+        } else {
+            $("#modalalasan").modal("show");
+
+            let j = 0;
+            $("input[name='EditEstimasiTanggalCheck']:checked").each(
+                function () {
+                    let rowindex = $(this).closest("tr").index();
+                    move_noAntri.push(table_data.cell(indeks[j], 0).data());
+                    move_idBagian.push(table_data.cell(indeks[j], 8).data());
+                    move_estJam.push(estJam[idk]);
+                    move_estMenit.push(estMenit[idk]);
+                    idk = idk + 1;
+                    j += 1;
+                }
+            );
+            var i = 0;
+            console.log(idk);
+        }
+    }
+    if (trigger == 1) {
         $("input[name='EditEstimasiTanggalCheck']").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
+
             let rowindex = $(this).closest("tr").index();
             let status = Proses_cek_estimasi(
                 table_data.cell(rowindex, 1).data(),
                 newTgl
             );
+            console.log(status);
             i += 1;
-            if (status == false) {
+            if (status == false) { //dicoba kalau status == false
                 alert(
                     "Untuk nomer order: " +
                         table_data.cell(rowindex, 1).data() +
@@ -267,17 +279,20 @@ function prosesklik() {
                     sts_jadwal = false;
                 }
                 total_menit = 0;
-                console.log(keterangan);
-                for (let i = 0; i < idk - 1; i++) {
+                // console.log(sts_jadwal);
+                // console.log(estJam);
+                // console.log(estMenit);
+                // console.log(indeks);
+                for (let i = 0; i <= idk - 1; i++) {
                     total_menit =
                         estJam[indeks[i]] * 60 +
                         estMenit[indeks[i]] +
                         total_menit;
                 }
-                if ((sts_jadwal = false)) {
+
+                if (sts_jadwal == false) {
                     jam_kerja = prompt(
-                        "Tentukan jam kerja optimal u/ tgl: " + newTgl,
-                        "PESAN"
+                        "Tentukan jam kerja optimal u/ tgl: " + newTgl
                     );
                     menit_jam_kerja = jam_kerja * 60;
                     while (total_menit > menit_jam_kerja) {
@@ -285,19 +300,19 @@ function prosesklik() {
                             "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
                         );
                         jam_kerja = prompt(
-                            "Tentukan jam kerja optimal u/ tgl: " + newTgl,
-                            "PESAN"
+                            "Tentukan jam kerja optimal u/ tgl: " + newTgl
                         );
                         menit_jam_kerja = jam_kerja * 60;
                     }
                     var csrfToken = $('meta[name="csrf-token"]').attr(
                         "content"
                     );
-                    for (let i = 0; i < idk.length - 1; i++) {
+                    // console.log(idk);
+                    for (let i = 0; i <= idk - 1; i++) {
+                        // console.log(idk);
                         $.ajax({
-                            url: "EditPerWorkStation/" + noAntri[i],
+                            url: "EditEstimasiTanggal/" + move_noAntri[i],
                             type: "POST",
-                            dataType: "json",
                             data: {
                                 _token: csrfToken,
                                 _method: "PUT",
@@ -309,7 +324,6 @@ function prosesklik() {
                                 worksts: WorkStation.value,
                                 oldDate: tgl.value,
                                 jamKrj: jam_kerja,
-                                user: 4384,
                                 keterangan:
                                     "Edit estimasi tgl, " +
                                     keterangan +
@@ -317,7 +331,7 @@ function prosesklik() {
                                     newTgl,
                             },
                             success: function (response) {
-                                console.log(response.message);
+                                console.log(response);
                                 // console.log(response.data);
                             },
                             error: function (xhr, status, error) {
@@ -348,6 +362,15 @@ function okemodal() {
     } else if (Lain.checked) {
         alert("Masukkan alasannya...");
         alasanLain.focus();
+        keterangan = alasanLain.value;
+    }
+    newTgl = prompt(
+        "Inputkan estimasi tanggal yg baru (Format: YYYY-MM-DD)",
+        "YYYY-MM-DD"
+    );
+    trigger = 1;
+    if (newTgl !== "") {
+        prosesklik();
     }
 }
 

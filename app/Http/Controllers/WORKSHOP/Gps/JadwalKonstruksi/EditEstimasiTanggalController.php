@@ -5,6 +5,7 @@ namespace App\Http\Controllers\WORKSHOP\Gps\JadwalKonstruksi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 class EditEstimasiTanggalController extends Controller
 {
 
@@ -59,6 +60,9 @@ class EditEstimasiTanggalController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
+        Log::info('cek :' .json_encode($request->all()));
+
         $estDate = $request->estDate;
         $noAntri = $request->noAntri;
         $idBag = $request->idBag;
@@ -69,7 +73,7 @@ class EditEstimasiTanggalController extends Controller
         $jamKrj = $request->jamKrj;
         $user = 4384;
         $keterangan = $request->keterangan;
-        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-ESTDATE-KONSTRUKSI-NEW] @estDate = ?, @noAntri = ?, @idBag = ?, @estHour = ?, @estHour = ?, @worksts = ?, @oldDate = ?, @jamKrj = ?, @user = ?, @keterangan = ?',
+        return DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-ESTDATE-KONSTRUKSI-NEW] @estDate = ?, @noAntri = ?, @idBag = ?, @estHour = ?, @estMinute = ?, @worksts = ?, @oldDate = ?, @jamKrj = ?, @user = ?, @keterangan = ?',
          [$estDate,$noAntri,$idBag,$estHour, $estMinute,$worksts, $oldDate,$jamKrj,$user,$keterangan]);
 
     }

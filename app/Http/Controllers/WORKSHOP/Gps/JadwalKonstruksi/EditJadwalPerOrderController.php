@@ -50,7 +50,7 @@ class EditJadwalPerOrderController extends Controller
     public function update(Request $request, $id)
     {
         //
-        Log::info('wdawdw :' .json_encode($request->all()));
+        // Log::info('wdawdw :' .json_encode($request->all()));
         // dd($request);
         $noAntri = $request->noAntri;
         $idTrans = $request->idTrans;
