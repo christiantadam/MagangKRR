@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-5 RDZMobilePaddingLR0">
+            <div class="col-md-7 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Informasi Piutang Penjualan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -24,7 +24,7 @@
                                     <div class="col-md-3">
                                         <input type="date" id="periode" class="form-control" style="width: 100%">
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="d-flex">
                                     <div class="col-md-3">
                                         <label for="supplier">SUPPLIER</label>
@@ -35,7 +35,7 @@
                                             <option value="Suppler 2">Sup2</option>
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <br><div class="mb-3">
                                     <div class="row">
@@ -48,7 +48,7 @@
                                         <div class="col-2">
                                             <input type="submit" id="btnKeluar" name="keluar" value="KELUAR" class="btn btn-primary">
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </form>

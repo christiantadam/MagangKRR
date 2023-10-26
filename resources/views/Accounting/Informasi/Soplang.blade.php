@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-5 RDZMobilePaddingLR0">
+            <div class="col-md-9 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Informasi Piutang Penjualan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -18,7 +18,7 @@
                                     <div class="col-md-3">
                                         <input type="date" id="tglAkhirLaporan" class="form-control" style="width: 100%">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <br><div class="mb-3">
                                     <div class="row">

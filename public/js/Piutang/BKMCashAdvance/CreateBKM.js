@@ -356,7 +356,6 @@ function Check() {
     const words = numberToWords(nilaipelunasan[0]);
     konversi.value = words;
 
-
     if (idBKMGenerated) {
         fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
             .then((response) => response.json())
@@ -401,13 +400,15 @@ function Check() {
             });
     }
 }
-
+let optionss;
 btnOK.addEventListener('click', function (event) {
     event.preventDefault();
     console.log("masuk OK");
     fetch("/detailtabelpelunasan2/" + bulan.value + "/" + tahun.value)
         .then((response) => response.json())
-        .then((optionss) => {
+        .then((data) => {
+            optionss = data;
+            optionss.forEach(option => option.isChecked = false);
             console.log(optionss);
             dataTable3 = $("#tabelDataPelunasan").DataTable({
                 destroy: true,
@@ -417,14 +418,15 @@ btnOK.addEventListener('click', function (event) {
                     {
                         title: "Tgl. Pelunasan",
                         data: "Tgl_Pelunasan",
-                        render: function (data) {
+                        render: function (data, type, row) {
                             var date = new Date(data);
                             var formattedDate = date.toLocaleDateString();
+                            var isChecked = row.isChecked ? 'checked' : '';
 
                             return `<div>
-                                            <input type="checkbox" name="dataPelunasanCheckbox" value="${formattedDate}" />
-                                            <span>${formattedDate}</span>
-                                        </div>`;
+                                        <input type="checkbox" name="dataPelunasanCheckbox" value="${formattedDate}" ${isChecked} />
+                                        <span>${formattedDate}</span>
+                                    </div>`;
                         }
                     },
                     { title: "Id. Pelunasan", data: "Id_Pelunasan" },
@@ -444,7 +446,6 @@ btnOK.addEventListener('click', function (event) {
                 idBankNew = "KI"
             } else {
                 idBankNew = idBank.value;
-
             }
         });
 });
@@ -562,17 +563,11 @@ btnInputTanggalBKM.addEventListener('click', function (event) {
             No_Bukti: cells[6].innerText,
             TglInput: cells[7].innerText,
             KodePerkiraan: cells[8].innerText,
-            checked: checkbox.checked
+            // checked: checkbox.checked
         };
         selectedRows.push(rowData);
         console.log(selectedRows);
-
     }
-
-    selectedRows.forEach((rowData, index) => {
-        let checkbox = rows[index + 1].cells[0].getElementsByTagName("input")[0];
-        checkbox.checked = rowData.checked;
-    });
 })
 
 $("#btnInputTanggalBKM").on("click", function (event) {
@@ -620,9 +615,21 @@ $("#btnProsesss").on('click', function (event) {
     event.preventDefault();
 
     const selectedRowsIndices = [];
+
+    // dataTable3.rows().every(function() {
+    //     var data = this.data();
+    //     var isChecked = selectedRowsIndices.includes(this.index());
+    //     if (isChecked) {
+    //         // Ganti checkbox menjadi dicentang
+    //         var cell = this.cell(':eq(0)').node();
+    //         $(cell).find('input[type="checkbox"]').prop('checked', true);
+    //     }
+    // });
+
     $("#tabelDataPelunasan tbody input[type='checkbox']:checked").each(function () {
         const row = $(this).closest("tr");
         const rowIndex = dataTable3.row(row).index();
+        optionss[rowIndex].isChecked = true;
         selectedRowsIndices.push(rowIndex);
     });
     console.log(idKodePerkiraan);

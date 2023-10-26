@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-6 RDZMobilePaddingLR0">
+            <div class="col-md-8 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Cek Nota dan Faktur</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -23,7 +23,7 @@
                                                 <input type="radio" id="pilihan3" name="pilihan" value="pilihan3">Faktur Pajak Tunai
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-4">
                                                 <input type="radio" id="pilihan4" name="pilihan" value="pilihan4">Faktur Pajak
                                             </div>
@@ -33,7 +33,8 @@
                                             <div class="col-md-4">
                                                 <input type="radio" id="pilihan6" name="pilihan" value="pilihan6">Faktur Tunai UM
                                             </div>
-                                        </div>  
+                                        </div>
+                                        <br>
                                         <div class="d-flex">
                                             <div class="col-md-4">
                                                 <label for="tglProduksi">Tanggal Penagihan</label>
@@ -41,8 +42,8 @@
                                             <div class="col-md-3">
                                                 <input type="date" id="tglProduksi" class="form-control" style="width: 100%">
                                             </div>
-                                        </div>  
-                                        <div class="d-flex">
+                                        </div>
+                                        <p><div class="d-flex">
                                             <div class="col-md-4">
                                                 <label for="customer">Customer</label>
                                             </div>
@@ -53,7 +54,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="d-flex">
+                                        <p><div class="d-flex">
                                             <div class="col-md-4">
                                                 <label for="idPenagihan">Id Penagihan</label>
                                             </div>

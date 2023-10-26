@@ -69,7 +69,6 @@ class AnalisaInformasiBankController extends Controller
     public function update(Request $request)
     {
         //dd($request->all());
-
         $noReferensi = $request->noReferensi;
         $idCustomer = $request->idCustomer;
         $radiogrup2 = $request->radiogrup2;
