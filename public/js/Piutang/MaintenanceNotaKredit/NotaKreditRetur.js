@@ -188,7 +188,7 @@ function Lihat_Penagihan() {
             jumlahRetur.value = options[0].QtyTritier;
         } else {
             total.value == (options[0].QTyKonversi * options[0].HargaSatuan) - (options[0].QTyKonversi * options[0].HargaSatuan * options[0].Discount);
-            umlahRetur.value = options[0].QTyKonversi;
+            jumlahRetur.value = options[0].QTyKonversi;
         }
 
         btnTambahItem.focus();

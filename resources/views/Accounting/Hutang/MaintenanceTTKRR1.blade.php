@@ -11,35 +11,40 @@
                             <form method="POST" action="">
                                 @csrf
                                 <!-- Form fields go here -->
-                                    
                                 <p><div class="row">
                                     <div class="col-md-2">
-                                        <label for="id">Supplier</label>
+                                        <label for="namaSupplierSelect">Supplier</label>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
+                                    <div class="col-md-6">
+                                        <select id="namaSupplierSelect" name="namaSupplierSelect" class="form-control">
+
+                                        </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
-                                    </div>
-                                    <div class="col-md-1">
-                                        <select name="supplierSelect" class="form-control" onchange="fillColumns()">
-                                            <option value=""></option>
-                                            <option value="Supplier 1">Supplier 1</option>
-                                            <option value="Supplier 2">Supplier 2</option>
-                                        </select>
+                                        <input type="text" id="idSupplier" name="idSupplier" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
 
                                 <p><div style="overflow-x: auto;">
-                                    <table style="width: 100%; table-layout: fixed;">
+                                    <table style="width: 280%; table-layout: fixed;" id="tabelListDetailBrg">
                                         <colgroup>
-                                        <col style="width: 10%;">
-                                        <col style="width: 10%;">
-                                        <col style="width: 10%;">
-                                        <col style="width: 30%;">
-                                        <col style="width: 10%;">
-                                        <col style="width: 30%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
+                                        <col style="width: 20%;">
                                         </colgroup>
                                         <thead class="table-dark">
                                             <tr>
@@ -49,17 +54,20 @@
                                                 <th>Nilai Tagih</th>
                                                 <th>Kd. Barang</th>
                                                 <th>Nama Barang</th>
+                                                <th>Qty</th>
+                                                <th>Satuan</th>
+                                                <th>No. Terima</th>
+                                                <th>Hrg. Satuan</th>
+                                                <th>Kurs</th>
+                                                <th>Disc</th>
+                                                <th>PPN</th>
+                                                <th>Hrg. Disc</th>
+                                                <th>Hrg. PPN</th>
+                                                <th>Sat. Terima</th>
+                                                <th>Hrg. Murni</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
-                                                <td>Data 3</td>
-                                                <td>Data 4</td>
-                                                <td>Data 5</td>
-                                                <td>Data 6</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -155,21 +163,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Data 1</td>
-                                                <td>Data 2</td>
-                                                <td>Data 3</td>
-                                                <td>Data 4</td>
-                                                <td>Data 5</td>
-                                                <td>Data 6</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
+                                    <input type="submit" id="btnProses" name="btnProses" value="Proses" class="btn btn-primary" disabled>
                                     <input type="submit" name="keluar" value="Keluar" class="btn btn-primary">
                                 </div>
                             </form>
@@ -180,4 +180,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/Hutang/MaintenanceTTKRR1.js') }}"></script>
 @endsection

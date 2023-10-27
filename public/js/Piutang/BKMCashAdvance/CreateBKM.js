@@ -236,7 +236,7 @@ btnGroupBKM.addEventListener('click', function (event) {
         const words = numberToWords(nilaipelunasan[0]);
         konversi.value = words;
 
-
+        console.log(idBank.value, tglInputNew.value );
         if (idBKMGenerated) {
             fetch("/getidbkm/" + idBank.value + "/" + tglInputNew.value)
                 .then((response) => response.json())
