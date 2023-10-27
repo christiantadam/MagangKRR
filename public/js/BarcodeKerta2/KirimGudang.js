@@ -578,7 +578,7 @@ function ProcessData(data) {
     var str = No_barcode.value;
     var parts = str.split("-");
 
-    var UserId = "4384";
+    var UserId = "U001";
     var kodebarang = parts[0];
     var noindeks = parts[1];
 

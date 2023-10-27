@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class KirimGudangController extends Controller
 {
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["4384", NULL, NULL, NULL, NULL]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta ?, ?, ?', ["U001", NULL, NULL, NULL, NULL]);
         // SP_1273_INV_CekDataSP
 
         return view('BarcodeKerta2.KirimGudang', compact('dataDivisi'));
@@ -69,28 +72,65 @@ class KirimGudangController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        $data = $request->all();
-        // dd($data);
-        // kodeUpd: "simpanPegawai",
+        // $data = $request->all();
+        // // dd($data);
+        // // kodeUpd: "simpanPegawai",
 
-        DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPermohonanKirimKeKRR1
-        @userid = ?,
+        // DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPermohonanKirimKeKRR1
+        // @userid = ?,
+        // @kodebarang = ?,
+        // @noindeks = ?,
+        // @barcode = ?,
+        // @status = ?,
+        // @divisi = ?,
+        // @NoSP = ?', [
+        //     '4384',
+        //     $data['kodebarang'],
+        //     $data['noindeks'],
+        //     ' ',
+        //     '1',
+        //     $data['divisi'],
+        //     $data['NoSP']
+
+        // ]);
+        // return redirect()->route('KirimGudang.index')->with('alert', 'Data Updated successfully!');
+        $data = $request->all();
+        $dataWaktu = DB::connection('ConnInventory')->select('exec SP_JAM_SERVER');
+        $status = 0; // Inisialisasi status
+
+        if (!empty($dataWaktu)) {
+            $jamServer = $dataWaktu[0]->jam_server; // Pastikan nama kolom sesuai dengan hasil SP
+
+            // Ubah format jamServer ke objek DateTime
+            $jamServerObj = new DateTime($jamServer);
+
+            // Tentukan batas jam
+            $batasJamAwal = new DateTime("00:00:00");
+            $batasJamAkhir = new DateTime("07:00:00");
+
+            // Bandingkan jamServer dengan batas jam
+            if ($jamServerObj >= $batasJamAwal && $jamServerObj <= $batasJamAkhir) {
+                $status = 1;
+            }
+            // dd($status);
+        }
+
+        DB::connection('ConnInventory')->statement('exec SP_1273_INV_SimpanPermohonanKirimKeGudang
         @kodebarang = ?,
         @noindeks = ?,
-        @barcode = ?,
-        @status = ?,
+        @userid = ?,
         @divisi = ?,
+        @status = ?,
         @NoSP = ?', [
-            '4384',
             $data['kodebarang'],
             $data['noindeks'],
-            ' ',
-            '1',
+            '4384',
             $data['divisi'],
+            $status,
             $data['NoSP']
-
         ]);
-        return redirect()->route('KirimGudang.index')->with('alert', 'Data Updated successfully!');
+
+        return redirect()->route('KirimGudang2.index')->with('alert', 'Data Updated successfully!');
     }
 
     //Remove the specified resource from storage.
