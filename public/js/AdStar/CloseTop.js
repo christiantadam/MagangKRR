@@ -1,3 +1,53 @@
+$("#tbl_customer").DataTable();
+$("#tabel_noorder").DataTable();
+
+//--------------------------------------------------------------------------------------//
+
+$('#tbl_customer tbody').on('click', 'tr', function () {
+    // Get the data from the clicked row
+    var rowData = $("#tbl_customer").DataTable().row(this).data();
+    // var idbrng = $(this).data('idbrng');
+    // console.log(GrupMesinOrder);
+    // Populate the form fields with the data
+    $('#idcust').val(rowData[1]);
+    $('#namacust').val(rowData[0]);
+});
+
+//--------------------------------------------------------------------------------------//
+
+const btnprodtype = document.getElementById('btnprodtype');
+var kodeSave;
+
+
+btnprodtype.addEventListener("click", function () {
+    var tanggal = document.getElementById('idcust');
+    fetch("/AdStarOpenTop/" + tanggal.value + ".dataProdType")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json(); // Assuming the response is in JSON format
+        })
+        .then((data) => {
+            // Handle the data retrieved from the server (data should be an object or an array)
+            console.log(data);
+            // Clear the existing table rows
+            $("#tbl_prodtype").DataTable().clear().draw();
+
+            // Loop through the data and create table rows
+            data.forEach((item) => {
+                var row = [item.GrupMesinOrder, item.IDLOG];
+                $("#tbl_prodtype").DataTable().row.add(row);
+            });
+
+            // Redraw the table to show the changes
+            $("#tbl_prodtype").DataTable().draw();
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+});
+
 //--------------------------------------------------------------------------------------//
 
 document.addEventListener("DOMContentLoaded", function () {

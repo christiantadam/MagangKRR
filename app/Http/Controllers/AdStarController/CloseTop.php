@@ -9,7 +9,9 @@ class CLoseTop extends Controller
 {
     public function index()
     {
-        return view('AdStar.CLoseTop');//
+        $dataCust = DB::connection('ConnAdstar')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
+
+        return view('AdStar.CLoseTop', compact('dataCust'));//
     }
      /**
      * Show the form for creating a new resource.
@@ -38,9 +40,21 @@ class CLoseTop extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) -1;
+
+
+        //getorder
+      if ($crExplode[$lastIndex] == "dataProdType") {
+            $dataProdType = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?, @idcust= ?' , [ 1, $crExplode[0]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataProdType);
+
+            // dd($crExplode);
+        }
     }
 
     /**

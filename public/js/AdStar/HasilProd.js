@@ -48,8 +48,8 @@ var kodeSave;
 
 
 ldtransaksi.addEventListener("click", function () {
-    var tanggal = document.getElementById('tanggal');
-    fetch("/AdStarHasilProd/" + tanggal.value + ".dataTransaksi")
+    var idcust = document.getElementById('tanggal');
+    fetch("/AdStarHasilProd/" + idcust.value + ".dataTransaksi")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -64,7 +64,7 @@ ldtransaksi.addEventListener("click", function () {
 
             // Loop through the data and create table rows
             data.forEach((item) => {
-                var row = [item.GrupMesinOrder, item.IDLOG];
+                var row = [item.Nama_brg, item.id];
                 $("#tabel_notransaksi").DataTable().row.add(row);
             });
 

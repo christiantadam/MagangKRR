@@ -20,9 +20,11 @@
                 <div class="input-container">
                     <div class=radio>
                         <label for="customer">Design For:</label>
-                        <input type="text" id="customer" required>
-                        <input type="text" id="input1" placeholder="">
-                        <button type="button">...</button>
+                        <input type="text" id="idcust" required>
+                        <input type="text" id="namacust" placeholder="">
+                        <button type="button" id="btncustomer" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" disabled>
+                            ...
+                        </button>
                     </div>
                 </div>
                 <div class="input-container">
@@ -31,8 +33,8 @@
                         <input type="text" id="nama-barang" required>
                         <label for="nama-barang">-</label>
                         <input type="text" id="input2">
-                        <button type="button">List Type</button>
-                    </div>
+                        <button type="button" id="btnprodtype" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodtype" disabled>
+                        </div>
                 </div>
                 <div class="input-container">
                     <div class=radio>
@@ -389,6 +391,71 @@
         </div>
     </div>
 
+     <!-- Modal customer-->
+<div class="modal fade" id="mdl_customer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_customer" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_customer">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_customer" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Namacust</th>
+                        <th>IDCUST</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataCust as $data)
+                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                            <td>{{ $data->NamaCust }}</td>
+                            <td>{{ $data->IDCust }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal customer product type-->
+<div class="modal fade" id="mdl_prodtype" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdl_prodtype" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mdl_prodtype">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table id="tbl_prodtype" class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {{-- @foreach ($dataCust as $data)
+                         <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
+                             <td>{{ $data->NamaCust }}</td>
+                             <td>{{ $data->IDCust }}</td>
+                         </tr>
+                     @endforeach --}}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+</div>
 
     <script src="{{ asset('js\AdStar\OpenTop.js')}}"></script>
 @endsection
