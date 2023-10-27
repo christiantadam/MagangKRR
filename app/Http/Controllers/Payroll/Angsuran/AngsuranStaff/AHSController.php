@@ -31,7 +31,41 @@ class AHSController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($crExplode);
+        if ($crExplode[$lastIndex] == "getListData") {
+            $listData = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @Kode = ?', [5]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($listData);
+        }else if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @Kode = ?', [1]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataDivisi);
+        }else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @id_div = ?, @Kode = ?', [$crExplode[0],2]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataPegawai);
+        }else if ($crExplode[$lastIndex] == "getBuktiKoreksi") {
+            $dataBukti = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @kd_pegawai = ?, @Kode = ?', [$crExplode[0],6]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataBukti);
+        }else if ($crExplode[$lastIndex] == "getBuktiIsi") {
+            $dataBukti = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @kd_pegawai = ?, @Kode = ?', [$crExplode[0],3]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataBukti);
+        }else if ($crExplode[$lastIndex] == "getAngsuran") {
+            $nomorAngsuran = str_replace('_', '/', $crExplode[0]);
+            $dataAngsuran = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @NO_ANGSURAN = ?, @Kode = ?', [$nomorAngsuran,7]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataAngsuran);
+        }
     }
 
     // Show the form for editing the specified resource.
