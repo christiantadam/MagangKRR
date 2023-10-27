@@ -541,6 +541,11 @@ numSekunder.addEventListener("keypress", function (event) {
 
 numTritier.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
+        if (this.value == "") {
+            alert("Jumlah Tritier Tidak Bisa Kosong!");
+            this.select();
+        }
+
         if (txtJenis.value.trim() == "BB" || txtJenis.value.trim() == "BP") {
             numSekunder.value = Math.round(parseFloat(numTritier.value) / 25);
         }

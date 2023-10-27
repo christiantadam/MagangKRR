@@ -29,17 +29,15 @@ $("#confirmation_modal").on("keydown", function (event) {
     if (event.key === "ArrowLeft") {
         if (document.activeElement === btnConfirmJQ[0]) {
             btnCancelJQ.focus();
-        } else if (document.activeElement === btnCancelJQ[0]) {
+        } else if (document.activeElement === btnCancelJQ[0])
             btnConfirmJQ.focus();
-        }
     }
 
     if (event.key === "ArrowRight") {
         if (document.activeElement === btnConfirmJQ[0]) {
             btnCancelJQ.focus();
-        } else if (document.activeElement === btnCancelJQ[0]) {
+        } else if (document.activeElement === btnCancelJQ[0])
             btnConfirmJQ.focus();
-        }
     }
 });
 
@@ -68,22 +66,20 @@ function showModal(
 function addTable_DataTable(
     tableId,
     listData,
-    columnsWidth = null,
+    colWidth = null,
     rowFun = null,
-    tableHeight = null,
-    extraParam = ""
+    tHeight = null,
+    extra = ""
 ) {
-    if ($.fn.DataTable.isDataTable("#" + tableId)) {
+    if ($.fn.DataTable.isDataTable("#" + tableId))
         $("#" + tableId)
             .DataTable()
             .destroy();
-    }
-
     $("#" + tableId + " tbody").empty();
 
     let colObject = "";
-    if (columnsWidth != null) {
-        colObject = columnsWidth.map((colWidth, index) => {
+    if (colWidth != null) {
+        colObject = colWidth.map((colWidth, index) => {
             return {
                 data: Object.keys(listData[0])[index],
                 width: colWidth.width || "auto",
@@ -95,33 +91,41 @@ function addTable_DataTable(
         }));
     }
 
-    if (extraParam == "table_only") {
+    if (extra == "table_only") {
         /**
-         * Digunakan pada Tabel Afalan di formKomposisiMojosari
+         * Digunakan pada:
+         * Tabel Komposisi di formKomposisiTropodo & formKomposisiMojosari;
+         * Tabel Afalan di formKomposisiMojosari;
          */
 
-        $("#" + tableId).DataTable({
+        let table1 = $("#" + tableId).DataTable({
             responsive: true,
             paging: false,
-            scrollY: tableHeight != null ? tableHeight : "250px",
-            scrollX: columnsWidth != null ? "1000000px" : "",
-            data: listData,
+            scrollY: tHeight != null ? tHeight : "250px",
+            scrollX: colWidth != null ? "1000000px" : "",
             columns: colObject,
             searching: false,
             info: false,
-
-            rowCallback: function (row, data, index) {
-                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
-                    if (rowFun != null) {
-                        row.style.cursor = "pointer";
-                        row.onclick = () => {
-                            rowFun(row, data, index);
-                        };
-                    } else row.style.cursor = "default";
-                }
-            },
+            ordering: false,
         });
-    } else if (extraParam == "dom_empty") {
+
+        table1.clear().rows.add(listData).draw();
+        table1.on("blur", function () {
+            removeNavigation_DataTable([table1]);
+        });
+
+        const tableContainer = table1.table().container();
+        const elements = tableContainer.querySelectorAll(".odd, .even");
+        elements.forEach((ele, i) => {
+            ele.addEventListener("click", () => {
+                removeNavigation_DataTable([table1]);
+                rowFun(i, table1.row(i).data());
+                arrowNavigation_DataTable(table1, i, (index, data) => {
+                    rowFun(index, data, true);
+                });
+            });
+        });
+    } else if (extra == "dom_empty") {
         /**
          * Digunakan pada Tabel Konversi di formBenangACC
          */
@@ -129,8 +133,8 @@ function addTable_DataTable(
         $("#" + tableId).DataTable({
             responsive: true,
             paging: false,
-            scrollY: tableHeight != null ? tableHeight : "250px",
-            scrollX: columnsWidth != null ? "1000000px" : "",
+            scrollY: tHeight != null ? tHeight : "250px",
+            scrollX: colWidth != null ? "1000000px" : "",
             data: listData,
             columns: colObject,
             language: {
@@ -159,8 +163,8 @@ function addTable_DataTable(
         $("#" + tableId).DataTable({
             responsive: true,
             paging: false,
-            scrollY: tableHeight != null ? tableHeight : "250px",
-            scrollX: columnsWidth != null ? "1000000px" : "",
+            scrollY: tHeight != null ? tHeight : "250px",
+            scrollX: colWidth != null ? "1000000px" : "",
             data: listData,
             columns: colObject,
             dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
@@ -187,6 +191,64 @@ function addTable_DataTable(
 
         addSearchBar_DataTable(tableId);
     }
+}
+
+function arrowNavigation_DataTable(d_table, s_index, e_handler = null) {
+    /**
+     * d_table, Objek DataTable yang akan digunakan.
+     * s_index, Index row yang terpilih; "remove" untuk menghapus fungsi navigasi.
+     * e_handler, Fungsi yang akan dijalankan terhadap row yang terpilih.
+     */
+
+    const tableContainer = d_table.table().container();
+    let selectedRow = s_index == "remove" ? 0 : s_index;
+    let elements = tableContainer.querySelectorAll(".odd, .even");
+
+    // Penanganan untuk beberapa datatables di halaman yang sama
+    if (s_index == "remove") {
+        $(document).off("keydown");
+        elements.forEach((ele) => {
+            ele.classList.remove("selected");
+            ele.onclick = null;
+        });
+
+        return;
+    } else elements[selectedRow].classList.add("selected");
+
+    // Implementasi navigasi arrow keys & home / end
+    $(document).on("keydown", (e) => {
+        if (e.key === "ArrowDown" && selectedRow < elements.length - 1) {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow += 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "ArrowUp" && selectedRow > 0) {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow -= 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "Home") {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow = 0;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "End") {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow = elements.length - 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "Enter") {
+            let row_index = selectedRow;
+            let row_data = d_table.row(selectedRow).data();
+            if (e_handler != null) e_handler(row_index, row_data);
+        }
+    });
+}
+
+function removeNavigation_DataTable(list_of_tables) {
+    list_of_tables.forEach((t) => {
+        const tableContainer = t.table().container();
+        const elements = tableContainer.querySelectorAll(".odd, .even");
+        elements.forEach(() => {
+            arrowNavigation_DataTable(t, "remove");
+        });
+    });
 }
 
 function clearTable_DataTable(tableId, tableWidth, msg = null) {
@@ -292,22 +354,17 @@ function addOptions(selectEle, optionData, keyMapping, showId = true) {
     }
 }
 
-function addOptionIfNotExists(
-    selectEle,
-    value,
-    text = "",
-    autoSelectTrue = true
-) {
+function addOptionIfNotExists(selectEle, value, text = "", auto = true) {
     const options = selectEle.options;
     for (let i = 0; i < options.length; i++) {
         if (options[i].value === value) {
-            if (autoSelectTrue) options[i].selected = true;
+            if (auto) options[i].selected = true;
             return;
         }
     }
 
     const newOption = new Option(text == "" ? value : text, value);
-    if (autoSelectTrue) newOption.selected = true;
+    if (auto) newOption.selected = true;
     selectEle.appendChild(newOption);
 }
 
@@ -366,7 +423,8 @@ function clearOptions(selectEle, selectLbl = "") {
 }
 //#endregion
 
-function fetchStmt(urlString, postAction = null, catchAction = null) {
+//#region Fetch API
+function fetchStmt(urlString, postAct = null, catchAct = null) {
     formCursor("wait");
     fetch(encodeURL(urlString))
         .then((response) => {
@@ -377,11 +435,11 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
             formCursor("default");
             console.log("urlString = " + urlString);
             if (data == 1) console.log("QUERY BERHASIL KAWAN!");
-            if (postAction != null) postAction();
+            if (postAct != null) postAct();
         })
         .catch((error) => {
             formCursor("default");
-            if (catchAction != null) catchAction();
+            if (catchAct != null) catchAct();
 
             alert(
                 "Terdapat kendala saat memproses data, mohon segera hubungi Pak Adam.\n" +
@@ -393,12 +451,7 @@ function fetchStmt(urlString, postAction = null, catchAction = null) {
         });
 }
 
-function fetchSelect(
-    urlString,
-    postAction,
-    selectOption = null,
-    catchAction = null
-) {
+function fetchSelect(urlString, postAct, slcOption = null, catchAct = null) {
     formCursor("wait");
     fetch(encodeURL(urlString))
         .then((response) => {
@@ -408,25 +461,26 @@ function fetchSelect(
         .then((data) => {
             formCursor("default");
             console.log("urlString = " + urlString);
+            console.log("Data yang terfetch:");
+            console.log(data);
 
             if (data.length == 0) {
                 console.log("DATA KOSONG!");
 
-                if (selectOption != null)
-                    selectOption.textContent = "Data tidak ditemukan!";
+                // Penanganan kendala pada select box
+                if (slcOption != null)
+                    slcOption.textContent = "Data tidak ditemukan!";
             }
 
-            console.log("Data yang terfetch:");
-            console.log(data);
-
-            postAction(data);
+            postAct(data);
         })
         .catch((error) => {
             formCursor("default");
-            if (catchAction != null) catchAction();
+            if (catchAct != null) catchAct();
 
-            if (selectOption != null) {
-                selectOption.textContent = "Terdapat kendala saat memuat data.";
+            if (slcOption != null) {
+                // Penanganan kendala pada select box
+                slcOption.textContent = "Terdapat kendala saat memuat data.";
             } else {
                 alert(
                     "Terdapat kendala saat memuat data, mohon segera hubungi Pak Adam." +
@@ -446,7 +500,9 @@ function encodeURL(urlString) {
         .replace(/\)/g, "%29")
         .replace(/:/g, "%3A");
 }
+//#endregion
 
+//#region Utilities
 function padLeft(str, length, char) {
     while (str.length < length) str = char + str;
     return str;
@@ -463,15 +519,15 @@ function toSnakeCase(inputStr) {
     return inputStr.toLowerCase().replace(/\s+/g, "_");
 }
 
-function getCurrentDate(monthYearOnly = false, extraParam = null) {
+function getCurrentDate(monthYearOnly = false, extra = null) {
     const currentDate = new Date();
     let year = currentDate.getFullYear();
     let month = String(currentDate.getMonth() + 1).padStart(2, "0");
     let day = String(currentDate.getDate()).padStart(2, "0");
 
-    if (extraParam != null) {
-        if (extraParam.split(",")[0] == "month") {
-            month = parseFloat(month) + parseFloat(extraParam.split(",")[1]);
+    if (extra != null) {
+        if (extra.split(",")[0] == "month") {
+            month = parseFloat(month) + parseFloat(extra.split(",")[1]);
             month = String(month).padStart(2, "0");
         }
     }
@@ -526,3 +582,4 @@ function formCursor(cursor_str) {
         ele.style.cursor = cursor_str;
     });
 }
+//#endregion

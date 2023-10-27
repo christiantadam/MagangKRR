@@ -39,7 +39,7 @@
         <div class="card mt-5">
             <div class="card-body">
 
-                <table id="table_komposisi" class="hover cell-border">
+                <table id="table_komposisi" class="hover cell-border" tabindex="0">
                     <thead>
                         <tr>
                             <th>Jenis</th>
@@ -71,7 +71,7 @@
                         <select id="select_objek" class="form-select" disabled>
                             <option selected disabled>-- Pilih Objek --</option>
                             @foreach ($formData['listObjek'] as $d)
-                                <option value="{{ $d->IdObjek }}">{{ $d->IdObjek . ' | ' . $d->NamaObjek }}
+                                <option value="{{ $d->IdObjek }}">{{ $d->NamaObjek }}
                                 </option>
                             @endforeach
                         </select>
