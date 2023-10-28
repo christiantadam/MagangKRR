@@ -1,6 +1,8 @@
 @extends('layouts.appABM')
 @section('content')
-<script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/SettingTimbangan.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/SettingTimbangan.js') }}"></script>
+
 
     <body onload="Greeting()">
         <div id="app">
@@ -11,7 +13,8 @@
                         <div class="card-header">Setting Timbangan</div>
                         <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                             <div class="form berat_woven">
-                                <form action="#" method="post" role="form">
+                                <form action="{{ route('pengaturan.store') }}" method="post" role="form">
+                                    @csrf <!-- Tambahkan token CSRF di dalam formulir -->
                                     <div class="row">
                                         <div class="form-group col-md-3 d-flex justify-content-end">
                                             <span class="aligned-text">Jenis Tibangan Yang Digunakan:</span>
@@ -19,16 +22,16 @@
                                         <div class="row mt-3">
                                             <div class="col">
                                                 <div class="d-flex align-items-center" style="justify-content: center;">
-                                                    <div class="form-check form-check-inline seperate">
+                                                    <div class="form-check form-check-inline separate">
                                                         <input class="form-check-input custom-radio" type="radio"
-                                                            name="unit" value="kg" checked>
-                                                        <label class="form-check-label rounded-circle custom-radio"
+                                                            id="kgRadio" name="unit" value="kg" checked>
+                                                        <label class="form-check-label rounded-circle"
                                                             for="kgRadio">500Kg</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input custom-radio" type="radio"
-                                                            name="unit" value="yard">
-                                                        <label class="form-check-label rounded-circle custom-radio"
+                                                            id="yardRadio" name="unit" value="yard">
+                                                        <label class="form-check-label rounded-circle"
                                                             for="yardRadio">1000Kg</label>
                                                     </div>
                                                 </div>
@@ -38,8 +41,8 @@
 
                                     <div class="row mt-3">
                                         <div class="col- row justify-content-md-center">
-                                            <div class="text-center col-md-auto"><button type="button" id="simpanButton"
-                                                    style="width: 100px">Simpan</button></div>
+                                            <button type="submit" id="simpanButton" style="width: 100px"
+                                                data-url="{{ route('pengaturan.store') }}">Simpan</button>
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">Keluar</button></div>
                                         </div>

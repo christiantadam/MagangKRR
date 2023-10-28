@@ -155,7 +155,7 @@
                                     <div class="card mt-4">
                                         <div class="card-header">Type</div>
                                         <h5 class="mt-3 form-group">Rekap Barcode Yang Dikirim</h5>
-                                        <table id="TableType">
+                                        <table id="RekapKirim">
                                             <thead>
                                                 <tr>
                                                     <th>Tanggal </th>
@@ -177,7 +177,7 @@
                             <div class="card mt-4">
                                 <div class="card-header">Type</div>
                                 <h5 class="mt-3 form-group">Daftar Barcode Yang Dikirim</h5>
-                                <table id="TypeTable">
+                                <table id="DaftarKirim">
                                     <thead>
                                         <tr>
                                             <th>Tanggal </th>
@@ -185,11 +185,11 @@
                                             <th>Shift </th>
                                             <th>No Barcode </th>
                                             <th>SubKelompok </th>
+                                            <th>Kode Barang </th>
                                             <th>No Index </th>
                                             <th>Primer</th>
                                             <th>Sekunder</th>
                                             <th>Tritier</th>
-                                            <th>No Roll</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,9 +201,9 @@
 
                         <div class="row mt-3 mb-3">
                             <div class="col- row justify-content-md-center">
-                                <div class="text-center col-md-auto"><button type="button">Proses</button></div>
-                                <div class="text-center col-md-auto"><button type="button">Belum Dikirim</button></div>
-                                <div class="text-center col-md-auto"><button type="button">Keluar</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" type="button" onclick="ProcessData()">Proses</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" type="button">Belum Dikirim</button></div>
+                                <div class="text-center col-md-auto"><button style="width: 120px" class="btn-danger" type="button">Keluar</button></div>
                             </div>
                         </div>
                         </form>

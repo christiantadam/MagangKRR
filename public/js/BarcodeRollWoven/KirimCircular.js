@@ -11,17 +11,38 @@ $(document).ready(function() {
         ],
     });
 
-    $('#TypeTable').DataTable({
-
+    $('#RekapKirim').DataTable({
+        select: {
+            style: "single"
+        },
         order: [
             [0, 'desc']
         ],
+        "scrollX": true,
+        columns: [{ width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" }]
     });
 
-    $('#TableType').DataTable({
+    $('#DaftarKirim').DataTable({
         order: [
             [0, 'desc']
         ],
+        "scrollX": true,
+        columns: [{ width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" },
+        { width: "150px" }]
     });
 
     $('#TableKelompok').DataTable({
@@ -275,4 +296,75 @@ function openModal2() {
 function closeModal2() {
     var modal = document.getElementById('myModal2');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function ProcessData(data) {
+    var str = No_barcode.value;
+    var parts = str.split("-");
+
+    var UserId = "4384";
+    var kodebarang = parts[0];
+    var noindeks = parts[1];
+
+    // Extract values from form elements
+    var divisi = document.getElementById('IdDivisi').value;
+
+    const formData = {
+        kodebarang: kodebarang,
+        noindeks: noindeks,
+        UserId: UserId,
+        divisi: divisi,
+    };
+    console.log(formData);
+    const formContainer = document.getElementById("form-container");
+    const form = document.createElement("form");
+    form.setAttribute("action", "KirimCircular/divisi");
+    form.setAttribute("method", "POST");
+
+    // Loop through the formData object and add hidden input fields to the form
+    for (const key in formData) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", key);
+        input.value = formData[key]; // Set the value of the input field to the corresponding data
+        form.appendChild(input);
+    }
+    // Create method input with "PUT" Value
+    const method = document.createElement("input");
+    method.setAttribute("type", "hidden");
+    method.setAttribute("name", "_method");
+    method.value = "PUT"; // Set the value of the input field to the corresponding data
+    form.appendChild(method);
+
+    // Create input with "Update Keluarga" Value
+    const ifUpdate = document.createElement("input");
+    ifUpdate.setAttribute("type", "hidden");
+    ifUpdate.setAttribute("name", "_ifUpdate");
+    ifUpdate.value = "Update Barcode"; // Set the value of the input field to the corresponding data
+    form.appendChild(ifUpdate);
+
+    formContainer.appendChild(form);
+
+    // Add CSRF token input field (assuming the csrfToken is properly fetched)
+    let csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    let csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Wrap form submission in a Promise
+    function submitForm() {
+        return new Promise((resolve, reject) => {
+            form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+            form.submit();
+        });
+    }
+
+    // Call the submitForm function to initiate the form submission
+    submitForm()
+        .then(() => console.log("Form submitted successfully!"))
+        .catch((error) => console.error("Form submission error:", error));
 }

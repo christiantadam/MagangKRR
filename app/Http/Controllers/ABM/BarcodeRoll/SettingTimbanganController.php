@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Setting;
 
 class SettingTimbanganController extends Controller
 {
@@ -25,7 +26,20 @@ class SettingTimbanganController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        // Validasi data yang diterima dari formulir
+        $request->validate([
+            'timbangan' => 'required|in:500,1000', // Sesuaikan dengan nilai yang diizinkan
+        ]);
+
+        // Ambil nilai dari formulir
+        $timbangan = $request->input('timbangan');
+
+        // Simpan pengaturan timbangan ke database
+        // Tidak perlu menggunakan 'Setting::updateOrCreate', cukup 'create'
+        Setting::create(['timbangan' => $timbangan]);
+
+        // Redirect kembali ke indeks SettingTimbangan
+        return redirect()->route('settingtimbangan.index')->with('success', 'Setting Timbangan Tersimpan.');
     }
 
     //Display the specified resource.

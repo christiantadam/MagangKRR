@@ -1100,6 +1100,7 @@ Route::resource('/ABM/BarcodeRollWoven/CekBarcode', App\Http\Controllers\ABM\Bar
 // Route::get('/ABM/BarcodeRollWoven/CekBarcode', 'App\Http\Controllers\ABM\BarcodeRoll\CekBarcode2Controller@index');
 Route::get('/ABM/BarcodeRollWoven/Penghanguskan', 'App\Http\Controllers\ABM\BarcodeRoll\PenghanguskanController@index');
 Route::resource('/ABM/BarcodeRollWoven/SettingTimbangan', App\Http\Controllers\ABM\BarcodeRoll\SettingTimbanganController::class);
+Route::post('/pengaturan', [SettingTimbanganController::class, 'store'])->name('pengaturan.store');
 // Route::get('/ABM/BarcodeRollWoven/SettingTimbangan', 'App\Http\Controllers\ABM\BarcodeRoll\SettingTimbanganController@index');
 Route::get('/ABM/BarcodeRollWoven/MSD', 'App\Http\Controllers\ABM\BarcodeRoll\MSDController@index');
 
