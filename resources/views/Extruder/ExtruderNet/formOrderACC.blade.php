@@ -8,7 +8,7 @@
     <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
 
     <div id="order_acc" class="form" data-aos="fade-up">
-        <table id="table_order" class="hover cell-border">
+        <table id="table_order" class="hover cell-border" tabindex="0">
             <thead>
                 <tr>
                     <th>Identifikasi Order</th>

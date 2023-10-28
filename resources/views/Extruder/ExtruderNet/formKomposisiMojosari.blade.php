@@ -119,7 +119,7 @@
 
         <div class="card mt-3">
             <div class="card-body">
-                <table id="table_komposisi" class="hover cell-border">
+                <table id="table_komposisi" class="hover cell-border" tabindex="0">
                     <thead>
                         <tr>
                             <th>Jenis</th>

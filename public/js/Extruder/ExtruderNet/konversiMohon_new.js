@@ -39,35 +39,34 @@ const btnKoreksiMaster = document.getElementById("btn_koreksi_master");
 const btnHapusMaster = document.getElementById("btn_hapus_master");
 const btnProses = document.getElementById("btn_proses");
 const btnKeluar = document.getElementById("btn_keluar");
-
 const hidNoUrut = document.getElementById("no_urut");
 
 const listKonversi = [];
-/* ISI LIST KONVERSI
-    0 Type
-    1 IdType *hidden
-    2 JumlahPrimer
-    3 SatPrimer
-    4 JumlahSekunder
-    5 SatSekunder
-    6 JumlahTritier
-    7 SatTrititer
-    8 Persentase
-    9 StatusType *Jenis
-    10 IdSubKelompok
-*/
+/** ISI LIST KONVERSI
+ * 0 Type
+ * 1 IdType *hidden
+ * 2 JumlahPrimer
+ * 3 SatPrimer
+ * 4 JumlahSekunder
+ * 5 SatSekunder
+ * 6 JumlahTritier
+ * 7 SatTrititer
+ * 8 Persentase
+ * 9 StatusType *Jenis
+ * 10 IdSubKelompok
+ */
 
 const listKomposisi = [];
-/* ISI LIST KOMPOSISI
-    0 StatusType *Jenis
-    1 IdType *hidden
-    2 NamaType
-    3 NamaSubKelompok
-    4 SatuanPrimer *hidden
-    5 SatuanSekunder *hidden
-    6 SatuanTritier *hidden
-    7 IdSubKelompok
-*/
+/** ISI LIST KOMPOSISI
+ * 0 StatusType *Jenis
+ * 1 IdType *hidden
+ * 2 NamaType
+ * 3 NamaSubKelompok
+ * 4 SatuanPrimer *hidden
+ * 5 SatuanSekunder *hidden
+ * 6 SatuanTritier *hidden
+ * 7 IdSubKelompok
+ */
 
 const colKonversi = [
     { width: "350px" }, // Nama Type
@@ -100,12 +99,13 @@ const listOfSelect = document.querySelectorAll("select");
 
 var refetchKomposisi = false;
 var refetchSpek = false;
-var refetchNomor = false;
+var refetchNomor = true;
 var refetchOrder = false;
 var pilKomposisi = -1;
 var pilKonversi = -1;
 var modeProses = "";
 var koreksiDetail = false;
+var [tableKonversi, tableKomposisi] = ["", ""];
 
 const namaGedung = document.getElementById("nama_gedung").value;
 const idDivisi = namaGedung == "B" ? "MEX" : "EXT";
@@ -515,8 +515,7 @@ timeMulai.addEventListener("keypress", function (event) {
 });
 
 timeSelesai.addEventListener("keypress", function (event) {
-    if (event.key == "Enter")
-        $("html, body").animate({ scrollTop: posKomposisi }, 100);
+    if (event.key == "Enter") $(window).scrollTop($(document).height());
 });
 
 numPrimer.addEventListener("keypress", function (event) {
@@ -544,6 +543,7 @@ numTritier.addEventListener("keypress", function (event) {
         if (this.value == "") {
             alert("Jumlah Tritier Tidak Bisa Kosong!");
             this.select();
+            return;
         }
 
         if (txtJenis.value.trim() == "BB" || txtJenis.value.trim() == "BP") {
@@ -603,11 +603,20 @@ btnTambahDetail.addEventListener("click", function () {
                 IdType: txtIdProd.value,
             });
 
+            // addTable_DataTable(
+            //     "table_konversi",
+            //     listKonversi,
+            //     colKonversi,
+            //     rowClickedKonversi
+            // );
+
             addTable_DataTable(
                 "table_konversi",
                 listKonversi,
                 colKonversi,
-                rowClickedKonversi
+                rowEventKonversi,
+                "350px",
+                "table_only"
             );
 
             clearDataDetail();
@@ -616,14 +625,15 @@ btnTambahDetail.addEventListener("click", function () {
             pilKomposisi = -1;
 
             showModal(
-                "Tambah Data",
+                "Ya",
                 "Ingin input data konversi lagi?",
                 () => {
-                    $("html, body").animate({ scrollTop: posKomposisi }, 100);
+                    $(window).scrollTop($(document).height());
                 },
                 () => {
                     btnProses.focus();
-                }
+                },
+                "Tidak"
             );
         }
     }
@@ -642,11 +652,20 @@ btnKoreksiDetail.addEventListener("click", function () {
                 listKonversi[pilKonversi].JumlahTritier = numTritier.value;
 
                 disableDetail();
+                // addTable_DataTable(
+                //     "table_konversi",
+                //     listKonversi,
+                //     colKonversi,
+                //     rowClickedKonversi
+                // );
+
                 addTable_DataTable(
                     "table_konversi",
                     listKonversi,
                     colKonversi,
-                    rowClickedKonversi
+                    rowEventKonversi,
+                    "350px",
+                    "table_only"
                 );
 
                 alert(
@@ -673,11 +692,21 @@ btnHapusDetail.addEventListener("click", function () {
                     listKonversi.splice(pilKonversi, 1);
                     clearDataDetail();
                     disableDetail();
+
+                    // addTable_DataTable(
+                    //     "table_konversi",
+                    //     listKonversi,
+                    //     colKonversi,
+                    //     rowClickedKonversi
+                    // );
+
                     addTable_DataTable(
                         "table_konversi",
                         listKonversi,
                         colKonversi,
-                        rowClickedKonversi
+                        rowEventKonversi,
+                        "350px",
+                        "table_only"
                     );
 
                     alert(
@@ -865,23 +894,39 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
             } else {
                 let tableList = [];
                 for (let i = 0; i < data.length; i++) {
+                    let [sat_primer, sat_sekunder, sat_tritier] = ["", "", ""];
+                    if (
+                        data[i].SatuanPrimer === "" ||
+                        data[i].SatuanPrimer === null ||
+                        data[i].SatuanPrimer === undefined
+                    ) {
+                        sat_primer = "NULL";
+                    } else sat_primer = data[i].SatuanPrimer;
+
+                    if (
+                        data[i].SatuanSekunder === "" ||
+                        data[i].SatuanSekunder === null ||
+                        data[i].SatuanSekunder === undefined
+                    ) {
+                        sat_sekunder = "NULL";
+                    } else sat_sekunder = data[i].SatuanSekunder;
+
+                    if (
+                        data[i].SatuanTritier === "" ||
+                        data[i].SatuanTritier === null ||
+                        data[i].SatuanTritier === undefined
+                    ) {
+                        sat_tritier = "NULL";
+                    } else sat_tritier = data[i].SatuanTritier;
+
                     listKomposisi.push({
                         StatusType: data[i].StatusType,
                         IdType: data[i].IdType,
                         NamaType: data[i].NamaType,
                         NamaSubKelompok: data[i].NamaSubKelompok,
-                        SatuanPrimer:
-                            data[i].SatuanPrimer !== undefined
-                                ? data[i].SatuanPrimer
-                                : "Null",
-                        SatuanSekunder:
-                            data[i].SatuanSekunder !== undefined
-                                ? data[i].SatuanSekunder
-                                : "Null",
-                        SatuanTritier:
-                            data[i].SatuanTritier !== undefined
-                                ? data[i].SatuanTritier
-                                : "Null",
+                        SatuanPrimer: sat_primer,
+                        SatuanSekunder: sat_sekunder,
+                        SatuanTritier: sat_tritier,
                         IdSubKelompok: data[i].IdSubKelompok,
                     });
 
@@ -894,11 +939,20 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                     });
                 }
 
+                // addTable_DataTable(
+                //     "table_komposisi",
+                //     tableList,
+                //     colKomposisi,
+                //     rowClickedKomposisi
+                // );
+
                 addTable_DataTable(
                     "table_komposisi",
                     tableList,
                     colKomposisi,
-                    rowClickedKomposisi
+                    rowEventKomposisi,
+                    "300px",
+                    "table_only"
                 );
             }
 
@@ -917,11 +971,20 @@ function getSatuanFetch(id_type, i, post_action = null) {
         listKonversi[i].SatTritier = data[0].SatTritier;
 
         if (i == listKonversi.length - 1) {
+            // addTable_DataTable(
+            //     "table_konversi",
+            //     listKonversi,
+            //     colKonversi,
+            //     rowClickedKonversi
+            // );
+
             addTable_DataTable(
                 "table_konversi",
                 listKonversi,
                 colKonversi,
-                rowClickedKonversi
+                rowEventKonversi,
+                "350px",
+                "table_only"
             );
 
             if (post_action != null) {
@@ -961,12 +1024,34 @@ function loadSaldoFetch(s_id_type) {
 
     // SP_1003_INV_Saldo_Barang
     fetchSelect("/Konversi/getSaldoInv/" + s_id_type.trim(), (data) => {
-        numStokPrimer.value =
-            data[0].SaldoPrimer !== undefined ? data[0].SaldoPrimer : "0";
-        numStokSekunder.value =
-            data[0].SaldoSekunder !== undefined ? data[0].SaldoSekunder : "0";
-        numStokTritier.value =
-            data[0].SaldoTritier !== undefined ? data[0].SaldoTritier : "0";
+        let [saldo_primer, saldo_sekunder, saldo_tritier] = ["", "", ""];
+        if (
+            data[0].SaldoPrimer === "" ||
+            data[0].SaldoPrimer === null ||
+            data[0].SaldoPrimer === undefined
+        ) {
+            saldo_primer = 0;
+        } else saldo_primer = data[0].SaldoPrimer;
+
+        if (
+            data[0].SaldoSekunder === "" ||
+            data[0].SaldoSekunder === null ||
+            data[0].SaldoSekunder === undefined
+        ) {
+            saldo_sekunder = 0;
+        } else saldo_sekunder = data[0].SaldoSekunder;
+
+        if (
+            data[0].SaldoTritier === "" ||
+            data[0].SaldoTritier === null ||
+            data[0].SaldoTritier === undefined
+        ) {
+            saldo_tritier = 0;
+        } else saldo_tritier = data[0].SaldoTritier;
+
+        numStokPrimer.value = saldo_primer;
+        numStokSekunder.value = saldo_sekunder;
+        numStokTritier.value = saldo_tritier;
     });
 }
 
@@ -1406,160 +1491,134 @@ function toggleButtons(tmb) {
     }
 }
 
-function rowClickedKomposisi(row, data, _) {
-    pilKonversi = -1;
-    clearSelection_DataTable("table_konversi");
-
-    if (
-        pilKomposisi ==
-        findClickedRowInList(listKomposisi, "IdType", data.IdType)
-    ) {
-        row.style.background = "white";
-        pilKomposisi = -1;
-        clearDataDetail();
-        disableDetail();
-    } else {
-        pilKomposisi = findClickedRowInList(
-            listKomposisi,
-            "IdType",
-            data.IdType
-        );
-
-        clearSelection_DataTable("table_komposisi");
-        row.style.background = "aliceblue";
-
-        txtIdProd.value = listKomposisi[pilKomposisi].IdType;
-        txtNamaProd.value = listKomposisi[pilKomposisi].NamaType;
-        spnSatPrimer.textContent =
-            listKomposisi[pilKomposisi].SatuanPrimer !== undefined
-                ? listKomposisi[pilKomposisi].SatuanPrimer
-                : "NULL";
-        spnSatSekunder.textContent =
-            listKomposisi[pilKomposisi].SatuanSekunder !== undefined
-                ? listKomposisi[pilKomposisi].SatuanSekunder
-                : "NULL";
-        spnSatTritier.textContent =
-            listKomposisi[pilKomposisi].SatuanTritier !== undefined
-                ? listKomposisi[pilKomposisi].SatuanTritier
-                : "NULL";
-        numPrimer.value = "";
-        numSekunder.value = "";
-        numTritier.value = "";
-        txtJenis.value = listKomposisi[pilKomposisi].StatusType;
-        getSaldoFetch(listKomposisi[pilKomposisi].IdType, () => {
-            /**
-             * Pengecekkan stok dilakukan terhadap Komposisi jenis "BB" & "BP",
-             * Hanya dilakukan pada stok tritier saja.
-             */
-
-            formCursor("default");
-
-            if (
-                listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
-                listKomposisi[pilKomposisi].StatusType.trim() == "BP"
-            ) {
-                if (numStokTritier.value == 0) {
-                    alert(
-                        txtNamaProd.value +
-                            " tidak dapat digunakan untuk transaksi karena stok telah habis."
-                    );
-
-                    clearSelection_DataTable("table_komposisi");
-                    clearDataDetail();
-                    return;
-                }
-            }
-
-            if (modeProses != "") {
-                numPrimer.disabled = false;
-                numPrimer.focus();
-            }
-
-            koreksiDetail = false;
-        });
+function preventEnter(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
     }
 }
 
-function rowClickedKonversi(row, data, _) {
+numPrimer.addEventListener("keypress", preventEnter);
+
+numPrimer.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        numPrimer.removeEventListener("keypress", preventEnter);
+    }
+});
+
+function rowEventKomposisi(index, _, focus = false) {
+    pilKomposisi = index;
+
+    txtIdProd.value = listKomposisi[pilKomposisi].IdType;
+    txtNamaProd.value = listKomposisi[pilKomposisi].NamaType;
+    spnSatPrimer.textContent =
+        listKomposisi[pilKomposisi].SatuanPrimer !== undefined
+            ? listKomposisi[pilKomposisi].SatuanPrimer
+            : "NULL";
+    spnSatSekunder.textContent =
+        listKomposisi[pilKomposisi].SatuanSekunder !== undefined
+            ? listKomposisi[pilKomposisi].SatuanSekunder
+            : "NULL";
+    spnSatTritier.textContent =
+        listKomposisi[pilKomposisi].SatuanTritier !== undefined
+            ? listKomposisi[pilKomposisi].SatuanTritier
+            : "NULL";
+    numPrimer.value = "";
+    numSekunder.value = "";
+    numTritier.value = "";
+    txtJenis.value = listKomposisi[pilKomposisi].StatusType;
+    getSaldoFetch(listKomposisi[pilKomposisi].IdType, () => {
+        /**
+         * Pengecekkan stok dilakukan terhadap Komposisi jenis "BB" & "BP",
+         * Hanya dilakukan pada stok tritier saja.
+         */
+
+        formCursor("default");
+
+        if (
+            listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
+            listKomposisi[pilKomposisi].StatusType.trim() == "BP"
+        ) {
+            if (numStokTritier.value == 0) {
+                alert(
+                    txtNamaProd.value +
+                        " tidak dapat digunakan untuk transaksi karena stok telah habis."
+                );
+
+                clearSelection_DataTable("table_komposisi");
+                clearDataDetail();
+                return;
+            }
+        }
+
+        if (modeProses != "") {
+            numPrimer.disabled = false;
+            if (focus) {
+                numPrimer.focus();
+                numPrimer.select();
+                numPrimer.addEventListener("keypress", preventEnter);
+            }
+        }
+
+        koreksiDetail = false;
+    });
+}
+
+function rowEventKonversi(index, _, focus = false) {
     /**
      * Data pada tabel konversi menampilkan dari listKonversi secara terbalik
      * Row pertama menampilkan data listKonversi index terakhir
      * Row kedua menampilkan data listKonversi index terakhir - 1 dan seterusnya
      */
 
-    pilKomposisi = -1;
-    clearSelection_DataTable("table_komposisi");
+    pilKonversi = index;
 
-    if (
-        pilKonversi == findClickedRowInList(listKonversi, "IdType", data.IdType)
-    ) {
-        row.style.background = "white";
-        pilKonversi = -1;
-        clearDataDetail();
-        disableDetail();
-    } else {
-        pilKonversi = findClickedRowInList(listKonversi, "IdType", data.IdType);
-        clearSelection_DataTable("table_konversi");
-        row.style.background = "aliceblue";
+    txtIdProd.value = listKonversi[pilKonversi].IdType;
+    txtNamaProd.value = listKonversi[pilKonversi].Type;
+    numPrimer.value = listKonversi[pilKonversi].JumlahPrimer;
+    spnSatPrimer.textContent = listKonversi[pilKonversi].SatPrimer;
+    numSekunder.value = listKonversi[pilKonversi].JumlahSekunder;
+    spnSatSekunder.textContent = listKonversi[pilKonversi].SatSekunder;
+    numTritier.value = listKonversi[pilKonversi].JumlahTritier;
+    spnSatTritier.textContent = listKonversi[pilKonversi].SatTritier;
+    txtJenis.value = listKonversi[pilKonversi].StatusType;
+    loadSaldoFetch(listKonversi[pilKonversi].IdType);
 
-        txtIdProd.value = listKonversi[pilKonversi].IdType;
-        txtNamaProd.value = listKonversi[pilKonversi].Type;
-        numPrimer.value = listKonversi[pilKonversi].JumlahPrimer;
-        spnSatPrimer.textContent = listKonversi[pilKonversi].SatPrimer;
-        numSekunder.value = listKonversi[pilKonversi].JumlahSekunder;
-        spnSatSekunder.textContent = listKonversi[pilKonversi].SatSekunder;
-        numTritier.value = listKonversi[pilKonversi].JumlahTritier;
-        spnSatTritier.textContent = listKonversi[pilKonversi].SatTritier;
-        txtJenis.value = listKonversi[pilKonversi].StatusType;
-        loadSaldoFetch(listKonversi[pilKonversi].IdType);
-
-        if (modeProses != "" && modeProses != "hapus") {
-            numPrimer.disabled = false;
+    if (modeProses != "" && modeProses != "hapus") {
+        numPrimer.disabled = false;
+        if (focus) {
+            numPrimer.focus();
             numPrimer.select();
+            numPrimer.addEventListener("keypress", preventEnter);
+            $(window).scrollTop($(document).height());
         }
-
-        koreksiDetail = true;
     }
+
+    koreksiDetail = true;
 }
 //#endregion
 
 function init() {
-    $("#table_konversi").DataTable({
+    tableKonversi = $("#table_konversi").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "250px",
+        scrollY: "350px",
         scrollX: "1000000px",
         columns: colKonversi,
-        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
-        language: {
-            searchPlaceholder: " Tabel konversi...",
-            search: "",
-        },
+        searching: false,
+        info: false,
     });
 
-    $("#table_komposisi").DataTable({
+    tableKomposisi = $("#table_komposisi").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "250px",
+        scrollY: "300px",
         scrollX: "1000000px",
         columns: colKomposisi,
-        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
-        language: {
-            searchPlaceholder: " Tabel komposisi...",
-            search: "",
-        },
-
-        initComplete: function () {
-            var searchInput = $('input[type="search"]').addClass(
-                "form-control"
-            );
-
-            searchInput.wrap('<div class="input-group"></div>');
-            searchInput.before('<span class="input-group-text">Cari:</span>');
-        },
+        searching: false,
+        info: false,
     });
 
-    clearTable_DataTable("table_konversi", colKonversi.length);
+    clearTable_DataTable("table_konversi", colKonversi.length, "padding=25vw");
     clearTable_DataTable("table_komposisi", colKomposisi.length);
     toggleButtons(1);
     btnBaruMaster.focus();
@@ -1567,3 +1626,113 @@ function init() {
 }
 
 $(document).ready(() => init());
+
+// function rowClickedKomposisi(row, data, _) {
+//     pilKonversi = -1;
+//     clearSelection_DataTable("table_konversi");
+
+//     if (
+//         pilKomposisi ==
+//         findClickedRowInList(listKomposisi, "IdType", data.IdType)
+//     ) {
+//         row.style.background = "white";
+//         pilKomposisi = -1;
+//         clearDataDetail();
+//         disableDetail();
+//     } else {
+//         pilKomposisi = findClickedRowInList(
+//             listKomposisi,
+//             "IdType",
+//             data.IdType
+//         );
+
+//         clearSelection_DataTable("table_komposisi");
+//         row.style.background = "aliceblue";
+
+//         txtIdProd.value = listKomposisi[pilKomposisi].IdType;
+//         txtNamaProd.value = listKomposisi[pilKomposisi].NamaType;
+//         spnSatPrimer.textContent =
+//             listKomposisi[pilKomposisi].SatuanPrimer !== undefined
+//                 ? listKomposisi[pilKomposisi].SatuanPrimer
+//                 : "NULL";
+//         spnSatSekunder.textContent =
+//             listKomposisi[pilKomposisi].SatuanSekunder !== undefined
+//                 ? listKomposisi[pilKomposisi].SatuanSekunder
+//                 : "NULL";
+//         spnSatTritier.textContent =
+//             listKomposisi[pilKomposisi].SatuanTritier !== undefined
+//                 ? listKomposisi[pilKomposisi].SatuanTritier
+//                 : "NULL";
+//         numPrimer.value = "";
+//         numSekunder.value = "";
+//         numTritier.value = "";
+//         txtJenis.value = listKomposisi[pilKomposisi].StatusType;
+//         getSaldoFetch(listKomposisi[pilKomposisi].IdType, () => {
+//             /**
+//              * Pengecekkan stok dilakukan terhadap Komposisi jenis "BB" & "BP",
+//              * Hanya dilakukan pada stok tritier saja.
+//              */
+
+//             formCursor("default");
+
+//             if (
+//                 listKomposisi[pilKomposisi].StatusType.trim() == "BB" ||
+//                 listKomposisi[pilKomposisi].StatusType.trim() == "BP"
+//             ) {
+//                 if (numStokTritier.value == 0) {
+//                     alert(
+//                         txtNamaProd.value +
+//                             " tidak dapat digunakan untuk transaksi karena stok telah habis."
+//                     );
+
+//                     clearSelection_DataTable("table_komposisi");
+//                     clearDataDetail();
+//                     return;
+//                 }
+//             }
+
+//             if (modeProses != "") {
+//                 numPrimer.disabled = false;
+//                 numPrimer.focus();
+//             }
+
+//             koreksiDetail = false;
+//         });
+//     }
+// }
+
+// function rowClickedKonversi(row, data, _) {
+//     pilKomposisi = -1;
+//     clearSelection_DataTable("table_komposisi");
+
+//     if (
+//         pilKonversi == findClickedRowInList(listKonversi, "IdType", data.IdType)
+//     ) {
+//         row.style.background = "white";
+//         pilKonversi = -1;
+//         clearDataDetail();
+//         disableDetail();
+//     } else {
+//         pilKonversi = findClickedRowInList(listKonversi, "IdType", data.IdType);
+//         clearSelection_DataTable("table_konversi");
+//         row.style.background = "aliceblue";
+
+//         txtIdProd.value = listKonversi[pilKonversi].IdType;
+//         txtNamaProd.value = listKonversi[pilKonversi].Type;
+//         numPrimer.value = listKonversi[pilKonversi].JumlahPrimer;
+//         spnSatPrimer.textContent = listKonversi[pilKonversi].SatPrimer;
+//         numSekunder.value = listKonversi[pilKonversi].JumlahSekunder;
+//         spnSatSekunder.textContent = listKonversi[pilKonversi].SatSekunder;
+//         numTritier.value = listKonversi[pilKonversi].JumlahTritier;
+//         spnSatTritier.textContent = listKonversi[pilKonversi].SatTritier;
+//         txtJenis.value = listKonversi[pilKonversi].StatusType;
+//         loadSaldoFetch(listKonversi[pilKonversi].IdType);
+
+//         if (modeProses != "" && modeProses != "hapus") {
+//             numPrimer.disabled = false;
+//             numPrimer.select();
+//         }
+
+//         koreksiDetail = true;
+//     }
+// }

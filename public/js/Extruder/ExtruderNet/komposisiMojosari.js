@@ -40,7 +40,7 @@ const listOfDetail = document.querySelectorAll(
     ".card .form-control, .card .form-select, .card .btn"
 );
 
-const posKomposisi = $("#table_komposisi").offset().top - 125;
+var tableKomposisi = "";
 const colKomposisi = [
     { width: "1px" }, // Jenis
     { width: "100px" }, // Id Type
@@ -337,7 +337,7 @@ slcKelut.addEventListener("mousedown", function () {
             "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchKelut = true;
             },
@@ -361,7 +361,7 @@ slcKelut.addEventListener("keydown", function (event) {
             "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchKelut = true;
             },
@@ -409,7 +409,7 @@ slcKelompok.addEventListener("mousedown", function () {
             "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchKelompok = true;
             },
@@ -433,7 +433,7 @@ slcKelompok.addEventListener("keydown", function (event) {
             "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchKelompok = true;
             },
@@ -452,18 +452,31 @@ slcKelompok.addEventListener("change", function () {
     if (slcKelut.value == idBahanBaku || slcKelut.value == idHasilProduksi) {
         // Pengecekkan mesin pada DB Inventory dan Extruder
         // SP_5298_EXT_CEK_KELOMPOK_MESIN
-        fetchSelect("/Master/getCekKelompokMesin/" + this.value, (data) => {
-            if (data.length < 1 || slcMesin.value != data[0].IdMesin) {
-                slcSubkel.disabled = true;
-                refetchSubkel = false;
-                this.selectedIndex = 0;
-                this.focus();
+        fetchSelect(
+            "/Master/getCekKelompokMesin/" + this.value.slice(2),
+            (data) => {
+                let found = false;
+                for (let i = 0; i < data.length; i++) {
+                    if (slcMesin.value != data[i].IdMesin) {
+                        found = true;
+                    } else {
+                        found = false;
+                        break;
+                    }
+                }
 
-                if (data.length < 1) {
-                    alert("Mesin tidak ditemukan");
-                } else alert("Mesin tidak sama.");
+                if (data.length < 1 || found) {
+                    if (found) {
+                        alert("Mesin tidak sama.");
+                    } else alert("Mesin tidak ditemukan");
+
+                    slcSubkel.disabled = true;
+                    refetchSubkel = false;
+                    this.selectedIndex = 0;
+                    this.focus();
+                }
             }
-        });
+        );
     }
 });
 
@@ -482,7 +495,7 @@ slcSubkel.addEventListener("mousedown", function () {
             "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchSubkel = true;
             },
@@ -506,7 +519,7 @@ slcSubkel.addEventListener("keydown", function (event) {
             "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchSubkel = true;
             },
@@ -536,7 +549,7 @@ slcType.addEventListener("mousedown", function () {
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchType = true;
             },
@@ -560,7 +573,7 @@ slcType.addEventListener("keydown", function (event) {
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, false);
                     this.removeChild(errorOption);
                 } else refetchType = true;
             },
@@ -817,7 +830,9 @@ btnTambahDetail.addEventListener("click", function () {
             "table_komposisi",
             listKomposisi,
             colKomposisi,
-            rowClickedFetch
+            rowEventHandler,
+            "350px",
+            "table_only"
         );
 
         showModal(
@@ -977,7 +992,9 @@ btnCadanganDetail.addEventListener("click", function () {
             "table_komposisi",
             listKomposisi,
             colKomposisi,
-            rowClickedFetch
+            rowEventHandler,
+            "350px",
+            "table_only"
         );
 
         showModal(
@@ -1145,7 +1162,9 @@ btnKoreksiDetail.addEventListener("click", function () {
                                 "table_komposisi",
                                 listKomposisi,
                                 colKomposisi,
-                                rowClickedFetch
+                                rowEventHandler,
+                                "350px",
+                                "table_only"
                             );
                         } else
                             alert("Sudah ada Type yang sama dalam Komposisi.");
@@ -1154,6 +1173,20 @@ btnKoreksiDetail.addEventListener("click", function () {
             }
         );
     } else alert("Pilih dulu data yang akan dikoreksi.");
+});
+
+function preventEnter(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
+}
+
+btnHapusDetail.addEventListener("keypress", preventEnter);
+
+btnHapusDetail.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        btnHapusDetail.removeEventListener("keypress", preventEnter);
+    }
 });
 
 btnHapusDetail.addEventListener("click", function () {
@@ -1191,7 +1224,9 @@ btnHapusDetail.addEventListener("click", function () {
                                             "table_komposisi",
                                             listKomposisi,
                                             colKomposisi,
-                                            rowClickedFetch
+                                            rowEventHandler,
+                                            "350px",
+                                            "table_only"
                                         );
 
                                         pilKomposisi = -1;
@@ -1742,7 +1777,9 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                     "table_komposisi",
                     listKomposisi,
                     colKomposisi,
-                    rowClickedFetch
+                    rowEventHandler,
+                    "350px",
+                    "table_only"
                 );
             }
 
@@ -1946,83 +1983,55 @@ function deleteDetailFetch(id_komposisi, post_action = null) {
     });
 }
 
-function rowClickedFetch(row, data, _) {
-    if (
-        pilKomposisi ==
-        findClickedRowInList(listKomposisi, "IdType", data.IdType)
-    ) {
-        row.style.background = "white";
-        pilKomposisi = -1;
+function rowEventHandler(index, data, focus = false) {
+    pilKomposisi = index;
+    if (modeProses != "") {
+        numPrimer.value = data.JumlahPrimer;
+        txtSatPrimer.value = data.SatuanPrimer;
+        numSekunder.value = data.JumlahSekunder;
+        txtSatSekunder.value = data.SatuanSekunder;
+        numTritier.value = data.JumlahTritier;
+        txtSatTritier.value = data.SatuanTritier;
+        numPersentase.value = data.Persentase;
+        numPersentase2.value = data.Persentase;
+        txtKodeBarang.value = data.KodeBarang;
+        numCadangan.value = data.Cadangan;
+        numCadangan2.value = data.Cadangan;
 
-        if (modeProses != "") {
-            clearDataDetail("select_objek");
-            disableDetail();
-
-            if (modeProses == "koreksi") {
-                slcKelut.disabled = false;
-                slcKelut.focus();
-                numPersentase.disabled = false;
-                numCadangan.disabled = false;
-            }
-        }
-    } else {
-        pilKomposisi = findClickedRowInList(
-            listKomposisi,
-            "IdType",
-            data.IdType
+        addOptionIfNotExists(
+            slcType,
+            data.IdType,
+            data.IdType + " | " + data.NamaType
         );
 
-        clearSelection_DataTable("table_komposisi");
-        row.style.background = "aliceblue";
+        addOptionIfNotExists(
+            slcObjek,
+            data.IdObjek,
+            data.IdObjek + " | " + data.NamaObjek
+        );
 
-        if (modeProses != "") {
-            numPrimer.value = data.JumlahPrimer;
-            txtSatPrimer.value = data.SatuanPrimer;
-            numSekunder.value = data.JumlahSekunder;
-            txtSatSekunder.value = data.SatuanSekunder;
-            numTritier.value = data.JumlahTritier;
-            txtSatTritier.value = data.SatuanTritier;
-            numPersentase.value = data.Persentase;
-            numPersentase2.value = data.Persentase;
-            txtKodeBarang.value = data.KodeBarang;
-            numCadangan.value = data.Cadangan;
-            numCadangan2.value = data.Cadangan;
+        addOptionIfNotExists(
+            slcKelut,
+            data.IdKelompokUtama,
+            data.IdKelompokUtama + " | " + data.NamaKelompokUtama
+        );
 
-            addOptionIfNotExists(
-                slcType,
-                data.IdType,
-                data.IdType + " | " + data.NamaType
-            );
+        addOptionIfNotExists(
+            slcKelompok,
+            data.IdKelompok,
+            data.IdKelompok + " | " + data.NamaKelompok
+        );
 
-            addOptionIfNotExists(
-                slcObjek,
-                data.IdObjek,
-                data.IdObjek + " | " + data.NamaObjek
-            );
+        addOptionIfNotExists(
+            slcSubkel,
+            data.IdSubKelompok,
+            data.IdSubKelompok + " | " + data.NamaSubKelompok
+        );
 
-            addOptionIfNotExists(
-                slcKelut,
-                data.IdKelompokUtama,
-                data.IdKelompokUtama + " | " + data.NamaKelompokUtama
-            );
-
-            addOptionIfNotExists(
-                slcKelompok,
-                data.IdKelompok,
-                data.IdKelompok + " | " + data.NamaKelompok
-            );
-
-            addOptionIfNotExists(
-                slcSubkel,
-                data.IdSubKelompok,
-                data.IdSubKelompok + " | " + data.NamaSubKelompok
-            );
-
-            if (modeProses == "baru") {
-                numPrimer.disabled = false;
-                numPrimer.select();
-            } else btnHapusDetail.focus();
-        }
+        if (modeProses == "baru") {
+            numPrimer.disabled = false;
+            if (focus) numPrimer.select();
+        } else if (focus) btnHapusDetail.focus();
     }
 }
 //#endregion
@@ -2037,36 +2046,119 @@ function init() {
         info: false,
     });
 
-    $("#table_komposisi").DataTable({
+    tableKomposisi = $("#table_komposisi").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "250px",
+        scrollY: "350px",
         scrollX: "1000000px",
         columns: colKomposisi,
-        dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
-        language: {
-            searchPlaceholder: " Tabel komposisi...",
-            search: "",
-        },
+        searching: false,
+        info: false,
+    });
 
-        initComplete: function () {
-            var searchInput = $('input[type="search"]').addClass(
-                "form-control"
-            );
-
-            searchInput.wrap('<div class="input-group"></div>');
-            searchInput.before('<span class="input-group-text">Cari:</span>');
-        },
+    tableKomposisi.on("blur", function () {
+        removeNavigation_DataTable([tableKomposisi]);
     });
 
     clearTable_DataTable("table_afalan", 2);
     clearTable_DataTable(
         "table_komposisi",
         colKomposisi.length,
-        "padding=250px"
+        "padding=25vw"
     );
 
     btnBaruMaster.focus();
 }
 
+document.addEventListener("keydown", function (e) {
+    if (
+        e.key === "ArrowDown" ||
+        e.key === "ArrowUp" ||
+        e.key === "Home" ||
+        e.key === "End"
+    ) {
+        e.preventDefault();
+    }
+});
+
 $(document).ready(() => init());
+
+// function rowClickedFetch(row, data, _) {
+//     if (
+//         pilKomposisi ==
+//         findClickedRowInList(listKomposisi, "IdType", data.IdType)
+//     ) {
+//         row.style.background = "white";
+//         pilKomposisi = -1;
+
+//         if (modeProses != "") {
+//             clearDataDetail("select_objek");
+//             disableDetail();
+
+//             if (modeProses == "koreksi") {
+//                 slcKelut.disabled = false;
+//                 slcKelut.focus();
+//                 numPersentase.disabled = false;
+//                 numCadangan.disabled = false;
+//             }
+//         }
+//     } else {
+//         pilKomposisi = findClickedRowInList(
+//             listKomposisi,
+//             "IdType",
+//             data.IdType
+//         );
+
+//         clearSelection_DataTable("table_komposisi");
+//         row.style.background = "aliceblue";
+
+//         if (modeProses != "") {
+//             numPrimer.value = data.JumlahPrimer;
+//             txtSatPrimer.value = data.SatuanPrimer;
+//             numSekunder.value = data.JumlahSekunder;
+//             txtSatSekunder.value = data.SatuanSekunder;
+//             numTritier.value = data.JumlahTritier;
+//             txtSatTritier.value = data.SatuanTritier;
+//             numPersentase.value = data.Persentase;
+//             numPersentase2.value = data.Persentase;
+//             txtKodeBarang.value = data.KodeBarang;
+//             numCadangan.value = data.Cadangan;
+//             numCadangan2.value = data.Cadangan;
+
+//             addOptionIfNotExists(
+//                 slcType,
+//                 data.IdType,
+//                 data.IdType + " | " + data.NamaType
+//             );
+
+//             addOptionIfNotExists(
+//                 slcObjek,
+//                 data.IdObjek,
+//                 data.IdObjek + " | " + data.NamaObjek
+//             );
+
+//             addOptionIfNotExists(
+//                 slcKelut,
+//                 data.IdKelompokUtama,
+//                 data.IdKelompokUtama + " | " + data.NamaKelompokUtama
+//             );
+
+//             addOptionIfNotExists(
+//                 slcKelompok,
+//                 data.IdKelompok,
+//                 data.IdKelompok + " | " + data.NamaKelompok
+//             );
+
+//             addOptionIfNotExists(
+//                 slcSubkel,
+//                 data.IdSubKelompok,
+//                 data.IdSubKelompok + " | " + data.NamaSubKelompok
+//             );
+
+//             if (modeProses == "baru") {
+//                 numPrimer.disabled = false;
+//                 numPrimer.select();
+//             } else btnHapusDetail.focus();
+//         }
+//     }
+// }

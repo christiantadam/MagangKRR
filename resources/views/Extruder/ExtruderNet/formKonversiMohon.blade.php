@@ -131,7 +131,7 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <table id="table_konversi" class="hover cell-border">
+                <table id="table_konversi" class="hover cell-border" tabindex="0">
                     <thead>
                         <tr>
                             <th>Nama Type</th>
@@ -154,7 +154,7 @@
 
                     <div class="col-lg-6">
                         <div class="mt-2">
-                            <table id="table_komposisi" class="hover cell-border">
+                            <table id="table_komposisi" class="hover cell-border" tabindex="1">
                                 <thead>
                                     <tr>
                                         <th>Jenis</th>

@@ -328,6 +328,8 @@ slcKelompok.addEventListener("change", function () {
                 for (let i = 0; i < data.length; i++) {
                     if (slcMesin.value != data[i].IdMesin) {
                         found = true;
+                    } else {
+                        found = false;
                         break;
                     }
                 }
@@ -618,13 +620,6 @@ btnTambahDetail.addEventListener("click", function () {
             NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text,
         });
 
-        // addTable_DataTable(
-        //     "table_komposisi",
-        //     listKomposisi,
-        //     colKomposisi,
-        //     rowClickedFetch
-        // );
-
         addTable_DataTable(
             "table_komposisi",
             listKomposisi,
@@ -727,12 +722,6 @@ btnKoreksiDetail.addEventListener("click", function () {
 
                 pilKomposisi = -1;
                 clearSelection_DataTable("table_komposisi");
-                // addTable_DataTable(
-                //     "table_komposisi",
-                //     listKomposisi,
-                //     colKomposisi,
-                //     rowClickedFetch
-                // );
 
                 addTable_DataTable(
                     "table_komposisi",
@@ -750,6 +739,20 @@ btnKoreksiDetail.addEventListener("click", function () {
             },
             () => {}
         );
+    }
+});
+
+function preventEnter(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+    }
+}
+
+btnHapusDetail.addEventListener("keypress", preventEnter);
+
+btnHapusDetail.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        btnHapusDetail.removeEventListener("keypress", preventEnter);
     }
 });
 
@@ -786,13 +789,6 @@ btnHapusDetail.addEventListener("click", function () {
                                         slcObjek.disabled = false;
                                         slcKelut.disabled = false;
                                         slcKelut.focus();
-
-                                        // addTable_DataTable(
-                                        //     "table_komposisi",
-                                        //     listKomposisi,
-                                        //     colKomposisi,
-                                        //     rowClickedFetch
-                                        // );
 
                                         addTable_DataTable(
                                             "table_komposisi",
@@ -1120,15 +1116,6 @@ function getDataKomposisiFetch(no_komposisi, post_action = null) {
                         "</b>",
                 ]);
             } else {
-                // addTable_DataTable(
-                //     "table_komposisi",
-                //     listKomposisi,
-                //     colKomposisi,
-                //     rowClickedFetch,
-                //     "350px",
-                //     "table_only"
-                // );
-
                 addTable_DataTable(
                     "table_komposisi",
                     listKomposisi,
@@ -1164,34 +1151,20 @@ function rowEventHandler(index, data, focus = false) {
         txtSatTritier.value = data.SatuanTritier;
         numPersentase.value = data.Persentase;
 
-        addOptionIfNotExists(
-            slcType,
-            data.IdType,
-            data.IdType + " | " + data.NamaType
-        );
-
-        addOptionIfNotExists(
-            slcObjek,
-            data.IdObjek,
-            data.IdObjek + " | " + data.NamaObjek
-        );
+        addOptionIfNotExists(slcType, data.IdType, data.NamaType);
+        addOptionIfNotExists(slcObjek, data.IdObjek, data.NamaObjek);
+        addOptionIfNotExists(slcKelompok, data.IdKelompok, data.NamaKelompok);
 
         addOptionIfNotExists(
             slcKelut,
             data.IdKelompokUtama,
-            data.IdKelompokUtama + " | " + data.NamaKelompokUtama
-        );
-
-        addOptionIfNotExists(
-            slcKelompok,
-            data.IdKelompok,
-            data.IdKelompok + " | " + data.NamaKelompok
+            data.NamaKelompokUtama
         );
 
         addOptionIfNotExists(
             slcSubkel,
             data.IdSubKelompok,
-            data.IdSubKelompok + " | " + data.NamaSubKelompok
+            data.NamaSubKelompok
         );
 
         if (modeProses == "baru") {
@@ -1209,6 +1182,7 @@ function rowEventHandler(index, data, focus = false) {
         } else {
             btnHapusDetail.disabled = false;
             if (focus) btnHapusDetail.focus();
+            btnHapusDetail.addEventListener("keypress", preventEnter);
         }
     }
 }
@@ -1313,17 +1287,6 @@ function init() {
     toggleButtons(1);
     btnBaruMaster.focus();
 }
-
-document.addEventListener("keydown", function (e) {
-    if (
-        e.key === "ArrowDown" ||
-        e.key === "ArrowUp" ||
-        e.key === "Home" ||
-        e.key === "End"
-    ) {
-        e.preventDefault();
-    }
-});
 
 $(document).ready(() => init());
 
