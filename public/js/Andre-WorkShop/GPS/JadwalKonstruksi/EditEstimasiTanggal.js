@@ -93,88 +93,71 @@ function LoadData() {
         .then((datas) => {
             console.log(datas);
             if (datas.length > 0) {
-                if (datas[0].Cancel == 0) {
-                    datas.forEach((data) => {
-                        let noantrian = data.NoAntrian;
-                        fetch(
-                            "/getdatatableEditEstimasiJadwal/" +
-                                noantrian +
-                                "/" +
-                                tgl.value +
-                                "/" +
-                                WorkStation.value
-                        )
-                            .then((response) => response.json())
-                            .then((datasTable) => {
-                                console.log(datasTable);
-                                if (datasTable.length > 0) {
-                                    datasTable.forEach((data) => {
-                                        const tglOrder = data.EstDate;
+                // console.log(datas);
+                if (datas.length > 0) {
+                    datas.forEach((data_table) => {
+                        const tglOrder = data_table.EstDate;
 
-                                        const [tanggal, waktu] =
-                                            tglOrder.split(" ");
+                        const [tanggal, waktu] = tglOrder.split(" ");
 
-                                        data.EstDate = tanggal;
-                                        estJam.push(data.EstTimeHour);
-                                        estMenit.push(data.EstTimeMinute);
-                                    });
-                                    table_data = $(
-                                        "#tableEditEstimasiTanggal"
-                                    ).DataTable({
-                                        destroy: true, // Destroy any existing DataTable before reinitializing
-                                        data: datasTable,
-                                        columns: [
-                                            {
-                                                title: "Nomor Antrian",
-                                                data: "NoAntrian",
-                                                render: function (data) {
-                                                    return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;
-                                                },
-                                            },
-                                            {
-                                                title: "No Order",
-                                                data: "NoOrder",
-                                            },
-                                            // { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
-                                            {
-                                                title: "Tanggal Start",
-                                                data: "EstDate",
-                                            }, // Sesuaikan 'age' dengan properti kolom di data
-                                            {
-                                                title: "Divisi",
-                                                data: "NamaDivisi",
-                                            }, // Sesuaikan 'country' dengan properti kolom di data
-                                            {
-                                                title: "Nama Barang",
-                                                data: "Nama_Brg",
-                                            },
-                                            {
-                                                title: "Nama Bagian",
-                                                data: "NamaBagian",
-                                            },
-                                            {
-                                                title: "Est. Time",
-                                                data: function (row) {
-                                                    return `${row.EstTimeHour} jam ${row.EstTimeMinute} menit`;
-                                                },
-                                            },
-                                            {
-                                                title: "Hari ke-",
-                                                data: "HariKe",
-                                            },
-                                            {
-                                                title: "IdBagian",
-                                                data: "IdBagian",
-                                            },
-                                        ],
-                                    });
-                                    table_data.draw();
-                                }
-                            });
+                        data_table.EstDate = tanggal;
+                        estJam.push(data_table.EstTimeHour);
+                        estMenit.push(data_table.EstTimeMinute);
                     });
-                    // no_Antri[idk] = datas[0].NoAntrian;
-                    // idk = idk + 1;
+                    table_data = $("#tableEditEstimasiTanggal").DataTable({
+                        destroy: true, // Destroy any existing DataTable before reinitializing
+                        data: datas,
+                        columns: [
+                            {
+                                title: "Nomor Antrian",
+                                data: "NoAntrian",
+                                render: function (data) {
+                                    return `<input type="checkbox" name="EditEstimasiTanggalCheck" value="${data}" /> ${data}`;
+                                },
+                            },
+                            {
+                                title: "No Order",
+                                data: "NoOrder",
+                            },
+                            // { title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data
+                            {
+                                title: "Tanggal Start",
+                                data: "EstDate",
+                            }, // Sesuaikan 'age' dengan properti kolom di data
+                            {
+                                title: "Divisi",
+                                data: "NamaDivisi",
+                            }, // Sesuaikan 'country' dengan properti kolom di data
+                            {
+                                title: "Nama Barang",
+                                data: "Nama_Brg",
+                            },
+                            {
+                                title: "Nama Bagian",
+                                data: "NamaBagian",
+                            },
+                            {
+                                title: "Est. Time",
+                                data: function (row) {
+                                    return `${row.EstTimeHour} jam ${row.EstTimeMinute} menit`;
+                                },
+                            },
+                            {
+                                title: "Hari ke-",
+                                data: "HariKe",
+                            },
+                            {
+                                title: "IdBagian",
+                                data: "IdBagian",
+                            },
+                        ],
+                    });
                 }
+
+                // no_Antri[idk] = datas[0].NoAntrian;
+                // idk = idk + 1;
+
+                table_data.draw();
             } else {
                 alert("Tidak ada jadwal pada tgl: " + tgl.value);
             }
@@ -241,106 +224,150 @@ function prosesklik() {
                 }
             );
             var i = 0;
-            console.log(idk);
+            // console.log(idk);
         }
     }
     if (trigger == 1) {
-        $("input[name='EditEstimasiTanggalCheck']").each(function () {
+        $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
             // Ambil nilai 'value' dan status 'checked' dari checkbox
 
             let rowindex = $(this).closest("tr").index();
-            let status = Proses_cek_estimasi(
-                table_data.cell(rowindex, 1).data(),
-                newTgl
-            );
-            console.log(status);
+            // let status = Proses_cek_estimasi(
+            //     table_data.cell(rowindex, 1).data(),
+            //     newTgl
+            // );
+            // let status;
+            // Proses_cek_estimasi(table_data.cell(rowindex, 1).data(), newTgl)
+            //     .then((result) => {
+            //         // console.log(result);
+            //         status = result; // ini akan mencetak hasil dari Proses_cek_estimasi
+            //     })
+            //     .catch((error) => {
+            //         console.error(error);
+            //     });
+            // Cara menggunakan
+            // let status;
+            // Proses_cek_estimasi("noOrder", "tanggal", (result) => {
+            //     console.log(result);
+            //     status = result;
+            // });
+            // console.log(status);
+            console.log(table_data.cell(rowindex, 1).data());
+            console.log(newTgl);
             i += 1;
-            if (status == false) { //dicoba kalau status == false
-                alert(
-                    "Untuk nomer order: " +
-                        table_data.cell(rowindex, 1).data() +
-                        ", tdk bisa diproses."
-                );
-                alert("Tidak terProses...");
-                return;
-            }
-        });
-        fetch(
-            "/cekestimasikonstruksiEditEstimasiTanggal/" +
-                newTgl +
-                "/" +
-                WorkStation.value
-        )
-            .then((response) => response.json())
-            .then((datas) => {
-                if (datas[0].ada > 0) {
-                    sts_jadwal = true;
-                } else {
-                    sts_jadwal = false;
-                }
-                total_menit = 0;
-                // console.log(sts_jadwal);
-                // console.log(estJam);
-                // console.log(estMenit);
-                // console.log(indeks);
-                for (let i = 0; i <= idk - 1; i++) {
-                    total_menit =
-                        estJam[indeks[i]] * 60 +
-                        estMenit[indeks[i]] +
-                        total_menit;
-                }
+            // if (status == false) {
+            //     //buat menjadi status true
+            //     //dicoba kalau status == false
+            //     alert(
+            //         "Untuk nomer order: " +
+            //             table_data.cell(rowindex, 1).data() +
+            //             ", tdk bisa diproses."
+            //     );
+            //     trigger = 0;
+            //     alert("Tidak terProses...");
+            //     return;
+            //  } else if (status == true) {
+                fetch(
+                    "/cekestimasikonstruksiEditEstimasiTanggal/" +
+                        table_data.cell(rowindex, 1).data() + "/" + newTgl
+                )
+                    .then((response) => response.json())
+                    .then((datas) => {
+                        console.log(datas);
+                        if (datas[0].ada > 0) {
+                            sts_jadwal = true;
+                        } else {
+                            sts_jadwal = false;
+                        }
+                        total_menit = 0;
+                        // console.log(sts_jadwal);
+                        // console.log(estJam);
+                        // console.log(estMenit);
+                        // console.log(indeks);
+                        for (let i = 0; i <= idk - 1; i++) {
+                            total_menit =
+                                estJam[indeks[i]] * 60 +
+                                estMenit[indeks[i]] +
+                                total_menit;
+                        }
 
-                if (sts_jadwal == false) {
-                    jam_kerja = prompt(
-                        "Tentukan jam kerja optimal u/ tgl: " + newTgl
-                    );
-                    menit_jam_kerja = jam_kerja * 60;
-                    while (total_menit > menit_jam_kerja) {
-                        alert(
-                            "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
-                        );
-                        jam_kerja = prompt(
-                            "Tentukan jam kerja optimal u/ tgl: " + newTgl
-                        );
-                        menit_jam_kerja = jam_kerja * 60;
-                    }
-                    var csrfToken = $('meta[name="csrf-token"]').attr(
-                        "content"
-                    );
-                    // console.log(idk);
-                    for (let i = 0; i <= idk - 1; i++) {
-                        // console.log(idk);
-                        $.ajax({
-                            url: "EditEstimasiTanggal/" + move_noAntri[i],
-                            type: "POST",
-                            data: {
-                                _token: csrfToken,
-                                _method: "PUT",
-                                estDate: newTgl,
-                                noAntri: move_noAntri[i],
-                                idBag: move_idBagian[i],
-                                estHour: move_estJam[i],
-                                estMinute: move_estMenit[i],
-                                worksts: WorkStation.value,
-                                oldDate: tgl.value,
-                                jamKrj: jam_kerja,
-                                keterangan:
-                                    "Edit estimasi tgl, " +
-                                    keterangan +
-                                    ". Ke tgl: " +
-                                    newTgl,
-                            },
-                            success: function (response) {
-                                console.log(response);
-                                // console.log(response.data);
-                            },
-                            error: function (xhr, status, error) {
-                                console.error(error);
-                            },
-                        });
-                    }
-                }
-            });
+                        if (sts_jadwal == false) {
+                            jam_kerja = prompt(
+                                "Tentukan jam kerja optimal u/ tgl: " + newTgl
+                            );
+                            menit_jam_kerja = jam_kerja * 60;
+                            while (total_menit > menit_jam_kerja) {
+                                alert(
+                                    "Jam kerja optimal tdk boleh lebih kecil dari estimasi waktu."
+                                );
+                                jam_kerja = prompt(
+                                    "Tentukan jam kerja optimal u/ tgl: " +
+                                        newTgl
+                                );
+                                menit_jam_kerja = jam_kerja * 60;
+                            }
+                            var csrfToken = $('meta[name="csrf-token"]').attr(
+                                "content"
+                            );
+                            // console.log(idk);
+                            for (let i = 0; i <= idk - 1; i++) {
+                                // console.log(idk);
+                                $.ajax({
+                                    url:
+                                        "EditEstimasiTanggal/" +
+                                        move_noAntri[i],
+                                    type: "POST",
+                                    data: {
+                                        _token: csrfToken,
+                                        _method: "PUT",
+                                        estDate: newTgl,
+                                        noAntri: move_noAntri[i],
+                                        idBag: move_idBagian[i],
+                                        estHour: move_estJam[i],
+                                        estMinute: move_estMenit[i],
+                                        worksts: WorkStation.value,
+                                        oldDate: tgl.value,
+                                        jamKrj: jam_kerja,
+                                        keterangan:
+                                            "Edit estimasi tgl, " +
+                                            keterangan +
+                                            ". Ke tgl: " +
+                                            newTgl,
+                                    },
+                                    success: function (response) {
+                                        console.log(response);
+                                        // console.log(response.data);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error(error);
+                                    },
+                                });
+                            }
+                        }
+                        if (sts_jadwal == true) {
+                            var TotalMenitKrj,
+                                TotalMenitPk,
+                                sisa_no_input,
+                                idx_sisa;
+                            var sisaNo_Input = [];
+                            var tglEst_sisa = [];
+                            var status_simpan_geser2 = false;
+                            idx_sisa = 0;
+                            TotalMenitKrj = 0;
+                            fetch(
+                                "/cekestimasikonstruksiEditEstimasiTanggal/" +
+                                    newTgl +
+                                    "/" +
+                                    WorkStation.value
+                            )
+                                .then((response) => response.json())
+                                .then((datas) => {
+                                    console.log(datas);
+                                });
+                        }
+                    });
+            // }
+        });
     }
 }
 
@@ -378,6 +405,47 @@ function okemodal() {
 
 //#region Proses_cek_estimasi
 
+// async function Proses_cek_estimasi(noOrder, tanggal) {
+//     let tglS, tglF;
+
+//     try {
+//         const response = await fetch(
+//             "/cekestimasiEditEstimasiTanggal/" + noOrder
+//         );
+//         const datas = await response.json();
+
+//         console.log(datas);
+
+//         if (datas.length > 0) {
+//             tglS = datas[0].TglS;
+//             tglF = datas[0].TglF;
+//         }
+
+//         if (tanggal < tglS || tanggal > tglF) {
+//             if (tanggal < tglS) {
+//                 alert(
+//                     "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+//                         tglS +
+//                         ") yg dijadwalkan oleh PPIC."
+//                 );
+//                 return false;
+//             } else if (tanggal > tglF) {
+//                 alert(
+//                     "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+//                         tglF +
+//                         ") yg dijadwalkan oleh PPIC."
+//                 );
+//                 return false;
+//             }
+//         } else {
+//             console.log("masuk");
+//             return true;
+//         }
+//     } catch (error) {
+//         console.error("Error:", error);
+//     }
+// }
+
 function Proses_cek_estimasi(noOrder, tanggal) {
     let tglS, tglF;
     fetch("/cekestimasiEditEstimasiTanggal/" + noOrder)
@@ -388,28 +456,68 @@ function Proses_cek_estimasi(noOrder, tanggal) {
                 tglS = datas[0].TglS;
                 tglF = datas[0].TglF;
             }
+            if (tanggal < tglS || tanggal > tglF) {
+                if (tanggal < tglS) {
+                    alert(
+                        "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+                            tglS +
+                            ") yg dijadwalkan oleh PPIC."
+                    );
+                    return false;
+                } else if (tanggal > tglF) {
+                    alert(
+                        "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+                            tglF +
+                            ") yg dijadwalkan oleh PPIC."
+                    );
+                    return false;
+                }
+                // Proses_cek_estimasi = false;
+            } else {
+                console.log("masuk");
+                return true;
+            }
         });
-
-    if (tanggal < tglS || tanggal > tglF) {
-        if (tanggal < tglS) {
-            alert(
-                "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
-                    tglS +
-                    ") yg dijadwalkan oleh PPIC."
-            );
-            return false;
-        } else if (tanggal > tglF) {
-            alert(
-                "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
-                    tglF +
-                    ") yg dijadwalkan oleh PPIC."
-            );
-            return false;
-        }
-        // Proses_cek_estimasi = false;
-    } else {
-        return true;
-    }
 }
+
+// async function Proses_cek_estimasi(noOrder, tanggal) {
+//     let tglS, tglF;
+
+//     try {
+//         const response = await fetch("/cekestimasiEditEstimasiTanggal/" + noOrder);
+//         const datas = await response.json();
+
+//         console.log(datas);
+
+//         if (datas.length > 0) {
+//             tglS = datas[0].TglS;
+//             tglF = datas[0].TglF;
+//         }
+
+//         if (tanggal < tglS || tanggal > tglF) {
+//             if (tanggal < tglS) {
+//                 alert(
+//                     "Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+//                     tglS +
+//                     ") yg dijadwalkan oleh PPIC."
+//                 );
+//                 return false;
+//             } else if (tanggal > tglF) {
+//                 alert(
+//                     "Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+//                     tglF +
+//                     ") yg dijadwalkan oleh PPIC."
+//                 );
+//                 return false;
+//             }
+//         } else {
+//             console.log("masuk");
+//             return true;
+//         }
+//     } catch (error) {
+//         console.error('Error:', error);
+//         return false;
+//     }
+// }
 
 //#endregion

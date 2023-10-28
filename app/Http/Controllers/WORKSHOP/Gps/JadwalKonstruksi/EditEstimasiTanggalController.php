@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
 class EditEstimasiTanggalController extends Controller
 {
 
@@ -13,23 +14,67 @@ class EditEstimasiTanggalController extends Controller
     {
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_LIST-WORKSTATION]');
         // dd($data);
-        return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiTanggal',compact(['data']));
+        return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiTanggal', compact(['data']));
     }
-    public function NOFINISH($worksts, $date1){
+    public function NOFINISH($worksts, $date1)
+    {
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_NOANTRI-KONSTRUKSI-NOFINISH] @worksts = ?, @date1 = ?', [$worksts, $date1]);
-        return response()->json($data);
+        $array = [];
+        for ($i = 0; $i < count($data); $i++) {
+            if ($data[$i]->Cancel == 0) {
+                array_push($array, DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ?', [1, $data[$i]->NoAntrian, $date1, $worksts]));
+                // array_push($array, $this->getdatatable($data[$i]->NoAntrian, $date1, $worksts));
+                // $array[] = $this->getdatatable($data[$i]->NoAntrian,$date1,$worksts);
+            }
+        }
+        $result = array();
+        foreach ($array as $sub_array) {
+            foreach ($sub_array as $element) {
+                $result[] = $element;
+            }
+        }
+
+        return response()->json($result);
     }
-    public function getdatatable($noAntri, $date , $worksts) {
-        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ?', [1,$noAntri,$date, $worksts]);
-        return response()->json($data);
-    }
-    public function cekestimasi($noOd) {
-        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
-        return response()->json($data);
-    }
-    public function cekestimasikonstruksi($estDate,$worksts) {
-        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTDATE-KONSTRUKSI] @estDate = ?, @worksts = ?', [$estDate, $worksts]);
-        return response()->json($data);
+    // public function getdatatable($noAntri, $date, $worksts)
+    // {
+    //     $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ?', [1, $noAntri, $date, $worksts]);
+    //     return $data;
+    // }
+    // public function cekestimasi($noOd)
+    // {
+    //     $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
+    //     return response()->json($data);
+    // }
+    public function cekestimasikonstruksi($noOd, $newTgl)
+    {
+        $data1 = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTIMASI-KONSTRUKSI] @noOd = ?', [$noOd]);
+        if (count($data1) > 0) {
+            $tglF = $data1[0]->TglF;
+            $tglS = $data1[0]->TglS;
+        }
+        if ($newTgl < $tglS || $newTgl > $tglF) {
+            if ($newTgl < $tglS) {
+                return("Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+                tglS +
+                ") yg dijadwalkan oleh PPIC.");
+            }
+            else if($newTgl > $tglF){
+                return("Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
+                tglF +
+                ") yg dijadwalkan oleh PPIC.");
+            }
+            return(
+                        "Untuk nomer order: " +
+                        table_data.cell(rowindex, 1).data() +
+                        ", tdk bisa diproses."
+            );
+        }
+        else {
+            return true;
+        }
+        // $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTDATE-KONSTRUKSI] @estDate = ?, @worksts = ?', [$estDate, $worksts]);
+        return response()->json($data1);
     }
 
 
@@ -61,7 +106,7 @@ class EditEstimasiTanggalController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        Log::info('cek :' .json_encode($request->all()));
+        Log::info('cek :' . json_encode($request->all()));
 
         $estDate = $request->estDate;
         $noAntri = $request->noAntri;
@@ -73,9 +118,10 @@ class EditEstimasiTanggalController extends Controller
         $jamKrj = $request->jamKrj;
         $user = 4384;
         $keterangan = $request->keterangan;
-        return DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-ESTDATE-KONSTRUKSI-NEW] @estDate = ?, @noAntri = ?, @idBag = ?, @estHour = ?, @estMinute = ?, @worksts = ?, @oldDate = ?, @jamKrj = ?, @user = ?, @keterangan = ?',
-         [$estDate,$noAntri,$idBag,$estHour, $estMinute,$worksts, $oldDate,$jamKrj,$user,$keterangan]);
-
+        return DB::connection('Connworkshop')->statement(
+            'exec [SP_5298_PJW_EDIT-ESTDATE-KONSTRUKSI-NEW] @estDate = ?, @noAntri = ?, @idBag = ?, @estHour = ?, @estMinute = ?, @worksts = ?, @oldDate = ?, @jamKrj = ?, @user = ?, @keterangan = ?',
+            [$estDate, $noAntri, $idBag, $estHour, $estMinute, $worksts, $oldDate, $jamKrj, $user, $keterangan]
+        );
     }
 
 
