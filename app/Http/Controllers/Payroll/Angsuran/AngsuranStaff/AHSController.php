@@ -65,6 +65,12 @@ class AHSController extends Controller
             // Return the options as JSON data
             // dd($dataHutang);
             return response()->json($dataAngsuran);
+        }else if ($crExplode[$lastIndex] == "getData") {
+            $nomorBukti = str_replace('_', '/', $crExplode[0]);
+            $dataAngsuran = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_ANGSURAN_HUTANG_STAFF @NO_BUKTI = ?, @Kode = ?', [$nomorBukti,2]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataAngsuran);
         }
     }
 

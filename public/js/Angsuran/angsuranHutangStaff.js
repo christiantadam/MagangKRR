@@ -223,6 +223,207 @@ $(document).ready(function () {
                 });
         }
     });
+    simpanButton.addEventListener("click", function (event) {
+        if (a == 1) {
+            const Kd_Pegawai = document.getElementById("Kd_Pegawai").value;
+            const tanggal_Hutang =
+                document.getElementById("tanggal_Hutang").value;
+            const Bukti = document.getElementById("Bukti").value;
+            const Jumlah = document.getElementById("Jumlah").value;
+            const Keterangan = document.getElementById("Keterangan").value;
+
+            // if (Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
+            //     // Salah satu atau lebih elemen input memiliki nilai kosong
+            //     alert("Mohon isi semua field yang diperlukan.");
+            //     return; // Menghentikan eksekusi lebih lanjut
+            // }
+            if (Kd_Pegawai == "") {
+                alert("Data Belum Lengkap");
+                return; // Menghentikan eksekusi lebih lanjut
+            } else if (Jumlah == "" || Jumlah == 0) {
+                alert("Data Belum Lengkap");
+                return; // Menghentikan eksekusi lebih lanjut
+            }
+            const data = {
+                Kd_Pegawai: Kd_Pegawai,
+                tanggal_Hutang: tanggal_Hutang,
+                Bukti: Bukti,
+                Jumlah: Jumlah,
+                Keterangan: Keterangan,
+
+            };
+            console.log(data);
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "Hutang");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) =>
+                    console.error("Form submission error:", error)
+                );
+        }else if (a == 2) {
+            const Sisa = document.getElementById("Sisa").value;
+            const Bukti = document.getElementById("Bukti").value;
+            const Jumlah = document.getElementById("Jumlah").value;
+            const Keterangan = document.getElementById("Keterangan").value;
+            if (Kd_Pegawai == "") {
+                alert("Data Belum Lengkap");
+                return; // Menghentikan eksekusi lebih lanjut
+            } else if (Jumlah == "" || Jumlah == 0) {
+                alert("Data Belum Lengkap");
+                return; // Menghentikan eksekusi lebih lanjut
+            }
+            const data = {
+                Sisa: Sisa,
+                Bukti: Bukti,
+                Jumlah: Jumlah,
+                Keterangan: Keterangan,
+
+            };
+            console.log(data);
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "Hutang/koreksiHutang");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "PUT"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
+
+            // Create input with "Update Keluarga" Value
+            const ifUpdate = document.createElement("input");
+            ifUpdate.setAttribute("type", "hidden");
+            ifUpdate.setAttribute("name", "_ifUpdate");
+            ifUpdate.value = "Update Hutang"; // Set the value of the input field to the corresponding data
+            form.appendChild(ifUpdate);
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) => console.error("Form submission error:", error));
+        }else if (a == 3) {
+            event.preventDefault();
+            const Bukti = document.getElementById("Bukti").value;
+            if (Bukti === "") {
+                alert("Nomor Bukti Masih Kosong !");
+                return; // Menghentikan eksekusi lebih lanjut
+            }
+            const data = {
+                Bukti: Bukti,
+            };
+
+            const formContainer = document.getElementById("form-container");
+            const form = document.createElement("form");
+            form.setAttribute("action", "Hutang/hapusHutang");
+            form.setAttribute("method", "POST");
+
+            // Loop through the data object and add hidden input fields to the form
+            for (const key in data) {
+                const input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", key);
+                input.value = data[key]; // Set the value of the input field to the corresponding data
+                form.appendChild(input);
+            }
+
+            // Create method input with "PUT" Value
+            const method = document.createElement("input");
+            method.setAttribute("type", "hidden");
+            method.setAttribute("name", "_method");
+            method.value = "DELETE"; // Set the value of the input field to the corresponding data
+            form.appendChild(method);
+
+            formContainer.appendChild(form);
+
+            // Add CSRF token input field (assuming the csrfToken is properly fetched)
+            let csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content");
+            let csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Wrap form submission in a Promise
+            function submitForm() {
+                return new Promise((resolve, reject) => {
+                    form.onsubmit = resolve; // Resolve the Promise when the form is submitted
+                    form.submit();
+                });
+            }
+
+            // Call the submitForm function to initiate the form submission
+            submitForm()
+                .then(() => console.log("Form submitted successfully!"))
+                .catch((error) => console.error("Form submission error:", error));
+        }
+    });
     $("#tabel_Data tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#tabel_Data").DataTable().row(this).data();
@@ -276,6 +477,7 @@ $(document).ready(function () {
         $("#Bukti").val(rowData[0]);
         $("#Angsuran").val(rowData[1]);
         let safeRowData = rowData[1].replace(/\//g, "_");
+        let safeRowDataBukti = rowData[0].replace(/\//g, "_");
         if (a != 1) {
             fetch(
                 "/ProgramPayroll/Angsuran/AngsuranStaff/" +
@@ -296,6 +498,26 @@ $(document).ready(function () {
                         $("#Sisa").val(data[0].Sisa_Hutang);
                         $("#Jml_angsuran").val(data[0].Nilai_Angsuran);
                         $("#potongGaji").val(data[0].Pot_gaji);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }else{
+            fetch(
+                "/ProgramPayroll/Angsuran/AngsuranStaff/" +
+                safeRowDataBukti +
+                    ".getData"
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                    if (data.length > 0) {
+                        $("#Sisa").val(data[0].Sisa_Hutang);
                     }
                 })
                 .catch((error) => {
