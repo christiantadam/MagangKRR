@@ -105,6 +105,23 @@ alasan.addEventListener('keypress', function(event){
 
 btnProses.addEventListener('click', function(event) {
     event.preventDefault();
-    // methodkoreksi.value="PUT";
+
+    $.ajax({
+        url: "UraianBKK",
+        method: "POST",
+        data: new FormData(formkoreksi),
+        dataType: "JSON",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (response) {
+            alert(response);
+        },
+    });
+
+    // methodkoreksi.value = "PUT";
+    // formkoreksi.action = "/BatalBKK/" + idBKKSelect.value;
     // formkoreksi.submit();
-})
+});
+
+

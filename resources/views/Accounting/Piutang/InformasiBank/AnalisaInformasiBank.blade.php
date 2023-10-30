@@ -14,7 +14,7 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="{{ url('FakturUangMuka') }}" id="formkoreksi">
+                            <form method="POST" action="{{ url('AnalisaInformasiBank') }}" id="formkoreksi">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" id="methodkoreksi">
                                 <!-- Form fields go here -->

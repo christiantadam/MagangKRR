@@ -61,21 +61,73 @@ class BatalBKKController extends Controller
         //
     }
 
-    //Update the specified resource in storage.
-    public function update(Request $request)
+    public function update1(Request $request)
     {
         $idBKKSelect = $request->idBKKSelect;
         $alasan = $request->alasan;
 
         DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_BATAL_BKK]
-        @BKK = ?,
-        @Alasan = ?,
-        @User = ?', [
-            $idBKKSelect,
-            $alasan,
-            null
-        ]);
+            @BKK = ?,
+            @Alasan = ?,
+            @User = ?', [
+                $idBKKSelect,
+                $alasan,
+                1
+            ]);
+        return redirect()->back()->with('success', 'Data BKK sudah diBATALkan!!..');
     }
+
+    public function update2(Request $request)
+    {
+        $idBKKSelect = $request->idBKKSelect;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_BATAL_BKK_TTLNS]
+        @Kode = ?,
+        @BKK = ?', [
+            2,
+            $idBKKSelect
+        ]);
+
+        return redirect()->back()->with('success', '');
+    }
+
+    //Update the specified resource in storage.
+    public function update(Request $request)
+    {
+        // $idBKKSelect = $request->idBKKSelect;
+        // $alasan = $request->alasan;
+
+        // // Pertanyaan pertama
+        // if (confirm("Anda yakin Batal BKK ??...")) {
+        //     // Jika pengguna menjawab "ya" (OK), jalankan perintah pertama
+        //     DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_BATAL_BKK]
+        //     @BKK = ?,
+        //     @Alasan = ?,
+        //     @User = ?', [
+        //         $idBKKSelect,
+        //         $alasan,
+        //         1
+        //     ]);
+
+        //     // Tampilkan pesan
+        //     return redirect()->back()->with('success', 'Data BKK sudah diBATALkan!!..');
+
+        //     // Pertanyaan kedua
+        //     if (confirm("Apakah Tanda Terima Penagihan dipakai kembali?")) {
+        //         // Jika pengguna menjawab "ya" (OK), jalankan perintah kedua
+        //         DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_BATAL_BKK_TTLNS]
+        //         @Kode = ?,
+        //         @BKK = ?', [
+        //             2,
+        //             $idBKKSelect
+        //         ]);
+
+        //         return redirect()->back()->with('success', '');
+        //     }
+        // }
+        // return redirect()->back();
+    }
+
 
     //Remove the specified resource from storage.
     public function destroy($id)
