@@ -93,11 +93,18 @@ function LD_showData(kode, tgl = "") {
         }
 
         if (data.length <= 0) {
-            clearTable_DataTable(
-                "table_kirim_gudang",
-                LD_colKirim.length,
-                "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
-            );
+            if (tgl == "") {
+                clearTable_DataTable(
+                    "table_kirim_gudang",
+                    LD_colKirim.length,
+                    "Data Barcode tidak ditemukan."
+                );
+            } else
+                clearTable_DataTable(
+                    "table_kirim_gudang",
+                    LD_colKirim.length,
+                    "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
+                );
         } else addTable_DataTable("table_kirim_gudang", LD_listKirim);
     });
 }

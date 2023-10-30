@@ -453,6 +453,7 @@ function fetchStmt(urlString, postAct = null, catchAct = null) {
 
 function fetchSelect(urlString, postAct, slcOption = null, catchAct = null) {
     formCursor("wait");
+    console.log("urlString = " + urlString);
     fetch(encodeURL(urlString))
         .then((response) => {
             if (!response.ok) throw new Error("Network response was not ok!");
@@ -460,7 +461,6 @@ function fetchSelect(urlString, postAct, slcOption = null, catchAct = null) {
         })
         .then((data) => {
             formCursor("default");
-            console.log("urlString = " + urlString);
             console.log("Data yang terfetch:");
             console.log(data);
 

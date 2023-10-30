@@ -7,8 +7,7 @@
 @section('content')
     <div id="form_batal_kirim" class="form" data-aos="fade-up">
 
-        <input type="hidden" id="hidden_get" value="{{ $formData['spSelect'] }}">
-        <input type="hidden" id="hidden_upd" value="{{ $formData['spUpdate'] }}">
+        <input type="hidden" id="form_name" value="{{ $formName }}">
 
         <div class="row mt-3">
             <div class="col-lg-2">

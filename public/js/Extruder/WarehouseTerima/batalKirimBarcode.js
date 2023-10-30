@@ -2,8 +2,7 @@
 const slcDivisi = document.getElementById("select_divisi");
 const btnHapus = document.getElementById("btn_hapus");
 const btnKeluar = document.getElementById("btn_keluar");
-const hidSelect = document.getElementById("hidden_get");
-const hidUpdate = document.getElementById("hidden_upd");
+const hidFormName = document.getElementById("form_name");
 
 const listBarcode = [];
 /** ISI LIST BARCODE
@@ -21,8 +20,8 @@ const listBarcode = [];
  */
 
 const colBarcode = [
-    { width: "150px" }, // Type
-    { width: "150px" }, // No. Barcode
+    { width: "200px" }, // Type
+    { width: "200px" }, // No. Barcode
     { width: "125px" }, // Sub-kelompok
     { width: "1px" }, // Kelompok
     { width: "125px" }, // Kode Barang
@@ -30,12 +29,13 @@ const colBarcode = [
     { width: "1px" }, // Primer
     { width: "1px" }, // Sekunder
     { width: "1px" }, // Tritier
-    { width: "1px" }, // Tanggal
+    { width: "100px" }, // Tanggal
     { width: "1px" }, // Divisi
 ];
 
 var pilBarcode = -1;
 var checkboxesBatal = null;
+var [sp_select, sp_update] = ["", ""];
 //#endregion
 
 //#region Events
@@ -50,13 +50,14 @@ btnHapus.addEventListener("click", function () {
         () => {
             fetchStmt(
                 "/warehouseTerima/" +
-                    hidUpdate.value +
+                    sp_update +
                     "/" +
                     listBarcode[pilBarcode].KodeBarang +
                     "~" +
                     listBarcode[pilBarcode].NoIndeks,
                 () => {
                     alert("Pengiriman Berhasil Dibatalkan");
+                    showData();
                 }
             );
         }
@@ -70,7 +71,7 @@ function showData() {
     clearTable_DataTable("table_barcode", colBarcode.length, "Memuat data...");
 
     fetchSelect(
-        "/warehouseTerima/" + hidSelect.value + "/2~" + slcDivisi.value,
+        "/warehouseTerima/" + sp_select + "/2~" + slcDivisi.value,
         (data) => {
             for (let i = 0; i < data.length; i++) {
                 listBarcode.push({
@@ -86,7 +87,7 @@ function showData() {
                     QtyPrimer: data[i].Qty_Primer,
                     QtySekunder: data[i].Qty_sekunder,
                     Qty: data[i].Qty,
-                    TglMutasi: data[i].Tgl_mutasi,
+                    TglMutasi: dateTimeToDate(data[i].Tgl_mutasi),
                     Divisi: data[i].Divisi,
                 });
             }
@@ -94,10 +95,10 @@ function showData() {
             if (listBarcode.length > 0) {
                 addTable_DataTable(
                     "table_barcode",
-                    listDaya.map((item) => {
+                    listBarcode.map((item) => {
                         return {
                             ...item,
-                            Tanggal: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.Tanggal}`,
+                            NamaType: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.NamaType}`,
                         };
                     }),
                     colBarcode,
@@ -165,6 +166,21 @@ function init() {
     });
 
     clearTable_DataTable("table_barcode", colBarcode.length);
+
+    switch (hidFormName.value) {
+        case "formBatalAssesoris":
+            sp_select = "SP_1273_INV_ListBarcodeBahanBaku_Mojo";
+            sp_update = "SP_5409_INV_SimpanPembatalanKirimKeGudang";
+            break;
+
+        case "formBatalGelondongan":
+            sp_select = "SP_1273_INV_ListBarcodeBahanBaku";
+            sp_update = "SP_1273_LMT_SimpanPembatalanKirimKeGudang";
+            break;
+
+        default:
+            break;
+    }
 }
 
 $(document).ready(() => init());

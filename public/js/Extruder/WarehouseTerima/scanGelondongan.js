@@ -386,6 +386,8 @@ btnKeluar.addEventListener("click", function () {
     window.location.href = "/Extruder/WarehouseTerima";
 });
 
+// 000000001 no. barcode db lokal
+
 /**
  * Status	Kode_barang	    NoIndeks	IdDivisi_Objek	Type_Transaksi
  * 3    	000050302	    37320	    JBM         	26

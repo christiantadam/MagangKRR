@@ -16,15 +16,9 @@ class WarehouseController extends Controller
         $form_data = ['listDivisi' => $this->getListDivisi()];
 
         switch ($form_name) {
+            case 'formBatalAssesoris':
             case 'formBatalGelondongan':
                 $view_name = 'extruder.WarehouseTerima.formBatalKirimBarcode';
-                $form_data['spUpdate'] = 'SP_1273_LMT_SimpanPembatalanKirimKeGudang';
-                $form_data['spSelect'] = 'SP_1273_INV_ListBarcodeBahanBaku';
-
-            case 'formBatalAssesoris':
-                $view_name = 'extruder.WarehouseTerima.formBatalKirimBarcode';
-                $form_data['spUpdate'] = 'SP_5409_INV_SimpanPembatalanKirimKeGudang';
-                $form_data['spSelect'] = 'SP_1273_INV_ListBarcodeBahanBaku_Mojo';
 
             default:
                 # code...
@@ -199,15 +193,16 @@ class WarehouseController extends Controller
                         } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
                     } else return response()->json(['pesan' => 'Saldo Sekunder tidak mencukupi.']);
                 } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
-
-                DB::commit();
-                return 1;
             } else return response()->json(['pesan' => 'Dispresiasi tidak ditemukan.']);
+
+            DB::commit();
         } catch (\Exception $e) {
             // lihat error pada file storage\logs\laravel.log
             Log::error($e->getMessage());
             DB::rollBack();
         }
+
+        return 1;
     }
 
     private function updKirimMjsAssesoris($kode_barang, $no_indeks, $status, $divisi, $type_asal = null)
@@ -314,15 +309,16 @@ class WarehouseController extends Controller
                         } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
                     } else return response()->json(['pesan' => 'Saldo Sekunder tidak mencukupi.']);
                 } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
-
-                DB::commit();
-                return 1;
             } else return response()->json(['pesan' => 'Dispresiasi tidak ditemukan.']);
+
+            DB::commit();
         } catch (\Exception $e) {
             // lihat error pada file storage\logs\laravel.log
             Log::error($e->getMessage());
             DB::rollBack();
         }
+
+        return 1;
     }
 
     private function updKirimKerta2($kode_barang, $no_indeks, $status, $divisi)
@@ -421,21 +417,23 @@ class WarehouseController extends Controller
                         } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
                     } else return response()->json(['pesan' => 'Saldo Sekunder tidak mencukupi.']);
                 } else return response()->json(['pesan' => 'Saldo Primer tidak mencukupi.']);
-
-                DB::commit();
-                return 1;
             } else return response()->json(['pesan' => 'Dispresiasi tidak ditemukan.']);
+
+            DB::commit();
         } catch (\Exception $e) {
             // lihat error pada file storage\logs\laravel.log
             Log::error($e->getMessage());
             DB::rollBack();
         }
+
+        return 1;
     }
 
     public function warehouseTerima($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+
             case 'SP_1273_INV_ListBarcodeKerta2':
                 $param_str = '@Kode = ?, @status = ?, @iddivisi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
@@ -507,6 +505,7 @@ class WarehouseController extends Controller
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_ListBarcodeBahanBaku':
+            case 'SP_1273_INV_ListBarcodeBahanBaku_Mojo':
                 $param_str = '@status = ?, @iddivisi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 

@@ -83,11 +83,11 @@ const colKonversi = [
 ];
 
 const colKomposisi = [
-    { width: "50px" }, // Jenis
+    { width: "1px" }, // Jenis
     { width: "275px" }, // Nama Type
     { width: "125px" }, // Sub-kelompok
     { width: "100px" }, // Id Sub-kel.
-    { width: "0px" }, // IdType
+    { width: "1px" }, // IdType
 ];
 
 const posKonversi = $("#table_konversi").offset().top - 125;
@@ -1508,20 +1508,37 @@ numPrimer.addEventListener("keyup", function (event) {
 function rowEventKomposisi(index, _, focus = false) {
     pilKomposisi = index;
 
+    let [sat_primer, sat_sekunder, sat_tritier] = ["", "", ""];
+
+    if (
+        listKomposisi[pilKomposisi].SatuanPrimer === "" ||
+        listKomposisi[pilKomposisi].SatuanPrimer === null ||
+        listKomposisi[pilKomposisi].SatuanPrimer === undefined
+    ) {
+        sat_primer = "NULL";
+    } else sat_primer = listKomposisi[pilKomposisi].SatuanPrimer;
+
+    if (
+        listKomposisi[pilKomposisi].SatuanSekunder === "" ||
+        listKomposisi[pilKomposisi].SatuanSekunder === null ||
+        listKomposisi[pilKomposisi].SatuanSekunder === undefined
+    ) {
+        sat_sekunder = "NULL";
+    } else sat_sekunder = listKomposisi[pilKomposisi].SatuanSekunder;
+
+    if (
+        listKomposisi[pilKomposisi].SatuanTritier === "" ||
+        listKomposisi[pilKomposisi].SatuanTritier === null ||
+        listKomposisi[pilKomposisi].SatuanTritier === undefined
+    ) {
+        sat_tritier = "NULL";
+    } else sat_tritier = listKomposisi[pilKomposisi].SatuanTritier;
+
     txtIdProd.value = listKomposisi[pilKomposisi].IdType;
     txtNamaProd.value = listKomposisi[pilKomposisi].NamaType;
-    spnSatPrimer.textContent =
-        listKomposisi[pilKomposisi].SatuanPrimer !== undefined
-            ? listKomposisi[pilKomposisi].SatuanPrimer
-            : "NULL";
-    spnSatSekunder.textContent =
-        listKomposisi[pilKomposisi].SatuanSekunder !== undefined
-            ? listKomposisi[pilKomposisi].SatuanSekunder
-            : "NULL";
-    spnSatTritier.textContent =
-        listKomposisi[pilKomposisi].SatuanTritier !== undefined
-            ? listKomposisi[pilKomposisi].SatuanTritier
-            : "NULL";
+    spnSatPrimer.textContent = sat_primer;
+    spnSatSekunder.textContent = sat_sekunder;
+    spnSatTritier.textContent = sat_tritier;
     numPrimer.value = "";
     numSekunder.value = "";
     numTritier.value = "";

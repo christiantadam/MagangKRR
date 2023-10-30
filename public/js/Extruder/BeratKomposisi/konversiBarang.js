@@ -302,7 +302,7 @@ btnProses.addEventListener("click", function () {
                 ] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
                 fetchSelect(
-                    "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1~4/" +
+                    "/komposisiKonversi/SP_1273_INV_Cek_KonversiKomposisi_1/4~" +
                         txtKodeBarang.value.trim(),
                     (data) => {
                         if (data.length > 0) {
