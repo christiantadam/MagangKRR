@@ -359,13 +359,13 @@
                                                                         </thead>
                                                                         <tbody>
 
-                                                                            {{-- @foreach ($dataKlinik as $data)
+                                                                            @foreach ($dataKlinik as $data)
                                                                                 <tr>
 
                                                                                     <td>{{ $data->kd_klinik }}</td>
                                                                                     <td>{{ $data->nama_klinik }}</td>
                                                                                 </tr>
-                                                                            @endforeach --}}
+                                                                            @endforeach
                                                                             {{-- @foreach ($peringatan as $item)
                                                                                 <tr>
                                                                                     <td><input type="checkbox" style="margin-right:5px;"

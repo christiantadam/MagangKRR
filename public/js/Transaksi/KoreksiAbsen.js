@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     const tambahButton = document.getElementById("tambahButton");
     const koreksiButton = document.getElementById("koreksiButton");
@@ -20,7 +21,7 @@ $(document).ready(function () {
     });
     hapusButton.addEventListener("click", function (event) {
         action = 3;
-        table_Koreksi.select.style("multiple");
+        table_Koreksi.select.style("single");
         tambahButton.disabled = true;
         hapusButton.disabled = true;
         koreksiButton.disabled = true;
@@ -47,7 +48,7 @@ $(document).ready(function () {
     koreksiButton.addEventListener("click", function (event) {
         event.preventDefault();
         action = 2;
-        table_Koreksi.select.style("single");
+        table_Koreksi.select.style("multi");
         tambahButton.disabled = true;
         hapusButton.disabled = true;
         koreksiButton.disabled = true;
@@ -64,7 +65,7 @@ $(document).ready(function () {
         document.getElementById("jamLemburKoreksi4").disabled = false;
     });
     prosesButton.addEventListener("click", function (event) {
-        if ((action = 1)) {
+        if ((action == 1)) {
             console.log(document.getElementById("KeteranganIsi").value + " " +document.getElementById("AlasanLembur").value );
             if ((document.getElementById("KeteranganIsi").value === 'L' || document.getElementById("KeteranganIsi").value === 'I') && document.getElementById("AlasanLembur").value === "") {
                 alert("Alasan harus diisi");
@@ -152,25 +153,88 @@ $(document).ready(function () {
                 .catch((error) =>
                     console.error("Form submission error:", error)
                 );
-        } else if ((action = 2)) {
-            const Tanggal = document.getElementById("TglMasuk").value;
-            const kdpegawai = document.getElementById("Id_Peg").value;
-            const ketAbsen = document.getElementById("KeteranganIsi").value;
-            const jam_Masuk = document.getElementById("Masuk").value;
-            const jam_Keluar = document.getElementById("Keluar").value;
-            const id_agenda = document.getElementById("Keluar").value;
+        } else if ((action == 2)) {
+            const Id_Peg = document.getElementById("Id_Peg").value;
+            const KeteranganKoreksi = document.getElementById("KeteranganKoreksi").value;
+            const jmlJamKoreksi = document.getElementById("jmlJamKoreksi").value;
+            const jamTerlambatKoreksi = document.getElementById("jamTerlambatKoreksi").value;
+            const jamTinggalKoreksi = document.getElementById("jamTinggalKoreksi").value;
+            const jamLemburKoreksi = document.getElementById("jamLemburKoreksi").value;
+            const jamLemburKoreksi2 = document.getElementById("jamLemburKoreksi2").value;
+            const jamLemburKoreksi3 = document.getElementById("jamLemburKoreksi3").value;
+            const jamLemburKoreksi4 = document.getElementById("jamLemburKoreksi4").value;
+            const AlasanLemburKoreksi = document.getElementById("AlasanLemburKoreksi").value;
+            const Id_Klinik = document.getElementById("Id_Klinik").value;
+
+            var id_agenda = '';
+            var selectedData = getSelectedRowData();
+            // console.log(selectedData[0][16]);
+            selectedData.forEach((item) => {
+                id_agenda += item[16]+'.';
+            });
+            id_agenda = id_agenda.slice(0, -1);
+            // console.log(id_agenda);
+            // return;
+            if (KeteranganKoreksi == 'M' && selectedData[0][16] =="A") {
+                fetch(
+                    "/ProgramPayroll/KoreksiAbsen/" +
+                        rowData[1] +
+                        ".cekManager"
+                )
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json(); // Assuming the response is in JSON format
+                    })
+                    .then((data) => {
+                        if (data.length > 0) {
+                            alert("Anda tidak mempunyai hak untuk koreksi absen Masuk milik Manager.");
+                            return;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            }
+            if (KeteranganKoreksi == 'S' && Id_Klinik == '') {
+                alert("Klinik harus diisi");
+                return;
+            }
+            if (KeteranganKoreksi == 'L' && AlasanLemburKoreksi == '') {
+                alert("alasan lembur harus diisi");
+                return;
+            }
+            if (KeteranganKoreksi == 'L' && parseFloat(jamLemburKoreksi) + parseFloat(jamLemburKoreksi2) + parseFloat(jamLemburKoreksi3) + parseFloat(jamLemburKoreksi4) != parseFloat(jmlJamKoreksi)) {
+                console.log(jamLemburKoreksi + jamLemburKoreksi2 + jamLemburKoreksi3 + jamLemburKoreksi4);
+                alert("jumlah jam lembur harus sama dengan jumlah lembur 1-4");
+                return;
+            }
+            if (confirm("apakah data akan dikoreksi")) {
+
+            } else {
+                return;
+            }
             const data = {
-                idklinik: idklinik.value,
-                nm: Nama_Klinik.value,
-                alamat: AlamatKlinik.value,
-                kota: KotaKlinik.value,
-                telp: NomorTelepon.value,
+                UserID : '4384',
+                Id_Peg: Id_Peg,
+                KeteranganKoreksi: KeteranganKoreksi,
+                jmlJamKoreksi: jmlJamKoreksi,
+                jamTerlambatKoreksi: jamTerlambatKoreksi,
+                jamTinggalKoreksi: jamTinggalKoreksi,
+                jamLemburKoreksi: jamLemburKoreksi,
+                jamLemburKoreksi2: jamLemburKoreksi2,
+                jamLemburKoreksi3: jamLemburKoreksi3,
+                jamLemburKoreksi4: jamLemburKoreksi4,
+                AlasanLemburKoreksi: AlasanLemburKoreksi,
+                Id_Klinik: Id_Klinik,
+                Id_Agenda : id_agenda
             };
             console.log(data);
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "KoreksiAbsen/" + id_agenda);
+            form.setAttribute("action", "KoreksiAbsen/koreksi");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -192,7 +256,7 @@ $(document).ready(function () {
             const ifUpdate = document.createElement("input");
             ifUpdate.setAttribute("type", "hidden");
             ifUpdate.setAttribute("name", "_ifUpdate");
-            ifUpdate.value = "Update Keluarga"; // Set the value of the input field to the corresponding data
+            ifUpdate.value = "Update Absen"; // Set the value of the input field to the corresponding data
             form.appendChild(ifUpdate);
 
             formContainer.appendChild(form);
@@ -221,16 +285,28 @@ $(document).ready(function () {
                 .catch((error) =>
                     console.error("Form submission error:", error)
                 );
-        } else if ((action = 3)) {
-            const idklinik = document.getElementById("Id_Klinik").value;
+        } else if ((action == 3)) {
+            const TglMasukKoreksi = document.getElementById("TglMasukKoreksi").value;
+            const Id_Peg = document.getElementById("Id_Peg").value;
+            const KeteranganKoreksi = document.getElementById("KeteranganKoreksi").value;
+            var selectedData = getSelectedRowData();
+            // console.log(selectedData[0][16]);
+            const Id_Agenda = selectedData[0][16];
 
             const data = {
-                idklinik: idklinik,
+                TglMasukKoreksi: TglMasukKoreksi,
+                Id_Peg: Id_Peg,
+                Id_Agenda: Id_Agenda,
+                KeteranganKoreksi: KeteranganKoreksi,
             };
+            if (confirm("apakah data tanggal "+ TglMasukKoreksi + " akan dihapus ?")) {
 
+            } else {
+                return;
+            }
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "KoreksiAbsen/{idklinik}");
+            form.setAttribute("action", "KoreksiAbsen/hapusAbsen}");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -281,9 +357,12 @@ $(document).ready(function () {
         order: [[0, "asc"]],
     });
     $("#table_Pegawai").DataTable({
-        order: [[0, "asc"]],
+        order: [[0, "desc"]],
     });
     $("#table_Shift").DataTable({
+        order: [[0, "asc"]],
+    });
+    $("#table_Klinik").DataTable({
         order: [[0, "asc"]],
     });
     var table_Koreksi = $("#table_Koreksi").DataTable({
@@ -292,6 +371,21 @@ $(document).ready(function () {
             style: "api",
         },
     });
+    function getSelectedRowData() {
+        // Dapatkan semua baris yang dipilih
+        var selectedRows = table_Koreksi.rows({ selected: true });
+
+        // Array untuk menyimpan data dari baris yang dipilih
+        var selectedData = [];
+
+        // Loop melalui baris yang dipilih dan tambahkan datanya ke dalam array
+        selectedRows.every(function () {
+            var rowData = this.data();
+            selectedData.push(rowData);
+        });
+
+        return selectedData;
+    }
     $("#table_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#table_Divisi").DataTable().row(this).data();
@@ -337,6 +431,15 @@ $(document).ready(function () {
         $("#Nama_Peg").val(rowData[1]);
 
         hideModalPegawai();
+    });
+    $("#table_Klinik tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#table_Klinik").DataTable().row(this).data();
+        // Populate the input fields with the data
+        $("#Id_Klinik").val(rowData[0]);
+        $("#Nama_Klinik").val(rowData[1]);
+
+        hideModalKlinik();
     });
     $("#table_Shift tbody").on("click", "tr", function () {
         // Get the data from the clicked row
@@ -591,3 +694,4 @@ function showModalShift() {
 function hideModalShift() {
     $("#modalShift").modal("hide");
 }
+

@@ -58,7 +58,7 @@ class AgendaShiftController extends Controller
                 ]);
                 // dd($dataAgenda);
                 if ($dataAgenda[0]->ada >= '1') {
-                    return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal_awal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
+                    return redirect()->route('AgendaShift.index')->with('alert', 'Agenda tanggal ' . $tanggal_awal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
                 } else {
                     // dd("masuk gan");
                     $dataLibur = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_HARI_LIBUR @Tanggal = ?', [
@@ -192,7 +192,7 @@ class AgendaShiftController extends Controller
                     ]);
                     // dd($dataAgenda);
                     if ($dataAgenda[0]->ada >= '1') {
-                        return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
+                        return redirect()->route('AgendaShift.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
                     } else {
                         // dd("masuk gan");
                         $dataLibur = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_HARI_LIBUR @Tanggal = ?', [
@@ -339,7 +339,7 @@ class AgendaShiftController extends Controller
                                 $tanggal->format('Y-m-d'),
                             ]);
                             if ($dataAgenda[0]->ada >= '1') {
-                                return redirect()->route('Jam.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
+                                return redirect()->route('AgendaShift.index')->with('alert', 'Agenda tanggal ' . $tanggal->format('Y-m-d') . ' untuk kd pegawai : ' . $data['kd_pegawai'] . ' Sudah ada sehingga tidak bisa diproses');
                             } else {
                                 // dd("masuk gan");
                                 $dataLibur = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_CEK_HARI_LIBUR @Tanggal = ?', [
@@ -480,7 +480,7 @@ class AgendaShiftController extends Controller
                 };
             }
 
-            return redirect()->route('Shift.index')->with('alert', 'Agenda pegawai berhasil ditambahkan!');
+            return redirect()->route('AgendaShift.index')->with('alert', 'Agenda pegawai berhasil ditambahkan!');
         };
     }
 

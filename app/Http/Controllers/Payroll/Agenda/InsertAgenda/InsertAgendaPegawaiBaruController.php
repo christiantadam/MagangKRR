@@ -46,9 +46,11 @@ class InsertAgendaPegawaiBaruController extends Controller
         $divAturan = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_CEK_ATURAN @id_div = ?', [
             $data['id_div']
         ]);
-        // dd($divAturan[0]->Aturan,'mantap');
+        dump($data['Tanggal1'],$data['Tanggal2']);
+
 
         if ($data['Tanggal1'] === $data['Tanggal2']) {
+            dd($divAturan[0]->Aturan,'mantap');
             foreach ($arrayPegawai as $kd_pegawai) {
                 if ($divAturan[0]->Aturan === '2') {
                     if ($selisih_hari > 7) {
@@ -98,15 +100,15 @@ class InsertAgendaPegawaiBaruController extends Controller
                     2,
                     $shiftbaru,
                 ]);
-                dd(count($dataShift), $dataShift);
+                // dd(count($dataShift), $dataShift);
 
                 if (count($dataShift) > 0) {
-                    $masuk = $dataShift[0]->masuk;
-                    $pulang = $dataShift[0]->pulang;
-                    $istirahat1 = $dataShift[0]->awal_jam_istirahat;
-                    $istirahat2 = $dataShift[0]->akhir_jam_istirahat;
-                    $jam_masuk = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $masuk)[1]);
-                    $jam_keluar = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $pulang)[1]);
+                    $masuk = explode(" ", $dataShift[0]->masuk)[1];
+                    $pulang = explode(" ", $dataShift[0]->pulang)[1];
+                    $istirahat1 = explode(" ", $dataShift[0]->awal_jam_istirahat)[1];
+                    $istirahat2 = explode(" ", $dataShift[0]->akhir_jam_istirahat)[1];
+                    $jam_masuk = new DateTime($tanggal_awal->format('Y-m-d') . " " . $masuk);
+                    $jam_keluar = new DateTime($tanggal_awal->format('Y-m-d') . " " . $pulang);
                     if ($jam_keluar->format('H') < $jam_masuk->format('H')) {
                         $jam_keluar->modify('+1 day');
                     }
@@ -118,8 +120,8 @@ class InsertAgendaPegawaiBaruController extends Controller
                         $jam_masuk->modify('+1 day');
                         $jam_keluar->modify('+1 day');
                     }
-                    $awalistirahat = new DateTime($istirahat1);
-                    $akhiristirahat = new DateTime($istirahat2);
+                    $awalistirahat = new DateTime($tanggal_awal->format('Y-m-d') . " " . $istirahat1);
+                    $akhiristirahat = new DateTime($tanggal_awal->format('Y-m-d') . " " . $istirahat2);
                     if ($awalistirahat->format('H') < $jam_masuk->format('H')) {
                         $jam_keluar->modify('+1 day');
                     }
@@ -130,8 +132,23 @@ class InsertAgendaPegawaiBaruController extends Controller
                         $awalistirahat->modify('+1 day');
                         $akhiristirahat->modify('+1 day');
                     }
+                    dd(
+                        $tanggal_awal->format('Y-m-d'),
+                        $kd_pegawai,
+                        $data['User_Input'],
+                        $keterangan,
+                        $jam_masuk->format('Y-m-d H:i:s'),
+                        $jam_keluar->format('Y-m-d H:i:s'),
+                        $awalistirahat->format('Y-m-d H:i:s'),
+                        $akhiristirahat->format('Y-m-d H:i:s'),
+                        $jmljam,
+                        $data['Kd_Shift'],
+                        $masuk,
+                        $pulang
+                    );
                     if ($awalistirahat != $akhiristirahat) {
-                        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
+
+                        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_AGENDA_KARYAWAN_BARU @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
                             $tanggal_awal->format('Y-m-d'),
                             $kd_pegawai,
                             $data['User_Input'],
@@ -144,7 +161,17 @@ class InsertAgendaPegawaiBaruController extends Controller
                             $data['Kd_Shift']
                         ]);
                     } else {
-                        DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @jmljam = ?, @shift = ?', [
+                        dd(
+                            $tanggal_awal->format('Y-m-d'),
+                            $kd_pegawai,
+                            $data['User_Input'],
+                            $keterangan,
+                            $jam_masuk->format('Y-m-d H:i:s'),
+                            $jam_keluar->format('Y-m-d H:i:s'),
+                            $jmljam,
+                            $data['Kd_Shift']
+                        );
+                        DB::connection('ConnPayroll')->statement('exec SP_5409_PAY_INSERT_AGENDA_KARYAWAN_BARU @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @jmljam = ?, @shift = ?', [
                             $tanggal_awal->format('Y-m-d'),
                             $kd_pegawai,
                             $data['User_Input'],
@@ -167,7 +194,7 @@ class InsertAgendaPegawaiBaruController extends Controller
                         }
                     }
                     // dd($tanggal_awal->format('N'));
-                    if ($tanggal_awal->format('N') == 6) { // 6 adalah kode untuk hari Sabtu di PHP
+                    if ($tanggal->format('N') == 6) { // 6 adalah kode untuk hari Sabtu di PHP
                         switch ((int)$data['Kd_Shift']) {
                             case 0:
                             case 1:
@@ -197,11 +224,11 @@ class InsertAgendaPegawaiBaruController extends Controller
                         // dd($shiftbaru);
                         $jmljam = 5;
                         $keterangan = "M";
-                    } else if ($tanggal_awal->format('N') != 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                    } else if ($tanggal->format('N') != 7) { // 6 adalah kode untuk hari Sabtu di PHP
                         $shiftbaru = (int)$data['Kd_Shift'];
                         $jmljam = 7;
                         $keterangan = "M";
-                    } else if ($tanggal_awal->format('N') == 7) { // 6 adalah kode untuk hari Sabtu di PHP
+                    } else if ($tanggal->format('N') == 7) { // 6 adalah kode untuk hari Sabtu di PHP
                         $shiftbaru = (int)$data['Kd_Shift'];
                         $keterangan = "B";
                     }
@@ -209,15 +236,15 @@ class InsertAgendaPegawaiBaruController extends Controller
                         2,
                         $shiftbaru,
                     ]);
-                    dd(count($dataShift), $dataShift);
+                    // dd(count($dataShift), $dataShift);
 
                     if (count($dataShift) > 0) {
-                        $masuk = $dataShift[0]->masuk;
-                        $pulang = $dataShift[0]->pulang;
-                        $istirahat1 = $dataShift[0]->awal_jam_istirahat;
-                        $istirahat2 = $dataShift[0]->akhir_jam_istirahat;
-                        $jam_masuk = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $masuk)[1]);
-                        $jam_keluar = new DateTime($tanggal_awal->format('Y-m-d') . " " . explode(" ", $pulang)[1]);
+                        $masuk = explode(" ", $dataShift[0]->masuk)[1];
+                        $pulang = explode(" ", $dataShift[0]->pulang)[1];
+                        $istirahat1 = explode(" ", $dataShift[0]->awal_jam_istirahat)[1];
+                        $istirahat2 = explode(" ", $dataShift[0]->akhir_jam_istirahat)[1];
+                        $jam_masuk = new DateTime($tanggal->format('Y-m-d') . " " . $masuk);
+                        $jam_keluar = new DateTime($tanggal->format('Y-m-d') . " " . $pulang);
                         if ($jam_keluar->format('H') < $jam_masuk->format('H')) {
                             $jam_keluar->modify('+1 day');
                         }
@@ -229,13 +256,13 @@ class InsertAgendaPegawaiBaruController extends Controller
                             $jam_masuk->modify('+1 day');
                             $jam_keluar->modify('+1 day');
                         }
-                        $awalistirahat = new DateTime($istirahat1);
-                        $akhiristirahat = new DateTime($istirahat2);
+                        $awalistirahat = new DateTime($tanggal->format('Y-m-d') . " " .$istirahat1);
+                        $akhiristirahat = new DateTime($tanggal->format('Y-m-d') . " " .$istirahat2);
                         if ($awalistirahat->format('H') < $jam_masuk->format('H')) {
-                            $jam_keluar->modify('+1 day');
+                            $awalistirahat->modify('+1 day');
                         }
                         if ($akhiristirahat->format('H') < $jam_masuk->format('H')) {
-                            $jam_keluar->modify('+1 day');
+                            $akhiristirahat->modify('+1 day');
                         }
                         if ($awalistirahat < $jam_masuk) {
                             $awalistirahat->modify('+1 day');
@@ -243,7 +270,7 @@ class InsertAgendaPegawaiBaruController extends Controller
                         }
                         if ($awalistirahat != $akhiristirahat) {
                             DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
-                                $tanggal_awal->format('Y-m-d'),
+                                $tanggal->format('Y-m-d'),
                                 $kd_pegawai,
                                 $data['User_Input'],
                                 $keterangan,
@@ -256,7 +283,7 @@ class InsertAgendaPegawaiBaruController extends Controller
                             ]);
                         } else {
                             DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_INSERT_AGENDA @tanggal = ?, @kdpegawai = ?, @userid = ?, @ketabsensi = ?, @masuk= ?, @keluar = ?, @jmljam = ?, @shift = ?', [
-                                $tanggal_awal->format('Y-m-d'),
+                                $tanggal->format('Y-m-d'),
                                 $kd_pegawai,
                                 $data['User_Input'],
                                 $keterangan,

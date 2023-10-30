@@ -1,44 +1,47 @@
 @extends('layouts.appPayroll')
 @section('content')
-<div class="form-wrapper mt-4">
+<script type="text/javascript" src="{{ asset('js/Angsuran/angsuranHutangHarian.js') }}"></script>
+    <div class="form-wrapper mt-4">
         <div class="form-container">
-        <div class="card">
-            <div class="card-header">Angsuran Hut Staff</div>
-            <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-            <div class="form berat_woven">
-                <form action="#" method="post" role="form">
-                    <div class="row">
-                        <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">Tanggal:</span>
-                        </div>
-                        <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="date" class="form-control" name="Divisi_pengiriman" id="Divsi_pengiriman" placeholder="Divisi Pengiriman" required>
-                            <div class="text-center col-md-auto"><button type="submit">List Hutang</button></div>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-header">Angsuran Hut Staff</div>
+                <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                    <div class="form berat_woven">
 
-                    <div class="form-container">
-        <div class="card">
-            <div class="card-header">Table</div>
-            <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-            <div class="form berat_woven">
-                <form action="#" method="post" role="form">
-                <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nama Divisi</th>
-                                        <th scope="col">KdPegawai</th>
-                                        <th scope="col">Nama Pegawai</th>
-                                        <th scope="col">No Hutang</th>
-                                        <th scope="col">Sisa Hutang Sblm</th>
-                                        <th scope="col">Nilai</th>
-                                        <th scope="col">Sisa Sekarang</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
+                        <div class="row">
+                            <div class="form-group col-md-3 d-flex justify-content-end">
+                                <span class="aligned-text">Tanggal:</span>
+                            </div>
+                            <div class="form-group col-md-9 mt-3 mt-md-0">
+                                <input type="date" class="form-control" name="Divisi_pengiriman" id="tanggal_Hutang"
+                                 value="" required>
 
-                                        {{-- <td>
+                                <div class="text-center col-md-auto"><button type="" id="buttonListData">List Data</button></div>
+                            </div>
+                        </div>
+
+                        <div class="form-container">
+                            <div class="card">
+                                <div class="card-header">Table</div>
+                                <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                                    <div class="form berat_woven">
+                                        <form action="#" method="post" role="form">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Nama Divisi</th>
+                                                        <th scope="col">KdPegawai</th>
+                                                        <th scope="col">Nama Pegawai</th>
+                                                        <th scope="col">No Hutang</th>
+                                                        <th scope="col">Sisa Hutang Sblm</th>
+                                                        <th scope="col">Nilai</th>
+                                                        <th scope="col">Sisa Sekarang</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-group-divider">
+                                                    <tr>
+
+                                                        {{-- <td>
                                             <a href="" title="Edit Employee">
                                                 <button class="btn btn-primary btn-sm">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
@@ -51,8 +54,8 @@
                                             </form>
                                         </td> --}}
 
-                                    </tr>
-                                    {{-- @foreach ($employees as $data)
+                                                    </tr>
+                                                    {{-- @foreach ($employees as $data)
                                     <tr>
                                         <td>{{ $data->id }}</td>
                                         <td>{{ $data->name }}</td>
@@ -75,41 +78,41 @@
                                         </td>
                                     </tr>
                                     @endforeach --}}
-                                </tbody>
+                                                </tbody>
 
-                            </table>
-                </div>
-            </div>
-        </div>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
 
-                
 
-                    
 
-                    <div class="row mt-3">
-                        <div class="col- row justify-content-md-center">
-                            <div class="text-center col-md-auto"><button type="submit">Update</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Process</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Quit</button></div>
+
+
+                            <div class="row mt-3">
+                                <div class="col- row justify-content-md-center">
+                                    <div class="text-center col-md-auto"><button type="submit">Update</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit">Process</button></div>
+                                    <div class="text-center col-md-auto"><button type="submit">Quit</button></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
+            <main class="py-4">
+                @yield('content')
+            </main>
         </div>
-    </div>
-</div>
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('.dropdown-submenu a.test').on("click", function(e) {
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
+        <script>
+            $(document).ready(function() {
+                $('.dropdown-submenu a.test').on("click", function(e) {
+                    $(this).next('ul').toggle();
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
             });
-        });
-    </script>
-</body>
-@endsection
+        </script>
+        </body>
+    @endsection
