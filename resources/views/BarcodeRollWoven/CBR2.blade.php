@@ -1,6 +1,7 @@
 @extends('layouts.appABM')
 @section('content')
 <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/CBR2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
 <body onload="Greeting()">
     <div id="app">
         <div class="form-wrapper mt-4">

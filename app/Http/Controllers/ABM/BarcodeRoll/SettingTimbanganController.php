@@ -26,20 +26,20 @@ class SettingTimbanganController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari formulir
-        $request->validate([
-            'timbangan' => 'required|in:500,1000', // Sesuaikan dengan nilai yang diizinkan
-        ]);
+        // // Validasi data yang diterima dari formulir
+        // $request->validate([
+        //     'timbangan' => 'required|in:500,1000', // Sesuaikan dengan nilai yang diizinkan
+        // ]);
 
-        // Ambil nilai dari formulir
-        $timbangan = $request->input('timbangan');
+        // // Ambil nilai dari formulir
+        // $timbangan = $request->input('timbangan');
 
-        // Simpan pengaturan timbangan ke database
-        // Tidak perlu menggunakan 'Setting::updateOrCreate', cukup 'create'
-        Setting::create(['timbangan' => $timbangan]);
+        // // Simpan pengaturan timbangan ke database
+        // // Tidak perlu menggunakan 'Setting::updateOrCreate', cukup 'create'
+        // Setting::create(['timbangan' => $timbangan]);
 
-        // Redirect kembali ke indeks SettingTimbangan
-        return redirect()->route('settingtimbangan.index')->with('success', 'Setting Timbangan Tersimpan.');
+        // // Redirect kembali ke indeks SettingTimbangan
+        // return redirect()->route('settingtimbangan.index')->with('success', 'Setting Timbangan Tersimpan.');
     }
 
     //Display the specified resource.
@@ -64,5 +64,23 @@ class SettingTimbanganController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function simpanData(Request $request)
+    {
+        // Validasi data yang diterima dari permintaan AJAX
+        $request->validate([
+            'timbangan' => 'required|in:500,1000', // Sesuaikan dengan nilai yang diizinkan
+        ]);
+
+        // Ambil nilai dari permintaan AJAX
+        $timbangan = $request->input('timbangan');
+
+        // Simpan pengaturan timbangan ke database
+        // Tidak perlu menggunakan 'Setting::updateOrCreate', cukup 'create'
+        Setting::create(['timbangan' => $timbangan]);
+
+        // Beri respons JSON yang mengindikasikan bahwa penyimpanan berhasil
+        return response()->json(['message' => 'Setting Timbangan Tersimpan.']);
     }
 }
