@@ -56,17 +56,17 @@ class EditEstimasiTanggalController extends Controller
         if ($newTgl < $tglS || $newTgl > $tglF) {
             if ($newTgl < $tglS) {
                 return("Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
-                tglS +
+                $tglS +
                 ") yg dijadwalkan oleh PPIC.");
             }
             else if($newTgl > $tglF){
                 return("Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
-                tglF +
+                $tglF +
                 ") yg dijadwalkan oleh PPIC.");
             }
             return(
                         "Untuk nomer order: " +
-                        table_data.cell(rowindex, 1).data() +
+                        $noOd +
                         ", tdk bisa diproses."
             );
         }

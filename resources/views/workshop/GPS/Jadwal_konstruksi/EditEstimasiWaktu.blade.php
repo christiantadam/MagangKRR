@@ -14,21 +14,22 @@
                   {{-- width: 110vh;
                         height: 7vh; --}}
                   <label for="WorkStation" class="form-label">Work Station</label><br>
-                  <select class="form-select" name="WorkStation" style="width: 36vh;
-                  height: 5vh;">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                  <select class="custom-select" name="WorkStation" style="width: 36vh;
+                  height: 5vh;"
+                    id="WorkStation">
+                    <option disabled selected>Pilih Work Station</option>
+                    @foreach ($data as $d)
+                      <option value="{{ $d->NoWrkSts }}">{{ $d->NoWrkSts }} -- {{ $d->NamaWorkStation }}</option>
+                    @endforeach
                   </select>
                   <br>
                   <label for="tgl" class="form-label" style="padding-top: 10px">Tanggal</label>
                   <div class="row">
                     <div class="col-6">
-                      <input type="Date" class="form-control" name="tgl">
+                      <input type="Date" class="form-control" name="tgl" id="tgl">
                     </div>
                     <div class="col-6">
-                      <a href="" class="btn btn-primary">OK</a>
+                      <button type="button" class="btn btn-primary" id="btnok" disabled>OK</button>
                     </div>
                   </div>
 
@@ -38,53 +39,46 @@
                   <p style="color:red">xxxxx -> : Emergency</p>
                 </div>
               </div>
-              <table class="table" style="padding-top: 15px">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Nomor</th>
-                    <th>No Order</th>
-                    <th>Tanggal Start</th>
-                    <th>Divisi</th>
-                    <th>Nama Barang</th>
-                    <th>Nama Bagian</th>
-                    <th>Est. Time</th>
-                    <th>Hari ke-</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>wdwadw</td>
-                    <td>wdawdawd</td>
-                    <td>wdawdawd</td>
-                    <td>wdawd</td>
-                    <td>wadawdaw</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="mb-3">
-                <label for="estimasi">Estimasi Time</label>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input type="number" class="form-control" name="jam" placeholder="jam">
-                                </div>
-                                <div class="col-6">
-                                    <input type="number" class="form-control" name="menit" placeholder="menit">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-primary">Batal</a>
-                        </div>
-                    </div>
+              <div class="table-responsive" style="padding-top: 20px">
+                <table class="table" id="TableEditEstimasiWaktu">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Nomor</th>
+                      <th>No Order</th>
+                      <th>Tanggal Start</th>
+                      <th>Divisi</th>
+                      <th>Nama Barang</th>
+                      <th>Nama Bagian</th>
+                      <th>Est. Time</th>
+                      <th>Hari ke-</th>
+                      <th>Id Bagian</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
               </div>
               <div class="mb-3">
-                <input type="submit" name="refresh" value="Refresh" class="btn btn-primary">
+                <label for="estimasi">Estimasi Time</label>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-6">
+                        <input type="number" class="form-control" name="jam" placeholder="jam" id="jam">
+                      </div>
+                      <div class="col-6">
+                        <input type="number" class="form-control" name="menit" placeholder="menit" id="menit">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                <button type="button" class="btn btn-primary" id="btnEdit">Edit</button>
+                <button type="button" class="btn btn-primary" id="btnBatal">Batal</button>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="button" class="btn btn-light" id="refresh">Refresh</button>
                 <input type="submit" name="proses" value="Proses" class="btn btn-primary" disabled>
               </div>
             </form>
@@ -93,5 +87,5 @@
       </div>
     </div>
   </div>
-  </div>
+  <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/EditEstimasiWaktu.js') }}"></script>
 @endsection

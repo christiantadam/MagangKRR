@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class JadwalKonstruksiController extends Controller
 {
     public function EditEstimasiWaktu() {
-        return view('workshop.GPS.Jadwal_konstruksi.EditEstimasiWaktu');
     }
     public function FinishJadwalKonstruksi() {
         return view('workshop.GPS.Jadwal_konstruksi.FinishJadwalKonstruksi');
