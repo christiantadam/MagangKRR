@@ -1,5 +1,9 @@
 @extends('layouts.appAdStar')
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+
     <h2>Open Top </h2>
 
     <div class="body">
@@ -22,7 +26,7 @@
                         <label for="customer">Design For:</label>
                         <input type="text" id="idcust" required>
                         <input type="text" id="namacust" placeholder="">
-                        <button type="button" id="btncustomer" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" disabled>
+                        <button type="button" id="btncustomer" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_customer" >
                             ...
                         </button>
                     </div>
@@ -33,8 +37,9 @@
                         <input type="text" id="nama-barang" required>
                         <label for="nama-barang">-</label>
                         <input type="text" id="input2">
-                        <button type="button" id="btnprodtype" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodtype" disabled>
-                        </div>
+                        <button type="button" id="btnprodtype" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mdl_prodtype" >
+                            List Type
+                        </button>                        </div>
                 </div>
                 <div class="input-container">
                     <div class=radio>
@@ -409,8 +414,8 @@
                 </thead>
                 <tbody>
                     @foreach ($dataCust as $data)
-                        <tr data-namacust="{{ $data->NamaCust }}" data-idcust="{{ $data->IDCust }}">
-                            <td>{{ $data->NamaCust }}</td>
+                        <tr data-namacust="{{ $data->NAMACUST }}" data-idcust="{{ $data->IDCust }}">
+                            <td>{{ $data->NAMACUST }}</td>
                             <td>{{ $data->IDCust }}</td>
                         </tr>
                     @endforeach

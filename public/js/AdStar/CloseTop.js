@@ -1,6 +1,46 @@
 $("#tbl_customer").DataTable();
 $("#tabel_noorder").DataTable();
 
+// // Click event handler for table rows
+ // Mengambil semua elemen input tanggal
+ const inputTanggalElements = document.querySelectorAll('input[type="date"]');
+
+ // Mengatur nilai awal input tanggal ke tanggal hari ini
+ const tanggalHariIni = new Date().toISOString().slice(0, 10);
+ inputTanggalElements.forEach(function(inputElement) {
+     inputElement.value = tanggalHariIni;
+ });
+
+ // Mengizinkan pengguna untuk mengubah tanggal secara manual
+ inputTanggalElements.forEach(function(inputElement) {
+     inputElement.addEventListener('change', function() {
+         // Anda dapat mengakses tanggal yang diubah dengan inputElement.value
+         // Contoh: const tanggalYangDiubah = inputElement.value;
+     });
+ });
+
+ //
+//--------------------------------------------------------------------------------------//
+
+       // Mengambil semua elemen input waktu
+       const inputWaktuElements = document.querySelectorAll('input[type="time"]');
+
+       // Menghilangkan detik dari waktu saat ini
+       const waktuSaatIni = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+       // Mengatur nilai awal input waktu ke waktu saat ini tanpa detik
+       inputWaktuElements.forEach(function(inputElement) {
+           inputElement.value = waktuSaatIni;
+       });
+
+       // Mengizinkan pengguna untuk mengubah waktu secara manual
+       inputWaktuElements.forEach(function(inputElement) {
+           inputElement.addEventListener('change', function() {
+               // Anda dapat mengakses waktu yang diubah dengan inputElement.value
+               // Contoh: const waktuYangDiubah = inputElement.value;
+           });
+       });
+
 //--------------------------------------------------------------------------------------//
 
 $('#tbl_customer tbody').on('click', 'tr', function () {
@@ -20,8 +60,8 @@ var kodeSave;
 
 
 btnprodtype.addEventListener("click", function () {
-    var tanggal = document.getElementById('idcust');
-    fetch("/AdStarOpenTop/" + tanggal.value + ".dataProdType")
+    var idcust = document.getElementById('idcust');
+    fetch("/AdStarOpenTop/" + idcust.value + ".dataProdType")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -36,7 +76,7 @@ btnprodtype.addEventListener("click", function () {
 
             // Loop through the data and create table rows
             data.forEach((item) => {
-                var row = [item.GrupMesinOrder, item.IDLOG];
+                var row = [item.Nama_brg, item.id];
                 $("#tbl_prodtype").DataTable().row.add(row);
             });
 

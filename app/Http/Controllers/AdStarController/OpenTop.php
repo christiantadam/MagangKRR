@@ -11,7 +11,7 @@ class OpenTop extends Controller
     public function index()
     {
 
-        $dataCust = DB::connection('ConnAdstar')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
+        $dataCust = DB::connection('ConnSales')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
 
         return view('AdStar.OpenTop', compact('dataCust'));//
     }

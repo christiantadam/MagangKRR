@@ -4,12 +4,14 @@ namespace App\Http\Controllers\AdStarController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 
 class CLoseTop extends Controller
 {
     public function index()
     {
-        $dataCust = DB::connection('ConnAdstar')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
+        $dataCust = DB::connection('ConnSales')->select('exec SP_1486_SLS_LIST_CUSTOMER @Kode=2');
 
         return view('AdStar.CLoseTop', compact('dataCust'));//
     }
@@ -48,7 +50,7 @@ class CLoseTop extends Controller
 
         //getorder
       if ($crExplode[$lastIndex] == "dataProdType") {
-            $dataProdType = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?, @idcust= ?' , [ 1, $crExplode[0]]);
+            $dataProdType = DB::connection('ConnAdstar')->select('exec SP_1486_ADSTAR_LIST_TABEL_HITUNGAN @Kode= ?, @idcust= ?' , [ 7, $crExplode[0]]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataProdType);

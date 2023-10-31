@@ -2,6 +2,18 @@ $("#tbl_customer1").DataTable();
 $("#tbl_prodtype").DataTable();
 $("#tbl_customer2").DataTable();
 
+//--------------------------------------------------------------------------------------//
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Pilih radio button "StarPark"
+    document.getElementById("radio1").checked = true;
+
+    // Pilih checkbox "Top Close"
+    document.getElementById("check2").checked = true;
+});
+
+//--------------------------------------------------------------------------------------//
+
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
     checkboxes.forEach(function(checkbox) {
