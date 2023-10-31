@@ -26,6 +26,7 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
                             <form method="POST" action="{{ url('CreateBKM') }}" id="formkoreksi">
