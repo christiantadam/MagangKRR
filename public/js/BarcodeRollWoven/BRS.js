@@ -19,6 +19,19 @@ $(document).ready(function () {
         select: 'single'
     });
 
+    // Get the input elements
+    const tanggalInput = document.getElementById("tanggalInput");
+    const tanggalOutput = document.getElementById("tanggalOutput");
+
+    // Add an event listener to the first input field to update the second input field
+    tanggalInput.addEventListener("input", function () {
+        // Get the selected date value from the first input field
+        const selectedDate = tanggalInput.value;
+
+        // Update the value of the second input field with the selected date
+        tanggalOutput.value = selectedDate;
+    });
+
     $("#TableSubKelompok tbody").on("click", "tr", function () {
         // Get the data from the clicked row
         var rowData = $("#TableSubKelompok").DataTable().row(this).data();
@@ -111,7 +124,7 @@ $(document).ready(function () {
         var idsubkontraktor = kodebarang;
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/ABM/BarcodeKerta2/BuatBarcode/" + idtype + "." + UserID + "." + tanggal + "." +
+        fetch("/ABM/BarcodeRollWoven/BRS/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
             idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
             .then((response) => {

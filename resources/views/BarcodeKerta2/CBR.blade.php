@@ -9,6 +9,34 @@
                 display: none;
             }
         }
+
+        #barcode-label {
+            text-align: center;
+            /* Untuk penempatan horizontal di tengah */
+            display: flex;
+            align-items: center;
+            /* Untuk penempatan vertikal di tengah */
+        }
+
+        .barcode-label-container {
+            display: flex;
+            align-items: center;
+            /* Menengahkan vertikal jika perlu */
+        }
+
+        .barcode-label-container>div {
+            margin: 0 10px;
+            /* Atur ruang horizontal antara elemen-elemen div */
+        }
+
+        #barcode-label1,
+        #barcode-label2,
+        #barcode-label3,
+        #barcode-label4,
+        #barcode-label5,
+        #barcode-label6 {
+            /* Gaya khusus untuk elemen-elemen div jika diperlukan */
+        }
     </style>
 
     <body onload="Greeting()">
@@ -48,7 +76,24 @@
                     </div>
                     <div class="row" id="printSection">
                         <div class="col- row justify-content-md-center">
-                            <svg id="barcode"></svg>
+                            <div id="barcode-container">
+                                <svg class="text-center" id="barcode"></svg>
+                                <div id="barcode-label"></div>
+                                <div class="barcode-label-container">
+                                    <div id="barcode-label1"></div>
+                                    <div id="barcode-label2"></div>
+
+                                    <div class="barcode-label-container">
+                                        <div id="barcode-label3"> </div>
+                                        <div id="barcode-label4"> </div>
+
+                                        <div class="barcode-label-container">
+                                            <div id="barcode-label5"></div>
+                                            <div id="barcode-label6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,11 @@ $(document).ready(function () {
         },
     });
 
+    var idtypeasal = '';
+    var idtypetujuan = '';
+    var asalidsubkelompok = '';
+    var tujuanidsubkelompok = '';
+
     // Event listeners for buttons
     document.getElementById('ButtonShift').addEventListener("click", function (event) {
         event.preventDefault();
@@ -124,7 +129,7 @@ $(document).ready(function () {
             var parts = str.split("-");
             console.log(parts); // Output: ["A123", "a234"]
 
-            fetch("/ABM/BarcodeRollWoven/BuatBarcode/" + parts[0] + "." + parts[1] + ".getBarcode")
+            fetch("/ABM/BarcodeRollWoven/BuatBarcode2/" + parts[0] + "." + parts[1] + ".getBarcode")
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -134,6 +139,8 @@ $(document).ready(function () {
                 .then((data) => {
                     // Handle the data retrieved from the server (data should be an object or an array)
                     console.log(data);
+                    idtypeasal = data[0].IdType
+                    asalidsubkelompok = data[0].IdSubkelompok
 
                     // Loop through the data and create table rows
                     data.forEach((item) => {
@@ -152,7 +159,7 @@ $(document).ready(function () {
                     $("#TableType").DataTable().draw();
 
                     var Divisi = document.getElementById('Divisi');
-                    fetch("/ABM/BarcodeRollWoven/BuatBarcode/" + Divisi.value + ".getType")
+                    fetch("/ABM/BarcodeRollWoven/BuatBarcode2/" + Divisi.value + ".getType")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -162,7 +169,7 @@ $(document).ready(function () {
                         .then((data) => {
                             // Handle the data retrieved from the server (data should be an object or an array)
                             console.log(data);
-
+                            tujuanidsubkelompok = data[0].IdSubkelompok
                             // Loop through the data and create table rows
                             data.forEach((item) => {
                                 var row = [item.NamaType, item.IdType];
@@ -188,10 +195,10 @@ $(document).ready(function () {
         // Get the data from the clicked row
 
         var rowData = $("#TableType").DataTable().row(this).data();
-
+        console.log(rowData);
         // Populate the input fields with the data
         $("#tujuan").val(rowData[0]);
-
+        idtypetujuan = rowData[1];
         // var txtIdDivisi = document.getElementById(rowData[0]);
         // Hide the modal immediately after populating the data
         closeModal2();
@@ -215,22 +222,18 @@ $(document).ready(function () {
         console.log(parts);
 
         // Lakukan operasi pencetakan barcode
-        var idtypeasal = '0011';
-        var idtypetujuan = '0017';
         var userid = 'U001';
         var tanggal = document.getElementById('tanggalOutput').value;
         var jumlahmasukprimer = document.getElementById('Primer').value;
         var jumlahmasuksekunder = document.getElementById('Sekunder').value;
         var jumlahmasuktertier = document.getElementById('Tritier').value;
-        var asalidsubkelompok = 'SKL16';
-        var tujuanidsubkelompok = 'SKL16';
         var kodebarangasal = parts[0];
         var kodebarangtujuan = parts[0];
         var noindeksasal = parts[1];
-        var uraian = 'Pagi';
-
+        var uraian = document.getElementById('shift').value;
+        console.log(idtypeasal);
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/ABM/BarcodeRollWoven/BuatBarcode" + idtypeasal + "~" + idtypetujuan + "~" + userid + "~" +
+        fetch("/ABM/BarcodeRollWoven/BuatBarcode2/" + idtypeasal.trim() + "~" + idtypetujuan.trim() + "~" + userid + "~" +
             tanggal + "~" + jumlahmasukprimer + "~" + jumlahmasuksekunder + "~" + jumlahmasuktertier + "~" +
             asalidsubkelompok + "~" + tujuanidsubkelompok + "~" + kodebarangasal + "~" + kodebarangtujuan + "~"
             + noindeksasal + "~" + uraian + "~.buatBarcode")
@@ -248,7 +251,7 @@ $(document).ready(function () {
                     alert('Barcode berhasil dibuat.');
 
                     // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/ABM/BarcodeRollWoven/BuatBarcode" + kodebarangtujuan + ".getIndex")
+                    fetch("/ABM/BarcodeRollWoven/BuatBarcode2/" + kodebarangtujuan + ".getIndex")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");

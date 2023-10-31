@@ -29,7 +29,7 @@ $(document).ready(function () {
         var parts = ScanBarcodeValue.split("-");
         console.log(parts); // Output: ["A123", "a234"]
 
-        fetch(`/ABM/BarcodeKerta2/CBR/${parts[0]}.${parts[1]}.getDataStatus`)
+        fetch(`/ABM/BarcodeRollWoven/CBR/${parts[0]}.${parts[1]}.getDataStatus`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -64,6 +64,24 @@ $(document).ready(function () {
                 console.error("Error checking status:", error);
             });
     });
+
+    // MasukanNomorBarcode.addEventListener("keydown", function (event) {
+    //     if (event.key === "Enter") {
+    //         event.preventDefault(); // Prevent default form submission
+    //         const IdBarcode = MasukanNomorBarcode.value;
+
+    //         // Memeriksa apakah input masih kosong saat Enter ditekan
+    //         if (IdBarcode.trim() === "") {
+    //             // Menampilkan alert jika input masih kosong
+    //             alert("Input barcode masih kosong. Mohon isi terlebih dahulu.");
+    //         } else {
+    //             // Jika input tidak kosong, maka proses pencetakan barcode
+    //             const card = document.getElementById("card");
+    //             console.log(IdBarcode);
+    //             JsBarcode("#barcode", IdBarcode);
+    //         }
+    //     }
+    // });
 });
 
 function printDiv() {
