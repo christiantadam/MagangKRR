@@ -131,7 +131,7 @@
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1" href="{{ url('ProgramPayroll/AgendaMasuk/AgendaShift') }}">Pakai
-                                                Shift</a>
+                                                Shift ✓</a>
                                         </li>
 
                                     </ul>
