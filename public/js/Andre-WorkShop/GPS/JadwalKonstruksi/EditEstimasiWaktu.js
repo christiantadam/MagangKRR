@@ -6,6 +6,11 @@ let jam = document.getElementById("jam");
 let menit = document.getElementById("menit");
 let refresh = document.getElementById("refresh");
 let btnEdit = document.getElementById("btnEdit");
+var noAntri,idBagian,estHour,estMinute;
+var estJam = [];
+var estMenit = [];
+var boleh;
+
 //#region  set tanggal
 
 const currentDate = new Date();
@@ -150,18 +155,17 @@ refresh.addEventListener("click", function () {
 
 btnEdit.addEventListener("click", function (event) {
     var jml = 0;
-    var
+    // var
     $("input[name='EditEstimasiWaktuCheck']:checked").each(function () {
         jml += 1;
     });
     if (jml == 1) {
-        $("input[name='EditEstimasiTanggalCheck']:checked").each(function () {
-            // Ambil nilai 'value' dan status 'checked' dari checkbox
-            // let value = $(this).val();
-            // let isChecked = $(this).prop("checked");
-            // let closestTd = $(this).closest("tr");
+        $("input[name='EditEstimasiWaktuCheck']:checked").each(function () {
             let rowindex = $(this).closest("tr").index();
-            jml += 1;
+            // jml += 1;
+            noAntri = table_data.cell(rowindex, 0).data();
+            idBagian = table_data.cell(rowindex, 8).data();
+            // estHour = ;
         //     If ListOpr.Items(i).Checked Then
         //     noAntri = Trim(ListOpr.Items(i).Text)
         //     idBagian = CInt(ListOpr.Items(i).SubItems(8).Text)
@@ -177,5 +181,65 @@ btnEdit.addEventListener("click", function (event) {
         });
     }
 });
+
+//#endregion
+
+//#region btn proses
+
+function btnproses_click() {
+    var TotalMenitKrj,TotalMenitPk,TotalSisaMenitKrj,sisa_jam,sisa_menit,ada_lebih1;
+    var menitTbh,total_menit_input,simpan;
+    $("input[name='EditEstimasiWaktuCheck']").each(function () {
+        let rowindex = $(this).closest("tr").index();
+        if (noAntri == table_data.cell(rowindex, 0).data()) {
+            estJam.push(jam.value);
+            estMenit.push(menit.value);
+        }
+    });
+    fetch("/LoaddataEditEstimasiWaktu/" + tgl.value + "/" + WorkStation.value +"/"+noAntri)
+    .then((response) => response.json())
+    .then((datas) => {
+        console.log(datas);
+        if (datas.length > 0) {
+            TotalMenitKrj = datas[0].TotalMenitKrj;
+            TotalMenitPk = datas[0].TotalMenitPk;
+            TotalSisaMenitKrj = datas[0].SisaMenitKrj_bantu;
+            sisa_jam = datas[0].SisaJamKrj;
+            sisa_menit = datas[0].SisaMenitKrj;
+            ada_lebih1 = datas[0].ada;
+
+            if (ada_lebih1 > 0) {
+                menitTbh = (jam.value * 60) + menit.value;
+                total_menit_input = menitTbh + TotalMenitPk;
+            }
+            else {
+                menitTbh = (jam.value * 60) + menit.value;
+                total_menit_input = menitTbh;
+            }
+            if (total_menit_input <= TotalMenitKrj) {
+                simpan = 1;
+            }
+            else{
+                alert("Jam kerja optimal tidak cukup....");
+                var hasil_msg = confirm("Edit jam kerja optimal (OK), atau geser jadwal yang tidak tertampung ke hari berikutnya (Batal) ??");
+                if (hasil_msg) {
+                    boleh = False;
+
+                //     While boleh = False
+                //     form_edit.Tanggal.Text = CDate(Date1.Text)
+                //     form_edit.TWorkSts.Text = TWorkSts.Text
+                //     form_edit.TNoWorkSts.Text = TNoWorkSts.Text
+                //     If form_edit.ShowDialog(Me) = DialogResult.OK Then
+                //         Call hitung_jam()
+                //         If boleh = True Then
+                //             simpan = 1
+                //         End If
+                //     End If
+                // End While
+                }
+            }
+        }
+    });
+}
 
 //#endregion

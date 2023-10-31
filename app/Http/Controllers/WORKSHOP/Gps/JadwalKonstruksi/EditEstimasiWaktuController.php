@@ -35,7 +35,11 @@ class EditEstimasiWaktuController extends Controller
             $table = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date1 = ?, @worksts = ? ', [1,$no_Antri[$k], $date1, $worksts]);
             $arraydata[] = $table;
         }
-        return $arraydata;
+        return response()->json($arraydata);
+    }
+    public function hitungjam($EstDate, $worksts , $noQue) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-JAM-KONSTRUKSI] @EstDate = ?, @worksts = ?, @noQue = ?', [$EstDate,$worksts,$noQue]);
+        return response()->json($data);
     }
 
     public function create()
