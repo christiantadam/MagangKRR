@@ -5,13 +5,27 @@
 @endsection
 
 @section('content')
-    <div id="nama_form" class="form" data-aos="fade-up">
-        <form>
-            <label for="kode_barang">Item Number - Kode Barang:</label>
-            <div class="input-group">
-                <input type="text" name="kode_barang" id="kode_barang" class="form-control">
-                <button type="button" class="btn btn-outline-danger">KELUAR</button>
+    <div id="form_cek_barcode" class="form" data-aos="fade-up">
+        <div class="row mt-3">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-3">
+                <span class="aligned-text">
+                    Item Number - Kode Barang:
+                </span>
             </div>
-        </form>
+
+            <div class="col-md-5">
+                <input type="text" id="kode_barang" class="form-control" placeholder="Masukkan kode barang disini..">
+            </div>
+
+            <div class="col-md-2">
+                <span class="spn_enter">Enter</span>
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
     </div>
+
+    <script src="{{ asset('js\Extruder\WarehouseTerima\cekBarcode.js') }}"></script>
 @endsection

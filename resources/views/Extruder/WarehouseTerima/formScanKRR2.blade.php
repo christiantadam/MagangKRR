@@ -140,5 +140,6 @@
         </div>
     </div>
 
+    @include('Extruder.WarehouseTerima.modalLihatDataBarcode')
     <script src="{{ asset('js\Extruder\WarehouseTerima\scanKirimKrr2.js') }}"></script>
 @endsection

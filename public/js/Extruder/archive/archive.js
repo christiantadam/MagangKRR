@@ -1,6 +1,5 @@
 /**
- * LAST : implementasi SP SP_1273_INV_SimpanPermohonanKirimKerta2
- * btnProses_Click | FrmKirimKRR2.vb
+ * LAST : untracked
  *
  * User_id = 4384
  *
