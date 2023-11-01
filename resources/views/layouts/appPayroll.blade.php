@@ -266,7 +266,7 @@
 
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/Skorsing/Permohonan') }}">Permohonan
+                                                tabindex="-1" href="{{ url('ProgramPayroll/Skorsing/PermohonanSkorsing') }}">Permohonan
                                                 ✓</a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"

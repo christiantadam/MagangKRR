@@ -133,7 +133,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "Hutang");
+            form.setAttribute("action", "HutangHarian");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -194,7 +194,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "Hutang/koreksiHutang");
+            form.setAttribute("action", "HutangHarian/koreksiHutang");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -256,7 +256,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "Hutang/hapusHutang");
+            form.setAttribute("action", "HutangHarian/hapusHutang");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -302,7 +302,7 @@ $(document).ready(function () {
         }
     });
     buttonListHutang.addEventListener("click", function (event) {
-        fetch("/ProgramPayroll/Angsuran/Hutang/" + ".getListHutang")
+        fetch("/ProgramPayroll/Angsuran/HutangHarian/" + ".getListHutang")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -324,7 +324,7 @@ $(document).ready(function () {
             });
     });
     buttonDivisi.addEventListener("click", function (event) {
-        fetch("/ProgramPayroll/Angsuran/Hutang/" + ".getDivisi")
+        fetch("/ProgramPayroll/Angsuran/HutangHarian/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -347,7 +347,7 @@ $(document).ready(function () {
     });
     button_Pegawai.addEventListener("click", function (event) {
         const Kd_Divisi = document.getElementById("Kd_Divisi").value;
-        fetch("/ProgramPayroll/Angsuran/Hutang/" + Kd_Divisi + ".getPegawai")
+        fetch("/ProgramPayroll/Angsuran/HutangHarian/" + Kd_Divisi + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -374,7 +374,7 @@ $(document).ready(function () {
         $("#Nama_Pegawai").val(rowData[0]);
         $("#Bukti").val(rowData[1]);
         let safeRowData = rowData[1].replace(/\//g, "_");
-        fetch("/ProgramPayroll/Angsuran/Hutang/" + safeRowData + ".getHutang")
+        fetch("/ProgramPayroll/Angsuran/HutangHarian/" + safeRowData + ".getHutang")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -399,7 +399,7 @@ $(document).ready(function () {
         var rowData = $("#tabel_Divisi").DataTable().row(this).data();
         $("#Kd_Divisi").val(rowData[1]);
         $("#Nama_Divisi").val(rowData[0]);
-        fetch("/ProgramPayroll/Angsuran/Hutang/" + rowData[1] + ".getPegawai")
+        fetch("/ProgramPayroll/Angsuran/HutangHarian/" + rowData[1] + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -427,7 +427,7 @@ $(document).ready(function () {
         $("#Nama_Pegawai").val(rowData[0]);
         $("#Kd_Pegawai").val(rowData[1]);
         if (a == 1) {
-            fetch("/ProgramPayroll/Angsuran/Hutang/" + ".getNomorBukti")
+            fetch("/ProgramPayroll/Angsuran/HutangHarian/" + ".getNomorBukti")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -436,7 +436,13 @@ $(document).ready(function () {
             })
             .then((data) => {
                 if (data.length > 0) {
-                    let Bukti = data[0].nomor;
+                    let Bukti;
+                    if (data[0].nomor != null) {
+                        Bukti = data[0].nomor;
+                    }else{
+                        Bukti = 0;
+                    }
+
                     let tgl = new Date(data[0].tgl_server);
 
                     Bukti = (parseInt(Bukti) + 1).toString().padStart(4, '0');
