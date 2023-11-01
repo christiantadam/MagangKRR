@@ -42,9 +42,9 @@
                     <div class="col-lg-3">
                         <select id="select_shift" class="form-select">
                             <option selected disabled>-- Pilih Shift --</option>
-                            <option value="P">Pagi</option>
-                            <option value="S">Siang</option>
-                            <option value="M">Malam</option>
+                            <option value="A">Pagi</option>
+                            <option value="B">Siang</option>
+                            <option value="C">Malam</option>
                         </select>
                     </div>
                 </div>

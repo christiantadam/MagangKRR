@@ -376,6 +376,7 @@ btnKoreksi.addEventListener("click", function () {
     dateInput.classList.remove("unclickable");
     slcNomor.disabled = false;
     slcNomor.focus();
+    refetchNomor = true;
     modeProses = "koreksi";
     toggleButtons(2);
 });
@@ -385,6 +386,7 @@ btnHapus.addEventListener("click", function () {
     dateInput.classList.remove("unclickable");
     slcNomor.disabled = false;
     slcNomor.focus();
+    refetchNomor = true;
     modeProses = "hapus";
     toggleButtons(2);
 });
@@ -445,9 +447,8 @@ hidRincianKonv.addEventListener("change", function () {
         if (modeProses == "isi") {
             listTujuan.push({
                 IdType: RK_slcType.value,
-                NamaType: RK_slcType.options[RK_slcType.selectedIndex].text
-                    .split("|")[1]
-                    .trim(),
+                NamaType:
+                    RK_slcType.options[RK_slcType.selectedIndex].text.trim(),
                 JumlahPrimer: txtPrimerTujuan.value,
                 JumlahSekunder: txtSekunderTujuan.value,
                 JumlahTritier: txtTritierTujuan.value,

@@ -157,7 +157,7 @@ function showData() {
             if (listBarcode.length > 0) {
                 addTable_DataTable(
                     "table_barcode",
-                    listDaya.map((item) => {
+                    listBarcode.map((item) => {
                         return {
                             ...item,
                             NamaType: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.NamaType}`,

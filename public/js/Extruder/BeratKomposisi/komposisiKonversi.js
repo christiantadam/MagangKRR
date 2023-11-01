@@ -68,7 +68,7 @@ btnProses.addEventListener("click", function () {
         if (!is_empty) {
             hitungSemuaPersen();
 
-            if (parseFloat(numTotal.value) == parseFloat(numBerat.value)) {
+            if (parseInt(numTotal.value) == parseInt(numBerat.value)) {
                 fetchStmt(
                     "/komposisiKonversi/SP_1273_PRG_UPDATE_KOMPOSISI_KONVERSI_1/" +
                         txtKodeBarang.value +
@@ -166,7 +166,7 @@ function loadDataFetch(s_kode_brg) {
         "/komposisiKonversi/SP_1273_ABM_BERAT_STANDART_1/" + s_kode_brg,
         (data) => {
             if (data.length > 0) {
-                numBerat.value = data[0].BERAT_TOTAL;
+                numBerat.value = parseInt(data[0].BERAT_TOTAL);
                 if (parseFloat(numBerat.value) == 0 || numBerat.value == "") {
                     alert("Inputkan Berat Standart Terlebih Dahulu !");
                     clearForm();
@@ -240,9 +240,11 @@ function hitungSemuaPersen() {
     }
 
     numJumlah.value = parseFloat(numJumlah.value).toFixed(0);
-    numTotal.value = list_input.reduce(function (x, y) {
-        return x + y;
-    }, 0);
+    numTotal.value = parseInt(
+        list_input.reduce(function (x, y) {
+            return x + y;
+        }, 0)
+    );
 }
 
 function hitungPersenSatuan(ele_gram, ele_persen, ele_target) {
