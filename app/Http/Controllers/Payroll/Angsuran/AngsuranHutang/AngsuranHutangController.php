@@ -29,9 +29,22 @@ class AngsuranHutangController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($crExplode);
+        if ($crExplode[$lastIndex] == "cekTanggal") {
+            $listData = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_TANGGAL_ANGSURAN @Tanggal = ?, @Kode = ?', [$crExplode[0],3]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($listData);
+        }else if ($crExplode[$lastIndex] == "getListData") {
+            $dataHutang = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_HUTANG_HARIAN @Tanggal = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataHutang);
+        }
     }
 
     // Show the form for editing the specified resource.

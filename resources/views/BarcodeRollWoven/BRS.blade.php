@@ -14,11 +14,11 @@
                                     <div style="display: flex; flex-direction: column;gap:5px;white-space:nowrap">
                                         <div class="row">
                                             <div class="form-group col-md-5 d-flex justify-content-end">
-                                                <span class="aligned-text" style="margin-left: -70px">Tanggal:</span>
+                                                <span class="aligned-text" style="">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                                 <input type="date" class="form-control" name="tanggal" id="tanggalInput"
-                                                    style="margin-left: 15px; width: 255px" placeholder="Tanggal">
+                                                    style="margin-left: 15px; width: 230px" placeholder="Tanggal">
                                             </div>
                                         </div>
 
@@ -136,7 +136,7 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonPrintBarcode"
                                                     style="width: 180px; height: 50px">Print Barcode
                                                 </button></div>
                                         </div>
@@ -169,7 +169,7 @@
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
                                                 <input class="form-control" type="date" name="tanggal" rows="tanggal"
-                                                    placeholder="Tanggal">
+                                                    id="tanggalOutput" placeholder="Tanggal" readonly>
                                             </div>
                                         </div>
 

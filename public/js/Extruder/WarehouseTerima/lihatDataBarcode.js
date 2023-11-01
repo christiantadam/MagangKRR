@@ -22,10 +22,10 @@ const LD_listKirim = [];
 
 const LD_colKirim = [
     { width: "1px" }, // No.
-    { width: "1px" }, // Tanggal
-    { width: "1px" }, // Type
-    { width: "1px" }, // Kode Barang
-    { width: "1px" }, // No. Indeks
+    { width: "100px" }, // Tanggal
+    { width: "650px" }, // Type
+    { width: "100px" }, // Kode Barang
+    { width: "100px" }, // No. Indeks
     { width: "1px" }, // Primer
     { width: "1px" }, // Sekunder
     { width: "1px" }, // Tritier
@@ -105,7 +105,8 @@ function LD_showData(kode, tgl = "") {
                     LD_colKirim.length,
                     "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
                 );
-        } else addTable_DataTable("table_kirim_gudang", LD_listKirim);
+        } else
+            addTable_DataTable("table_kirim_gudang", LD_listKirim, LD_colKirim);
     });
 }
 //#endregion

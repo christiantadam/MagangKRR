@@ -363,7 +363,13 @@ Route::get('getLihat_PenagihanNotaKredit/{idCustomer}/{MIdRetur}', 'App\Http\Con
 
 Route::get('PotHarga', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\PotHargaController@PotHarga');
 Route::get('Free', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\FreeController@Free');
-Route::get('KelebihanBayarJualTunai', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\KelebihanBayarJualTunaiController@KelebihanBayarJualTunai');
+
+#region Kelebihan Bayar Jual Tunai
+Route::resource('KelebihanBayarJualTunai', App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\KelebihanBayarJualTunaiController::class);
+Route::get('getCustKelebihanBayar', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\KelebihanBayarJualTunaiController@getCustKelebihanBayar');
+Route::get('getListNotaKreditKelebihanBayar', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\KelebihanBayarJualTunaiController@getListNotaKreditKelebihanBayar');
+#endregion
+
 Route::get('SelisihTimbang', 'App\Http\Controllers\Accounting\Piutang\MaintenanceNotaKredit\SelisihTimbangController@SelisihTimbang');
 
 #region ACC Nota Kredit

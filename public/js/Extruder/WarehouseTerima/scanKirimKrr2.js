@@ -74,7 +74,7 @@ slcDivisi.addEventListener("change", function () {
         addOptionIfNotExists(slcObjek, "078", "078 | Barang Dalam Proses");
 
         fetchSelect(
-            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/6",
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/6",
             (data) => {
                 noUrut = parseFloat(data[0].IdJumboKRR1) + 1;
                 txtNoBarcode.focus();
@@ -84,7 +84,7 @@ slcDivisi.addEventListener("change", function () {
         addOptionIfNotExists(slcObjek, "162", "162 | Hasil Setengah Jadi");
 
         fetchSelect(
-            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/3",
             (data) => {
                 noUrut = parseFloat(data[0].IdWovenKRR1) + 1;
                 txtNoBarcode.focus();
@@ -94,7 +94,7 @@ slcDivisi.addEventListener("change", function () {
         addOptionIfNotExists(slcObjek, "192", "192 | Hasil Setengah Jadi");
 
         fetchSelect(
-            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/12",
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/12",
             (data) => {
                 noUrut = parseFloat(data[0].IdADSKRR1) + 1;
                 txtNoBarcode.focus();
@@ -108,7 +108,7 @@ slcDivisi.addEventListener("change", function () {
         );
 
         fetchSelect(
-            "warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/15",
+            "/warehouseTerima/SP_1273_INV_ambil_counter_sj_krr2/15",
             (data) => {
                 noUrut = parseFloat(data[0].IdINVKRR1) + 1;
                 txtNoBarcode.focus();
@@ -151,6 +151,32 @@ slcObjek.addEventListener("keydown", function (event) {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
+
+                    if (slcDivisi.value == "JBB") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "078",
+                            "078 | Barang Dalam Proses"
+                        );
+                    } else if (slcDivisi.value == "ABM") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "162",
+                            "162 | Hasil Setengah Jadi"
+                        );
+                    } else if (slcDivisi.value == "ADS") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "192",
+                            "192 | Hasil Setengah Jadi"
+                        );
+                    } else if (slcDivisi.value == "INV") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "107",
+                            "107 | Gudang produksi - Barang Jadi"
+                        );
+                    }
                 } else refetchKelut = true;
             },
             errorOption
@@ -174,6 +200,32 @@ slcObjek.addEventListener("mousedown", function () {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
+
+                    if (slcDivisi.value == "JBB") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "078",
+                            "078 | Barang Dalam Proses"
+                        );
+                    } else if (slcDivisi.value == "ABM") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "162",
+                            "162 | Hasil Setengah Jadi"
+                        );
+                    } else if (slcDivisi.value == "ADS") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "192",
+                            "192 | Hasil Setengah Jadi"
+                        );
+                    } else if (slcDivisi.value == "INV") {
+                        addOptionIfNotExists(
+                            slcObjek,
+                            "107",
+                            "107 | Gudang produksi - Barang Jadi"
+                        );
+                    }
                 } else refetchKelut = true;
             },
             errorOption
@@ -386,7 +438,7 @@ btnLihat.addEventListener("click", function () {
         return;
     }
 
-    hidDivisi.value = slcDivisi.value;
+    hidDivisi.value = slcObjek.value;
     LD_formData.kode = [11, 15];
     LD_formData.title = "Lihat Data Kerta 2";
     $("#form_lihat_data").modal("show");
@@ -543,7 +595,7 @@ function buatRekapFetch(id_type, type, tanggal, jumlah, divisi) {
 
 function cekDataBarcodeFetch(kode_barang, post_action = null) {
     fetchSelect(
-        "warehouseTerima/SP_1273_INV_CekBarangSetJadi_TidakKirim/" +
+        "/warehouseTerima/SP_1273_INV_CekBarangSetJadi_TidakKirim/" +
             kode_barang,
         (data) => {
             id_type = data[0].IdType;

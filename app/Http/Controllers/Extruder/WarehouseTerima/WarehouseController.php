@@ -433,6 +433,14 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_CekBarangSetJadi_TidakKirim':
+                $param_str = '@KodeBarang = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
+            case 'SP_1273_INV_CekGelondongan_KirimKeKRR2':
+            case 'SP_1273_INV_Cek_KirimKeKRR2':
+                $param_str = '@KodeBarang = ?, @ItemNumber = ?, @IdDiv = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_ListBarcodeKerta2':
                 $param_str = '@Kode = ?, @status = ?, @iddivisi = ?';
@@ -449,14 +457,6 @@ class WarehouseController extends Controller
             case 'SP_1273_INV_SimpanPermohonanKirimKerta2':
                 return $this->updKirimKerta2($param_data[0], $param_data[1], $param_data[2], $param_data[3]);
 
-            case 'SP_1273_INV_ambil_counter_sj_krr2':
-                $param_str = '@mode = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
-
-            case 'SP_1273_INV_TampilDataBarang_Mojo':
-                $param_str = '@kodebarang = ?, @noindeks = ?';
-                return $this->executeSP('select', $fun_str, $param_str, $param_data);
-
             case 'SP_5409_INV_CekBarcodeKirimGudang':
                 return $this->getCekBarcodeKirimGudang($param_data[0], $param_data[1]);
 
@@ -469,8 +469,13 @@ class WarehouseController extends Controller
             case 'SP_1273_INV_CekBarcodeGelondonganMojosari':
                 return $this->getStatusDispresiasi($param_data[0], $param_data[1], $param_data[2], $param_data[3], $param_data[4], $param_data[5], $param_data[6]);
 
+            case 'SP_1273_BCD_CekKirimBarcode':
+            case 'SP_1273_BCD_CekBarcode':
+            case 'SP_1273_BCD_CekBarcodeKeluar':
             case 'SP_5409_INV_SimpanPenerimaanAwalGudang':
+            case 'SP_1273_LMT_SimpanPembatalanKirimKeGudang':
             case 'SP_5409_INV_SimpanPenerimaanAwalGudang2':
+            case 'SP_1273_INV_TampilDataBarang_Mojo':
                 $param_str = '@kodebarang = ?, @noindeks = ?';
                 if ($fun_str == 'SP_5409_INV_SimpanPenerimaanAwalGudang') {
                     $action_str = 'statement';
@@ -509,12 +514,9 @@ class WarehouseController extends Controller
                 $param_str = '@status = ?, @iddivisi = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
-            case 'SP_1273_LMT_SimpanPembatalanKirimKeGudang':
-                $param_str = '@kodebarang = ?, @noindeks = ?';
-                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
-
             case 'SP_1273_INV_ListKirimBahanBaku':
                 $param_str = '@Kode = ?, @Divisi = ?';
+                if ($param_data[0] == '3') $param_str = '@Kode = ?';
                 if ($param_data[0] == '12') $param_str .= ', @Tanggal = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 

@@ -29,15 +29,70 @@ const colBarcode = [
     { width: "1px" }, // Primer
     { width: "1px" }, // Sekunder
     { width: "1px" }, // Tritier
-    { width: "1px" }, // Tanggal
+    { width: "100px" }, // Tanggal
     { width: "1px" }, // Divisi
 ];
 
 var pilBarcode = -1;
+var refetchObjek = false;
 var checkboxesBatal = null;
 //#endregion
 
 //#region Events
+slcDivisi.addEventListener("change", function () {
+    refetchObjek = true;
+});
+
+slcObjek.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchObjek = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("mousedown", function () {
+    if (refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchObjek = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("change", function () {
+    showData();
+});
+
 btnHapus.addEventListener("click", function () {
     showModal(
         "Konfirmasi",
@@ -94,7 +149,7 @@ function showData() {
                     QtyPrimer: data[i].Qty_Primer,
                     QtySekunder: data[i].Qty_sekunder,
                     Qty: data[i].Qty,
-                    TglMutasi: data[i].Tgl_mutasi,
+                    TglMutasi: dateTimeToDate(data[i].Tgl_mutasi),
                     Divisi: data[i].Divisi,
                 });
             }
@@ -105,7 +160,7 @@ function showData() {
                     listDaya.map((item) => {
                         return {
                             ...item,
-                            Tanggal: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.Tanggal}`,
+                            NamaType: `<input class="form-check-input" type="checkbox" value="${item.KodeBarcode}" name="checkbox_barcode"> ${item.NamaType}`,
                         };
                     }),
                     colBarcode,
@@ -119,7 +174,7 @@ function showData() {
                 clearTable_DataTable(
                     "table_barcode",
                     colBarcode.length,
-                    "Tidak ditemukan Data Barcode."
+                    "Barcode Tidak Ditemukan."
                 );
             }
         }
