@@ -18,6 +18,12 @@ $(document).ready(function () {
         ],
     });
 
+    $('#TableType1').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
     var ButtonDivisi = document.getElementById('ButtonDivisi')
     ButtonDivisi.addEventListener("click", function (event) {
         event.preventDefault();
@@ -112,5 +118,65 @@ function openModal() {
 
 function closeModal() {
     var modal = document.getElementById('myModal');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal1() {
+    var modal = document.getElementById("myModal1");
+    modal.style.display = "block"; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal1() {
+    var modal = document.getElementById("myModal1");
+    modal.style.display = "none"; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal2() {
+    var modal = document.getElementById("myModal2");
+    modal.style.display = "block"; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal2() {
+    var modal = document.getElementById("myModal2");
+    modal.style.display = "none"; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal3() {
+    var modal = document.getElementById('myModal3');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal3() {
+    var modal = document.getElementById('myModal3');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal4() {
+    var modal = document.getElementById('myModal4');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal4() {
+    var modal = document.getElementById('myModal4');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal5() {
+    var modal = document.getElementById('myModal5');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal5() {
+    var modal = document.getElementById('myModal5');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal6() {
+    var modal = document.getElementById('myModal6');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal6() {
+    var modal = document.getElementById('myModal6');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }

@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Scan Mutasi Satu Divisi')</title>
+    <title style="font-size: 20px">@yield('title', 'Scan Mutasi Satu Divisi')</title>
     <script type="text/javascript" src="{{ asset('js/ScanMutasiSatuDivisi.js') }}"></script>
 
 
@@ -19,7 +19,7 @@
                                         </div>
                                         <div class="form-group col-md-8 mt-3 mt-md-0">
                                             <input type="text" class="form-control" name="Barcode" id="Barcode"
-                                                placeholder="Barcode" >
+                                                placeholder="Barcode">
                                         </div>
                                     </div>
 
