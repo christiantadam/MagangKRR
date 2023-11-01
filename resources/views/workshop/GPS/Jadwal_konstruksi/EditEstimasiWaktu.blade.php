@@ -87,5 +87,64 @@
       </div>
     </div>
   </div>
+<!-- Button trigger modal -->
+{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEditJamKerja">
+    Launch demo modal
+  </button> --}}
+
+  <!-- Modal -->
+  <div class="modal fade" id="ModalEditJamKerja" tabindex="-1" role="dialog" aria-labelledby="ModalEditJamKerjaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalEditJamKerjaLabel">Edit Jam Kerja Optimal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <h5>Konstruksi</h5>
+                <div class="row" style="align-items: center;margin-top: 10px;">
+                    <div class="col-3">
+                        <span>Tanggal</span>
+                    </div>
+                    <div class="col-6">
+                        <input type="date" class="form-control" name="TanggalModal"id="TanggalModal">
+                    </div>
+                </div>
+                <div class="row" style="align-items: center;margin-top: 10px;">
+                    <div class="col-3">
+                        <span>Work Station</span>
+                    </div>
+                    <div class="col-6">
+                        <select class="custom-select" name="WorkStationModal" style="width: 36vh;
+                        height: 5vh;"
+                          id="WorkStationModal">
+                          <option disabled selected>Pilih Work Station</option>
+                          @foreach ($data as $d)
+                            <option value="{{ $d->NoWrkSts }}">{{ $d->NoWrkSts }} -- {{ $d->NamaWorkStation }}</option>
+                          @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="align-items: center;margin-top: 10px;">
+                    <div class="col-3">
+                        <span>Jml Jam Kerja</span>
+                    </div>
+                    <div class="col-6">
+                        <input type="number" class="form-control" name="Jammodal" placeholder="Jam" id="Jammodal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Proses</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="{{ asset('js/Andre-WorkShop/GPS/JadwalKonstruksi/EditEstimasiWaktu.js') }}"></script>
+
 @endsection

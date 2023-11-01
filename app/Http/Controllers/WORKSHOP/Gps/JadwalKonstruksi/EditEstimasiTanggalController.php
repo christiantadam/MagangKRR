@@ -55,9 +55,12 @@ class EditEstimasiTanggalController extends Controller
         }
         if ($newTgl < $tglS || $newTgl > $tglF) {
             if ($newTgl < $tglS) {
-                return("Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
-                $tglS +
-                ") yg dijadwalkan oleh PPIC.");
+                // return("Tidak boleh. Karena tgl yg diinput < estimasi tgl start(" +
+                // $tglS +
+                // ") yg dijadwalkan oleh PPIC.");
+                return redirect()->route('EditEstimasiTanggal.index')->with('alert', 'Tidak boleh. Karena tgl yg diinput < estimasi tgl start(' .
+                $tglS->format('Y-m-d') .
+                ') yg dijadwalkan oleh PPIC.');
             }
             else if($newTgl > $tglF){
                 return("Tidak boleh. Karena tgl yg diinput > estimasi tgl finish(" +
@@ -74,7 +77,7 @@ class EditEstimasiTanggalController extends Controller
             return true;
         }
         // $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_CEK-ESTDATE-KONSTRUKSI] @estDate = ?, @worksts = ?', [$estDate, $worksts]);
-        return response()->json($data1);
+        // return response()->json($data1);
     }
 
 

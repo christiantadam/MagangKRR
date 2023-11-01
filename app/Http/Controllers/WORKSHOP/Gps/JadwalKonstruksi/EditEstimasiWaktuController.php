@@ -21,26 +21,39 @@ class EditEstimasiWaktuController extends Controller
         // dd($data);
         $no_Antri = [];
         $idk = 0;
+        // dd($worksts,$date1,$data);
         for ($i = 0; $i < count($data); $i++) {
             # code...
+            // dd(count($data));
             if ($data[$i]->Cancel == 0) {
                 # code...
                 $no_Antri[] = $data[$i]->NoAntrian;
                 $idk += 1;
             }
         }
+        // dd($no_Antri,$data);
         $arraydata = [];
-        for ($k = 0; $k < $idk - 1; $k++) {
+        // dd($idk);
+        for ($k = 0; $k < $idk; $k++) {
             # code...
-            $table = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date1 = ?, @worksts = ? ', [1,$no_Antri[$k], $date1, $worksts]);
+            $table = DB::connection('Connworkshop')->select('[SP_5298_PJW_JADWAL-KONSTRUKSI] @kode = ?, @noAntri = ?, @date = ?, @worksts = ? ', [1, $no_Antri[$k], $date1, $worksts]);
             $arraydata[] = $table;
         }
-        return response()->json($arraydata);
+        $result = array();
+        foreach ($table as $sub_array) {
+            foreach ($sub_array as $element) {
+                $result[] = $element;
+            }
+        }
+        // dd($arraydata, $no_Antri,$date1, $worksts, $data, $result);
+        return response()->json($result);
     }
-    public function hitungjam($EstDate, $worksts , $noQue) {
-        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-JAM-KONSTRUKSI] @EstDate = ?, @worksts = ?, @noQue = ?', [$EstDate,$worksts,$noQue]);
+    public function hitungjam($EstDate, $worksts, $noQue)
+    {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-JAM-KONSTRUKSI] @EstDate = ?, @worksts = ?, @noQue = ?', [$EstDate, $worksts, $noQue]);
         return response()->json($data);
     }
+
 
     public function create()
     {

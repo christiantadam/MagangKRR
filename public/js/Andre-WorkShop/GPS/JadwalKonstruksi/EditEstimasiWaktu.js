@@ -6,11 +6,12 @@ let jam = document.getElementById("jam");
 let menit = document.getElementById("menit");
 let refresh = document.getElementById("refresh");
 let btnEdit = document.getElementById("btnEdit");
-var noAntri,idBagian,estHour,estMinute;
+var noAntri, idBagian, estHour, estMinute;
 var estJam = [];
 var estMenit = [];
 var boleh;
-
+let TanggalModal = document.getElementById("TanggalModal");
+let WorkStationModal = document.getElementById("WorkStationModal");
 //#region  set tanggal
 
 const currentDate = new Date();
@@ -166,17 +167,17 @@ btnEdit.addEventListener("click", function (event) {
             noAntri = table_data.cell(rowindex, 0).data();
             idBagian = table_data.cell(rowindex, 8).data();
             // estHour = ;
-        //     If ListOpr.Items(i).Checked Then
-        //     noAntri = Trim(ListOpr.Items(i).Text)
-        //     idBagian = CInt(ListOpr.Items(i).SubItems(8).Text)
-        //     estHour = estJam(i)
-        //     estMinute = estMenit(i)
-        //     TEstTime.Text = estHour
-        //     TEstTime1.Text = estMinute
-        //     TEstTime.Enabled = True
-        //     TEstTime1.Enabled = True
-        //     TEstTime.Focus()
-        // End If
+            //     If ListOpr.Items(i).Checked Then
+            //     noAntri = Trim(ListOpr.Items(i).Text)
+            //     idBagian = CInt(ListOpr.Items(i).SubItems(8).Text)
+            //     estHour = estJam(i)
+            //     estMinute = estMenit(i)
+            //     TEstTime.Text = estHour
+            //     TEstTime1.Text = estMinute
+            //     TEstTime.Enabled = True
+            //     TEstTime1.Enabled = True
+            //     TEstTime.Focus()
+            // End If
             // indeks.push(rowindex);
         });
     }
@@ -187,8 +188,13 @@ btnEdit.addEventListener("click", function (event) {
 //#region btn proses
 
 function btnproses_click() {
-    var TotalMenitKrj,TotalMenitPk,TotalSisaMenitKrj,sisa_jam,sisa_menit,ada_lebih1;
-    var menitTbh,total_menit_input,simpan;
+    var TotalMenitKrj,
+        TotalMenitPk,
+        TotalSisaMenitKrj,
+        sisa_jam,
+        sisa_menit,
+        ada_lebih1;
+    var menitTbh, total_menit_input, simpan;
     $("input[name='EditEstimasiWaktuCheck']").each(function () {
         let rowindex = $(this).closest("tr").index();
         if (noAntri == table_data.cell(rowindex, 0).data()) {
@@ -196,50 +202,66 @@ function btnproses_click() {
             estMenit.push(menit.value);
         }
     });
-    fetch("/LoaddataEditEstimasiWaktu/" + tgl.value + "/" + WorkStation.value +"/"+noAntri)
-    .then((response) => response.json())
-    .then((datas) => {
-        console.log(datas);
-        if (datas.length > 0) {
-            TotalMenitKrj = datas[0].TotalMenitKrj;
-            TotalMenitPk = datas[0].TotalMenitPk;
-            TotalSisaMenitKrj = datas[0].SisaMenitKrj_bantu;
-            sisa_jam = datas[0].SisaJamKrj;
-            sisa_menit = datas[0].SisaMenitKrj;
-            ada_lebih1 = datas[0].ada;
+    fetch(
+        "/hitungjamEditEstimasiWaktu/" +
+            tgl.value +
+            "/" +
+            WorkStation.value +
+            "/" +
+            noAntri
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas.length > 0) {
+                TotalMenitKrj = datas[0].TotalMenitKrj;
+                TotalMenitPk = datas[0].TotalMenitPk;
+                TotalSisaMenitKrj = datas[0].SisaMenitKrj_bantu;
+                sisa_jam = datas[0].SisaJamKrj;
+                sisa_menit = datas[0].SisaMenitKrj;
+                ada_lebih1 = datas[0].ada;
 
-            if (ada_lebih1 > 0) {
-                menitTbh = (jam.value * 60) + menit.value;
-                total_menit_input = menitTbh + TotalMenitPk;
-            }
-            else {
-                menitTbh = (jam.value * 60) + menit.value;
-                total_menit_input = menitTbh;
-            }
-            if (total_menit_input <= TotalMenitKrj) {
-                simpan = 1;
-            }
-            else{
-                alert("Jam kerja optimal tidak cukup....");
-                var hasil_msg = confirm("Edit jam kerja optimal (OK), atau geser jadwal yang tidak tertampung ke hari berikutnya (Batal) ??");
-                if (hasil_msg) {
-                    boleh = False;
-
-                //     While boleh = False
-                //     form_edit.Tanggal.Text = CDate(Date1.Text)
-                //     form_edit.TWorkSts.Text = TWorkSts.Text
-                //     form_edit.TNoWorkSts.Text = TNoWorkSts.Text
-                //     If form_edit.ShowDialog(Me) = DialogResult.OK Then
-                //         Call hitung_jam()
-                //         If boleh = True Then
-                //             simpan = 1
-                //         End If
-                //     End If
-                // End While
+                if (ada_lebih1 > 0) {
+                    menitTbh = jam.value * 60 + menit.value;
+                    total_menit_input = menitTbh + TotalMenitPk;
+                } else {
+                    menitTbh = jam.value * 60 + menit.value;
+                    total_menit_input = menitTbh;
+                }
+                if (total_menit_input <= TotalMenitKrj) {
+                    simpan = 1;
+                } else {
+                    alert("Jam kerja optimal tidak cukup....");
+                    var hasil_msg = confirm(
+                        "Edit jam kerja optimal (OK), atau geser jadwal yang tidak tertampung ke hari berikutnya (Batal) ??"
+                    );
+                    if (hasil_msg) {
+                        boleh = False;
+                        while (boleh == false) {
+                            TanggalModal.value = tgl.value;
+                            // WorkStationModal.value =
+                            for (var i = 0; i < WorkStationModal.options.length; i++) {
+                                if (WorkStationModal.options[i].value == WorkStation.value) {
+                                    WorkStationModal.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                        //     While boleh = False
+                        //     form_edit.Tanggal.Text = CDate(Date1.Text)
+                        //     form_edit.TWorkSts.Text = TWorkSts.Text
+                        //     form_edit.TNoWorkSts.Text = TNoWorkSts.Text
+                        //     If form_edit.ShowDialog(Me) = DialogResult.OK Then
+                        //         Call hitung_jam()
+                        //         If boleh = True Then
+                        //             simpan = 1
+                        //         End If
+                        //     End If
+                        // End While
+                    }
                 }
             }
-        }
-    });
+        });
 }
 
 //#endregion
