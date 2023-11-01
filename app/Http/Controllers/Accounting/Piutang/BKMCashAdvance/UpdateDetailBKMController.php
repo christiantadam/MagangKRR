@@ -53,6 +53,15 @@ class UpdateDetailBKMController extends Controller
         return response()->json($tabel);
     }
 
+    public function getCetakUpdateDetailBKM($idBKMInput)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_CASHADV')
+        ->where('Id_BKM', $idBKMInput)
+        ->get();
+        return $data;
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
