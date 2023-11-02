@@ -159,6 +159,35 @@ function addTable_DataTable(
         });
 
         addSearchBar_DataTable(tableId);
+    } else if (extra == "colored_row") {
+        $("#" + tableId).DataTable({
+            responsive: true,
+            paging: false,
+            scrollY: tHeight != null ? tHeight : "250px",
+            scrollX: colWidth != null ? "1000000px" : "",
+            data: listData,
+            columns: colObject,
+            dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
+            language: {
+                searchPlaceholder:
+                    " Tabel " +
+                    tableId.replace("table_", "").replace("_", " ") +
+                    "...",
+                search: "",
+                info: "Menampilkan _TOTAL_ data",
+            },
+
+            rowCallback: function (row, data, index) {
+                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
+                    if (rowFun != null) {
+                        row.style.cursor = "pointer";
+                        rowFun(row, data, index);
+                    } else row.style.cursor = "default";
+                }
+            },
+        });
+
+        addSearchBar_DataTable(tableId);
     } else {
         $("#" + tableId).DataTable({
             responsive: true,
