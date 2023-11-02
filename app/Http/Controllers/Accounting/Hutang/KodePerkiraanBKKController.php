@@ -4,13 +4,31 @@ namespace App\Http\Controllers\Accounting\Hutang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KodePerkiraanBKKController extends Controller
 {
-    public function KodePerkiraanBKK()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Hutang.KodePerkiraanBKK', compact('data'));
+    }
+
+    public function getIdBKKKdPrk($BlnThn)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_UDT_BKK_KDKIRA] @Kode = ?, @BlnThn = ?', [2, $BlnThn]);
+        return response()->json($tabel);
+    }
+    public function getIdBKKKdPrk2($BlnThn)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_UDT_BKK_KDKIRA] @Kode = ?, @BlnThn = ?', [3, $BlnThn]);
+        return response()->json($tabel);
+    }
+
+    public function getTabelRincianBKK($idBKK)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_1273_ACC_LIST_BKK_KDKIRA] @IdBKK = ?', [$idBKK]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
