@@ -50,10 +50,10 @@
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
                                 <input class="form-control" type="date" id="TglMutasi" name="TglMutasi"
-                                    value="{{ old('TglMulai', now()->format('Y-m-d')) }}" required
+                                    value="{{ old('TglMutasi', now()->format('Y-m-d')) }}" disabled
                                     style="max-width: 200px;">
                                 <button type="button" class="btn btn-light" style="margin-left: 10px" id="buttonListData"
-                                    onclick=showModalData()>List Data</button>
+                                    onclick=showModalData() disabled>List Data</button>
                                 <div class="modal fade" id="modalData" role="dialog" arialabelledby="modalLabel"
                                     area-hidden="true" style="">
                                     <div class="modal-dialog " role="document">
@@ -106,9 +106,9 @@
                                 <span class="aligned-text">Kd Pegawai:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Pegawai" readonly
+                                <input class="form-control" type="text" id="Id_Pegawai"
                                     style="resize: none; height: 40px; width: 100px;"disabled>
-                                <input class="form-control ml-3" type="text" id="Nama_Pegawai" readonly
+                                <input class="form-control ml-3" type="text" id="Nama_Pegawai"
                                     style="resize: none; height: 40px; width: 263px;"disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
@@ -125,9 +125,9 @@
                                 <span class="aligned-text">Divisi:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Divisi" readonly
+                                <input class="form-control" type="text" id="Id_Divisi"
                                     style="resize: none; height: 40px; width: 100px;" disabled>
-                                <input class="form-control ml-3" type="text" id="Nama_Divisi" readonly
+                                <input class="form-control ml-3" type="text" id="Nama_Divisi"
                                     style="resize: none; height: 40px; width: 263px;" disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
@@ -165,9 +165,9 @@
                                 <span class="aligned-text">Divisi:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Divisi_Baru" readonly
+                                <input class="form-control" type="text" id="Id_Divisi_Baru"
                                     style="resize: none; height: 40px; width: 100px;" disabled>
-                                <input class="form-control ml-3" type="text" id="Nama_Divisi_Baru" readonly
+                                <input class="form-control ml-3" type="text" id="Nama_Divisi_Baru"
                                     style="resize: none; height: 40px; width: 263px;" disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
@@ -221,9 +221,9 @@
                                 <span class="aligned-text">Manager:</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0">
-                                <input class="form-control" type="text" id="Id_Manager" readonly
+                                <input class="form-control" type="text" id="Id_Manager"
                                     style="resize: none; height: 40px; width: 100px;"disabled>
-                                <input class="form-control ml-3" type="text" id="Nama_Manager" readonly
+                                <input class="form-control ml-3" type="text" id="Nama_Manager"
                                     style="resize: none; height: 40px; width: 263px;"disabled>
                                 {{-- <select class="form-control" id="Nama_Div" readonly name="Nama_Div"
                                         style="resize: none; height: 40px; max-width: 250px;">
@@ -298,8 +298,8 @@
                                 <span class="aligned-text">Prioritas :</span>
                             </div>
                             <div class="form-group col-md-9 mt-3 mt-md-0" style="max-width:480px;">
-                                <input type="text" class="form-control" name="Divisi_pengiriman"
-                                    id="Divsi_pengiriman" placeholder="" required>
+                                <input type="text" class="form-control" name="Prioritas"
+                                    id="Prioritas" placeholder="" required>
 
                             </div>
                         </div>
@@ -333,12 +333,14 @@
 
 
 
-                    <div class="row" style="padding-top: 20px; margin:20px;">
+                    <div class="row" style=" margin:20px;">
                         <div class="col-6" style="text-align: left; ">
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px">Isi</button>
-                            <button type="button" class="btn btn-info" style="margin-left: 10px">Koreksi</button>
-                            <button type="button" class="btn btn-danger" style="margin-left: 10px">Hapus</button>
-                            <button type="button" class="btn btn-dark" style="margin-left: 10px">Keluar</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="simpanButton" hidden>SIMPAN</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="batalButton" hidden>BATAL</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="isiButton">ISI</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="koreksiButton">KOREKSI</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="hapusButton">HAPUS</button>
+                            <button type="button" class="" style="margin-left: 10px;width:80px;" id="keluarButton">KELUAR</button>
 
                         </div>
                         <div class="col-6" style="text-align: right; ">
