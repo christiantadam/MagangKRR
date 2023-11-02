@@ -136,22 +136,54 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button" id="ButtonPrintBarcode"
-                                                    style="width: 180px; height: 50px">Print Barcode
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    id="ButtonPrintBarcode" style="width: 180px; height: 50px">Print Barcode
                                                 </button></div>
                                         </div>
 
-                                        <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
+                                        <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px; height: 50px">ACC Barcode</button>
+                                                    onclick="openModal3()" id="ButtonJumlahBarang"
+                                                    style="width:180px; height: 50px">Acc Barcode</button>
+                                            </div>
+                                            <div class="modal" id="myModal3">
+                                                <div class="modal-content">
+                                                    <span class="close-btn" onclick="closeModal3()">&times;</span>
+                                                    <div class="card col-md-auto">
+                                                        <div class="row form-group">
+                                                            <div class="col-md-3 d-flex justify-content-end">
+                                                                <span class="aligned-text mt-3">No Barcode:</span>
+                                                            </div>
+                                                            <div class="mt-4">
+                                                                <div class="form-group col-md-auto mt-3 mt-md-1">
+                                                                    <input type="text" class="form-control"
+                                                                        name="BarcodeACC" id="BarcodeACC"
+                                                                        style="width: 500px" placeholder="Barcode">
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center col-md-auto"
+                                                                style="margin-top: 15px; margin-left:350px;"><button
+                                                                    style="width: 100px; height: 50px"
+                                                                    onclick="prosesACCBarcode()"
+                                                                    type="button">Ok</button></div>
+                                                            <div class="text-center col-md-auto" style="margin-top: 15px;"
+                                                                onclick="closeModal3()"><button
+                                                                    style="width: 100px; height: 50px"
+                                                                    type="button">Cancel</button></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width: 180px; height: 50px">Print Ulang</button>
+                                                    onclick="PrintUlangData()" style="width:180px; height: 50px">Print
+                                                    Ulang</button>
                                             </div>
                                         </div>
+
+                                        <div id="form-container"></div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
@@ -203,11 +235,13 @@
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="ID_Subkelompok"
-                                                    rows="ID_Kelompok" placeholder="Id SubKelompok" readonly>
+                                                    id="ID_Subkelompok" rows="ID_Subkelompok"
+                                                    placeholder="Id SubKelompok" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="Subkelompok"
-                                                    rows="Subkelompok" placeholder="Sub Kelompok" readonly>
+                                                    id="Subkelompok" rows="Subkelompok" placeholder="Sub Kelompok"
+                                                    readonly>
                                             </div>
                                         </div>
 
@@ -217,11 +251,11 @@
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="IdType" rows="IdType"
-                                                    placeholder="Id Type" readonly>
+                                                    id="IdType" placeholder="Id Type" readonly>
                                             </div>
                                             <div class="form-group col-md-6 mt-3 mt-md-0">
                                                 <input class="form-control" type="text" name="Type" rows="Type"
-                                                    placeholder="Type" readonly>
+                                                    id="Type" placeholder="Type" readonly>
                                             </div>
                                         </div>
                                     </div>

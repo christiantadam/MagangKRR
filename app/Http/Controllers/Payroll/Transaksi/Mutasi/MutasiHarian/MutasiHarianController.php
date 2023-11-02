@@ -29,9 +29,37 @@ class MutasiHarianController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($crExplode);
+        if ($crExplode[$lastIndex] == "getDataMutasi") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_HISTORY_MUTASI @Kode = ?, @Jenis_peg = ?, @Tanggal = ?', [1,1,$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }else if ($crExplode[$lastIndex] == "getMutasiFull") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_HISTORY_MUTASI @Kode = ?, @New_Kd_Pegawai = ?', [2,$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }else if ($crExplode[$lastIndex] == "getDivisi") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_DIVISI_HARIAN @Kode = ?', [1]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }else if ($crExplode[$lastIndex] == "getManager") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_SLC_MANAGER');
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }else if ($crExplode[1] == "getKodePegawai") {
+            // getPegawaiKeluarga
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_CEK_KODE_PEGAWAI @Id_div = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

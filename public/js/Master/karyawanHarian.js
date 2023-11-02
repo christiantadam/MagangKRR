@@ -68,7 +68,7 @@ $(document).ready(function () {
     });
     $("#tabel_Divisi tbody").on("click", "tr", function () {
         // Get the data from the clicked row
-        clearForm();
+        // clearForm();
 
         var rowData = $("#tabel_Divisi").DataTable().row(this).data();
         // Populate the input fields with the data
@@ -142,7 +142,7 @@ $(document).ready(function () {
     });
     $("#tabel_Pegawai tbody").on("click", "tr", function () {
         // Get the data from the clicked row
-        clearForm();
+        // clearForm();
         var rowData = $("#tabel_Pegawai").DataTable().row(this).data();
         // Populate the input fields with the data
         $("#Id_Peg").val(rowData[0]);
@@ -652,6 +652,8 @@ $(document).ready(function () {
     const divisiButton = document.getElementById("divisiButton");
     const posisiButton = document.getElementById("posisiButton");
     const pegawaiButton = document.getElementById("pegawaiButton");
+    const Id_Div = document.getElementById("Id_Div");
+    const Nama_Div = document.getElementById("Nama_Div");
     const kd_peg = document.getElementById("Id_Peg");
     const nama_peg = document.getElementById("Nama_Peg");
     const no_induk = document.getElementById("NomorInduk");
@@ -681,6 +683,7 @@ $(document).ready(function () {
     const pendidikan = document.getElementById("Pendidikan");
     const Shift = document.getElementById("Id_Shift");
     const pos = document.getElementById("Kd_Posisi");
+    const TglMasukKop = document.getElementById("TglMasukKop");
     const TglAwalKontrak = document.getElementById("TglAwalKontrak");
     const TglAkhirKontrak = document.getElementById("TglAkhirKontrak");
     const Tanggungan = document.getElementById("JmlTanggungan");
@@ -688,6 +691,8 @@ $(document).ready(function () {
     const No_rek = document.getElementById("NomorRek");
     const NIK = document.getElementById("NIK");
     function clearForm(){
+        Id_Div.value = "";
+        Nama_Div.value = "";
         kd_peg.value = "";
         nama_peg.value = "";
         no_induk.value = "";
@@ -717,8 +722,9 @@ $(document).ready(function () {
         pendidikan.value = "";
         Shift.value = "";
         // pos.disabled = false;
-        // TglAwalKontrak.value = "";
-        // TglAkhirKontrak.value = "";
+        TglMasukKop.value = "";
+        TglAwalKontrak.value = "";
+        TglAkhirKontrak.value = "";
         Tanggungan.value = "";
         NPWP.value = "";
         No_rek.value = "";
@@ -821,6 +827,7 @@ $(document).ready(function () {
     });
     koreksiPegawai.addEventListener("click", function (event) {
         // console.log(kd_peg + 'lol');
+        clearForm();
         posisiButton.disabled = false;
         divisiButton.disabled = false;
         pegawaiButton.disabled = false;

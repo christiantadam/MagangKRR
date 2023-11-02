@@ -433,6 +433,10 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'spSelect_TerimaDariKRR2':
+                $param_str = '@NoSJ = ?, @Kode = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             case 'SP_1273_INV_CekBarangSetJadi_TidakKirim':
                 $param_str = '@KodeBarang = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);

@@ -444,7 +444,7 @@ Route::resource('ProgramPayroll/MaintenanceKoreksi', App\Http\Controllers\Payrol
 Route::resource('ProgramPayroll/Koperasi', App\Http\Controllers\Payroll\Transaksi\Koperasi\KoperasiController::class);
 Route::resource('ProgramPayroll/MaintenanceResign', App\Http\Controllers\Payroll\Transaksi\MaintenanceResign\MaintenanceResignController::class);
 Route::resource('ProgramPayroll/KenaikanUpah', App\Http\Controllers\Payroll\Transaksi\KenaikanUpah\KenaikanUpahController::class);
-Route::resource('ProgramPayroll/Skorsing/Permohonan', App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController::class);
+Route::resource('ProgramPayroll/Skorsing/PermohonanSkorsing', App\Http\Controllers\Payroll\Transaksi\Skorsing\Permohonan\PermohonanController::class);
 Route::resource('ProgramPayroll/Skorsing/AccBayar', App\Http\Controllers\Payroll\Transaksi\Skorsing\AccBayar\AccBayarController::class);
 Route::resource('ProgramPayroll/Peringatan/Permohonan', App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController::class);
 Route::resource('ProgramPayroll/ProsesGajiStaff', App\Http\Controllers\Payroll\Transaksi\ProsesGaji\ProsesGajiController::class);
@@ -735,6 +735,7 @@ Route::get('getalldataACCDirekturKerja/{tglawal}/{tglakhir}', 'App\Http\Controll
 Route::get('getsaldoACCDirekturKerja/{kode}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturKerjaController@getdatasaldo');
 
 Route::resource('ACCPPIC', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCPPICController::class);
+Route::get('ACCCPPIC/{user}/{nomorOrder}', 'App\Http\Controllers\WORKSHOP\Workshop\Transaksi\ACCDirekturKerjaController@ACCCPPIC');
 
 
 Route::resource('PenerimaOrderKerja', App\Http\Controllers\WORKSHOP\Workshop\Transaksi\PenerimaOrderKerjaController::class);

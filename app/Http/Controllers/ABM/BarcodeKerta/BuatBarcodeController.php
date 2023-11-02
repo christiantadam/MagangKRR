@@ -101,7 +101,7 @@ class BuatBarcodeController extends Controller
             DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
                 $data['kodebarang'],
                 $data['noindeks'],
-                'U001'
+                '4384'
             ]);
             return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
 
@@ -117,7 +117,7 @@ class BuatBarcodeController extends Controller
             DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcodeOtomatis @kodebarang = ?, @noindeks = ?, userid = ?', [
                 $data['kodebarang'],
                 $data['noindeks'],
-                "U001"
+                "4384"
             ]);
             return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
 

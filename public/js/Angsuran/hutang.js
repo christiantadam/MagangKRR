@@ -436,7 +436,12 @@ $(document).ready(function () {
             })
             .then((data) => {
                 if (data.length > 0) {
-                    let Bukti = data[0].nomor;
+                    let Bukti;
+                    if (data[0].nomor != null) {
+                        Bukti = data[0].nomor;
+                    }else{
+                        Bukti = 0;
+                    }
                     let tgl = new Date(data[0].tgl_server);
 
                     Bukti = (parseInt(Bukti) + 1).toString().padStart(4, '0');
