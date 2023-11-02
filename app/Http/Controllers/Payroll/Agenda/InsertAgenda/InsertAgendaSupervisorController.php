@@ -103,17 +103,17 @@ class InsertAgendaSupervisorController extends Controller
                 $kd_pegawai,
             ]);
             if ($wewe4 == "") {
-                $awal_jam_istirahat = "";
+                $awal_jam_istirahat = null;
             } else {
                 $awal_jam_istirahat = $awal_istirahat->format('Y-m-d H:i:s');
             }
             if ($wewe5 == "") {
-                $akhir_jam_istirahat = "";
+                $akhir_jam_istirahat = null;
             } else {
                 $akhir_jam_istirahat = $akhir_istirahat->format('Y-m-d H:i:s');
             }
             if ($dataAgenda[0]->ada == '0') {
-                DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_UPDATE_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_jam_istirahat = ?, @awalistirahat = ?, @akhiristirahat = ?, @jmljam = ?, @shift = ?', [
+                DB::connection('ConnPayroll')->statement('exec SP_1003_PAY_UPDATE_AGENDA @kd_pegawai = ?, @Tanggal = ?, @Jam_Masuk = ?, @Jam_Keluar = ?, @Jml_Jam= ?, @awal_jam_istirahat = ?, @akhir_jam_istirahat = ?, @Ket_Absensi = ?, @User_koreksi = ?', [
                     $kd_pegawai,
                     $data['Tanggal'],
                     $masuk->format('Y-m-d H:i:s'),
@@ -122,11 +122,21 @@ class InsertAgendaSupervisorController extends Controller
                     $awal_jam_istirahat,
                     $akhir_jam_istirahat,
                     'm',
-                    $data['User_Input']
+                    $data['User_Input'],
+
                 ]);
             }
         }
-        dd($masuk->format('Y-m-d H:i:s'));
+        return redirect()->route('InsertSupervisor.index')->with('alert', "Data sudah diproses di Actual untuk kode pegawai " .$kd_pegawai );
+        // dd( $kd_pegawai,
+        // $data['Tanggal'],
+        // $masuk->format('Y-m-d H:i:s'),
+        // $pulang->format('Y-m-d H:i:s'),
+        // $wewe3,
+        // $awal_jam_istirahat,
+        // $akhir_jam_istirahat,
+        // 'm',
+        // $data['User_Input'],);
     }
 
     //Display the specified resource.

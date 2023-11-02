@@ -218,7 +218,7 @@ $(document).ready(function () {
         $("#Id_PegawaiBaru").val(rowData[0]);
         $("#Nama_PegawaiBaru").val(rowData[1]);
         $("#Nama_PegawaiBaru2").val(rowData[1]);
-        getNomorKoperasiBaru(rowData[0]);
+        // getNomorKoperasiBaru(rowData[0]);
         hideModalPegawaiBaru();
     });
     prosesButton.addEventListener("click", function (event) {

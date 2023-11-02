@@ -36,7 +36,7 @@ class HutangHarianController extends Controller
             $data['Keterangan'],
             0,
         ]);
-        return redirect()->route('Hutang.index')->with('alert', 'Data hutang berhasil ditambahkan!');
+        return redirect()->route('HutangHarian.index')->with('alert', 'Data hutang berhasil ditambahkan!');
     }
 
     //Display the specified resource.
@@ -69,7 +69,7 @@ class HutangHarianController extends Controller
         }else if ($crExplode[$lastIndex] == "getNomorBukti") {
             $dataNomor = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_NO_BUKTI');
             // Return the options as JSON data
-            // dd($dataHutang);
+            // dd($dataNomor);
             return response()->json($dataNomor);
         }
     }
@@ -91,7 +91,7 @@ class HutangHarianController extends Controller
             $data['Sisa'],
             $data['Keterangan'],
         ]);
-        return redirect()->route('Hutang.index')->with('alert', 'Data hutang berhasil diupdate!');
+        return redirect()->route('HutangHarian.index')->with('alert', 'Data hutang berhasil diupdate!');
     }
 
     //Remove the specified resource from storage.
@@ -102,6 +102,6 @@ class HutangHarianController extends Controller
         DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_DEL_HUTANG_MASTER @no_bukti = ?', [
             $data['Bukti'],
         ]);
-        return redirect()->route('Hutang.index')->with('alert', 'Data hutang berhasil dihapus!');
+        return redirect()->route('HutangHarian.index')->with('alert', 'Data hutang berhasil dihapus!');
     }
 }

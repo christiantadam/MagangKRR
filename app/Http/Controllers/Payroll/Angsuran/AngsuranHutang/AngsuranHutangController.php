@@ -56,7 +56,48 @@ class AngsuranHutangController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        $arrayNoHutang = explode(".", $data['listNomorHutang']);
+        $arrayNilaiAngsuran = explode(".", $data['listNilaiAngsuran']);
+        $arraySisa = explode(".", $data['listSisa']);
+        $length = count($arrayNoHutang);
+        $arrayNoBukti = [];
+
+        foreach ($arrayNoHutang as $hutang) {
+            $dataBukti = DB::connection('ConnPayroll')->select('exec SP_1486_PAY_NO_ANGSURAN @no_hutang = ?', [$hutang]);
+            $noAngs = !is_null($dataBukti[0]->nomor) ? $dataBukti[0]->nomor : '0';
+            if ($noAngs === '0') {
+                $no = 1;
+            } else {
+                $no = substr($noAngs, 0, 3) + 1;
+            }
+            $NoAngsuran = str_pad($no, 3, '0', STR_PAD_LEFT) . '/' . substr($hutang, 0, 4) . '/' . substr($hutang, -2);
+            $arrayNoBukti[] = $NoAngsuran;
+        };
+        // dd($data,$arrayNoHutang,$arrayNoBukti,$arrayNilaiAngsuran,$arraySisa);
+        for ($i = 0; $i < $length; $i++) {
+            DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_HUTANG_ANGSURAN @no_bukti = ?, @tanggal = ?, @no_hutang = ?, @nilai_angsuran = ?, @pot_gaji= ?, @sisa_hutang= ?', [
+
+                $arrayNoBukti[$i],
+                $data['tanggal_Hutang'],
+                $arrayNoHutang[$i],
+                $arrayNilaiAngsuran[$i],
+                'Y',
+                $arraySisa[$i]
+            ]);
+            if ($arraySisa == '0') {
+                DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_LUNAS_HUTANG @no_hutang = ?, @tgl_lunas = ?, @sisa = ?', [
+
+                    $arrayNoHutang[$i],
+                    $data['tanggal_Hutang'],
+                    $arraySisa[$i]
+
+                ]);
+            }
+            // dump($arrayNoHutang[$i],$arrayNoBukti[$i],$arrayNilaiAngsuran[$i],$arraySisa[$i]);
+        };
+
+        return redirect()->back()->with('alert', 'Data sudah TerSimpan.');
     }
 
     //Remove the specified resource from storage.

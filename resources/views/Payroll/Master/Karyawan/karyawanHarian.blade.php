@@ -1,6 +1,6 @@
 @extends('layouts.appPayroll')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Maintenance Karyawan Harian')</title>
+    <title style="font-size: 20px">@yield('title', 'Maintenance Karyawan Harian')</title>
     <script type="text/javascript" src="{{ asset('js/Master/karyawanHarian.js') }}"></script>
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -346,8 +346,10 @@
                                         <span class="aligned-text">Tgl Awal Kontrak:</span>
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
-                                        <input class="form-control" type="date" id="TglAwalKontrak" name="TglLahir"
-                                            style="" value="{{ date('Y-m-d') }}" disabled>
+                                        <input type="text" class="form-control" name="TglAwalKontrak"
+                                            id="TglAwalKontrak" placeholder="" disabled>
+                                        {{-- <input class="form-control" type="date" id="TglAwalKontrak" name="TglLahir"
+                                            style="" value="{{ date('Y-m-d') }}" disabled> --}}
 
                                     </div>
                                 </div>
@@ -445,9 +447,10 @@
                                         <span class="aligned-text">Tgl Masuk Kop:</span>
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
-                                        <input class="form-control" type="date" id="TglMasukKop" name="Koperasi"
-                                            style="" value="{{ date('Y-m-d') }}" disabled>
-
+                                        {{-- <input class="form-control" type="date" id="TglMasukKop" name="Koperasi"
+                                            style="" value="{{ date('Y-m-d') }}" disabled> --}}
+                                        <input type="text" class="form-control" name="TglMasukKop"
+                                            id="TglMasukKop" placeholder="" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -455,9 +458,10 @@
                                         <span class="aligned-text">Tgl Akhir Kontrak:</span>
                                     </div>
                                     <div class="form-group col-md-9 mt-3 mt-md-0" style="">
-                                        <input class="form-control" type="date" id="TglAkhirKontrak" name="Kontrak"
-                                            style="" value="{{ date('Y-m-d') }}" disabled>
-
+                                        {{-- <input class="form-control" type="date" id="TglAkhirKontrak" name="Kontrak"
+                                            style="" value="{{ date('Y-m-d') }}" disabled> --}}
+                                        <input type="text" class="form-control" name="TglAkhirKontrak"
+                                            id="TglAkhirKontrak" placeholder="" disabled>
                                     </div>
                                 </div>
                                 <div class="row" style="">

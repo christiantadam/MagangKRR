@@ -78,7 +78,7 @@ $(document).ready(function () {
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "Permohonan");
+        form.setAttribute("action", "PermohonanSkorsing");
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -117,7 +117,7 @@ $(document).ready(function () {
     });
 
     divisiButton.addEventListener("click", function () {
-        fetch("/ProgramPayroll/Skorsing/Permohonan/" + ".getDivisi")
+        fetch("/ProgramPayroll/Skorsing/PermohonanSkorsing/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -150,7 +150,7 @@ $(document).ready(function () {
     pegawaiButton.addEventListener("click", function () {
         const Id_Div = document.getElementById("Id_Divisi").value;
         console.log("Masuk fungsi pegawai");
-        fetch("/ProgramPayroll/Skorsing/Permohonan/" + Id_Div + ".getPegawai")
+        fetch("/ProgramPayroll/Skorsing/PermohonanSkorsing/" + Id_Div + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
