@@ -53,6 +53,9 @@ class EditEstimasiWaktuController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-JAM-KONSTRUKSI] @EstDate = ?, @worksts = ?, @noQue = ?', [$EstDate, $worksts, $noQue]);
         return response()->json($data);
     }
+    public function EditJamKerjaKonstruksi() {
+
+    }
 
 
     public function create()

@@ -12,6 +12,7 @@ var estMenit = [];
 var boleh;
 let TanggalModal = document.getElementById("TanggalModal");
 let WorkStationModal = document.getElementById("WorkStationModal");
+let btnprosesmodal = document.getElementById("btnprosesmodal");
 //#region  set tanggal
 
 const currentDate = new Date();
@@ -220,7 +221,6 @@ function btnproses_click() {
                 sisa_jam = datas[0].SisaJamKrj;
                 sisa_menit = datas[0].SisaMenitKrj;
                 ada_lebih1 = datas[0].ada;
-
                 if (ada_lebih1 > 0) {
                     menitTbh = jam.value * 60 + menit.value;
                     total_menit_input = menitTbh + TotalMenitPk;
@@ -240,12 +240,29 @@ function btnproses_click() {
                         while (boleh == false) {
                             TanggalModal.value = tgl.value;
                             // WorkStationModal.value =
-                            for (var i = 0; i < WorkStationModal.options.length; i++) {
-                                if (WorkStationModal.options[i].value == WorkStation.value) {
+                            for (
+                                var i = 0;
+                                i < WorkStationModal.options.length;
+                                i++
+                            ) {
+                                if (
+                                    WorkStationModal.options[i].value ==
+                                    WorkStation.value
+                                ) {
                                     WorkStationModal.selectedIndex = i;
                                     break;
                                 }
                             }
+
+                            btnprosesmodal.addEventListener(
+                                "click",
+                                function () {
+                                    hitung_jam();
+                                    if (boleh == true) {
+                                        simpan = 1;
+                                    }
+                                }
+                            );
                         }
                         //     While boleh = False
                         //     form_edit.Tanggal.Text = CDate(Date1.Text)
@@ -264,4 +281,70 @@ function btnproses_click() {
         });
 }
 
+//#endregion
+
+//#region btn proses modal
+
+btnprosesmodal.addEventListener("click", function () {
+    fetch(
+        "/hitungjamEditEstimasiWaktu/" +
+            tgl.value +
+            "/" +
+            WorkStation.value +
+            "/" +
+            noAntri
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+        });
+});
+
+//#endregion
+
+//#region hitung_jam
+
+function hitung_jam() {
+    $("input[name='EditEstimasiWaktuCheck']").each(function () {
+        let rowindex = $(this).closest("tr").index();
+        if (noAntri == table_data.cell(rowindex, 0).data()) {
+            estJam.push(jam.value);
+            estMenit.push(menit.value);
+        }
+    });
+
+    fetch(
+        "/hitungjamEditEstimasiWaktu/" +
+            tgl.value +
+            "/" +
+            WorkStation.value +
+            "/" +
+            noAntri
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            console.log(datas);
+            if (datas.length > 0) {
+                TotalMenitKrj = datas[0].TotalMenitKrj;
+                TotalMenitPk = datas[0].TotalMenitPk;
+                TotalSisaMenitKrj = datas[0].SisaMenitKrj_bantu;
+                sisa_jam = datas[0].SisaJamKrj;
+                sisa_menit = datas[0].SisaMenitKrj;
+                ada_lebih1 = datas[0].ada;
+
+                if (ada_lebih1 > 0) {
+                    menitTbh = jam.value * 60 + menit.value;
+                    total_menit_input = menitTbh + TotalMenitPk;
+                } else {
+                    menitTbh = jam.value * 60 + menit.value;
+                    total_menit_input = menitTbh;
+                }
+                if (total_menit_input <= TotalMenitKrj) {
+                    boleh = true;
+                } else {
+                    boleh = true;
+                }
+            }
+        });
+}
 //#endregion
