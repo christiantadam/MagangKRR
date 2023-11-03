@@ -159,7 +159,9 @@ function addTable_DataTable(
         });
 
         addSearchBar_DataTable(tableId);
-    } else if (extra == "colored_row") {
+    } else if (extra[0] == "colored_row") {
+        // formTerimaKRR2.blade.php
+
         $("#" + tableId).DataTable({
             responsive: true,
             paging: false,
@@ -177,13 +179,11 @@ function addTable_DataTable(
                 info: "Menampilkan _TOTAL_ data",
             },
 
-            rowCallback: function (row, data, index) {
-                if ($(row).hasClass("odd") || $(row).hasClass("even")) {
-                    if (rowFun != null) {
-                        row.style.cursor = "pointer";
-                        rowFun(row, data, index);
-                    } else row.style.cursor = "default";
-                }
+            fnRowCallback: (nRow, aData) => {
+                // console.log(aData);
+                if (aData.Status == -1) {
+                    $(nRow).addClass("row_hijau");
+                } else $(nRow).addClass("row_merah");
             },
         });
 
