@@ -12,10 +12,12 @@ let kodePerkiraanSelect = document.getElementById('kodePerkiraanSelect');
 let idKodePerkiraan = document.getElementById('idKodePerkiraan');
 let idDetail = document.getElementById('idDetail');
 let idBayar = document.getElementById('idBayar');
-
 let idBKK = document.getElementById('idBKK');
 
 let btnProses = document.getElementById('btnProses');
+
+let methodkoreksi = document.getElementById('methodkoreksi');
+let formkoreksi = document.getElementById('formkoreksi');
 
 fetch("/getkodeperkiraan/")
     .then((response) => response.json())
@@ -155,4 +157,14 @@ $("#tabelbawah tbody").on("click", "tr", function () {
 
     kodePerkiraanSelect.focus();
     btnProses.disabled = false;
-})
+});
+
+btnProses.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    methodkoreksi.value="PUT";
+    //console.log(methodkoreksi.value);
+    formkoreksi.action = "/KodePerkiraanBKK/" + idDetail.value;
+    // console.log(idBayar.value);
+    formkoreksi.submit();
+});

@@ -13,7 +13,7 @@
                     @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="{{ url('KodePerkiraanBKM') }}" id="formkoreksi">
+                            <form method="POST" action="{{ url('KodePerkiraanBKK') }}" id="formkoreksi">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="_method" id="methodkoreksi">
                                 <div class="card-container" style="display: flex;">
@@ -102,7 +102,7 @@
                                                 </div>
                                                 <div class="row" style="padding-left: 15px">
                                                     <div class="col-md-4">
-                                                        <input type="text" id="idKodePerkiraan" name="kode_select" class="form-control" style="width: 100%">
+                                                        <input type="text" id="idKodePerkiraan" name="idKodePerkiraan" class="form-control" style="width: 100%">
                                                     </div>
                                                     <div class="col-md-7">
                                                         <select id="kodePerkiraanSelect" name="kodePerkiraanSelect" class="form-control">
@@ -148,7 +148,7 @@
                                     <div class="card-container" style="display: flex;">
                                         <div style="width: 40%;">
                                             <p><div style="padding-left: 450px">
-                                                <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-primary" disabled>
+                                                <input type="submit" id="btnProses" name="btnProses" value="PROSES" class="btn btn-success" disabled>
                                             </div>
                                             <div style="padding-left: 450px">
                                                 <input type="submit" name="keluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">
