@@ -29,6 +29,59 @@ $(document).ready(function () {
             [0, 'desc']
         ],
     });
+
+    $('#TableDivisi tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+
+        var rowData = $('#TableDivisi').DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $('#IdDivisi').val(rowData[0]);
+
+        fetch("/ABM/AccPermohonanSatuDivisi/" + rowData[0] + ".txtIdDivisi")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#TableObjek").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [
+                        item.IdObjek,
+                        item.NamaObjek
+                    ];
+                    $("#TableObjek").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableObjek").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        // Hide the modal immediately after populating the datas
+        closeModal();
+    });
+
+    $('#TableObjek tbody').on('click', 'tr', function () {
+        // Get the data from the clicked row
+
+        var rowData = $('#TableObjek').DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $('#IdObjek').val(rowData[0]);
+
+        // Hide the modal immediately after populating the datas
+        closeModal1();
+    });
 });
 
 function openModal() {

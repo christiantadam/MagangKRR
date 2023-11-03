@@ -1132,7 +1132,8 @@ Route::get('/ABM/ScanMutasiSatuDivisi', 'App\Http\Controllers\ABM\ScanMutasiSatu
 Route::resource('MutasiSatuDivisi', App\Http\Controllers\ABM\MutasiSatuDivisiController::class);
 // Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
 Route::resource('/ABM/PrintUlang2', App\Http\Controllers\ABM\PrintUlang2Controller::class);
-Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
+Route::resource('/ABM/AccPermohonanSatuDivisi', App\Http\Controllers\ABM\AccPermohonanSatuDivisiController::class);
+// Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
 
 
 // Laporan Serah Terima
