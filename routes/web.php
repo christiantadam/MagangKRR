@@ -234,6 +234,7 @@ Route::get('getidbkkke/{idBank}/{tanggalInput}', 'App\Http\Controllers\Accountin
 Route::get('getTabelTampilBKMKE/{tanggalTampilBKM}/{tanggalTampilBKM2}', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@getTabelTampilBKM');
 Route::get('getTabelTampilBKKKE/{tanggalTampilBKK}/{tanggalTampilBKK2}', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@getTabelTampilBKK');
 Route::get('getIdPembayaranKE', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@getIdPembayaran');
+Route::get('getCetakPengembalianKE/{idBKMTampil}', 'App\Http\Controllers\Accounting\Piutang\BKMPengembalianKEController@getCetakPengembalianKE');
 #endregion
 
 #region Update Kurs BKM

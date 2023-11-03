@@ -94,6 +94,15 @@ class BKMPengembalianKEController extends Controller
         return response()->json(['Id_Pembayaran' => $idPembayaran]);
     }
 
+    public function getCetakPengembalianKE($idBKMTampil)
+    {
+        //dd($idBKM);
+        $data = DB::connection('ConnAccounting')->table('VW_PRG_5298_ACC_CETAK_BKM_NOTAGIH_1')
+        ->where('Id_BKM', $idBKMTampil)
+        ->get();
+        return $data;
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {

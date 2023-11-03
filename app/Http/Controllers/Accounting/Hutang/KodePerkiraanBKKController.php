@@ -58,7 +58,18 @@ class KodePerkiraanBKKController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+
+        //dd($request->all());
+        $idDetail = $request->idDetail;
+        $idKodePerkiraan = $request->idKodePerkiraan;
+
+        DB::connection('ConnAccounting')->statement('exec [SP_1273_ACC_UDT_BKK_KDKIRA_DETAIL]
+            @IdDetailBayar = ?,
+            @Perkiraan = ?', [
+                $idDetail,
+                $idKodePerkiraan]);
+
+        return redirect()->back()->with('success', 'Data sudah diKOREKSI');
     }
 
     //Remove the specified resource from storage.
