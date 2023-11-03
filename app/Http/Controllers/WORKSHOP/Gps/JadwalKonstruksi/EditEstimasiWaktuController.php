@@ -53,10 +53,22 @@ class EditEstimasiWaktuController extends Controller
         $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-JAM-KONSTRUKSI] @EstDate = ?, @worksts = ?, @noQue = ?', [$EstDate, $worksts, $noQue]);
         return response()->json($data);
     }
-    public function EditJamKerjaKonstruksi() {
-
+    public function EditJamKerjaKonstruksi(Request $request) {
+        $worksts = $request->WorkStation;
+        $jmljam = $request->JlmJamKerja;
+        $EstDate = $request->Tanggal;
+        DB::connection('Connworkshop')->statement('exec [SP_5298_PJW_EDIT-JAM-KERJA-KONSTRUKSI] @worksts = ?, @jmljam = ?, @EstDate = ?', [$worksts, $jmljam, $EstDate]);
+        return redirect()->back()->with('success', "Data sudah diSimpan.");
+    }
+    public function HitungJamSisa($EstDate, $worksts) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_HITUNG-SISA-JAM-KRJ-KONSTRUKSI] @EstDate = ?, @worksts = ?', [$EstDate, $worksts]);
+        return response()->json($data);
     }
 
+    public function GetJamKerja($worksts,$EstDate) {
+        $data = DB::connection('Connworkshop')->select('[SP_5298_PJW_GET-JAM-KERJA-KONSTRUKSI] @worksts = ?, @estDate = ?', [ $worksts, $EstDate]);
+        return response()->json($data);
+    }
 
     public function create()
     {

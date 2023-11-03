@@ -13,6 +13,8 @@ var boleh;
 let TanggalModal = document.getElementById("TanggalModal");
 let WorkStationModal = document.getElementById("WorkStationModal");
 let btnprosesmodal = document.getElementById("btnprosesmodal");
+let Jammodal = document.getElementById("Jammodal");
+var jamsimpan;
 //#region  set tanggal
 
 const currentDate = new Date();
@@ -253,7 +255,6 @@ function btnproses_click() {
                                     break;
                                 }
                             }
-
                             btnprosesmodal.addEventListener(
                                 "click",
                                 function () {
@@ -264,6 +265,7 @@ function btnproses_click() {
                                 }
                             );
                         }
+
                         //     While boleh = False
                         //     form_edit.Tanggal.Text = CDate(Date1.Text)
                         //     form_edit.TWorkSts.Text = TWorkSts.Text
@@ -286,18 +288,26 @@ function btnproses_click() {
 //#region btn proses modal
 
 btnprosesmodal.addEventListener("click", function () {
-    fetch(
-        "/hitungjamEditEstimasiWaktu/" +
-            tgl.value +
-            "/" +
-            WorkStation.value +
-            "/" +
-            noAntri
-    )
-        .then((response) => response.json())
-        .then((datas) => {
-            console.log(datas);
-        });
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    $.ajax({
+        url: "EditJamKerjaKonstruksiEditEstimasiWaktu/",
+        type: "POST",
+        data: {
+            _token: csrfToken,
+            // _method: "PUT",
+            WorkStation: WorkStationModal.value,
+            JlmJamKerja: Jammodal.value,
+            Tanggal: TanggalModal.value,
+        },
+        success: function (response) {
+            console.log(response);
+            alert("Data sudah diSimpan.");
+            // console.log(response.data);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        },
+    });
 });
 
 //#endregion
@@ -348,3 +358,68 @@ function hitung_jam() {
         });
 }
 //#endregion
+
+//#region tgl modal on enter
+
+TanggalModal.addEventListener("keypress", function (event) {
+    var TotalMenitKrj,TotalMenitPk;
+    var hasil_bagi,hasil_bagi_car;
+    var jam_pk, menit_pk;
+    if (event.key == "Enter") {
+        fetch(
+            "/HitungJamSisaEditEstimasiWaktu/" +
+                TanggalModal.value +
+                "/" +
+                WorkStationModal.value
+        )
+            .then((response) => response.json())
+            .then((datas) => {
+                // console.log(datas);
+                if (datas.length > 0) {
+                    TotalMenitKrj = datas[0].TotalMenitKrj;
+                    TotalMenitPk = datas[0].TotalMenitPk;
+
+                    hasil_bagi = TotalMenitPk / 60 ;
+                    hasil_bagi_car = hasil_bagi.toString();
+                    hasil_bagi = parseFloat(hasil_bagi_car);
+                    jam_pk = hasil_bagi;
+                    menit_pk = TotalMenitPk - (60 * hasil_bagi);
+
+                    if ((TanggalModal.value * 60 ) < TotalMenitPk) {
+                        alert("Jml jam kerja harus lebih besar dari jml jam yg sdh terpakai (" +jam_pk + " jam " + menit_pk + " menit).")
+                        return;
+                    }
+                }
+            });
+    }
+});
+
+//#endregion
+
+//#region select workstation modal on change
+
+WorkStationModal.addEventListener('change', function(){
+    fetch(
+        "/GetJamKerjaEditEstimasiWaktu/" +
+            WorkStationModal.value +
+            "/" +
+            TanggalModal.value
+    )
+        .then((response) => response.json())
+        .then((datas) => {
+            // console.log(datas);
+            if (datas.length > 0) {
+                Jammodal.value = datas[0].JmlJamKerja;
+                jamsimpan = datas[0].JmlJamKerja;
+                // btnBatal.Text = "Batal"
+                // TJam.Focus()
+            }
+            else{
+                alert("Tidak ada jadwal konstruksi u/ WorkStation: " + WorkStationModal.value + ", pada tanggal: " + TanggalModal.value);
+                return;
+            }
+        });
+});
+
+//#endregion
+
