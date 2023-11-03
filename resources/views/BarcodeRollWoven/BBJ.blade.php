@@ -215,19 +215,22 @@
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px; height: 50px">Print Barcode
-                                                    </button></div>
+                                                    style="width:180px; height: 50px" id="ButtonPrintBarcode">Print
+                                                    Barcode
+                                                </button></div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px; height: 50px">ACC Barcode</button>
+                                                    onclick="prosesACCBarcode()" style="width:180px; height: 50px">ACC
+                                                    Barcode</button>
                                             </div>
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
                                             <div class="text-center col-md-auto mt-3"><button type="button"
-                                                    style="width:180px; height: 50px">Print Ulang</button>
+                                                    onclick="PrintUlangData()" style="width:180px; height: 50px">Print
+                                                    Ulang</button>
                                             </div>
                                         </div>
 
@@ -239,14 +242,15 @@
                                         <div>
                                         </div>
                                     </div>
-                                    <div class="card" style="width: 80%;margin-left: -12px;position: absolute;right: 19px;">
+                                    <div class="card"
+                                        style="width: 80%;margin-left: -12px;position: absolute;right: 19px;">
                                         <div class="card-header">Data Barang</div>
                                         <div class="row mt-3">
                                             <div class="form-group col-md-2 d-flex justify-content-end">
                                                 <span class="aligned-text">Tanggal:</span>
                                             </div>
                                             <div class="form-group col-md-3 mt-3 mt-md-0">
-                                                <input type="date" class="form-control" id="tanggalOutput">
+                                                <input type="date" class="form-control" id="tanggalOutput" readonly>
                                             </div>
                                         </div>
 
@@ -266,12 +270,12 @@
                                                 <span class="aligned-text">Kel. Utama:</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="namaKelut" rows="namaKelut" id="namaKelut"
-                                                    placeholder="Kel. Utama" readonly>
+                                                <input class="form-control" type="text" name="namaKelut"
+                                                    rows="namaKelut" id="namaKelut" placeholder="Kel. Utama" readonly>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="IdKelut" rows="IdKelut" id="IdKelut"
-                                                    placeholder="Id Kel. Utama" readonly>
+                                                <input class="form-control" type="text" name="IdKelut" rows="IdKelut"
+                                                    id="IdKelut" placeholder="Id Kel. Utama" readonly>
                                             </div>
                                         </div>
 
@@ -280,12 +284,12 @@
                                                 <span class="aligned-text">Kelompok :</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="Kelompok" id="Kelompok"
-                                                    rows="Kelompok" placeholder="Kelompok" readonly>
+                                                <input class="form-control" type="text" name="Kelompok"
+                                                    id="Kelompok" rows="Kelompok" placeholder="Kelompok" readonly>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="IdKelompok" id="IdKelompok"
-                                                    rows="IdKelompok" placeholder="IdKelompok" readonly>
+                                                <input class="form-control" type="text" name="IdKelompok"
+                                                    id="IdKelompok" rows="IdKelompok" placeholder="IdKelompok" readonly>
                                             </div>
                                         </div>
 
@@ -294,12 +298,14 @@
                                                 <span class="aligned-text"> Sub Kelompok:</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="sub_kelompok" id="sub_kelompok"
-                                                    rows="sub_kelompok" placeholder="Sub Kelompok" readonly>
+                                                <input class="form-control" type="text" name="sub_kelompok"
+                                                    id="sub_kelompok" rows="sub_kelompok" placeholder="Sub Kelompok"
+                                                    readonly>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="idsub_kelompok" id="idsub_kelompok"
-                                                    rows="idsub_kelompok" placeholder="Id Sub Kelompok" readonly>
+                                                <input class="form-control" type="text" name="idsub_kelompok"
+                                                    id="idsub_kelompok" rows="idsub_kelompok"
+                                                    placeholder="Id Sub Kelompok" readonly>
                                             </div>
                                         </div>
 
@@ -308,18 +314,19 @@
                                                 <span class="aligned-text">Type :</span>
                                             </div>
                                             <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="Type" rows="Type" id="Type"
-                                                    placeholder="Type" readonly>
+                                                <input class="form-control" type="text" name="IdType" rows="IdType"
+                                                    id="IdType" placeholder="Id Type" readonly>
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
-                                                <input class="form-control" type="text" name="IdType" rows="IdType" id="IdType"
-                                                    placeholder="Id Type" readonly>
+                                                <input class="form-control" type="text" name="Type" rows="Type"
+                                                    id="Type" placeholder="Type" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card mt-3" style="width: 80%;margin-left:250px;position: absolute;top: 460px;right: 19px;">
+                                <div class="card mt-3"
+                                    style="width: 80%;margin-left:250px;position: absolute;top: 460px;right: 19px;">
                                     <div class="card-header">Hasil Produksi</div>
 
                                     <div class="row mt-3">
@@ -327,8 +334,8 @@
                                             <span class="aligned-text">Kode Barang:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="Barang" rows="Barang" id="Barang"
-                                                placeholder="Barang" readonly>
+                                            <input class="form-control" type="text" name="Barang" rows="Barang"
+                                                id="Barang" placeholder="Barang" readonly>
                                         </div>
                                     </div>
 
@@ -337,8 +344,8 @@
                                             <span class="aligned-text">Stok Primer:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="primer" rows="primer" id="primer"
-                                                placeholder="Primer" readonly>
+                                            <input class="form-control" type="text" name="primer" rows="primer"
+                                                id="primer" placeholder="Primer" readonly>
                                         </div>
                                     </div>
 
@@ -347,8 +354,8 @@
                                             <span class="aligned-text">Stok Sekunder:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="sekunder" rows="sekunder" id="sekunder"
-                                                placeholder="Sekunder" readonly>
+                                            <input class="form-control" type="text" name="sekunder" rows="sekunder"
+                                                id="sekunder" placeholder="Sekunder" readonly>
                                         </div>
                                     </div>
 
@@ -357,13 +364,14 @@
                                             <span class="aligned-text">Stok Tritier:</span>
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
-                                            <input class="form-control" type="text" name="tritier" rows="tritier" id="tritier"
-                                                placeholder="Tritier" readonly>
+                                            <input class="form-control" type="text" name="tritier" rows="tritier"
+                                                id="tritier" placeholder="Tritier" readonly>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card mt-3" style="width: 80%;margin-left:250px;position: absolute;top: 758px;right: 19px;">
+                                <div class="card mt-3"
+                                    style="width: 80%;margin-left:250px;position: absolute;top: 758px;right: 19px;">
                                     <div class="card-header">Hasil Produksi</div>
                                     <div class="row mt-3">
                                         <div class="form-group col-md-2 d-flex justify-content-end">
@@ -376,7 +384,8 @@
                                                     style="width: 100px">NULL</button>
                                             </div>
                                             <span style="margin-right: -250px; margin-left:207px">NoRoll</span>
-                                            <input class="form-control" type="text" name="NoRoll" rows="NoRoll" style="margin-right: -500px; margin-left: 300px; width: 200px"
+                                            <input class="form-control" type="text" name="NoRoll" rows="NoRoll"
+                                                style="margin-right: -500px; margin-left: 300px; width: 200px"
                                                 placeholder="NoRoll">
                                         </div>
                                     </div>
@@ -391,7 +400,8 @@
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">DOS</button></div>
                                             <span style="margin-right: -250px; margin-left:207px">Afalan</span>
-                                            <input class="form-control" type="text" name="Afalan" rows="Afalan" style="margin-right: -500px; margin-left: 300px; width: 200px"
+                                            <input class="form-control" type="text" name="Afalan" rows="Afalan"
+                                                style="margin-right: -500px; margin-left: 300px; width: 200px"
                                                 placeholder="Afalan">
                                         </div>
                                     </div>

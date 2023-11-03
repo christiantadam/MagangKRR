@@ -240,10 +240,10 @@
 
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Harian') }}">Harian</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/MutasiHarian') }}">Harian</a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Staff') }}">Staff</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/MutasiStaff') }}">Staff</a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Mutasi/Histori') }}">Histori

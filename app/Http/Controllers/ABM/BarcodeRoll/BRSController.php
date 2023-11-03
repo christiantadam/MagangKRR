@@ -95,6 +95,7 @@ class BRSController extends Controller
         // dd($data);
 
         if ($data['opsi'] == "satu") {
+            dd($data);
             DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
                 $data['kodebarang'],
                 $data['noindeks'],

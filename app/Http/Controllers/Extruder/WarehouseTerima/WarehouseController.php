@@ -433,11 +433,25 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_ACCGUDANG_BARCODEKRR':
+                $param_str = '@IdType = ?, @JumlahKeluarPrimer = ?, @JumlahKeluarSekunder = ?, @JumlahKeluarTritier = ?, @user_id = 4384, @IdPemberi = ?, @Tanggal = ?, @Uraian = ?, @NoSJ = ?, @KodeBarang = ?, @NoSP = ?, @Kode = ?';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SPUpdate_ValidasiTerimaDariKRR2':
+                $param_str = '@No_Barcode = ?, @site = ?';
+                return $this->executeSP('statement', $fun_str, $param_str, $param_data);
+
+            case 'SP_1003_JBM_LHTNOPOL':
+                $param_str = '@kode = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             case 'spSelect_TerimaDariKRR2':
+            case 'SP_1273_INV_Select_SumPenerimaanKRR2':
                 $param_str = '@NoSJ = ?, @Kode = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_CekBarangSetJadi_TidakKirim':
+            case 'spSelect_IdType_KelebihanBarang':
                 $param_str = '@KodeBarang = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 

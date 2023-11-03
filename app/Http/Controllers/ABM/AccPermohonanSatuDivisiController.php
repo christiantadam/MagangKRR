@@ -35,7 +35,16 @@ class ACCPermohonanSatuDivisiController extends Controller
     //Display the specified resource.
     public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lasindex = count($crExplode) - 1;
+
+        // getDivisi
+        if ($crExplode[$lasindex] == "txtIdDivisi") {
+            $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_user_Objek @XKdUser = ?, @XIdDivisi = ?', ["U001", $crExplode[0]]);
+            // dd($dataObjek);
+            // Return the options as JSON data
+            return response()->json($dataObjek);
+        }
     }
 
     // Show the form for editing the specified resource.

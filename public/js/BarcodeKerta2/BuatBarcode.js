@@ -539,7 +539,7 @@ function prosesACCBarcode(data) {
     console.log(formData);
     const formContainer = document.getElementById("form-container");
     const form = document.createElement("form");
-    form.setAttribute("action", "BuatBarcode/dua");
+    form.setAttribute("action", "BuatBarcode/opsi");
     form.setAttribute("method", "POST");
 
     // Loop through the formData object and add hidden input fields to the form

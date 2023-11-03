@@ -53,8 +53,8 @@
                                                     <span class="aligned-text">Divisi:</span>
                                                 </div>
                                                 <div class="form-group col-md-6 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Divisi" id="Divisi"
-                                                        placeholder="Divisi" readonly>
+                                                    <input type="text" class="form-control" name="IdDivisi" id="IdDivisi"
+                                                        placeholder="IdDivisi" readonly>
                                                     <div class="text-center col-md-auto"><button type="button"
                                                             onclick="openModal()" id="ButtonDivisi">...</button></div>
                                                     <div class="form-group col-md-3 mt-3 mt-md-0">
@@ -75,6 +75,12 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    @foreach ($dataDivisi as $data)
+                                                                        <tr>
+                                                                            <td>{{ $data->IdDivisi }}</td>
+                                                                            <td>{{ $data->NamaDivisi }}</td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                 </tbody>
                                                             </table>
                                                             <div class="text-center col-md-auto">
@@ -219,28 +225,28 @@
                                                     <span class="aligned-text">Jumlah Barang:</span>
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                    <input type="text" class="form-control" name="Primer"
+                                                        id="Primer" placeholder="Primer">
                                                 </div>
                                                 <div class="form-group col-md-1 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" style="margin-left: -20px">
+                                                    <input type="text" class="form-control" name="JumlahPrimer"
+                                                        id="JumlahPrimer" style="margin-left: -20px">
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                    <input type="text" class="form-control" name="Sekunder"
+                                                        id="Sekunder" placeholder="Sekunder">
                                                 </div>
                                                 <div class="form-group col-md-1 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" style="margin-left: -20px">
+                                                    <input type="text" class="form-control" name="JumlahSekunder"
+                                                        id="JumlahSekunder" style="margin-left: -20px">
                                                 </div>
                                                 <div class="form-group col-md-2 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" placeholder="Jumlah Barang">
+                                                    <input type="text" class="form-control" name="Tritier"
+                                                        id="Tritier" placeholder="Tritier">
                                                 </div>
                                                 <div class="form-group col-md-1 mt-3 mt-md-0">
-                                                    <input type="text" class="form-control" name="Jumlah"
-                                                        id="Jumlah" style="margin-left: -20px">
+                                                    <input type="text" class="form-control" name="JumlahTritier"
+                                                        id="JumlahTritier" style="margin-left: -20px">
                                                 </div>
                                             </div>
 

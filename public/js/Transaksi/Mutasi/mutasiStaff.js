@@ -50,6 +50,8 @@ $(document).ready(function () {
     });
     simpanButton.addEventListener("click", function (event) {
         if (a == 1) {
+            const Id_Manager = document.getElementById("Id_Manager").value;
+            const Prioritas = document.getElementById("Prioritas").value;
             const old_kd_pegawai = document.getElementById("Id_Pegawai").value;
             const new_kd_pegawai =
                 document.getElementById("Kd_Pegawai_Baru").value;
@@ -71,6 +73,8 @@ $(document).ready(function () {
                 return;
             }
             const data = {
+                prioritas: Prioritas,
+                kdman: Id_Manager,
                 old_kd_pegawai: old_kd_pegawai,
                 new_kd_pegawai: new_kd_pegawai,
                 old_jabatan: old_jabatan,
@@ -85,7 +89,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "MutasiHarian");
+            form.setAttribute("action", "MutasiStaff");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -143,7 +147,7 @@ $(document).ready(function () {
 
             const formContainer = document.getElementById("form-container");
             const form = document.createElement("form");
-            form.setAttribute("action", "MutasiHarian/koreksiMutasi");
+            form.setAttribute("action", "MutasiStaff/koreksiMutasi");
             form.setAttribute("method", "POST");
 
             // Loop through the data object and add hidden input fields to the form
@@ -198,7 +202,7 @@ $(document).ready(function () {
     });
     divisiBaruButton.addEventListener("click", function (event) {
         showModalDivisiBaru();
-        fetch("/ProgramPayroll/Transaksi/Mutasi/MutasiHarian/" + ".getDivisi")
+        fetch("/ProgramPayroll/Transaksi/Mutasi/MutasiStaff/" + ".getDivisi")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -225,7 +229,7 @@ $(document).ready(function () {
         $("#Nama_Divisi_Baru").val(rowData[0]);
         $("#Id_Divisi_Baru").val(rowData[1]);
         fetch(
-            "/ProgramPayroll/Transaksi/Mutasi/MutasiHarian/" +
+            "/ProgramPayroll/Transaksi/Mutasi/MutasiStaff/" +
                 rowData[1] +
                 ".getKodePegawai"
         )
@@ -255,7 +259,7 @@ $(document).ready(function () {
 
     managerButton.addEventListener("click", function (event) {
         showModalManager();
-        fetch("/ProgramPayroll/Transaksi/Mutasi/MutasiHarian/" + ".getManager")
+        fetch("/ProgramPayroll/Transaksi/Mutasi/MutasiStaff/" + ".getManager")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -288,7 +292,7 @@ $(document).ready(function () {
         const TglMutasi = document.getElementById("TglMutasi").value;
         console.log("lolllll");
         fetch(
-            "/ProgramPayroll/Transaksi/Mutasi/MutasiHarian/" +
+            "/ProgramPayroll/Transaksi/Mutasi/MutasiStaff/" +
                 TglMutasi +
                 ".getDataMutasi"
         )
@@ -321,7 +325,7 @@ $(document).ready(function () {
         const Kd_Pegawai_Baru =
             document.getElementById("Kd_Pegawai_Baru").value;
         fetch(
-            "/ProgramPayroll/Transaksi/Mutasi/MutasiHarian/" +
+            "/ProgramPayroll/Transaksi/Mutasi/MutasiStaff/" +
                 Kd_Pegawai_Baru +
                 ".getMutasiFull"
         )

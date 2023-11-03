@@ -244,7 +244,7 @@ function prosesACCBarcode(data) {
     var parts = str.split("-");
     var noindeks = parts[1];
     var kodebarang = parts[0];
-    var userid = 'U001';
+    var userid = '4384';
     var opsi = 'satu';
 
     const formData = {

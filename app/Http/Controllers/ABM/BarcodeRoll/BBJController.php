@@ -80,6 +80,15 @@ class BBJController extends Controller
             // dd($dataBarcode);
             // Return the options as JSON data
             return response()->json($dataBarcode);
+        } else if ($crExplode[$lasindex] == "getIndex") {
+            $dataNoIndex = DB::connection('ConnInventory')
+                ->table('Dispresiasi')
+                ->where('Kode_Barang', $crExplode[0]) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
+                ->first(); // Ambil data dari baris pertama yang sesuai
+
+            // Mengembalikan dataNoIndex sebagai respons JSON
+            return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
         }
 
     }
@@ -92,7 +101,35 @@ class BBJController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        if ($data['opsi'] == "satu") {
+            dd($data);
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+                '4384'
+            ]);
+            return redirect()->route('BBJ.index')->with('alert', 'Data Updated successfully!');
+
+
+        } else if ($data['opsi'] == "dua") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_DataPrintUlang @kodebarang = ?, @noindeks = ?', [
+                $data['kodebarang'],
+                $data['noindeks']
+            ]);
+            return redirect()->route('BBJ.index')->with('alert', 'Data Updated successfully!');
+
+        } else if ($data['opsi'] == "tiga") {
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcodeOtomatis @kodebarang = ?, @noindeks = ?, userid = ?', [
+                $data['kodebarang'],
+                $data['noindeks'],
+                "4384"
+            ]);
+            return redirect()->route('BBJ.index')->with('alert', 'Data Updated successfully!');
+
+        }
     }
 
     //Remove the specified resource from storage.

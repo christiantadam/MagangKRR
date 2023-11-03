@@ -35,7 +35,7 @@
         </div>
 
         <div class="mt-4">
-            <span style="font-size: large"><b>Daftar Terima</b></span>
+            <span id="site_lbl" style="font-size: large"><b>Daftar Terima</b></span>
 
             <table id="table_terima" class="hover cell-border">
                 <thead>
@@ -61,11 +61,12 @@
             <div class="col-lg-6"></div>
 
             <div class="col-lg-3">
-                <button type="button" id="btn_proses" class="btn btn-outline-success">Proses</button>
-                <button type="button" id="btn_keluar" class="btn btn-outline-secondary">Keluar</button>
+                <button type="button" id="btn_proses" class="btn btn-success">Proses</button>
+                <button type="button" id="btn_keluar" class="btn btn-secondary">Keluar</button>
             </div>
         </div>
     </div>
 
+    @include('Extruder.WarehouseTerima.modalLihatTerimaData')
     <script src="{{ asset('js\Extruder\WarehouseTerima\terimaKrr2.js') }}"></script>
 @endsection

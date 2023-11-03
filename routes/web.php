@@ -458,8 +458,8 @@ Route::resource('ProgramPayroll/TransferAbsen', App\Http\Controllers\Payroll\Tra
 Route::resource('ProgramPayroll/VerifikasiAbsen', App\Http\Controllers\Payroll\Transaksi\VerifikasiAbsen\VerifikasiAbsenController::class);
 Route::get('getPegawai/{Id_Div}', 'App\Http\Controllers\Payroll\Transaksi\Peringatan\Permohonan\PermohonanPeringatanController@getPegawai');
 Route::resource('ProgramPayroll/Transaksi/InputLibur', App\Http\Controllers\Payroll\Transaksi\InputLibur\InputLiburController::class);
-Route::resource('ProgramPayroll/Transaksi/Mutasi/Harian', App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiHarian\MutasiHarianController::class);
-Route::resource('ProgramPayroll/Transaksi/Mutasi/Staff', App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiStaff\MutasiStaffController::class);
+Route::resource('ProgramPayroll/Transaksi/Mutasi/MutasiHarian', App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiHarian\MutasiHarianController::class);
+Route::resource('ProgramPayroll/Transaksi/Mutasi/MutasiStaff', App\Http\Controllers\Payroll\Transaksi\Mutasi\MutasiStaff\MutasiStaffController::class);
 Route::resource('ProgramPayroll/Transaksi/Mutasi/Histori', App\Http\Controllers\Payroll\Transaksi\Mutasi\HistoriMutasi\HistoriMutasiController::class);
 Route::resource('ProgramPayroll/Transaksi/Absen1', App\Http\Controllers\Payroll\Transaksi\Absen1\Absen1Controller::class);
 Route::resource('ProgramPayroll/Peringatan/AccPermohonan', App\Http\Controllers\Payroll\Transaksi\Peringatan\AccPermohonan\AccPermohonanController::class);
@@ -1133,7 +1133,8 @@ Route::get('/ABM/ScanMutasiSatuDivisi', 'App\Http\Controllers\ABM\ScanMutasiSatu
 Route::resource('MutasiSatuDivisi', App\Http\Controllers\ABM\MutasiSatuDivisiController::class);
 // Route::get('/ABM/MutasiSatuDivisi', 'App\Http\Controllers\ABM\MutasiSatuDivisiController@index');
 Route::resource('/ABM/PrintUlang2', App\Http\Controllers\ABM\PrintUlang2Controller::class);
-Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
+Route::resource('/ABM/AccPermohonanSatuDivisi', App\Http\Controllers\ABM\AccPermohonanSatuDivisiController::class);
+// Route::get('/ABM/AccPermohonanSatuDivisi', 'App\Http\Controllers\ABM\AccPermohonanSatuDivisiController@index');
 
 
 // Laporan Serah Terima

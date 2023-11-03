@@ -25,7 +25,19 @@ class MutasiHarianController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data , " Masuk store bosq");
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_INS_MUTASI_HARIAN @old_kd_pegawai = ?, @new_kd_pegawai = ?, @old_jabatan = ?, @new_jabatan = ?, @old_nm_divisi= ?, @new_nm_divisi = ?, @tgl_mutasi = ?, @no_surat = ?, @Alasan = ?', [
+            $data['old_kd_pegawai'],
+            $data['new_kd_pegawai'],
+            $data['new_jabatan'],
+            $data['old_nm_divisi'],
+            $data['new_nm_divisi'],
+            $data['tgl_mutasi'],
+            $data['no_surat'],
+            $data['Alasan']
+        ]);
+        return redirect()->route('MutasiHarian.index')->with('alert', 'Data mutasi berhasil ditambahkan!');
     }
 
     //Display the specified resource.
@@ -71,7 +83,17 @@ class MutasiHarianController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data , " Masuk store bosq");
+        DB::connection('ConnPayroll')->statement('exec SP_1486_PAY_Udt_MUTASI @kd_pegawai = ?, @tgl_mutasi = ?, @new_jabatan = ?, @no_surat = ?, @alasan= ?, @prioritas = ?', [
+            $data['kd_pegawai'],
+            $data['tgl_mutasi'],
+            $data['new_jabatan'],
+            $data['no_surat'],
+            $data['alasan'],
+            $data['prioritas']
+        ]);
+        return redirect()->route('MutasiHarian.index')->with('alert', 'Data mutasi berhasil dikoreksi!');
     }
 
     //Remove the specified resource from storage.
