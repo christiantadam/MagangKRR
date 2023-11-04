@@ -433,6 +433,10 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_AmbilBarangSetJadi':
+                $param_str = '@IdObjek = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             case 'SP_1273_INV_ACCGUDANG_BARCODEKRR':
                 $param_str = '@IdType = ?, @JumlahKeluarPrimer = ?, @JumlahKeluarSekunder = ?, @JumlahKeluarTritier = ?, @user_id = 4384, @IdPemberi = ?, @Tanggal = ?, @Uraian = ?, @NoSJ = ?, @KodeBarang = ?, @NoSP = ?, @Kode = ?';
                 return $this->executeSP('statement', $fun_str, $param_str, $param_data);

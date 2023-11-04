@@ -12,11 +12,11 @@
                     <center>Memuat data...</center>
                 </h1>
 
-                <div id="tempat_tabel" class="hidden"></div>
+                <div id="tempat_tabel" tabindex="0" class="hidden"></div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" id="ld_confirm" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                <button type="button" id="ld_confirm" class="btn btn-primary">OK</button>
                 <button type="button" id="ld_cancel" class="btn btn-secondary" data-bs-dismiss="modal">BATAL</button>
             </div>
 

@@ -31,9 +31,6 @@
                     <div class="col-lg-7">
                         <select id="select_objek" class="form-select">
                             <option disabled selected>-- Pilih Objek --</option>
-                            {{-- @foreach ($formData['listDivisi'] as $d)
-                                    <option value="{{ $d->IdDivisi }}">{{ $d->IdDivisi . ' | ' . $d->NamaDivisi }}</option>
-                                @endforeach --}}
                         </select>
                     </div>
                 </div>
