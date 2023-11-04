@@ -33,8 +33,6 @@ btnSJ_JBK.addEventListener("click", function () {
 
     kSite = 1;
     modalLihatSJ(kSite);
-
-    loadDataFromServer(txtSuratJalan.value.trim(), kSite);
     spnSite.textContent = "Daftar Terima - JBN & JBK";
 });
 
@@ -44,8 +42,6 @@ btnSJ_WVN.addEventListener("click", function () {
 
     kSite = 2;
     modalLihatSJ(kSite);
-
-    loadDataFromServer(txtSuratJalan.value.trim(), kSite);
     spnSite.textContent = "Daftar Terima - Woven Nganjuk";
 });
 
@@ -186,7 +182,7 @@ function loadDataFromServer(no_sj, kd_div) {
 
     let kode = kd_div == 1 ? 1 : 2;
     fetchSelect(
-        "warehouseTerima/spSelect_TerimaDariKRR2/" + no_sj.trim() + "~" + kode,
+        "/warehouseTerima/spSelect_TerimaDariKRR2/" + no_sj.trim() + "~" + kode,
         (data) => {
             let pushedList = [];
             for (let i = 0; i < data.length; i++) {
@@ -224,13 +220,29 @@ function loadDataFromServer(no_sj, kd_div) {
                 cek_status = -1;
             } else cek_status = 2;
 
-            addTable_DataTable("table_terima", pushedList, null, null, null, [
-                "colored_row",
-                cek_status,
-            ]);
+            if (data.length > 0) {
+                addTable_DataTable(
+                    "table_terima",
+                    pushedList,
+                    null,
+                    null,
+                    null,
+                    ["colored_row", cek_status]
+                );
 
-            txtScanBarcode.value = "";
-            txtScanBarcode.focus();
+                txtScanBarcode.value = "";
+                txtScanBarcode.focus();
+            } else {
+                clearTable_DataTable(
+                    "table_terima",
+                    6,
+                    "Data untuk <b>No. SJ - " +
+                        confirmedData.NoSJ +
+                        "</b> tidak ditemukan."
+                );
+
+                btnSJ_JBK.focus();
+            }
         }
     );
 }
@@ -253,6 +265,7 @@ function modalLihatSJ(kd_div) {
             "NoSJ",
         ];
 
+        TD_colTable = 3;
         TD_strTable = `
             <table id="${TD_tableId}" class="hover cell-border">
                 <thead>
@@ -269,6 +282,15 @@ function modalLihatSJ(kd_div) {
         $("#form_lihat_data").modal({ backdrop: "static", keyboard: false });
         $("#form_lihat_data").modal("show");
     });
+}
+
+function fetchModalResult(resModal) {
+    /**
+     * Data dalam bentuk JSON
+     */
+
+    $("#form_lihat_data").modal("hide");
+    loadDataFromServer(resModal.NoSJ, kSite);
 }
 
 function testingRowWarna() {
@@ -338,8 +360,6 @@ function init() {
     });
 
     clearTable_DataTable("table_terima", 6);
-
-    modalLihatSJ(1);
     // testingRowWarna();
 }
 

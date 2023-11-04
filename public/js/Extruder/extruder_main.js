@@ -222,13 +222,12 @@ function addTable_DataTable(
     }
 }
 
+/**
+ * @param {Object} d_table Objek DataTable yang akan digunakan.
+ * @param {int / String} s_index Index row yang terpilih / "remove" untuk menghapus fungsi navigasi
+ * @param {(index, data) => {}} e_handler Fungsi yang akan dijalankan terhadap row yang terpilih.
+ */
 function arrowNavigation_DataTable(d_table, s_index, e_handler = null) {
-    /**
-     * d_table, Objek DataTable yang akan digunakan.
-     * s_index, Index row yang terpilih; "remove" untuk menghapus fungsi navigasi.
-     * e_handler, Fungsi yang akan dijalankan terhadap row yang terpilih.
-     */
-
     const tableContainer = d_table.table().container();
     let selectedRow = s_index == "remove" ? 0 : s_index;
     let elements = tableContainer.querySelectorAll(".odd, .even");

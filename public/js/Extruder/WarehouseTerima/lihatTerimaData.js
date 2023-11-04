@@ -6,9 +6,9 @@ const TD_btnConfirm = document.getElementById("ld_confirm");
 const TD_btnCancel = document.getElementById("ld_cancel");
 
 var [TD_tableId, TD_tableName, TD_formTitle] = [
-    "halo_table",
-    "Tabel cari...",
-    "Lihat Data",
+    "default_table",
+    "Tabel default...",
+    "Lihat Default",
 ];
 
 var TD_strTable = `
@@ -25,12 +25,26 @@ var TD_strTable = `
 `;
 
 const TD_listTable = [];
-var TD_pilTable = -1;
+var [TD_colTable, TD_pilTable] = [-1, -1];
 var TD_keyStr = "";
-var [selectedData, confirmedData] = [{}, {}];
+var [selectedData, confirmedData] = [null, null];
 //#endregion
 
 //#region Events
+TD_btnConfirm.addEventListener("click", function () {
+    if (selectedData != null) {
+        confirmedData = selectedData;
+        selectedData = null;
+        fetchModalResult(confirmedData);
+    } else {
+        alert("Belum ada data yang dipilih!");
+        divTable.focus();
+    }
+});
+
+TD_btnCancel.addEventListener("click", function () {
+    selectedData = null;
+});
 //#endregion
 
 //#region Functions
@@ -86,7 +100,14 @@ function init_dt() {
             },
         });
 
-        addTable_DataTable(TD_tableId, TD_listTable, null, TD_rowClicked);
+        if (TD_listTable.length > 0) {
+            addTable_DataTable(TD_tableId, TD_listTable, null, TD_rowClicked);
+        } else
+            clearTable_DataTable(
+                TD_tableId,
+                TD_colTable,
+                "Data tidak ditemukan."
+            );
     }
 }
 
@@ -95,13 +116,10 @@ $("#form_lihat_data").on("shown.bs.modal", function () {
 });
 
 $("#form_lihat_data").on("hidden.bs.modal", function () {
-    clearTable_DataTable(
-        "table_kirim_gudang",
-        Object.keys(TD_listTable[0]).length
-    );
-
+    clearTable_DataTable(TD_tableId, TD_colTable);
+    [TD_tableId, TD_tableName, TD_formTitle] = ["", "", ""];
     TD_listTable.length = 0;
-    TD_strTable = ``;
+    [TD_strTable, TD_colTable] = [``, -1];
     divTable.innerHTML = TD_strTable;
     divTable.classList.add("hidden");
     spnLoading.classList.remove("hidden");
@@ -110,10 +128,16 @@ $("#form_lihat_data").on("hidden.bs.modal", function () {
 $(document).keypress(function (e) {
     if ($("#form_lihat_data").is(":visible")) {
         if (e.which === 13) {
-            confirmedData = selectedData;
-            selectedData = {};
+            if (selectedData != null) {
+                confirmedData = selectedData;
+                selectedData = null;
+                fetchModalResult(confirmedData);
+            } else {
+                alert("Belum ada data yang dipilih!");
+                divTable.focus();
+            }
         } else if (e.which === 27) {
-            selectedData = {};
+            selectedData = null;
         }
     }
 });
