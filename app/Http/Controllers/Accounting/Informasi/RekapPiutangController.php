@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Accounting\Informasi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RekapPiutangController extends Controller
 {
-    public function RekapPiutang()
+    public function index()
     {
         $data = 'Accounting';
         return view('Accounting.Informasi.RekapPiutang', compact('data'));
+    }
+
+    public function getCekRekPiutang($tglAkhirLaporan)
+    {
+        $tabel =  DB::connection('ConnAccounting')->select('exec [SP_CEK_REKPIUTANG] @Tanggal = ?', [$tglAkhirLaporan]);
+        return response()->json($tabel);
     }
 
     //Show the form for creating a new resource.
@@ -40,7 +47,13 @@ class RekapPiutangController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $tglAkhirLaporan = $request->tglAkhirLaporan;
+        DB::connection('ConnAccounting')->statement('exec [SP_PROSES_REKPIUTANG]
+        @TglAkhir = ?', [
+            $tglAkhirLaporan
+            // Log::info('Request Data: ' .json_encode($ketDariBank));
+        ]);
+        return redirect()->back()->with('success', 'Data Selesai Diproses. Silakan Lihat di view INF_REKAP_PIUTANG');
     }
 
     //Remove the specified resource from storage.

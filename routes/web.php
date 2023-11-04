@@ -401,8 +401,16 @@ Route::get('BKM', 'App\Http\Controllers\Accounting\TransBank\BKMController@BKM')
 
 Route::get('CekNotadanFaktur', 'App\Http\Controllers\Accounting\Informasi\CekNotadanFakturController@CekNotadanFaktur');
 Route::get('CetakNotaKredit', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@CetakNotaKredit');
-Route::get('Soplang', 'App\Http\Controllers\Accounting\Informasi\SoplangController@Soplang');
-Route::get('RekapPiutang', 'App\Http\Controllers\Accounting\Informasi\RekapPiutangController@RekapPiutang');
+
+#region Soplang
+Route::resource('Soplang', App\Http\Controllers\Accounting\Informasi\SoplangController::class);
+#endregion
+
+#region Rekap Piutang
+Route::resource('RekapPiutang', App\Http\Controllers\Accounting\Informasi\RekapPiutangController::class);
+Route::get('getCekRekPiutang/{tglAkhirLaporan}', 'App\Http\Controllers\Accounting\Informasi\RekapPiutangController@getCekRekPiutang');
+#endregion
+
 Route::get('KartuHutang', 'App\Http\Controllers\Accounting\Informasi\KartuHutangController@KartuHutang');
 // Payroll Main
 Route::get('Payroll', 'App\Http\Controllers\Payroll\HomeController@index');
