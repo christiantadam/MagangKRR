@@ -433,6 +433,18 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_1273_INV_AmbilBarangGelondongan':
+                /**
+                 * 022 / 042 | Objek (IdDivisi_Objek) -> Divisi (IdDivisi)
+                 * KelompokUtama (IdObjek_KelompokUtama) -> Objek (IdObjek)
+                 * 000288 / 002432 | Kelompok (IdKelompokUtama_Kelompok) -> KelompokUtama (IdKelompokUtama)
+                 * SubKelompok (IdKelompok_Subkelompok) -> Kelompok (IdKelompok)
+                 * Type (IdSubkelompok_Type) -> SubKelompok (IdSubkelompok)
+                 * Status = 3, Type_Transaksi = 23 | Dispresiasi (Id_type_tujuan) -> Type (IdType)
+                 */
+                $param_str = '@divisi = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             case 'SP_1273_INV_AmbilBarangSetJadi':
                 $param_str = '@IdObjek = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);

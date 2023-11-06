@@ -177,7 +177,7 @@ slcObjek.addEventListener("keydown", function (event) {
                             "107 | Gudang produksi - Barang Jadi"
                         );
                     }
-                } else refetchKelut = true;
+                } else refetchObjek = true;
             },
             errorOption
         );
@@ -226,7 +226,7 @@ slcObjek.addEventListener("mousedown", function () {
                             "107 | Gudang produksi - Barang Jadi"
                         );
                     }
-                } else refetchKelut = true;
+                } else refetchObjek = true;
             },
             errorOption
         );

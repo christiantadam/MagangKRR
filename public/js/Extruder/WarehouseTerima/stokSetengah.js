@@ -4,9 +4,85 @@ const slcObjek = document.getElementById("select_objek");
 
 const widthStok = 7;
 const listStok = [];
+
+var refetchObjek = false;
 //#endregion
 
 //#region Events
+slcDivisi.addEventListener("change", function () {
+    listStok.length = 0;
+    clearTable_DataTable("table_stok", widthStok);
+
+    if (slcDivisi.value == "JBB") {
+        addOptionIfNotExists(slcObjek, "078", "078 | Barang Dalam Proses");
+        tampilBarangSetengahJadi(slcDivisi.value);
+    } else if (slcDivisi.value == "ABM") {
+        addOptionIfNotExists(slcObjek, "162", "162 | Hasil Setengah Jadi");
+        tampilBarangSetengahJadi(slcDivisi.value);
+    } else if (slcDivisi.value == "ADS") {
+        addOptionIfNotExists(slcObjek, "192", "192 | Hasil Setengah Jadi");
+        tampilBarangSetengahJadi(slcDivisi.value);
+    } else {
+        refetchObjek = true;
+        slcObjek.disabled = false;
+        slcObjek.focus();
+    }
+});
+
+slcObjek.addEventListener("keydown", function (event) {
+    if (event.key == "Enter" && refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchObjek = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("mousedown", function () {
+    if (refetchObjek) {
+        refetchObjek = false;
+        clearOptions(this);
+        const errorOption = addLoadingOption(this);
+        const optionKeys = {
+            valueKey: "IdObjek",
+            textKey: "NamaObjek",
+        };
+
+        fetchSelect(
+            "/warehouseTerima/SP_1003_INV_UserObjek_Diminta/" + slcDivisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptions(this, data, optionKeys);
+                    this.removeChild(errorOption);
+                } else refetchObjek = true;
+            },
+            errorOption
+        );
+    }
+});
+
+slcObjek.addEventListener("change", function () {
+    listStok.length = 0;
+    clearTable_DataTable("table_stok", widthStok, "Memuat data...");
+
+    if (this.value == "162" || this.value == "078" || this.value == "192") {
+        tampilBarangSetengahJadi(slcDivisi.value);
+    } else tampilBarangGelondongan();
+});
 //#endregion
 
 //#region Functions
@@ -32,7 +108,36 @@ function tampilBarangSetengahJadi(id_objek) {
                 clearTable_DataTable(
                     "table_stok",
                     widthStok,
-                    "Data barang tidak ditemukan."
+                    "Tidak Ditemukan Barang Setengah Jadi."
+                );
+        }
+    );
+}
+
+function tampilBarangGelondongan() {
+    fetchSelect(
+        "/warehouseTerima/SP_1273_INV_AmbilBarangGelondongan/" +
+            slcDivisi.value,
+        (data) => {
+            for (let i = 0; i < data.length; i++) {
+                let no_indeks = "000000000" + (!data[i].NoIndeks).trim();
+                listStok.push({
+                    NoIndeks: no_indeks.slice(-9),
+                    KodeBarang: data[i].Kode_Barang,
+                    NamaType: data[i].NamaType,
+                    QtyPrimer: data[i].Qty_Primer,
+                    QtySekunder: data[i].Qty_Sekunder,
+                    Qty: data[i].Qty,
+                });
+            }
+
+            if (data.length > 0) {
+                addTable_DataTable("table_stok", listStok);
+            } else
+                clearTable_DataTable(
+                    "table_stok",
+                    widthStok,
+                    "Tidak Ditemukan Barang Gelondongan."
                 );
         }
     );
@@ -66,7 +171,3 @@ function init() {
 }
 
 $(document).ready(() => init());
-
-btnKeluar.addEventListener("click", function () {
-    window.location.href = "/Extruder/WarehouseTerima";
-});
