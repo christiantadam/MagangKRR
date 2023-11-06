@@ -6,46 +6,57 @@
             <div class="col-md-7 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Cek Nota Kredit</div>
+                    @if (Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form-container col-md-12">
-                            <form method="POST" action="">
-                                @csrf
-                                <!-- Form fields go here -->
+                            <form method="POST" action="{{ url('CetakNotaKredit') }}" id="formkoreksi">
+                                {{csrf_field()}}
+                                <input type="hidden" name="_method" id="methodkoreksi">
                                 <div class="d-flex">
                                     <div class="col-md-4">
-                                        <label for="tglProduksi">Tanggal</label>
+                                        <label for="tanggal">Tanggal</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" id="tglProduksi" class="form-control" style="width: 100%">
+                                        <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-4">
-                                        <label for="customer">Customer</label>
+                                        <label for="namaCustomerSelect">Customer</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <select name="customerSelect" class="form-control" onchange="fillColumns()">
-                                            <option value="NoPenagihan 1">No1</option>
-                                            <option value="NoPenagihan 2">No2</option>
+                                        <select id="namaCustomerSelect" name="namaCustomerSelect" class="form-control">
+
                                         </select>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
                                     <div class="col-md-4">
-                                        <label for="idPenagihan">Nota Kredit</label>
+                                        <label for="notaKredit">Nota Kredit</label>
                                     </div>
                                     <div class="col-md-5">
-                                    <input type="text" id="idPenagihan" class="form-control" style="width: 100%">
+                                        <input type="text" id="notaKredit" name="notaKredit" class="form-control" style="width: 100%">
                                     </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <input type="text" id="statusPPN" name="statusPPN" class="form-control" style="width: 100%">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="jnsNotaKredit" name="jnsNotaKredit" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br><div class="mb-3">
                                     <div class="row">
                                         <div class="col-2">
-                                            <input type="submit" id="btnCetak" name="cetak" value="Cetak" class="btn btn-primary">
+                                            <input type="submit" id="btnCetak" name="btnCetak" value="Cetak" class="btn btn-primary">
                                         </div>
                                         <div class="col-2">
-                                            <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary">
+                                            <input type="submit" id="btnKeluar" name="btnKeluar" value="Keluar" class="btn btn-primary">
                                         </div>
                                     </div>
                                 </div>
@@ -56,4 +67,6 @@
             </div>
         </div>
     </div>
+
+<script src="{{ asset('js/Informasi/CetakNotaKredit.js') }}"></script>
 @endsection

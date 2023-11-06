@@ -400,7 +400,17 @@ Route::get('BKK', 'App\Http\Controllers\Accounting\TransBank\BKKController@BKK')
 Route::get('BKM', 'App\Http\Controllers\Accounting\TransBank\BKMController@BKM');
 
 Route::get('CekNotadanFaktur', 'App\Http\Controllers\Accounting\Informasi\CekNotadanFakturController@CekNotadanFaktur');
-Route::get('CetakNotaKredit', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@CetakNotaKredit');
+
+#region Cetak Nota Kredit
+Route::resource('CetakNotaKredit', App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController::class);
+Route::get('getListCetakNotaKredit/{tanggal}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getListCetakNotaKredit');
+Route::get('getIdSuratJalanNotaKredit/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getIdSuratJalanNotaKredit');
+Route::get('getDisplayDetailNotaKredit/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getDisplayDetailNotaKredit');
+Route::get('getSFilter1/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getSFilter1');
+Route::get('getSFilter2/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getSFilter2');
+Route::get('getSFilter3/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getSFilter3');
+Route::get('getSFilter4/{notaKredit}', 'App\Http\Controllers\Accounting\Informasi\CetakNotaKreditController@getSFilter4');
+#endregion
 
 #region Soplang
 Route::resource('Soplang', App\Http\Controllers\Accounting\Informasi\SoplangController::class);
