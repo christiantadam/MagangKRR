@@ -3,7 +3,7 @@ $("#tbl_prodtype").DataTable();
 $("#tbl_customer2").DataTable();
 
 //--------------------------------------------------------------------------------------//
-
+//auto pilih di awal
 document.addEventListener("DOMContentLoaded", function() {
     // Pilih radio button "StarPark"
     document.getElementById("radio1").checked = true;
