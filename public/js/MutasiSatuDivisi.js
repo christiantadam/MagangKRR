@@ -24,6 +24,54 @@ $(document).ready(function () {
         ],
     });
 
+    $('#TableObjekPemberi').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableKelompokUtamaPemberi').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableKelompokPemberi').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableSubKelompokPemberi').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableObjekPenerima').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableKelompokUtamaPenerima').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableKelompokPenerima').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableSubKelompokPenerima').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
     var ButtonDivisi = document.getElementById('ButtonDivisi')
     ButtonDivisi.addEventListener("click", function (event) {
         event.preventDefault();
@@ -178,5 +226,35 @@ function openModal6() {
 
 function closeModal6() {
     var modal = document.getElementById('myModal6');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal7() {
+    var modal = document.getElementById('myModal7');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal7() {
+    var modal = document.getElementById('myModal7');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal8() {
+    var modal = document.getElementById('myModal8');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal8() {
+    var modal = document.getElementById('myModal8');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal9() {
+    var modal = document.getElementById('myModal9');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal9() {
+    var modal = document.getElementById('myModal9');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }

@@ -77,7 +77,7 @@ $(document).ready(function () {
         var rowData = $('#TableObjek').DataTable().row(this).data();
 
         // Populate the input fields with the data
-        $('#IdObjek').val(rowData[0]);
+        $('#NamaObjek').val(rowData[1]);
 
         // Hide the modal immediately after populating the datas
         closeModal1();
