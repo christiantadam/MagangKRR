@@ -29,9 +29,27 @@ class HistoriMutasiController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
+        // dd($crExplode);
+        if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI');
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($dataDivisi);
+        } else if ($crExplode[$lastIndex] == "getPegawai") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }else if ($crExplode[$lastIndex] == "getHistori") {
+            $data = DB::connection('ConnPayroll')->select('exec SP_5409_PAY_HISTORY_MUTASI @kd_pegawai = ?', [$crExplode[0]]);
+            // Return the options as JSON data
+            // dd($dataHutang);
+            return response()->json($data);
+        }
     }
 
     // Show the form for editing the specified resource.
