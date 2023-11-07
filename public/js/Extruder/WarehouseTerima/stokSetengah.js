@@ -12,7 +12,9 @@ var refetchObjek = false;
 slcDivisi.addEventListener("change", function () {
     listStok.length = 0;
     clearTable_DataTable("table_stok", widthStok);
+    slcObjek.selectedIndex = 0;
 
+    slcObjek.disabled = true;
     if (slcDivisi.value == "JBB") {
         addOptionIfNotExists(slcObjek, "078", "078 | Barang Dalam Proses");
         tampilBarangSetengahJadi(slcDivisi.value);
@@ -93,11 +95,12 @@ function tampilBarangSetengahJadi(id_objek) {
             for (let i = 0; i < data.length; i++) {
                 let f_index = "000000000" + data[i].NoIndeks;
                 listStok.push({
+                    Nomor: i + 1,
                     NoIndeks: f_index.substring(f_index.length - 9),
-                    KodeBarang: data[i].Kode_Barang,
+                    KodeBarang: data[i].Kode_barang,
                     NamaType: data[i].NamaType,
                     QtyPrimer: data[i].Qty_Primer,
-                    QtySekunder: data[i].Qty_Sekunder,
+                    QtySekunder: data[i].Qty_sekunder,
                     Qty: data[i].Qty,
                 });
             }
@@ -122,11 +125,12 @@ function tampilBarangGelondongan() {
             for (let i = 0; i < data.length; i++) {
                 let no_indeks = "000000000" + (!data[i].NoIndeks).trim();
                 listStok.push({
+                    Nomor: i + 1,
                     NoIndeks: no_indeks.slice(-9),
-                    KodeBarang: data[i].Kode_Barang,
+                    KodeBarang: data[i].Kode_barang,
                     NamaType: data[i].NamaType,
                     QtyPrimer: data[i].Qty_Primer,
-                    QtySekunder: data[i].Qty_Sekunder,
+                    QtySekunder: data[i].Qty_sekunder,
                     Qty: data[i].Qty,
                 });
             }

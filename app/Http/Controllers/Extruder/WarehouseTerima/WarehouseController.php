@@ -446,6 +446,14 @@ class WarehouseController extends Controller
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
             case 'SP_1273_INV_AmbilBarangSetJadi':
+                /**
+                 * 078 / 162 / 192 | Objek (IdDivisi_Objek) -> Divisi (IdDivisi)
+                 * KelompokUtama (IdObjek_KelompokUtama) -> Objek (IdObjek)
+                 * Kelompok (IdKelompokUtama_Kelompok) -> KelompokUtama (IdKelompokUtama)
+                 * SubKelompok (IdKelompok_Subkelompok) -> Kelompok (IdKelompok)
+                 * Type (IdSubkelompok_Type) -> SubKelompok (IdSubkelompok)
+                 * Status = 1, Type_Transaksi = 22, Tgl_Tembak_Keluar = NULL | Dispresiasi (Id_type_tujuan) -> Type (IdType)
+                 */
                 $param_str = '@IdObjek = ?';
                 return $this->executeSP('select', $fun_str, $param_str, $param_data);
 
