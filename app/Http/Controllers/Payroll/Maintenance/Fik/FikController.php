@@ -30,9 +30,17 @@ class FikController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[1] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_GET_NAMA @Nama = ?', [$crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

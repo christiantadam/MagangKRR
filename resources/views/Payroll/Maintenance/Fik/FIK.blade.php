@@ -1,111 +1,71 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/MaintenanceIjin/FormIjinKaryawan.js') }}"></script>
     <div class="form-wrapper mt-4">
         <div class="form-container">
             <div class="card">
-                <div class="card-header">Form Koreksi Ijin Karyawan</div>
+                <div class="card-header">Form Ijin Karyawan</div>
                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                     <div class="form berat_woven">
-                        <form action="#" method="post" role="form">
+
                             <div class="row">
                                 <div class="form-group col-md-3 d-flex justify-content-end">
                                     <span class="aligned-text">Nama Pegawai:</span>
                                 </div>
                                 <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="date" class="form-control" name="Divisi_pengiriman"
-                                        id="Divsi_pengiriman" placeholder="Divisi Pengiriman" required>
+                                    <input type="text" class="form-control" name="Divisi_pengiriman"
+                                        id="Nama_Pegawai" placeholder="" >
+                                    <div class="text-center col-md-auto"><button>Tampil</button></div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="form-group col-md-3 d-flex justify-content-end">
-                                    <span class="aligned-text">Nama / ID Divisi:</span>
-                                </div>
-                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Nama_divisi" id="Nama_divisi"
-                                        placeholder="Nama / ID Divisi" required>
-                                    <h1> / </h1>
-                                    <button type="button" class="btn" style="margin-left: 10px; " id="divisiButton"
-                                        onclick="showModalDivisi()">...</button>
+                            <div class="card">
+                                <div class="card-header">Data </div>
+                                <div class="row" style=";">
+                                    <div class="table-responsive" style="margin:30px;">
+                                        <table id="table_Pegawai" class="table table-bordered">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Nama_Div</th>
+                                                    <th scope="col">Kd_Pegawai</th>
+                                                    <th scope="col">Nama_Peg</th>
+                                                    <th scope="col">Jenis_Peg</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- @foreach ($dataDivisi as $data)
+                                                    <tr>
 
-                                    <div class="modal fade" id="modalDivisi" role="dialog" arialabelledby="modalLabel"
-                                        area-hidden="true" style="">
-                                        <div class="modal-dialog " role="document">
-                                            <div class="modal-content" style="">
-                                                <div class="modal-header" style="justify-content: center;">
-
-                                                    <div class="row" style=";">
-                                                        <div class="table-responsive" style="margin:30px;">
-                                                            <table id="table_Divisi" class="table table-bordered">
-                                                                <thead class="thead-dark">
+                                                        <td>{{ $data->Id_Div }}</td>
+                                                        <td>{{ $data->Nama_Div }}</td>
+                                                    </tr>
+                                                @endforeach --}}
+                                                {{-- @foreach ($peringatan as $item)
                                                                     <tr>
-                                                                        <th scope="col">Id Divisi</th>
-                                                                        <th scope="col">Nama Divisi</th>
-
+                                                                        <td><input type="checkbox" style="margin-right:5px;"
+                                                                                data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                        </td>
+                                                                        <td>{{ $item->Nama_Div }}</td>
+                                                                        <td>{{ $item->kd_pegawai }}</td>
+                                                                        <td>{{ $item->Nama_Peg }}</td>
+                                                                        <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                        <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                        <td>{{ $item->uraian }}</td>
+                                                                        <td>{{ $item->bulan }}</td>
+                                                                        <td>{{ $item->tahun }}</td>
                                                                     </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($dataDivisi as $data)
-                                                                        <tr>
-
-                                                                            <td>{{ $data->Id_Div }}</td>
-                                                                            <td>{{ $data->Nama_Div }}</td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    {{-- @foreach ($peringatan as $item)
-                                                                                        <tr>
-                                                                                            <td><input type="checkbox" style="margin-right:5px;"
-                                                                                                    data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
-                                                                                                    data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
-                                                                                            </td>
-                                                                                            <td>{{ $item->Nama_Div }}</td>
-                                                                                            <td>{{ $item->kd_pegawai }}</td>
-                                                                                            <td>{{ $item->Nama_Peg }}</td>
-                                                                                            <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
-                                                                                            <td>{{ $item->TglAkhir ?? 'Null' }}</td>
-                                                                                            <td>{{ $item->uraian }}</td>
-                                                                                            <td>{{ $item->bulan }}</td>
-                                                                                            <td>{{ $item->tahun }}</td>
-                                                                                        </tr>
-                                                                                    @endforeach --}}
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                                @endforeach --}}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-3 d-flex justify-content-end">
-                                    <span class="aligned-text">Nama / Kode Pegawai:</span>
-                                </div>
-                                <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="text" class="form-control" name="Kode_pegawai" id="Kode_pegawai"
-                                        placeholder="Nama / Kode Pegawai" required>
-                                    <h1> /</h1>
-                                </div>
-                            </div>
-
-                            <div class="row mt-3">
-                                <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit">Tampilkan Data</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mt-4">
-                                <div class="card-header">Hasil Print</div>
-                                <h1>Tes</h1>
                             </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="form-group col-md-3 d-flex justify-content-end">
-                            <span class="aligned-text">Kode Pegawai:</span>
+                            <span class="aligned-text">Nomor Kartu:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
                             <input type="text" class="form-control" name="Nomor_kartu" id="Nomor_kartu"
@@ -115,12 +75,55 @@
 
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Nama / ID Divisi:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Nama_divisi" id="Nama_divisi"
+                                placeholder="Nama / ID Divisi" required>
+                            <h1> / </h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Nama / Kode Pegawai:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Kode_pegawai" id="Kode_pegawai"
+                                placeholder="Nama / Kode Pegawai" required>
+                            <h1> /</h1>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Divisi:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Divisi" id="Divisi" placeholder="Divisi"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Kode Pegawai:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <input type="text" class="form-control" name="Kode_pegawai" id="Kode_pegawai"
+                                placeholder="Nama / Kode Pegawai" required>
+                            <input type="text" class="form-control mt-r-l" name="Kode_pegawai" id="Kode_pegawai"
+                                placeholder="Nama / Kode Pegawai" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
                             <span class="aligned-text">Tanggal Ijin:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="date" class="form-control" name="Nama_divisi" id="Nama_divisi"
-                                placeholder="Nama / ID Divisi" required>
-                            <h1> / </h1>
+                            <input type="Date" class="form-control" name="Ijin" id="Ijin" placeholder="Ijin"
+                                required>
                         </div>
                     </div>
 
@@ -147,6 +150,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="form-group col-md-3 d-flex justify-content-end">
@@ -207,7 +211,8 @@
                             <span class="aligned-text">Uraian Permohonan:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <textarea name="message" rows="4" cols="50"></textarea>
+                            <input type="text" class="form-control" name="Uraian" id="Uraian"
+                                placeholder="Uraian" required>
                         </div>
                     </div>
 
@@ -223,12 +228,11 @@
 
                     <div class="row mt-3">
                         <div class="col- row justify-content-md-center">
-                            <div class="text-center col-md-auto"><button type="submit">Koreksi</button></div>
+                            <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
                             <div class="text-center col-md-auto"><button type="submit">Batal</button></div>
                             <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
                         </div>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
