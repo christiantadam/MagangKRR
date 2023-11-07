@@ -270,8 +270,18 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Nama Bank", data: "Bank" },
                         { title: "Mata Uang ", data: "MataUang" },
                         { title: "Customer", data: "NamaCust" },
-                        { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
-                        { title: "Saldo Pelunasan", data: "SaldoPelunasan" },
+                        { title: "Total Pelunasan", data: "Nilai_Pelunasan",
+                            render: function (data) {
+                                // Mengubah format angka ke format dengan koma
+                                return parseFloat(data).toLocaleString();
+                            },
+                        },
+                        { title: "Saldo Pelunasan", data: "SaldoPelunasan",
+                            render: function (data) {
+                                // Mengubah format angka ke format dengan koma
+                                return parseFloat(data).toLocaleString();
+                            },
+                        },
                         { title: "Id. Pelunasan", data: "Id_Pelunasan"},
                         { title: "Jenis Bank", data: "Jenis_Bank"},
                         { title: "Id. Uang", data: "Id_MataUang"},
@@ -625,7 +635,12 @@ btnOkTampilBKM.addEventListener('click', function(event) {
                         }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
-                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan",
+                        render: function (data) {
+                            // Mengubah format angka ke format dengan koma
+                            return parseFloat(data).toLocaleString();
+                        },
+                    },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]
             });
@@ -686,7 +701,12 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                         }
                     },
                     { title: "Id. BKM", data: "Id_BKK" },
-                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan",
+                        render: function (data) {
+                            // Mengubah format angka ke format dengan koma
+                            return parseFloat(data).toLocaleString();
+                        },
+                    },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]
             });

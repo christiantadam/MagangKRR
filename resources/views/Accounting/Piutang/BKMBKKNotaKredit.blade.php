@@ -119,7 +119,7 @@
                                                     <label for="kursRupiah" style="margin-right: 10px;">Kurs Rupiah</label>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="number" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" readonly>
+                                                    <input type="text" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
                                             <input type="text" name="idMataUangBKM" id="idMataUangBKM"

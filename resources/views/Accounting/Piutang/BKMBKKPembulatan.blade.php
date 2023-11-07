@@ -169,7 +169,7 @@ s
                                                     <label for="jumlahUang">Jumlah Uang</label>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="number" id="jumlahUang" name="jumlahUang" class="form-control" style="width: 100%">
+                                                    <input type="text" id="jumlahUang" name="jumlahUang" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <p><div class="row">

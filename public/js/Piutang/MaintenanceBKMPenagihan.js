@@ -141,7 +141,12 @@ btnOK.addEventListener('click', function (event) {
                         { title: "Id. Bank", data: "Id_bank" },
                         { title: "Jenis Pembayaran", data: "Jenis_Pembayaran" },
                         { title: "Mata Uang", data: "Nama_MataUang" },
-                        { title: "Total Pelunasan", data: "Nilai_Pelunasan" },
+                        { title: "Total Pelunasan", data: "Nilai_Pelunasan",
+                            render: function (data) {
+                                // Mengubah format angka ke format dengan koma
+                                return parseFloat(data).toLocaleString();
+                            },
+                         },
                         { title: "No. Bukti", data: "No_Bukti" },
                         { title: "Tgl Pembuatan", defaultContent: "" },
                         { title: "IdCust", data: "ID_Cust" },
@@ -204,8 +209,18 @@ btnPilihBank.addEventListener('click', function (event) {
                                     return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
                                 },
                             },
-                            { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
-                            { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah" },
+                            { title: "Nilai Pelunasan", data: "Nilai_Pelunasan",
+                                render: function (data) {
+                                    // Mengubah format angka ke format dengan koma
+                                    return parseFloat(data).toLocaleString();
+                                },
+                            },
+                            { title: "Pelunasan Rupiah", data: "Pelunasan_Rupiah",
+                                render: function (data) {
+                                    // Mengubah format angka ke format dengan koma
+                                    return parseFloat(data).toLocaleString();
+                                },
+                            },
                             { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                             { title: "Customer", data: "NamaCust" },
                             { title: "Id. Detail", data: "ID_Detail_Pelunasan" },
@@ -229,7 +244,12 @@ btnPilihBank.addEventListener('click', function (event) {
                                     return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
                                 },
                             },
-                            { title: "Jumlah Biaya", data: "KurangLebih" },
+                            { title: "Jumlah Biaya", data: "KurangLebih",
+                                render: function (data) {
+                                    // Mengubah format angka ke format dengan koma
+                                    return parseFloat(data).toLocaleString();
+                                },
+                            },
                             { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                             { title: "Id. Detail", data: "Id_Detail_Pelunasan" },
                         ],
@@ -251,7 +271,12 @@ btnPilihBank.addEventListener('click', function (event) {
                                     return `<input type="checkbox" name="dataCheckbox" value="${data}" /> ${data}`;
                                 },
                             },
-                            { title: "Jumlah Biaya", data: "Biaya" },
+                            { title: "Jumlah Biaya", data: "Biaya",
+                                render: function (data) {
+                                    // Mengubah format angka ke format dengan koma
+                                    return parseFloat(data).toLocaleString();
+                                },
+                            },
                             { title: "Kode Perkiraan", data: "Kode_Perkiraan" },
                             { title: "Id. Detail", data: "Id_Detail_Pelunasan" },
                         ],

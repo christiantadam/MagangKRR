@@ -61,7 +61,10 @@ idBKMSelect.addEventListener('change', function(event) {
                 console.log(options);
                 statusPenagihan.value = options[0].Status_Penagihan;
                 mataUang.value = options[0].Nama_MataUang;
-                nilaiBKM.value = options[0].Nilai_Pelunasan;
+
+                var nilaiNumber = parseFloat(options[0].Nilai_Pelunasan);
+                var nilaiDalamFormatKoma = nilaiNumber.toLocaleString();
+                nilaiBKM.value = nilaiDalamFormatKoma;
                 alasan.value = options[0].Uraian;
             });
 

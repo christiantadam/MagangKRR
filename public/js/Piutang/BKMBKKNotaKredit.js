@@ -130,7 +130,12 @@ fetch("/getTabelNotaKredit/")
                 { title: "No. Nota Kredit", data: "Id_NotaKredit" },
                 { title: "No. Penagihan", data: "Id_Penagihan" },
                 { title: "Jenis Nota Kredit ", data: "NamaNotaKredit" },
-                { title: "Jumlah Uang", data: "Nilai" },
+                { title: "Jumlah Uang", data: "Nilai",
+                    render: function (data) {
+                        // Mengubah format angka ke format dengan koma
+                        return parseFloat(data).toLocaleString();
+                    },
+                },
                 { title: "Mata Uang", data: "Nama_MataUang" },
                 { title: "Id. Mata Uang", data: "Id_MataUang" },
                 { title: "Id. Customer", data: "Id_Customer"},
@@ -630,7 +635,12 @@ btnOkTampilBKM.addEventListener('click', function(event) {
                         }
                     },
                     { title: "Id. BKM", data: "Id_BKM" },
-                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pelunasan",
+                        render: function (data) {
+                            // Mengubah format angka ke format dengan koma
+                            return parseFloat(data).toLocaleString();
+                        },
+                    },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]
             });
@@ -693,7 +703,12 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                         }
                     },
                     { title: "Id. BKK", data: "Id_BKK" },
-                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan" },
+                    { title: "Nilai Pelunasan", data: "Nilai_Pembulatan",
+                        render: function (data) {
+                            // Mengubah format angka ke format dengan koma
+                            return parseFloat(data).toLocaleString();
+                        },
+                    },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]
             });

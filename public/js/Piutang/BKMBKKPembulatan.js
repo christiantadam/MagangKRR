@@ -108,7 +108,12 @@ btnOK.addEventListener('click', function (event) {
                                 return date.toLocaleDateString();
                             }
                         },
-                        { title: "Nilai Pelunasan", data: "Total" },
+                        { title: "Nilai Pelunasan", data: "Total",
+                            render: function (data) {
+                                // Mengubah format angka ke format dengan koma
+                                return parseFloat(data).toLocaleString();
+                            },
+                        },
                     ],
                 });
             });
@@ -148,7 +153,12 @@ $("#tabelDataBKM tbody").on("change", "input[type='checkbox']", function (event)
                             { title: "No. Bukti", data: "No_Bukti" },
                             { title: "Invoice", data: "ID_Penagihan" },
                             { title: "Mata Uang", data: "Id_MataUang" },
-                            { title: "Nilai Rincian", data: "Rincian" },
+                            { title: "Nilai Rincian", data: "Rincian",
+                                render: function (data) {
+                                    // Mengubah format angka ke format dengan koma
+                                    return parseFloat(data).toLocaleString();
+                                },
+                            },
                             { title: "Id. Bank", data: "Id_bank" },
                             { title: "Id. Jenis", data: "Jenis_Bank" },
                             { title: "Id. Uang", data: "Id_MataUang" }
@@ -358,7 +368,12 @@ btnOkTampilBKK.addEventListener('click', function(event) {
                         }
                     },
                     { title: "Id. BKK", data: "Id_BKK" },
-                    { title: "Nilai Pembulatan", data: "Nilai_Pembulatan" },
+                    { title: "Nilai Pembulatan", data: "Nilai_Pembulatan",
+                        render: function (data) {
+                            // Mengubah format angka ke format dengan koma
+                            return parseFloat(data).toLocaleString();
+                        },
+                    },
                     { title: "Terjemahan", data: "Terjemahan" },
                 ]
             });
