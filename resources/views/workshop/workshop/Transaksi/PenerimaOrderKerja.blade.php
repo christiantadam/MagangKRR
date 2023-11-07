@@ -114,7 +114,7 @@
 
       <div class="table-responsive">
         <table class="table mt-3" style="width: max-content" id="tablePenerimaOrderKerja">
-          <thead class="table-dark">
+          <thead class="table-dark" style="white-space:nowrap">
             <tr>
               <th>No. Order</th>
               <th>Tgl. Order</th>

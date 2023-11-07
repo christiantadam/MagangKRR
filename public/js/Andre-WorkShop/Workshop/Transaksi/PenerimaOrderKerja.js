@@ -241,6 +241,77 @@ table_data.on("draw", function () {
 
 //#endregion
 
+//#region pindah row table
+
+// let table1 = $("#" + tableId).DataTable();
+
+// table1.clear().rows.add(listData).draw();
+table_data.on("blur", function () {
+    removeNavigation_DataTable([table_data]);
+});
+
+const tableContainer = table_data.table().container();
+const elements = tableContainer.querySelectorAll(".odd, .even");
+elements.forEach((ele, i) => {
+    ele.addEventListener("click", () => {
+        removeNavigation_DataTable([table_data]);
+        // rowFun(i, table1.row(i).data());
+        arrowNavigation_DataTable(table_data, i, (index, data) => {
+            rowFun(index, data, true);
+        });
+    });
+});
+
+function arrowNavigation_DataTable(d_table, s_index, e_handler = null) {
+    /**
+     * d_table, Objek DataTable yang akan digunakan.
+     * s_index, Index row yang terpilih; "remove" untuk menghapus fungsi navigasi.
+     * e_handler, Fungsi yang akan dijalankan terhadap row yang terpilih.
+     */
+
+    const tableContainer = d_table.table().container();
+    let selectedRow = s_index == "remove" ? 0 : s_index;
+    let elements = tableContainer.querySelectorAll(".odd, .even");
+
+    // Penanganan untuk beberapa datatables di halaman yang sama
+    if (s_index == "remove") {
+        $(document).off("keydown");
+        elements.forEach((ele) => {
+            ele.classList.remove("selected");
+            ele.onclick = null;
+        });
+
+        return;
+    } else elements[selectedRow].classList.add("selected");
+
+    // Implementasi navigasi arrow keys & home / end
+    $(document).on("keydown", (e) => {
+        if (e.key === "ArrowDown" && selectedRow < elements.length - 1) {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow += 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "ArrowUp" && selectedRow > 0) {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow -= 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "Home") {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow = 0;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "End") {
+            elements[selectedRow].classList.remove("selected");
+            selectedRow = elements.length - 1;
+            elements[selectedRow].classList.add("selected");
+        } else if (e.key === "Enter") {
+            let row_index = selectedRow;
+            let row_data = d_table.row(selectedRow).data();
+            if (e_handler != null) e_handler(row_index, row_data);
+        }
+    });
+}
+
+//#endregion
+
 //#region klik proses
 
 function klikproses() {
@@ -422,7 +493,6 @@ function koreksiklik() {
                 order_kerja.checked == true ||
                 order_selesai.checked == true
             ) {
-
             } else {
                 btnkoreksi.setAttribute("data-toggle", "");
                 btnkoreksi.setAttribute("data-target", "");
@@ -448,7 +518,7 @@ function koreksiklik() {
                 Divisi.value = table_data.cell(index, 8).data();
                 NamaBarang.value = table_data.cell(index, 3).data();
                 KeteranganOrder.value = table_data.cell(index, 10).data();
-                JumlahOrder.value = table_data.cell(index,6).data();
+                JumlahOrder.value = table_data.cell(index, 6).data();
                 LabelStatus.textContent = table_data.cell(index, 7).data();
                 Usermodalkoreksi.value = table_data.cell(index, 12).data();
                 Tsts.value = 1;
@@ -478,8 +548,8 @@ function koreksiklik() {
                 btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
                 $("#ModalKoreksi").on("shown.bs.modal", function () {
                     setTimeout(function () {
-                        $('#TanggalStart').focus();
-                      }, 500);
+                        $("#TanggalStart").focus();
+                    }, 500);
                     // // Check if the modal is visible before focusing
                     // if ($(this).css("display") === "block") {
                     //     $("#JumlahOrderSelesai").focus();
@@ -536,8 +606,8 @@ function koreksiklik() {
                 btnkoreksi.setAttribute("data-target", "#ModalKoreksi");
                 $("#ModalKoreksi").on("shown.bs.modal", function () {
                     setTimeout(function () {
-                        $('#JumlahOrderSelesai').focus();
-                      }, 500);
+                        $("#JumlahOrderSelesai").focus();
+                    }, 500);
                     // // Check if the modal is visible before focusing
                     // if ($(this).css("display") === "block") {
                     //     $("#JumlahOrderSelesai").focus();
@@ -658,36 +728,34 @@ function klikprosestunda() {
 
 //#region waktu checked nanti button mana yang aktif
 
-acc_order.addEventListener('change', function(){
+acc_order.addEventListener("change", function () {
     btnproses.disabled = !acc_order.checked;
     btnkoreksi.disabled = true;
 });
-batal_acc.addEventListener('change', function(){
+batal_acc.addEventListener("change", function () {
     btnproses.disabled = !batal_acc.checked;
     btnkoreksi.disabled = true;
 });
-tunda.addEventListener('change', function(){
+tunda.addEventListener("change", function () {
     btnproses.disabled = !tunda.checked;
     btnkoreksi.disabled = true;
 });
-order_tolak.addEventListener('change', function(){
+order_tolak.addEventListener("change", function () {
     btnproses.disabled = !order_tolak.checked;
     btnkoreksi.disabled = true;
-})
+});
 
-order_kerja.addEventListener('change', function(){
+order_kerja.addEventListener("change", function () {
     btnkoreksi.disabled = !order_kerja.checked;
     btnproses.disabled = true;
 });
-order_selesai.addEventListener('change', function(){
+order_selesai.addEventListener("change", function () {
     btnkoreksi.disabled = !order_selesai.checked;
     btnproses.disabled = true;
 });
-order_batal.addEventListener('change', function(){
+order_batal.addEventListener("change", function () {
     btnkoreksi.disabled = !order_batal.checked;
     btnproses.disabled = true;
 });
-
-
 
 //#endregion
