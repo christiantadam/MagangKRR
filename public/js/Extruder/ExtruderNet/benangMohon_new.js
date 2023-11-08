@@ -337,19 +337,18 @@ slcType.addEventListener("change", function () {
                                 let nama_type =
                                     slcType.options[slcType.selectedIndex].text;
 
-                                if (data2[0].SaatLog == "Ada") {
+                                if (data2[0].SaatLog != null) {
                                     alert(
                                         nama_type +
                                             " sudah disortir dan di-ACC.\n" +
                                             "Cek datanya di Kartu Barang Inventory."
                                     );
-                                } else if (data2[0].SaatLog == null) {
+                                } else
                                     alert(
                                         nama_type +
                                             " sudah disortir namun belum di-ACC.\n" +
                                             "Cek datanya di ACC Sortir Benang NG."
                                     );
-                                }
                             }
                         }
                     );
