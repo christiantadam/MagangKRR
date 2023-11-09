@@ -164,19 +164,19 @@
                             <li class="dropdown">
                                 <a href="#"><span>Berat Standar</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratWoven" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratWoven">Berat
                                             Woven</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratJumbo" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratJumbo">Berat
                                             Jumbo</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratADStar" target="_blank">Berat AD
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratADStar">Berat AD
                                             Star</a>
                                     </li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratCircular" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratCircular">Berat
                                             Gelondongan / Woven Kraft</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratAssesoris" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratAssesoris">Berat
                                             Assesoris</a>
                                     </li>
-                                    <li><a href="/Extruder/BeratKomposisi/formUpdatePersen" target="_blank">Update
+                                    <li><a href="/Extruder/BeratKomposisi/formUpdatePersen">Update
                                             Persen Toleransi BS</a></li>
                                 </ul>
                             </li>
@@ -185,22 +185,22 @@
                             <li class="dropdown">
                                 <a href="#"><span>Berat Standar 2</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratWoven2" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratWoven2">Berat
                                             Woven</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratJumbo2" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratJumbo2">Berat
                                             Jumbo</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratADStar2" target="_blank">Berat AD
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratADStar2">Berat AD
                                             Star</a>
                                     </li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratCircular2" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratCircular2">Berat
                                             Gelondongan / Woven Kraft</a></li>
-                                    <li><a href="/Extruder/BeratKomposisi/formBeratAssesoris2" target="_blank">Berat
+                                    <li><a href="/Extruder/BeratKomposisi/formBeratAssesoris2">Berat
                                             Assesoris</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="/Extruder/BeratKomposisi/formKonversiKg" target="_blank">Konversi Kg</a></li>
-                            <li><a href="/Extruder/BeratKomposisi/formKonversiBarang" target="_blank">Konversi</a>
+                            <li><a href="/Extruder/BeratKomposisi/formKonversiKg">Konversi Kg</a></li>
+                            <li><a href="/Extruder/BeratKomposisi/formKonversiBarang">Konversi</a>
                             </li>
                             <li><a href="/Extruder">Keluar</a></li>
                         </ul>
@@ -209,23 +209,18 @@
                             <li class="dropdown">
                                 <a href="#"><span>Master</span> <i class="bi bi-chevron-down"></i></a>
                                 <ul>
-                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiTropodo"
-                                            target="_blank">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiTropodo">Maintenance
                                             Komposisi Bahan Tropodo</a></li>
-                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari"
-                                            target="_blank">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari">Maintenance
                                             Komposisi Bahan Mojosari</a></li>
-                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari/D"
-                                            target="_blank">Maintenance
+                                    <li><a href="/Extruder/ExtruderNet/Master/formKomposisiMojosari/D">Maintenance
                                             Komposisi Bahan Gedung D Mojosari</a>
                                     </li>
                                     <li class="dropdown"><a href="#"><span>KITE</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteMaster"
-                                                    target="_blank">Master</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteEstimasi"
-                                                    target="_blank">Estimasi</a>
+                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteMaster">Master</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Master/formKiteEstimasi">Estimasi</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -238,13 +233,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC" target="_blank">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC">ACC
                                                     Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -253,12 +246,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon"
-                                                    target="_blank">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC"
-                                                    target="_blank">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>
@@ -267,28 +258,23 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon"
-                                                    target="_blank">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC"
-                                                    target="_blank">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatGangguan"
-                                            target="_blank">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatGangguan">Pencatatan
                                             Gangguan
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatDaya" target="_blank">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatDaya">Pencatatan
                                             KwaH
                                             Produksi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatEffisiensi"
-                                            target="_blank">Pencatatan
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatEffisiensi">Pencatatan
                                             Effisiensi</a>
-                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatPerawatan"
-                                            target="_blank">Perawatan</a>
+                                    <li><a href="/Extruder/ExtruderNet/Catat/formCatatPerawatan">Perawatan</a>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -298,13 +284,10 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/B"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/B">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/B"
-                                                    target="_blank">ACC Order</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/B"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/B">ACC Order</a></li>
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/B">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -313,12 +296,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/B"
-                                                    target="_blank">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/B">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/B"
-                                                    target="_blank">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/B">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>
@@ -332,14 +313,11 @@
                                     <li class="dropdown">
                                         <a href="#"><span>Order</span> <i class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/D"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderMaintenance/D">Maintenance
                                                     Order Extruder</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/D"
-                                                    target="_blank">ACC Order</a>
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderACC/D">ACC Order</a>
                                             </li>
-                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/D"
-                                                    target="_blank">Maintenance
+                                            <li><a href="/Extruder/ExtruderNet/Order/formOrderStatus/D">Maintenance
                                                     Status
                                                     Order</a></li>
                                         </ul>
@@ -348,12 +326,10 @@
                                         <a href="#"><span>Konversi</span> <i
                                                 class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/D"
-                                                    target="_blank">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiMohon/D">Permohonan
                                                     Konversi
                                                     Barang</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/D"
-                                                    target="_blank">ACC
+                                            <li><a href="/Extruder/ExtruderNet/Konversi/formKonversiACC/D">ACC
                                                     Permohonan
                                                     Konversi</a></li>
                                         </ul>
@@ -362,12 +338,10 @@
                                         <a href="#"><span>Sortir Benang NG</span>
                                             <i class="bi bi-chevron-right"></i></a>
                                         <ul style="transition: 0.3s; left: -75%;">
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon/D"
-                                                    target="_blank">Permohonan
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangMohon/D">Permohonan
                                                     Sortir
                                                     Benang NG</a></li>
-                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC/D"
-                                                    target="_blank">ACC Sortir
+                                            <li><a href="/Extruder/ExtruderNet/Benang/formBenangACC/D">ACC Sortir
                                                     Benang
                                                     NG</a></li>
                                         </ul>
@@ -382,30 +356,30 @@
                         </ul>
                     @elseif($pageName == 'WarehouseTerima')
                         <ul class="warehouse" style="border: black solid 3px;">
-                            <li><a href="/Extruder/WarehouseTerima/formScanGelondongan" target="_blank">Scan
+                            <li><a href="/Extruder/WarehouseTerima/formScanGelondongan">Scan
                                     Kirim<br>Gelondongan</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/formBatalGelondongan" target="_blank">Batal
+                            <li><a href="/Extruder/WarehouseTerima/formBatalGelondongan">Batal
                                     Kirim<br>Gelondongan</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/formScanAssesoris" target="_blank">Scan
+                            <li><a href="/Extruder/WarehouseTerima/formScanAssesoris">Scan
                                     Kirim<br>Assesoris</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/formBatalAssesoris" target="_blank">Batal
+                            <li><a href="/Extruder/WarehouseTerima/formBatalAssesoris">Batal
                                     Kirim<br>Assesoris</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/formScanKRR2" target="_blank">Scan
+                            <li><a href="/Extruder/WarehouseTerima/formScanKRR2">Scan
                                     Kirim<br>KRR2</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/formBatalKRR2" target="_blank">Batal
+                            <li><a href="/Extruder/WarehouseTerima/formBatalKRR2">Batal
                                     Kirim<br>KRR2</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/formCekBarcode" target="_blank">Cek<br>Barcode</a>
+                            <li><a href="/Extruder/WarehouseTerima/formCekBarcode">Cek<br>Barcode</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/formTerimaKRR2" target="_blank">Terima<br>KRR2</a>
+                            <li><a href="/Extruder/WarehouseTerima/formTerimaKRR2">Terima<br>KRR2</a>
                             </li>
-                            <li><a href="/Extruder/WarehouseTerima/formStokSetengah" target="_blank">Stok<br>Setengah
+                            <li><a href="/Extruder/WarehouseTerima/formStokSetengah">Stok<br>Setengah
                                     Jadi</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/formTerimaPeletan" target="_blank">Scan
+                            <li><a href="/Extruder/WarehouseTerima/formTerimaPeletan">Scan
                                     Terima<br>Peletan</a></li>
-                            <li><a href="/Extruder/WarehouseTerima/formGagalPeletan" target="_blank">Gagal
+                            <li><a href="/Extruder/WarehouseTerima/formGagalPeletan">Gagal
                                     Terima<br>Peletan</a></li>
                             <li><a href="/Extruder">Keluar</a></li>
                         </ul>

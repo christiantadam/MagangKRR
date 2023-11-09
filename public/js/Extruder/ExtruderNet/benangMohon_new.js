@@ -201,6 +201,7 @@ slcNoKonversi.addEventListener("mousedown", function () {
         };
 
         // SP_5298_EXT_LIST_IDKONV
+        // AMBIL DARI VW_PRG_5298_EXT_LIST_IDKONV
         fetchSelect(
             "/Benang/getListIdKonv1/" +
                 idDivisi +
@@ -233,6 +234,7 @@ slcNoKonversi.addEventListener("keydown", function (event) {
         };
 
         // SP_5298_EXT_LIST_IDKONV
+        // AMBIL DARI VW_PRG_5298_EXT_LIST_IDKONV
         fetchSelect(
             "/Benang/getListIdKonv1/" +
                 idDivisi +
@@ -279,6 +281,7 @@ slcType.addEventListener("mousedown", function () {
             };
 
             // SP_5298_EXT_LIST_PROD_NG
+            // AMBIL DARI VW_PRG_5298_EXT_LIST_PROD_NG
             fetchSelect(
                 "/Benang/getListProdNG/" + slcNoKonversi.value,
                 (data) => {
@@ -305,6 +308,7 @@ slcType.addEventListener("keydown", function (event) {
             };
 
             // SP_5298_EXT_LIST_PROD_NG
+            // AMBIL DARI VW_PRG_5298_EXT_LIST_PROD_NG
             fetchSelect(
                 "/Benang/getListProdNG/" + slcNoKonversi.value,
                 (data) => {

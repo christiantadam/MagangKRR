@@ -150,9 +150,6 @@ hidInput.addEventListener("change", function () {
         prosesExtruderFetch();
     } else if (strFunction.trim() == "prosesExtruder") {
         console.log("Proses extruder selesai.");
-        alert("Konversi berhasil di-ACC.");
-        clearForm();
-        daftarKonversiBelumACCFetch();
     }
 });
 //#endregion
@@ -363,16 +360,16 @@ function toleransi(jum_bahan) {
             btnProses.focus();
         } else if (total_hasil_produksi < range1) {
             alert(
-                "Total_hasil_produksi : " +
+                "Total Hasil Produksi = " +
                     total_hasil_produksi +
-                    " lebih kecil dari : " +
+                    " lebih kecil dari = " +
                     range1
             );
         } else if (total_hasil_produksi > range2) {
             alert(
-                "Total_hasil_produksi : " +
+                "Total Hasil Produksi = " +
                     total_hasil_produksi +
-                    " lebih besar dari : " +
+                    " lebih besar dari = " +
                     range2
             );
         } else
@@ -413,12 +410,10 @@ function toleransi(jum_bahan) {
             alert(
                 "Jumlah bahan tidak valid (Jumlah bahan = " + jum_bahan + ")."
             );
-    } else
-        alert(
-            "Type mesin tidak terdaftar (Type mesin = " +
-                txtIdMesin.value +
-                ")."
-        );
+    } else {
+        btnProses.disabled = false;
+        btnProses.focus();
+    }
 }
 
 function cekPenyesuaianFetch() {
@@ -491,6 +486,7 @@ function prosesInventoryFetch() {
             } else shift = "M";
 
             // Cek hutang berdasarkan [id_type, subkel, shift, tgl]
+            let ada_hutang = true;
             for (let i = 0; i < listTmpTrans.length; i++) {
                 // SP_5298_EXT_AMBIL_JUMLAH_HUTANG
                 fetchSelect(
@@ -503,26 +499,29 @@ function prosesInventoryFetch() {
                         "/" +
                         formatDateToDDMMYY(dateInput.value),
                     (dataHut) => {
+                        listTmpExt.length = 0;
                         for (let j = 0; j < dataHut.length; j++)
-                            listTmpExt.push(dataHut[j]);
+                            listTmpExt.push(dataHut[0]);
 
                         // Cek apakah jumlah yang dikonversi = hutang
                         let jmlh_hutang = -1;
                         arrIdType = new Array(50);
                         arrSubKel = new Array(50);
 
+                        console.log(listTmpExt);
+
                         if (listTmpExt.length >= 1) {
                             for (let j = 0; j < listTmpTrans.length; j++) {
-                                if (listTmpExt[j].TotalS === null)
-                                    listTmpExt[j].TotalS = 0;
-                                if (listTmpExt[j].Total === null)
-                                    listTmpExt[j].Total = 0;
+                                if (listTmpExt[0].TotalS === null)
+                                    listTmpExt[0].TotalS = 0;
+                                if (listTmpExt[0].Total === null)
+                                    listTmpExt[0].Total = 0;
 
                                 if (
                                     listTmpTrans[j].JumlahPemasukanSekunder ==
-                                        listTmpExt[j].TotalS &&
+                                        listTmpExt[0].TotalS &&
                                     listTmpTrans[j].JumlahPemasukanTritier ==
-                                        listTmpExt[j].Total &&
+                                        listTmpExt[0].Total &&
                                     (listTmpTrans[j].JumlahPemasukanSekunder !=
                                         0 ||
                                         listTmpTrans[j]
@@ -535,8 +534,8 @@ function prosesInventoryFetch() {
                                     jmlh_hutang += 1;
                                 } else {
                                     if (
-                                        listTmpExt[j].TotalS != 0 ||
-                                        listTmpExt[j].Total != 0
+                                        listTmpExt[0].TotalS != 0 ||
+                                        listTmpExt[0].Total != 0
                                     ) {
                                         console.log(listTmpExt);
                                         alert(
@@ -546,53 +545,47 @@ function prosesInventoryFetch() {
                                         return;
                                     } else
                                         console.log(
-                                            "Tidak ditemukan hutang extruder."
+                                            "Tidak ditemukan hutang Extruder."
                                         );
                                 }
                             }
-                        } else console.log("Tidak ditemukan hutang extruder.");
+                        } else console.log("Tidak ditemukan hutang Extruder.");
 
                         if (jmlh_hutang > 0) {
+                            ada_hutang = true;
                             lunasiHutangFetch(jmlh_hutang);
                         } else {
                             // Tidak ditemukan hutang extruder
-
-                            for (let j = 0; j < listTmpTrans.length; j++) {
-                                // SP_5298_EXT_PROSES_ACC_KONVERSI
-                                fetchStmt(
-                                    "/Konversi/updProsesACCKonversi/" +
-                                        listTmpTrans[j].IdTransaksi +
-                                        "/" +
-                                        listTmpTrans[j].IdType.trim() +
-                                        "/" +
-                                        dateInput.value +
-                                        "/" +
-                                        listTmpTrans[j]
-                                            .JumlahPengeluaranPrimer +
-                                        "/" +
-                                        listTmpTrans[j]
-                                            .JumlahPengeluaranSekunder +
-                                        "/" +
-                                        listTmpTrans[j]
-                                            .JumlahPengeluaranTritier +
-                                        "/" +
-                                        listTmpTrans[j].JumlahPemasukanPrimer +
-                                        "/" +
-                                        listTmpTrans[j]
-                                            .JumlahPemasukanSekunder +
-                                        "/" +
-                                        listTmpTrans[j].JumlahPemasukanTritier,
-                                    () => {
-                                        if (j == listTmpTrans.length - 1) {
-                                            hidInput.value =
-                                                "prosesInventory | Tidak_ditemukan_hutang_extruder.";
-                                            hidInput.dispatchEvent(
-                                                new Event("change")
-                                            );
-                                        }
+                            // SP_5298_EXT_PROSES_ACC_KONVERSI
+                            fetchStmt(
+                                "/Konversi/updProsesACCKonversi/" +
+                                    listTmpTrans[i].IdTransaksi +
+                                    "/" +
+                                    listTmpTrans[i].IdType.trim() +
+                                    "/" +
+                                    dateInput.value +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPengeluaranPrimer +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPengeluaranSekunder +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPengeluaranTritier +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPemasukanPrimer +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPemasukanSekunder +
+                                    "/" +
+                                    listTmpTrans[i].JumlahPemasukanTritier,
+                                () => {
+                                    if (i == listTmpTrans.length - 1) {
+                                        hidInput.value =
+                                            "prosesInventory | Tidak_ditemukan_hutang_extruder.";
+                                        hidInput.dispatchEvent(
+                                            new Event("change")
+                                        );
                                     }
-                                );
-                            }
+                                }
+                            );
                         }
                     }
                 );
@@ -723,7 +716,14 @@ function prosesExtruderFetch() {
                                 "/" +
                                 txtNoUrut.value,
                             (data) => {
-                                alert(data["nmerror"]);
+                                if (i == listHasil.length - 1) {
+                                    alert(
+                                        data["nmerror"] +
+                                            "\nKonversi berhasil di-ACC."
+                                    );
+                                    clearForm();
+                                    daftarKonversiBelumACCFetch();
+                                }
                                 hidInput.value = "prosesExtruder | true";
                                 hidInput.dispatchEvent(new Event("change"));
                             }
