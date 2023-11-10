@@ -62,7 +62,7 @@ class HanguskanBarcodeController extends Controller
         DB::connection('ConnInventory')->statement('exec SP_5409_INV_PenghangusanBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
             $data['kodebarang'],
             $data['noindeks'],
-            'U001'
+            '4384'
 
         ]);
         return redirect()->route('HanguskanBarcode.index')->with('alert', 'Data Updated successfully!');
