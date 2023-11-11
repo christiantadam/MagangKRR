@@ -95,7 +95,7 @@ btnDetail.addEventListener("click", function () {
 
         // Lakukan konfirmasi apakah ingin melakukan penambahan data lagi
         showModal(
-            "Tambah Data",
+            "Ya",
             "Ingin input data bahan / hasil produksi lagi?",
             () => {
                 clearDataDetail();
@@ -103,7 +103,8 @@ btnDetail.addEventListener("click", function () {
             },
             () => {
                 btnProses.focus();
-            }
+            },
+            "Tidak"
         );
     }
 });

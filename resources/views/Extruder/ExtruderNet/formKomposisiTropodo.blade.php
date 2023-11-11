@@ -5,6 +5,16 @@
 @endsection
 
 @section('content')
+    <style>
+        #table_komposisi {
+            font-size: 12px;
+        }
+
+        .sorting {
+            font-size: 12px;
+        }
+    </style>
+
     <div id="komposisi_tropodo" class="form" data-aos="fade-up">
         <div class="row mt-3">
             <div class="col-md-3">

@@ -110,8 +110,15 @@ function addTable_DataTable(
         });
 
         table1.clear().rows.add(listData).draw();
+
+        if (tableId == "table_komposisi")
+            table1.on("focus", function () {
+                document.body.style.overflow = "hidden";
+            });
+
         table1.on("blur", function () {
             removeNavigation_DataTable([table1]);
+            document.body.style.overflow = "visible";
         });
 
         const tableContainer = table1.table().container();

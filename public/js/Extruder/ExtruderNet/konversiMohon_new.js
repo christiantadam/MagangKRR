@@ -113,89 +113,6 @@ const kodeDivisi = namaGedung == "B" ? "2" : "1";
 //#endregion
 
 //#region Events
-slcNomor.addEventListener("mousedown", function () {
-    if (refetchNomor) {
-        refetchNomor = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "IdKonversi",
-            textKey: "NamaKomposisi",
-        };
-
-        // SP_5298_EXT_LIST_KONVERSI
-        fetchSelect(
-            "/Konversi/getListKonversi/" + idDivisi,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
-                } else refetchNomor = true;
-            },
-            errorOption
-        );
-    }
-});
-
-slcNomor.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        if (refetchNomor) {
-            refetchNomor = false;
-            clearOptions(this);
-            const errorOption = addLoadingOption(this);
-            const optionKeys = {
-                valueKey: "IdKonversi",
-                textKey: "NamaKomposisi",
-            };
-
-            // SP_5298_EXT_LIST_KONVERSI
-            fetchSelect(
-                "/Konversi/getListKonversi/" + idDivisi,
-                (data) => {
-                    if (data.length > 0) {
-                        addOptions(this, data, optionKeys);
-                        this.removeChild(errorOption);
-                    } else refetchNomor = true;
-                },
-                errorOption
-            );
-        }
-    }
-});
-
-slcNomor.addEventListener("change", function () {
-    if (this.selectedIndex != 0) {
-        listKonversi.length = 0;
-        clearTable_DataTable(
-            "table_konversi",
-            colKonversi.length,
-            "Memuat data..."
-        );
-
-        if (modeProses != "hapus") {
-            listKomposisi.length = 0;
-            clearTable_DataTable(
-                "table_komposisi",
-                colKomposisi.length,
-                "Memuat data..."
-            );
-        }
-
-        clearDataDetail();
-        getDataKonversiFetch(slcNomor.value, () => {
-            if (modeProses == "koreksi") {
-                disableMaster();
-                disableDetail();
-                $("html, body").animate({ scrollTop: posKonversi }, 100);
-                getDataKomposisiFetch(slcKomposisi.value);
-            } else if (modeProses == "hapus") {
-                btnProses.disabled = false;
-                btnProses.focus();
-            }
-        });
-    }
-});
-
 btnBaruMaster.addEventListener("click", function () {
     clearDataMaster();
     clearDataDetail();
@@ -316,6 +233,39 @@ slcNomor.addEventListener("keydown", function (event) {
                 errorOption
             );
         }
+    }
+});
+
+slcNomor.addEventListener("change", function () {
+    if (this.selectedIndex != 0) {
+        listKonversi.length = 0;
+        clearTable_DataTable(
+            "table_konversi",
+            colKonversi.length,
+            "Memuat data..."
+        );
+
+        if (modeProses != "hapus") {
+            listKomposisi.length = 0;
+            clearTable_DataTable(
+                "table_komposisi",
+                colKomposisi.length,
+                "Memuat data..."
+            );
+        }
+
+        clearDataDetail();
+        getDataKonversiFetch(slcNomor.value, () => {
+            if (modeProses == "koreksi") {
+                disableMaster();
+                disableDetail();
+                $("html, body").animate({ scrollTop: posKonversi }, 100);
+                getDataKomposisiFetch(slcKomposisi.value);
+            } else if (modeProses == "hapus") {
+                btnProses.disabled = false;
+                btnProses.focus();
+            }
+        });
     }
 });
 
@@ -567,6 +517,7 @@ numTritier.addEventListener("keypress", function (event) {
 });
 
 btnTambahDetail.addEventListener("click", function () {
+    this.disabled = true;
     let isEmpty = false;
     listOfDetail.forEach((ele) => {
         if (ele.tagName == "INPUT") {
@@ -629,14 +580,19 @@ btnTambahDetail.addEventListener("click", function () {
                 "Ingin input data konversi lagi?",
                 () => {
                     $(window).scrollTop($(document).height());
+                    this.disabled = false;
                 },
                 () => {
                     btnProses.focus();
+                    this.disabled = false;
                 },
-                "Tidak"
+                "Tidak",
+                () => {
+                    this.disabled = false;
+                }
             );
         }
-    }
+    } else this.disabled = false;
 });
 
 btnKoreksiDetail.addEventListener("click", function () {
