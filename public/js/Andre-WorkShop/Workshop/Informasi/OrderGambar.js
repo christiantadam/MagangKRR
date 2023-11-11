@@ -247,7 +247,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                         data.Ditolak = tanggal1;
                     }
                 });
-                table_data.clear(); // Bersihkan data saat ini (jika ada)
+                table_data.clear().draw(); // Bersihkan data saat ini (jika ada)
                 $("#TableOrderGambar").css("width", "max-content");
                 table_data.rows.add(datas).draw();
                 // datatable = datas;
@@ -266,5 +266,16 @@ refresh.addEventListener("click", function (event) {
     AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
 });
 
+
+//#endregion
+
+//#region on click terima_order
+
+terima_order.addEventListener('click', function(){
+    if (terima_order.checked) {
+        table_data.clear().draw();
+        AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
+    }
+});
 
 //#endregion

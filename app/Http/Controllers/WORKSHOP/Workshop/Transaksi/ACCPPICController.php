@@ -52,7 +52,7 @@ class ACCPPICController extends Controller
         $user = $request->user;
         $nomorOrder = $request->nomorOrder;
         DB::connection('Connworkshop')->statement('exec [SP_4384_WRK_ACC_PPIC] @kode = ?, @user = ?, @nomorOrder = ?', [1, $user , $nomorOrder]);
-
+        return redirect()->back()->with('success', 'Order Sudah DiACC.');
     }
 
     public function destroy($id)

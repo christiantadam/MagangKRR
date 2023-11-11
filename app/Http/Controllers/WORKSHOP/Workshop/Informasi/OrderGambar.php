@@ -19,7 +19,7 @@ class OrderGambar extends Controller
         return response()->json($all);
     }
     public function GetAllDataPenerima($tgl_awal , $tgl_akhir) {
-        $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-GBR] @kode = ?, @tgl1 = ?, @tgl2 = ?', [16, $tgl_awal, $tgl_akhir]);
+        $all = DB::connection('Connworkshop')->select('[SP_5298_WRK_LIST-ORDER-GBR] @kode = ?, @tgl1 = ?, @tgl2 = ?, @namaBrg = ? , @nama_Pengorder = ?', [16, $tgl_awal, $tgl_akhir,"",""]);
         return response()->json($all);
     }
 

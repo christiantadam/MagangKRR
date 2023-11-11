@@ -1,6 +1,15 @@
 @extends('layouts.WORKSHOP.Workshop.appWorkshop')
 @section('content')
 @section('title', 'ACC PPIC')
+@if (Session::has('success'))
+  <div class="alert alert-success">
+    {{ Session::get('success') }}
+  </div>
+@elseif (Session::has('error'))
+  <div class="alert alert-danger">
+    {{ Session::get('error') }}
+  </div>
+@endif
 <div class="card-header">ACC PPIC</div>
 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
   <div class="container">
@@ -13,12 +22,11 @@
         </div>
         <div class="col-9">
           <select class="form-select" name="user" style="width: 36vh;
-                height: 6vh;"
-            id="Pemberi">
+                height: 6vh;" id="Pemberi">
             <option disabled selected>Pilih Pemberi Order</option>
-            {{-- @foreach ($PPIC as $P)
-            <option value="{{ $P->IdDivisi }}">{{ $P->NamaDivisi }} -- </option>
-          @endforeach --}}
+            @foreach ($PPIC as $P)
+              <option value="{{ $P->IdUser }}">{{ $P->Name }} -- </option>
+            @endforeach
           </select>
         </div>
       </div>
@@ -31,9 +39,9 @@
                 height: 6vh;"
             id="OrderKerja">
             <option disabled selected>Pilih Order Kerja</option>
-            {{-- @foreach ($PPIC as $P)
-            <option value="{{ $P->IdDivisi }}">{{ $P->NamaDivisi }} -- </option>
-          @endforeach --}}
+            @foreach ($List as $l)
+              <option value="{{ $l->Id_Order }}">{{ $l->Nama_Brg }} -- </option>
+            @endforeach
           </select>
         </div>
       </div>

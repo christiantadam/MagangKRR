@@ -191,3 +191,14 @@ refresh.addEventListener("click", function (event) {
 
 
 //#endregion
+
+//#region on checked
+
+terima_order.addEventListener('click', function(){
+    if (terima_order.checked) {
+        table_data.clear().draw();
+        AllData(tgl_awal.value, tgl_akhir.value, kddivisi.value);
+    }
+});
+
+//#endregion
