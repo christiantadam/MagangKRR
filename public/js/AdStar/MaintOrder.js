@@ -273,6 +273,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var buttonprimary = document.getElementsByClassName("btn-primary");
     // var ld_transaksi = document.getElementById("ld-transaksi");
     var btn_inputNoOrder = document.getElementById("btn_inputNoOrder");
+    var btncustomer = document.getElementById("btncustomer");
+    var ldBrng = document.getElementById("ld-Brng");
+    var ld_srtpsn = document.getElementById("ld_srtpsn");
 
     function toggleInputEditing(enable) {
         inputElements.forEach(function (input) {
@@ -396,12 +399,18 @@ document.addEventListener("DOMContentLoaded", function () {
             updateButton.style.display = "none";
             cancelButton.style.display = "block";// Disable the Update button
             deleteButton.disabled = true; // Disable the Delete button
+            btncustomer.disabled = true;
+            ldBrng.disabled = true;
+            ld_srtpsn.disabled = true;
         } else {
             addButton.style.display = "block";
             saveButton.style.display = "none"; // Hide the Save button
             updateButton.style.display = "block";
             cancelButton.style.display = "none";
             deleteButton.disabled = false; // Enable the Delete button
+            btncustomer.disabled = false;
+            ldBrng.disabled = true;
+            ld_srtpsn.disabled = false;
             // Reset form values if needed
         }
     });
