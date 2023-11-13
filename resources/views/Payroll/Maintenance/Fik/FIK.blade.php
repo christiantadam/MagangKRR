@@ -70,6 +70,7 @@
                         <div class="form-group col-md-9 mt-3 mt-md-0">
                             <input type="text" class="form-control" name="Nomor_kartu" id="Nomor_kartu"
                                 placeholder="Nomor Kartu" required>
+                                <div class="text-center col-md-auto"><button id="buttonTampilKartu">Tampil Kode Pegawai</button></div>
                         </div>
                     </div>
 
@@ -79,8 +80,10 @@
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
                             <input type="text" class="form-control" name="Nama_divisi" id="Nama_divisi"
-                                placeholder="Nama / ID Divisi" required>
-                            <h1> / </h1>
+                                placeholder="" required>
+                            <h1>&nbsp;/&nbsp; </h1>
+                            <input type="text" class="form-control" name="Nama_divisi" id="Id_Divisi"
+                                placeholder="" required>
                         </div>
                     </div>
 
@@ -89,9 +92,11 @@
                             <span class="aligned-text">Nama / Kode Pegawai:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="text" class="form-control" name="Kode_pegawai" id="Kode_pegawai"
-                                placeholder="Nama / Kode Pegawai" required>
-                            <h1> /</h1>
+                            <input type="text" class="form-control" name="Nama_pegawai_kartu" id="Nama_pegawai_kartu"
+                                placeholder="" required>
+                                <h1>&nbsp;/&nbsp; </h1>
+                                <input type="text" class="form-control" name="Kode_pegawai_kartu" id="Kode_pegawai_kartu"
+                                placeholder="" required>
                         </div>
                     </div>
 
@@ -111,9 +116,9 @@
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
                             <input type="text" class="form-control" name="Kode_pegawai" id="Kode_pegawai"
-                                placeholder="Nama / Kode Pegawai" required>
-                            <input type="text" class="form-control mt-r-l" name="Kode_pegawai" id="Kode_pegawai"
-                                placeholder="Nama / Kode Pegawai" required>
+                                placeholder="Kode Pegawai" required>
+                            <input type="text" class="form-control mt-r-l" name="Nama_pegawai" id="Nama_pegawai"
+                                placeholder="Nama Pegawai" required>
                         </div>
                     </div>
 

@@ -40,6 +40,11 @@ class FikController extends Controller
             // dd($dataDivisi);
             // Return the options as JSON data
             return response()->json($dataPegawai);
+        }else if ($crExplode[1] == "getPegawaiKartu") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_HISTORY_PEGAWAI @Kode = ?, @Kartu = ?', [9,$crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
         }
     }
 

@@ -1,8 +1,56 @@
 $(document).ready(function () {
     const okButton = document.getElementById("okButton");
     const prosesButton = document.getElementById("prosesButton");
+    const button_Pegawai = document.getElementById("button_Pegawai");
     $("#table_Skors").DataTable({
         order: [[0, "asc"]],
+        select: {
+            style: "multiple",
+        },
+    });
+    $("#tabel_Pegawai").DataTable({
+        order: [[0, "asc"]],
+    });
+    button_Pegawai.addEventListener("click", function () {
+        fetch("/ProgramPayroll/Skorsing/AccBayar/" + ".getPegawai")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                $("#tabel_Pegawai").DataTable().clear().draw();
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var row = [
+                        // `<input type="checkbox" name="selectRow" value="${item.Kd_Pegawai}">` +
+                        //     " " +
+                        item.Nama_Div,
+                        item.Kd_Pegawai,
+                        item.Nama_Peg,
+                        item.Min,
+                        item.Max,
+                        item.TotalGaji,
+                    ];
+                    $("#tabel_Pegawai").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#tabel_Pegawai").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    });
+    $("#table_Skors tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#tabel_Pegawai").DataTable().row(this).data();
+        $("#Nama_Pegawai").val(rowData[0]);
+        $("#Id_Pegawai").val(rowData[1]);
+
+        hideModalPegawai();
     });
     okButton.addEventListener("click", function () {
         okButton.disabled = true;
@@ -122,3 +170,9 @@ $(document).ready(function () {
             .catch((error) => console.error("Form submission error:", error));
     });
 });
+function showModalPegawai() {
+    $("#modalPegawai").modal("show");
+}
+function hideModalPegawai() {
+    $("#modalPegawai").modal("hide");
+}
