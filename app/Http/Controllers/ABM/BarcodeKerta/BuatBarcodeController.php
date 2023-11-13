@@ -82,6 +82,24 @@ class BuatBarcodeController extends Controller
 
             // Mengembalikan dataNoIndex sebagai respons JSON
             return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
+
+        } else if ($crExplode[$lasindex] == "getIdBarang") {
+            $dataNoIndex = DB::connection('ConnInventory')
+                ->table('Dispresiasi')
+                ->where('Status', '0')
+                ->where('TypeTransaksi', ['22', '28']) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->orderBy('Id_barang', 'desc') // Urutkan berdasarkan NoIndeks secara descending
+                ->first(); // Ambil data dari baris pertama yang sesuai
+
+            // Mengembalikan dataNoIndex sebagai respons JSON
+            return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
+
+        } else if ($crExplode[$lasindex] == "getBarcodeACC") {
+            $dataBarcodeACC = DB::connection('ConnInventory')->select('exec SP_5409_INV_CekBarcodeBelumACC @idkelompokutama = ?', [$crExplode[0]]);
+            // dd($dataBarcodeACC);
+            // Return the options as JSON data
+            return response()->json($dataBarcodeACC);
+
         }
     }
 

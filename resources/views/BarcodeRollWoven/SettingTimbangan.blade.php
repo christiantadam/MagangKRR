@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Setting Timbangan')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <body onload="Greeting()">

@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Barcode Roll Sisa')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BRS.js') }}"></script>
 
     <body onload="Greeting()">

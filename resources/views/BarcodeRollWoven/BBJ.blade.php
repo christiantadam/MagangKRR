@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Barcode Barang Jadi')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BBJ.js') }}"></script>
 
     <style>

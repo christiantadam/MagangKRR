@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+<title style="font-size: 20px">@yield('title', 'Penghanguskan')</title>
 <body onload="Greeting()">
     <div id="app">
 
