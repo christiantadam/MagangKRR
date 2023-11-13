@@ -1525,6 +1525,13 @@ function rowEventKomposisi(index, _, focus = false) {
 
         if (modeProses != "") {
             numPrimer.disabled = false;
+            numSekunder.disabled = false;
+            numTritier.disabled = false;
+
+            btnTambahDetail.disabled = true;
+            btnKoreksiDetail.disabled = false;
+            btnHapusDetail.disabled = false;
+
             if (focus) {
                 numPrimer.focus();
                 numPrimer.select();
@@ -1558,6 +1565,13 @@ function rowEventKonversi(index, _, focus = false) {
 
     if (modeProses != "" && modeProses != "hapus") {
         numPrimer.disabled = false;
+        numSekunder.disabled = false;
+        numTritier.disabled = false;
+
+        btnTambahDetail.disabled = false;
+        btnKoreksiDetail.disabled = true;
+        btnHapusDetail.disabled = true;
+
         if (focus) {
             numPrimer.focus();
             numPrimer.select();
