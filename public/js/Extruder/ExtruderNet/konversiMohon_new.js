@@ -104,7 +104,7 @@ var refetchOrder = false;
 var pilKomposisi = -1;
 var pilKonversi = -1;
 var modeProses = "";
-var koreksiDetail = false;
+var koreksi_detail = false;
 var [tableKonversi, tableKomposisi] = ["", ""];
 
 const namaGedung = document.getElementById("nama_gedung").value;
@@ -135,6 +135,11 @@ btnKoreksiMaster.addEventListener("click", function () {
     slcNomor.focus();
     modeProses = "koreksi";
     toggleButtons(2);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
 });
 
 btnHapusMaster.addEventListener("click", function () {
@@ -472,9 +477,7 @@ numPrimer.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = 0;
         numSekunder.disabled = false;
-        if (koreksiDetail) {
-            numSekunder.select();
-        } else numSekunder.focus();
+        numSekunder.select();
     }
 });
 
@@ -482,9 +485,7 @@ numSekunder.addEventListener("keypress", function (event) {
     if (event.key == "Enter") {
         if (this.value == "") this.value = 0;
         numTritier.disabled = false;
-        if (koreksiDetail) {
-            numTritier.select();
-        } else numTritier.focus();
+        numTritier.select();
     }
 });
 
@@ -500,7 +501,7 @@ numTritier.addEventListener("keypress", function (event) {
             numSekunder.value = Math.round(parseFloat(numTritier.value) / 25);
         }
 
-        if (modeProses == "baru" && koreksiDetail) {
+        if (modeProses == "koreksi") {
             btnKoreksiDetail.disabled = false;
             btnHapusDetail.disabled = false;
             btnKoreksiDetail.focus();
@@ -1058,11 +1059,10 @@ function getDataKonversiFetch(id_konversi, post_action = null) {
             "/Konversi/getListDetailKonversi/" + id_konversi.trim(),
             (data) => {
                 if (data.length < 1) {
-                    clearTable_DataTable(
-                        "table_konversi",
-                        colKonversi.length,
-                        `Data konversi untuk <b>${slcNomor.value}</b> tidak ditemukan.`
-                    );
+                    clearTable_DataTable("table_konversi", colKonversi.length, [
+                        "padding=100px",
+                        `Data konversi untuk <b>${slcNomor.value}</b> tidak ditemukan.`,
+                    ]);
 
                     if (post_action != null) {
                         post_action();
@@ -1142,6 +1142,20 @@ function createTmpTransaksiInventoryFetch(i, id_konv_inv, post_action = null) {
 }
 
 function insertDetailFetch(id_konv_inv, post_action = null) {
+    const hitungTotalBahan = () => {
+        let qty = 0;
+        for (let i = 0; i < listKonversi.length; i++) {
+            if (
+                listKonversi[i].StatusType.trim() == "BB" ||
+                listKonversi[i].StatusType.trim() == "BP"
+            ) {
+                qty += parseFloat(listKonversi[i].JumlahTritier);
+            }
+        }
+
+        return qty;
+    };
+
     let totalBahan = hitungTotalBahan();
     let persentase = 0;
     for (let i = 0; i < listKonversi.length; i++) {
@@ -1151,8 +1165,8 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
             listKonversi[i].StatusType == "AF"
         ) {
             persentase = persentaseFun(
-                listKonversi[i].JumlahTritier,
-                totalBahan
+                parseFloat(listKonversi[i].JumlahTritier),
+                parseFloat(totalBahan)
             );
         }
 
@@ -1248,20 +1262,6 @@ function ambilDataUkuran(nama_spek) {
         console.error("Error: ", error);
         alert("Gagal menentukan ukuran.");
     }
-}
-
-function hitungTotalBahan() {
-    let qty = 0;
-    for (let i = 0; i < listKonversi.length; i++) {
-        if (
-            listKonversi[i].StatusType.trim() == "BB" ||
-            listKonversi[i].StatusType.trim() == "BP"
-        ) {
-            qty += listKonversi[i].JumlahTritier;
-        }
-    }
-
-    return qty;
 }
 
 function persentaseFun(qty_tritier, total_bahan) {
@@ -1528,9 +1528,11 @@ function rowEventKomposisi(index, _, focus = false) {
             numSekunder.disabled = false;
             numTritier.disabled = false;
 
-            btnTambahDetail.disabled = true;
-            btnKoreksiDetail.disabled = false;
-            btnHapusDetail.disabled = false;
+            btnTambahDetail.disabled = false;
+            btnKoreksiDetail.disabled = true;
+            btnHapusDetail.disabled = true;
+
+            koreksi_detail = true;
 
             if (focus) {
                 numPrimer.focus();
@@ -1538,8 +1540,6 @@ function rowEventKomposisi(index, _, focus = false) {
                 numPrimer.addEventListener("keypress", preventEnter);
             }
         }
-
-        koreksiDetail = false;
     });
 }
 
@@ -1568,9 +1568,11 @@ function rowEventKonversi(index, _, focus = false) {
         numSekunder.disabled = false;
         numTritier.disabled = false;
 
-        btnTambahDetail.disabled = false;
-        btnKoreksiDetail.disabled = true;
-        btnHapusDetail.disabled = true;
+        btnTambahDetail.disabled = true;
+        btnKoreksiDetail.disabled = false;
+        btnHapusDetail.disabled = false;
+
+        koreksi_detail = false;
 
         if (focus) {
             numPrimer.focus();
@@ -1579,8 +1581,6 @@ function rowEventKonversi(index, _, focus = false) {
             $(window).scrollTop($(document).height());
         }
     }
-
-    koreksiDetail = true;
 }
 //#endregion
 

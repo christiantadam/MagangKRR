@@ -64,3 +64,37 @@ fetchSelect("/Master/getCekKomposisi/" + slcKomposisi.value.trim(), (data) => {
         );
 });
 //#endregion
+
+<script>
+    $(document).ready(function(){" "}
+    {
+        // console.log(dataArray.data);
+        $("#table_SP").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ url('splokal') }}",
+                dataType: "json",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+            },
+            columns: [
+                {
+                    data: "IDSuratPesanan",
+                },
+                {
+                    data: "NamaCust",
+                },
+                {
+                    data: "Tgl_Pesan",
+                },
+                {
+                    data: "Actions",
+                },
+            ],
+        })
+    }
+    );
+</script>;

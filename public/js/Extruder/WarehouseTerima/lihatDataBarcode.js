@@ -111,7 +111,7 @@ function LD_showData(kode, tgl = "") {
                 LD_listKirim,
                 LD_colKirim,
                 null,
-                "300px",
+                "350px",
                 "add_paging"
             );
     });
@@ -127,7 +127,7 @@ function init_dt() {
         $("#table_kirim_gudang").DataTable({
             responsive: true,
             paging: false,
-            scrollY: "250px",
+            scrollY: "350px",
             scrollX: "",
             dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
             language: {

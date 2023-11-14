@@ -51,9 +51,9 @@
                 </table>
             </div>
 
-            <div class="modal-footer">
+            {{-- <div class="modal-footer">
                 <button type="button" id="ld_cancel" class="btn btn-secondary" data-bs-dismiss="modal">KELUAR</button>
-            </div>
+            </div> --}}
 
         </div>
     </div>

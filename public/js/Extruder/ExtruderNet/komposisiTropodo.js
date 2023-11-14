@@ -1255,15 +1255,21 @@ function insertDetailFetch(jmlh_bb, post_action = null) {
                 "/" +
                 listKomposisi[i].IdKelompokUtama.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompokUtama.trim().replace(/ /g, "_") +
+                listKomposisi[i].NamaKelompokUtama.trim()
+                    .replace(/ /g, "_")
+                    .replace(/\//g, "~") +
                 "/" +
                 listKomposisi[i].IdKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaKelompok.trim().replace(/ /g, "_") +
+                listKomposisi[i].NamaKelompok.trim()
+                    .replace(/ /g, "_")
+                    .replace(/\//g, "~") +
                 "/" +
                 listKomposisi[i].IdSubKelompok.trim() +
                 "/" +
-                listKomposisi[i].NamaSubKelompok.trim().replace(/ /g, "_") +
+                listKomposisi[i].NamaSubKelompok.trim()
+                    .replace(/ /g, "_")
+                    .replace(/\//g, "~") +
                 "/" +
                 listKomposisi[i].IdType.trim() +
                 "/" +

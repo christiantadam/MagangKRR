@@ -222,4 +222,109 @@ class MasterController extends Controller
         // @IdDivisi char(3) = null,
         // @Mesin varchar(50) = null
     }
+
+    function splokal(Request $request)
+    {
+        $columns = array(
+            0 => 'IDSuratPesanan',
+            1 => 'NamaCust',
+            2 => 'Tgl_Pesan'
+        );
+
+        $totalData = DB::connection('ConnSales')
+            ->table('T_HeaderPesanan')
+            ->select('IDSuratPesanan', 'Tgl_Pesan', 'NamaCust')
+            ->leftJoin('T_Customer', 'T_HeaderPesanan.IDCust', '=', 'T_Customer.IDCust')
+            ->where('IDJnsSuratPesanan', '=', 1)
+            ->where('Aktive', '=', 'Y')
+            ->whereNull('Deleted')
+            ->whereNotNull('AccManager')
+            ->orderBy('Tgl_Pesan', 'Desc')
+            ->count();
+
+        $totalFiltered = $totalData;
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if (empty($request->input('search.value'))) {
+            $sp = DB::connection('ConnSales')
+                ->table('T_HeaderPesanan')
+                ->select('IDSuratPesanan', 'Tgl_Pesan', 'NamaCust')
+                ->leftJoin('T_Customer', 'T_HeaderPesanan.IDCust', '=', 'T_Customer.IDCust')
+                ->where('IDJnsSuratPesanan', '=', 1)
+                ->where('Aktive', '=', 'Y')
+                ->whereNull('Deleted')
+                ->whereNotNull('AccManager')
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+        } else {
+            $search = $request->input('search.value');
+            $sp = DB::connection('ConnSales')
+                ->table('T_HeaderPesanan')
+                ->select('IDSuratPesanan', 'Tgl_Pesan', 'NamaCust')
+                ->leftJoin('T_Customer', 'T_HeaderPesanan.IDCust', '=', 'T_Customer.IDCust')
+                ->where('IDJnsSuratPesanan', '=', 1)
+                ->where('Aktive', '=', 'Y')
+                ->whereNull('Deleted')
+                ->whereNotNull('AccManager')
+                ->where('IDSuratPesanan', 'LIKE', "%{$search}%")
+                ->orWhere('Tgl_Pesan', 'LIKE', "%{$search}%")
+                ->orWhere('NamaCust', 'LIKE', "%{$search}%")
+                ->offset($start)
+                ->limit($limit)
+                ->orderBy($order, $dir)
+                ->get();
+
+            $totalFiltered = DB::connection('ConnSales')
+                ->table('T_HeaderPesanan')
+                ->select('IDSuratPesanan', 'Tgl_Pesan', 'NamaCust')
+                ->leftJoin('T_Customer', 'T_HeaderPesanan.IDCust', '=', 'T_Customer.IDCust')
+                ->where('IDJnsSuratPesanan', '=', 1)
+                ->where('Aktive', '=', 'Y')
+                ->whereNull('Deleted')
+                ->whereNotNull('AccManager')
+                ->where('IDSuratPesanan', 'LIKE', "%{$search}%")
+                ->orWhere('Tgl_Pesan', 'LIKE', "%{$search}%")
+                ->orWhere('NamaCust', 'LIKE', "%{$search}%")
+                ->count();
+        }
+
+        $data = array();
+        if (!empty($sp)) {
+            foreach ($sp as $datasp) {
+                $nestedData['IDSuratPesanan'] = $datasp->IDSuratPesanan;
+                $nestedData['NamaCust'] = $datasp->NamaCust;
+                $nestedData['Tgl_Pesan'] = substr($datasp->Tgl_Pesan, 0, 10);
+                if (strstr($datasp->IDSuratPesanan, '/')) {
+                    $no_spValue = str_replace('/', '.', $datasp->IDSuratPesanan);
+                } else {
+                    $no_spValue = $datasp->IDSuratPesanan;
+                }
+                $csrfToken = Session::get('_token');
+                $nestedData['Actions'] = "<button class=\"btn btn-sm btn-info\" onclick=\"openNewWindow('/penyesuaian/" . $no_spValue . "')\">&#x270E; Penyesuaian</button>
+                <br> <form onsubmit=\"return confirm('Apakah Anda Yakin ?');\"
+                                        action=\"/batalsplokal/" . $no_spValue . "\" method=\"POST\"
+                                        enctype=\"multipart/form-data\"> <button type=\"submit\"
+                                            class=\"btn btn-sm btn-danger\"><span>&#x1F5D1;</span>Batal SP</button>
+                                            <input type=\"hidden\" name=\"_token\" value=\"" . $csrfToken . "\">
+                                    </form>";
+
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data
+        );
+        // dd($sp);
+        echo json_encode($json_data);
+    }
 }
