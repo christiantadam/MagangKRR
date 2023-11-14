@@ -95,7 +95,7 @@ $(document).ready(function () {
 
                 // Loop through the data and create table rows
                 data.forEach((item) => {
-                    var row = [item.IdTransaksi, item.namakelompokutama, item.namakelompok, item.namasubkelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, "", item.SaatAwalTransaksi];
+                    var row = [item.IdTransaksi, item.namakelompokutama, item.namakelompok, item.namasubkelompok, item.NamaType, item.UraianDetailTransaksi, item.NamaUser, item.JumlahPengeluaranPrimer, item.JumlahPengeluaranSekunder, item.JumlahPengeluaranTritier, "0", item.SaatAwalTransaksi];
                     $("#TableType").DataTable().row.add(row);
                 });
 
@@ -218,7 +218,7 @@ $(document).ready(function () {
 
                 // Loop through the data and create table rows
                 data.forEach((item) => {
-                    var row = [counter1, item.IdTransaksi, item.Kode_barang ,  item.NoIndeks, item.IdType, item.NamaType, item.NamaType, item.Qty_Primer, item.Qty_sekunder, item.Qty];
+                    var row = [counter1, item.IdTransaksi, item.Kode_barang , item.NoIndeks, item.IdType, item.NamaType, item.NamaType, item.Qty_Primer, item.Qty_sekunder, item.Qty];
                     $("#TableBarcode").DataTable().row.add(row);
                 });
 

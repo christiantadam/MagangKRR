@@ -26,11 +26,14 @@ $(document).ready(function () {
     var type = null;
     var listIdType = [];
     var listType = [];
+    var listkelut = [];
+    var kelut = null;
 
     $('#TableDivisi tbody').on('click', 'tr', function () {
         // Get the data from the clicked row
         var rowData = $('#TableDivisi').DataTable().row(this).data();
-
+        // kelut = rowData[0].IdKelompokUtama;
+        console.log(rowData[0]);
         // Populate the input fields with the data
         fetch("/ABM/BarcodeKerta2/BuatBarcode/" + rowData[0] + ".txtIdDivisi")
             .then((response) => {
@@ -41,7 +44,7 @@ $(document).ready(function () {
             })
             .then((data) => {
                 // Handle the data retrieved from the server (data should be an object or an array)
-                console.log(data);
+                // console.log(data);
                 kodebarang = data;
                 // console.log(kodebarang);
                 for (let i = 0; i < data.length; i++) {
@@ -49,6 +52,7 @@ $(document).ready(function () {
                     listType.push(data[i].NamaType)
                     listSubKelompok.push(data[i].IdSubkelompok_Type)
                     listIdType.push(data[i].IdType)
+                    listkelut.push(data[i].IdKelompokUtama)
                 }
 
                 // Clear the existing table rows
@@ -56,6 +60,8 @@ $(document).ready(function () {
 
                 // Loop through the data and create table rows
                 data.forEach((item) => {
+                    // console.log(item);
+                    // kelut = item.IdKelompokUtama;
                     var row = [item.NamaType];
                     $("#TableType").DataTable().row.add(row);
                 });
@@ -98,6 +104,11 @@ $(document).ready(function () {
                 let index = listType.indexOf(selectedType)
                 console.log(listType.indexOf(selectedType));
                 type = listIdType[index]
+            }
+            if (listType.includes(selectedType)) {
+                let index = listType.indexOf(selectedType)
+                console.log(listType.indexOf(selectedType));
+                kelut = listkelut[index]
             }
             console.log(listKodeBarang);
             closeModal2(); // Close the modal
@@ -212,22 +223,14 @@ $(document).ready(function () {
         // var parts = str.split("-");
         // console.log(parts);
 
-        // Lakukan operasi pencetakan barcode
-        var idtype = type;
-        var tanggal = document.getElementById('tanggalOutput').value;
-        var primer = document.getElementById('Primer').value;
-        var sekunder = document.getElementById('SekunderOutput').value;
-        var tritier = document.getElementById('tritier').value;
-        var UserID = '4384';
-        var asalidsubkelompok = subKelompok;
-        var Kode_Barang = kodebarang;
-        var uraian = document.getElementById('shift').value;
-        var idsubkontraktor = kodebarang;
+        var kode_barang = kodebarang;
+        var userID = '4384';
+
+        var IdKelompokUtama = kelut;
+        console.log(kelut);
 
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
-        fetch("/ABM/BarcodeKerta2/BuatBarcode/" + idtype + "." + UserID + "." + tanggal + "." +
-            primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
-            idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
+        fetch("/ABM/BarcodeKerta2/BuatBarcode/" + IdKelompokUtama + ".getBarcodeACC")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -235,13 +238,30 @@ $(document).ready(function () {
                 return response.json();
             })
             .then((data) => {
-                if (data === true) {
-                    // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
-                    console.log("Barcode berhasil dibuat.");
-                    alert('Barcode berhasil dibuat.');
+                console.log(data);
+                if (data.length > 0) {
+                    if (confirm('Apakah Barcode Ingin Dihanguskan ?')) {
+                        PenghangusanOtomatis()
+                        alert('Barcode Berhasil Dihanguskan');
+                    } else {
+                        alert('Tembak Barcode yang akan di ACC')
+                    }
+                } else {
+                    var idtype = type;
+                    var tanggal = document.getElementById('tanggalOutput').value;
+                    var primer = document.getElementById('Primer').value;
+                    var sekunder = document.getElementById('SekunderOutput').value;
+                    var tritier = document.getElementById('tritier').value;
+                    var UserID = '4384';
+                    var asalidsubkelompok = subKelompok;
+                    var Kode_Barang = kodebarang;
+                    var uraian = document.getElementById('shift').value;
+                    var idsubkontraktor = kodebarang;
 
-                    // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
-                    fetch("/ABM/BarcodeKerta2/BuatBarcode/" + kodebarang + ".getIndex")
+                    // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
+                    fetch("/ABM/BarcodeKerta2/BuatBarcode/" + idtype + "." + UserID + "." + tanggal + "." +
+                        primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
+                        idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error("Network response was not ok");
@@ -249,19 +269,38 @@ $(document).ready(function () {
                             return response.json();
                         })
                         .then((data) => {
-                            // Handle data yang diterima dari fetch kedua di sini
-                            console.log("Data dari fetch kedua:", data);
-                            var kodebarcode = Kode_Barang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
-                            console.log(kodebarcode);
-                            // Show an alert for each 'kodebarang'
-                            alert('Kode Barang: ' + kodebarcode);
+                            if (data === true) {
+                                // Respons adalah boolean 'true', lakukan sesuatu sesuai kebutuhan
+                                console.log("Barcode berhasil dibuat.");
+                                alert('Barcode berhasil dibuat.');
+
+                                // Sekarang Anda dapat melakukan fetch lainnya jika diperlukan
+                                fetch("/ABM/BarcodeKerta2/BuatBarcode/" + kodebarang + ".getIndex")
+                                    .then((response) => {
+                                        if (!response.ok) {
+                                            throw new Error("Network response was not ok");
+                                        }
+                                        return response.json();
+                                    })
+                                    .then((data) => {
+                                        // Handle data yang diterima dari fetch kedua di sini
+                                        console.log("Data dari fetch kedua:", data);
+                                        var kodebarcode = Kode_Barang.padStart(9, '0') + '-' + data.NoIndeks.padStart(9, '0');
+                                        console.log(kodebarcode);
+                                        // Show an alert for each 'kodebarang'
+                                        alert('Kode Barang: ' + kodebarcode);
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error dalam fetch kedua:", error);
+                                    });
+                            } else {
+                                console.error("Unexpected response data:", data);
+                                // Handle other unexpected responses here
+                            }
                         })
                         .catch((error) => {
-                            console.error("Error dalam fetch kedua:", error);
+                            console.error("Error:", error);
                         });
-                } else {
-                    console.error("Unexpected response data:", data);
-                    // Handle other unexpected responses here
                 }
             })
             .catch((error) => {
@@ -269,46 +308,49 @@ $(document).ready(function () {
             });
     });
 
-    // document.getElementById("BarcodeACC").addEventListener("keypress", function (e) {
-    //     if (e.key === "Enter") {
-    //         var barcode = document.getElementById("BarcodeACC").value;
+    var ScanBarcode = document.getElementById('BarcodeACC');
+    ScanBarcode.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var ScanBarcodeValue = document.getElementById('BarcodeACC').value;
+            console.log(ScanBarcodeValue);
 
-    //         if (barcode !== "") {
-    //             var noindeks = barcode.substring(0, 9);
-    //             var kodebarang = barcode.substring(barcode.length - 9);
-    //             noindeks = noindeks.replace(/^0+/, ''); // Menghapus leading "0"
+            var parts = ScanBarcodeValue.split("-");
+            console.log(parts); // Output: ["A123", "a234"]
 
-    //             // Panggil fungsi untuk memeriksa jenis barcode
-    //             var jenisResult = cekJenisbarcode(kodebarang, parseInt(noindeks));
-    //             if (jenisResult === 0) {
-    //                 return; // Keluar jika jenis barcode tidak valid
-    //             }
+            fetch(`/ABM/BarcodeKerta2/BuatBarcode/${parts[0]}.${parts[1]}.getDataStatus`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
+                    console.log("Data dari server:", data);
 
-    //             // Panggil fungsi untuk memeriksa status barcode
-    //             var statusResult = cekbarcode(kodebarang, parseInt(noindeks));
-    //             if (statusResult === 1) {
-    //                 // Panggil fungsi untuk menyetujui barcode
-    //                 var sukses = ACCBarcode(kodebarang, noindeks, User_id);
-    //                 if (sukses === 1) {
-    //                     alert("Data sudah di ACC");
-    //                     document.getElementById("btnKeluar").focus();
-    //                 } else {
-    //                     alert("Data tidak bisa di ACC, ulangi sekali lagi");
-    //                 }
-    //             } else if (statusResult === 2) {
-    //                 alert("Barcode sudah pernah di ACC!");
-    //                 document.getElementById("BarcodeACC").focus();
-    //             } else {
-    //                 alert("Data barcode tidak ditemukan!");
-    //                 document.getElementById("BarcodeACC").focus();
-    //             }
+                    // Assuming sts is a property in the data object, adjust this part accordingly
+                    var sts = data;
 
-    //             document.getElementById("BarcodeACC").value = "";
-    //         } else {
-    //             alert("Scan barcode terlebih dahulu");
-    //         }
-    //     }
-    // });
+                    // Handling different statuses
+                    if (sts === "1") {
+                        // Fetch additional data for status 1
+                        AccBarcode()
+                    } else if (sts === "2") {
+                        // Do something for status 2
+                        alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+                    } else if (sts === "3") {
+                        // Do something for status 3
+                        alert("Barcode Sudah Pernah Ditembak!");
+                    } else {
+                        // Do something for other statuses
+                        alert("Data Barcode Tidak Ditemukan!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error checking status:", error);
+                });
+        }
+    });
 
     // Function to enable the "Isi Jumlah Barang" button and "Timbang" button
     function enableIsiJumlahBarangButton() {
@@ -358,6 +400,78 @@ $(document).ready(function () {
             disableIsiJumlahBarangButton();
         }
     });
+
+    function PenghangusanOtomatis() {
+        var kode_barang = kodebarang;
+        var opsi = "tiga";
+
+        // Create a data object to hold the values
+        const data = {
+            kodebarang: kode_barang,
+            opsi: opsi
+        };
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        // Send the data to the server using AJAX
+        $.ajax({
+            url: "BuatBarcode/tiga", // Replace with the correct action URL
+            method: "POST",
+            data: {
+                ...data,
+                _token: csrfToken,
+                _method: "PUT",
+                _ifUpdate: "Update Barcode"
+            },
+            success: function (response) {
+                console.log("Form submitted successfully!");
+                // Handle the server's response if needed
+            },
+            error: function (error) {
+                console.error("Form submission error:", error);
+                // Handle the error if needed
+            }
+        });
+    }
+
+    function AccBarcode() {
+        var kode_barang = kodebarang;
+        var opsi = "satu";
+
+        // Create a data object to hold the values
+        const data = {
+            kodebarang: kode_barang,
+            opsi: opsi
+        };
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        // Send the data to the server using AJAX
+        $.ajax({
+            url: "BuatBarcode/satu", // Replace with the correct action URL
+            method: "POST",
+            data: {
+                ...data,
+                _token: csrfToken,
+                _method: "PUT",
+                _ifUpdate: "Update Barcode"
+            },
+            success: function (response) {
+                console.log("Form submitted successfully!");
+                // Handle the server's response if needed
+            },
+            error: function (error) {
+                console.error("Form submission error:", error);
+                // Handle the error if needed
+            }
+        });
+    }
 });
 
 function openModal() {
@@ -659,3 +773,5 @@ function PrintUlangData(data) {
         .then(() => console.log("Form submitted successfully!"))
         .catch((error) => console.error("Form submission error:", error));
 }
+
+

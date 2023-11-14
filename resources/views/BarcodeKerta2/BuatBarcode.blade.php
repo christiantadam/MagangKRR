@@ -90,6 +90,7 @@
                                                             <tr>
                                                                 <th>ID Divisi</th>
                                                                 <th>Divisi</th>
+                                                                {{-- <th style="display: none">lol</th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -97,6 +98,7 @@
                                                                 <tr>
                                                                     <td>{{ $data->IdDivisi }}</td>
                                                                     <td>{{ $data->NamaDivisi }}</td>
+                                                                    {{-- <td style="display: none">{{ $data->IdKelompokUtama }}</td> --}}
                                                                 </tr>
                                                             @endforeach
 
