@@ -127,7 +127,7 @@
                             <span class="aligned-text">Tanggal Ijin:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="Date" class="form-control" name="Ijin" id="Ijin" placeholder="Ijin"
+                            <input type="Date" class="form-control" name="Ijin" id="TanggalIjin" placeholder="Ijin"
                                 required>
                         </div>
                     </div>
@@ -140,15 +140,15 @@
                             <div class="col">
                                 <div class="d-flex align-items-center" style="justify-content: center;">
                                     <div class="form-check form-check-inline seperate">
-                                        <input class="form-check-input custom-radio ml-3" type="radio" name="unit"
-                                            value="kg" checked>
+                                        <input class="form-check-input custom-radio ml-3" type="radio" name="cekKembali"
+                                            value="" id="kembali" checked>
                                         <label class="form-check-label rounded-circle custom-radio"
-                                            for="kgRadio">Kembali</label>
+                                            for="">Kembali</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input custom-radio" type="radio" name="unit"
-                                            value="yard">
-                                        <label class="form-check-label rounded-circle custom-radio" for="yardRadio">Tidak
+                                        <input class="form-check-input custom-radio" type="radio" name="cekKembali"
+                                            value="" id="tidakKembali">
+                                        <label class="form-check-label rounded-circle custom-radio" for="">Tidak
                                             Kembali</label>
                                     </div>
                                 </div>
@@ -162,8 +162,8 @@
                             <span class="aligned-text">Jam Ijin Keluar:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="Time" class="form-control" name="Ijin" id="Ijin" placeholder="Ijin"
-                                required>
+                            <input type="Time" class="form-control" name="Ijin" id="IjinKeluar" placeholder="Ijin"
+                                required >
                         </div>
                     </div>
 
@@ -172,7 +172,7 @@
                             <span class="aligned-text">Jam Kembali:</span>
                         </div>
                         <div class="form-group col-md-9 mt-3 mt-md-0">
-                            <input type="Time" class="form-control" name="Ijin" id="Ijin" placeholder="Ijin"
+                            <input type="Time" class="form-control" name="Ijin" id="IjinKembali" placeholder="Ijin"
                                 required>
                         </div>
                     </div>
@@ -185,15 +185,15 @@
                             <div class="col">
                                 <div class="d-flex align-items-center" style="justify-content: center;">
                                     <div class="form-check form-check-inline seperate">
-                                        <input class="form-check-input custom-radio ml-3" type="radio" name="unit"
-                                            value="kg" checked>
+                                        <input class="form-check-input custom-radio ml-3" type="radio" name="cekDinas"
+                                            value="" id="Dinas" checked>
                                         <label class="form-check-label rounded-circle custom-radio"
-                                            for="kgRadio">Dinas</label>
+                                            for="">Dinas</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input custom-radio" type="radio" name="unit"
-                                            value="yard">
-                                        <label class="form-check-label rounded-circle custom-radio" for="yardRadio">Non
+                                        <input class="form-check-input custom-radio" type="radio" name="cekDinas"
+                                            value="" id="nonDinas">
+                                        <label class="form-check-label rounded-circle custom-radio" for="">Non
                                             Dinas</label>
                                     </div>
                                 </div>
@@ -233,9 +233,9 @@
 
                     <div class="row mt-3">
                         <div class="col- row justify-content-md-center">
-                            <div class="text-center col-md-auto"><button type="submit">Proses</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Batal</button></div>
-                            <div class="text-center col-md-auto"><button type="submit">Keluar</button></div>
+                            <div class="text-center col-md-auto"><button type="" id="prosesButton">Proses</button></div>
+                            <div class="text-center col-md-auto"><button type="" id="batalButton">Batal</button></div>
+                            <div class="text-center col-md-auto"><button type="" id="keluarButton">Keluar</button></div>
                         </div>
                     </div>
                 </div>

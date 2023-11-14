@@ -2,6 +2,11 @@ $(document).ready(function () {
     var Nama_Pegawai = document.getElementById("Nama_Pegawai");
     var buttonTampilKartu = document.getElementById("buttonTampilKartu");
     var prosesButton = document.getElementById("prosesButton");
+    var IjinKeluar = document.getElementById("IjinKeluar");
+    var IjinKembali = document.getElementById("IjinKembali");
+    $("#IjinKeluar").val(getJam());
+    $("#IjinKembali").val(getJam());
+    $("#TanggalIjin").val(getTanggal());
     $("#table_Pegawai").DataTable({
         order: [[0, "asc"]],
         select: {
@@ -17,6 +22,8 @@ $(document).ready(function () {
     });
     // Tambahkan event listener untuk peristiwa input
     buttonTampilKartu.addEventListener("click", function (event) {
+        $("#Nama_Pegawai").val("");
+        $("#table_Pegawai").DataTable().clear().draw();
         const Nomor_kartu = document.getElementById("Nomor_kartu").value;
         fetch(
             "/ProgramPayroll/Maintenance/Fik/" +
@@ -47,15 +54,13 @@ $(document).ready(function () {
             });
     });
     prosesButton.addEventListener("click", function (event) {
-        const Nomor_kartu = document.getElementById("Nomor_kartu").value;
-        const old_kd_pegawai = document.getElementById("Id_Pegawai").value;
-        const new_kd_pegawai =
-            document.getElementById("Kd_Pegawai_Baru").value;
-        const old_jabatan = document.getElementById("jabatan_Lama").value;
+        const TanggalIjin = document.getElementById("TanggalIjin").value;
+        const Kode_pegawai = document.getElementById("Kode_pegawai").value;
+        const Dinas = document.getElementById("Dinas");
+        const kembali = document.getElementById("kembali");
         const new_jabatan = document.getElementById("jabatan_Baru").value;
         const old_nm_divisi = document.getElementById("Nama_Divisi").value;
-        const new_nm_divisi =
-            document.getElementById("Nama_Divisi_Baru").value;
+        const new_nm_divisi = document.getElementById("Nama_Divisi_Baru").value;
         const tgl_mutasi = document.getElementById("TglMutasi").value;
         const no_surat = document.getElementById("nomor_surat").value;
         const Alasan = document.getElementById("alasan_mutasi").value;
@@ -64,20 +69,25 @@ $(document).ready(function () {
         //     alert("Mohon isi semua field yang diperlukan.");
         //     return; // Menghentikan eksekusi lebih lanjut
         // }
-        if (confirm("Yakin Data ini DiProses ..... ?")) {
-        } else {
-            return;
+        // if (confirm("Yakin Data ini DiProses ..... ?")) {
+        // } else {
+        //     return;
+        // }
+        var Jns_Keluar, Kembali;
+        if (Dinas.checked == true) {
+
         }
+
         const data = {
-            old_kd_pegawai: old_kd_pegawai,
-            new_kd_pegawai: new_kd_pegawai,
-            old_jabatan: old_jabatan,
-            new_jabatan: new_jabatan,
-            old_nm_divisi: old_nm_divisi,
-            new_nm_divisi: new_nm_divisi,
-            tgl_mutasi: tgl_mutasi,
-            no_surat: no_surat,
-            Alasan: Alasan,
+            Tanggal: TanggalIjin,
+            Kd_Pegawai: new_kd_pegawai,
+            Jns_Keluar: old_jabatan,
+            Kembali: new_jabatan,
+            Jam_AWal: old_nm_divisi,
+            Jam_Akhir: new_nm_divisi,
+            Jenis_Alasan: tgl_mutasi,
+            Keterangan: no_surat,
+            Menyetujui: Alasan,
         };
         console.log(data);
 
@@ -118,14 +128,16 @@ $(document).ready(function () {
         // Call the submitForm function to initiate the form submission
         submitForm()
             .then(() => console.log("Form submitted successfully!"))
-            .catch((error) =>
-                console.error("Form submission error:", error)
-            );
+            .catch((error) => console.error("Form submission error:", error));
     });
     Nama_Pegawai.addEventListener("input", function () {
         // Dapatkan nilai input
         var nilaiInput = Nama_Pegawai.value;
-
+        $("#Nomor_kartu").val("");
+        $("#Nama_divisi").val("");
+        $("#Id_Divisi").val("");
+        $("#Nama_pegawai_kartu").val("");
+        $("#Kode_pegawai_kartu").val("");
         fetch("/ProgramPayroll/Maintenance/Fik/" + nilaiInput + ".getPegawai")
             .then((response) => {
                 if (!response.ok) {
@@ -153,3 +165,24 @@ $(document).ready(function () {
             });
     });
 });
+function getJam() {
+    // Mendapatkan waktu saat ini pada sisi klien (perangkat pengguna)
+    var waktuSaatIni = new Date();
+    var jam = waktuSaatIni.getHours();
+    var menit = waktuSaatIni.getMinutes();
+
+    // Format waktu sesuai dengan format input waktu
+    var waktuFormat =
+        (jam < 10 ? "0" : "") + jam + ":" + (menit < 10 ? "0" : "") + menit;
+
+    // Set nilai input waktu
+    return waktuFormat;
+}
+
+function getTanggal() {
+    var tanggalSaatIni = new Date();
+    var tahun = tanggalSaatIni.getFullYear();
+    var bulan = ('0' + (tanggalSaatIni.getMonth() + 1)).slice(-2);
+    var hari = ('0' + tanggalSaatIni.getDate()).slice(-2);
+    return tahun + '-' + bulan + '-' + hari;
+}
