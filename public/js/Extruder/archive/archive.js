@@ -9,6 +9,13 @@
  * https://docs.google.com/document/d/1vxQOqKXhgnv6ZkSTaBGbSREuw_SvHyHKCJ64Teosxrw/edit?usp=sharing (Berat Komposisi 2)
  */
 
+/**
+ * Pengecekkan Kembali Aplikasi Warehouse Terima KRR2
+ * - Scan Gelondongan (aman)
+ * - Batal Gelondongan (aman)
+ * - Scan Assesoris (masih ada error)
+ */
+
 //#region Form Komposisi Tropodo
 // Sebelumnya dilakukan pengecekkan komposisi terlebih dahulu tapi sekarang tidak?..
 // SP_5298_EXT_CEK_KOMPOSISI modeProses "hapus_detail"

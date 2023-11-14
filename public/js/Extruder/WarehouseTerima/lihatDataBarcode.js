@@ -106,7 +106,14 @@ function LD_showData(kode, tgl = "") {
                     "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
                 );
         } else
-            addTable_DataTable("table_kirim_gudang", LD_listKirim, LD_colKirim);
+            addTable_DataTable(
+                "table_kirim_gudang",
+                LD_listKirim,
+                LD_colKirim,
+                null,
+                "300px",
+                "add_paging"
+            );
     });
 }
 //#endregion

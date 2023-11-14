@@ -4,9 +4,9 @@ const txtNoBarcode = document.getElementById("no_barcode");
 const spnBarcode = document.getElementById("btn_barcode");
 const hidData = document.getElementById("hidden_ku");
 
-const spnTujuan = document.getElementById("spn_tujuan");
 const rdoNganjuk = document.getElementById("radio_nganjuk");
 const rdoMjs = document.getElementById("radio_mojosari");
+const divTujuan = document.getElementById("bagian_tujuan");
 
 const btnLihat = document.getElementById("btn_lihat");
 const btnProses = document.getElementById("btn_proses");
@@ -67,14 +67,8 @@ const colKirim = [
 slcDivisi.addEventListener("change", function () {
     if (this.selectedIndex != 0) {
         if (this.value.trim() == "JBB") {
-            spnTujuan.classList.remove("hidden");
-            rdoMjs.classList.remove("hidden");
-            rdoNganjuk.classList.remove("hidden");
-        } else {
-            spnTujuan.classList.add("hidden");
-            rdoMjs.classList.add("hidden");
-            rdoNganjuk.classList.add("hidden");
-        }
+            divTujuan.classList.remove("hidden");
+        } else divTujuan.classList.add("hidden");
 
         txtNoBarcode.value = "";
         txtNoBarcode.focus();
@@ -82,9 +76,7 @@ slcDivisi.addEventListener("change", function () {
         alert("Pilih Dulu Divisinya !!...");
 
         this.focus();
-        spnTujuan.classList.add("hidden");
-        rdoMjs.classList.add("hidden");
-        rdoNganjuk.classList.add("hidden");
+        divTujuan.classList.add("hidden");
     }
 });
 

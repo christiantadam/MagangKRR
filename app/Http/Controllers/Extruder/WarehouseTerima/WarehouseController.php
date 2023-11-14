@@ -48,19 +48,32 @@ class WarehouseController extends Controller
     {
         // [SP_1273_INV_CekBarcodeGelondonganMojosari]
 
-        return DB::connection('ConnInventory')
-            ->table('Dispresiasi')
-            ->select('Dispresiasi.Status')
-            ->join('Type', 'Dispresiasi.Id_type_tujuan', '=', 'Type.IdType')
-            ->join('Subkelompok', 'Type.IdSubkelompok_Type', '=', 'Subkelompok.IdSubkelompok')
-            ->join('Kelompok', 'Subkelompok.IdKelompok_Subkelompok', '=', 'Kelompok.IdKelompok')
-            ->join('KelompokUtama', 'Kelompok.IdKelompokUtama_Kelompok', '=', 'KelompokUtama.IdKelompokUtama')
-            ->join('Objek', 'KelompokUtama.IdObjek_KelompokUtama', '=', 'Objek.IdObjek')
-            ->where('Dispresiasi.Kode_barang', $kode_barang)
-            ->where('Dispresiasi.NoIndeks', $no_indeks)
-            ->whereIn('type_transaksi', [$trans1, $trans2, $trans3, $trans4])
-            ->where('Objek.IdDivisi_Objek', $divisi)
-            ->get();
+        $query = "
+            SELECT Dispresiasi.Status
+            FROM Dispresiasi
+            INNER JOIN Type ON Dispresiasi.Id_type_tujuan = Type.IdType
+            INNER JOIN Subkelompok ON Type.IdSubkelompok_Type = Subkelompok.IdSubkelompok
+            INNER JOIN Kelompok ON Subkelompok.IdKelompok_Subkelompok = Kelompok.IdKelompok
+            INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
+            INNER JOIN Objek ON KelompokUtama.IdObjek_KelompokUtama = Objek.IdObjek
+            WHERE Dispresiasi.Kode_barang = :KodeBarang
+            AND Dispresiasi.NoIndeks = :NoIndeks
+            AND Dispresiasi.Type_Transaksi IN (:typetrans, :typetrans1, :typetrans2, :typetrans3)
+            AND Objek.IdDivisi_Objek = :Divisi
+        ";
+
+        $bindings = [
+            'KodeBarang' => $kode_barang,
+            'NoIndeks' => $no_indeks,
+            'typetrans' => $trans1,
+            'typetrans1' => $trans2,
+            'typetrans2' => $trans3,
+            'typetrans3' => $trans4,
+            'Divisi' => $divisi,
+        ];
+
+        $dispresiasiData = DB::connection('ConnInventory')->select($query, $bindings);
+        return $dispresiasiData;
     }
 
     private function getCekBarcodeKirimGudang($kode_barang, $no_indeks, $divisi = null)
@@ -73,7 +86,7 @@ class WarehouseController extends Controller
             ->whereNotNull('y_idtrans')
             ->select('Status')
             ->first();
-        $status_dispresiasi = $status_dispresiasi[0];
+        $status_dispresiasi = $status_dispresiasi->Status;
 
         if ($divisi !== null) {
             $id_typeResult = DB::connection('ConnInventory')->table('Dispresiasi')
@@ -519,7 +532,7 @@ class WarehouseController extends Controller
             case 'SP_5409_INV_SimpanPenerimaanAwalGudang2':
             case 'SP_1273_INV_TampilDataBarang_Mojo':
                 $param_str = '@kodebarang = ?, @noindeks = ?';
-                if ($fun_str == 'SP_5409_INV_SimpanPenerimaanAwalGudang') {
+                if ($fun_str == 'SP_5409_INV_SimpanPenerimaanAwalGudang' || $fun_str == 'SP_1273_LMT_SimpanPembatalanKirimKeGudang') {
                     $action_str = 'statement';
                 } else $action_str = 'select';
                 return $this->executeSP($action_str, $fun_str, $param_str, $param_data);

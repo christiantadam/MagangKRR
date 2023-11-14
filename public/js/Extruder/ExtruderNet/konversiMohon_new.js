@@ -192,13 +192,13 @@ slcNomor.addEventListener("mousedown", function () {
         clearOptions(this);
         const errorOption = addLoadingOption(this);
         const optionKeys = {
-            valueKey: "IDOrder",
+            valueKey: "IdKonversi",
             textKey: "Identifikasi",
         };
 
-        // SP_5298_EXT_ORDER_ACC_BLM_SELESAI
+        // SP_5298_EXT_LIST_KONVERSI
         fetchSelect(
-            "/Konversi/getOrdAccBlmSelesai/" + idDivisi,
+            "/Konversi/getListKonversi/" + idDivisi,
             (data) => {
                 if (data.length > 0) {
                     addOptions(this, data, optionKeys);
@@ -217,13 +217,13 @@ slcNomor.addEventListener("keydown", function (event) {
             clearOptions(this);
             const errorOption = addLoadingOption(this);
             const optionKeys = {
-                valueKey: "IDOrder",
+                valueKey: "IdKonversi",
                 textKey: "Identifikasi",
             };
 
-            // SP_5298_EXT_ORDER_ACC_BLM_SELESAI
+            // SP_5298_EXT_LIST_KONVERSI
             fetchSelect(
-                "/Konversi/getOrdAccBlmSelesai/" + idDivisi,
+                "/Konversi/getListKonversi/" + idDivisi,
                 (data) => {
                     if (data.length > 0) {
                         addOptions(this, data, optionKeys);

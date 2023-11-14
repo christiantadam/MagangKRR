@@ -1,3 +1,7 @@
+// Format Nomor Barcode
+// (NoIndeks)-(KodeBarang)
+// Minimal panjang NoIndeks & KodeBarang 9
+
 //#region Variables
 const slcDivisi = document.getElementById("select_divisi");
 const txtNoBarcode = document.getElementById("no_barcode");
@@ -81,7 +85,7 @@ txtNoBarcode.addEventListener("keypress", function (event) {
         }
 
         if (this.value.trim() != "") {
-            let kode_barang = this.value.substring(this.value.length - 9 + 1);
+            let kode_barang = this.value.substring(this.value.length - 9);
             let no_indeks = this.value.substring(0, 9).replace(/^0+/, "");
             cekBarcodeDispatch(kode_barang, no_indeks);
         } else alert("Scan Barcode Terlebih Dahulu!");
