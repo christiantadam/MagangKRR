@@ -69,6 +69,7 @@ class BalJadiPaletController extends Controller
             );
             // dd($dataBarcode);
             return response()->json($dataBarcode);
+
         } else if ($crExplode[$lasindex] == "getIndex") {
             $dataNoIndex = DB::connection('ConnInventory')
                 ->table('Dispresiasi')
@@ -78,6 +79,17 @@ class BalJadiPaletController extends Controller
 
             // Mengembalikan dataNoIndex sebagai respons JSON
             return response()->json(['NoIndeks' => $dataNoIndex->NoIndeks]);
+
+        } else if ($crExplode[$lasindex] == "getDataStatus") {
+            $statusdispresiasi = DB::connection('ConnInventory')->table('Dispresiasi')
+                ->where('kode_barang', $crExplode[0])
+                ->where('noindeks', $crExplode[1])
+                ->whereNotNull('y_idtrans')
+                // ->whereNull('NoTempTrans') // Uncomment this line if needed
+                ->whereIn('type_transaksi', ['22', '29', '28'])
+                ->value('status');
+            // dd($statusdispresiasi);
+            return response()->json($statusdispresiasi);
         }
     }
 
@@ -90,7 +102,26 @@ class BalJadiPaletController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+
+        if ($data['opsi'] == "satu") {
+            // dd($data);
+            $dataNoIndex = DB::connection('ConnInventory')
+                ->table('Dispresiasi')
+                ->where('Kode_Barang', $data['kodebarang']) // Menggunakan $crExplode[0] sebagai NoIndeks
+                ->orderBy('NoIndeks', 'desc') // Urutkan berdasarkan NoIndeks secara descending
+                ->first(); // Ambil data dari baris pertama yang sesuai
+            DB::connection('ConnInventory')->statement('exec SP_5409_INV_ACCBarcode @kodebarang = ?, @noindeks = ?, @userid = ?', [
+                $data['kodebarang'],
+                $dataNoIndex->NoIndeks,
+                '4384'
+            ]);
+            // return redirect()->route('BuatBarcode.index')->with('alert', 'Data Updated successfully!');
+            return redirect()->back();
+
+
+        }
     }
 
     //Remove the specified resource from storage.

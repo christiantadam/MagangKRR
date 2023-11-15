@@ -1,13 +1,47 @@
 @extends('layouts.appABM')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Buat Barcode')</title>
+    <title style="font-size: 20px">@yield('title', 'Buat Barcode')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BuatBarcode.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('js/JsBarcode.all.min.js') }}"></script>
     <body onload="Greeting()">
         <style>
             .form-size-plus {
                 font-size: 20px;
                 /* Ukuran teks secara keseluruhan */
+            }
+
+            @media print {
+                .card {
+                    display: none;
+                }
+            }
+
+            #barcode-label {
+                text-align: center;
+                /* Untuk penempatan horizontal di tengah */
+                display: flex;
+                align-items: center;
+                /* Untuk penempatan vertikal di tengah */
+            }
+
+            .barcode-label-container {
+                display: flex;
+                align-items: center;
+                /* Menengahkan vertikal jika perlu */
+            }
+
+            .barcode-label-container>div {
+                margin: 0 10px;
+                /* Atur ruang horizontal antara elemen-elemen div */
+            }
+
+            #barcode-label1,
+            #barcode-label2,
+            #barcode-label3,
+            #barcode-label4,
+            #barcode-label5,
+            #barcode-label6 {
+                /* Gaya khusus untuk elemen-elemen div jika diperlukan */
             }
         </style>
 
@@ -220,7 +254,8 @@
                                                             </div>
                                                             <div class="text-center col-md-auto"
                                                                 style="margin-top: 15px; margin-left:350px;"><button
-                                                                    style="width: 100px; height: 50px" onclick="prosesACCBarcode()"
+                                                                    style="width: 100px; height: 50px"
+                                                                    onclick="prosesACCBarcode()"
                                                                     type="button">Ok</button></div>
                                                             <div class="text-center col-md-auto" style="margin-top: 15px;"
                                                                 onclick="closeModal4()"><button
@@ -233,8 +268,8 @@
                                         </div>
 
                                         <div style="display: flex;flex-direction: row;align-items:center;gap:1%">
-                                            <div class="text-center col-md-auto mt-3"><button type="button" onclick="PrintUlangData()"
-                                                    style="width:180px; height: 50px">Print
+                                            <div class="text-center col-md-auto mt-3"><button type="button"
+                                                    onclick="PrintUlangData()" style="width:180px; height: 50px">Print
                                                     Ulang</button>
                                             </div>
                                         </div>
@@ -315,10 +350,11 @@
                                             <div class="row">
                                                 <div style="margin-left: 20px;">
                                                     <div class="d-flex flex-column align-items-center">
-                                                        <label for="barcodeTextarea" class="aligned-text">Jumlah Barcode:</label>
+                                                        <label for="barcodeTextarea" class="aligned-text">Jumlah
+                                                            Barcode:</label>
                                                         <div class="textarea-container">
-                                                            <textarea id="barcodeTextarea" class="form-control text-center"
-                                                            id="JumlahBarcode" name="text" rows="5" readonly></textarea>
+                                                            <textarea id="barcodeTextarea" class="form-control text-center" id="JumlahBarcode" name="text" rows="5"
+                                                                readonly></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

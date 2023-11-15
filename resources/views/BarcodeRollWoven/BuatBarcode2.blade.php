@@ -1,5 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
+    <title style="font-size: 20px">@yield('title', 'Buat Barcode')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeRollWoven/BuatBarcode2.js') }}"></script>
 
 
@@ -119,8 +120,7 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="text-center col-md-auto mt-3">
-                                                        <button type="button"
-                                                            onclick="closeModal5()">Process</button>
+                                                        <button type="button" onclick="closeModal5()">Process</button>
                                                     </div>
                                                 </div>
                                             </div>

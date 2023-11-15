@@ -1,6 +1,6 @@
 @extends('layouts.appABM')
 @section('content')
-<title style="font-size: 20px">@yield('title', 'Bal Jadi Palet')</title>
+    <title style="font-size: 20px">@yield('title', 'Bal Jadi Palet')</title>
     <script type="text/javascript" src="{{ asset('js/BarcodeKerta2/BalJadiPalet.js') }}"></script>
 
 
@@ -199,7 +199,8 @@
                                             </div>
                                             <div class="form-group col-md-5 mt-3 mt-md-0">
                                                 <input id="BarcodeInput" class="form-control" type="text"
-                                                    name="BarcodeInput" rows="BarcodeInput" placeholder="Barcode" readonly>
+                                                    name="BarcodeInput" rows="BarcodeInput" placeholder="Barcode"
+                                                    readonly>
                                             </div>
                                         </div>
 

@@ -138,7 +138,7 @@ $(document).ready(function () {
     //     // Mengatur tombol menjadi tidak dapat diakses (disabled)
     //     ButtonPrintBarcode.disabled = true;
 
-    //     // Lakukan operasi pencetakan barcode
+    //     // Lakukan operasi pencetkaan barcode
     //     var idtype = '0016';
     //     var tanggal = document.getElementById('tanggalOutput').value;
     //     var primer = document.getElementById('Primer').value;
@@ -269,6 +269,86 @@ $(document).ready(function () {
                 console.error("Error:", error);
             });
     });
+
+    var ScanBarcode = document.getElementById('BarcodeACC');
+    ScanBarcode.addEventListener("keypress", function (event) {
+        if (event.key == "Enter") {
+            var ScanBarcodeValue = document.getElementById('BarcodeACC').value;
+            console.log(ScanBarcodeValue);
+
+            var parts = ScanBarcodeValue.split("-");
+            console.log(parts); // Output: ["A123", "a234"]
+
+            fetch(`/ABM/BarcodeKerta2/BuatBarcode/${parts[0]}.${parts[1]}.getDataStatus`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Assuming the response is in JSON format
+                })
+                .then(data => {
+                    // Handle the data retrieved from the server (data should be an object or an array)
+                    console.log("Data dari server:", data);
+
+                    // Assuming sts is a property in the data object, adjust this part accordingly
+                    var sts = data;
+
+                    // Handling different statuses
+                    if (sts === "1") {
+                        // Fetch additional data for status 1
+                        AccBarcode()
+                    } else if (sts === "2") {
+                        // Do something for status 2
+                        alert("Barcode Sudah Diterima Gudang, Cek Lagi Barcode Anda!");
+                    } else if (sts === "3") {
+                        // Do something for status 3
+                        alert("Barcode Sudah Pernah Ditembak!");
+                    } else {
+                        // Do something for other statuses
+                        alert("Data Barcode Tidak Ditemukan!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error checking status:", error);
+                });
+        }
+    });
+
+    function AccBarcode() {
+        var kode_barang = kodebarang;
+        var opsi = "satu";
+
+        // Create a data object to hold the values
+        const data = {
+            kodebarang: kode_barang,
+            opsi: opsi
+        };
+
+        // Add CSRF token input field (assuming the csrfToken is properly fetched)
+        let csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        // Send the data to the server using AJAX
+        $.ajax({
+            url: "BuatBarcode/satu", // Replace with the correct action URL
+            method: "POST",
+            data: {
+                ...data,
+                _token: csrfToken,
+                _method: "PUT",
+                _ifUpdate: "Update Barcode"
+            },
+            success: function (response) {
+                console.log("Form submitted successfully!");
+                // Handle the server's response if needed
+            },
+            error: function (error) {
+                console.error("Form submission error:", error);
+                // Handle the error if needed
+            }
+        });
+    }
 });
 
 function openModal() {
