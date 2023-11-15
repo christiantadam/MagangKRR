@@ -5,7 +5,7 @@ const txtNoBarcode = document.getElementById("no_barcode");
 const spnBarcode = document.getElementById("btn_barcode");
 const hidData = document.getElementById("hidden_ku");
 
-const spnTujuan = document.getElementById("spn_tujuan");
+const divTujuan = document.getElementById("bagian_tujuan");
 const rdoNganjuk = document.getElementById("radio_nganjuk"); // Kerto
 const rdoMjs = document.getElementById("radio_mojosari"); // Mojosari
 const rdoBrebek = document.getElementById("radio_brebek"); // Mojo
@@ -121,16 +121,13 @@ slcDivisi.addEventListener("change", function () {
     }
 
     if (slcObjek.value == "162" || slcObjek.value == "192") {
-        spnTujuan.classList.remove("hidden");
+        divTujuan.classList.remove("hidden");
         rdoBrebek.classList.remove("hidden");
         rdoNganjuk.classList.remove("hidden");
-        if (slcObjek.value == "192") rdoMjs.classList.remove("hidden");
-    } else {
-        spnTujuan.classList.add("hidden");
-        rdoBrebek.classList.add("hidden");
-        rdoNganjuk.classList.add("hidden");
-        rdoMjs.classList.add("hidden");
-    }
+        if (slcObjek.value == "192") {
+            rdoMjs.classList.remove("hidden");
+        } else rdoMjs.classList.add("hidden");
+    } else divTujuan.classList.add("hidden");
 
     refetchObjek = true;
 });
@@ -235,16 +232,13 @@ slcObjek.addEventListener("mousedown", function () {
 
 slcObjek.addEventListener("change", function () {
     if (slcObjek.value == "162" || slcObjek.value == "192") {
-        spnTujuan.classList.remove("hidden");
+        divTujuan.classList.remove("hidden");
         rdoBrebek.classList.remove("hidden");
         rdoNganjuk.classList.remove("hidden");
-        if (slcObjek.value == "192") rdoMjs.classList.remove("hidden");
-    } else {
-        spnTujuan.classList.add("hidden");
-        rdoBrebek.classList.add("hidden");
-        rdoNganjuk.classList.add("hidden");
-        rdoMjs.classList.add("hidden");
-    }
+        if (slcObjek.value == "192") {
+            rdoMjs.classList.remove("hidden");
+        } else rdoMjs.classList.add("hidden");
+    } else divTujuan.classList.add("hidden");
 
     txtNoBarcode.value = "";
     txtNoBarcode.focus();

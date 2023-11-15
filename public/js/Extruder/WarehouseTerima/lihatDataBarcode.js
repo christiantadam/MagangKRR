@@ -64,6 +64,8 @@ function LD_showData(kode, tgl = "") {
     let kode_sp = tgl == "" ? kode[0] : kode[1];
     let fetch_url = "";
 
+    // Gelondongan kode sp = 2 & 13
+
     if (LD_formData.title == "Lihat Data Assesoris") {
         fetch_url =
             "/warehouseTerima/SP_1273_INV_ListKirimBahanBaku/" + kode_sp;
@@ -115,6 +117,51 @@ function LD_showData(kode, tgl = "") {
                 "add_paging"
             );
     });
+}
+
+function drawDataTableAjax(fetchUrl, listData, colWidth) {
+    let colObject = null;
+    colObject = colWidth.map((colWidth, index) => {
+        return {
+            data: Object.keys(listData[0])[index],
+            width: colWidth.width || "auto",
+        };
+    });
+
+    if ($.fn.DataTable.isDataTable("#table_kirim_gudang"))
+        $("#table_kirim_gudang").DataTable().destroy();
+    $("#table_kirim_gudang tbody").empty();
+
+    $("#table_kirim_gudang").DataTable({
+        responsive: true,
+        scrollY: "350px",
+        scrollX: "1000000px",
+        columns: colObject,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ url('" + fetchUrl + "') }}",
+            dataType: "json",
+            type: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+            },
+        },
+        language: {
+            searchPlaceholder:
+                " Tabel " +
+                tableId.replace("table_", "").replace("_", " ") +
+                "...",
+            search: "",
+            info: "Menampilkan _TOTAL_ data",
+        },
+    });
+
+    let searchInput = $(
+        `#table_kirim_gudang_filter input[type="search"]`
+    ).addClass("form-control");
+    searchInput.wrap('<div class="input-group"></div>');
+    searchInput.before('<span class="input-group-text">Cari:</span>');
 }
 //#endregion
 

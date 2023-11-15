@@ -35,9 +35,9 @@
                     </div>
                 </div>
 
-                <div class="row mt-1">
+                <div id="bagian_tujuan" class="row mt-1">
                     <div class="col-lg-3">
-                        <span id="spn_tujuan" class="aligned-text">Tujuan:</span>
+                        <span class="aligned-text">Tujuan:</span>
                     </div>
 
                     <div class="col-lg-1"></div>
