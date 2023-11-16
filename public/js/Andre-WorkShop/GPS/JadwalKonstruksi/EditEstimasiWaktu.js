@@ -419,6 +419,7 @@ WorkStationModal.addEventListener('change', function(){
                 return;
             }
         });
+
 });
 
 //#endregion
