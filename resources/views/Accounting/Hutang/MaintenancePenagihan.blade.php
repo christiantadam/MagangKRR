@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance Penagihan')
 
 <style>
     /* Ganti warna latar belakang overlay dan atur posisi modal */

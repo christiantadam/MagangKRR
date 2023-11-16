@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance Jurnal Beli')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -140,7 +141,7 @@
                                             <input type="text" name="matauang" class="form-control">
                                         </div>
                                     </div>
-                                
+
                                     <hr style="height:2px;">
                                     <table class="table">
                                         <thead class="table-dark">

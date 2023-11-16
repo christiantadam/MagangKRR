@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance BKM Penagihan')
 
 <style>
     @media print{

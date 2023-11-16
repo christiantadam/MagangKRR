@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance BKM KRR1')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -132,7 +133,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-2" style="padding-left: 15px">
@@ -152,7 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-container" style="display: flex;">
                                     <div class="card" style="width: 60%;">
                                         <div class="card-body">

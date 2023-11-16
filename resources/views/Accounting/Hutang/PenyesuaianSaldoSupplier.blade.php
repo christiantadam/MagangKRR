@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Penyesuaian Saldo Supplier')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -31,7 +32,7 @@
                                     </div>
                                     <button>OK</button>
                                 </div>
-                                
+
                                 <table class="table">
                                     <thead class="table-dark">
                                         <tr>
@@ -56,7 +57,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <div class="row">
                                     <div class="col-9">
                                         <div>
@@ -79,11 +80,11 @@
                                         ISI SALDO KOSONG
                                     </div>
                                 </div>
-                                
+
                                 <br><table class="table">
                                     <thead class="table-dark">
                                         <tr>
-                                            
+
                                             <th>Id. Supplier</th>
                                             <th>Supplier</th>
                                             <th>Supplier Saldo</th>
@@ -97,7 +98,7 @@
                                             <td>Data 3</td>
                                             <td>Data 4</td>
                                         </tr>
-                                        
+
                                         <!-- Tambahkan data tabel sesuai kebutuhan -->
                                     </tbody>
                                 </table>

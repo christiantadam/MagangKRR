@@ -1,5 +1,7 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Create BKM')
+
 <style>
     @media print{
         .card {
