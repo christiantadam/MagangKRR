@@ -166,7 +166,7 @@ btnProses.addEventListener("click", function () {
     } else alert("Masukkan Dulu No Barcode Yang Akan Diproses");
 });
 
-hidData.addEventListener("change", function () {
+hidGetFetch.addEventListener("change", function () {
     let [sts, kode_barang, no_indeks] = this.value.split(",");
     if (sts == 2) {
         let sudahTembak = false;
@@ -200,7 +200,7 @@ function dataTidakTersimpan(success_action = null) {
             if (data.length > 0) {
                 window.location.href =
                     "/Extruder/WarehouseTerima/formGagalPeletan";
-            } else success_action();
+            } else if (success_action != null) success_action();
         }
     );
 }

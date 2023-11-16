@@ -77,7 +77,13 @@ function LD_showData(kode, tgl = "") {
             hidDivisi.value;
     }
 
-    if (tgl != "") fetch_url += "~" + tgl;
+    // if (LD_formData.title == "Lihat Data Assesoris") {
+    //     fetch_url = "/lihatDataBarcode/" + kode_sp;
+    // } else {
+    //     fetch_url = "/lihatDataBarcode/" + kode_sp + "/" + hidDivisi.value;
+    // }
+
+    // if (tgl != "") fetch_url += "~" + tgl;
 
     fetchSelect(fetch_url, (data) => {
         for (let i = 0; i < data.length; i++) {
@@ -107,19 +113,25 @@ function LD_showData(kode, tgl = "") {
                     LD_colKirim.length,
                     "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
                 );
-        } else
-            addTable_DataTable(
-                "table_kirim_gudang",
+        } else {
+            drawDataTableAjax(
+                { KodeSP: kode_sp, IdDivisi: hidDivisi.value, Tanggal: tgl },
                 LD_listKirim,
-                LD_colKirim,
-                null,
-                "350px",
-                "add_paging"
+                LD_colKirim
             );
+        }
+        // addTable_DataTable(
+        //     "table_kirim_gudang",
+        //     LD_listKirim,
+        //     LD_colKirim,
+        //     null,
+        //     "350px",
+        //     "add_paging"
+        // );
     });
 }
 
-function drawDataTableAjax(fetchUrl, listData, colWidth) {
+function drawDataTableAjax(listParam, listData, colWidth) {
     let colObject = null;
     colObject = colWidth.map((colWidth, index) => {
         return {
@@ -140,18 +152,18 @@ function drawDataTableAjax(fetchUrl, listData, colWidth) {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ url('" + fetchUrl + "') }}",
+            url: "{{ url('lihatDataBarcode') }}",
             dataType: "json",
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}",
+                kode_sp: listParam.KodeSP,
+                divisi: listParam.IdDivisi,
+                tanggal: listParam.Tanggal,
             },
         },
         language: {
-            searchPlaceholder:
-                " Tabel " +
-                tableId.replace("table_", "").replace("_", " ") +
-                "...",
+            searchPlaceholder: " Tabel kirim gudang...",
             search: "",
             info: "Menampilkan _TOTAL_ data",
         },
@@ -194,20 +206,6 @@ function init_dt() {
             },
         });
     }
-
-    addTable_DataTable("table_kirim_gudang", [
-        {
-            Nomor: "",
-            Tanggal: "",
-            Type: "",
-            Kode: "",
-            NoIndeks: "",
-            Primer: "",
-            Sekunder: "",
-            Tritier: "",
-            Divisi: "",
-        },
-    ]);
 
     document.getElementById("ld_title").textContent = LD_formData.title;
     LD_listKirim.length = 0;
