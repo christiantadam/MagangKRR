@@ -446,6 +446,10 @@ class WarehouseController extends Controller
     {
         $param_data = explode('~', $fun_data);
         switch ($fun_str) {
+            case 'SP_5409_INV_ListBarcodeTerimaGudang':
+                $param_str = '@status = ?, @idkelompokutama = ?';
+                return $this->executeSP('select', $fun_str, $param_str, $param_data);
+
             case 'SP_1273_INV_AmbilBarangGelondongan':
                 /**
                  * 022 / 042 | Objek (IdDivisi_Objek) -> Divisi (IdDivisi)
@@ -581,7 +585,7 @@ class WarehouseController extends Controller
         }
     }
 
-    public function lihatDataBarcode(Request $request, $kode_sp, $divisi = null, $tanggal = null)
+    public function lihatDataBarcode(Request $request)
     {
         $columns = array(
             1 => 'TglKirim',
@@ -593,6 +597,12 @@ class WarehouseController extends Controller
             7 => 'Tritier',
             8 => 'Divisi'
         );
+
+        $kode_sp = $request->kode_sp;
+        $divisi = $request->divisi;
+        $tanggal = $request->tanggal;
+
+        dd($kode_sp);
 
         $query = '';
         if ($kode_sp == 2) {

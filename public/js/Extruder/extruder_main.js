@@ -327,7 +327,6 @@ function clearTable_DataTable(tableId, tableWidth, msg = null) {
     var headingStr = `<h1 class="mt-3">Tabel masih kosong...</h1>`;
     var styleStr = `class="text-center"`;
     if (msg != null) {
-        console.log(typeof msg);
         if (msg instanceof Array) {
             styleStr = `style="padding-left: ${msg[0].split("=")[1]}"`;
             headingStr = `<h1 class="mt-3">${msg[1]}</h1>`;

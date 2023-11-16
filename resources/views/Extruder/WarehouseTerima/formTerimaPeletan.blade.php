@@ -94,5 +94,5 @@
     </div>
 
     @include('Extruder.WarehouseTerima.modalLihatDataBarcode')
-    <script src="{{ asset('js\Extruder\WarehouseTerima\terimaPeletan.js') }}"></script>
+    <script src="{{ asset('js\Extruder\WarehouseTerima\scanTerimaPeletan.js') }}"></script>
 @endsection
