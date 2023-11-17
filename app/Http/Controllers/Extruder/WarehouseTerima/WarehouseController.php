@@ -442,6 +442,85 @@ class WarehouseController extends Controller
         return 1;
     }
 
+    private function updAccGudangBarcode($id_type, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $user_id, $id_pemberi, $tanggal, $uraian, $divisi, $no_sp)
+    {
+        #region Variables
+        $IdTypePemberi = '';
+        $SPrimerBeri = '';
+        $SSekunderBeri = '';
+        $STritierBeri = '';
+        $SUmumBeri = '';
+        $KonvBeri = '';
+        $SldPrimerBeri = '';
+        $SldSekunderBeri = '';
+        $SldTritierBeri = '';
+        $MinStokBeri = '';
+        $KonvTriSekBeri = '';
+        $KonvSekPriBeri = '';
+        $IdPenerima = '';
+        $IdSubKelAsl = '';
+        $a = '';
+        $YIdTransaksi = '';
+        $DivisiPemberi = '';
+        $Satuan = '';
+        $IdTrans1 = '';
+
+        // Variabel yang digunakan proses penerima
+        $IdSubKelTuj = '';
+        $IdTypeTerima = '';
+        $SPrimerTerima = '';
+        $SSekunderTerima = '';
+        $STritierTerima = '';
+        $SUmumTerima = '';
+        $KonvTerima = '';
+        $SldPrimerTerima = '';
+        $SldSekunderTerima = '';
+        $SldTritierTerima = '';
+        $MaxStokTerima = '';
+        $KonvSekPriTerima = '';
+        $XIdTransaksi = '';
+        $DivisiPenerima = '';
+
+        $IdTrans = '';
+        $x_trans = '';
+        $y_trans = '';
+        $idtype_tujuan = '';
+        $typetransaksi = '';
+        #endregion
+
+        DB::beginTransaction();
+
+        try {
+            // Cek penyesuaian
+            $IdTrans = DB::connection('ConnInventory')->select(
+                "SELECT IdTransaksi FROM Transaksi WHERE idtype = :id_type AND SaatLog IS NULL AND IdTypeTransaksi = '06'",
+                ['id_type' => $id_type]
+            );
+
+            if (count($IdTrans) > 0) {
+                return response()->json(['pesan' => 'Ada Transaksi Penyesuaian Yang Belum di ACC']);
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'Success'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        //     -- cek penyesuaian
+        // select @IdTrans = IdTransaksi
+        // from dbo.Transaksi
+        // where  idtype=@idtype and SaatLog is null and IdTypeTransaksi='06'
+        // if @IdTrans is not null
+        // begin
+        // 	select @NmError = 'Ada Transaksi Penyesuaian Yang Belum di ACC'
+        // 	select @NmError as NmError
+        // 	rollback transaction
+        // 	return
+        // end
+    }
+
     public function warehouseTerima($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
@@ -602,7 +681,7 @@ class WarehouseController extends Controller
         $divisi = $request->divisi;
         $tanggal = $request->tanggal;
 
-        dd($kode_sp);
+        // dd($kode_sp);
 
         $query = '';
         if ($kode_sp == 2) {

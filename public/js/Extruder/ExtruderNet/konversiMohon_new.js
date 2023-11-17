@@ -1149,7 +1149,13 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
                 listKonversi[i].StatusType.trim() == "BB" ||
                 listKonversi[i].StatusType.trim() == "BP"
             ) {
-                qty += parseFloat(listKonversi[i].JumlahTritier);
+                let jumlah_tritier = isNaN(
+                    parseFloat(listKonversi[i].JumlahTritier)
+                )
+                    ? 0
+                    : parseFloat(listKonversi[i].JumlahTritier);
+
+                qty += jumlah_tritier;
             }
         }
 
@@ -1164,10 +1170,13 @@ function insertDetailFetch(id_konv_inv, post_action = null) {
             listKonversi[i].StatusType == "BP" ||
             listKonversi[i].StatusType == "AF"
         ) {
-            persentase = persentaseFun(
-                parseFloat(listKonversi[i].JumlahTritier),
-                parseFloat(totalBahan)
-            );
+            let jumlah_tritier = isNaN(
+                parseFloat(listKonversi[i].JumlahTritier)
+            )
+                ? 0
+                : parseFloat(listKonversi[i].JumlahTritier);
+
+            persentase = persentaseFun(jumlah_tritier, parseFloat(totalBahan));
         }
 
         // SP_5409_EXT_INSERT_DETAILKONVERSI
