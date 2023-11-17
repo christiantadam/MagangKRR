@@ -1,19 +1,19 @@
 @extends('layouts.appPayroll')
 @section('content')
+<script type="text/javascript" src="{{ asset('js/MaintenanceIjin/FormKoreksiIjinKaryawan.js') }}"></script>
     <div class="form-wrapper mt-4">
         <div class="form-container">
             <div class="card">
                 <div class="card-header">Form Koreksi Ijin Karyawan</div>
                 <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                     <div class="form berat_woven">
-                        <form action="#" method="post" role="form">
                             <div class="row">
                                 <div class="form-group col-md-3 d-flex justify-content-end">
-                                    <span class="aligned-text">Nama Pegawai:</span>
+                                    <span class="aligned-text">Tanggal Ijin:</span>
                                 </div>
                                 <div class="form-group col-md-9 mt-3 mt-md-0">
-                                    <input type="date" class="form-control" name="Divisi_pengiriman"
-                                        id="Divsi_pengiriman" placeholder="Divisi Pengiriman" required>
+                                    <input type="date" class="form-control" name="tanggal_Ijin"
+                                        id="tanggal_Ijin" style="width:200px;" required>
                                 </div>
                             </div>
 
@@ -92,14 +92,63 @@
 
                             <div class="row mt-3">
                                 <div class="col- row justify-content-md-center">
-                                    <div class="text-center col-md-auto"><button type="submit">Tampilkan Data</button>
+                                    <div class="text-center col-md-auto"><button type="" id="buttonTampilData">Tampilkan Data</button>
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-header">Data </div>
+                                <div class="row" style=";">
+                                    <div class="table-responsive" style="margin:30px;">
+                                        <table id="table_Ijin" class="table table-bordered">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Tanggal</th>
+                                                    <th scope="col">Kd_Pegawai</th>
+                                                    <th scope="col">Nama_Peg</th>
+                                                    <th scope="col">Jns_Keluar</th>
+                                                    <th scope="col">Kembali</th>
+                                                    <th scope="col">Keluar</th>
+                                                    <th scope="col">Pulang</th>
+                                                    <th scope="col">Jenis_Alasan</th>
+                                                    <th scope="col">Keterangan</th>
+                                                    <th scope="col">Menyetujui</th>
+                                                    <th scope="col">Timeinput</th>
+                                                    <th scope="col">Timeupdate</th>
+                                                    <th scope="col">User_id</th>
+                                                    <th scope="col">Id_Div</th>
 
-                            <div class="card mt-4">
-                                <div class="card-header">Hasil Print</div>
-                                <h1>Tes</h1>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- @foreach ($dataDivisi as $data)
+                                                    <tr>
+
+                                                        <td>{{ $data->Id_Div }}</td>
+                                                        <td>{{ $data->Nama_Div }}</td>
+                                                    </tr>
+                                                @endforeach --}}
+                                                {{-- @foreach ($peringatan as $item)
+                                                                    <tr>
+                                                                        <td><input type="checkbox" style="margin-right:5px;"
+                                                                                data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->bulan }}_{{ $item->tahun }}">{{ $item->peringatan_ke }}
+                                                                                data-id="{{ $item->kd_pegawai }}_{{ $item->peringatan_ke }}_{{ $item->TglBerlaku }}">{{ $item->peringatan_ke }}
+                                                                        </td>
+                                                                        <td>{{ $item->Nama_Div }}</td>
+                                                                        <td>{{ $item->kd_pegawai }}</td>
+                                                                        <td>{{ $item->Nama_Peg }}</td>
+                                                                        <td>{{ $item->TglBerlaku ?? 'Null' }}</td>
+                                                                        <td>{{ $item->TglAkhir ?? 'Null' }}</td>
+                                                                        <td>{{ $item->uraian }}</td>
+                                                                        <td>{{ $item->bulan }}</td>
+                                                                        <td>{{ $item->tahun }}</td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                     </div>
 

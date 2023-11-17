@@ -58,12 +58,13 @@ $(document).ready(function () {
         const Kode_pegawai = document.getElementById("Kode_pegawai").value;
         const Dinas = document.getElementById("Dinas");
         const kembali = document.getElementById("kembali");
-        const new_jabatan = document.getElementById("jabatan_Baru").value;
-        const old_nm_divisi = document.getElementById("Nama_Divisi").value;
-        const new_nm_divisi = document.getElementById("Nama_Divisi_Baru").value;
-        const tgl_mutasi = document.getElementById("TglMutasi").value;
-        const no_surat = document.getElementById("nomor_surat").value;
-        const Alasan = document.getElementById("alasan_mutasi").value;
+        const IjinKeluar = document.getElementById("IjinKeluar").value;
+        const IjinKembali = document.getElementById("IjinKembali").value;
+        const kategoriPermohonan = document.getElementById("kategoriPermohonan").value;
+        const Uraian = document.getElementById("Uraian").value;
+        const Menyetujui = document.getElementById("Menyetujui").value;
+        var jamUntukUpdate = TanggalIjin + " " + IjinKeluar;
+        var jamUntukUpdate2 = TanggalIjin + " " + IjinKembali;
         // if (Nama_Klinik === "" || AlamatKlinik === "" || KotaKlinik === "" || NomorTelepon === "") {
         //     // Salah satu atau lebih elemen input memiliki nilai kosong
         //     alert("Mohon isi semua field yang diperlukan.");
@@ -73,27 +74,48 @@ $(document).ready(function () {
         // } else {
         //     return;
         // }
-        var Jns_Keluar, Kembali;
-        if (Dinas.checked == true) {
-
+        if (Kode_pegawai == '') {
+            alert("Kode Pegawai Belum Diinput");
+            return;
         }
-
+        var Jns_Keluar, Kembali,Jam_Akhir, Jenis_Alasan;
+        if (Dinas.checked == true) {
+            Jns_Keluar = 'D';
+        }else{
+            Jns_Keluar = 'N';
+        }
+        if (kembali.checked == true) {
+            Jam_Akhir = jamUntukUpdate2;
+            Kembali = 'Y';
+        }else{
+            Jam_Akhir = '';
+            Kembali = 'N';
+        }
+        if (kategoriPermohonan == 1) {
+            Jenis_Alasan = 'Dinas';
+        }else if (kategoriPermohonan == 2) {
+            Jenis_Alasan = 'Pribadi';
+        }else if (kategoriPermohonan == 3) {
+            Jenis_Alasan = 'Kep Keluarga';
+        }else if (kategoriPermohonan == 4) {
+            Jenis_Alasan = 'Sakit';
+        }
         const data = {
             Tanggal: TanggalIjin,
-            Kd_Pegawai: new_kd_pegawai,
-            Jns_Keluar: old_jabatan,
-            Kembali: new_jabatan,
-            Jam_AWal: old_nm_divisi,
-            Jam_Akhir: new_nm_divisi,
-            Jenis_Alasan: tgl_mutasi,
-            Keterangan: no_surat,
-            Menyetujui: Alasan,
+            Kd_Pegawai: Kode_pegawai,
+            Jns_Keluar: Jns_Keluar,
+            Kembali: Kembali,
+            Jam_AWal: jamUntukUpdate,
+            Jam_Akhir: Jam_Akhir,
+            Jenis_Alasan: Jenis_Alasan,
+            Keterangan: Uraian,
+            Menyetujui: Menyetujui,
         };
         console.log(data);
 
         const formContainer = document.getElementById("form-container");
         const form = document.createElement("form");
-        form.setAttribute("action", "Fik");
+        form.setAttribute("action", "Fik/" + Kode_pegawai);
         form.setAttribute("method", "POST");
 
         // Loop through the data object and add hidden input fields to the form
@@ -104,6 +126,19 @@ $(document).ready(function () {
             input.value = data[key]; // Set the value of the input field to the corresponding data
             form.appendChild(input);
         }
+        // Create method input with "PUT" Value
+        const method = document.createElement("input");
+        method.setAttribute("type", "hidden");
+        method.setAttribute("name", "_method");
+        method.value = "PUT"; // Set the value of the input field to the corresponding data
+        form.appendChild(method);
+
+        // Create input with "Update Keluarga" Value
+        const ifUpdate = document.createElement("input");
+        ifUpdate.setAttribute("type", "hidden");
+        ifUpdate.setAttribute("name", "_ifUpdate");
+        ifUpdate.value = "Update Upah"; // Set the value of the input field to the corresponding data
+        form.appendChild(ifUpdate);
 
         formContainer.appendChild(form);
 

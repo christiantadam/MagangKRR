@@ -200,13 +200,16 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row form-group ml-1">
-                        <div class="input-container ml-4">
-                            <label for="grup-pelaksana-dropdown">Kategori Permohonan:</label>
-                            <select id="grup-pelaksana-dropdown" class="ml-4" required>
+                    <div class="row">
+                        <div class="form-group col-md-3 d-flex justify-content-end">
+                            <span class="aligned-text">Kategori Permohonan:</span>
+                        </div>
+                        <div class="form-group col-md-9 mt-3 mt-md-0">
+                            <select id="kategoriPermohonan" class="" required>
                                 <option value="1">Dinas</option>
-                                <option value="2">-</option>
+                                <option value="2">Pribadi</option>
+                                <option value="3">Kep Keluarga</option>
+                                <option value="4">Sakit</option>
                             </select>
                         </div>
                     </div>
@@ -230,7 +233,7 @@
                                 placeholder="Menyetujui" required>
                         </div>
                     </div>
-
+                    <div id="form-container"></div>
                     <div class="row mt-3">
                         <div class="col- row justify-content-md-center">
                             <div class="text-center col-md-auto"><button type="" id="prosesButton">Proses</button></div>
