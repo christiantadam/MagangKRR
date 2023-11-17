@@ -73,8 +73,8 @@ let methodTampilBKM = document.getElementById("methodTampilBKM");
 let modalTampilBKM = document.getElementById("modalTampilBKM");
 
 //BTNCETAK
-let nomer = document.getElementById('nomer');
-let tglCetak = document.getElementById('tglCetak');
+// let nomer = document.getElementById('nomer');
+// let tglCetak = document.getElementById('tglCetak');
 let symbol = document.getElementById('symbol');
 let terbilangCetak = document.getElementById('terbilangCetak');
 let jumlahDiterima = document.getElementById('jumlahDiterima');
@@ -95,7 +95,9 @@ let jum2 = document.getElementById('jum2');
 let ket6 = document.getElementById('ket6');
 let ket3 = document.getElementById('ket3');
 
-const tglInput = new Date();
+//BTNCETAK
+let nomer = document.getElementById('nomer');
+let tglCetak = new Date();
 const formattedDate2 = tglInput.toISOString().substring(0, 10);
 tanggalInput.value = formattedDate2;
 
@@ -1191,13 +1193,6 @@ function DetailKurangLebih() {
                 kodePerkiraanKrgLbhSelect.appendChild(option);
             });
         });
-};
-
-function ubahFormatTanggal(tanggal) {
-    var bulanIndonesia = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-    var tanggalTerpisah = tanggal.split("-");
-    var bulan = bulanIndonesia[parseInt(tanggalTerpisah[1]) - 1];
-    return tanggalTerpisah[2] + "/" + bulan + "/" + tanggalTerpisah[0];
 }
 
 //#region F_RUPIAH
@@ -1280,6 +1275,6 @@ function convertThreeDigitsToWords(num, isThousands) {
     }
 
     return result.trim();
-}
 //#endregion
 
+}

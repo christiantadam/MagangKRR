@@ -393,7 +393,7 @@
     </div>
 
     {{-- style="visibility: hidden;" --}}
-<div class="print">
+{{-- <div class="print">
     <div class="container">
         <div class="row">
             <div class="col-5" style="padding-right: 25px;">
@@ -534,6 +534,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <script src="{{ asset('js/Piutang/BKMPengembalianKE.js') }}"></script>
 @endsection

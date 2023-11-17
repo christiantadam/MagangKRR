@@ -122,10 +122,9 @@ tanggal.addEventListener("keypress", function (event) {
 
         console.log('Bulan:', bulan.value);
         console.log('Tahun:', tahun.value);
-        console.log(nilaiUang.value);
 
-        rowData['bulan'] = bulan.value;
-        rowData['tahun'] = tahun.value;
+        // rowData['bulan'] = bulan.value;
+        // rowData['tahun'] = tahun.value;
     }
 });
 
