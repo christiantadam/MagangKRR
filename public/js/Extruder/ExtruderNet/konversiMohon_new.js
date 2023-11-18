@@ -502,15 +502,15 @@ numTritier.addEventListener("keypress", function (event) {
         }
 
         if (modeProses == "koreksi") {
-            btnKoreksiDetail.disabled = false;
-            btnHapusDetail.disabled = false;
-            btnKoreksiDetail.focus();
+            if (pilKonversi != -1) {
+                btnKoreksiDetail.disabled = false;
+                btnHapusDetail.disabled = false;
+                btnKoreksiDetail.focus();
+            } else {
+                btnTambahDetail.disabled = false;
+                btnTambahDetail.focus();
+            }
         } else {
-            /**
-             * Pada saat mode koreksi hanya bisa menambahkan data konversi baru
-             * Tidak bisa mengoreksi ataupun menghapus data sebelumnya
-             */
-
             btnTambahDetail.disabled = false;
             btnTambahDetail.focus();
         }
@@ -574,7 +574,7 @@ btnTambahDetail.addEventListener("click", function () {
             clearDataDetail();
             disableDetail();
             clearSelection_DataTable("table_komposisi");
-            pilKomposisi = -1;
+            // pilKomposisi = -1;
 
             showModal(
                 "Ya",
@@ -582,6 +582,13 @@ btnTambahDetail.addEventListener("click", function () {
                 () => {
                     $(window).scrollTop($(document).height());
                     this.disabled = false;
+
+                    let tableRows = document.querySelectorAll(
+                        "#table_komposisi .odd, #table_komposisi .even"
+                    );
+
+                    tableRows[pilKomposisi].click();
+                    document.getElementById("table_komposisi").focus();
                 },
                 () => {
                     btnProses.focus();
@@ -1462,14 +1469,6 @@ function preventEnter(event) {
     }
 }
 
-numPrimer.addEventListener("keypress", preventEnter);
-
-numPrimer.addEventListener("keyup", function (event) {
-    if (event.key === "Enter") {
-        numPrimer.removeEventListener("keypress", preventEnter);
-    }
-});
-
 function rowEventKomposisi(index, _, focus = false) {
     pilKomposisi = index;
 
@@ -1546,7 +1545,6 @@ function rowEventKomposisi(index, _, focus = false) {
             if (focus) {
                 numPrimer.focus();
                 numPrimer.select();
-                numPrimer.addEventListener("keypress", preventEnter);
             }
         }
     });
@@ -1586,7 +1584,6 @@ function rowEventKonversi(index, _, focus = false) {
         if (focus) {
             numPrimer.focus();
             numPrimer.select();
-            numPrimer.addEventListener("keypress", preventEnter);
             $(window).scrollTop($(document).height());
         }
     }

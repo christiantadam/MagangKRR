@@ -61,10 +61,12 @@ const colKirim = [
     { width: "1px" }, // Tritier
     { width: "1px" }, // Divisi
 ];
+
+divisiCounter = 0;
 //#endregion
 
 //#region Events
-slcDivisi.addEventListener("change", function () {
+slcDivisi.addEventListener("input", function () {
     if (this.selectedIndex != 0) {
         txtNoBarcode.disabled = false;
         txtNoBarcode.value = "";
@@ -72,6 +74,21 @@ slcDivisi.addEventListener("change", function () {
     } else {
         slcDivisi.focus();
         alert("Pilih Divisi Terlebih Dahulu!");
+    }
+});
+
+slcDivisi.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") divisiCounter += 1;
+});
+
+slcDivisi.addEventListener("click", function () {
+    divisiCounter += 1;
+    console.log(divisiCounter);
+    if ((divisiCounter %= 2) == 0) {
+        txtNoBarcode.disabled = false;
+        txtNoBarcode.value = "";
+        txtNoBarcode.focus();
+        divisiCounter = 0;
     }
 });
 

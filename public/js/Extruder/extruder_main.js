@@ -122,6 +122,7 @@ function addTable_DataTable(
         });
 
         const tableContainer = table1.table().container();
+        console.log(tableContainer);
         const elements = tableContainer.querySelectorAll(".odd, .even");
         elements.forEach((ele, i) => {
             ele.addEventListener("click", () => {
@@ -130,6 +131,11 @@ function addTable_DataTable(
                 arrowNavigation_DataTable(table1, i, (index, data) => {
                     rowFun(index, data, true);
                 });
+
+                console.log(
+                    "Focused element after click:",
+                    document.activeElement
+                );
             });
         });
     } else if (extra == "dom_empty") {

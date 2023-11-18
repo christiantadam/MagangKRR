@@ -10,7 +10,6 @@ use App\Http\Controllers\Extruder\ExtruderNet\MasterController;
 use App\Http\Controllers\Extruder\ExtruderNet\OrderController;
 use App\Http\Controllers\Extruder\ExtruderNet\PencatatanController;
 use App\Http\Controllers\Extruder\WarehouseTerima\WarehouseController;
-use App\Http\Controllers\ABM\BarcodeRoll\SettingTimbanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -852,8 +851,6 @@ Route::get('/Extruder/ExtruderNet/Catat/{formName?}', [PencatatanController::cla
 Route::get('/beratStandar/{fun_str}/{fun_data}', [BeratController::class, 'beratStandar']);
 Route::get('/komposisiKonversi/{fun_str}/{fun_data}', [KomposisiController::class, 'komposisiKonversi']);
 Route::get('/warehouseTerima/{fun_str}/{fun_data}', [WarehouseController::class, 'warehouseTerima']);
-// Route::any('/Extruder/WarehouseTerima/lihatDataBarcode', [WarehouseController::class, 'lihatDataBarcode']);
-Route::post('splokal', 'App\Http\Controllers\Extruder\WarehouseTerima\WarehouseController@lihatDataBarcode')->name('lihatDataBarcode');
 
 #region ExtruderNet - Master (KITE)
 Route::get('/Master/getCekBahanKite/{kode}', [MasterController::class, 'getCekBahanKite']);
