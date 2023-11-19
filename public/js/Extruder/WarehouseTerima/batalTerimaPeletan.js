@@ -1,4 +1,10 @@
 //#region Variables
+const spnBarcode = document.getElementById("jumlah_barcode");
+const slcDivisi = document.getElementById("select_divisi");
+const btnProses = document.getElementById("btn_proses");
+const btnBatal = document.getElementById("btn_batal");
+const btnKeluar = document.getElementById("btn_keluar");
+
 const listRekap = [];
 /** ISI LIST REKAP
  * 0 - Tanggal
@@ -55,9 +61,76 @@ const colKirim = [
 //#endregion
 
 //#region Events
+btnProses.addEventListener("click", function () {
+    if (listRekap.length > 0) {
+    } else alert("Tidak Ada Data Yang Diproses");
+});
 //#endregion
 
 //#region Functions
+function tampilDataDispresiasi() {
+    listRekap.length = 0;
+    clearTable_DataTable("table_rekap", colRekap, "Memuat data...");
+
+    listKirim.length = 0;
+    clearTable_DataTable("table_kirim", colRekap, "Memuat data...");
+
+    fetchSelect(
+        "/warehouseTerima/SP_5409_INV_ListBarcodeTerimaGudang/0~2104",
+        (data) => {
+            let fetchEmpty = true;
+            if (data.length > 0) fetchEmpty = false;
+
+            if (!fetchEmpty) {
+                for (let i = 0; i < data.length; i++) {
+                    let [kode_barang, no_indeks] = ["", ""];
+                    kode_barang = data[i].kode_barang;
+                    no_indeks = data[i].noindeks.padStart(9, "0");
+
+                    listKirim.push({
+                        TglMutasi: data[i].tgl_mutasi,
+                        NamaType: data[i].namatype,
+                        NoBarcode: no_indeks + "-" + kode_barang,
+                        NamaSubKelompok: data[i].namasubkelompok,
+                        NamaKelompok: data[i].NamaKelompok,
+                        KodeBarang: data[i].kode_barang,
+                        NoIndeks: data[i].noindeks,
+                        QtyPrimer: data[i].qty_primer,
+                        QtySekunder: data[i].qty_sekunder,
+                        QtyTritier: data[i].qty,
+                        IdType: data[i].idtype,
+                        NoTempTrans: data[i].notemptrans,
+                    });
+                }
+
+                tampilRekap(() => {
+                    spnBarcode.textContent = listKirim.length;
+                });
+            }
+        }
+    );
+}
+
+function tampilRekap(postAction = null) {
+    fetchSelect(
+        "/warehouseTerima/SP_5409_INV_ListBarcodeTerimaGudang/1~2104",
+        (data) => {
+            for (let i = 0; i < data.length; i++) {
+                listRekap.push({
+                    TglMutasi: data[i].tgl_mutasi,
+                    NamaType: data[i].namatype,
+                    Primer: data[i].primer,
+                    Sekunder: data[i].sekunder,
+                    Tritier: data[i].tertier,
+                    IdType: data[i].idtype,
+                    NoTempTrans: data[i].notemptrans,
+                });
+            }
+
+            if (postAction != null) postAction();
+        }
+    );
+}
 //#endregion
 
 function init() {
@@ -106,6 +179,9 @@ function init() {
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
+
+    addOptionIfNotExists(slcDivisi, "INV", "INV | Warehouse");
+    tampilDataDispresiasi();
 }
 
 $(document).ready(() => init());

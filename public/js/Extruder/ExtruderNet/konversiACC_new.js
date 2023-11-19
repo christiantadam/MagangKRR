@@ -265,7 +265,7 @@ function tampilRincianKonversi(i, id_konversi) {
     txtIdKomposisi.value = listKonversi[i].IdKomposisi;
     txtNamaKomposisi.value = listKonversi[i].NamaKomposisi;
     timeMulai.value = dateTimetoTime(listKonversi[i].JamMulai);
-    timeAkhir.value = dateTimetoTime(listKonversi[i].JamSelesai);
+    timeSelesai.value = dateTimetoTime(listKonversi[i].JamSelesai);
     txtNoUrut.value = listKonversi[i].NoUrut;
 
     // DEBUG

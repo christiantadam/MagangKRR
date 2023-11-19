@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance Status Fatkur/Nota')
 
     <div class="container-fluid">
         <div class="row justify-content-center">

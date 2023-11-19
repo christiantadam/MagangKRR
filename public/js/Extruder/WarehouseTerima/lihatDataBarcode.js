@@ -77,13 +77,7 @@ function LD_showData(kode, tgl = "") {
             hidDivisi.value;
     }
 
-    // if (LD_formData.title == "Lihat Data Assesoris") {
-    //     fetch_url = "/lihatDataBarcode/" + kode_sp;
-    // } else {
-    //     fetch_url = "/lihatDataBarcode/" + kode_sp + "/" + hidDivisi.value;
-    // }
-
-    // if (tgl != "") fetch_url += "~" + tgl;
+    if (tgl != "") fetch_url += "~" + tgl;
 
     fetchSelect(fetch_url, (data) => {
         for (let i = 0; i < data.length; i++) {
@@ -113,67 +107,16 @@ function LD_showData(kode, tgl = "") {
                     LD_colKirim.length,
                     "Tidak ditemukan data pada <b>" + LD_tanggal.value + "</b>."
                 );
-        } else {
-            drawDataTableAjax(
-                { KodeSP: kode_sp, IdDivisi: hidDivisi.value, Tanggal: tgl },
+        } else
+            addTable_DataTable(
+                "table_kirim_gudang",
                 LD_listKirim,
-                LD_colKirim
+                LD_colKirim,
+                null,
+                "350px",
+                "add_paging"
             );
-        }
-        // addTable_DataTable(
-        //     "table_kirim_gudang",
-        //     LD_listKirim,
-        //     LD_colKirim,
-        //     null,
-        //     "350px",
-        //     "add_paging"
-        // );
     });
-}
-
-function drawDataTableAjax(listParam, listData, colWidth) {
-    let colObject = null;
-    colObject = colWidth.map((colWidth, index) => {
-        return {
-            data: Object.keys(listData[0])[index],
-            width: colWidth.width || "auto",
-        };
-    });
-
-    if ($.fn.DataTable.isDataTable("#table_kirim_gudang"))
-        $("#table_kirim_gudang").DataTable().destroy();
-    $("#table_kirim_gudang tbody").empty();
-
-    $("#table_kirim_gudang").DataTable({
-        responsive: true,
-        scrollY: "350px",
-        scrollX: "1000000px",
-        columns: colObject,
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ url('lihatDataBarcode') }}",
-            dataType: "json",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                kode_sp: listParam.KodeSP,
-                divisi: listParam.IdDivisi,
-                tanggal: listParam.Tanggal,
-            },
-        },
-        language: {
-            searchPlaceholder: " Tabel kirim gudang...",
-            search: "",
-            info: "Menampilkan _TOTAL_ data",
-        },
-    });
-
-    let searchInput = $(
-        `#table_kirim_gudang_filter input[type="search"]`
-    ).addClass("form-control");
-    searchInput.wrap('<div class="input-group"></div>');
-    searchInput.before('<span class="input-group-text">Cari:</span>');
 }
 //#endregion
 

@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Update Detail BKM')
 
 <style>
     @media print{

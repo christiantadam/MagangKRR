@@ -29,9 +29,17 @@ class FkikController extends Controller
     }
 
     //Display the specified resource.
-    public function show(cr $cr)
+    public function show($cr)
     {
-        //
+        $crExplode = explode(".", $cr);
+        // dd($cr);
+        //getDivisi
+        if ($crExplode[1] == "getDataIjin") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_IJIN_KARYAWAN @Kode = ?,@Nama = ?,@Nama = ?', [$crExplode[0]]);
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }
     }
 
     // Show the form for editing the specified resource.

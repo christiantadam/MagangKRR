@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Penagihan di Retur')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -11,7 +12,7 @@
                             <form method="POST" action="">
                                 @csrf
                                 <!-- Form fields go here -->
-                                
+
                                 <div class="row">
                                     <div class="col-9">
                                         <div style="white-space: nowrap;">
@@ -50,7 +51,7 @@
                                                 <td>Data 7</td>
                                                 <td>Data 8</td>
                                             </tr>
-                                            
+
                                             <!-- Tambahkan data tabel sesuai kebutuhan -->
                                         </tbody>
                                     </table>
@@ -90,7 +91,7 @@
                                                 <td>Data 5</td>
                                                 <td>Data 6</td>
                                             </tr>
-                                            
+
                                             <!-- Tambahkan data tabel sesuai kebutuhan -->
                                         </tbody>
                                     </table>
@@ -106,7 +107,7 @@
                                             <input type="submit" id="btnKeluar" name="keluar" value="Keluar" class="btn btn-primary d-flex ml-auto">
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </form>
                             <br>

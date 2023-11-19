@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'ACC Bayar TT')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -56,7 +57,7 @@
                                     <input type="submit" name="proses" value="PROSES" class="btn btn-primary">
                                     <input type="submit" name="keluar" value="KELUAR" class="btn btn-primary">
                                 </div>
-                                
+
                             </form>
                             <br>
                             <div></div>

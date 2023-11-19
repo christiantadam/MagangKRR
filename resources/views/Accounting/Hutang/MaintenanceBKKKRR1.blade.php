@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance BKK KRR1')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -172,7 +173,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <p>
                                 <div>
                                     <input type="submit" name="isi" value="ISI" class="btn btn-primary">
@@ -181,7 +182,7 @@
                                     <input type="submit" name="proses" value="PROSES" class="btn btn-primary" disabled>
                                     <input type="submit" name="keluar" value="KELUAR" class="btn btn-primary d-flex ml-auto">
                                 </div>
-                                
+
                             </form>
                             <br>
                             <div></div>

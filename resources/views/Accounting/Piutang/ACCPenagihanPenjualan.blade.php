@@ -1,11 +1,12 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'ACC Penagihan Penjualan')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">ACC Penagihan Surat Jalan</div>
+                    <div class="card-header">ACC Penagihan Penjualan</div>
                     @if (Session::has('success'))
                         <div class="alert alert-success">
                             {{ Session::get('success') }}

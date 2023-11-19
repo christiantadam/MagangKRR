@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'ACC BKK')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -66,7 +67,7 @@
                                             <input type="text" class="form-control" style="width: 100%">
                                         </div>
                                     </div>
-                                
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label for="bank">Bank</label>
@@ -99,7 +100,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <hr style="height:2px;">
                                 <b>PENAGIHAN</b>
                                 <p><div class="row">

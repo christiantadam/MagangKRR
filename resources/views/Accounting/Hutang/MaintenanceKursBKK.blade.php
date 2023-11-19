@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maintenance Kurs BKK')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -22,7 +23,7 @@
                                                 <label for="radio_1">Kas Kecil dng Supplier $</label>
                                             </div>
                                         </div>
-                                    
+
                                         <div class="card-body">
                                             <div style="overflow-y: auto; max-height: 400px;">
                                                 <table style="width: 120%; table-layout: fixed;">
@@ -105,7 +106,7 @@
                                                         <input type="text" name="supplierSelect" class="form-control" style="width: 100%">
                                                     </div>
                                                 </div>
-                                                
+
                                                 Data Pembayaran
 
                                                 <div style="overflow-y: auto; max-height: 250px;">
@@ -244,7 +245,7 @@
 
                                                 </div>
                                             </div>
-                                         
+
                                         </div>
                                     </div>
                                 </div>

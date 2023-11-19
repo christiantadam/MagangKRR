@@ -46,13 +46,13 @@ class BKMPengembalianKEController extends Controller
         $tanggal = $tanggal;
         $jenis = 'R';
 
-        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
-            $jenis,
-            $tanggal,
-            $idBank,
-            null
-            // Pass by reference for output parameter
-        ]);
+        // $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+        //     $jenis,
+        //     $tanggal,
+        //     $idBank,
+        //     null
+        //     // Pass by reference for output parameter
+        // ]);
 
         $tahun = substr($tanggal, -10, 4);
         $x = DB::connection('ConnAccounting')->table('T_COUNTER_BKM')->where('Periode', '=', $tahun)->first();
@@ -68,13 +68,13 @@ class BKMPengembalianKEController extends Controller
         $tanggal = $tanggal;
         $jenis = 'P';
 
-        $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
-            $jenis,
-            $tanggal,
-            $idBank,
-            null
-            // Pass by reference for output parameter
-        ]);
+        // $result = DB::statement("EXEC [dbo].[SP_5409_ACC_COUNTER_BKM_BKK] ?, ?, ?, ?", [
+        //     $jenis,
+        //     $tanggal,
+        //     $idBank,
+        //     null
+        //     // Pass by reference for output parameter
+        // ]);
 
         $tahun = substr($tanggal, -10, 4);
         $x = DB::connection('ConnAccounting')->table('T_COUNTER_BKK')->where('Periode', '=', $tahun)->first();

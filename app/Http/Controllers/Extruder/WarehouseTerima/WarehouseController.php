@@ -442,6 +442,73 @@ class WarehouseController extends Controller
         return 1;
     }
 
+    private function updAccGudangBarcode($id_type, $jumlah_keluar_primer, $jumlah_keluar_sekunder, $jumlah_keluar_tritier, $user_id, $id_pemberi, $tanggal, $uraian, $divisi, $no_sp)
+    {
+        #region Variables
+        $IdTypePemberi = '';
+        $SPrimerBeri = '';
+        $SSekunderBeri = '';
+        $STritierBeri = '';
+        $SUmumBeri = '';
+        $KonvBeri = '';
+        $SldPrimerBeri = '';
+        $SldSekunderBeri = '';
+        $SldTritierBeri = '';
+        $MinStokBeri = '';
+        $KonvTriSekBeri = '';
+        $KonvSekPriBeri = '';
+        $IdPenerima = '';
+        $IdSubKelAsl = '';
+        $a = '';
+        $YIdTransaksi = '';
+        $DivisiPemberi = '';
+        $Satuan = '';
+        $IdTrans1 = '';
+
+        // Variabel yang digunakan proses penerima
+        $IdSubKelTuj = '';
+        $IdTypeTerima = '';
+        $SPrimerTerima = '';
+        $SSekunderTerima = '';
+        $STritierTerima = '';
+        $SUmumTerima = '';
+        $KonvTerima = '';
+        $SldPrimerTerima = '';
+        $SldSekunderTerima = '';
+        $SldTritierTerima = '';
+        $MaxStokTerima = '';
+        $KonvSekPriTerima = '';
+        $XIdTransaksi = '';
+        $DivisiPenerima = '';
+
+        $IdTrans = '';
+        $x_trans = '';
+        $y_trans = '';
+        $idtype_tujuan = '';
+        $typetransaksi = '';
+        #endregion
+
+        DB::beginTransaction();
+
+        try {
+            // Cek penyesuaian
+            $IdTrans = DB::connection('ConnInventory')->select(
+                "SELECT IdTransaksi FROM Transaksi WHERE idtype = :id_type AND SaatLog IS NULL AND IdTypeTransaksi = '06'",
+                ['id_type' => $id_type]
+            );
+
+            if (count($IdTrans) > 0) {
+                return response()->json(['pesan' => 'Ada Transaksi Penyesuaian Yang Belum di ACC']);
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'Success'], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     public function warehouseTerima($fun_str, $fun_data)
     {
         $param_data = explode('~', $fun_data);
@@ -585,276 +652,6 @@ class WarehouseController extends Controller
         }
     }
 
-    public function lihatDataBarcode(Request $request)
-    {
-        $columns = array(
-            1 => 'TglKirim',
-            2 => 'NamaType',
-            3 => 'KodeBarang',
-            4 => 'NoIndeks',
-            5 => 'Primer',
-            6 => 'Sekunder',
-            7 => 'Tritier',
-            8 => 'Divisi'
-        );
-
-        $kode_sp = $request->kode_sp;
-        $divisi = $request->divisi;
-        $tanggal = $request->tanggal;
-
-        dd($kode_sp);
-
-        $query = '';
-        if ($kode_sp == 2) {
-            $query = "SELECT
-                    Tmp_Kirim_Gudang.IdPemberi,
-                    Tmp_Kirim_Gudang.TglKirim,
-                    Tmp_Kirim_Gudang.KodeBarang,
-                    Tmp_Kirim_Gudang.NoIndeks,
-                    Tmp_Kirim_Gudang.Primer,
-                    Tmp_Kirim_Gudang.Sekunder,
-                    Tmp_Kirim_Gudang.Tritier,
-                    Tmp_Kirim_Gudang.Timeinput,
-                    Tmp_Kirim_Gudang.IdType,
-                    Type.NamaType,
-                    Tmp_Kirim_Gudang.TypeTransaksi,
-                    Tmp_Kirim_Gudang.Status,
-                    Tmp_Kirim_Gudang.Divisi
-                FROM Tmp_Kirim_Gudang
-                INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                WHERE
-                    (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                    AND (Tmp_Kirim_Gudang.Status in (-1, 0))
-                    AND Tmp_Kirim_Gudang.Divisi = :Divisi
-            ";
-
-            $bindings = [
-                'Divisi' => $divisi
-            ];
-        } else if ($kode_sp == 13) {
-            $query = "SELECT
-                    Tmp_Kirim_Gudang.IdPemberi,
-                    Tmp_Kirim_Gudang.TglKirim,
-                    Tmp_Kirim_Gudang.KodeBarang,
-                    Tmp_Kirim_Gudang.NoIndeks,
-                    Tmp_Kirim_Gudang.Primer,
-                    Tmp_Kirim_Gudang.Sekunder,
-                    Tmp_Kirim_Gudang.Tritier,
-                    Tmp_Kirim_Gudang.Timeinput,
-                    Tmp_Kirim_Gudang.IdType,
-                    Type.NamaType,
-                    Tmp_Kirim_Gudang.TypeTransaksi,
-                    Tmp_Kirim_Gudang.Status,
-                    Tmp_Kirim_Gudang.Divisi
-                FROM Kelompok
-                INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
-                INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
-                INNER JOIN Tmp_Kirim_Gudang
-                    INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                    ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
-                WHERE
-                    (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                    AND (Tmp_Kirim_Gudang.Status = 0)
-                    AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
-                    AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
-            ";
-
-            $bindings = [
-                'Divisi' => $divisi,
-                'Tanggal' => $tanggal
-            ];
-        }
-
-        $total_data = count(DB::connection('ConnInventory')->select($query, $bindings));
-
-        $total_filtered = $total_data;
-
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
-
-        if (empty($request->input('search.value'))) {
-            if ($kode_sp == 2) {
-                $query = "SELECT
-                        Tmp_Kirim_Gudang.IdPemberi,
-                        Tmp_Kirim_Gudang.TglKirim,
-                        Tmp_Kirim_Gudang.KodeBarang,
-                        Tmp_Kirim_Gudang.NoIndeks,
-                        Tmp_Kirim_Gudang.Primer,
-                        Tmp_Kirim_Gudang.Sekunder,
-                        Tmp_Kirim_Gudang.Tritier,
-                        Tmp_Kirim_Gudang.Timeinput,
-                        Tmp_Kirim_Gudang.IdType,
-                        Type.NamaType,
-                        Tmp_Kirim_Gudang.TypeTransaksi,
-                        Tmp_Kirim_Gudang.Status,
-                        Tmp_Kirim_Gudang.Divisi
-                    FROM Tmp_Kirim_Gudang
-                    INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                    WHERE
-                        (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                        AND (Tmp_Kirim_Gudang.Status in (-1, 0))
-                        AND Tmp_Kirim_Gudang.Divisi = :Divisi
-                    ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
-                    LIMIT :Limit OFFSET :Offset
-                ";
-
-                $bindings = [
-                    'Divisi' => $divisi,
-                    'Limit' => $limit,
-                    'Offset' => $start
-                ];
-            } else if ($kode_sp == 13) {
-                $query = "SELECT
-                        Tmp_Kirim_Gudang.IdPemberi,
-                        Tmp_Kirim_Gudang.TglKirim,
-                        Tmp_Kirim_Gudang.KodeBarang,
-                        Tmp_Kirim_Gudang.NoIndeks,
-                        Tmp_Kirim_Gudang.Primer,
-                        Tmp_Kirim_Gudang.Sekunder,
-                        Tmp_Kirim_Gudang.Tritier,
-                        Tmp_Kirim_Gudang.Timeinput,
-                        Tmp_Kirim_Gudang.IdType,
-                        Type.NamaType,
-                        Tmp_Kirim_Gudang.TypeTransaksi,
-                        Tmp_Kirim_Gudang.Status,
-                        Tmp_Kirim_Gudang.Divisi
-                    FROM Kelompok
-                    INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
-                    INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
-                    INNER JOIN Tmp_Kirim_Gudang
-                        INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                        ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
-                    WHERE
-                        (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                        AND (Tmp_Kirim_Gudang.Status = 0)
-                        AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
-                        AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
-                    ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
-                    LIMIT :Limit OFFSET :Offset
-                ";
-
-                $bindings = [
-                    'Divisi' => $divisi,
-                    'Tanggal' => $tanggal,
-                    'Limit' => $limit,
-                    'Offset' => $start
-                ];
-            }
-        } else {
-            $search = $request->input('search.value');
-
-            $like_conditions = [];
-            foreach ($columns as $column) {
-                $likeConditions[] = "$column LIKE :Search";
-            }
-
-            $where_clause = implode(' OR ', $like_conditions);
-
-            if ($kode_sp == 2) {
-                $query = "SELECT
-                        Tmp_Kirim_Gudang.IdPemberi,
-                        Tmp_Kirim_Gudang.TglKirim,
-                        Tmp_Kirim_Gudang.KodeBarang,
-                        Tmp_Kirim_Gudang.NoIndeks,
-                        Tmp_Kirim_Gudang.Primer,
-                        Tmp_Kirim_Gudang.Sekunder,
-                        Tmp_Kirim_Gudang.Tritier,
-                        Tmp_Kirim_Gudang.Timeinput,
-                        Tmp_Kirim_Gudang.IdType,
-                        Type.NamaType,
-                        Tmp_Kirim_Gudang.TypeTransaksi,
-                        Tmp_Kirim_Gudang.Status,
-                        Tmp_Kirim_Gudang.Divisi
-                    FROM Tmp_Kirim_Gudang
-                    INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                    WHERE
-                        (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                        AND (Tmp_Kirim_Gudang.Status in (-1, 0))
-                        AND Tmp_Kirim_Gudang.Divisi = :Divisi
-                        AND ($where_clause)
-                    ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
-                    LIMIT :Limit OFFSET :Offset
-                ";
-
-                $bindings = [
-                    'Divisi' => $divisi,
-                    'Limit' => $limit,
-                    'Offset' => $start,
-                    'Search' => '%' . $search . '%'
-                ];
-
-                $total_filtered = count(DB::connection('ConnInventory')->select($query, $bindings));
-            } else if ($kode_sp == 13) {
-                $query = "SELECT
-                        Tmp_Kirim_Gudang.IdPemberi,
-                        Tmp_Kirim_Gudang.TglKirim,
-                        Tmp_Kirim_Gudang.KodeBarang,
-                        Tmp_Kirim_Gudang.NoIndeks,
-                        Tmp_Kirim_Gudang.Primer,
-                        Tmp_Kirim_Gudang.Sekunder,
-                        Tmp_Kirim_Gudang.Tritier,
-                        Tmp_Kirim_Gudang.Timeinput,
-                        Tmp_Kirim_Gudang.IdType,
-                        Type.NamaType,
-                        Tmp_Kirim_Gudang.TypeTransaksi,
-                        Tmp_Kirim_Gudang.Status,
-                        Tmp_Kirim_Gudang.Divisi
-                    FROM Kelompok
-                    INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
-                    INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
-                    INNER JOIN Tmp_Kirim_Gudang
-                        INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
-                        ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
-                    WHERE
-                        (Tmp_Kirim_Gudang.TypeTransaksi = '27')
-                        AND (Tmp_Kirim_Gudang.Status = 0)
-                        AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
-                        AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
-                        AND ($where_clause)
-                    ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
-                    LIMIT :Limit OFFSET :Offset
-                ";
-
-                $bindings = [
-                    'Divisi' => $divisi,
-                    'Tanggal' => $tanggal,
-                    'Limit' => $limit,
-                    'Offset' => $start,
-                    'Search' => '%' . $search . '%'
-                ];
-
-                $total_filtered = count(DB::connection('ConnInventory')->select($query, $bindings));
-            }
-        }
-
-        $data = array();
-        if (!empty($sp)) {
-            foreach ($sp as $datasp) {
-                $nestedData['TglKirim'] = substr($datasp->TglKirim, 0, 10);
-                $nestedData['NamaType'] = $datasp->NamaType;
-                $nestedData['KodeBarang'] = $datasp->KodeBarang;
-                $nestedData['NoIndeks'] = $datasp->NoIndeks;
-                $nestedData['Primer'] = $datasp->Primer;
-                $nestedData['Sekunder'] = $datasp->Sekunder;
-                $nestedData['Tritier'] = $datasp->Tritier;
-                $nestedData['Divisi'] = $datasp->Divisi;
-
-                $data[] = $nestedData;
-            }
-        }
-
-        $json_data = array(
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($total_data),
-            "recordsFiltered" => intval($total_filtered),
-            "data" => $data
-        );
-
-        echo json_encode($json_data);
-    }
-
     private function executeSP($action_str, $sp_str, $param_str, $param_data)
     {
         if ($action_str == 'statement') {
@@ -870,3 +667,273 @@ class WarehouseController extends Controller
         }
     }
 }
+
+// public function lihatDataBarcode(Request $request)
+    // {
+    //     $columns = array(
+    //         1 => 'TglKirim',
+    //         2 => 'NamaType',
+    //         3 => 'KodeBarang',
+    //         4 => 'NoIndeks',
+    //         5 => 'Primer',
+    //         6 => 'Sekunder',
+    //         7 => 'Tritier',
+    //         8 => 'Divisi'
+    //     );
+
+    //     $kode_sp = $request->kode_sp;
+    //     $divisi = $request->divisi;
+    //     $tanggal = $request->tanggal;
+
+    //     // dd($kode_sp);
+
+    //     $query = '';
+    //     if ($kode_sp == 2) {
+    //         $query = "SELECT
+    //                 Tmp_Kirim_Gudang.IdPemberi,
+    //                 Tmp_Kirim_Gudang.TglKirim,
+    //                 Tmp_Kirim_Gudang.KodeBarang,
+    //                 Tmp_Kirim_Gudang.NoIndeks,
+    //                 Tmp_Kirim_Gudang.Primer,
+    //                 Tmp_Kirim_Gudang.Sekunder,
+    //                 Tmp_Kirim_Gudang.Tritier,
+    //                 Tmp_Kirim_Gudang.Timeinput,
+    //                 Tmp_Kirim_Gudang.IdType,
+    //                 Type.NamaType,
+    //                 Tmp_Kirim_Gudang.TypeTransaksi,
+    //                 Tmp_Kirim_Gudang.Status,
+    //                 Tmp_Kirim_Gudang.Divisi
+    //             FROM Tmp_Kirim_Gudang
+    //             INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //             WHERE
+    //                 (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                 AND (Tmp_Kirim_Gudang.Status in (-1, 0))
+    //                 AND Tmp_Kirim_Gudang.Divisi = :Divisi
+    //         ";
+
+    //         $bindings = [
+    //             'Divisi' => $divisi
+    //         ];
+    //     } else if ($kode_sp == 13) {
+    //         $query = "SELECT
+    //                 Tmp_Kirim_Gudang.IdPemberi,
+    //                 Tmp_Kirim_Gudang.TglKirim,
+    //                 Tmp_Kirim_Gudang.KodeBarang,
+    //                 Tmp_Kirim_Gudang.NoIndeks,
+    //                 Tmp_Kirim_Gudang.Primer,
+    //                 Tmp_Kirim_Gudang.Sekunder,
+    //                 Tmp_Kirim_Gudang.Tritier,
+    //                 Tmp_Kirim_Gudang.Timeinput,
+    //                 Tmp_Kirim_Gudang.IdType,
+    //                 Type.NamaType,
+    //                 Tmp_Kirim_Gudang.TypeTransaksi,
+    //                 Tmp_Kirim_Gudang.Status,
+    //                 Tmp_Kirim_Gudang.Divisi
+    //             FROM Kelompok
+    //             INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
+    //             INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
+    //             INNER JOIN Tmp_Kirim_Gudang
+    //                 INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //                 ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
+    //             WHERE
+    //                 (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                 AND (Tmp_Kirim_Gudang.Status = 0)
+    //                 AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
+    //                 AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
+    //         ";
+
+    //         $bindings = [
+    //             'Divisi' => $divisi,
+    //             'Tanggal' => $tanggal
+    //         ];
+    //     }
+
+    //     $total_data = count(DB::connection('ConnInventory')->select($query, $bindings));
+
+    //     $total_filtered = $total_data;
+
+    //     $limit = $request->input('length');
+    //     $start = $request->input('start');
+    //     $order = $columns[$request->input('order.0.column')];
+    //     $dir = $request->input('order.0.dir');
+
+    //     if (empty($request->input('search.value'))) {
+    //         if ($kode_sp == 2) {
+    //             $query = "SELECT
+    //                     Tmp_Kirim_Gudang.IdPemberi,
+    //                     Tmp_Kirim_Gudang.TglKirim,
+    //                     Tmp_Kirim_Gudang.KodeBarang,
+    //                     Tmp_Kirim_Gudang.NoIndeks,
+    //                     Tmp_Kirim_Gudang.Primer,
+    //                     Tmp_Kirim_Gudang.Sekunder,
+    //                     Tmp_Kirim_Gudang.Tritier,
+    //                     Tmp_Kirim_Gudang.Timeinput,
+    //                     Tmp_Kirim_Gudang.IdType,
+    //                     Type.NamaType,
+    //                     Tmp_Kirim_Gudang.TypeTransaksi,
+    //                     Tmp_Kirim_Gudang.Status,
+    //                     Tmp_Kirim_Gudang.Divisi
+    //                 FROM Tmp_Kirim_Gudang
+    //                 INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //                 WHERE
+    //                     (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                     AND (Tmp_Kirim_Gudang.Status in (-1, 0))
+    //                     AND Tmp_Kirim_Gudang.Divisi = :Divisi
+    //                 ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
+    //                 LIMIT :Limit OFFSET :Offset
+    //             ";
+
+    //             $bindings = [
+    //                 'Divisi' => $divisi,
+    //                 'Limit' => $limit,
+    //                 'Offset' => $start
+    //             ];
+    //         } else if ($kode_sp == 13) {
+    //             $query = "SELECT
+    //                     Tmp_Kirim_Gudang.IdPemberi,
+    //                     Tmp_Kirim_Gudang.TglKirim,
+    //                     Tmp_Kirim_Gudang.KodeBarang,
+    //                     Tmp_Kirim_Gudang.NoIndeks,
+    //                     Tmp_Kirim_Gudang.Primer,
+    //                     Tmp_Kirim_Gudang.Sekunder,
+    //                     Tmp_Kirim_Gudang.Tritier,
+    //                     Tmp_Kirim_Gudang.Timeinput,
+    //                     Tmp_Kirim_Gudang.IdType,
+    //                     Type.NamaType,
+    //                     Tmp_Kirim_Gudang.TypeTransaksi,
+    //                     Tmp_Kirim_Gudang.Status,
+    //                     Tmp_Kirim_Gudang.Divisi
+    //                 FROM Kelompok
+    //                 INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
+    //                 INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
+    //                 INNER JOIN Tmp_Kirim_Gudang
+    //                     INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //                     ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
+    //                 WHERE
+    //                     (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                     AND (Tmp_Kirim_Gudang.Status = 0)
+    //                     AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
+    //                     AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
+    //                 ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
+    //                 LIMIT :Limit OFFSET :Offset
+    //             ";
+
+    //             $bindings = [
+    //                 'Divisi' => $divisi,
+    //                 'Tanggal' => $tanggal,
+    //                 'Limit' => $limit,
+    //                 'Offset' => $start
+    //             ];
+    //         }
+    //     } else {
+    //         $search = $request->input('search.value');
+
+    //         $like_conditions = [];
+    //         foreach ($columns as $column) {
+    //             $likeConditions[] = "$column LIKE :Search";
+    //         }
+
+    //         $where_clause = implode(' OR ', $like_conditions);
+
+    //         if ($kode_sp == 2) {
+    //             $query = "SELECT
+    //                     Tmp_Kirim_Gudang.IdPemberi,
+    //                     Tmp_Kirim_Gudang.TglKirim,
+    //                     Tmp_Kirim_Gudang.KodeBarang,
+    //                     Tmp_Kirim_Gudang.NoIndeks,
+    //                     Tmp_Kirim_Gudang.Primer,
+    //                     Tmp_Kirim_Gudang.Sekunder,
+    //                     Tmp_Kirim_Gudang.Tritier,
+    //                     Tmp_Kirim_Gudang.Timeinput,
+    //                     Tmp_Kirim_Gudang.IdType,
+    //                     Type.NamaType,
+    //                     Tmp_Kirim_Gudang.TypeTransaksi,
+    //                     Tmp_Kirim_Gudang.Status,
+    //                     Tmp_Kirim_Gudang.Divisi
+    //                 FROM Tmp_Kirim_Gudang
+    //                 INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //                 WHERE
+    //                     (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                     AND (Tmp_Kirim_Gudang.Status in (-1, 0))
+    //                     AND Tmp_Kirim_Gudang.Divisi = :Divisi
+    //                     AND ($where_clause)
+    //                 ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
+    //                 LIMIT :Limit OFFSET :Offset
+    //             ";
+
+    //             $bindings = [
+    //                 'Divisi' => $divisi,
+    //                 'Limit' => $limit,
+    //                 'Offset' => $start,
+    //                 'Search' => '%' . $search . '%'
+    //             ];
+
+    //             $total_filtered = count(DB::connection('ConnInventory')->select($query, $bindings));
+    //         } else if ($kode_sp == 13) {
+    //             $query = "SELECT
+    //                     Tmp_Kirim_Gudang.IdPemberi,
+    //                     Tmp_Kirim_Gudang.TglKirim,
+    //                     Tmp_Kirim_Gudang.KodeBarang,
+    //                     Tmp_Kirim_Gudang.NoIndeks,
+    //                     Tmp_Kirim_Gudang.Primer,
+    //                     Tmp_Kirim_Gudang.Sekunder,
+    //                     Tmp_Kirim_Gudang.Tritier,
+    //                     Tmp_Kirim_Gudang.Timeinput,
+    //                     Tmp_Kirim_Gudang.IdType,
+    //                     Type.NamaType,
+    //                     Tmp_Kirim_Gudang.TypeTransaksi,
+    //                     Tmp_Kirim_Gudang.Status,
+    //                     Tmp_Kirim_Gudang.Divisi
+    //                 FROM Kelompok
+    //                 INNER JOIN KelompokUtama ON Kelompok.IdKelompokUtama_Kelompok = KelompokUtama.IdKelompokUtama
+    //                 INNER JOIN Subkelompok ON Kelompok.IdKelompok = Subkelompok.IdKelompok_Subkelompok
+    //                 INNER JOIN Tmp_Kirim_Gudang
+    //                     INNER JOIN Type ON Tmp_Kirim_Gudang.IdType = Type.IdType
+    //                     ON Subkelompok.IdSubkelompok = Type.IdSubkelompok_Type
+    //                 WHERE
+    //                     (Tmp_Kirim_Gudang.TypeTransaksi = '27')
+    //                     AND (Tmp_Kirim_Gudang.Status = 0)
+    //                     AND (Tmp_Kirim_Gudang.Divisi = :Divisi)
+    //                     AND (Tmp_Kirim_Gudang.TglKirim = :Tanggal)
+    //                     AND ($where_clause)
+    //                 ORDER BY Tmp_Kirim_Gudang.TglKirim $order $dir
+    //                 LIMIT :Limit OFFSET :Offset
+    //             ";
+
+    //             $bindings = [
+    //                 'Divisi' => $divisi,
+    //                 'Tanggal' => $tanggal,
+    //                 'Limit' => $limit,
+    //                 'Offset' => $start,
+    //                 'Search' => '%' . $search . '%'
+    //             ];
+
+    //             $total_filtered = count(DB::connection('ConnInventory')->select($query, $bindings));
+    //         }
+    //     }
+
+    //     $data = array();
+    //     if (!empty($sp)) {
+    //         foreach ($sp as $datasp) {
+    //             $nestedData['TglKirim'] = substr($datasp->TglKirim, 0, 10);
+    //             $nestedData['NamaType'] = $datasp->NamaType;
+    //             $nestedData['KodeBarang'] = $datasp->KodeBarang;
+    //             $nestedData['NoIndeks'] = $datasp->NoIndeks;
+    //             $nestedData['Primer'] = $datasp->Primer;
+    //             $nestedData['Sekunder'] = $datasp->Sekunder;
+    //             $nestedData['Tritier'] = $datasp->Tritier;
+    //             $nestedData['Divisi'] = $datasp->Divisi;
+
+    //             $data[] = $nestedData;
+    //         }
+    //     }
+
+    //     $json_data = array(
+    //         "draw" => intval($request->input('draw')),
+    //         "recordsTotal" => intval($total_data),
+    //         "recordsFiltered" => intval($total_filtered),
+    //         "data" => $data
+    //     );
+
+    //     echo json_encode($json_data);
+    // }

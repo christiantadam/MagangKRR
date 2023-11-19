@@ -1,5 +1,6 @@
 @extends('layouts.appAccounting')
 @section('content')
+@section('title', 'Maint Pot Harga Penjualan')
 
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -146,7 +147,7 @@
                                         <input type="number" id="totalBiaya" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
-                                
+
                                 <br><div>
                                     <div class="row">
                                         <div class="col-md-1">

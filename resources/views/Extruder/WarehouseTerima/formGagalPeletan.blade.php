@@ -26,7 +26,7 @@
             <div class="col-lg-3"></div>
 
             <div class="col-lg-3">
-                <button type="button" class="btn btn-outline-secondary btn-scan-barcode" disabled
+                <button id="jumlah_barcode" type="button" class="btn btn-outline-secondary btn-scan-barcode" disabled
                     style="color: black; font-size: x-large; height: auto;">0</button>
             </div>
         </div>
@@ -75,9 +75,12 @@
         </div>
 
         <div class="mt-3 mb-5 float-end text-center">
-            <button type="submit" class="btn btn-outline-success" style="margin-right: 10px;">Proses</button>
-            <button type="button" class="btn btn-outline-danger" style="margin-right: 10px;">Batal Proses</button>
-            <button type="button" class="btn btn-outline-secondary" style="margin-right: 10px;">Keluar</button>
+            <button id="btn_proses" type="button" class="btn btn-outline-success"
+                style="margin-right: 10px;">Proses</button>
+            <button id="btn_batal" type="button" class="btn btn-outline-danger" style="margin-right: 10px;">Batal
+                Proses</button>
+            <button id="btn_keluar" type="button" class="btn btn-outline-secondary"
+                style="margin-right: 10px;">Keluar</button>
         </div>
     </div>
 
