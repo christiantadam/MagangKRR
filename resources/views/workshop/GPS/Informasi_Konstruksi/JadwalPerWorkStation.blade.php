@@ -37,7 +37,7 @@
                     <input type="date" class="form-control" name="tglakhir" id="tglakhir">
                   </div>
                   <div class="col-4">
-                    <a href="" class="btn btn-primary">OK</a>
+                    <button type="button" class="btn btn-primary" id="btnok">OK</button>
                   </div>
                 </div>
               </div>
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table" style="padding-top: 15px; width:max-content;">
+              <table class="table" style="padding-top: 15px; width:max-content;" id="TableDatas">
                 <thead class="table-dark" style="white-space:nowrap">
                   <tr>
                     <th>Nomor</th>
@@ -79,23 +79,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>wdwadw</td>
-                    <td>wdawdawd</td>
-                    <td>wdawdawd</td>
-                    <td>wdawd</td>
-                    <td>wadawdaw</td>
-                    <td>wdawdawd</td>
-                    <td>wdawd</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>wdwadw</td>
-                    <td>wdawdawd</td>
-                  </tr>
+
                 </tbody>
               </table>
             </div>
