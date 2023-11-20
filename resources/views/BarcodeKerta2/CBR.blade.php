@@ -8,6 +8,17 @@
             .card {
                 display: none;
             }
+            body {
+                transform: rotate(90deg);
+                page: landscape;
+            }
+        }
+
+        #barcode {
+            width: 1545px;
+            /* or specify a specific width in pixels or other units */
+            height: 1000px;
+            /* or specify a specific height */
         }
 
         #barcode-label {

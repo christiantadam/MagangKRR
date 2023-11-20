@@ -91,7 +91,7 @@ $(document).ready(function () {
     // Call the function to hide extend cards
     // hideExtendCards();
 
-    document.getElementById('btnPrint').addEventListener('click', function() {
+    document.getElementById('btnPrint').addEventListener('click', function () {
         var strReportPath = "";
         var parameter = 1;
         document.getElementById("ABM").classList.add("hidden")
@@ -201,6 +201,36 @@ $(document).ready(function () {
 
         // // Set Crystal Report as the source for the viewer
         // document.getElementById('CrystalReportViewer1').reportSource = cr;
+    });
+
+    // Mendapatkan elemen h5 dengan ID "tanggalCetak" dan "tanggalKirim"
+    var tanggalCetakElemen = document.getElementById("tanggalCetak");
+    var tanggalKirimElemen = document.getElementById("tanggalKirim");
+
+    // Membuat objek Date untuk mendapatkan tanggal sekarang
+    var tanggalSekarang = new Date();
+
+    // Mendapatkan komponen tanggal, bulan, dan tahun
+    var tanggal = tanggalSekarang.getDate();
+    var bulan = tanggalSekarang.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+    var tahun = tanggalSekarang.getFullYear();
+
+    // Format tanggal sesuai kebutuhan (contoh: DD/MM/YYYY)
+    var tanggalFormat = tanggal + '/' + bulan + '/' + tahun;
+
+    // Menambahkan tanggal Cetak ke teks di dalam elemen h5
+    tanggalCetakElemen.innerHTML += tanggalFormat;
+
+    // Mendapatkan elemen input tanggal
+    var inputTanggalElemen = document.getElementById("Tanggal");
+
+    // Menambahkan event listener untuk menanggapi perubahan pada input tanggal
+    inputTanggalElemen.addEventListener("change", function () {
+        // Mendapatkan nilai dari input tanggal
+        var tanggalKirim = inputTanggalElemen.value;
+
+        // Menambahkan tanggal Kirim ke teks di dalam elemen h5
+        tanggalKirimElemen.innerHTML = "Tanggal Kirim: " + tanggalKirim;
     });
 });
 

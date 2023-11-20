@@ -47,6 +47,7 @@ $(document).ready(function () {
                 if (sts === "1") {
                     const card = document.getElementById("card");
                     console.log(IdBarcode);
+                    // JsBarcode("#barcode", IdBarcode);
                     JsBarcode("#barcode", IdBarcode);
                     window.print();
                 } else if (sts === "2") {
