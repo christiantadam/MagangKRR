@@ -8,6 +8,7 @@
             .card {
                 display: none;
             }
+
             body {
                 transform: rotate(90deg);
                 page: landscape;
@@ -15,24 +16,32 @@
         }
 
         #barcode {
-            width: 1545px;
+            width: 1610px;
             /* or specify a specific width in pixels or other units */
-            height: 1000px;
+            height: 800px;
             /* or specify a specific height */
+            margin-top: -150px;
+            margin-left: 250px;
         }
 
         #barcode-label {
             text-align: center;
             /* Untuk penempatan horizontal di tengah */
             display: flex;
-            align-items: center;
-            /* Untuk penempatan vertikal di tengah */
+            font-size: 60px;
+            margin-left: 300px;
+            margin-top: -200px;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif
+                /* Untuk penempatan vertikal di tengah */
         }
 
         .barcode-label-container {
             display: flex;
             align-items: center;
-            /* Menengahkan vertikal jika perlu */
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif
+                /* Menengahkan vertikal jika perlu */
         }
 
         .barcode-label-container>div {
@@ -46,7 +55,7 @@
         #barcode-label4,
         #barcode-label5,
         #barcode-label6 {
-            /* Gaya khusus untuk elemen-elemen div jika diperlukan */
+            text-align: center;
         }
     </style>
 
@@ -85,22 +94,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="printSection">
+                    <div class="row" id="printSection" style="margin-top: -200px">
                         <div class="col- row justify-content-md-center">
                             <div id="barcode-container">
                                 <svg class="text-center" id="barcode"></svg>
                                 <div id="barcode-label"></div>
                                 <div class="barcode-label-container">
-                                    <div id="barcode-label1"></div>
-                                    <div id="barcode-label2"></div>
+                                    <div id="barcode-label1"
+                                        style="font-size: 60px; margin-left: 300px;">
+                                    </div>
+                                    <div id="barcode-label2" style="font-size: 60px;"></div>
 
                                     <div class="barcode-label-container">
-                                        <div id="barcode-label3"> </div>
-                                        <div id="barcode-label4"> </div>
+                                        <div id="barcode-label3" style="font-size: 60px;margin-left: 250px"> </div>
+                                        <div id="barcode-label4" style="font-size: 60px;"> </div>
 
                                         <div class="barcode-label-container">
-                                            <div id="barcode-label5"></div>
-                                            <div id="barcode-label6"></div>
+                                            <div id="barcode-label5" style="font-size: 60px;margin-left: 250px"></div>
+                                            <div id="barcode-label6" style="font-size: 60px;"></div>
                                         </div>
                                     </div>
                                 </div>

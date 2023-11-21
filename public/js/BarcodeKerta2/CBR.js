@@ -131,7 +131,7 @@ $(document).ready(function () {
                 // Jika input tidak kosong, maka proses pencetakan barcode
                 const card = document.getElementById("card");
                 console.log(IdBarcode);
-                JsBarcode("#barcode", IdBarcode);
+
                 fetch(`/ABM/BarcodeKerta2/CBR/${parts[0]}.${parts[1]}.getDataStatus`)
                     .then(response => {
                         if (!response.ok) {
@@ -150,7 +150,9 @@ $(document).ready(function () {
                         if (sts === "1") {
                             const card = document.getElementById("card");
                             console.log(IdBarcode);
-                            JsBarcode("#barcode", IdBarcode);
+                            JsBarcode("#barcode", IdBarcode,{
+                                height: 50
+                            });
                             fetch("/ABM/BarcodeKerta2/CBR/" + parts[0] + "." + parts[1] + ".getBarcode")
                                 .then((response) => {
                                     if (!response.ok) {
