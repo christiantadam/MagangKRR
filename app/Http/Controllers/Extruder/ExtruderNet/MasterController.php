@@ -25,12 +25,14 @@ class MasterController extends Controller
             case 'formKomposisiMojosari':
                 $id_hasil = $nama_gedung == "D" ? 2250 : 1994;
                 $id_afalan = $nama_gedung == "D" ? 2251 : 1976;
+                $id_komposisi = $nama_gedung == "D" ? 'DEX' : 'MEX';
+                $kode_mesin = $nama_gedung == "D" ? 3 : 2;
 
                 $form_data = [
-                    'listKomposisi' => $this->getListKomposisi('MEX'),
-                    'listMesin' => $this->getListMesin(2),
+                    'listKomposisi' => $this->getListKomposisi($id_komposisi),
+                    'listMesin' => $this->getListMesin($kode_mesin),
                     'listAfalan' => $this->getPrgTypeProduksi(1, $id_afalan),
-                    'listObjek' => $this->getIdDivisiObjek('MEX'),
+                    'listObjek' => $this->getIdDivisiObjek($id_komposisi),
                     'listHP' => $this->getPrgTypeProduksi(2, $id_hasil),
                     'listNG' => $this->getPrgTypeProduksi(3, $id_hasil)
                 ];

@@ -101,6 +101,7 @@ const idBahanBaku = namaGedung == "D" ? "2248" : "1977";
 const idBahanPembantu = namaGedung == "D" ? "2249" : "1978";
 const idHasilProduksi = namaGedung == "D" ? "2250" : "1994";
 const idAfalan = namaGedung == "D" ? "2251" : "1976";
+const idObjek = namaGedung == "D" ? "279" : "213";
 
 var jumlah = 0;
 var modeProses = "";
@@ -266,7 +267,7 @@ slcKomposisi.addEventListener("change", function () {
                                             if (modeProses == "koreksi") {
                                                 addOptionIfNotExists(
                                                     slcObjek,
-                                                    213,
+                                                    idObjek,
                                                     "Bahan dan Hasil Produksi"
                                                 );
 
@@ -288,10 +289,6 @@ slcKomposisi.addEventListener("change", function () {
                                                 modeProses == "hapus_detail"
                                             ) {
                                                 btnHapusDetail.disabled = false;
-                                                $("html, body").animate(
-                                                    { scrollTop: posKomposisi },
-                                                    100
-                                                );
                                             }
                                         }
                                     );
@@ -704,6 +701,11 @@ btnTambahDetail.addEventListener("click", function () {
      */
 
     let jenis = "";
+
+    console.log("Halo Dunia");
+    console.log(slcKelut.value);
+    console.log(idHasilProduksi);
+
     switch (slcKelut.value) {
         case idBahanBaku: // Bahan Baku
             jenis = "BB";
@@ -766,8 +768,11 @@ btnTambahDetail.addEventListener("click", function () {
     }
 
     jumlah += parseFloat(numPersentase.value);
-    jumlah = parseFloat(jumlah.toString().substring(0, 6));
-    if (jumlah > 100 || parseFloat(numPersentase.value) <= 0) {
+    console.log("jumlah = " + parseFloat(jumlah).toFixed(2));
+    if (
+        parseFloat(jumlah).toFixed(2) > 100 ||
+        parseFloat(numPersentase.value) <= 0
+    ) {
         if (jumlah > 100) {
             alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
         } else alert("Persentase harus diisi terlebih dahulu.");
@@ -794,7 +799,6 @@ btnTambahDetail.addEventListener("click", function () {
     } else {
         let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
         let nama_type = slcType.options[slcType.selectedIndex].text;
-        let nama_objek = slcObjek.options[slcObjek.selectedIndex].text;
 
         listKomposisi.push({
             StatusType: jenis,
@@ -808,7 +812,7 @@ btnTambahDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: nama_objek.split("|")[1].trim(),
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
             IdKelompokUtama: slcKelut.value,
             NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
@@ -915,8 +919,11 @@ btnCadanganDetail.addEventListener("click", function () {
     }
 
     jumlah += parseFloat(numPersentase.value);
-    jumlah = parseFloat(jumlah.toString().substring(0, 6));
-    if (jumlah > 100 || parseFloat(numPersentase.value) <= 0) {
+    console.log("jumlah = " + parseFloat(jumlah).toFixed(2));
+    if (
+        parseFloat(jumlah).toFixed(2) > 100 ||
+        parseFloat(numPersentase.value) <= 0
+    ) {
         if (jumlah > 100) {
             alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
         } else alert("Persentase harus diisi terlebih dahulu.");
@@ -949,7 +956,6 @@ btnCadanganDetail.addEventListener("click", function () {
     } else {
         let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
         let nama_type = slcType.options[slcType.selectedIndex].text;
-        let nama_objek = slcObjek.options[slcObjek.selectedIndex].text;
 
         listKomposisi.push({
             StatusType: jenis,
@@ -963,7 +969,7 @@ btnCadanganDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: nama_objek.split("|")[1].trim(),
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
             IdKelompokUtama: slcKelut.value,
             NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
@@ -1055,10 +1061,11 @@ btnKoreksiDetail.addEventListener("click", function () {
                 }
 
                 if (numCadangan.value == 0) {
-                    jumlah -= numPersentase2.value - numPersentase.value;
-                    jumlah = jumlah.toString().substring(0, 6);
-
-                    if (parseFloat(jumlah) > 100) {
+                    jumlah -=
+                        parseFloat(numPersentase2.value) -
+                        parseFloat(numPersentase.value);
+                    console.log("jumlah = " + parseFloat(jumlah).toFixed(2));
+                    if (parseFloat(jumlah).toFixed(2) > 100) {
                         alert(
                             "Persentase yang dimasukkan tidak boleh lebih dari 100%!"
                         );
@@ -1175,7 +1182,7 @@ btnHapusDetail.addEventListener("keyup", function (event) {
 
 btnHapusDetail.addEventListener("click", function () {
     if (listKomposisi.length > 1) {
-        if (posKomposisi != -1) {
+        if (pilKomposisi != -1) {
             showModal(
                 "Hapus",
                 "Anda yakin akan menghapus type <b>" +
@@ -1458,7 +1465,10 @@ btnProses.addEventListener("click", function () {
                         }
                     );
                 });
-            }
+            } else
+                alert(
+                    "Komposisi Tidak Boleh Dihapus Karena Sudah Dipakai Untuk Konversi!"
+                );
         });
     } else if (modeProses == "hapus_detail") {
         let allowed = true;
@@ -1479,7 +1489,7 @@ btnProses.addEventListener("click", function () {
                 });
             } else
                 alert(
-                    "Data komposisi hanya tersisa satu, sehingga tidak boleh dihapus."
+                    "Type tidak dapat dihapus karena pernah digunakan untuk konversi."
                 );
         });
     }
@@ -1655,7 +1665,7 @@ slcAF.addEventListener("change", function () {
     );
     clearDataDetail("cadangan");
     numCadangan.value = 0;
-    addOptionIfNotExists(slcObjek, 213, 213 + " | Bahan dan Hasil Produksi");
+    addOptionIfNotExists(slcObjek, idObjek, "Bahan dan Hasil Produksi");
     slcKelut.selectedIndex = 0;
     slcKelompok.selectedIndex = 0;
     slcType.selectedIndex = 0;
@@ -2047,6 +2057,13 @@ function rowClickedFetch(row, data, _) {
 //#endregion
 
 function init() {
+    console.log("idDivisi = " + idDivisi);
+    console.log("idKelompok = " + idKelompok);
+    console.log("idBahanBaku = " + idBahanBaku);
+    console.log("idBahanPembantu = " + idBahanPembantu);
+    console.log("idHasilProduksi = " + idHasilProduksi);
+    console.log("idAfalan = " + idAfalan);
+
     $("#table_afalan").DataTable({
         responsive: true,
         paging: false,
