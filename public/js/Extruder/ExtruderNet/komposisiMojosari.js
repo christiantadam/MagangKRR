@@ -267,9 +267,7 @@ slcKomposisi.addEventListener("change", function () {
                                                 addOptionIfNotExists(
                                                     slcObjek,
                                                     213,
-                                                    213 +
-                                                        " | " +
-                                                        "Bahan dan Hasil Produksi"
+                                                    "Bahan dan Hasil Produksi"
                                                 );
 
                                                 slcKelut.selectedIndex = 0;
@@ -409,7 +407,7 @@ slcKelompok.addEventListener("mousedown", function () {
             "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys, true);
                     this.removeChild(errorOption);
                 } else refetchKelompok = true;
             },
@@ -433,7 +431,7 @@ slcKelompok.addEventListener("keydown", function (event) {
             "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys, true);
                     this.removeChild(errorOption);
                 } else refetchKelompok = true;
             },
@@ -549,7 +547,7 @@ slcType.addEventListener("mousedown", function () {
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys, "trim");
                     this.removeChild(errorOption);
                 } else refetchType = true;
             },
@@ -573,7 +571,7 @@ slcType.addEventListener("keydown", function (event) {
             "/Master/getIdSubKelompokType/" + slcSubkel.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys, "trim");
                     this.removeChild(errorOption);
                 } else refetchType = true;
             },
@@ -793,12 +791,13 @@ btnTambahDetail.addEventListener("click", function () {
         slcSubkel.focus();
         return;
     } else {
+        let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
+        let nama_type = slcType.options[slcType.selectedIndex].text;
+
         listKomposisi.push({
             StatusType: jenis,
             IdType: slcType.value,
-            NamaType: slcType.options[slcType.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaType: nama_type.split(" | ")[1].trim(),
             JumlahPrimer: numPrimer.value,
             SatuanPrimer: txtSatPrimer.value,
             JumlahSekunder: numSekunder.value,
@@ -807,21 +806,13 @@ btnTambahDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
             IdKelompokUtama: slcKelut.value,
-            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
-            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaKelompok: nama_kelompok.split("|")[1].trim(),
             IdSubKelompok: slcSubkel.value,
-            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text,
             KodeBarang: txtKodeBarang.value,
             Cadangan: 0,
         });
@@ -954,12 +945,13 @@ btnCadanganDetail.addEventListener("click", function () {
         slcSubkel.focus();
         return;
     } else {
+        let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
+        let nama_type = slcType.options[slcType.selectedIndex].text;
+
         listKomposisi.push({
             StatusType: jenis,
             IdType: slcType.value,
-            NamaType: slcType.options[slcType.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaType: nama_type.split(" | ")[1].trim(),
             JumlahPrimer: numPrimer.value,
             SatuanPrimer: txtSatPrimer.value,
             JumlahSekunder: numSekunder.value,
@@ -968,21 +960,13 @@ btnCadanganDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
             IdKelompokUtama: slcKelut.value,
-            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
-            NamaKelompok: slcKelompok.options[slcKelompok.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaKelompok: nama_kelompok.split("|")[1].trim(),
             IdSubKelompok: slcSubkel.value,
-            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text
-                .split("|")[1]
-                .trim(),
+            NamaSubKelompok: slcSubkel.options[slcSubkel.selectedIndex].text,
             KodeBarang: txtKodeBarang.value,
             Cadangan: numCadangan.value,
         });
