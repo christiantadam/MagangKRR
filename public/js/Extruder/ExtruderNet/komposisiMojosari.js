@@ -758,7 +758,7 @@ btnTambahDetail.addEventListener("click", function () {
         findClickedRowInList(
             listKomposisi,
             "NamaSubKelompok",
-            slcSubkel.options[slcSubkel.selectedIndex].text.split("|")[1].trim()
+            slcSubkel.options[slcSubkel.selectedIndex].text
         ) != -1
     ) {
         bp_found = true;
@@ -906,7 +906,7 @@ btnCadanganDetail.addEventListener("click", function () {
         findClickedRowInList(
             listKomposisi,
             "NamaSubKelompok",
-            slcSubkel.options[slcSubkel.selectedIndex].text.split("|")[1].trim()
+            slcSubkel.options[slcSubkel.selectedIndex].text
         ) != -1
     ) {
         bp_found = true;
