@@ -32,13 +32,24 @@ class FkikController extends Controller
     public function show($cr)
     {
         $crExplode = explode(".", $cr);
+        $lastIndex = count($crExplode) - 1;
         // dd($cr);
         //getDivisi
-        if ($crExplode[1] == "getDataIjin") {
+        if ($crExplode[$lastIndex] == "getDataIjin") {
             $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_IJIN_KARYAWAN @Kode = ?,@Nama = ?,@Nama = ?', [$crExplode[0]]);
             // dd($dataDivisi);
             // Return the options as JSON data
             return response()->json($dataPegawai);
+        }else if ($crExplode[$lastIndex] == "getPegawai") {
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_KD_PEGAWAI @id_divisi = ?', [$crExplode[0]]);
+            // dd($dataPegawai);
+            // Return the options as JSON data
+            return response()->json($dataPegawai);
+        }else if ($crExplode[$lastIndex] == "getDivisi") {
+            $dataDivisi = DB::connection('ConnPayroll')->select('exec SP_1003_PAY_LIHAT_DIVISI');
+            // dd($dataDivisi);
+            // Return the options as JSON data
+            return response()->json($dataDivisi);
         }
     }
 
