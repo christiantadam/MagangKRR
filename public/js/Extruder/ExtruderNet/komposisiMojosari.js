@@ -647,6 +647,7 @@ btnBaruMaster.addEventListener("click", function () {
     listAfalan.length = 0;
     clearTable_DataTable("table_afalan", 2);
 
+    window.scrollTo(0, 0);
     modeProses = "baru";
     numCadangan.value = 0;
     txtNamaKomposisi.disabled = false;
@@ -793,6 +794,7 @@ btnTambahDetail.addEventListener("click", function () {
     } else {
         let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
         let nama_type = slcType.options[slcType.selectedIndex].text;
+        let nama_objek = slcObjek.options[slcObjek.selectedIndex].text;
 
         listKomposisi.push({
             StatusType: jenis,
@@ -806,7 +808,7 @@ btnTambahDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
+            NamaObjek: nama_objek.split("|")[1].trim(),
             IdKelompokUtama: slcKelut.value,
             NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
@@ -947,6 +949,7 @@ btnCadanganDetail.addEventListener("click", function () {
     } else {
         let nama_kelompok = slcKelompok.options[slcKelompok.selectedIndex].text;
         let nama_type = slcType.options[slcType.selectedIndex].text;
+        let nama_objek = slcObjek.options[slcObjek.selectedIndex].text;
 
         listKomposisi.push({
             StatusType: jenis,
@@ -960,7 +963,7 @@ btnCadanganDetail.addEventListener("click", function () {
             SatuanTritier: txtSatTritier.value,
             Persentase: numPersentase.value,
             IdObjek: slcObjek.value,
-            NamaObjek: slcObjek.options[slcObjek.selectedIndex].text,
+            NamaObjek: nama_objek.split("|")[1].trim(),
             IdKelompokUtama: slcKelut.value,
             NamaKelompokUtama: slcKelut.options[slcKelut.selectedIndex].text,
             IdKelompok: slcKelompok.value,
