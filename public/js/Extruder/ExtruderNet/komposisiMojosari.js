@@ -918,21 +918,6 @@ btnCadanganDetail.addEventListener("click", function () {
         bp_found = true;
     }
 
-    jumlah += parseFloat(numPersentase.value);
-    console.log("jumlah = " + parseFloat(jumlah).toFixed(2));
-    if (
-        parseFloat(jumlah).toFixed(2) > 100 ||
-        parseFloat(numPersentase.value) <= 0
-    ) {
-        if (jumlah > 100) {
-            alert("Persentase yang dimasukkan tidak boleh lebih dari 100%!");
-        } else alert("Persentase harus diisi terlebih dahulu.");
-
-        jumlah += parseFloat(numPersentase.value);
-        numPersentase.focus();
-        return;
-    }
-
     if (numCadangan.value == "0" || numCadangan.value == "") {
         alert("Cadangan harus diisi terlebih dahulu!");
         numCadangan.select();
@@ -1380,56 +1365,58 @@ btnProses.addEventListener("click", function () {
                     jmlh_bom = data[0].JumlahBOM;
                 } else console.log("Jumlah BOM tidak ditemukan.");
 
-                // if (jmlh_bom > 0) {
-                //     alert(
-                //         'Kode barang ini sudah mempunyai Komposisi, Jika ingin melakukan perubahan pilih "Koreksi".'
-                //     );
+                if (jmlh_bom > 0) {
+                    alert(
+                        'Kode barang ini sudah mempunyai Komposisi, Jika ingin melakukan perubahan pilih "Koreksi".'
+                    );
 
-                //     disableAll();
-                //     btnKoreksiMaster.focus();
-                //     return;
-                // } else {
-                // SP_5298_EXT_INSERT_MASTER_KOMPOSISI
-                fetchStmt(
-                    "/Master/insMasterKomposisi/" +
-                        txtNamaKomposisi.value +
-                        "/" +
-                        slcMesin.value +
-                        "/" +
-                        idDivisi,
-                    () => {
-                        fetchSelect(
-                            "/Master/getMasterKomposisi/" + idDivisi,
-                            (dataKomposisi) => {
-                                txtNamaKomposisi.classList.add("hidden");
-                                slcKomposisi.classList.remove("hidden");
-                                addOptionIfNotExists(
-                                    slcKomposisi,
-                                    dataKomposisi.NoKomposisi,
-                                    dataKomposisi.NoKomposisi +
-                                        " | " +
-                                        txtNamaKomposisi.value
-                                );
-
-                                insertDetailFetch(() => {
-                                    // SP_5298_EXT_UPDATE_IDKOMPOSISI_COUNTER
-                                    fetchStmt(
-                                        "/Master/updIdKomposisiCounter/" +
-                                            idDivisi,
-                                        () => {
-                                            alert("Data berhasil tersimpan.");
-                                            disableAll();
-                                            btnBaruMaster.focus();
-                                            modeProses = "";
-                                            refetchKomposisi = true;
-                                        }
+                    disableAll();
+                    btnKoreksiMaster.focus();
+                    return;
+                } else {
+                    // SP_5298_EXT_INSERT_MASTER_KOMPOSISI
+                    fetchStmt(
+                        "/Master/insMasterKomposisi/" +
+                            txtNamaKomposisi.value +
+                            "/" +
+                            slcMesin.value +
+                            "/" +
+                            idDivisi,
+                        () => {
+                            fetchSelect(
+                                "/Master/getMasterKomposisi/" + idDivisi,
+                                (dataKomposisi) => {
+                                    txtNamaKomposisi.classList.add("hidden");
+                                    slcKomposisi.classList.remove("hidden");
+                                    addOptionIfNotExists(
+                                        slcKomposisi,
+                                        dataKomposisi.NoKomposisi,
+                                        dataKomposisi.NoKomposisi +
+                                            " | " +
+                                            txtNamaKomposisi.value
                                     );
-                                });
-                            }
-                        );
-                    }
-                );
-                // }
+
+                                    insertDetailFetch(() => {
+                                        // SP_5298_EXT_UPDATE_IDKOMPOSISI_COUNTER
+                                        fetchStmt(
+                                            "/Master/updIdKomposisiCounter/" +
+                                                idDivisi,
+                                            () => {
+                                                alert(
+                                                    "Data berhasil tersimpan."
+                                                );
+                                                disableAll();
+                                                btnBaruMaster.focus();
+                                                modeProses = "";
+                                                refetchKomposisi = true;
+                                            }
+                                        );
+                                    });
+                                }
+                            );
+                        }
+                    );
+                }
             });
         }
     } else if (modeProses == "koreksi") {
