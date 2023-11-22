@@ -12,8 +12,8 @@ class LSTController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["U001"]);
-        $dataDivisiDiminta = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta @XKdUser = ?', ["U001"]);
+        $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @XKdUser = ?', ["4384"]);
+        $dataDivisiDiminta = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta @XKdUser = ?', ["4384"]);
         $data = 'HAPPY HAPPY HAPPY';
 
         // dd($dataDivisi);
@@ -39,7 +39,7 @@ class LSTController extends Controller
 
         //getDivisi
         if ($crExplode[1] == "getXIdDivisi") {
-            $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "U001"]);
+            $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XIdDivisi = ?, @XKdUser = ?', [$crExplode[0], "4384"]);
             // dd($dataObjek);
             // Return the options as JSON data
             return response()->json($dataObjek);

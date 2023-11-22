@@ -110,70 +110,105 @@ $(document).ready(function () {
         document.getElementById("MCL").classList.add("hidden")
         document.getElementById("MCL1").classList.add("hidden")
 
+        var tanggalCetakElemen = ""
+        var tanggalKirimElemen = ""
+
         console.log(document.getElementById('IdObjek').value);
         console.log(document.getElementById('IdDivisi_penerima').value);
         if (document.getElementById('IdObjek').value === "122" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("JBB").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakJBB')
+            tanggalKirimElemen = document.getElementById('tanggalKirimJBB')
             strReportPath = "jbb.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "174" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("ADS").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakADS')
+            tanggalKirimElemen = document.getElementById('tanggalKirimADS')
             strReportPath = "ads.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "222" && document.getElementById('IdDivisi_penerima').value === "MWH") {
             document.getElementById("ADSMOJO").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakADSMOJO')
+            tanggalKirimElemen = document.getElementById('tanggalKirimADSMOJO')
             strReportPath = "adsMojo.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "185" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("JBM2").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakJBM2')
+            tanggalKirimElemen = document.getElementById('tanggalKirimJBM2')
             strReportPath = "jbm2.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "185" && document.getElementById('IdDivisi_penerima').value === "MWH") {
             document.getElementById("JBM2").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakJBM2')
+            tanggalKirimElemen = document.getElementById('tanggalKirimJBM2')
             strReportPath = "jbm2.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "186" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("JBR").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakJBR')
+            tanggalKirimElemen = document.getElementById('tanggalKirimJBR')
             strReportPath = "jbr.rpt";
             parameter = 1;
         } else if (document.getElementById('IdObjek').value === "086" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("LMT").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakLMT')
+            tanggalKirimElemen = document.getElementById('tanggalKirimLMT')
             strReportPath = "lmt.rpt";
             parameter = 2;
         } else if (document.getElementById('IdObjek').value === "086" && document.getElementById('IdDivisi_penerima').value !== "INV") {
             document.getElementById("LMT2").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakLMT2')
+            tanggalKirimElemen = document.getElementById('tanggalKirimLMT2')
             strReportPath = "lmt2.rpt";
             parameter = 2;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "CIR" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("CIR").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakCIR')
+            tanggalKirimElemen = document.getElementById('tanggalKirimCIR')
             strReportPath = "ReportCIR1.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "CIR" && document.getElementById('IdDivisi_penerima').value !== "INV") {
             document.getElementById("CIR").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakCIR')
+            tanggalKirimElemen = document.getElementById('tanggalKirimCIR')
             strReportPath = "ReportCIR.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "CLM" && document.getElementById('IdDivisi_penerima').value === "MNV") {
             document.getElementById("CLM1").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakCLM1')
+            tanggalKirimElemen = document.getElementById('tanggalKirimCLM1')
             strReportPath = "ReportCLM1.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "CLM" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("CLM1").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakCLM1')
+            tanggalKirimElemen = document.getElementById('tanggalKirimCLM1')
             strReportPath = "ReportCLM1.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "CLM" && document.getElementById('IdDivisi_penerima').value !== "MNV") {
             document.getElementById("CLM").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakCLM')
+            tanggalKirimElemen = document.getElementById('tanggalKirimCLM')
             strReportPath = "ReportCLM.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "MCL" && document.getElementById('IdDivisi_penerima').value === "MWH") {
             document.getElementById("MCL1").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakMLC1')
+            tanggalKirimElemen = document.getElementById('tanggalKirimMLC1')
             strReportPath = "ReportMCL1.rpt";
             parameter = 3;
         } else if (document.getElementById('IdDivisi_pengiriman').value === "MCL" && document.getElementById('IdDivisi_penerima').value !== "MWH") {
             document.getElementById("MCL").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakMLC')
+            tanggalKirimElemen = document.getElementById('tanggalKirimMLC')
             strReportPath = "ReportMCL.rpt";
             parameter = 3;
         } else if (document.getElementById('IdObjek').value === "161" && document.getElementById('IdDivisi_penerima').value === "INV") {
             document.getElementById("ABM").classList.remove("hidden")
+            tanggalCetakElemen = document.getElementById('tanggalCetakABM')
+            tanggalKirimElemen = document.getElementById('tanggalKirimABM')
             strReportPath = "abm.rpt";
             parameter = 1;
         } else {
@@ -182,6 +217,19 @@ $(document).ready(function () {
             return;
         }
 
+        var tanggalSekarang = new Date();
+
+        // Mendapatkan komponen tanggal, bulan, dan tahun
+        var tanggal = tanggalSekarang.getDate();
+        var bulan = tanggalSekarang.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+        var tahun = tanggalSekarang.getFullYear();
+
+        // Format tanggal sesuai kebutuhan (contoh: DD/MM/YYYY)
+        var tanggalFormat = tahun + '-' + bulan + '-' + tanggal;
+        tanggalCetakElemen.innerHTML = "Tanggal Cetak : " + tanggalFormat
+        tanggalKirimElemen.innerHTML = "Tanggal Kirim : " + document.getElementById("Tanggal").value
+
+        console.log(tanggalFormat);
         // Load Crystal Report
         // var cr = new ReportDocument();
         // cr.load(strReportPath);
@@ -204,8 +252,11 @@ $(document).ready(function () {
     });
 
     // Mendapatkan elemen h5 dengan ID "tanggalCetak" dan "tanggalKirim"
-    var tanggalCetakElemen = document.getElementById("tanggalCetak");
-    var tanggalKirimElemen = document.getElementById("tanggalKirim");
+    var tanggalCetakElemen = document.getElementById("tanggalCetakABM");
+    var tanggalKirimElemen = document.getElementById("tanggalKirimABM");
+
+    var tanggalCetakElemen = document.getElementById("tanggalCetakADS");
+    var tanggalKirimElemen = document.getElementById("tanggalKirimADS");
 
     // Membuat objek Date untuk mendapatkan tanggal sekarang
     var tanggalSekarang = new Date();
@@ -218,19 +269,25 @@ $(document).ready(function () {
     // Format tanggal sesuai kebutuhan (contoh: DD/MM/YYYY)
     var tanggalFormat = tanggal + '/' + bulan + '/' + tahun;
 
-    // Menambahkan tanggal Cetak ke teks di dalam elemen h5
-    tanggalCetakElemen.innerHTML += tanggalFormat;
-
     // Mendapatkan elemen input tanggal
     var inputTanggalElemen = document.getElementById("Tanggal");
 
     // Menambahkan event listener untuk menanggapi perubahan pada input tanggal
     inputTanggalElemen.addEventListener("change", function () {
         // Mendapatkan nilai dari input tanggal
-        var tanggalKirim = inputTanggalElemen.value;
+        var tanggalSekarang = new Date();
 
+        // Mendapatkan komponen tanggal, bulan, dan tahun
+        // var tanggal = tanggalSekarang.getDate();
+        // var bulan = tanggalSekarang.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+        // var tahun = tanggalSekarang.getFullYear();
+
+        // Format tanggal sesuai kebutuhan (contoh: DD/MM/YYYY)
+        // var tanggalFormat = tanggal + '/' + bulan + '/' + tahun;
+        // tanggalCetakElemen.innerHTML = "Tanggal Cetak : " + tanggalFormat
+        // tanggalKirimElemen.innerHTML = "Tanggal Kirim : " + this.value
         // Menambahkan tanggal Kirim ke teks di dalam elemen h5
-        tanggalKirimElemen.innerHTML = "Tanggal Kirim: " + tanggalKirim;
+        // tanggalKirimElemen.innerHTML = "Tanggal Kirim: " + tanggalKirim;
     });
 });
 

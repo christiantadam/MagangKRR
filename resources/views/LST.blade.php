@@ -198,8 +198,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">WOVEN BAG - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakABM">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimABM">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -232,13 +234,18 @@
 
                     <div class="card hidden mt-5" id="ADS">
 
-                        <table id="TableADS">
+                        <div>
                             <span>PT.Kerta Rajasa Raya</span>
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">ADSTAR - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakADS">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimADS">Tanggal Kirim: </h5>
+                            </div>
+                        </div>
+
+                        <table id="TableADS">
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -252,6 +259,7 @@
 
                             </tbody>
                         </table>
+
                         <table class="mt-5" id="TableTandaTangan">
                             <thead>
                                 <tr style="height: 40px">
@@ -275,8 +283,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">MOJOSARI ADSTAR - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakADSMOJO">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimADSMOJO">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -314,8 +324,8 @@
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">JUMBO BAG - GUDANG</h3>
                             <div style="display: flex; justify-content: space-between;">
-                                <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                                <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                                <h5 id="tanggalCetakJBB">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimJBB">Tanggal Kirim: </h5>
                             </div>
                             <thead>
                                 <tr>
@@ -353,8 +363,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">JUMBO BAG MOJOSARI - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakJBM">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimJBM">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -391,8 +403,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">JUMBO BAG MOJOSARI - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakJBM2">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimJBM2">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -429,8 +443,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">JUMBO BERBEK - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakJBR">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimJBR">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -467,8 +483,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">LAMINATING - GUDANG</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakLMT">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimLMT">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -506,8 +524,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">LAMINATING - @div</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakLMT2">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimLMT2">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -544,8 +564,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">CIRCULAR LOOM - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakCIR">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimCIR">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -583,8 +605,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">CIRCULAR LOOM - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakCIR1">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimCIR1">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -623,8 +647,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">CIRCULAR LOOM MOJOSARI - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakCLM">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimCLM">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -662,8 +688,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">CIRCULAR LOOM MOJOSARI - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakCLM1">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimCLM1">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -702,8 +730,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center">MOJOSARI CIRCULAR LOOM - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakMCL">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimMCL">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
@@ -741,8 +771,10 @@
                             <span>Woven Bag - Jumbo Bag Industrial</span>
                             <h3 class="text-center">BUKTI PENGIRIMAN BARANG</h3>
                             <h3 class="text-center"> MOJOSARICIRCULAR LOOM - DIVISI</h3>
-                            <h5 id="tanggalCetak">Tanggal Cetak: </h5>
-                            <h5 id="tanggalKirim">Tanggal Kirim: </h5>
+                            <div style="display: flex; justify-content: space-between;">
+                                <h5 id="tanggalCetakMCL1">Tanggal Cetak: </h5>
+                                <h5 id="tanggalKirimMCL1">Tanggal Kirim: </h5>
+                            </div>
                             <thead>
                                 <tr>
                                     <th style="width: 120px">Nama Pengirim</th>
