@@ -1,4 +1,35 @@
 /**
+ * Siapkan data untuk user testing form sortir benang ng
+ * tanyakan besok bisanya pukul berapa
+ *
+ * hapus semua detail konversi ng agar bisa hapus master konversi ng,
+ * jika sudah tidak ada maka data konversi bisa keluar di form
+ *
+ * data yang masuk ke sortir benang ng adalah konversi jenis HP
+ * dengan nama type NG dan SaatLog tidak null
+ *
+ * - EXT-0000042891
+ * Tanggal	2009-01-04 00:00:00.000
+ * Shift	C
+ *
+ * - EXT-0000042885
+ * Tanggal	2009-01-03 00:00:00.000
+ * Shift	C
+ *
+ * - EXT-0000042871
+ * Tanggal	2009-01-03 00:00:00.000
+ * Shift	B
+ *
+ * - EXT-0000042887
+ * Tanggal	2009-01-03 00:00:00.000
+ * Shift	A
+ *
+ * - EXT-0000042854
+ * Tanggal	2009-01-02 00:00:00.000
+ * Shift	A
+ */
+
+/**
  * LAST : btnDivisi_Click() | frmCekStokKirim.vb
  *
  * User_id = 4384
