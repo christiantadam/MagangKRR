@@ -478,7 +478,8 @@ hidRincianKonv.addEventListener("change", function () {
                 "table_tujuan",
                 listTujuan,
                 colTable,
-                rowClickedTujuan
+                rowClickedTujuan,
+                "100px"
             );
         } else if (modeProses == "koreksi") {
             listAsal[pilAsal].JumlahPrimer = txtPrimerAsal.value;
@@ -489,7 +490,8 @@ hidRincianKonv.addEventListener("change", function () {
                 "table_asal",
                 listAsal,
                 colTable,
-                rowClickedAsal
+                rowClickedAsal,
+                "100px"
             );
         }
     } else if (clickedTable == "tujuan") {
@@ -501,7 +503,8 @@ hidRincianKonv.addEventListener("change", function () {
             "table_tujuan",
             listTujuan,
             colTable,
-            rowClickedTujuan
+            rowClickedTujuan,
+            "100px"
         );
     }
 
@@ -568,7 +571,8 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
                                     "table_asal",
                                     listAsal,
                                     colTable,
-                                    rowClickedAsal
+                                    rowClickedAsal,
+                                    "100px"
                                 );
                             } else if (
                                 d[i].UraianDetailTransaksi == "Tujuan Konversi"
@@ -595,7 +599,8 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
                                     "table_tujuan",
                                     listTujuan,
                                     colTable,
-                                    rowClickedTujuan
+                                    rowClickedTujuan,
+                                    "100px"
                                 );
                             }
 
@@ -641,7 +646,8 @@ function displayDataBenangNGFetch(post_action = null) {
                     "table_asal",
                     listAsal,
                     colTable,
-                    rowClickedAsal
+                    rowClickedAsal,
+                    "100px"
                 );
             } else alert("Hasil Konversi Tidak Menghasilkan Benang NG");
             if (post_action != null) post_action();

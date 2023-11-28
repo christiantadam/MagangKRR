@@ -589,6 +589,9 @@ btnTambahDetail.addEventListener("click", function () {
 
                     tableRows[pilKomposisi].click();
                     document.getElementById("table_komposisi").focus();
+                    setTimeout(function () {
+                        document.body.style.overflow = "hidden";
+                    }, 500);
                 },
                 () => {
                     btnProses.focus();
