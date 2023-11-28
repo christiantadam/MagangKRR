@@ -208,10 +208,19 @@ RK_slcKelompok.addEventListener("change", function () {
     RK_slcType.selectedIndex = 0;
     RK_slcSubkel.selectedIndex = 0;
 
+    // console.log(RK_txtNamaKelompok.value);
+    // console.log(
+    //     RK_slcKelompok.options[RK_slcKelompok.selectedIndex].text.split(
+    //         " | "
+    //     )[1]
+    // );
+
     if (RK_slcKelut.value == "0731") {
         if (
             RK_txtNamaKelompok.value !=
-            RK_slcKelompok.textContent.split(" | ")[1]
+            RK_slcKelompok.options[RK_slcKelompok.selectedIndex].text.split(
+                " | "
+            )[1]
         ) {
             RK_slcKelompok.selectedIndex = 0;
             RK_slcKelompok.focus();

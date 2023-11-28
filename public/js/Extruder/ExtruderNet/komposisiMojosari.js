@@ -114,6 +114,17 @@ var refetchHP = false;
 var refetchNG = false;
 var refetchAF = false;
 var pilKomposisi = -1;
+
+var counterKomposisi = 0;
+var counterMesin = 0;
+var counterObjek = 0;
+var counterKelut = 0;
+var counterKelompok = 0;
+var counterSubkel = 0;
+var counterType = 0;
+var counterHP = 0;
+var counterNG = 0;
+var counterAF = 0;
 //#endregion
 
 //#region Events
@@ -146,175 +157,199 @@ slcKomposisi.addEventListener("mousedown", function () {
 });
 
 slcKomposisi.addEventListener("keydown", function (event) {
-    if (event.key == "Enter" && refetchKomposisi) {
-        refetchKomposisi = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "IdKomposisi",
-            textKey: "NamaKomposisi",
-        };
+    if (event.key === "Enter") {
+        counterKomposisi += 1;
 
-        // SP_5298_EXT_LIST_KOMPOSISI_1
-        fetchSelect(
-            "/Master/getListKomposisi/" + idDivisi,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
-                    this.removeChild(errorOption);
-                } else refetchKomposisi = true;
-            },
-            errorOption
-        );
+        if (refetchKomposisi) {
+            refetchKomposisi = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdKomposisi",
+                textKey: "NamaKomposisi",
+            };
 
-        refetchHP = true;
-        refetchNG = true;
-        refetchAF = true;
+            // SP_5298_EXT_LIST_KOMPOSISI_1
+            fetchSelect(
+                "/Master/getListKomposisi/" + idDivisi,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys);
+                        this.removeChild(errorOption);
+                    } else refetchKomposisi = true;
+                },
+                errorOption
+            );
+
+            refetchHP = true;
+            refetchNG = true;
+            refetchAF = true;
+        }
     }
 });
 
-slcKomposisi.addEventListener("change", function () {
-    clearDataDetail();
-    jumlah = 0;
+slcKomposisi.addEventListener("click", function () {
+    counterKomposisi += 1;
+    if ((counterKomposisi %= 2) == 0) {
+        counterKomposisi = 0;
+        clearDataDetail();
+        jumlah = 0;
 
-    listKomposisi.length = 0;
-    clearTable_DataTable(
-        "table_komposisi",
-        colKomposisi.length,
-        "padding=250px"
-    );
+        listKomposisi.length = 0;
+        clearTable_DataTable(
+            "table_komposisi",
+            colKomposisi.length,
+            "padding=250px"
+        );
 
-    // SP_5298_EXT_LIST_KOMPOSISI_1
-    fetchSelect(
-        "/Master/getListKomposisi/" + idDivisi + "/" + slcKomposisi.value,
-        (data) => {
-            if (data.length > 0) {
-                addOptionIfNotExists(
-                    slcMesin,
-                    data[0].IdMesin,
-                    data[0].IdMesin + " | " + data[0].TypeMesin
-                );
-            } else
-                addOptionIfNotExists(slcMesin, "Data mesin tidak ditemukan.");
-
-            /**
-             * Mengambil data Hasil Produksi & Afalan
-             * Terhadap Komposisi yang dipilih.
-             */
-
-            // SP_1273_PRG_BOM_Barang Kode 5
-            fetchSelect(
-                "/Master/getPrgBomBarang/5/null/" +
-                    slcKomposisi.value +
-                    "/null/" +
-                    idDivisi,
-                (data2) => {
-                    if (data2.length > 0) {
-                        addOptionIfNotExists(
-                            slcHP,
-                            data2[0].KodeBarang,
-                            data2[0].KodeBarang + " | " + data2[0].NamaType
-                        );
-                    } else
-                        addOptionIfNotExists(
-                            slcHP,
-                            "Data barang tidak ditemukan."
-                        );
-
-                    // SP_1273_PRG_BOM_Barang Kode 6
-                    fetchSelect(
-                        "/Master/getPrgBomBarang/6/null/" +
-                            slcKomposisi.value +
-                            "/null/" +
-                            idDivisi,
-                        (data3) => {
-                            if (data3.length > 0) {
-                                addOptionIfNotExists(
-                                    slcNG,
-                                    data3[0].KodeBarang,
-                                    data3[0].KodeBarang +
-                                        " | " +
-                                        data3[0].NamaType
-                                );
-                            } else
-                                addOptionIfNotExists(
-                                    slcNG,
-                                    "Data barang tidak ditemukan."
-                                );
-
-                            listAfalan.length = 0;
-                            clearTable_DataTable("table_afalan", 2);
-
-                            // SP_1273_PRG_BOM_Barang Kode 7
-                            fetchSelect(
-                                "/Master/getPrgBomBarang/7/null/" +
-                                    slcKomposisi.value +
-                                    "/" +
-                                    idKelompok +
-                                    "/" +
-                                    idDivisi,
-                                (data3) => {
-                                    for (let i = 0; i < data3.length; i++) {
-                                        listAfalan.push({
-                                            KodeBarang: data3[i].KodeBarang,
-                                            NamaType: data3[i].NamaType,
-                                        });
-                                    }
-
-                                    getDataKomposisiFetch(
-                                        slcKomposisi.value,
-                                        () => {
-                                            if (modeProses == "koreksi") {
-                                                addOptionIfNotExists(
-                                                    slcObjek,
-                                                    idObjek,
-                                                    "Bahan dan Hasil Produksi"
-                                                );
-
-                                                slcKelut.selectedIndex = 0;
-                                                slcKelompok.selectedIndex = 0;
-                                                slcType.selectedIndex = 0;
-                                                slcSubkel.selectedIndex = 0;
-                                                refetchKelut = true;
-
-                                                btnKoreksiDetail.disabled = false;
-                                                numPersentase.disabled = false;
-                                                numCadangan.disabled = false;
-                                                numCadangan.placeholder = "0";
-                                                slcKelut.disabled = false;
-                                                slcKelut.focus();
-                                            } else if (modeProses == "hapus") {
-                                                btnProses.focus();
-                                            } else if (
-                                                modeProses == "hapus_detail"
-                                            ) {
-                                                btnHapusDetail.disabled = false;
-                                            }
-                                        }
-                                    );
-                                }
-                            );
-                        }
+        // SP_5298_EXT_LIST_KOMPOSISI_1
+        fetchSelect(
+            "/Master/getListKomposisi/" + idDivisi + "/" + slcKomposisi.value,
+            (data) => {
+                if (data.length > 0) {
+                    addOptionIfNotExists(
+                        slcMesin,
+                        data[0].IdMesin,
+                        data[0].IdMesin + " | " + data[0].TypeMesin
                     );
-                }
-            );
-        }
-    );
+                } else
+                    addOptionIfNotExists(
+                        slcMesin,
+                        "Data mesin tidak ditemukan."
+                    );
+
+                /**
+                 * Mengambil data Hasil Produksi & Afalan
+                 * Terhadap Komposisi yang dipilih.
+                 */
+
+                // SP_1273_PRG_BOM_Barang Kode 5
+                fetchSelect(
+                    "/Master/getPrgBomBarang/5/null/" +
+                        slcKomposisi.value +
+                        "/null/" +
+                        idDivisi,
+                    (data2) => {
+                        if (data2.length > 0) {
+                            addOptionIfNotExists(
+                                slcHP,
+                                data2[0].KodeBarang,
+                                data2[0].KodeBarang + " | " + data2[0].NamaType
+                            );
+                        } else
+                            addOptionIfNotExists(
+                                slcHP,
+                                "Data barang tidak ditemukan."
+                            );
+
+                        // SP_1273_PRG_BOM_Barang Kode 6
+                        fetchSelect(
+                            "/Master/getPrgBomBarang/6/null/" +
+                                slcKomposisi.value +
+                                "/null/" +
+                                idDivisi,
+                            (data3) => {
+                                if (data3.length > 0) {
+                                    addOptionIfNotExists(
+                                        slcNG,
+                                        data3[0].KodeBarang,
+                                        data3[0].KodeBarang +
+                                            " | " +
+                                            data3[0].NamaType
+                                    );
+                                } else
+                                    addOptionIfNotExists(
+                                        slcNG,
+                                        "Data barang tidak ditemukan."
+                                    );
+
+                                listAfalan.length = 0;
+                                clearTable_DataTable("table_afalan", 2);
+
+                                // SP_1273_PRG_BOM_Barang Kode 7
+                                fetchSelect(
+                                    "/Master/getPrgBomBarang/7/null/" +
+                                        slcKomposisi.value +
+                                        "/" +
+                                        idKelompok +
+                                        "/" +
+                                        idDivisi,
+                                    (data3) => {
+                                        for (let i = 0; i < data3.length; i++) {
+                                            listAfalan.push({
+                                                KodeBarang: data3[i].KodeBarang,
+                                                NamaType: data3[i].NamaType,
+                                            });
+                                        }
+
+                                        getDataKomposisiFetch(
+                                            slcKomposisi.value,
+                                            () => {
+                                                if (modeProses == "koreksi") {
+                                                    addOptionIfNotExists(
+                                                        slcObjek,
+                                                        idObjek,
+                                                        "Bahan dan Hasil Produksi"
+                                                    );
+
+                                                    slcKelut.selectedIndex = 0;
+                                                    slcKelompok.selectedIndex = 0;
+                                                    slcType.selectedIndex = 0;
+                                                    slcSubkel.selectedIndex = 0;
+                                                    refetchKelut = true;
+
+                                                    btnKoreksiDetail.disabled = false;
+                                                    numPersentase.disabled = false;
+                                                    numCadangan.disabled = false;
+                                                    numCadangan.placeholder =
+                                                        "0";
+                                                    slcKelut.disabled = false;
+                                                    slcKelut.focus();
+                                                } else if (
+                                                    modeProses == "hapus"
+                                                ) {
+                                                    btnProses.focus();
+                                                } else if (
+                                                    modeProses == "hapus_detail"
+                                                ) {
+                                                    btnHapusDetail.disabled = false;
+                                                }
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
 });
 
-slcMesin.addEventListener("change", function () {
-    jumlah = 0;
-    clearDataDetail("select_objek");
-    slcHP.disabled = false;
-    numCadangan.value = 0;
-    slcHP.focus();
+slcMesin.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") counterMesin += 1;
+});
 
-    listKomposisi.length = 0;
-    clearTable_DataTable(
-        "table_komposisi",
-        colKomposisi.length,
-        "padding=250px"
-    );
+slcMesin.addEventListener("click", function () {
+    counterMesin += 1;
+
+    if ((counterMesin %= 2) == 0) {
+        counterMesin = 0;
+
+        jumlah = 0;
+        clearDataDetail("select_objek");
+        slcHP.disabled = false;
+        numCadangan.value = 0;
+        slcHP.focus();
+
+        listKomposisi.length = 0;
+        clearTable_DataTable(
+            "table_komposisi",
+            colKomposisi.length,
+            "padding=250px"
+        );
+    }
 });
 
 slcKelut.addEventListener("mousedown", function () {
@@ -342,51 +377,61 @@ slcKelut.addEventListener("mousedown", function () {
 });
 
 slcKelut.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchKelut) {
-        refetchKelut = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "IdKelompokUtama",
-            textKey: "NamaKelompokUtama",
-        };
+    if (event.key === "Enter") {
+        counterKelut += 1;
 
-        // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
-        fetchSelect(
-            "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
-                    this.removeChild(errorOption);
-                } else refetchKelut = true;
-            },
-            errorOption
-        );
+        if (refetchKelut) {
+            refetchKelut = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdKelompokUtama",
+                textKey: "NamaKelompokUtama",
+            };
+
+            // SP_5298_EXT_IDOBJEK_KELOMPOKUTAMA
+            fetchSelect(
+                "/Master/getIdObjekKelompokUtama/" + slcObjek.value,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys, false);
+                        this.removeChild(errorOption);
+                    } else refetchKelut = true;
+                },
+                errorOption
+            );
+        }
     }
 });
 
-slcKelut.addEventListener("change", function () {
-    if (this.value == "0117") {
-        showModal(
-            "Konfirmasi",
-            "Anda akan memasukkan data Bahan Pembantu, apakah anda telah memasukkan semua <b>Bahan Baku</b>?",
-            () => {
-                slcKelompok.disabled = false;
-                slcKelompok.focus();
-            },
-            () => {
-                this.focus();
-            }
-        );
-    } else {
-        slcKelompok.disabled = false;
-        slcKelompok.focus();
-    }
+slcKelut.addEventListener("click", function () {
+    counterKelut += 1;
 
-    slcKelompok.selectedIndex = 0;
-    slcType.selectedIndex = 0;
-    slcSubkel.selectedIndex = 0;
-    refetchKelompok = true;
+    if ((counterKelut %= 2) == 0) {
+        counterKelut = 0;
+
+        if (this.value == "0117") {
+            showModal(
+                "Konfirmasi",
+                "Anda akan memasukkan data Bahan Pembantu, apakah anda telah memasukkan semua <b>Bahan Baku</b>?",
+                () => {
+                    slcKelompok.disabled = false;
+                    slcKelompok.focus();
+                },
+                () => {
+                    this.focus();
+                }
+            );
+        } else {
+            slcKelompok.disabled = false;
+            slcKelompok.focus();
+        }
+
+        slcKelompok.selectedIndex = 0;
+        slcType.selectedIndex = 0;
+        slcSubkel.selectedIndex = 0;
+        refetchKelompok = true;
+    }
 });
 
 slcKelompok.addEventListener("mousedown", function () {
@@ -414,64 +459,77 @@ slcKelompok.addEventListener("mousedown", function () {
 });
 
 slcKelompok.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchKelompok) {
-        refetchKelompok = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "idkelompok",
-            textKey: "namakelompok",
-        };
+    if (event.key === "Enter") {
+        counterKelompok += 1;
 
-        // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
-        fetchSelect(
-            "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys, true);
-                    this.removeChild(errorOption);
-                } else refetchKelompok = true;
-            },
-            errorOption
-        );
+        if (refetchKelompok) {
+            refetchKelompok = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "idkelompok",
+                textKey: "namakelompok",
+            };
+
+            // SP_5298_EXT_IDKELOMPOKUTAMA_KELOMPOK
+            fetchSelect(
+                "/Master/getIdKelompokUtamaKelompok/" + slcKelut.value,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys, true);
+                        this.removeChild(errorOption);
+                    } else refetchKelompok = true;
+                },
+                errorOption
+            );
+        }
     }
 });
 
-slcKelompok.addEventListener("change", function () {
-    refetchSubkel = true;
-    slcSubkel.disabled = false;
-    slcSubkel.focus();
-    slcType.selectedIndex = 0;
-    slcSubkel.selectedIndex = 0;
+slcKelompok.addEventListener("click", function () {
+    counterKelompok += 1;
 
-    if (slcKelut.value == idBahanBaku || slcKelut.value == idHasilProduksi) {
-        // Pengecekkan mesin pada DB Inventory dan Extruder
-        // SP_5298_EXT_CEK_KELOMPOK_MESIN
-        fetchSelect(
-            "/Master/getCekKelompokMesin/" + this.value.slice(2),
-            (data) => {
-                let found = false;
-                for (let i = 0; i < data.length; i++) {
-                    if (slcMesin.value != data[i].IdMesin) {
-                        found = true;
-                    } else {
-                        found = false;
-                        break;
+    if ((counterKelompok %= 2) == 0) {
+        counterKelompok = 0;
+
+        refetchSubkel = true;
+        slcSubkel.disabled = false;
+        slcSubkel.focus();
+        slcType.selectedIndex = 0;
+        slcSubkel.selectedIndex = 0;
+
+        if (
+            slcKelut.value == idBahanBaku ||
+            slcKelut.value == idHasilProduksi
+        ) {
+            // Pengecekkan mesin pada DB Inventory dan Extruder
+            // SP_5298_EXT_CEK_KELOMPOK_MESIN
+            fetchSelect(
+                "/Master/getCekKelompokMesin/" + this.value.slice(2),
+                (data) => {
+                    let found = false;
+                    for (let i = 0; i < data.length; i++) {
+                        if (slcMesin.value != data[i].IdMesin) {
+                            found = true;
+                        } else {
+                            found = false;
+                            break;
+                        }
+                    }
+
+                    if (data.length < 1 || found) {
+                        if (found) {
+                            alert("Mesin tidak sama.");
+                        } else alert("Mesin tidak ditemukan");
+
+                        slcSubkel.disabled = true;
+                        refetchSubkel = false;
+                        this.selectedIndex = 0;
+                        this.focus();
                     }
                 }
-
-                if (data.length < 1 || found) {
-                    if (found) {
-                        alert("Mesin tidak sama.");
-                    } else alert("Mesin tidak ditemukan");
-
-                    slcSubkel.disabled = true;
-                    refetchSubkel = false;
-                    this.selectedIndex = 0;
-                    this.focus();
-                }
-            }
-        );
+            );
+        }
     }
 });
 
@@ -500,33 +558,43 @@ slcSubkel.addEventListener("mousedown", function () {
 });
 
 slcSubkel.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchSubkel) {
-        refetchSubkel = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "idsubkelompok",
-            textKey: "namasubkelompok",
-        };
+    if (event.key === "Enter") {
+        counterSubkel += 1;
 
-        // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
-        fetchSelect(
-            "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
-                    this.removeChild(errorOption);
-                } else refetchSubkel = true;
-            },
-            errorOption
-        );
+        if (refetchSubkel) {
+            refetchSubkel = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "idsubkelompok",
+                textKey: "namasubkelompok",
+            };
+
+            // SP_5298_EXT_IDKELOMPOK_SUBKELOMPOK
+            fetchSelect(
+                "/Master/getIdKelompokSubKelompok/" + slcKelompok.value,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys, false);
+                        this.removeChild(errorOption);
+                    } else refetchSubkel = true;
+                },
+                errorOption
+            );
+        }
     }
 });
 
-slcSubkel.addEventListener("change", function () {
-    refetchType = true;
-    slcType.disabled = false;
-    slcType.focus();
+slcSubkel.addEventListener("click", function () {
+    counterSubkel += 1;
+
+    if ((counterSubkel %= 2) == 0) {
+        counterSubkel = 0;
+
+        refetchType = true;
+        slcType.disabled = false;
+        slcType.focus();
+    }
 });
 
 slcType.addEventListener("mousedown", function () {
@@ -554,49 +622,59 @@ slcType.addEventListener("mousedown", function () {
 });
 
 slcType.addEventListener("keydown", function (event) {
-    if (event.key === "Enter" && refetchType) {
-        refetchType = false;
-        clearOptions(this);
-        const errorOption = addLoadingOption(this);
-        const optionKeys = {
-            valueKey: "IdType",
-            textKey: "NamaType",
-        };
+    if (event.key === "Enter") {
+        counterType += 1;
 
-        // SP_5298_EXT_IDSUBKELOMPOK_TYPE
-        fetchSelect(
-            "/Master/getIdSubKelompokType/" + slcSubkel.value,
-            (data) => {
-                if (data.length > 0) {
-                    addOptions(this, data, optionKeys, "trim");
-                    this.removeChild(errorOption);
-                } else refetchType = true;
-            },
-            errorOption
-        );
+        if (refetchType) {
+            refetchType = false;
+            clearOptions(this);
+            const errorOption = addLoadingOption(this);
+            const optionKeys = {
+                valueKey: "IdType",
+                textKey: "NamaType",
+            };
+
+            // SP_5298_EXT_IDSUBKELOMPOK_TYPE
+            fetchSelect(
+                "/Master/getIdSubKelompokType/" + slcSubkel.value,
+                (data) => {
+                    if (data.length > 0) {
+                        addOptions(this, data, optionKeys, "trim");
+                        this.removeChild(errorOption);
+                    } else refetchType = true;
+                },
+                errorOption
+            );
+        }
     }
 });
 
-slcType.addEventListener("change", function () {
-    getSatuanFetch(this.value);
-    numCadangan.value = 0;
-    if (txtSatPrimer.value.trim() != "Null") {
-        numPrimer.value = 1;
-        numSekunder.disabled = false;
-        numSekunder.value = "";
-        numSekunder.focus();
-    } else if (txtSatSekunder.value.trim() != "Null") {
-        numPrimer.value = 0;
-        numSekunder.value = 1;
-        numTritier.disabled = false;
-        numTritier.value = "";
-        numTritier.focus();
-    } else if (txtSatTritier.value.trim() != "Null") {
-        numPrimer.value = 0;
-        numSekunder.value = 0;
-        numTritier.disabled = false;
-        numTritier.value = "";
-        numTritier.focus();
+slcType.addEventListener("click", function () {
+    counterType += 1;
+
+    if ((counterType %= 2) == 0) {
+        counterType = 0;
+
+        getSatuanFetch(this.value);
+        numCadangan.value = 0;
+        if (txtSatPrimer.value.trim() != "Null") {
+            numPrimer.value = 1;
+            numSekunder.disabled = false;
+            numSekunder.value = "";
+            numSekunder.focus();
+        } else if (txtSatSekunder.value.trim() != "Null") {
+            numPrimer.value = 0;
+            numSekunder.value = 1;
+            numTritier.disabled = false;
+            numTritier.value = "";
+            numTritier.focus();
+        } else if (txtSatTritier.value.trim() != "Null") {
+            numPrimer.value = 0;
+            numSekunder.value = 0;
+            numTritier.disabled = false;
+            numTritier.value = "";
+            numTritier.focus();
+        }
     }
 });
 

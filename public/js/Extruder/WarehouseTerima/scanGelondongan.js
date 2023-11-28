@@ -66,17 +66,6 @@ divisiCounter = 0;
 //#endregion
 
 //#region Events
-slcDivisi.addEventListener("input", function () {
-    if (this.selectedIndex != 0) {
-        txtNoBarcode.disabled = false;
-        txtNoBarcode.value = "";
-        txtNoBarcode.focus();
-    } else {
-        slcDivisi.focus();
-        alert("Pilih Divisi Terlebih Dahulu!");
-    }
-});
-
 slcDivisi.addEventListener("keydown", function (event) {
     if (event.key === "Enter") divisiCounter += 1;
 });
@@ -391,6 +380,8 @@ function init() {
 
     clearTable_DataTable("table_rekap", colRekap.length);
     clearTable_DataTable("table_kirim", colKirim.length);
+
+    slcDivisi.focus();
 
     // Debug cekBarcodeDispatch()
     // addOptionIfNotExists(slcDivisi, "EXT", "EXT - Extruder", true);
