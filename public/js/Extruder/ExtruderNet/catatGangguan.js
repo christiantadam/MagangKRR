@@ -421,6 +421,7 @@ function loadDataGangguanProdEXT() {
                     JumlahJam: data[i].JumlahJam,
                     JumlahMenit: data[i].JumlahMenit,
                     Keterangan: data[i].Keterangan,
+                    Transaksi: data[i].NoTrans,
                 });
             }
 
@@ -446,7 +447,7 @@ function loadDataGangguanProdEXT() {
 function rowClickedGangguan(row, data, _) {
     if (
         pilGangguan ==
-        findClickedRowInList(listGangguan, "NoTrans", data.NoTrans)
+        findClickedRowInList(listGangguan, "NoTrans", data.Transaksi)
     ) {
         row.style.background = "white";
         checkboxesGangguan[pilGangguan].checked = false;
@@ -456,15 +457,15 @@ function rowClickedGangguan(row, data, _) {
         clearSelection_DataTable("table_gangguan");
         clearCheckedBoxes(checkboxesGangguan, checkboxesGangguan[pilGangguan]);
 
-        row.style.background = "aliceblue";
-        checkboxesGangguan[index].checked = true;
         pilGangguan = findClickedRowInList(
             listGangguan,
             "NoTrans",
-            data.NoTrans
+            data.Transaksi
         );
+        row.style.background = "aliceblue";
+        checkboxesGangguan[pilGangguan].checked = true;
 
-        txtNoTransaksi.value = listGangguan[index].NoTrans;
+        txtNoTransaksi.value = listGangguan[pilGangguan].Transaksi;
         dateInput.value = data.Tanggal;
         timeGangAwal.value = data.AwalGangguan.replace(" ", "T");
         timeGangAkhir.value = data.AkhirGangguan.replace(" ", "T");

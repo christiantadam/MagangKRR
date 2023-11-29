@@ -43,6 +43,8 @@ const tableOrderCol = [
     { width: "125px" },
     { width: "125px" },
 ];
+
+var counterType = 0;
 //#endregion
 
 //#region Events
@@ -204,18 +206,27 @@ btnProses.addEventListener("click", function () {
     }
 });
 
-slcType.addEventListener("change", function () {
-    if (this.value != "-- Pilih Type Benang --") {
-        const [SatPrimer, SatSekunder, SatTirtier] = this.value.split(",");
-        spnPrimerSat.textContent = SatPrimer;
-        spnSekunderSat.textContent = SatSekunder;
-        spnTritierSat.textContent = SatTirtier;
+slcType.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") counterType += 1;
+});
 
-        txtPrimerQty.disabled = false;
-        txtPrimerQty.focus();
-        txtPrimerQty.value = "";
-        txtSekunderQty.value = "";
-        txtTritierQty.value = "";
+slcType.addEventListener("click", function () {
+    counterType += 1;
+    if ((counterType %= 2) == 0) {
+        counterType = 0;
+
+        if (this.value != "-- Pilih Type Benang --") {
+            const [SatPrimer, SatSekunder, SatTirtier] = this.value.split(",");
+            spnPrimerSat.textContent = SatPrimer;
+            spnSekunderSat.textContent = SatSekunder;
+            spnTritierSat.textContent = SatTirtier;
+
+            txtPrimerQty.disabled = false;
+            txtPrimerQty.focus();
+            txtPrimerQty.value = "";
+            txtSekunderQty.value = "";
+            txtTritierQty.value = "";
+        }
     }
 });
 

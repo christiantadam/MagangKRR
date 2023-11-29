@@ -205,14 +205,24 @@ slcMesin.addEventListener("click", function () {
     }
 });
 
-slcObjek.addEventListener("change", function () {
-    slcKelut.selectedIndex = 0;
-    slcKelut.disabled = false;
-    slcKelut.focus();
-    slcKelompok.selectedIndex = 0;
-    slcType.selectedIndex = 0;
-    slcSubkel.selectedIndex = 0;
-    refetchKelut = true;
+slcObjek.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") counterObjek += 1;
+});
+
+slcObjek.addEventListener("click", function () {
+    counterObjek += 1;
+
+    if ((counterObjek %= 2) == 0) {
+        counterObjek = 0;
+
+        slcKelut.selectedIndex = 0;
+        slcKelut.disabled = false;
+        slcKelut.focus();
+        slcKelompok.selectedIndex = 0;
+        slcType.selectedIndex = 0;
+        slcSubkel.selectedIndex = 0;
+        refetchKelut = true;
+    }
 });
 
 slcKelut.addEventListener("mousedown", function () {
@@ -271,6 +281,8 @@ slcKelut.addEventListener("click", function () {
     counterKelut += 1;
 
     if ((counterKelut %= 2) == 0) {
+        counterKelut = 0;
+
         if (this.value == "1978") {
             showModal(
                 "Konfirmasi",
