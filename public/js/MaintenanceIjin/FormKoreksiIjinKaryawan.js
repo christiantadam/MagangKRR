@@ -22,8 +22,10 @@ $(document).ready(function () {
     });
     buttonTampilData.addEventListener("click", function (event) {
         const tanggal_Ijin = document.getElementById("tanggal_Ijin").value;
+        const Id_Peg = document.getElementById("Id_Peg").value;
+        console.log("Masuk");
         fetch(
-            "/ProgramPayroll/Maintenance/Fkik/" + tanggal_Ijin + ".getDataIjin"
+            "/ProgramPayroll/Maintenance/Fkik/" + tanggal_Ijin +"."+Id_Peg + ".getDataIjin"
         )
             .then((response) => {
                 if (!response.ok) {
@@ -121,6 +123,19 @@ $(document).ready(function () {
         var rowData = $("#table_Pegawai").DataTable().row(this).data();
         $("#Id_Peg").val(rowData[0]);
         $("#Nama_Peg").val(rowData[1]);
+        hideModalPegawai();
+    });
+    $("#table_Ijin tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+        var rowData = $("#table_Ijin").DataTable().row(this).data();
+        $("#Kode_pegawai").val(rowData[1]);
+        $("#Nama_pegawai").val(rowData[2]);
+        $("#TanggalIjin").val(rowData[3].split(" ")[0]);
+        $("#Nama_pegawai").val(rowData[2]);
+        $("#Kode_pegawai").val(rowData[1]);
+        $("#Nama_pegawai").val(rowData[2]);
+        $("#Kode_pegawai").val(rowData[1]);
+        $("#Nama_pegawai").val(rowData[2]);
         hideModalPegawai();
     });
 });

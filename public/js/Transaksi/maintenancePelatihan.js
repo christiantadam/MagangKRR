@@ -186,6 +186,14 @@ $(document).ready(function () {
         simpanButton.hidden = false;
         batalButton.hidden = false;
         hapusButton.disabled = true;
+        $("#TglPelatihan").val("");
+        $("#Id_Pelatihan").val("");
+
+        $("#Lembaga_Pelatihan").val("");
+        $("#tempat_Pelatihan").val("");
+        $("#topik_Pelatihan").val("");
+        $("#Lama_Pelatihan").val("");
+        $("#Nilai").val("");
     });
     koreksiButton.addEventListener("click", function () {
         proses = 2;
