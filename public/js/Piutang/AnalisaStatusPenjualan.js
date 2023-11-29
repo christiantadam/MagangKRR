@@ -74,7 +74,13 @@ $("#tabelSuratJalan tbody").off("click", "tr");
         idBKM.value = selectedRows[0].Id_BKM;
 
         no_Faktur.value = noFaktur.value.replace(/\//g, '.');
-        lunas.focus();
+
+        if (sisaTagihan.value != 0) {
+            lunas.setAttribute("readonly", true)
+            lunas.value = "N";
+        } else {
+            lunas.focus();
+        }
 });
 
 lunas.addEventListener("keypress", function (event) {
