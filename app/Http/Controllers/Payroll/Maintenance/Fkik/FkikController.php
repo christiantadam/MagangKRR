@@ -36,7 +36,7 @@ class FkikController extends Controller
         // dd($cr);
         //getDivisi
         if ($crExplode[$lastIndex] == "getDataIjin") {
-            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_IJIN_KARYAWAN @Kode = ?,@Nama = ?,@Nama = ?', [$crExplode[0]]);
+            $dataPegawai = DB::connection('ConnPayroll')->select('exec SP_1273_HRD_IJIN_KARYAWAN @Kode = ?,@Tanggal = ?,@Kd_Pegawai = ?', [11,$crExplode[0],$crExplode[1]]);
             // dd($dataDivisi);
             // Return the options as JSON data
             return response()->json($dataPegawai);

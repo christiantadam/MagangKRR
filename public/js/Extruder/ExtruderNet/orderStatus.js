@@ -13,6 +13,9 @@ const btnKeluar = document.getElementById("btn_keluar");
 const slcOrder = document.getElementById("select_order");
 const slcStatus = document.getElementById("select_status");
 
+var counterOrder = 0;
+var counterStatus = 0;
+
 const namaGedung = document.getElementById("nama_gedung").value;
 var idDivisi = "";
 switch (namaGedung) {
@@ -48,42 +51,65 @@ var terpilih = -1;
 //#endregion
 
 //#region Events
-slcOrder.addEventListener("change", function () {
-    listOfInput.forEach((input) => (input.value = ""));
-    clearTable_DataTable("table_order", tableOrderCol.length, "Memuat data...");
-    fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
-        listOrder.length = 0;
-        for (let i = 0; i < data.length; i++) {
-            listOrder.push({
-                TanggalOrder: dateTimeToDate(data[i].TanggalOrder),
-                TypeBenang: data[i].TypeBenang,
-                JumlahTritier: data[i].JumlahTritier,
-                JumlahProduksiTritier: data[i].JumlahProduksiTritier,
-            });
-        }
+slcOrder.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") counterOrder += 1;
+});
 
-        if (data.length > 0) {
-            addTable_DataTable(
-                "table_order",
-                listOrder,
-                tableOrderCol,
-                rowClicked
-            );
-        } else
-            clearTable_DataTable(
-                "table_order",
-                tableOrderCol,
-                "Tidak ditemukan data untuk <b>Order " + slcOrder + "</b>."
-            );
+slcOrder.addEventListener("click", function () {
+    counterOrder += 1;
 
-        window.scrollTo(0, document.body.scrollHeight);
-    });
+    if ((counterOrder %= 2) == 0) {
+        counterOrder = 0;
 
-    slcStatus.focus();
+        listOfInput.forEach((input) => (input.value = ""));
+        clearTable_DataTable(
+            "table_order",
+            tableOrderCol.length,
+            "Memuat data..."
+        );
+        fetchSelect("/Order/getListOrderBtl/" + slcOrder.value, (data) => {
+            listOrder.length = 0;
+            for (let i = 0; i < data.length; i++) {
+                listOrder.push({
+                    TanggalOrder: dateTimeToDate(data[i].TanggalOrder),
+                    TypeBenang: data[i].TypeBenang,
+                    JumlahTritier: data[i].JumlahTritier,
+                    JumlahProduksiTritier: data[i].JumlahProduksiTritier,
+                });
+            }
+
+            if (data.length > 0) {
+                addTable_DataTable(
+                    "table_order",
+                    listOrder,
+                    tableOrderCol,
+                    rowClicked
+                );
+            } else
+                clearTable_DataTable(
+                    "table_order",
+                    tableOrderCol,
+                    "Tidak ditemukan data untuk <b>Order " + slcOrder + "</b>."
+                );
+
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        slcStatus.focus();
+    }
+});
+
+slcStatus.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") counterStatus += 1;
 });
 
 slcStatus.addEventListener("change", function () {
-    if (this.value != "-- Pilih Status --") txtKeterangan.focus();
+    counterStatus += 1;
+
+    if ((counterStatus %= 2) == 0) {
+        counterStatus = 0;
+        if (this.value != "-- Pilih Status --") txtKeterangan.focus();
+    }
 });
 
 txtKeterangan.addEventListener("keypress", function (event) {

@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    var sekarang = new Date();
+
+    // Mendapatkan string tanggal dalam format "YYYY-MM-DD"
+    var tanggalSekarang = sekarang.toISOString().split('T')[0];
+
+    // Menetapkan nilai tanggal ke elemen dengan ID "TglSimpang"
+    $("#TglSimpang").val(tanggalSekarang);
     var table = $("#tabelSimpang").DataTable({
         order: [[0, "asc"]],
         select: {
