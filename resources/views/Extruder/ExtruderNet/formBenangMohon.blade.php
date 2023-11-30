@@ -57,12 +57,10 @@
                 </select>
             </div>
 
-            <div class="col-lg-2">
-                <span class="aligned-text">No. Konversi:</span>
-            </div>
+            <div class="col-lg-1"></div>
 
-            <div class="col-lg-4">
-                <select id="select_nomor_konversi" class="form-select" disabled>
+            <div class="col-lg-6">
+                <select id="select_nomor_konversi" class="form-select" style="text-align: center" disabled>
                     <option selected disabled>-- Pilih Nomor Konversi --</option>
                 </select>
             </div>
@@ -84,7 +82,7 @@
             <div class="col-lg-2">
                 <span class="aligned-text">Type:</span>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <select id="select_type" class="form-select" disabled>
                     <option selected disabled>-- Pilih Type --</option>
                 </select>

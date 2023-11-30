@@ -71,12 +71,14 @@ txtTritierAsal.addEventListener("keypress", function (event) {
             txtTritierTujuan.value = this.value;
 
             if (RK_slcKelut.disabled == false) {
+                $("#form_rincian_konversi .modal-body").animate(
+                    {
+                        scrollTop: $("#form_rincian_konversi .modal-body")[0]
+                            .scrollHeight,
+                    },
+                    100
+                );
                 RK_slcKelut.focus();
-                setTimeout(function () {
-                    $("#form_rincian_konversi .modal-body").scrollTop(
-                        $("#form_rincian_konversi .modal-body")[0].scrollHeight
-                    );
-                }, 500);
             } else RK_btnConfirm.focus();
         }
     }
@@ -348,11 +350,12 @@ RK_slcType.addEventListener("keydown", function (event) {
 RK_slcType.addEventListener("change", function () {
     saldoTypeFetch(this.value, false);
     txtPrimerTujuan.select();
-    setTimeout(function () {
-        $("#form_rincian_konversi .modal-body").scrollTop(
-            $("#form_rincian_konversi .modal-body")[0].scrollHeight
-        );
-    }, 500);
+    $("#form_rincian_konversi .modal-body").animate(
+        {
+            scrollTop: $("#form_rincian_konversi .modal-body")[0].scrollHeight,
+        },
+        100
+    );
 });
 
 RK_btnConfirm.addEventListener("click", function () {
@@ -411,12 +414,14 @@ function RK_clearAll() {
 
 $("#form_rincian_konversi").on("shown.bs.modal", function () {
     if (RK_modeProses == "tujuan") {
+        $("#form_rincian_konversi .modal-body").animate(
+            {
+                scrollTop: $("#form_rincian_konversi .modal-body")[0]
+                    .scrollHeight,
+            },
+            100
+        );
         txtPrimerTujuan.select();
-        setTimeout(function () {
-            $("#form_rincian_konversi .modal-body").scrollTop(
-                $("#form_rincian_konversi .modal-body")[0].scrollHeight
-            );
-        }, 500);
     } else {
         txtPrimerAsal.select();
     }

@@ -140,7 +140,7 @@ slcNomor.addEventListener("mousedown", function () {
             "/Benang/getKoreksiSortirNGBlmAcc/" + dateInput.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
                 } else refetchNomor = true;
             },
@@ -164,7 +164,7 @@ slcNomor.addEventListener("keydown", function (event) {
             "/Benang/getKoreksiSortirNGBlmAcc/" + dateInput.value,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys, false);
+                    addOptions(this, data, optionKeys);
                     this.removeChild(errorOption);
                 } else refetchNomor = true;
             },
@@ -178,13 +178,16 @@ slcNomor.addEventListener("change", function () {
     addOptionIfNotExists(slcMesin, type_mesin);
     txtShift.value = this.value.split("/")[1];
 
-    lihatDataKonversiNGFetch(this.options[this.selectedIndex].text, () => {
-        if (modeProses == "koreksi") {
-            $("html, body").animate({ scrollTop: posAsal }, 100);
-        } else if (modeProses == "hapus") {
-            btnProses.focus();
+    lihatDataKonversiNGFetch(
+        this.options[this.selectedIndex].text.split(" | ")[1],
+        () => {
+            if (modeProses == "koreksi") {
+                $("html, body").animate({ scrollTop: posAsal }, 100);
+            } else if (modeProses == "hapus") {
+                btnProses.focus();
+            }
         }
-    });
+    );
 });
 
 slcNoKonversi.addEventListener("mousedown", function () {
@@ -428,7 +431,9 @@ btnProses.addEventListener("click", function () {
                     "</b>?",
                 () => {
                     prosesHapusFetch(
-                        slcNomor.options[slcNomor.selectedIndex].text
+                        slcNomor.options[slcNomor.selectedIndex].text.split(
+                            " | "
+                        )[1]
                     );
                 }
             );
@@ -448,10 +453,13 @@ btnKeluar.addEventListener("click", function () {
 hidRincianKonv.addEventListener("change", function () {
     if (clickedTable == "asal") {
         if (modeProses == "isi") {
+            listTujuan.length = 0;
             listTujuan.push({
                 IdType: RK_slcType.value,
                 NamaType:
-                    RK_slcType.options[RK_slcType.selectedIndex].text.trim(),
+                    RK_slcType.options[RK_slcType.selectedIndex].text.split(
+                        " | "
+                    )[1],
                 JumlahPrimer: txtPrimerTujuan.value,
                 JumlahSekunder: txtSekunderTujuan.value,
                 JumlahTritier: txtTritierTujuan.value,
@@ -524,9 +532,16 @@ $("#form_rincian_konversi").on("hidden.bs.modal", function () {
 //#region Functions
 function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
     listAsal.length = 0;
-    clearTable_DataTable("table_asal", colTable.length, "padding=250px");
+    clearTable_DataTable("table_asal", colTable.length, [
+        "padding=250px",
+        "Memuat data...",
+    ]);
+
     listTujuan.length = 0;
-    clearTable_DataTable("table_tujuan", colTable.length, "padding=250px");
+    clearTable_DataTable("table_tujuan", colTable.length, [
+        "padding=250px",
+        "Memuat data...",
+    ]);
 
     // SP_5298_EXT_LISTDATA_NG
     fetchSelect(
@@ -611,7 +626,7 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
                         if (post_action != null) post_action();
                     }
                 );
-            } else alert("Data NG tidak ditemukan.");
+            } else console.log("Data NG tidak ditemukan.");
         }
     );
 }
@@ -771,17 +786,17 @@ function createTmpTransaksiInventoryFetch(
         // SP_5298_EXT_INSERT_04_TUJUANTMPTRANSAKSI
         fetchStmt(
             "/Benang/insTujuanTmpTrans/04/tujuan_konversi/" +
-                listAsal[i].IdType.trim() +
+                listTujuan[i].IdType.trim() +
                 "/" +
                 dateMohon.value +
                 "/" +
-                listAsal[i].JumlahPrimer +
+                listTujuan[i].JumlahPrimer +
                 "/" +
-                listAsal[i].JumlahSekunder +
+                listTujuan[i].JumlahSekunder +
                 "/" +
-                listAsal[i].JumlahTritier +
+                listTujuan[i].JumlahTritier +
                 "/" +
-                listAsal[i].IdSubKelompok.trim() +
+                listTujuan[i].IdSubKelompok.trim() +
                 "/" +
                 id_konv_inv.trim(),
             () => {
@@ -807,7 +822,7 @@ function prosesKoreksiFetch() {
         // SP_5298_EXT_UPDATE_DETAIL_KONV_NG
         fetchStmt(
             "/Benang/updDetailKonvNG/" +
-                slcNomor.options[slcNomor.selectedIndex].text +
+                slcNomor.options[slcNomor.selectedIndex].text.split(" | ")[1] +
                 "/" +
                 listAsal[i].IdType +
                 "/" +
@@ -841,7 +856,7 @@ function prosesKoreksiFetch() {
         // SP_5298_EXT_UPDATE_DETAIL_KONV_NG
         fetchStmt(
             "/Benang/updDetailKonvNG/" +
-                slcNomor.options[slcNomor.selectedIndex].text +
+                slcNomor.options[slcNomor.selectedIndex].text.split(" | ")[1] +
                 "/" +
                 listTujuan[i].IdType +
                 "/" +
@@ -1017,7 +1032,7 @@ function init() {
     $("#table_asal").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "250px",
+        scrollY: "100px",
         scrollX: "1000000px",
         columns: colTable,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
@@ -1030,7 +1045,7 @@ function init() {
     $("#table_tujuan").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "250px",
+        scrollY: "100px",
         scrollX: "1000000px",
         columns: colTable,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
