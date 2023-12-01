@@ -5,6 +5,17 @@
 @endsection
 
 @section('content')
+    <style>
+        #table_asal,
+        #table_tujuan {
+            font-size: 12px;
+        }
+
+        .sorting {
+            font-size: 12px;
+        }
+    </style>
+
     <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
     <input type="hidden" id="form_rk_return">
 

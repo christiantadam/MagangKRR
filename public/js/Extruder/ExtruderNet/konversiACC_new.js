@@ -108,12 +108,12 @@ const listHutangExt = [];
 
 const tableHasilCol = [
     { width: "300px" }, // Nama Type
-    { width: "100px" }, // Qty. Primer
-    { width: "100px" }, // Sat. Primer
-    { width: "110px" }, // Qty. Sekunder
-    { width: "110px" }, // Sat. Sekunder
-    { width: "100px" }, // Qty. Tritier
-    { width: "100px" }, // Sat. Tritier
+    { width: "95px" }, // Qty. Primer
+    { width: "95px" }, // Sat. Primer
+    { width: "95px" }, // Qty. Sekunder
+    { width: "95px" }, // Sat. Sekunder
+    { width: "95px" }, // Qty. Tritier
+    { width: "95px" }, // Sat. Tritier
     { width: "1px" }, // Persentase
     { width: "1px" }, // Jenis
 ];

@@ -224,17 +224,22 @@ RK_slcKelompok.addEventListener("change", function () {
 
     if (RK_slcKelut.value == "0731") {
         if (
-            RK_txtNamaKelompok.value !=
-            RK_slcKelompok.options[RK_slcKelompok.selectedIndex].text.split(
-                " | "
-            )[1]
+            RK_txtNamaKelompok.value.trim() !=
+            RK_slcKelompok.options[RK_slcKelompok.selectedIndex].text
+                .split(" | ")[1]
+                .trim()
         ) {
+            alert(
+                "Nama kelompok (nama mesin) antara Asal Konversi dan Tujuan Konversi tidak sama! \n" +
+                    RK_slcKelompok.options[
+                        RK_slcKelompok.selectedIndex
+                    ].text.split(" | ")[1] +
+                    "\n" +
+                    RK_txtNamaKelompok.value
+            );
+
             RK_slcKelompok.selectedIndex = 0;
             RK_slcKelompok.focus();
-
-            alert(
-                "Nama kelompok (nama mesin) antara Asal Konversi dan Tujuan Konversi tidak sama!"
-            );
         } else RK_slcSubkel.focus();
     } else {
         RK_slcSubkel.disabled = false;
@@ -314,7 +319,7 @@ RK_slcType.addEventListener("mousedown", function () {
             `/Benang/getType_IdSubkel/${RK_slcSubkel.value}`,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, "trim");
                     this.removeChild(errorOption);
                 } else refetchTypeRK = true;
             },
@@ -338,7 +343,7 @@ RK_slcType.addEventListener("keydown", function (event) {
             `/Benang/getType_IdSubkel/${RK_slcSubkel.value}`,
             (data) => {
                 if (data.length > 0) {
-                    addOptions(this, data, optionKeys);
+                    addOptions(this, data, optionKeys, "trim");
                     this.removeChild(errorOption);
                 } else refetchTypeRK = true;
             },

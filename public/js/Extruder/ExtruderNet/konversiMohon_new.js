@@ -75,24 +75,24 @@ const listKomposisi = [];
  */
 
 const colKonversi = [
-    { width: "350px" }, // Nama Type
-    { width: "100px" }, // Qty. Primer
-    { width: "100px" }, // Sat. Primer
-    { width: "125px" }, // Qty. Sekunder
-    { width: "125px" }, // Sat. Sekunder
-    { width: "100px" }, // Qty. Tritier
-    { width: "100px" }, // Sat. Tritier
-    { width: "60px" }, // Presentase
-    { width: "60px" }, // Jenis
-    { width: "125px" }, // Sub-kelompok
-    { width: "0px" }, // IdType
+    { width: "250px" }, // Nama Type
+    { width: "75px" }, // Qty. Primer
+    { width: "75px" }, // Sat. Primer
+    { width: "90px" }, // Qty. Sekunder
+    { width: "90px" }, // Sat. Sekunder
+    { width: "75px" }, // Qty. Tritier
+    { width: "75px" }, // Sat. Tritier
+    { width: "1px" }, // Presentase
+    { width: "1px" }, // Jenis
+    { width: "90px" }, // Sub-kelompok
+    { width: "1px" }, // IdType
 ];
 
 const colKomposisi = [
     { width: "1px" }, // Jenis
-    { width: "275px" }, // Nama Type
-    { width: "125px" }, // Sub-kelompok
-    { width: "100px" }, // Id Sub-kel.
+    { width: "200px" }, // Nama Type
+    { width: "90px" }, // Sub-kelompok
+    { width: "75px" }, // Id Sub-kel.
     { width: "1px" }, // IdType
 ];
 
@@ -181,16 +181,16 @@ btnKeluar.addEventListener("click", function () {
     }
 });
 
+slcMesin.addEventListener("focus", function () {
+    counterMesin = 1;
+});
+
 slcMesin.addEventListener("keydown", function (event) {
     if (event.key === "Enter") counterMesin += 1;
 });
 
 slcMesin.addEventListener("click", function () {
-    counterMesin += 1;
-
     if ((counterMesin %= 2) == 0) {
-        counterMesin = 0;
-
         slcKomposisi.selectedIndex = 0;
         listKomposisi.length = 0;
         clearTable_DataTable("table_komposisi", colKomposisi.length);
@@ -205,6 +205,26 @@ slcMesin.addEventListener("click", function () {
 
         refetchKomposisi = true;
     }
+});
+
+slcMesin.addEventListener("change", function () {
+    slcKomposisi.selectedIndex = 0;
+    listKomposisi.length = 0;
+    clearTable_DataTable("table_komposisi", colKomposisi.length);
+    listKonversi.length = 0;
+    clearTable_DataTable("table_konversi", colKonversi.length);
+
+    if (modeProses == "baru") {
+        clearDataDetail();
+        slcKomposisi.disabled = false;
+        slcKomposisi.focus();
+    }
+
+    refetchKomposisi = true;
+});
+
+slcNomor.addEventListener("focus", function () {
+    counterNomor = 1;
 });
 
 slcNomor.addEventListener("mousedown", function () {
@@ -260,11 +280,7 @@ slcNomor.addEventListener("keydown", function (event) {
 });
 
 slcNomor.addEventListener("click", function () {
-    counterNomor += 1;
-
     if ((counterNomor %= 2) == 0) {
-        counterNomor = 0;
-
         if (this.selectedIndex != 0) {
             listKonversi.length = 0;
             clearTable_DataTable(
@@ -298,14 +314,49 @@ slcNomor.addEventListener("click", function () {
     }
 });
 
+slcNomor.addEventListener("change", function () {
+    if (this.selectedIndex != 0) {
+        listKonversi.length = 0;
+        clearTable_DataTable(
+            "table_konversi",
+            colKonversi.length,
+            "Memuat data..."
+        );
+
+        if (modeProses != "hapus") {
+            listKomposisi.length = 0;
+            clearTable_DataTable(
+                "table_komposisi",
+                colKomposisi.length,
+                "Memuat data..."
+            );
+        }
+
+        clearDataDetail();
+        getDataKonversiFetch(slcNomor.value, () => {
+            if (modeProses == "koreksi") {
+                disableMaster();
+                disableDetail();
+                $("html, body").animate({ scrollTop: posKonversi }, 100);
+                getDataKomposisiFetch(slcKomposisi.value);
+            } else if (modeProses == "hapus") {
+                btnProses.disabled = false;
+                btnProses.focus();
+            }
+        });
+    }
+});
+
+slcOrder.addEventListener("focus", function () {
+    counterOrder = 1;
+});
+
 slcOrder.addEventListener("keydown", function (event) {
     if (event.key === "Enter") counterOrder += 1;
 });
 
 slcOrder.addEventListener("click", function () {
     if ((counterOrder %= 2) == 0) {
-        counterOrder = 0;
-
         clearDataDetail();
         slcSpek.selectedIndex = 0;
         refetchSpek = true;
@@ -315,6 +366,21 @@ slcOrder.addEventListener("click", function () {
             slcSpek.focus();
         } else this.focus();
     }
+});
+
+slcOrder.addEventListener("change", function () {
+    clearDataDetail();
+    slcSpek.selectedIndex = 0;
+    refetchSpek = true;
+
+    if (modeProses == "baru") {
+        slcSpek.disabled = false;
+        slcSpek.focus();
+    } else this.focus();
+});
+
+slcKomposisi.addEventListener("focus", function () {
+    counterKomposisi = 1;
 });
 
 slcKomposisi.addEventListener("mousedown", function () {
@@ -373,11 +439,7 @@ slcKomposisi.addEventListener("keydown", function (event) {
 });
 
 slcKomposisi.addEventListener("click", function () {
-    counterKomposisi += 1;
-
     if ((counterKomposisi %= 2) == 0) {
-        counterKomposisi = 0;
-
         listKomposisi.length = 0;
         clearTable_DataTable("table_komposisi", colKomposisi.length);
         listKonversi.length = 0;
@@ -391,6 +453,25 @@ slcKomposisi.addEventListener("click", function () {
             });
         }
     }
+});
+
+slcKomposisi.addEventListener("change", function () {
+    listKomposisi.length = 0;
+    clearTable_DataTable("table_komposisi", colKomposisi.length);
+    listKonversi.length = 0;
+    clearSelection_DataTable("table_konversi", colKonversi.length);
+    clearDataDetail();
+
+    if (modeProses == "baru") {
+        getDataKomposisiFetch(this.value, () => {
+            numLot.disabled = false;
+            numLot.focus();
+        });
+    }
+});
+
+slcSpek.addEventListener("focus", function () {
+    counterSpek = 1;
 });
 
 slcSpek.addEventListener("mousedown", function () {
@@ -446,11 +527,7 @@ slcSpek.addEventListener("keydown", function (event) {
 });
 
 slcSpek.addEventListener("click", function () {
-    counterSpek += 1;
-
     if ((counterSpek %= 2) == 0) {
-        counterSpek = 0;
-
         clearDataDetail();
         ambilDataUkuran(this.options[this.selectedIndex].text);
         hidNoUrut.value = this.value;
@@ -460,6 +537,17 @@ slcSpek.addEventListener("click", function () {
             slcMesin.focus();
         } else slcSpek.focus();
     }
+});
+
+slcSpek.addEventListener("change", function () {
+    clearDataDetail();
+    ambilDataUkuran(this.options[this.selectedIndex].text);
+    hidNoUrut.value = this.value;
+
+    if (modeProses == "baru") {
+        slcMesin.disabled = false;
+        slcMesin.focus();
+    } else slcSpek.focus();
 });
 
 numLot.addEventListener("keypress", function (event) {

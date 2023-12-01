@@ -401,6 +401,12 @@ function addOptions(selectEle, optionData, keyMapping, showId = true) {
             if (showId == "swap") {
                 newOption.value = optionData[i][keyMapping.textKey];
                 newOption.text = `${optionData[i][keyMapping.valueKey]}`;
+            } else if (showId == "trim") {
+                newOption.value = optionData[i][keyMapping.valueKey];
+                newOption.text = showId
+                    ? `${optionData[i][keyMapping.valueKey].slice(12)} |
+                        ${optionData[i][keyMapping.textKey]}`
+                    : optionData[i][keyMapping.textKey];
             } else {
                 newOption.value = optionData[i][keyMapping.valueKey];
                 newOption.text = showId

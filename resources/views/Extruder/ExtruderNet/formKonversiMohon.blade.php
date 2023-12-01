@@ -5,6 +5,18 @@
 @endsection
 
 @section('content')
+    <style>
+        #table_komposisi,
+        #table_konversi {
+            font-size: 12px;
+        }
+
+        .sorting,
+        .sorting_disabled {
+            font-size: 12px;
+        }
+    </style>
+
     <input type="hidden" id="input_hidden">
     <input type="hidden" id="nama_gedung" value="{{ $formData['namaGedung'] }}">
 

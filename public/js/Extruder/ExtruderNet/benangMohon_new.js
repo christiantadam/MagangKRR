@@ -62,20 +62,20 @@ const listTujuan = [];
 const posAsal = $("#table_asal").offset().top - 125;
 const posTujuan = $("#table_tujuan").offset().top - 125;
 const colTable = [
-    { width: "200px" }, // Id Type
-    { width: "200px" }, // Nama Type
-    { width: "100px" }, // Jumlah Primer
-    { width: "100px" }, // Jumlah Sekunder
-    { width: "100px" }, // Jumlah Tritier
-    { width: "100px" }, // Nama Objek
-    { width: "100px" }, // Nama Kelompok Utama
-    { width: "100px" }, // Nama Kelompok
-    { width: "100px" }, // Nama Sub-kelompok
-    { width: "100px" }, // Id Objek
-    { width: "100px" }, // Id Kelompok Utama
-    { width: "100px" }, // Id Kelompok
-    { width: "100px" }, // Id Sub-kelompok
-    { width: "100px" }, // Id Transaksi
+    { width: "100px" }, // Id Type
+    { width: "150px" }, // Nama Type
+    { width: "75px" }, // Jumlah Primer
+    { width: "75px" }, // Jumlah Sekunder
+    { width: "75px" }, // Jumlah Tritier
+    { width: "125px" }, // Nama Objek
+    { width: "90px" }, // Nama Kelompok Utama
+    { width: "90px" }, // Nama Kelompok
+    { width: "90px" }, // Nama Sub-kelompok
+    { width: "90px" }, // Id Objek
+    { width: "90px" }, // Id Kelompok Utama
+    { width: "90px" }, // Id Kelompok
+    { width: "90px" }, // Id Sub-kelompok
+    { width: "90px" }, // Id Transaksi
 ];
 
 var modeProses = "";
@@ -487,7 +487,7 @@ hidRincianKonv.addEventListener("change", function () {
                 listTujuan,
                 colTable,
                 rowClickedTujuan,
-                "100px"
+                "125px"
             );
         } else if (modeProses == "koreksi") {
             listAsal[pilAsal].JumlahPrimer = txtPrimerAsal.value;
@@ -499,7 +499,7 @@ hidRincianKonv.addEventListener("change", function () {
                 listAsal,
                 colTable,
                 rowClickedAsal,
-                "100px"
+                "125px"
             );
         }
     } else if (clickedTable == "tujuan") {
@@ -512,7 +512,7 @@ hidRincianKonv.addEventListener("change", function () {
             listTujuan,
             colTable,
             rowClickedTujuan,
-            "100px"
+            "125px"
         );
     }
 
@@ -587,7 +587,7 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
                                     listAsal,
                                     colTable,
                                     rowClickedAsal,
-                                    "100px"
+                                    "125px"
                                 );
                             } else if (
                                 d[i].UraianDetailTransaksi == "Tujuan Konversi"
@@ -615,7 +615,7 @@ function lihatDataKonversiNGFetch(id_konversi, post_action = null) {
                                     listTujuan,
                                     colTable,
                                     rowClickedTujuan,
-                                    "100px"
+                                    "125px"
                                 );
                             }
 
@@ -662,7 +662,7 @@ function displayDataBenangNGFetch(post_action = null) {
                     listAsal,
                     colTable,
                     rowClickedAsal,
-                    "100px"
+                    "125px"
                 );
             } else alert("Hasil Konversi Tidak Menghasilkan Benang NG");
             if (post_action != null) post_action();
@@ -1032,7 +1032,7 @@ function init() {
     $("#table_asal").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "100px",
+        scrollY: "125px",
         scrollX: "1000000px",
         columns: colTable,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
@@ -1045,7 +1045,7 @@ function init() {
     $("#table_tujuan").DataTable({
         responsive: true,
         paging: false,
-        scrollY: "100px",
+        scrollY: "125px",
         scrollX: "1000000px",
         columns: colTable,
         dom: '<"row"<"col-sm-6"i><"col-sm-6"f>>' + '<"row"<"col-sm-12"tr>>',
