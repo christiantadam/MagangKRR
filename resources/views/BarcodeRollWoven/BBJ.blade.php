@@ -380,12 +380,12 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="primer" rows="primer"
-                                                placeholder="Primer" readonly>
+                                                placeholder="Primer" id="PrimerProduksi">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">NULL</button>
                                             </div>
                                             <span style="margin-right: -250px; margin-left:207px">NoRoll</span>
-                                            <input class="form-control" type="text" name="NoRoll" rows="NoRoll"
+                                            <input class="form-control" type="text" name="NoRoll" rows="NoRoll" value="0"
                                                 style="margin-right: -500px; margin-left: 300px; width: 200px"
                                                 placeholder="NoRoll">
                                         </div>
@@ -397,11 +397,11 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="sekunder" rows="sekunder"
-                                                placeholder="Sekunder" readonly>
+                                                placeholder="Sekunder" id="SekunderProduksi">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">DOS</button></div>
                                             <span style="margin-right: -250px; margin-left:207px">Afalan</span>
-                                            <input class="form-control" type="text" name="Afalan" rows="Afalan"
+                                            <input class="form-control" type="text" name="Afalan" rows="Afalan" value="0"
                                                 style="margin-right: -500px; margin-left: 300px; width: 200px"
                                                 placeholder="Afalan">
                                         </div>
@@ -413,7 +413,7 @@
                                         </div>
                                         <div class="form-group col-md-5 mt-3 mt-md-0">
                                             <input class="form-control" type="text" name="tritier" rows="tritier"
-                                                placeholder="Tritier">
+                                                placeholder="Tritier" id="TritierProduksi">
                                             <div class="text-center col-md-auto"><button type="button"
                                                     style="width: 100px">KG</button></div>
                                         </div>

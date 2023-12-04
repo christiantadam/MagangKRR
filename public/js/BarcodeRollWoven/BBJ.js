@@ -195,9 +195,9 @@ $(document).ready(function() {
         // Lakukan operasi pencetakan barcode
         var idtype = document.getElementById('Type').value;
         var tanggal = document.getElementById('tanggalOutput').value;
-        var primer = document.getElementById('stok_Primer').value;
-        var sekunder = document.getElementById('stok_Sekunder').value;
-        var tritier = document.getElementById('stok_Tritier').value;
+        var primer = document.getElementById('PrimerProduksi').value;
+        var sekunder = document.getElementById('SekunderProduksi').value;
+        var tritier = document.getElementById('TritierProduksi').value;
         var UserID = '4384';
         var asalidsubkelompok = document.getElementById('ID_Subkelompok').value;;
         var Kode_Barang = document.getElementById('Barang').value;
