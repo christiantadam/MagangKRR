@@ -25,6 +25,7 @@ $(document).ready(function () {
         select: {
             style: "single",
         },
+
         "processing": true, // Show loading indicator
         "serverSide": false, // Set to true if using server-side processing
     });
