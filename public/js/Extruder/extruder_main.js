@@ -435,10 +435,7 @@ function addOptionIfNotExists(selectEle, value, text = "", auto = true) {
 }
 
 function addLoadingOption(selectEle) {
-    const loadingOption = new Option(
-        "Memuat data..............................",
-        "loading"
-    );
+    const loadingOption = new Option("Memuat data...", "loading");
     loadingOption.disabled = true;
     selectEle.appendChild(loadingOption);
 

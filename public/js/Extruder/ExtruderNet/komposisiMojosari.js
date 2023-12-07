@@ -1111,18 +1111,6 @@ btnKoreksiDetail.addEventListener("click", function () {
                     }
                 }
 
-                let found = false;
-                for (let i = 0; i < listKomposisi.length; i++) {
-                    if (
-                        listKomposisi[i].IdType == slcType.value &&
-                        listKomposisi[i].Cadangan == numCadangan.value &&
-                        listKomposisi[i].Persentase == numPersentase.value
-                    ) {
-                        found = true;
-                        break;
-                    }
-                }
-
                 if (numCadangan.value == 0) {
                     jumlah -=
                         parseFloat(numPersentase2.value) -
@@ -1169,59 +1157,16 @@ btnKoreksiDetail.addEventListener("click", function () {
                             return;
                         }
 
-                        if (!found) {
-                            listKomposisi[pilKomposisi] = {
-                                StatusType: jenis,
-                                IdType: slcType.value,
-                                NamaType: slcType.options[
-                                    slcType.selectedIndex
-                                ].text
-                                    .split("|")[1]
-                                    .trim(),
-                                JumlahPrimer: numPrimer.value,
-                                SatuanPrimer: txtSatPrimer.value,
-                                JumlahSekunder: numSekunder.value,
-                                SatuanSekunder: txtSatSekunder.value,
-                                JumlahTritier: numTritier.value,
-                                SatuanTritier: txtSatTritier.value,
-                                Persentase: numPersentase.value,
-                                IdObjek: slcObjek.value,
-                                NamaObjek: slcObjek.options[
-                                    slcObjek.selectedIndex
-                                ].text
-                                    .split("|")[1]
-                                    .trim(),
-                                IdKelompokUtama: slcKelut.value,
-                                NamaKelompokUtama: slcKelut.options[
-                                    slcKelut.selectedIndex
-                                ].text
-                                    .split("|")[1]
-                                    .trim(),
-                                IdKelompok: slcKelompok.value,
-                                NamaKelompok: slcKelompok.options[
-                                    slcKelompok.selectedIndex
-                                ].text
-                                    .split("|")[1]
-                                    .trim(),
-                                IdSubKelompok: slcSubkel.value,
-                                NamaSubKelompok: slcSubkel.options[
-                                    slcSubkel.selectedIndex
-                                ].text
-                                    .split("|")[1]
-                                    .trim(),
-                                KodeBarang: txtKodeBarang.value,
-                                Cadangan: numCadangan.value,
-                            };
+                        listKomposisi[pilKomposisi].Persentase =
+                            numPersentase.value;
 
-                            addTable_DataTable(
-                                "table_komposisi",
-                                listKomposisi,
-                                colKomposisi,
-                                rowClickedFetch,
-                                "350px"
-                            );
-                        } else
-                            alert("Sudah ada Type yang sama dalam Komposisi.");
+                        addTable_DataTable(
+                            "table_komposisi",
+                            listKomposisi,
+                            colKomposisi,
+                            rowClickedFetch,
+                            "350px"
+                        );
                     }
                 );
             }
