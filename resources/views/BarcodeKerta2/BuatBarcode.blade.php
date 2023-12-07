@@ -155,7 +155,7 @@
                                                     style="width: 180px; height: 50px" disabled>Nama Type</button>
                                             </div>
                                             <div class="modal" id="myModal2">
-                                                <div class="modal-content">
+                                                <div class="modal-content" style="width: 1500px">
                                                     <span class="close-btn" onclick="closeModal2()">&times;</span>
                                                     <h2>Table Type</h2>
                                                     <p>Id Type & Type</p>
