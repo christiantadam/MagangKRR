@@ -425,17 +425,19 @@ function loadDataGangguanProdEXT() {
                 });
             }
 
-            addTable_DataTable(
-                "table_gangguan",
-                listGangguan.map((item, index) => {
-                    return {
-                        ...item,
-                        NoTrans: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_gangguan"> ${item.NoTrans}`,
-                    };
-                }),
-                colGangguan,
-                rowClickedGangguan
-            );
+            if (listGangguan.length > 0) {
+                addTable_DataTable(
+                    "table_gangguan",
+                    listGangguan.map((item, index) => {
+                        return {
+                            ...item,
+                            NoTrans: `<input class="form-check-input" type="checkbox" value="${index}" name="checkbox_gangguan"> ${item.NoTrans}`,
+                        };
+                    }),
+                    colGangguan,
+                    rowClickedGangguan
+                );
+            } else clearTable_DataTable("table_gangguan", colGangguan.length, "Tidak Ada Data Gangguan.")
 
             checkboxesGangguan = document.querySelectorAll(
                 'input[name="checkbox_gangguan"]'
