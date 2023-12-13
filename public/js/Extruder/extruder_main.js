@@ -373,9 +373,9 @@ function clearSelection_DataTable(tableId) {
 
 function clearCheckedBoxes(checkboxes, checkedCheckbox) {
     checkboxes.forEach(function (checkbox) {
-        if (checkbox !== checkedCheckbox) {
-            checkbox.checked = false;
-        }
+        // if (checkbox !== checkedCheckbox) {
+        checkbox.checked = false;
+        // }
     });
 }
 

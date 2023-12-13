@@ -107,7 +107,10 @@ rdoMasuk.addEventListener("change", function () {
 
 btnOk.addEventListener("click", function () {
     listGangguan.length = 0;
-    clearTable_DataTable("table_gangguan", colGangguan.length, "padding=250px");
+    clearTable_DataTable("table_gangguan", colGangguan.length, [
+        "padding=250px",
+        "Memuat data...",
+    ]);
 
     loadDataGangguanProdEXT();
 });
@@ -437,7 +440,12 @@ function loadDataGangguanProdEXT() {
                     colGangguan,
                     rowClickedGangguan
                 );
-            } else clearTable_DataTable("table_gangguan", colGangguan.length, "Tidak Ada Data Gangguan.")
+            } else
+                clearTable_DataTable(
+                    "table_gangguan",
+                    colGangguan.length,
+                    "Tidak Ada Data Gangguan."
+                );
 
             checkboxesGangguan = document.querySelectorAll(
                 'input[name="checkbox_gangguan"]'
@@ -489,18 +497,16 @@ function rowClickedGangguan(row, data, _) {
 
         addOptionIfNotExists(slcKomposisi, data.IdKonversi);
 
-        // SP_5298_EXT_LIST_SHIFT
-        fetchSelect("/Catat/getListShift/" + slcKomposisi.value, (data) => {
-            if (data[0].Shift !== undefined) {
+        if (slcKomposisi.value != "null") {
+            // SP_5298_EXT_LIST_SHIFT
+            fetchSelect("/Catat/getListShift/" + slcKomposisi.value, (data) => {
                 txtShift.value = data[0].Shift;
                 timeShiftAwal.value =
                     data[0].AwalShift.split(" ")[1].split(".")[0];
                 timeShiftAkhir.value =
                     data[0].AkhirShift.split(" ")[1].split(".")[0];
-            } else {
-                txtShift.value = "***";
-            }
-        });
+            });
+        } else txtShift.value = "***";
     }
 }
 
