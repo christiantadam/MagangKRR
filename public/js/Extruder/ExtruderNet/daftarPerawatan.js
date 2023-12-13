@@ -57,7 +57,7 @@ RW_btnConfirm.addEventListener("click", function () {
 //#region Functions
 function RW_showData() {
     // SP_5298_EXT_DATA_PERAWATAN
-    fetchSelect("/Catat/getDataPerawatan/" + RW_tanggal + "/1240", (data) => {
+    fetchSelect("/Catat/getDataPerawatan/" + RW_tanggal + "/4384", (data) => {
         let pushedData = [];
         for (let i = 0; i < data.length; i++) {
             listRawat.push({
