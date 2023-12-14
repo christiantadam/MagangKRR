@@ -182,7 +182,7 @@
 
                                         <div style="display: flex; flex-direction: row; align-items:center; gap:1%">
                                             <div class="text-center col-md-auto mt-3">
-                                                <button type="button" onclick="openModal4()" id="ButtonSubKelompok"
+                                                <button type="button" onclick="openModal4()" id="ButtonType"
                                                     style="width:180px; height: 50px">Pilih Type</button>
                                             </div>
                                             <div class="modal" id="myModal4">

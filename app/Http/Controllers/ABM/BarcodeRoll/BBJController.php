@@ -58,12 +58,16 @@ class BBJController extends Controller
             // Return the options as JSON data
             return response()->json($dataTampil);
         } else if ($crExplode[$lasindex] == "buatBarcode") {
+            $idtype = $crExplode[0];
+
+            // Ganti semua karakter '#' dengan '/'
+            $idtype = str_replace('#', '/', $idtype);
             $dataBarcode = DB::connection('ConnInventory')->statement(
                 'exec SP_5409_INV_SimpanPermohonanBarcode
         @idtype = ?, @userid = ?, @tanggal = ?, @jumlahmasukprimer = ?, @jumlahmasuksekunder = ?,
         @jumlahmasuktertier = ?, @asalidsubkelompok = ?, @idsubkontraktor = ?, @kodebarang = ?, @uraian = ?, @noindeks = ?, @hasil = ?',
                 [
-                    $crExplode[0],
+                    $idtype,
                     $crExplode[1],
                     $crExplode[2],
                     $crExplode[3],

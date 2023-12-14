@@ -199,7 +199,7 @@ $(document).ready(function() {
         var sekunder = document.getElementById('SekunderProduksi').value;
         var tritier = document.getElementById('TritierProduksi').value;
         var UserID = '4384';
-        var asalidsubkelompok = document.getElementById('ID_Subkelompok').value;;
+        var asalidsubkelompok = document.getElementById('idsub_kelompok').value;;
         var Kode_Barang = document.getElementById('Barang').value;
         var uraian = document.getElementById('shiftInput').value;
         var idsubkontraktor = document.getElementById('Barang').value;
@@ -207,7 +207,7 @@ $(document).ready(function() {
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
         fetch("/ABM/BarcodeRollWoven/BBJ/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
-            idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
+            idsubkontraktor + "." + Kode_Barang + "." + uraian + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

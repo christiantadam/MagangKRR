@@ -25,6 +25,18 @@ $(document).ready(function() {
         ],
     });
 
+    $('#TableBelumKirim').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableObjek').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
     var ButtonDivisi = document.getElementById('ButtonDivisi')
 
     ButtonDivisi.addEventListener("click", function (event) {
@@ -140,6 +152,60 @@ $(document).ready(function() {
                 });
         }
     });
+
+    $("#TableObjek tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableObjek").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $("#IdObjek").val(rowData[0]);
+        $("#Objek").val(rowData[1]);
+
+        fetch("/ABM/BarcodeRollWoven/KirimCircular/" + rowData[0] + ".getTampilDataBatalKirim")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#TableBelumKirim").DataTable().clear().draw();
+
+                // Get the value of "No. SP" from the input field
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var kodebarcode = item.NoIndeks + item.Kode_barang;
+                    var row = [
+                        item.NamaType,
+                        kodebarcode,
+                        item.NamaSubKelompok,
+                        item.NamaKelompok,
+                        item.Kode_barang,
+                        item.NoIndeks,
+                        item.SaldoPrimer,
+                        item.SaldoSekunder,
+                        item.SaldoTritier,
+                        item.Tgl_mutasi,
+
+                    ];
+                    $("#TableBelumKirim").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableBelumKirim").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        // Hide the modal immediately after populating the data
+        closeModal1();
+    });
 });
 
 function openModal() {
@@ -149,6 +215,36 @@ function openModal() {
 
 function closeModal() {
     var modal = document.getElementById('myModal');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal1() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal1() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal2() {
+    var modal = document.getElementById('myModal2');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal2() {
+    var modal = document.getElementById('myModal2');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal3() {
+    var modal = document.getElementById('myModal3');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal3() {
+    var modal = document.getElementById('myModal3');
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
 

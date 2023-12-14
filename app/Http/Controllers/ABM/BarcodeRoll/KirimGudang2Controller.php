@@ -17,9 +17,11 @@ class KirimGudang2Controller extends Controller
     {
 
         $dataDivisi = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi_Diminta @XKdUser = ?', ["4384"]);
+        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser = ?, @XIdDivisi = ?', ["4384", "ABM"]);
+
 
         $data = 'HAPPY HAPPY HAPPY';
-        return view('BarcodeRollWoven.KirimGudang2', compact('data', 'dataDivisi'));
+        return view('BarcodeRollWoven.KirimGudang2', compact('data', 'dataDivisi', 'dataObjek'));
     }
 
     //Show the form for creating a new resource.

@@ -17,12 +17,12 @@ class KirimCircularController extends Controller
     {
 
         $dataKelut = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdObjek_KelompokUtama ?, ?', ["043", "6"]);
-        // $dataKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IdKelompokUtama_Kelompok @XIdKelompokUtama_Kelompok = ?', ["0628"]);
+        $dataObjek = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @XKdUser = ?, @XIdDivisi = ?', ["4384", "ABM"]);
         // $dataSubKelompok = DB::connection('ConnInventory')->select('exec SP_1003_INV_IDKELOMPOK_SUBKELOMPOK @XIdKelompok_SubKelompok = ?', ["KKL628"]);
 
         $data = 'HAPPY HAPPY HAPPY';
         // dd($dataSubKelompok);
-        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut'));
+        return view('BarcodeRollWoven.KirimCircular', compact('data', 'dataKelut', 'dataObjek'));
     }
 
     //Show the form for creating a new resource.
@@ -73,6 +73,11 @@ class KirimCircularController extends Controller
             // dd($dataTampil);
             // Return the options as JSON data
             return response()->json($dataTampil);
+        } else if ($crExplode[$lasindex] == "getTampilDataBatalKirim") {
+            $dataTampilBatalKirim = DB::connection('ConnInventory')->select('exec SP_1273_INV_ListBarcode_BlmKirim @Kode = ?, @status = ?, @idobjek = ?', ["2", "1", $crExplode[0]]);
+            // dd($dataTampil);
+            // Return the options as JSON data
+            return response()->json($dataTampilBatalKirim);
         }
     }
 
