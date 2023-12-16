@@ -65,7 +65,7 @@ function AllData(tglawal,tglakhir,idDivisi) {
                 title: "No. Order",
                 data: "Id_Order",
                 render: function (data) {
-                    return `<input type="checkbox" name="ManagerCheckbox" value="${data}" /> ${data}`;
+                    return `${data}`;
                 },
             },
             { title: "Tanggal Order", data: "Tgl_Order" }, // Sesuaikan 'age' dengan properti kolom di data

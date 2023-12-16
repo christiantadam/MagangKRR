@@ -66,7 +66,7 @@ function AllData(tglawal, tglakhir, idDivisi) {
                 title: "No. Order",
                 data: "Id_Order",
                 render: function (data) {
-                    return `<input type="checkbox" name="ManagerCheckbox" value="${data}" /> ${data}`;
+                    return `${data}`;
                 },
             },
             //{ title: "No. Order", data: "Id_Order" }, // Sesuaikan 'name' dengan properti kolom di data

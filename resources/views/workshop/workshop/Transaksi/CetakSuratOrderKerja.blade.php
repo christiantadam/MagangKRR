@@ -142,7 +142,7 @@
               <span>Divisi : <span id="NamaDivisiPrint"></span></span>
             </div>
             <div class="col-6">
-              <span>/ <span id="MesinPrint"></span></span>
+              <span> <span id="MesinPrint"></span></span>
             </div>
           </div>
           <div class="row" style="text-align: center; border:solid 1px; margin:5px;">

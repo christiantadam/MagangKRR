@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Response;
 
 class MaintenanceOrderKerjaController extends Controller
 {
-
     public function index()
     {
         //
