@@ -73,17 +73,17 @@
 
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/KaryawanHarian') }}">Harian ✓</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/KaryawanHarian') }}">Harian 👍</a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/KaryawanKeluarga') }}">Keluarga ✓</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/KaryawanKeluarga') }}">Keluarga 👍</a>
                                         </li>
 
                                     </ul>
                                 </li>
 
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/Master/Divisi') }}">Divisi ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/Master/Divisi') }}">Divisi 👍</a>
                                 </li>
                                 <li><a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
@@ -91,26 +91,26 @@
 
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/settingDivisiHarian') }}">Harian ✓</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/settingDivisiHarian') }}">Harian 👍</a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
-                                                tabindex="-1" href="{{ url('ProgramPayroll/settingDivisiStaff') }}">Staff ✓</a>
+                                                tabindex="-1" href="{{ url('ProgramPayroll/settingDivisiStaff') }}">Staff 👍</a>
                                         </li>
 
                                     </ul>
                                 </li>
 
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterNomer') }}">Nomer ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterNomer') }}">Nomer 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterKartu') }}">Kartu ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterKartu') }}">Kartu 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/settingShift') }}">Setting Shift ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/settingShift') }}">Setting Shift 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterKlinik') }}">Klinik ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/MasterKlinik') }}">Klinik 👍</a>
                                 </li>
 
                             </ul>
@@ -144,7 +144,7 @@
                                         tabindex="-1" href="{{ url('ProgramPayroll/UbahAgenda') }}">Ubah Agenda</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/HariBesar') }}">Hari Libur & Besar ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/HariBesar') }}">Hari Libur & Besar 👍</a>
                                 </li>
 
                                 <li><a class="test"
@@ -165,8 +165,8 @@
                                 </li>
 
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/KoreksiShift') }}">Koreksi Shift Per Periode ✓
-                                        (Tombol Proses VB kosong)</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/KoreksiShift') }}">Koreksi Shift Per Periode
+                                        </a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/InsertPegawaiBaru') }}">Insert Agenda Pegawai
@@ -197,14 +197,14 @@
                                         tabindex="-1" href="{{ url('ProgramPayroll/VerifikasiAbsen') }}">Verifikasi Absen</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/AbsenSimpang') }}">Absen Simpang ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/AbsenSimpang') }}">Absen Simpang 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/Kontrak') }}">Perpanjangan/Pembaharuan Kontrak
                                         ✓</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/KoreksiAbsen') }}">Koreksi Absen ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/KoreksiAbsen') }}">Koreksi Absen 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/InputLibur') }}">Input Libur/Masuk
@@ -214,7 +214,7 @@
                                         tabindex="-1" href="{{ url('ProgramPayroll/InputRange') }}">Input Range ✓</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/Lembur') }}">Lembur ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/Lembur') }}">Lembur 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/CheckClockError') }}">Check Clock Error ✓ (SP
@@ -226,12 +226,12 @@
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/MaintenancePelatihan') }}">Maintenance Pelatihan
-                                        ✓</a>
+                                        👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/MaintenanceKoreksi') }}">Koreksi ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/MaintenanceKoreksi') }}">Koreksi 👍</a>
                                 </li>
-                                <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
+                                <li    i><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/Koperasi') }}">Koperasi ✓</a>
                                 </li>
 
@@ -256,7 +256,7 @@
                                         tabindex="-1" href="{{ url('ProgramPayroll/MaintenanceResign') }}">Resign</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ProgramPayroll/KenaikanUpah') }}">Kenaikan Upah ✓</a>
+                                        tabindex="-1" href="{{ url('ProgramPayroll/KenaikanUpah') }}">Kenaikan Upah 👍</a>
                                 </li>
                                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                                         tabindex="-1" href="{{ url('ProgramPayroll/Transaksi/Absen1') }}">Absen > 1</a>
@@ -334,7 +334,7 @@
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1"
                                                 href="{{ url('ProgramPayroll/Laporan/Absen/DaftarLembur') }}">Daftar
-                                                Lembur By Supervisor (X)</a>
+                                                Lembur By Supervisor (Tidak dipakai)</a>
                                         </li>
 
                                     </ul>
@@ -867,11 +867,11 @@
                                     <ul class="dropdown-menu dropdown-submenu">
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1"
-                                                href="{{ url('ProgramPayroll/Angsuran/Hutang') }}">Staff</a>
+                                                href="{{ url('ProgramPayroll/Angsuran/Hutang') }}">Staff ✓ </a>
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1"
-                                                href="{{ url('ProgramPayroll/Angsuran/HutangHarian') }}">Harian</a>
+                                                href="{{ url('ProgramPayroll/Angsuran/HutangHarian') }}">Harian 👍</a>
                                         </li>
 
 
@@ -887,7 +887,7 @@
                                         </li>
                                         <li><a style="margin: 10px;color: black;font-size: 15px;display: block"
                                                 tabindex="-1"
-                                                href="{{ url('ProgramPayroll/Angsuran/AngsuranHutang') }}">Harian</a>
+                                                href="{{ url('ProgramPayroll/Angsuran/AngsuranHutang') }}">Harian ✓</a>
                                         </li>
 
                                     </ul>

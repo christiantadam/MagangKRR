@@ -234,7 +234,7 @@
                                             <input class="form-control" type="text" id="Kawin" readonly
                                                 style="resize: none; height: 40px; max-width: 450px;">
                                             <button type="button" class="btn" style="margin-left: 10px;"
-                                                onclick=showModalKawin()></button>
+                                                onclick=showModalKawin()>...</button>
                                             <div class="modal fade" id="modalKawin" role="dialog"
                                                 arialabelledby="modalLabel" area-hidden="true" style="">
                                                 <div class="modal-dialog " role="document">

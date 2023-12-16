@@ -110,12 +110,12 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/Schedule') }}">Schedule </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/Schedule') }}">Schedule 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BuatBarcode') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BuatBarcode') }}">Buat Barcode 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
@@ -125,27 +125,27 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CBR') }}">Cetak Barcode Rusak </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CBR') }}">Cetak Barcode Rusak 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/HanguskanBarcode') }}">Hanguskan Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/HanguskanBarcode') }}">Hanguskan Barcode 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/KirimGudang') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/KirimGudang') }}">Kirim Gudang 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BatalKirim') }}">Batal Kirim </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/BatalKirim') }}">Batal Kirim 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CekBarcode') }}">Cek Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeKerta2/CekBarcode') }}">Cek Barcode 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
@@ -155,7 +155,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('/ABM/BarcodeKerta2/TotalBarcode') }}">Total Barcode </a>
+                                        tabindex="-1" href="{{ url('/ABM/BarcodeKerta2/TotalBarcode') }}">Total Barcode 👍✓</a>
                                 </li>
                             </ul>
                         </li>
@@ -168,7 +168,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BuatBarcode2') }}">Buat Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BuatBarcode2') }}">Buat Barcode ✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
@@ -178,7 +178,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BBJ') }}">Barcode Barang Jadi </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BBJ') }}">Barcode Barang Jadi 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
@@ -188,23 +188,23 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/HanguskanBarcode') }}">Hanguskan Barcode
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/HanguskanBarcode') }}">Hanguskan Barcode 👍✓
                                     </a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimGudang2') }}">Kirim Gudang </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimGudang2') }}">Kirim Gudang 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimCircular') }}">Kirim Circular </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/KirimCircular') }}">Kirim Circular 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BatalKirim2') }}">Batal Kirim </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/BatalKirim2') }}">Batal Kirim 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"
@@ -214,7 +214,7 @@
                                 <li>
                                     <a class="test"
                                         style="margin: 10px; color: black;font-size: 15px;display: block;cursor: default"
-                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/CekBarcode') }}">Cek Barcode </a>
+                                        tabindex="-1" href="{{ url('ABM/BarcodeRollWoven/CekBarcode') }}">Cek Barcode 👍✓</a>
                                 </li>
                                 <li>
                                     <a class="test"

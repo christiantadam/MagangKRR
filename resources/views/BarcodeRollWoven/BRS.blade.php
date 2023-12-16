@@ -321,8 +321,8 @@
                                     <span class="aligned-text">Primer:</span>
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
-                                    <input class="form-control" type="text" name="primer" rows="primer"
-                                        placeholder="Primer" readonly>
+                                    <input class="form-control" type="text" name="primer" rows="primer" id="primer"
+                                        placeholder="Primer" >
                                     <div class="text-center col-md-auto"><button type="button"
                                             style="width: 100px">Ball</button>
                                     </div>
@@ -334,8 +334,8 @@
                                     <span class="aligned-text">Sekunder:</span>
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
-                                    <input class="form-control" type="text" name="sekunder" rows="sekunder"
-                                        placeholder="Sekunder" readonly>
+                                    <input class="form-control" type="text" name="sekunder" rows="sekunder" id="sekunder"
+                                        placeholder="Sekunder" >
                                     <div class="text-center col-md-auto"><button type="button"
                                             style="width: 100px">LBR</button></div>
                                 </div>
@@ -346,7 +346,7 @@
                                     <span class="aligned-text">Tritier:</span>
                                 </div>
                                 <div class="form-group col-md-5 mt-3 mt-md-0">
-                                    <input class="form-control" type="text" name="tritier" rows="tritier"
+                                    <input class="form-control" type="text" name="tritier" rows="tritier" id="tritier"
                                         placeholder="Tritier">
                                     <div class="text-center col-md-auto"><button type="button"
                                             style="width: 100px">KG</button></div>

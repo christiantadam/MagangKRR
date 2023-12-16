@@ -117,10 +117,11 @@ $(document).ready(function () {
 
         // Lakukan operasi pencetakan barcode
         var idtype = document.getElementById('Type').value;
+        idtype = idtype.replace(/\//g, '#');
         var tanggal = document.getElementById('tanggalOutput').value;
-        var primer = document.getElementById('stok_Primer').value;
-        var sekunder = document.getElementById('stok_Sekunder').value;
-        var tritier = document.getElementById('stok_Tritier').value;
+        var primer = document.getElementById('primer').value;
+        var sekunder = document.getElementById('sekunder').value;
+        var tritier = document.getElementById('tritier').value;
         var UserID = '4384';
         var asalidsubkelompok = document.getElementById('ID_Subkelompok').value;;
         var Kode_Barang = document.getElementById('Barang').value;
@@ -130,7 +131,7 @@ $(document).ready(function () {
         // Ganti URL endpoint dengan endpoint yang sesuai di server Anda
         fetch("/ABM/BarcodeRollWoven/BRS/" + idtype + "." + UserID + "." + tanggal + "." +
             primer + "." + sekunder + "." + tritier + "." + asalidsubkelompok + "." +
-            idsubkontraktor + "." + Kode_Barang + "." + uraian + "." + ".buatBarcode")
+            idsubkontraktor + "." + Kode_Barang + "." + uraian + ".buatBarcode")
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

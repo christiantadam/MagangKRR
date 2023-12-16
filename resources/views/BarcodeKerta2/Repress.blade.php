@@ -43,7 +43,7 @@
                                         <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                         <div class="text-center ml-5 mt-3">
                                             <a href="{{url('ABM/PilihJenisRepress')}}">
-                                                <button type="button">Pilih Jenis Repress</button>
+                                                <button type="button">Pilih Jenis Repress ✓</button>
                                             </a>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
                                         <a href="{{url('ABM/BalJadiPalet')}}">
-                                            <button type="button">Bal Jadi Palet</button>
+                                            <button type="button">Bal Jadi Palet ✓</button>
                                         </a>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
                                         <a href="{{url('ABM/PaletJadiBal')}}">
-                                            <button type="button">Palet Jadi Bal</button>
+                                            <button type="button">Palet Jadi Bal ✓</button>
                                         </a>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
                                         <a href="{{url('ABM/Konversi')}}">
-                                            <button type="button">Konversi</button>
+                                            <button type="button">Konversi </button>
                                         </a>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                                     <img src="{{ asset('/images/KRR.png') }}" width="55" height="50" alt="KRR">
                                     <div class="text-center ml-5 mt-3">
                                         <a href="{{url('ABM/PrintUlang')}}">
-                                            <button type="button">Print Ulang</button>
+                                            <button type="button">Print Ulang ✓</button>
                                         </a>
                                     </div>
                                 </div>

@@ -57,6 +57,18 @@ $(document).ready(function() {
         ],
     });
 
+    $('#TableBelumKirim').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
+    $('#TableObjek').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+    });
+
     var ButtonKelut = document.getElementById('ButtonKelut')
 
     ButtonKelut.addEventListener("click", function (event) {
@@ -266,6 +278,60 @@ $(document).ready(function() {
                 });
         }
     });
+
+    $("#TableObjek tbody").on("click", "tr", function () {
+        // Get the data from the clicked row
+
+        var rowData = $("#TableObjek").DataTable().row(this).data();
+
+        // Populate the input fields with the data
+        $("#IdObjek").val(rowData[0]);
+        $("#Objek").val(rowData[1]);
+
+        fetch("/ABM/BarcodeRollWoven/KirimCircular/" + rowData[0] + ".getTampilDataBatalKirim")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Assuming the response is in JSON format
+            })
+            .then((data) => {
+                // Handle the data retrieved from the server (data should be an object or an array)
+
+                // Clear the existing table rows
+                $("#TableBelumKirim").DataTable().clear().draw();
+
+                // Get the value of "No. SP" from the input field
+
+                // Loop through the data and create table rows
+                data.forEach((item) => {
+                    var kodebarcode = item.NoIndeks + item.Kode_barang;
+                    var row = [
+                        item.NamaType,
+                        kodebarcode,
+                        item.NamaSubKelompok,
+                        item.NamaKelompok,
+                        item.Kode_barang,
+                        item.NoIndeks,
+                        item.SaldoPrimer,
+                        item.SaldoSekunder,
+                        item.SaldoTritier,
+                        item.Tgl_mutasi,
+
+                    ];
+                    $("#TableBelumKirim").DataTable().row.add(row);
+                });
+
+                // Redraw the table to show the changes
+                $("#TableBelumKirim").DataTable().draw();
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        // Hide the modal immediately after populating the data
+        closeModal1();
+    });
 });
 
 function openModal() {
@@ -298,6 +364,26 @@ function closeModal2() {
     modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
 }
 
+function openModal3() {
+    var modal = document.getElementById('myModal3');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal3() {
+    var modal = document.getElementById('myModal3');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
+function openModal4() {
+    var modal = document.getElementById('myModal4');
+    modal.style.display = 'block'; // Tampilkan modal dengan mengubah properti "display"
+}
+
+function closeModal4() {
+    var modal = document.getElementById('myModal4');
+    modal.style.display = 'none'; // Sembunyikan modal dengan mengubah properti "display"
+}
+
 function ProcessData(data) {
     var str = No_barcode.value;
     var parts = str.split("-");
@@ -305,15 +391,18 @@ function ProcessData(data) {
     var UserId = "4384";
     var kodebarang = parts[0];
     var noindeks = parts[1];
+    var divisi = "CIR";
 
     // Extract values from form elements
-    var divisi = document.getElementById('IdDivisi').value;
+    var typeasal = data && data.length > 0 ? data[0].idtype : "";
 
     const formData = {
         kodebarang: kodebarang,
         noindeks: noindeks,
         UserId: UserId,
         divisi: divisi,
+        typeasal: typeasal, // Add typeasal to the formData object
+
     };
     console.log(formData);
     const formContainer = document.getElementById("form-container");
