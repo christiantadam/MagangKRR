@@ -125,7 +125,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-9">
-                                        <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                        <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                     </div>
                                 </div>
                                 <p><div class="d-flex">

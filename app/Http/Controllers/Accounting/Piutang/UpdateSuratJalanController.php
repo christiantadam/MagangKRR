@@ -45,8 +45,10 @@ class UpdateSuratJalanController extends Controller
 
         $idSuratPesanan = DB::connection('ConnSales')->table('VW_PRG_1486_ACC_ID_DETAILPENGIRIMAN')
         ->where('IDPengiriman', $suratJalan)
-        ->get('IDSuratPesanan');
+        ->value('IDSuratPesanan');
         //return response()->json($idSuratPesanan);
+
+        // dd($idSuratPesanan);
 
         DB::connection('ConnAccounting')->statement('exec [SP_1486_ACC_MAINT_PENAGIHAN_SJ]
         @Kode = ?,

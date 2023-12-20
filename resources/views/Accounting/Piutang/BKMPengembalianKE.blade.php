@@ -221,10 +221,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="text" id="nilai1" name="nilai1" class="form-control" style="width: 100%">
-                                <input type="text" id="nilai" name="nilai" class="form-control" style="width: 100%">
-                                <input type="text" id="konversi" name="konversi" class="form-control" style="width: 100%">
-                                <input type="text" id="konversi1" name="konversi1" class="form-control" style="width: 100%">
+                                <input type="hidden" id="nilai1" name="nilai1" class="form-control" style="width: 100%">
+                                <input type="hidden" id="nilai" name="nilai" class="form-control" style="width: 100%">
+                                <input type="hidden" id="konversi" name="konversi" class="form-control" style="width: 100%">
+                                <input type="hidden" id="konversi1" name="konversi1" class="form-control" style="width: 100%">
 
                                 <br><div >
                                     <div class="row">

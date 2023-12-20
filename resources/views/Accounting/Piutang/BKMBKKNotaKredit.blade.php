@@ -66,10 +66,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <input type="text" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
-                                    <input type="text" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
-                                    <input type="text" id="noNotaKredit" name="noNotaKredit" class="form-control" style="width: 100%">
-                                    <input type="text" id="jumlah" name="jumlah" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="idPenagihan" name="idPenagihan" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="noNotaKredit" name="noNotaKredit" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="jumlah" name="jumlah" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="card-container" style="display: flex;">
                                     <div style="width: 60%;">
@@ -92,8 +92,8 @@
                                                         style="width: 100%">
                                                 </div>
                                             </div>
-                                            <input type="text" name="idPembayaran" id="idPembayaran">
-                                            <input type="text" name="idPelunasan" id="idPelunasan">
+                                            <input type="hidden" name="idPembayaran" id="idPembayaran">
+                                            <input type="hidden" name="idPelunasan" id="idPelunasan">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="idBKM" style="margin-right: 10px;">Id. BKM</label>
@@ -103,7 +103,7 @@
                                                         style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" id="id_bkm" name="id_bkm" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="id_bkm" name="id_bkm" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -123,7 +123,7 @@
                                                     <input type="text" id="kursRupiah" name="kursRupiah" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                             </div>
-                                            <input type="text" name="idMataUangBKM" id="idMataUangBKM"
+                                            <input type="hidden" name="idMataUangBKM" id="idMataUangBKM"
                                                 class="form-control" style="width: 100%">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
@@ -187,7 +187,7 @@
                                                     <input type="text" id="idBKK" name="idBKK" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="id_bkk" name="id_bkk" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -210,9 +210,9 @@
 
                                                     </select>
                                                 </div>
-                                                <input type="text" id="idBankBKK" name="idBankBKK"
+                                                <input type="hidden" id="idBankBKK" name="idBankBKK"
                                                     class="form-control" style="width: 100%">
-                                                <input type="text" id="jenisBankBKK" name="jenisBankBKK"
+                                                <input type="hidden" id="jenisBankBKK" name="jenisBankBKK"
                                                     class="form-control" style="width: 100%">
                                             </div>
                                             <div class="d-flex">

@@ -86,16 +86,16 @@
                                                     <input type="date" id="tanggal" name="tanggal" class="form-control" style="width: 100%" readonly>
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="bulan" name="bulan" class="form-control"
+                                                    <input type="hidden" id="bulan" name="bulan" class="form-control"
                                                         style="width: 100%">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <input type="text" id="tahun" name="tahun" class="form-control"
+                                                    <input type="hidden" id="tahun" name="tahun" class="form-control"
                                                         style="width: 100%">
                                                 </div>
                                             </div>
-                                            <input type="text" name="idPembayaran" id="idPembayaran">
-                                            <input type="text" name="idPelunasan" id="idPelunasan">
+                                            <input type="hidden" name="idPembayaran" id="idPembayaran">
+                                            <input type="hidden" name="idPelunasan" id="idPelunasan">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="idBKK" style="margin-right: 10px;">Id. BKK</label>
@@ -124,7 +124,7 @@
                                                 </div>
 
                                             </div>
-                                            <input type="text" name="idMataUang" id="idMataUang" class="form-control" style="width: 100%">
+                                            <input type="hidden" name="idMataUang" id="idMataUang" class="form-control" style="width: 100%">
                                             <div class="d-flex">
                                                 <div class="col-md-3">
                                                     <label for="jumlahUang" style="margin-right: 10px;">Jumlah Uang</label>
@@ -144,10 +144,10 @@
                                                 </div>
                                                 <!--HIDDEN INPUT-->
                                                 <div class="col-md-4">
-                                                    <input type="text" id="idBankBKK" name="idBankBKK" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="idBankBKK" name="idBankBKK" class="form-control" style="width: 100%">
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" id="jenisBankBKK" name="jenisBankBKK" class="form-control" style="width: 100%">
+                                                    <input type="hidden" id="jenisBankBKK" name="jenisBankBKK" class="form-control" style="width: 100%">
                                                 </div>
                                             </div>
                                             <div class="d-flex">
@@ -204,8 +204,8 @@
 
                                                     </select>
                                                 </div>
-                                                <input type="text" id="idBankBKM" name="idBankBKM" class="form-control" style="width: 100%">
-                                                <input type="text" id="jenisBankBKM" name="jenisBankBKM" class="form-control" style="width: 100%">
+                                                <input type="hidden" id="idBankBKM" name="idBankBKM" class="form-control" style="width: 100%">
+                                                <input type="hidden" id="jenisBankBKM" name="jenisBankBKM" class="form-control" style="width: 100%">
                                             </div>
                                             <div class="d-flex">
                                                 <div class="col-md-3">
