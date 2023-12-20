@@ -1,7 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/HangusBarcode.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Form Hanguskan Barcode</h2>
 
 

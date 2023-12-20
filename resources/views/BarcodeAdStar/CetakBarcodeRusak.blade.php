@@ -2,7 +2,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/CetakBarcodeRusak.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Cetak Barcode Rusak</h2>
 
 <div class="form-wrapper mt-4">

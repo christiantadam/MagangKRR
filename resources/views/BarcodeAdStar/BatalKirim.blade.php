@@ -1,7 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/BatalKirim.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Form Batal Kirim Gudang</h2>
 
 <div class="form-wrapper mt-4">
@@ -68,7 +68,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataKirim as $data)
+                                {{-- @foreach ($dataKirim as $data)
                                     <tr>
                                         <td>{{ $data->NamaType }}</td>
                                         <td>{{ $data->No_Barcode }}</td>
@@ -83,7 +83,7 @@
                                         <td>{{ $data->IdDivisi }}</td>
                                         <td>{{ $data->Shift }}</td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

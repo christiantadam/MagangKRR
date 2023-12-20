@@ -43,16 +43,16 @@ class BatalKirim extends Controller
      */
     public function show($cr)
     {
-        // dd('Masuk Show');
-        $crExplode = explode(".", $cr);
+        // // dd('Masuk Show');
+        // $crExplode = explode(".", $cr);
 
-        //getDivisi
-        ($crExplode[1] == "getKelut") {
-            $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_BCD_SLC_KELUT @div = ?, @kode = ?', [$crExplode[0], "1"]):
-            // dd($dataKelut);
-            // Return the options as JSON data
-            return response()->json($dataKelut);
-        }
+        // //getDivisi
+        // ($crExplode[1] == "getKelut") {
+        //     $dataKelut = DB::connection('ConnInventory')->select('exec SP_1273_BCD_SLC_KELUT @div = ?, @kode = ?', [$crExplode[0], "1"]):
+        //     // dd($dataKelut);
+        //     // Return the options as JSON data
+        //     return response()->json($dataKelut);
+        // }
 
     }
 

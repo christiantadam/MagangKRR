@@ -1,7 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/KirimGudang.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Scan Barcode Sebelum Dikirim Ke Gudang</h2>
 
 <div class="form-wrapper mt-4">

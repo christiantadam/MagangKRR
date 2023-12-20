@@ -1,7 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/HasilBarcode.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Lihat Data Hasil Barcode</h2>
 <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
     <div class="card-body" style="flex: 1; margin-right: -20px; margin-left: 75px;">
