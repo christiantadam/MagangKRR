@@ -71,7 +71,8 @@
                                 </a>
                                 <ul class="dropdown-menu" style="cursor: default">
                                     <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarUpKodeBarang') }}');">Update Kd Barang</a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarUpKodeBarang') }}');">Update Kd Barang✓
+                                        </a>
                                     </li>
 
                                     <li><a class="test"
@@ -82,7 +83,8 @@
 
                                     <li><a class="test"
                                             style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarStopOrder') }}');">Stop Order Press </a>
+                                            tabindex="-1" onclick="OpenNewTab('{{ url('AdStarStopOrder') }}');">Stop Order Press✓
+                                        </a>
                                     </li>
 
                                     <li><a class="test"
