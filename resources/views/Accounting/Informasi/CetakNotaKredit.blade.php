@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-7 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">Cek Nota Kredit</div>
+                    <div class="card-header">Cetak Nota Kredit</div>
                     @if (Session::has('success'))
                         <div class="alert alert-success">
                             {{ Session::get('success') }}
@@ -45,10 +45,10 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    <input type="text" id="statusPPN" name="statusPPN" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="statusPPN" name="statusPPN" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="text" id="jnsNotaKredit" name="jnsNotaKredit" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="jnsNotaKredit" name="jnsNotaKredit" class="form-control" style="width: 100%">
                                 </div>
 
                                 <br><div class="mb-3">

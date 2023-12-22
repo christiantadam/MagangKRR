@@ -20,8 +20,10 @@ class ACCNotaKreditController extends Controller
         return response()->json($tabel);
     }
 
-    public function getDetailHeaderACCNotaKredit($idNotaKredit)
+    public function getDetailHeaderACCNotaKredit($idnotakredit)
     {
+
+        $idNotaKredit = str_replace('.', '/', $idnotakredit);
         $tabel =  DB::connection('ConnAccounting')->select('exec [SP_LIST_NOTA_KREDIT] @Kode = ?, @ID_NotaKredit = ?', [4, $idNotaKredit]);
         return response()->json($tabel);
     }
