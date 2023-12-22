@@ -94,7 +94,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%" readonly>
+                                        <input type="hidden" id="idJenisPembayaran" name="idJenisPembayaran" class="form-control" style="width: 100%" readonly>
                                     </div>
                                 </div>
                                 <p><div class="d-flex">
@@ -174,43 +174,43 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelIdDetailPelunasan" name="tabelIdDetailPelunasan[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelIdDetailPelunasan" name="tabelIdDetailPelunasan[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelIdPenagihan" name="tabelIdPenagihan[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelIdPenagihan" name="tabelIdPenagihan[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelNilaiPelunasan" name="tabelNilaiPelunasan[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelNilaiPelunasan" name="tabelNilaiPelunasan[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelPelunasanRupiah" name="tabelPelunasanRupiah[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelPelunasanRupiah" name="tabelPelunasanRupiah[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelMataUang" name="tabelMataUang[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelMataUang" name="tabelMataUang[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelBiaya" name="tabelBiaya[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelBiaya" name="tabelBiaya[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelLunas" name="tabelLunas[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelLunas" name="tabelLunas[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelPelunasanCurrency" name="tabelPelunasanCurrency[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelPelunasanCurrency" name="tabelPelunasanCurrency[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelKurangLebih" name="tabelKurangLebih[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelKurangLebih" name="tabelKurangLebih[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelKodePerkiraan" name="tabelKodePerkiraan[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelKodePerkiraan" name="tabelKodePerkiraan[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelKurs" name="tabelKurs[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelKurs" name="tabelKurs[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" id="tabelIdDetail" name="tabelIdDetail[]" class="form-control" style="width: 100%">
+                                    <input type="hidden" id="tabelIdDetail" name="tabelIdDetail[]" class="form-control" style="width: 100%">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" id="arrayData" name="arrayData" class="form-control" style="width: 100%" readonly>
+                                    <input type="hidden" id="arrayData" name="arrayData" class="form-control" style="width: 100%" readonly>
                                 </div>
                                 <input type="hidden" name="listData" id="listDataInput" class="form-control" style="width: 100%">
                                 <br>

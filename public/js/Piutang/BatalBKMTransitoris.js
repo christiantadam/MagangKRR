@@ -71,6 +71,7 @@ idBKMSelect.addEventListener('change', function(event) {
             fetch("/cekBatalBKK/" + idBKMSelect.value) // Ganti URL sesuai dengan rute Anda
             .then((response) => response.json())
             .then((result) => {
+                console.log(result[0].Ada);
                 const adaData = result[0].Ada > 0; // Memeriksa apakah ada data (nilai 1)
 
                 // Lakukan sesuatu berdasarkan keberadaan data

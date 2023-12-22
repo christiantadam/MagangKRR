@@ -40,15 +40,15 @@ class KirimGudang extends Controller
      */
     public function show($cr)
     {
-        $crExplode = explode(".", $cr);
-        $lasindex = count($crExplode) - 1;
+        // $crExplode = explode(".", $cr);
+        // $lasindex = count($crExplode) - 1;
 
         //getDivisi
-        ($crExplode[$lasindex] == "getSP") {
-            $dataSP = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekDataSP @kode = ?, @KodeBarang = ?', ["2", $crExplode[0]]);
+        // ($crExplode[$lasindex] == "getSP") {
+        //     $dataSP = DB::connection('ConnInventory')->select('exec SP_1273_INV_CekDataSP @kode = ?, @KodeBarang = ?', ["2", $crExplode[0]]);
             // dd($dataSP);
             // Return the options as JSON data
-            return response()->json($dataSP);
+            // return response()->json($dataSP);
     }
 
     /**

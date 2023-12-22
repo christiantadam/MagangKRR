@@ -6,6 +6,7 @@ let idMataUang = document.getElementById('idMataUang');
 let kredit = document.getElementById('kredit');
 let kurs = document.getElementById('kurs');
 let statusP = document.getElementById('statusP');
+let idnotakredit = document.getElementById('idnotakredit');
 
 let btnProses = document.getElementById('btnProses');
 let formkoreksi = document.getElementById('formkoreksi');
@@ -55,7 +56,9 @@ $("#tabelatas tbody").off("click", "tr");
         kurs.value = selectedRows[0].NilaiKurs;
         statusP.value = selectedRows[0].Status_Pelunasan;
 
-        fetch("/getDetailHeaderACCNotaKredit/" + idNotaKredit.value)
+        idnotakredit.value = idNotaKredit.value.replace(/\//g, '.');
+
+        fetch("/getDetailHeaderACCNotaKredit/" + idnotakredit.value)
         .then((response) => response.json())
         .then((options) => {
             console.log(options);

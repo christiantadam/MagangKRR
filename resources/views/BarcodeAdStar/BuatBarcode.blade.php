@@ -1,8 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/BuatBarcode.css') }}" rel="stylesheet">
-
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <body onload="Greeting()">
     <style>
         .form-size-plus {

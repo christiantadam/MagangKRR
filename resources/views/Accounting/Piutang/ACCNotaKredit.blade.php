@@ -52,6 +52,7 @@
                                     </table>
                                 </div>
                                 <input type="hidden" id="idNotaKredit" name="idNotaKredit" class="form-control" style="width: 100%">
+                                <input type="hidden" id="idnotakredit" name="idnotakredit" class="form-control" style="width: 100%">
                                 <input type="hidden" id="idCustomer" name="idCustomer" class="form-control" style="width: 100%">
                                 <input type="hidden" id="idMataUang" name="idMataUang" class="form-control" style="width: 100%">
                                 <input type="hidden" id="kredit" name="kredit" class="form-control" style="width: 100%">

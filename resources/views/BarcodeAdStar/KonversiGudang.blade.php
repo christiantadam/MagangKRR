@@ -1,7 +1,7 @@
 @extends('layouts.appBarcodeAdStar')
 @section('content')
 
-<link href="{{ asset('css/Barcode/KnvGdng.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Barcode/Schedule.css') }}" rel="stylesheet">
 <h2>Konversi Barcode</h2>
 
 <div class="card-body-container" style="display: flex; flex-wrap: nowrap;">
