@@ -63,17 +63,17 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('estimasiJadwal') }}">Estimasi Jadwal</a> </li>
+                    tabindex="-1" href="{{ url('estimasiJadwal') }}">Estimasi Jadwal 👍✓</a> </li>
                 <hr style="height:2px;">
                 <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('MaintenanceGambar') }}">Maintenance Bagian Gambar</a>
+                    tabindex="-1" href="{{ url('MaintenanceGambar') }}">Maintenance Bagian Gambar 👍✓</a>
                 </li>
                 <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('InputJadwalKonstruksi') }}">Input Jadwal</a>
+                    tabindex="-1" href="{{ url('InputJadwalKonstruksi') }}">Input Jadwal </a>
                 </li>
                 <hr style="height:2px;">
                 <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('EditJam') }}">Edit Jam Kerja Optimal</a>
+                    tabindex="-1" href="{{ url('EditJam') }}">Edit Jam Kerja Optimal 👍✓</a>
                 </li>
 
 
@@ -81,15 +81,15 @@
                     tabindex="-1">Edit Jadwal &raquo;</a>
                   <ul class="dropdown-menu dropdown-submenu">
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('EditPerWorkStation') }}">Per WorkStation</a>
+                        href="{{ url('EditPerWorkStation') }}">Per WorkStation 👍✓</a>
                     </li>
                     <li><a style="margin: 10px;color: black;font-size: 15px;display: block" tabindex="-1"
-                        href="{{ url('EditPerOrderkonstruksi') }}">Per Order</a>
+                        href="{{ url('EditPerOrderkonstruksi') }}">Per Order 👍✓</a>
                     </li>
                   </ul>
                 </li>
                 <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('EditEstimasiTanggal') }}">Edit Estimasi Tanggal</a>
+                    tabindex="-1" href="{{ url('EditEstimasiTanggal') }}">Edit Estimasi Tanggal 👍✓</a>
                 </li>
                 <li><a class="test" style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1" href="{{ url('EditEstimasiWaktu') }}">Edit Estimasi Waktu</a>
@@ -204,7 +204,7 @@
               </a>
               <ul class="dropdown-menu" style="cursor: default">
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
-                    tabindex="-1" href="{{ url('JadwalPerWorkStation') }}">Jadwal Per-WorkStasion</a>
+                    tabindex="-1" href="{{ url('JadwalPerWorkStation') }}">Jadwal Per-WorkStasion 👍✓</a>
                 </li>
                 <li><a class="test"style="margin: 10px;color: black;font-size: 15px;display: block;cursor: default"
                     tabindex="-1" href="{{ url('JadwalPerOder') }}">Jadwal Per-Order</a>
